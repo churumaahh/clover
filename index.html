@@ -1142,15 +1142,11 @@
       gap: 0.45rem;
       color: #3f4652;
       font-size: 0.82rem;
-      font-weight: 800;
+      font-weight: 500;
     }
 
     .agree-row input {
       pointer-events: none;
-    }
-
-    .agree-row input:disabled {
-      opacity: 1;
     }
 
     .detail-section {
@@ -1257,6 +1253,15 @@
       font-size: 1.35rem;
       font-weight: 950;
       letter-spacing: 0;
+    }
+
+    .page-description {
+      margin: -0.4rem 0 1rem;
+      padding: 0 0.25rem;
+      color: var(--muted);
+      font-size: 0.76rem;
+      line-height: 1.65;
+      word-break: keep-all;
     }
 
     .filter-row {
@@ -1590,6 +1595,26 @@
       word-break: keep-all;
     }
 
+    .staff-list {
+      display: grid;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .staff-list li {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    .staff-list li:last-child {
+      border-bottom: 0;
+    }
+
     .naver-map {
       position: relative;
       min-height: 14rem;
@@ -1742,6 +1767,49 @@
       background: #00ff40;
     }
 
+    .drawer-shortcuts {
+      width: 100%;
+      margin: auto 0 0;
+    }
+
+    .drawer-shortcut-label {
+      margin: 0 0 0.5rem;
+      color: #7a808c;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    .drawer-social-links {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.45rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .drawer-social-link {
+      width: 2rem;
+      height: 2rem;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 0.4rem;
+      background: #fff;
+      transition: transform 0.14s ease, border-color 0.14s ease;
+    }
+
+    .drawer-social-link:hover {
+      transform: translateY(-1px);
+      border-color: #121218;
+    }
+
+    .drawer-social-link svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
     .business-footer {
       padding: 1.25rem 1rem 2rem;
       border-top: 1px solid var(--line);
@@ -1890,7 +1958,7 @@
         <section class="process-section" aria-labelledby="processTitle">
           <div class="process-intro">
             <span class="process-kicker">SERVICE PROCESS</span>
-            <h2 id="processTitle">cLOVEr <span>진행 과정</span></h2>
+            <h2 id="processTitle">cLOVEr <span>진행 방식</span></h2>
             <p>신청부터 매칭까지 체계적이고 투명한 과정으로 안내해 드립니다.</p>
           </div>
           <ol class="process-grid">
@@ -1989,7 +2057,7 @@
 
     <section class="page" id="page-location" data-page="location">
       <main class="location-page">
-        <h1 class="page-title">장소</h1>
+        <h1 class="page-title">오시는 길</h1>
         <section class="support-card">
           <div class="naver-map">
             <iframe
@@ -2003,6 +2071,41 @@
           <p>주소: 미정</p>
           <p>방문 전 운영자 안내를 확인해 주세요.</p>
           <a class="map-open-link" href="https://map.naver.com/p/search/%EC%84%9C%EB%A9%B4%EC%97%AD%2012%EB%B2%88%20%EC%B6%9C%EA%B5%AC" target="_blank" rel="noopener">네이버 지도에서 보기</a>
+        </section>
+      </main>
+    </section>
+
+    <section class="page" id="page-staff" data-page="staff">
+      <main class="location-page">
+        <h1 class="page-title">스태프 안내</h1>
+        <section class="support-card">
+          <ul class="staff-list" aria-label="직원 구성">
+            <li>대표</li>
+            <li>관리자</li>
+            <li>매니저</li>
+            <li>스태프</li>
+          </ul>
+        </section>
+      </main>
+    </section>
+
+    <section class="page" id="page-episodes" data-page="episodes">
+      <main class="location-page">
+        <h1 class="page-title">에피소드</h1>
+        <section class="support-card">
+          <h2>에피소드</h2>
+          <p>등록된 에피소드가 없습니다.</p>
+        </section>
+      </main>
+    </section>
+
+    <section class="page" id="page-board" data-page="board">
+      <main class="location-page">
+        <h1 class="page-title">익명 게시판</h1>
+        <p class="page-description">이용에 불편하셨던 점이나 건의하실 내용이 있다면 편하게 말씀 주세요. 모든 내용은 익명이며 누구도 열람할 수 없습니다.</p>
+        <section class="support-card">
+          <h2>익명 게시판</h2>
+          <p>등록된 게시글이 없습니다.</p>
         </section>
       </main>
     </section>
@@ -2057,11 +2160,40 @@
     </div>
     <nav class="drawer-links" aria-label="메뉴">
       <button class="drawer-link" type="button" data-page-link="home" onclick="window.goPage(event, 'home')">홈</button>
-      <button class="drawer-link" type="button" data-page-link="process" onclick="window.goPage(event, 'process')">진행 과정</button>
+      <button class="drawer-link" type="button" data-page-link="process" onclick="window.goPage(event, 'process')">진행 방식</button>
       <button class="drawer-link" type="button" data-page-link="refund" onclick="window.goPage(event, 'refund')">환불 규정</button>
       <button class="drawer-link" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')">후기</button>
-      <button class="drawer-link" type="button" data-page-link="location" onclick="window.goPage(event, 'location')">장소</button>
+      <button class="drawer-link" type="button" data-page-link="location" onclick="window.goPage(event, 'location')">오시는 길</button>
+      <button class="drawer-link" type="button" data-page-link="staff" onclick="window.goPage(event, 'staff')">스태프 안내</button>
+      <button class="drawer-link" type="button" data-page-link="episodes" onclick="window.goPage(event, 'episodes')">에피소드</button>
+      <button class="drawer-link" type="button" data-page-link="board" onclick="window.goPage(event, 'board')">익명 게시판</button>
     </nav>
+    <div class="drawer-shortcuts">
+      <p class="drawer-shortcut-label">바로가기</p>
+      <div class="drawer-social-links">
+        <a class="drawer-social-link" href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="유튜브 바로가기" title="유튜브">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect width="24" height="24" rx="5" fill="#ff0033"/>
+            <path d="M9.4 7.8 17 12l-7.6 4.2V7.8Z" fill="#fff"/>
+          </svg>
+        </a>
+        <a class="drawer-social-link" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="인스타그램 바로가기" title="인스타그램">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <defs>
+              <linearGradient id="instagramGradient" x1="3" y1="21" x2="21" y2="3" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#ffd600"/>
+                <stop offset="0.48" stop-color="#ff0169"/>
+                <stop offset="1" stop-color="#7638fa"/>
+              </linearGradient>
+            </defs>
+            <rect width="24" height="24" rx="5" fill="url(#instagramGradient)"/>
+            <rect x="5.5" y="5.5" width="13" height="13" rx="4" fill="none" stroke="#fff" stroke-width="1.8"/>
+            <circle cx="12" cy="12" r="3" fill="none" stroke="#fff" stroke-width="1.8"/>
+            <circle cx="16.6" cy="7.6" r="1" fill="#fff"/>
+          </svg>
+        </a>
+      </div>
+    </div>
   </aside>
 
   <script>
@@ -2266,7 +2398,7 @@
             <h3>기본 정보</h3>
             <div class="form-grid">
               <div class="form-field">
-                <label for="applyName">이름 <span class="req">*</span></label>
+                <label for="applyName">성함 <span class="req">*</span></label>
                 <input id="applyName" name="name" placeholder="이름">
               </div>
               <div class="form-field">
@@ -2275,7 +2407,7 @@
               </div>
               <div class="form-field full">
                 <label for="applyArea">거주지 <span class="req">*</span></label>
-                <input id="applyArea" name="area" placeholder="서면">
+                <input id="applyArea" name="area" placeholder="현재 사는 곳">
               </div>
             </div>
           </section>
@@ -2302,7 +2434,7 @@
             <h3>직장 및 신원</h3>
             <div class="form-field">
               <label for="applyJob">회사명 / 직무 <span class="req">*</span></label>
-              <textarea id="applyJob" name="job" placeholder="ex. 수액병원, 간호사 / 링크은행, 은행원 / 프리랜서, 영상편집"></textarea>
+              <textarea id="applyJob" name="job" placeholder="ex) OO 병원 / 간호사, OO 회사 / 마케터"></textarea>
             </div>
           </section>
 
@@ -2310,11 +2442,11 @@
             <h3>나의 성향과 이상형</h3>
             <div class="form-field">
               <label for="applyIdeal">이상형 (중요도 순 최대 5가지)</label>
-              <textarea id="applyIdeal" name="ideal" placeholder="ex) 고양이상, 문신"></textarea>
+              <textarea id="applyIdeal" name="ideal" placeholder="${applicationGender === "여성" ? "ex) 키 큰 사람, 두부상" : "ex) 고양이상, 강아지상, 웃상"}"></textarea>
             </div>
             <div class="form-field">
               <label for="applyDislike">절대 용납 못하는 한 가지</label>
-              <textarea id="applyDislike" name="dislike" placeholder="키, 몸매, 나이"></textarea>
+              <textarea id="applyDislike" name="dislike" placeholder="ex) 담배, 문신"></textarea>
             </div>
             <div class="form-field">
               <label>흡연 유무</label>
@@ -2380,10 +2512,10 @@
           </section>
 
           <section class="form-section">
-            <h3>마지막으로 하고 싶은 말</h3>
+            <h3>전달 사항</h3>
             <div class="form-field">
-              <label for="applyMessage">전달 사항</label>
-              <p class="form-help">담당자에게 전달하고 싶은 말</p>
+              <label for="applyMessage">마지막으로 하시고 싶은 말씀</label>
+              <p class="form-help">마주치기 싫은 사람을 작성해주셔도 됩니다.</p>
               <textarea id="applyMessage" name="message" placeholder="전달 사항을 자유롭게 작성해 주세요."></textarea>
             </div>
           </section>
@@ -2391,8 +2523,8 @@
           <button class="form-submit-btn" type="button">신청하기</button>
 
           <div class="agree-row">
-            <label><input type="checkbox" checked disabled> [필수] 환불 및 취소 규정 확인 및 동의</label>
-            <label><input type="checkbox" checked disabled> [필수] 마케팅 활용 및 촬영 동의</label>
+            <label onclick="return false"><input type="checkbox" checked tabindex="-1" aria-disabled="true"> [필수] 환불 및 취소 규정 확인 및 동의</label>
+            <label onclick="return false"><input type="checkbox" checked tabindex="-1" aria-disabled="true"> [필수] 마케팅 활용 및 촬영 동의</label>
           </div>
         </form>
 
@@ -2974,7 +3106,7 @@
 
     const initial = location.hash.replace("#", "");
     renderDetail(events[0]);
-    if (["home", "support", "process", "location", "event-detail"].includes(initial)) {
+    if (["home", "support", "process", "refund", "reviews", "location", "staff", "episodes", "board", "event-detail"].includes(initial)) {
       setPage(initial, false);
     }
 
