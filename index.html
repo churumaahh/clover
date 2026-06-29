@@ -1,0 +1,2990 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>cLOVEr | 오프라인 로테이션 소개팅</title>
+  <meta name="description" content="cLOVEr 오프라인 로테이션 소개팅">
+  <style>
+    :root {
+      --page-max: 37.5rem;
+      --accent: #1d8cff;
+      --accent-dark: #0064c8;
+      --ink: #121218;
+      --muted: #6d7280;
+      --line: #e3e5ea;
+      --soft: #f5f6f8;
+      --paper: #ffffff;
+      --male: #0ea5e9;
+      --female: #ff4d79;
+      --success: #10a86b;
+      --radius: 0.75rem;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #eef0f4;
+      font-family: Pretendard, "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    a,
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    .app {
+      width: min(100%, var(--page-max));
+      min-height: 100svh;
+      margin: 0 auto;
+      padding-top: 3.5rem;
+      background: var(--paper);
+      box-shadow: 0 0 0 1px rgba(18, 18, 24, 0.05);
+      overflow-x: clip;
+    }
+
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      width: min(100%, var(--page-max));
+      transform: translateX(-50%);
+      z-index: 20;
+      height: 3.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0 0.75rem 0 1rem;
+      background: #00ff40;
+    }
+
+    .brand {
+      min-width: 0;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .brand-logo {
+      width: 2rem;
+      height: 2rem;
+      display: block;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .brand-mark {
+      width: 2rem;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 0;
+      color: #fff;
+      background: var(--accent);
+      clip-path: polygon(50% 3%, 95% 36%, 78% 91%, 22% 91%, 5% 36%);
+      box-shadow: 0 0 0 0.125rem var(--accent);
+      flex: 0 0 auto;
+    }
+
+    .brand-copy {
+      min-width: 0;
+      display: grid;
+      gap: 0.16rem;
+      line-height: 1;
+    }
+
+    .brand-text {
+      color: #121218;
+      font-size: clamp(1rem, 4vw, 1.28rem);
+      line-height: 1;
+      font-weight: 950;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .brand-subtitle {
+      color: rgba(18, 18, 24, 0.78);
+      font-size: 0.68rem;
+      font-weight: 850;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .menu-button {
+      width: 2.5rem;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      border-radius: 0.5rem;
+      flex: 0 0 auto;
+    }
+
+    #openMenu {
+      color: #121218;
+    }
+
+    .menu-button:hover {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .menu-button:focus,
+    .menu-button:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
+
+    .tabs {
+      height: 2.75rem;
+      display: flex;
+      align-items: stretch;
+      gap: 0.1rem;
+      padding: 0 1rem;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+    }
+
+    .tab {
+      position: relative;
+      min-width: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 0.5rem;
+      color: #5d6472;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    .tab.is-active {
+      color: var(--ink);
+    }
+
+    .tab.is-active::after {
+      content: "";
+      position: absolute;
+      left: 1rem;
+      right: 1rem;
+      bottom: 0;
+      height: 0.2rem;
+      border-radius: 999px 999px 0 0;
+      background: var(--accent);
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.is-active {
+      display: block;
+    }
+
+    .hero {
+      position: relative;
+      min-height: min(58.333vw, 21.875rem);
+      aspect-ratio: 12 / 7;
+      overflow: hidden;
+      background: #222;
+    }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.25rem;
+      color: #fff;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.38) 42%, rgba(0, 0, 0, 0.78)),
+        var(--hero-image) center / cover no-repeat;
+      opacity: 0;
+      transform: translateX(5%);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .hero-slide.is-active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .hero-content {
+      width: min(23rem, 100%);
+      padding-bottom: 0.4rem;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(1.7rem, 6.2vw, 2rem);
+      line-height: 1.18;
+      letter-spacing: 0;
+      word-break: keep-all;
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.32);
+    }
+
+    .hero p {
+      margin: 0.7rem 0 0;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 0.9rem;
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+
+    .hero-cta {
+      min-height: 2.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.15rem;
+      padding: 0 1.25rem;
+      border-radius: 999px;
+      color: var(--ink);
+      background: #fff;
+      font-weight: 900;
+      font-size: 0.92rem;
+      box-shadow: 0 0.75rem 1.6rem rgba(0, 0, 0, 0.25);
+    }
+
+    .hero-dots {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0.75rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.35rem;
+    }
+
+    .hero-dot {
+      width: 0.42rem;
+      height: 0.42rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.55);
+    }
+
+    .hero-dot.is-active {
+      width: 1.5rem;
+      background: #fff;
+    }
+
+    .content {
+      display: grid;
+      gap: 1.5rem;
+      padding: 1.5rem 0.75rem 6rem;
+      background: #f8f9fb;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0 0.25rem;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 1.18rem;
+      font-weight: 950;
+      letter-spacing: 0;
+    }
+
+    .section-head button {
+      color: var(--muted);
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
+    .event-list {
+      display: grid;
+      gap: 0.85rem;
+      margin: 20px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .event-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 0.9rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 0.25rem 0.8rem rgba(18, 18, 24, 0.035);
+    }
+
+    .event-thumb {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 7;
+      overflow: hidden;
+      border-radius: 0.5rem;
+      background: var(--thumb-image) center / cover no-repeat, #d8dce3;
+    }
+
+    .badge {
+      position: absolute;
+      top: 0.32rem;
+      padding: 0.2rem 0.38rem;
+      border-radius: 0.2rem;
+      color: #fff;
+      font-size: 0.62rem;
+      line-height: 1;
+      font-weight: 900;
+      box-shadow: 0 0.2rem 0.65rem rgba(0, 0, 0, 0.25);
+    }
+
+    .badge.left {
+      left: 0.32rem;
+      background: rgba(0, 0, 0, 0.72);
+    }
+
+    .badge.right {
+      right: 0.32rem;
+      background: var(--success);
+    }
+
+    .event-body {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.55rem;
+      text-align: left;
+    }
+
+    .event-title {
+      margin: 0;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      font-size: clamp(calc(0.88rem + 2px), calc(3vw + 2px), calc(0.98rem + 2px));
+      line-height: 1.35;
+      font-weight: 900;
+      letter-spacing: 0;
+      word-break: keep-all;
+    }
+
+    .event-title-row {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .event-title span {
+      color: #00d838;
+    }
+
+    .event-meta {
+      display: grid;
+      gap: 0.36rem;
+      margin-top: 0.42rem;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: clamp(0.88rem, 3vw, 0.98rem);
+      line-height: 1.35;
+    }
+
+    .meta-line {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.28rem;
+    }
+
+    .meta-line svg {
+      width: 0.95rem;
+      height: 0.95rem;
+      flex: 0 0 auto;
+    }
+
+    .meta-line span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .event-foot {
+      min-width: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: flex-end;
+      gap: 0.75rem;
+      margin-bottom: -1.875rem;
+      padding-top: 0.15rem;
+      font-size: 0.76rem;
+      color: var(--muted);
+    }
+
+    .price {
+      color: var(--ink);
+      font-size: 1.08rem;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .old-price {
+      margin-right: 0.25rem;
+      color: #9ba1aa;
+      text-decoration: line-through;
+      white-space: nowrap;
+    }
+
+    .event-action {
+      grid-column: 2;
+      display: grid;
+      justify-items: end;
+      align-items: end;
+      gap: 0.5rem;
+      min-width: 6.2rem;
+      line-height: 1;
+      text-align: right;
+      transform: translate(-5px, -2.125rem);
+    }
+
+    .event-card.has-gender-count .event-action {
+      transform: translate(-5px, calc(-4rem - 5px));
+    }
+
+    .event-card.has-gender-count .event-foot {
+      margin-bottom: -4rem;
+    }
+
+    .event-action > span,
+    .event-confirmed {
+      display: block;
+      width: 100%;
+      text-align: right;
+      transform: translateX(-10px);
+    }
+
+    .event-confirmed {
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    .event-confirmed span {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .event-price-block {
+      display: inline-block;
+      transform: translateY(-1.875rem);
+    }
+
+    .free {
+      color: var(--success);
+      font-weight: 900;
+    }
+
+    .gender {
+      display: inline-flex;
+      overflow: hidden;
+      border-radius: 0.25rem;
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 900;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .gender span {
+      padding: 0.2rem 0.42rem;
+    }
+
+    .gender .m {
+      background: var(--male);
+    }
+
+    .gender .f {
+      background: var(--female);
+    }
+
+    .event-gender-count {
+      position: static;
+      width: fit-content;
+      display: inline-flex;
+      flex: 0 0 auto;
+      gap: 0.25rem;
+      overflow: visible;
+      transform: none;
+      margin-top: 0;
+      border-radius: 999px;
+      font-size: 0.72rem;
+    }
+
+    .event-gender-count span {
+      min-width: 1.9rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.1rem;
+      padding: 0.22rem 0.25rem;
+      border-radius: 999px;
+      text-align: center;
+    }
+
+    .event-gender-count .m {
+      background: #1688f8;
+    }
+
+    .event-gender-count .f {
+      background: #ff7068;
+    }
+
+    .event-gender-count svg {
+      width: 0.75rem;
+      height: 0.75rem;
+      color: #fff;
+      stroke: currentColor;
+      flex: 0 0 auto;
+    }
+
+    .event-gender-count .count-content {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.1rem;
+      font-style: normal;
+      transform: translateX(-1px);
+    }
+
+    .event-gender-count .count-value {
+      display: inline-block;
+      transform: translateY(-0.5px);
+    }
+
+    .join-btn {
+      min-width: 4.6rem;
+      min-height: 2.2rem;
+      padding: 0 0.85rem;
+      border-radius: 999px;
+      color: #083b18;
+      background: #00ff40;
+      font-size: 0.95rem;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .gender-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+      background: rgba(18, 24, 35, 0.42);
+    }
+
+    .gender-modal[hidden] {
+      display: none;
+    }
+
+    .gender-modal-panel {
+      position: relative;
+      width: min(18rem, calc(100vw - 2rem));
+      padding: 1.15rem;
+      border: 1px solid var(--line);
+      border-radius: 0.75rem;
+      background: #fff;
+      box-shadow: 0 1rem 2.4rem rgba(18, 24, 35, 0.2);
+      text-align: center;
+    }
+
+    .gender-modal-close {
+      position: absolute;
+      top: 0.55rem;
+      right: 0.55rem;
+      width: 1.9rem;
+      height: 1.9rem;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 999px;
+      color: #59606d;
+      background: #f3f5f8;
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .gender-modal-title {
+      margin: 0 0 1rem;
+      font-size: 1rem;
+      font-weight: 900;
+    }
+
+    .gender-modal-actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.65rem;
+    }
+
+    .gender-select-btn {
+      min-width: 5.2rem;
+      min-height: 2.6rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: #4b5260;
+      font-size: 0.95rem;
+      font-weight: 900;
+    }
+
+    .gender-select-btn.male {
+      border-color: #1688f8;
+      color: #fff;
+      background: #1688f8;
+    }
+
+    .gender-select-btn.female {
+      border-color: #ff7068;
+      color: #fff;
+      background: #ff7068;
+    }
+
+    .events-page,
+    .support-page,
+    .process-page,
+    .detail-page,
+    .location-page {
+      min-height: calc(100svh - 6.25rem);
+      padding: 1.5rem 0.75rem 6rem;
+      background: #f8f9fb;
+    }
+
+    .detail-page {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .detail-hero {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 0.25rem 0.8rem rgba(18, 18, 24, 0.04);
+    }
+
+    .detail-image {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--detail-image) center / cover no-repeat, #d8dce3;
+    }
+
+    .detail-main {
+      display: grid;
+      gap: 0.7rem;
+      padding: 1rem;
+    }
+
+    .detail-title {
+      margin: 0;
+      font-size: 1.15rem;
+      line-height: 1.32;
+      font-weight: 950;
+      word-break: keep-all;
+    }
+
+    .detail-title span {
+      color: var(--accent);
+    }
+
+    .detail-price {
+      display: flex;
+      align-items: baseline;
+      gap: 0.35rem;
+      font-size: 1.55rem;
+      line-height: 1;
+      font-weight: 950;
+    }
+
+    .detail-price .old-price {
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .gender-application-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.35rem 0.8rem;
+      align-items: center;
+      padding: 1rem;
+      border: 1px solid #b9dcff;
+      border-radius: var(--radius);
+      background: #fff;
+    }
+
+    .gender-application-card .gender-label {
+      color: #1688f8;
+      font-size: 1.05rem;
+      font-weight: 950;
+    }
+
+    .gender-application-card strong {
+      grid-column: 2;
+      grid-row: 2;
+      align-self: end;
+      color: #1688f8;
+      font-size: 1.2rem;
+      font-weight: 950;
+    }
+
+    .gender-application-card p {
+      grid-column: 1;
+      grid-row: 2;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    [data-detail-root][data-gender="여성"] .gender-application-card {
+      border-color: #ffd0cc;
+    }
+
+    [data-detail-root][data-gender="여성"] .gender-application-card .gender-label,
+    [data-detail-root][data-gender="여성"] .gender-application-card strong,
+    [data-detail-root][data-gender="여성"] .detail-title span {
+      color: #ff7068;
+    }
+
+    [data-detail-root][data-gender="여성"] .form-intro {
+      border-left: 0.25rem solid #ff7068;
+      padding-left: 0.75rem;
+    }
+
+    [data-detail-root][data-gender="여성"] .form-help,
+    [data-detail-root][data-gender="여성"] .document-status {
+      color: #e95650;
+    }
+
+    [data-detail-root][data-gender="여성"] .choice-chip.is-selected {
+      border-color: #ff7068;
+      color: #e95650;
+      background: #fff7f6;
+    }
+
+    [data-detail-root][data-gender="여성"] .photo-add {
+      border-color: #ff7068;
+    }
+
+    [data-detail-root][data-gender="여성"] .document-preview {
+      border-color: #ffd0cc;
+    }
+
+    [data-detail-root][data-gender="여성"] .form-submit-btn {
+      background: #ff7068;
+      box-shadow: 0 0.55rem 1rem rgba(255, 112, 104, 0.25);
+    }
+
+    [data-detail-root][data-gender="여성"] .agree-row input {
+      accent-color: #ff7068;
+    }
+
+    [data-detail-root][data-gender="여성"] .detail-list li::before {
+      background: #ff7068;
+    }
+
+    [data-detail-root][data-gender="남성"] .form-intro {
+      border-left: 0.25rem solid #1688f8;
+      padding-left: 0.75rem;
+    }
+
+    .detail-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+
+    .detail-info {
+      min-height: 4.25rem;
+      display: grid;
+      align-content: center;
+      gap: 0.25rem;
+      padding: 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 0.65rem;
+      background: var(--paper);
+    }
+
+    .detail-info dt {
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .detail-info dd {
+      margin: 0;
+      color: var(--ink);
+      font-size: 0.95rem;
+      font-weight: 900;
+      word-break: keep-all;
+    }
+
+    .application-form {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .form-intro {
+      display: grid;
+      gap: 0.35rem;
+      padding: 0 0.25rem;
+    }
+
+    .form-intro h2 {
+      margin: 0;
+      font-size: 1.08rem;
+      font-weight: 950;
+    }
+
+    .form-intro p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.55;
+      word-break: keep-all;
+    }
+
+    .form-section {
+      display: grid;
+      gap: 0.85rem;
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 1.15rem;
+      background: var(--paper);
+    }
+
+    .form-section h3 {
+      margin: 0;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.92rem;
+      font-weight: 950;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+    }
+
+    .form-field {
+      min-width: 0;
+      display: grid;
+      gap: 0.38rem;
+    }
+
+    .form-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-field label {
+      color: #3d4350;
+      font-size: 0.78rem;
+      font-weight: 850;
+    }
+
+    .req {
+      color: #e53935;
+      font-weight: 950;
+    }
+
+    .form-field input,
+    .form-field textarea {
+      width: 100%;
+      min-height: 3rem;
+      padding: 0.75rem 0.85rem;
+      border: 1px solid var(--line);
+      border-radius: 0.8rem;
+      color: var(--ink);
+      background: #fff;
+      outline: none;
+      font-size: 0.9rem;
+    }
+
+    .form-field input.is-invalid {
+      border-color: #e53935;
+      box-shadow: 0 0 0 0.12rem rgba(229, 57, 53, 0.12);
+    }
+
+    .form-field textarea {
+      min-height: 5.75rem;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .form-help {
+      margin: 0;
+      color: var(--accent-dark);
+      font-size: 0.72rem;
+      line-height: 1.45;
+      word-break: keep-all;
+    }
+
+    .choice-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .choice-chip {
+      min-height: 2.25rem;
+      padding: 0 0.8rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #6c7280;
+      background: #fff;
+      font-size: 0.78rem;
+      font-weight: 850;
+    }
+
+    .choice-chip.is-selected {
+      border-color: var(--accent);
+      color: var(--accent-dark);
+      background: #fff;
+    }
+
+    .file-drop {
+      display: grid;
+      gap: 0.65rem;
+      padding: 0.9rem;
+      border: 1px dashed var(--line);
+      border-radius: 0.9rem;
+      background: #fff;
+    }
+
+    .photo-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .photo-thumb,
+    .photo-add {
+      width: 3.7rem;
+      aspect-ratio: 1;
+      border-radius: 0.8rem;
+      background-color: #f0f3f7;
+      background-image: var(--photo-image, none);
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      flex: 0 0 auto;
+    }
+
+    .photo-thumb {
+      position: relative;
+      display: block;
+      border: 1px solid #e7edf5;
+    }
+
+    .photo-add {
+      display: grid;
+      place-items: center;
+      border: 1px dashed var(--accent);
+      color: var(--ink);
+      background: #fff;
+      font-size: 0.78rem;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .thumb-remove {
+      position: absolute;
+      top: -0.28rem;
+      right: -0.28rem;
+      display: grid;
+      place-items: center;
+      width: 1.1rem;
+      height: 1.1rem;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(29, 34, 43, 0.82);
+      color: #fff;
+      font-size: 0.8rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .document-preview {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      min-height: 4rem;
+      padding: 0.65rem;
+      border: 1px solid #d7e8ff;
+      border-radius: 0.75rem;
+      background: #fff;
+    }
+
+    .document-preview.is-hidden,
+    .photo-add.is-hidden {
+      display: none;
+    }
+
+    .document-thumb {
+      width: 3rem;
+      height: 3rem;
+      border: 1px solid #e3edf8;
+      border-radius: 0.45rem;
+      background-color: #f2f6fb;
+      background-image: var(--document-image, none);
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      flex: 0 0 auto;
+    }
+
+    .document-copy {
+      display: grid;
+      gap: 0.2rem;
+      min-width: 0;
+    }
+
+    .document-title {
+      color: #222936;
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .document-status {
+      color: var(--accent);
+      font-size: 0.74rem;
+      font-weight: 900;
+    }
+
+    .remove-file-btn {
+      margin-left: auto;
+      border: 0;
+      background: transparent;
+      color: #9aa8b8;
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .form-submit-btn {
+      min-height: 3rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--accent);
+      font-size: 1rem;
+      font-weight: 950;
+      box-shadow: 0 0.55rem 1rem rgba(29, 140, 255, 0.26);
+    }
+
+    .form-submit-btn.is-loading::before {
+      content: "";
+      width: 0.95rem;
+      height: 0.95rem;
+      margin-right: 0.5rem;
+      border: 2px solid rgba(255, 255, 255, 0.42);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: submit-spin 0.7s linear infinite;
+      flex: 0 0 auto;
+    }
+
+    @keyframes submit-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .agree-row {
+      display: grid;
+      gap: 0.5rem;
+      padding: 0 0.25rem;
+    }
+
+    .agree-row label {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: #3f4652;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .agree-row input {
+      pointer-events: none;
+    }
+
+    .agree-row input:disabled {
+      opacity: 1;
+    }
+
+    .detail-section {
+      display: grid;
+      gap: 0.85rem;
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .detail-section h2 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 950;
+    }
+
+    .detail-section.is-spaced {
+      margin-top: 100px;
+    }
+
+    .detail-list {
+      display: grid;
+      gap: 0.6rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .detail-list li {
+      display: flex;
+      gap: 0.55rem;
+      color: #3f4652;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      word-break: keep-all;
+    }
+
+    .detail-list li::before {
+      content: "";
+      width: 0.42rem;
+      height: 0.42rem;
+      margin-top: 0.55rem;
+      border-radius: 999px;
+      background: var(--accent);
+      flex: 0 0 auto;
+    }
+
+    .apply-card {
+      display: grid;
+      gap: 0.7rem;
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .apply-card h2 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 950;
+    }
+
+    .apply-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.55;
+      word-break: keep-all;
+    }
+
+    .detail-cta-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem;
+    }
+
+    .secondary-btn,
+    .primary-apply-btn {
+      min-height: 2.9rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 950;
+    }
+
+    .secondary-btn {
+      border: 1px solid var(--line);
+      color: var(--ink);
+      background: var(--paper);
+    }
+
+    .primary-apply-btn {
+      color: #fff;
+      background: var(--accent);
+      box-shadow: 0 0.55rem 1rem rgba(29, 140, 255, 0.28);
+    }
+
+    .page-title {
+      margin: 0 0 1rem;
+      padding: 0 0.25rem;
+      font-size: 1.35rem;
+      font-weight: 950;
+      letter-spacing: 0;
+    }
+
+    .filter-row {
+      position: sticky;
+      top: 3.5rem;
+      z-index: 21;
+      display: flex;
+      gap: 0.45rem;
+      margin: -1.5rem -0.75rem 0;
+      padding: 0.75rem 1rem 1rem;
+      overflow-x: auto;
+      background: #f8f9fb;
+      box-shadow: 0 0.35rem 0.7rem rgba(18, 18, 24, 0.04);
+    }
+
+    .filter-chip {
+      padding: 0.48rem 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: #4b5260;
+      font-size: 0.8rem;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .filter-chip.is-active {
+      border-color: rgba(0, 255, 64, 0.65);
+      color: #00b832;
+      background: rgba(0, 255, 64, 0.1);
+    }
+
+    .filter-chip:disabled {
+      border-color: #e1e5eb;
+      color: #b4bac4;
+      background: #f0f2f5;
+      cursor: not-allowed;
+      opacity: 1;
+    }
+
+    .calendar-chip {
+      width: 2.35rem;
+      min-width: 2.35rem;
+      margin-left: auto;
+      padding: 0;
+      display: grid;
+      place-items: center;
+      color: #00d838;
+    }
+
+    .calendar-chip svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .calendar-popover {
+      position: fixed;
+      top: 7.2rem;
+      left: 50%;
+      z-index: 28;
+      width: min(21rem, calc(100vw - 2rem));
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      background: #fff;
+      box-shadow: 0 1rem 2rem rgba(18, 18, 24, 0.16);
+      transform: translateX(-50%);
+    }
+
+    .calendar-popover[hidden] {
+      display: none;
+    }
+
+    .calendar-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 0.98rem;
+      font-weight: 950;
+    }
+
+    .calendar-close {
+      width: 1.8rem;
+      height: 1.8rem;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: #4b5260;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .calendar-week,
+    .calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.35rem;
+      text-align: center;
+    }
+
+    .calendar-week span {
+      color: #8a92a0;
+      font-size: 0.7rem;
+      font-weight: 850;
+    }
+
+    .calendar-days {
+      margin-top: 0.45rem;
+    }
+
+    .calendar-month-label {
+      grid-column: 1 / -1;
+      margin-top: 0.15rem;
+      padding: 0.35rem 0.15rem 0.3rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 0.82rem;
+      font-weight: 950;
+      text-align: left;
+    }
+
+    .calendar-empty {
+      visibility: hidden;
+    }
+
+    .calendar-days span,
+    .calendar-day {
+      min-height: 2rem;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      border-radius: 0.55rem;
+      color: #4b5260;
+      background: transparent;
+      font-size: 0.78rem;
+      font-weight: 850;
+    }
+
+    .calendar-days .calendar-month-week {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.35rem;
+    }
+
+    .calendar-days .calendar-month-week span {
+      min-height: auto;
+      color: #8a92a0;
+      font-size: 0.7rem;
+      font-weight: 850;
+    }
+
+    .calendar-days .muted {
+      color: #c5cad2;
+    }
+
+    .calendar-day.has-event {
+      border: 1px solid rgba(0, 255, 64, 0.65);
+      color: #00b832;
+      background: #fff;
+    }
+
+    .calendar-day.is-today {
+      position: relative;
+    }
+
+    .calendar-day.is-today::before {
+      content: "";
+      position: absolute;
+      top: 0.18rem;
+      left: 50%;
+      width: 0.3rem;
+      height: 0.3rem;
+      border-radius: 999px;
+      background: #ff3b30;
+      transform: translateX(-50%);
+    }
+
+    .calendar-day.is-selected {
+      border-color: #00ff40;
+      color: #083b18;
+      background: #00ff40;
+    }
+
+    .gender-filter-chip {
+      border-color: var(--line);
+      color: #4b5260;
+      background: #fff;
+      font-weight: 850;
+    }
+
+    .gender-filter-chip.male.is-active {
+      border-color: var(--accent);
+      color: #fff;
+      background: var(--accent);
+    }
+
+    .gender-filter-chip.male {
+      margin-left: auto;
+    }
+
+    .gender-filter-chip.female.is-active {
+      border-color: #ff6f61;
+      color: #fff;
+      background: #ff6f61;
+    }
+
+    .process-section {
+      display: grid;
+      gap: 1rem;
+      padding-top: 0.75rem;
+    }
+
+    .process-intro {
+      display: grid;
+      gap: 0.45rem;
+      padding: 0 0.25rem;
+      text-align: center;
+    }
+
+    .process-kicker {
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 950;
+      letter-spacing: 0.12em;
+    }
+
+    .process-intro h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 1.55rem;
+      line-height: 1.2;
+      font-weight: 950;
+      letter-spacing: 0;
+    }
+
+    .process-intro h2 span {
+      color: #fff;
+    }
+
+    .process-intro p {
+      margin: 0;
+      color: #4b5260;
+      font-size: 0.84rem;
+      line-height: 1.6;
+      word-break: keep-all;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .process-card {
+      position: relative;
+      min-height: 9.2rem;
+      display: grid;
+      align-content: start;
+      gap: 0.8rem;
+      padding: 1rem 1rem 2.2rem;
+      overflow: hidden;
+      border: 1px solid #eadfe5;
+      border-radius: 1rem;
+      background: #fff;
+    }
+
+    .step-badge {
+      width: 2.65rem;
+      height: 2.2rem;
+      display: grid;
+      place-items: center;
+      border-radius: 0.55rem;
+      background: rgba(0, 255, 64, 0.14);
+      color: var(--ink);
+      font-size: 0.78rem;
+      font-weight: 950;
+    }
+
+    .process-card h3 {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      color: var(--ink);
+      font-size: 0.96rem;
+      line-height: 1.3;
+      font-weight: 950;
+      word-break: keep-all;
+    }
+
+    .process-card p {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      color: #4b5260;
+      font-size: 0.78rem;
+      line-height: 1.55;
+      word-break: keep-all;
+    }
+
+    .support-card {
+      display: grid;
+      gap: 1rem;
+      padding: 1.1rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+    }
+
+    .support-card h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 950;
+    }
+
+    .support-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+
+    .naver-map {
+      position: relative;
+      min-height: 14rem;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 0.9rem;
+      background: #eef6ff;
+    }
+
+    .naver-map iframe {
+      width: calc(100% + 800px);
+      height: 14rem;
+      display: block;
+      margin-left: -400px;
+      border: 0;
+    }
+
+    .map-open-link {
+      min-height: 2.65rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      color: #111;
+      background: #00ff40;
+      font-size: 0.9rem;
+      font-weight: 950;
+      text-decoration: none;
+    }
+
+    .field {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .field label {
+      font-size: 0.82rem;
+      font-weight: 900;
+      color: #3e4450;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 0.55rem;
+      background: #fff;
+      color: var(--ink);
+      outline: none;
+      font-size: 0.9rem;
+    }
+
+    .field input {
+      min-height: 2.75rem;
+      padding: 0 0.85rem;
+    }
+
+    .field textarea {
+      min-height: 7rem;
+      padding: 0.85rem;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      min-height: 2.9rem;
+      border-radius: 0.55rem;
+      color: #fff;
+      background: var(--accent);
+      font-weight: 950;
+    }
+
+    .drawer-scrim {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      background: rgba(18, 18, 24, 0.48);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .drawer-scrim.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .drawer {
+      position: fixed;
+      top: 0;
+      right: max(0px, calc((100vw - var(--page-max)) / 2));
+      bottom: 0;
+      z-index: 31;
+      width: min(82vw, 20rem);
+      display: flex;
+      flex-direction: column;
+      padding: 1.1rem;
+      background: #fff;
+      transform: translateX(105%);
+      transition: transform 0.24s ease;
+      box-shadow: -1rem 0 2rem rgba(0, 0, 0, 0.18);
+    }
+
+    .drawer.is-open {
+      transform: translateX(0);
+    }
+
+    .drawer-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--line);
+      font-weight: 950;
+    }
+
+    .drawer .menu-button {
+      color: var(--ink);
+    }
+
+    .drawer .menu-button:hover {
+      background: var(--soft);
+    }
+
+    .drawer-links {
+      display: grid;
+      gap: 0.25rem;
+      padding: 1rem 0;
+    }
+
+    .drawer-link {
+      min-height: 3rem;
+      display: flex;
+      align-items: center;
+      padding: 0 0.8rem;
+      border-radius: 0.55rem;
+      color: #4b5260;
+      font-weight: 900;
+      transition: background 0.16s ease, color 0.16s ease, transform 0.12s ease;
+    }
+
+    .drawer-link:hover {
+      color: #121218;
+      background: rgba(0, 255, 64, 0.18);
+    }
+
+    .drawer-link:active,
+    .drawer-link.is-active {
+      transform: scale(0.97);
+      color: #121218;
+      background: #00ff40;
+    }
+
+    .business-footer {
+      padding: 1.25rem 1rem 2rem;
+      border-top: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      font-size: 0.74rem;
+      line-height: 1.65;
+      text-align: left;
+    }
+
+    .business-footer h2 {
+      margin: 0 0 0.65rem;
+      color: var(--ink);
+      font-size: 0.9rem;
+      font-weight: 950;
+    }
+
+    .business-info {
+      display: grid;
+      gap: 0.22rem;
+      margin: 0;
+    }
+
+    .business-info div {
+      display: grid;
+      grid-template-columns: 5.4rem minmax(0, 1fr);
+      gap: 0.5rem;
+    }
+
+    .business-info dt {
+      color: #7a808c;
+      font-weight: 800;
+    }
+
+    .business-info dd {
+      margin: 0;
+      color: #3e4450;
+      font-weight: 650;
+      word-break: keep-all;
+    }
+
+    .bottom-space {
+      height: env(safe-area-inset-bottom);
+    }
+
+    @media (max-width: 390px) {
+      .event-card {
+        padding: 0.75rem;
+        gap: 0.65rem;
+      }
+
+      .event-foot {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="brand" href="#home" data-page-link="home" aria-label="cLOVEr 홈">
+        <img class="brand-logo" src="assets/clover-logo-v2.png" alt="">
+        <span class="brand-copy">
+          <span class="brand-text">cLOVEr</span>
+          <span class="brand-subtitle">부산 로테이션 소개팅</span>
+        </span>
+      </a>
+      <button class="menu-button" id="openMenu" type="button" aria-label="메뉴 열기" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </header>
+
+    <section class="page is-active" id="page-home" data-page="home">
+      <div class="hero" aria-label="주요 배너">
+        <article class="hero-slide is-active" style="--hero-image: url('assets/hero-1.jfif')">
+          <div class="hero-content">
+            <h1>가입, 로그인 X</h1>
+            <p>cLOVEr가 진행하는 소셜링 이벤트로 관심사가 통하는 사람을 만나보세요</p>
+          </div>
+        </article>
+        <article class="hero-slide" style="--hero-image: url('assets/hero-2.jfif')">
+          <div class="hero-content">
+            <h1>대화가 편해지는 만남</h1>
+            <p>처음 만나는 자리도 자연스럽게 이어지도록 운영자가 흐름을 안내합니다</p>
+          </div>
+        </article>
+        <article class="hero-slide" style="--hero-image: url('assets/hero-3.jfif')">
+          <div class="hero-content">
+            <h1>퇴근 후 가볍게</h1>
+            <p>취향, 생활권, 대화 온도를 고려한 회차로 부담 없이 참여해보세요</p>
+          </div>
+        </article>
+        <div class="hero-dots" aria-hidden="true">
+          <span class="hero-dot is-active"></span>
+          <span class="hero-dot"></span>
+          <span class="hero-dot"></span>
+        </div>
+      </div>
+
+      <main class="content">
+        <section id="home-events">
+          <div class="filter-row" aria-label="이벤트 필터">
+            <button class="filter-chip is-active" type="button">전체</button>
+            <button class="filter-chip" type="button">서면</button>
+            <button class="filter-chip" type="button">사상</button>
+            <button class="filter-chip" type="button" disabled aria-disabled="true">광안리</button>
+            <button class="filter-chip" type="button" disabled aria-disabled="true">남포</button>
+            <button class="filter-chip calendar-chip" type="button" aria-label="달력 보기" aria-expanded="false" data-calendar-toggle>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8 2v4M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="calendar-popover" data-calendar-popover hidden>
+            <div class="calendar-head">
+              <span>6월</span>
+              <button class="calendar-close" type="button" aria-label="달력 닫기" data-calendar-close>×</button>
+            </div>
+            <div class="calendar-week" aria-hidden="true">
+              <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+            </div>
+            <div class="calendar-days">
+              <span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
+              <span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span>
+              <span>28</span><button class="calendar-day has-event is-today" type="button" data-event-date="06. 29.">29</button><span>30</span><span class="calendar-empty"></span><span class="calendar-empty"></span><span class="calendar-empty"></span><span class="calendar-empty"></span>
+              <strong class="calendar-month-label">7월</strong>
+              <div class="calendar-month-week" aria-hidden="true"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div>
+              <span class="calendar-empty"></span><span class="calendar-empty"></span><span class="calendar-empty"></span><span>1</span><span>2</span><span>3</span><button class="calendar-day has-event" type="button" data-event-date="07. 04.">4</button>
+              <button class="calendar-day has-event" type="button" data-event-date="07. 05.">5</button><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span>
+              <span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span>
+              <span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+              <span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span class="muted">1</span>
+            </div>
+          </div>
+          <ul class="event-list" data-event-list="home"></ul>
+        </section>
+
+      </main>
+    </section>
+
+    <section class="page" id="page-process" data-page="process">
+      <main class="process-page">
+        <section class="process-section" aria-labelledby="processTitle">
+          <div class="process-intro">
+            <span class="process-kicker">SERVICE PROCESS</span>
+            <h2 id="processTitle">cLOVEr <span>진행 과정</span></h2>
+            <p>신청부터 매칭까지 체계적이고 투명한 과정으로 안내해 드립니다.</p>
+          </div>
+          <ol class="process-grid">
+            <li class="process-card" data-step="01">
+              <span class="step-badge">01</span>
+              <h3>신청하기</h3>
+              <p>원하는 날짜와 회차를 선택해 신청합니다.</p>
+            </li>
+            <li class="process-card" data-step="02">
+              <span class="step-badge">02</span>
+              <h3>참가자 선별 및 입금</h3>
+              <p>안내 문자를 받은 뒤 입금 확인 후 최종 참여가 확정됩니다.</p>
+            </li>
+            <li class="process-card" data-step="03">
+              <span class="step-badge">03</span>
+              <h3>행사 당일 참석</h3>
+              <p>신분증을 지참하고 안내된 장소로 방문합니다.</p>
+            </li>
+            <li class="process-card" data-step="04">
+              <span class="step-badge">04</span>
+              <h3>신원 확인</h3>
+              <p>현장에서 신분 확인 후 자리 안내를 받습니다.</p>
+            </li>
+            <li class="process-card" data-step="05">
+              <span class="step-badge">05</span>
+              <h3>1:1 로테이션 대화</h3>
+              <p>모든 이성과 약 15분씩 집중 대화를 진행합니다.</p>
+            </li>
+            <li class="process-card" data-step="06">
+              <span class="step-badge">06</span>
+              <h3>호감가는 이성 선택</h3>
+              <p>행사 종료 후 호감가는 이성을 선택해 제출합니다.</p>
+            </li>
+            <li class="process-card" data-step="07">
+              <span class="step-badge">07</span>
+              <h3>매칭 결과 확인</h3>
+              <p>상호 호감 매칭 시 오픈채팅방으로 안내합니다.</p>
+            </li>
+            <li class="process-card" data-step="08">
+              <span class="step-badge">08</span>
+              <h3>새로운 시작</h3>
+              <p>현실 커플 인증 시 다양한 혜택을 제공합니다.</p>
+            </li>
+          </ol>
+        </section>
+      </main>
+    </section>
+
+    <section class="page" id="page-event-detail" data-page="event-detail">
+      <main class="detail-page" data-detail-root></main>
+    </section>
+
+    <section class="page" id="page-support" data-page="support">
+      <main class="support-page">
+        <h1 class="page-title">문의하기</h1>
+        <section class="support-card">
+          <h2>궁금한 점을 남겨주세요</h2>
+          <p>참여 가능 회차, 연령대 구성, 진행 방식 등 궁금한 내용을 보내주시면 운영 시간 내 순차적으로 답변드립니다.</p>
+          <div class="field">
+            <label for="supportName">이름</label>
+            <input id="supportName" name="name" placeholder="이름을 입력하세요">
+          </div>
+          <div class="field">
+            <label for="supportPhone">연락처</label>
+            <input id="supportPhone" name="phone" inputmode="tel" placeholder="010-0000-0000">
+          </div>
+          <div class="field">
+            <label for="supportMessage">문의 내용</label>
+            <textarea id="supportMessage" name="message" placeholder="문의 내용을 입력하세요"></textarea>
+          </div>
+          <button class="submit-btn" type="button">문의 남기기</button>
+        </section>
+      </main>
+    </section>
+
+    <section class="page" id="page-refund" data-page="refund">
+      <main class="support-page">
+        <h1 class="page-title">환불 규정</h1>
+        <section class="support-card">
+          <h2>환불 및 취소 안내</h2>
+          <p>참여 확정 후 취소 및 환불은 행사 준비 상황에 따라 별도 안내됩니다.</p>
+          <p>정확한 규정은 신청 전 운영자가 안내하는 환불 및 취소 규정을 확인해 주세요.</p>
+        </section>
+      </main>
+    </section>
+
+    <section class="page" id="page-reviews" data-page="reviews">
+      <main class="location-page">
+        <h1 class="page-title">후기</h1>
+        <section class="support-card">
+          <h2>참여 후기</h2>
+          <p>등록된 후기가 없습니다.</p>
+        </section>
+      </main>
+    </section>
+
+    <section class="page" id="page-location" data-page="location">
+      <main class="location-page">
+        <h1 class="page-title">장소</h1>
+        <section class="support-card">
+          <div class="naver-map">
+            <iframe
+              title="cLOVEr 네이버 지도"
+              src="https://map.naver.com/p/search/%EC%84%9C%EB%A9%B4%EC%97%AD%2012%EB%B2%88%20%EC%B6%9C%EA%B5%AC"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <h2>cLOVEr 위치</h2>
+          <p>장소: 서면역 12번 출구</p>
+          <p>주소: 미정</p>
+          <p>방문 전 운영자 안내를 확인해 주세요.</p>
+          <a class="map-open-link" href="https://map.naver.com/p/search/%EC%84%9C%EB%A9%B4%EC%97%AD%2012%EB%B2%88%20%EC%B6%9C%EA%B5%AC" target="_blank" rel="noopener">네이버 지도에서 보기</a>
+        </section>
+      </main>
+    </section>
+
+    <div class="bottom-space"></div>
+    <footer class="business-footer">
+      <dl class="business-info">
+        <div>
+          <dt>사업자명</dt>
+          <dd>cLOVEr</dd>
+        </div>
+        <div>
+          <dt>대표</dt>
+          <dd>미정</dd>
+        </div>
+        <div>
+          <dt>사업자등록번호</dt>
+          <dd>미정</dd>
+        </div>
+        <div>
+          <dt>주소지</dt>
+          <dd>미정</dd>
+        </div>
+        <div>
+          <dt>전화</dt>
+          <dd>미정</dd>
+        </div>
+      </dl>
+    </footer>
+  </div>
+
+  <div class="gender-modal" data-gender-modal role="dialog" aria-modal="true" aria-labelledby="genderModalTitle" hidden>
+    <div class="gender-modal-panel">
+      <button class="gender-modal-close" type="button" aria-label="성별 선택 창 닫기" data-gender-close>×</button>
+      <p class="gender-modal-title" id="genderModalTitle">성별을 선택해 주세요.</p>
+      <div class="gender-modal-actions">
+        <button class="gender-select-btn male" type="button" data-gender-choice="남성">남성</button>
+        <button class="gender-select-btn female" type="button" data-gender-choice="여성">여성</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="drawer-scrim" id="drawerScrim" onclick="window.closeDrawer(event)"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <span>메뉴</span>
+      <button class="menu-button" id="closeMenu" type="button" aria-label="메뉴 닫기" onclick="window.closeDrawer(event)">
+        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <nav class="drawer-links" aria-label="메뉴">
+      <button class="drawer-link" type="button" data-page-link="home" onclick="window.goPage(event, 'home')">홈</button>
+      <button class="drawer-link" type="button" data-page-link="process" onclick="window.goPage(event, 'process')">진행 과정</button>
+      <button class="drawer-link" type="button" data-page-link="refund" onclick="window.goPage(event, 'refund')">환불 규정</button>
+      <button class="drawer-link" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')">후기</button>
+      <button class="drawer-link" type="button" data-page-link="location" onclick="window.goPage(event, 'location')">장소</button>
+    </nav>
+  </aside>
+
+  <script>
+    const events = [
+      {
+        station: "20 - 27세",
+        title: "직장인 로테이션 소개팅",
+        date: "06. 29. (월) 오후 07:30",
+        place: "cLOVEr 라운지 (승인자만 확인 가능)",
+        confirmed: "0/6명",
+        showCardStatus: false,
+        capacity: "6명",
+        target: "부산 직장인 남녀",
+        price: "30,000원",
+        oldPrice: "50,000원",
+        image: "assets/event-1.jfif",
+        dday: "",
+        male: "5/5",
+        female: "0/5",
+        showGenderCount: true
+      },
+      {
+        station: "24 - 29세",
+        title: "취미로 만나는 주말 소셜링",
+        date: "07. 04. (토) 오후 04:00",
+        place: "광안리 프라이빗 카페 (승인자만 확인 가능)",
+        confirmed: "0/10",
+        capacity: "10명",
+        target: "취미 기반 소셜링",
+        price: "무료",
+        oldPrice: "",
+        image: "assets/event-2.jpg",
+        dday: "D-3",
+        male: "5/5",
+        female: "5/5",
+        showGenderCount: true
+      },
+      {
+        station: "27 - 36세",
+        title: "30대 밸런스 매칭 회차",
+        date: "07. 05. (일) 오후 03:00",
+        place: "해운대 스카이라운지 (승인자만 확인 가능)",
+        confirmed: "2/14",
+        capacity: "14명",
+        target: "30대 밸런스 매칭",
+        price: "20,000원",
+        oldPrice: "",
+        image: "assets/event-3.jpg",
+        dday: "D-4",
+        male: "7/7",
+        female: "7/7",
+        showGenderCount: true
+      },
+      {
+        station: "20 - 27세",
+        title: "직장인 로테이션 소개팅",
+        date: "06. 29. (월) 오후 07:30",
+        place: "cLOVEr 라운지 (승인자만 확인 가능)",
+        confirmed: "4/12",
+        capacity: "12명",
+        target: "부산 직장인 남녀",
+        price: "30,000원",
+        oldPrice: "50,000원",
+        image: "assets/event-1.jfif",
+        dday: "",
+        male: "6/6",
+        female: "6/6",
+        showGenderCount: true
+      },
+      {
+        station: "24 - 29세",
+        title: "취미로 만나는 주말 소셜링",
+        date: "07. 04. (토) 오후 04:00",
+        place: "광안리 프라이빗 카페 (승인자만 확인 가능)",
+        confirmed: "0/10",
+        capacity: "10명",
+        target: "취미 기반 소셜링",
+        price: "무료",
+        oldPrice: "",
+        image: "assets/event-2.jpg",
+        dday: "D-3",
+        male: "5/5",
+        female: "5/5",
+        showGenderCount: true
+      },
+      {
+        station: "27 - 36세",
+        title: "30대 밸런스 매칭 회차",
+        date: "07. 05. (일) 오후 03:00",
+        place: "해운대 스카이라운지 (승인자만 확인 가능)",
+        confirmed: "2/14",
+        capacity: "14명",
+        target: "30대 밸런스 매칭",
+        price: "20,000원",
+        oldPrice: "",
+        image: "assets/event-3.jpg",
+        dday: "D-4",
+        male: "7/7",
+        female: "7/7",
+        showGenderCount: true
+      }
+    ];
+
+    const iconCalendar = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01" stroke-width="3" stroke-linecap="round"/></svg>';
+    const iconPin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
+    const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
+    const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrUnW6ohj0aTKjH2l2bUrNuoY6oK4rUgNbzUTISG0Y6lUGit1drbNfJYBsPVN8inj5/exec";
+    let selectedEvent = events[0];
+
+    function eventTemplate(event) {
+      const index = events.indexOf(event);
+
+      return `
+        <li>
+          <article class="event-card${event.showGenderCount ? " has-gender-count" : ""}">
+            <div class="event-thumb" style="--thumb-image: url('${event.image}')">
+            </div>
+            <div class="event-body">
+              <div>
+                <div class="event-title-row">
+                  <h3 class="event-title"><span>[${event.station}]</span> ${event.title}</h3>
+                </div>
+                <div class="event-meta">
+                  <div class="meta-line">${event.showGenderCount ? `<div class="gender event-gender-count"><span class="m"><i class="count-content">${iconMale}<b class="count-value">${event.male}</b></i></span><span class="f"><i class="count-content">${iconFemale}<b class="count-value">${event.female}</b></i></span></div>` : ""}${iconCalendar}<span>${event.date}</span></div>
+                </div>
+              </div>
+              <div class="event-foot">
+                <div class="event-action">
+                  <button class="join-btn" type="button" data-join-index="${index}">참여</button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </li>
+      `;
+    }
+
+    const homeEventList = document.querySelector('[data-event-list="home"]');
+
+    function renderEventList(items = events) {
+      homeEventList.innerHTML = items.map(eventTemplate).join("");
+    }
+
+    renderEventList();
+    const detailRoot = document.querySelector("[data-detail-root]");
+
+    function renderDetail(event) {
+      selectedEvent = event;
+      selectedDocumentFile = null;
+      selectedPhotoFiles = [];
+      const applicationGender = selectedApplyGender || "";
+      const applicationPrice = selectedApplyPrice || event.price;
+      detailRoot.dataset.gender = applicationGender;
+
+      detailRoot.innerHTML = `
+        <article class="detail-hero">
+          <div class="detail-image" style="--detail-image: url('${event.image}')"></div>
+          <div class="detail-main">
+            <h1 class="detail-title"><span>[${event.station}]</span> ${event.title}</h1>
+            <div class="event-meta">
+              <div class="meta-line">${iconCalendar}<span>${event.date}</span></div>
+              <div class="meta-line">${iconPin}<span>${event.place}</span></div>
+            </div>
+          </div>
+        </article>
+
+        ${applicationGender ? `
+          <section class="gender-application-card">
+            <span class="gender-label">${applicationGender} 신청</span>
+            <strong>${applicationPrice}</strong>
+            <p>${applicationGender} 참가자 전용 신청 페이지입니다.</p>
+          </section>
+        ` : ""}
+
+        <dl class="detail-info-grid">
+          <div class="detail-info">
+            <dt>모집 인원</dt>
+            <dd>${event.capacity}</dd>
+          </div>
+          <div class="detail-info">
+            <dt>확정 현황</dt>
+            <dd>${event.confirmed}</dd>
+          </div>
+          <div class="detail-info">
+            <dt>대상</dt>
+            <dd>${applicationGender === "남성" ? "남자" : applicationGender === "여성" ? "여자" : event.target}</dd>
+          </div>
+          <div class="detail-info">
+            <dt>진행 방식</dt>
+            <dd>승인 후 안내</dd>
+          </div>
+        </dl>
+
+        <form class="application-form">
+          <div class="form-intro">
+            <h2>${applicationGender ? `${applicationGender} 신청서 양식` : "신청서 양식"}</h2>
+            <p>현재 기준으로 아래 양식을 작성해 주시길 바랍니다.</p>
+          </div>
+
+          <section class="form-section">
+            <h3>기본 정보</h3>
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="applyName">이름 <span class="req">*</span></label>
+                <input id="applyName" name="name" placeholder="이름">
+              </div>
+              <div class="form-field">
+                <label for="applyPhone">연락처 <span class="req">*</span></label>
+                <input id="applyPhone" name="phone" inputmode="numeric" maxlength="13" placeholder="010-0000-0000">
+              </div>
+              <div class="form-field full">
+                <label for="applyArea">거주지 <span class="req">*</span></label>
+                <input id="applyArea" name="area" placeholder="서면">
+              </div>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <h3>신체 및 거주 정보</h3>
+            <div class="form-grid">
+              <div class="form-field full">
+                <label for="applyBirth">생년월일 <span class="req">*</span></label>
+                <input id="applyBirth" name="birth" inputmode="numeric" maxlength="10" placeholder="1990-00-00">
+              </div>
+              <div class="form-field">
+                <label for="applyHeight">키 <span class="req">*</span></label>
+                <input id="applyHeight" name="height" inputmode="numeric" placeholder="cm">
+              </div>
+              <div class="form-field">
+                <label for="applyWeight">체중 <span class="req">*</span></label>
+                <input id="applyWeight" name="weight" inputmode="numeric" placeholder="kg">
+              </div>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <h3>직장 및 신원</h3>
+            <div class="form-field">
+              <label for="applyJob">회사명 / 직무 <span class="req">*</span></label>
+              <textarea id="applyJob" name="job" placeholder="ex. 수액병원, 간호사 / 링크은행, 은행원 / 프리랜서, 영상편집"></textarea>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <h3>나의 성향과 이상형</h3>
+            <div class="form-field">
+              <label for="applyIdeal">이상형 (중요도 순 최대 5가지)</label>
+              <textarea id="applyIdeal" name="ideal" placeholder="ex) 고양이상, 문신"></textarea>
+            </div>
+            <div class="form-field">
+              <label for="applyDislike">절대 용납 못하는 한 가지</label>
+              <textarea id="applyDislike" name="dislike" placeholder="키, 몸매, 나이"></textarea>
+            </div>
+            <div class="form-field">
+              <label>흡연 유무</label>
+              <div class="choice-row">
+                <button class="choice-chip" type="button">비흡연</button>
+                <button class="choice-chip" type="button">전자담배</button>
+                <button class="choice-chip" type="button">연초</button>
+              </div>
+            </div>
+            <div class="form-field">
+              <label>음주 빈도</label>
+              <div class="choice-row">
+                <button class="choice-chip" type="button">안 마심</button>
+                <button class="choice-chip" type="button">가끔</button>
+                <button class="choice-chip" type="button">주 1~2회</button>
+                <button class="choice-chip" type="button">즐겨 마시는 편</button>
+              </div>
+            </div>
+            <div class="form-field">
+              <label>종교</label>
+              <div class="choice-row">
+                <button class="choice-chip" type="button">무교</button>
+                <button class="choice-chip" type="button">기독교</button>
+                <button class="choice-chip" type="button">천주교</button>
+                <button class="choice-chip" type="button">불교</button>
+                <button class="choice-chip" type="button">기타</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <h3>제출 서류</h3>
+            <div class="form-field">
+              <label>재직 증명 <span class="req">*</span></label>
+              <p class="form-help">재직증명서, 급여명세서, 건강보험, 사원증 중 하나를 업로드해 주세요.</p>
+            </div>
+            <div class="file-drop">
+              <div class="document-preview is-hidden" data-document-preview>
+                <span class="document-thumb" data-document-thumb></span>
+                <span class="document-copy">
+                  <strong class="document-title">등록된 증빙 서류</strong>
+                  <span class="document-status">✓ 업로드 준비 완료</span>
+                </span>
+                <button class="remove-file-btn" type="button" data-clear-file="document" aria-label="증빙 서류 삭제">×</button>
+              </div>
+              <label class="photo-add" data-document-add>
+                + 추가
+                <input class="file-input" type="file" data-file-input="document" accept="image/*,.pdf">
+              </label>
+            </div>
+            <div class="form-field">
+              <label>본인 사진 (3-5장) <span class="req">*</span></label>
+              <p class="form-help">얼굴과 전신 사진이 포함되도록 자유롭게 등록해 주세요.</p>
+              <div class="file-drop">
+                <div class="photo-row" data-photo-row>
+                  <label class="photo-add">
+                    + 추가
+                    <input class="file-input" type="file" data-file-input="photos" accept="image/*" multiple>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <h3>마지막으로 하고 싶은 말</h3>
+            <div class="form-field">
+              <label for="applyMessage">전달 사항</label>
+              <p class="form-help">담당자에게 전달하고 싶은 말</p>
+              <textarea id="applyMessage" name="message" placeholder="전달 사항을 자유롭게 작성해 주세요."></textarea>
+            </div>
+          </section>
+
+          <button class="form-submit-btn" type="button">신청하기</button>
+
+          <div class="agree-row">
+            <label><input type="checkbox" checked disabled> [필수] 환불 및 취소 규정 확인 및 동의</label>
+            <label><input type="checkbox" checked disabled> [필수] 마케팅 활용 및 촬영 동의</label>
+          </div>
+        </form>
+
+        <section class="detail-section is-spaced">
+          <h2>진행 안내</h2>
+          <ul class="detail-list">
+            <li>참여자는 사전 신청 후 안내 문자를 받은 분에 한해 확정됩니다.</li>
+            <li>행사 당일 신분증 확인 후 자리 안내가 진행됩니다.</li>
+            <li>여러 명과 짧고 부담 없는 1:1 로테이션 대화를 진행합니다.</li>
+            <li>행사 종료 후 호감 선택을 제출하면 상호 매칭 결과를 안내합니다.</li>
+          </ul>
+        </section>
+
+        <section class="detail-section">
+          <h2>참여 전 확인</h2>
+          <ul class="detail-list">
+            <li>원활한 진행을 위해 시작 10분 전 도착을 권장합니다.</li>
+            <li>정확한 장소는 승인자에게만 개별 안내됩니다.</li>
+            <li>성비와 참석 상황에 따라 회차가 조정될 수 있습니다.</li>
+          </ul>
+        </section>
+      `;
+    }
+
+    const pages = document.querySelectorAll("[data-page]");
+    const drawer = document.getElementById("drawer");
+    const scrim = document.getElementById("drawerScrim");
+    const openMenu = document.getElementById("openMenu");
+    const calendarToggle = document.querySelector("[data-calendar-toggle]");
+    const calendarPopover = document.querySelector("[data-calendar-popover]");
+    const genderModal = document.querySelector("[data-gender-modal]");
+    let pendingEventIndex = 0;
+    let selectedApplyGender = "";
+    let selectedApplyPrice = "";
+    let selectedDocumentFile = null;
+    let selectedPhotoFiles = [];
+    let selectedFileSequence = 0;
+
+    function setGenderModal(open) {
+      genderModal.hidden = !open;
+    }
+
+    function setDrawer(open) {
+      document.body.classList.toggle("menu-open", open);
+      drawer.classList.toggle("is-open", open);
+      scrim.classList.toggle("is-open", open);
+      drawer.setAttribute("aria-hidden", String(!open));
+      openMenu.setAttribute("aria-expanded", String(open));
+    }
+
+    window.closeDrawer = function closeDrawer(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      setDrawer(false);
+    };
+
+    window.goPage = function goPage(event, pageName) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      setPage(pageName);
+    };
+
+    function setPage(pageName, updateHash = true) {
+      pages.forEach((page) => page.classList.toggle("is-active", page.dataset.page === pageName));
+      document.querySelectorAll("[data-page-link]").forEach((link) => {
+        link.classList.toggle("is-active", link.dataset.pageLink === pageName);
+      });
+      setDrawer(false);
+      if (updateHash) {
+        history.replaceState(null, "", `#${pageName}`);
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function closestFrom(target, selector) {
+      let node = target;
+      while (node && node !== document) {
+        if (node.matches && node.matches(selector)) {
+          return node;
+        }
+        node = node.parentNode;
+      }
+      return null;
+    }
+
+    function inputValue(selector) {
+      return document.querySelector(selector)?.value.trim() || "";
+    }
+
+    function selectedChoice(labelText) {
+      const labels = [...document.querySelectorAll(".form-field label")];
+      const label = labels.find((item) => item.textContent.includes(labelText));
+      const field = label?.closest(".form-field");
+      return field?.querySelector(".choice-chip.is-selected")?.textContent.trim() || "";
+    }
+
+    function onlyDigits(value, maxLength) {
+      return value.replace(/\D/g, "").slice(0, maxLength);
+    }
+
+    function formatPhone(value) {
+      const digits = onlyDigits(value, 11);
+      if (digits.length <= 3) return digits;
+      if (digits.length <= 7) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+      return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
+    }
+
+    function formatBirth(value) {
+      const digits = onlyDigits(value, 8);
+      if (digits.length <= 4) return digits;
+      if (digits.length <= 6) return `${digits.slice(0, 4)}-${digits.slice(4)}`;
+      return `${digits.slice(0, 4)}-${digits.slice(4, 6)}-${digits.slice(6)}`;
+    }
+
+    function validateFormattedInput(input) {
+      if (!input) return true;
+      const needed = input.id === "applyPhone" ? 13 : 10;
+      const valid = input.value.length === needed;
+      input.classList.toggle("is-invalid", !!input.value && !valid);
+      return valid;
+    }
+
+    function renderSelectedFiles(input) {
+      const files = [...input.files];
+
+      if (input.dataset.fileInput === "document") {
+        const preview = document.querySelector("[data-document-preview]");
+        const thumb = document.querySelector("[data-document-thumb]");
+        const addButton = document.querySelector("[data-document-add]");
+        const file = files[0];
+        if (!file) return;
+        selectedDocumentFile = file;
+        if (thumb) {
+          thumb.style.removeProperty("--document-image");
+          if (file.type.startsWith("image/")) {
+            thumb.style.setProperty("--document-image", `url('${URL.createObjectURL(file)}')`);
+          }
+        }
+        preview?.classList.remove("is-hidden");
+        addButton?.classList.add("is-hidden");
+        return;
+      }
+
+      if (input.dataset.fileInput === "photos") {
+        const row = document.querySelector("[data-photo-row]");
+        const addButton = input.closest(".photo-add");
+        const currentCount = row?.querySelectorAll(".photo-thumb").length || 0;
+        const remainingCount = Math.max(0, 5 - currentCount);
+        files.slice(0, remainingCount).forEach((file) => {
+          const fileId = `photo-${++selectedFileSequence}`;
+          selectedPhotoFiles.push({ id: fileId, file });
+          const thumb = document.createElement("span");
+          thumb.className = "photo-thumb";
+          thumb.dataset.fileId = fileId;
+          thumb.style.setProperty("--photo-image", `url('${URL.createObjectURL(file)}')`);
+          const removeButton = document.createElement("button");
+          removeButton.className = "thumb-remove";
+          removeButton.type = "button";
+          removeButton.setAttribute("aria-label", "사진 삭제");
+          removeButton.textContent = "×";
+          thumb.appendChild(removeButton);
+          row?.insertBefore(thumb, addButton);
+        });
+        input.value = "";
+      }
+    }
+
+    function readAsDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error(`${file.name} 파일을 읽을 수 없습니다.`));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function compressImage(file) {
+      return new Promise((resolve, reject) => {
+        const image = new Image();
+        const objectUrl = URL.createObjectURL(file);
+        image.onload = () => {
+          const maxEdge = 1280;
+          const scale = Math.min(1, maxEdge / Math.max(image.naturalWidth, image.naturalHeight));
+          const canvas = document.createElement("canvas");
+          canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
+          canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
+          const context = canvas.getContext("2d");
+          context.drawImage(image, 0, 0, canvas.width, canvas.height);
+          URL.revokeObjectURL(objectUrl);
+          canvas.toBlob((blob) => {
+            if (!blob) {
+              reject(new Error(`${file.name} 이미지를 변환할 수 없습니다.`));
+              return;
+            }
+            const baseName = file.name.replace(/\.[^.]+$/, "") || "image";
+            resolve(new File([blob], `${baseName}.jpg`, { type: "image/jpeg" }));
+          }, "image/jpeg", 0.82);
+        };
+        image.onerror = () => {
+          URL.revokeObjectURL(objectUrl);
+          reject(new Error(`${file.name} 이미지를 불러올 수 없습니다.`));
+        };
+        image.src = objectUrl;
+      });
+    }
+
+    async function fileToPayload(file) {
+      const preparedFile = file.type.startsWith("image/") ? await compressImage(file) : file;
+      if (preparedFile.size > 5 * 1024 * 1024) {
+        throw new Error(`${file.name} 파일은 5MB 이하로 등록해 주세요.`);
+      }
+      const dataUrl = await readAsDataUrl(preparedFile);
+      return {
+        name: preparedFile.name,
+        mimeType: preparedFile.type || "application/octet-stream",
+        size: preparedFile.size,
+        base64: String(dataUrl).split(",")[1] || ""
+      };
+    }
+
+    async function submitApplication(button) {
+      const required = [
+        ["#applyName", "이름"],
+        ["#applyPhone", "연락처"],
+        ["#applyBirth", "생년월일"],
+        ["#applyHeight", "키"],
+        ["#applyWeight", "체중"],
+        ["#applyArea", "거주지"],
+        ["#applyJob", "회사명 / 직무"]
+      ];
+
+      const missing = required.find(([selector]) => !inputValue(selector));
+      if (missing) {
+        alert(`${missing[1]}을(를) 입력해 주세요.`);
+        document.querySelector(missing[0])?.focus();
+        return;
+      }
+
+      const phoneInput = document.querySelector("#applyPhone");
+      const birthInput = document.querySelector("#applyBirth");
+      if (!validateFormattedInput(phoneInput)) {
+        alert("연락처를 010-0000-0000 형식으로 입력해 주세요.");
+        phoneInput.focus();
+        return;
+      }
+      if (!validateFormattedInput(birthInput)) {
+        alert("생년월일을 1990-00-00 형식으로 입력해 주세요.");
+        birthInput.focus();
+        return;
+      }
+
+      if (!selectedDocumentFile) {
+        alert("재직 증명 파일을 등록해 주세요.");
+        document.querySelector('[data-file-input="document"]')?.focus();
+        return;
+      }
+
+      if (selectedPhotoFiles.length < 3 || selectedPhotoFiles.length > 5) {
+        alert("본인 사진을 3장 이상 5장 이하로 등록해 주세요.");
+        document.querySelector('[data-file-input="photos"]')?.focus();
+        return;
+      }
+
+      const agreeInputs = [...document.querySelectorAll(".agree-row input")];
+      if (agreeInputs.some((input) => !input.checked)) {
+        alert("필수 동의 항목을 확인해 주세요.");
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "파일 준비 중";
+
+      try {
+        const documentFile = await fileToPayload(selectedDocumentFile);
+        const photoFiles = await Promise.all(
+          selectedPhotoFiles.map(({ file }) => fileToPayload(file))
+        );
+        const payload = {
+          submittedAt: new Date().toISOString(),
+          eventTitle: `[${selectedApplyGender} 신청] [${selectedEvent.station}] ${selectedEvent.title}`,
+          applicationType: `${selectedApplyGender} 신청`,
+          gender: selectedApplyGender,
+          eventDate: selectedEvent.date,
+          eventPlace: selectedEvent.place,
+          eventPrice: selectedApplyPrice,
+          name: inputValue("#applyName"),
+          phone: inputValue("#applyPhone"),
+          birth: inputValue("#applyBirth"),
+          height: inputValue("#applyHeight"),
+          weight: inputValue("#applyWeight"),
+          area: inputValue("#applyArea"),
+          job: inputValue("#applyJob"),
+          ideal: inputValue("#applyIdeal"),
+          dislike: inputValue("#applyDislike"),
+          smoking: selectedChoice("흡연"),
+          drinking: selectedChoice("음주"),
+          religion: selectedChoice("종교"),
+          message: inputValue("#applyMessage"),
+          documentFile,
+          photoFiles,
+          documentFileName: documentFile.name,
+          photoFileNames: photoFiles.map((file) => file.name).join(", "),
+          refundAgree: agreeInputs[0]?.checked || false,
+          marketingAgree: agreeInputs[1]?.checked || false
+        };
+
+        button.classList.add("is-loading");
+        button.textContent = "접수 중";
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+          },
+          body: new URLSearchParams({ payload: JSON.stringify(payload) }).toString()
+        });
+        const result = await response.json();
+        if (!response.ok || !result.ok) {
+          const serverError = result.error || "";
+          if (serverError.includes("DriveApp") || serverError.includes("drive")) {
+            throw new Error("첨부파일 저장 권한이 설정되지 않았습니다. 관리자에게 문의해 주세요.");
+          }
+          throw new Error(serverError || "신청 정보를 저장하지 못했습니다.");
+        }
+        alert("신청이 접수되었습니다.");
+        button.classList.remove("is-loading");
+        button.textContent = "접수 완료";
+      } catch (error) {
+        alert(error?.message || "접수 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
+        button.classList.remove("is-loading");
+        button.disabled = false;
+        button.textContent = "신청하기";
+      }
+    }
+
+    document.addEventListener("click", (event) => {
+      const closeTarget = closestFrom(event.target, "#closeMenu, #drawerScrim");
+      if (closeTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        setDrawer(false);
+        return;
+      }
+
+      const openTarget = closestFrom(event.target, "#openMenu");
+      if (openTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        setDrawer(true);
+        return;
+      }
+
+      const joinTarget = closestFrom(event.target, "[data-join-index]");
+      if (joinTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        pendingEventIndex = Number(joinTarget.dataset.joinIndex) || 0;
+        setGenderModal(true);
+        return;
+      }
+
+      const genderChoice = closestFrom(event.target, "[data-gender-choice]");
+      if (genderChoice) {
+        event.preventDefault();
+        event.stopPropagation();
+        selectedApplyGender = genderChoice.dataset.genderChoice;
+        selectedApplyPrice = selectedApplyGender === "남성" ? "30,000원" : "20,000원";
+        const eventData = events[pendingEventIndex] || events[0];
+        setGenderModal(false);
+        renderDetail(eventData);
+        setPage("event-detail");
+        return;
+      }
+
+      const genderClose = closestFrom(event.target, "[data-gender-close]");
+      if (genderClose) {
+        event.preventDefault();
+        event.stopPropagation();
+        setGenderModal(false);
+        return;
+      }
+
+      if (event.target === genderModal) {
+        setGenderModal(false);
+        return;
+      }
+
+      const choiceTarget = closestFrom(event.target, ".choice-chip");
+      if (choiceTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        const row = choiceTarget.closest(".choice-row");
+        const wasSelected = choiceTarget.classList.contains("is-selected");
+        row?.querySelectorAll(".choice-chip").forEach((chip) => chip.classList.remove("is-selected"));
+        if (!wasSelected) {
+          choiceTarget.classList.add("is-selected");
+        }
+        return;
+      }
+
+      const calendarToggleTarget = closestFrom(event.target, "[data-calendar-toggle]");
+      if (calendarToggleTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        const isOpen = !calendarPopover?.hidden;
+        if (calendarPopover) calendarPopover.hidden = isOpen;
+        calendarToggle?.setAttribute("aria-expanded", String(!isOpen));
+        return;
+      }
+
+      const calendarCloseTarget = closestFrom(event.target, "[data-calendar-close]");
+      if (calendarCloseTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (calendarPopover) calendarPopover.hidden = true;
+        calendarToggle?.setAttribute("aria-expanded", "false");
+        return;
+      }
+
+      const calendarDayTarget = closestFrom(event.target, "[data-event-date]");
+      if (calendarDayTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        const selectedDate = calendarDayTarget.dataset.eventDate;
+        const wasSelected = calendarDayTarget.classList.contains("is-selected");
+        document.querySelectorAll("[data-event-date]").forEach((day) => day.classList.remove("is-selected"));
+        document.querySelectorAll(".filter-row .filter-chip:not(.calendar-chip)").forEach((chip) => chip.classList.remove("is-active"));
+        if (wasSelected) {
+          renderEventList();
+          calendarToggle?.classList.remove("is-active");
+          document.querySelector(".filter-row .filter-chip")?.classList.add("is-active");
+        } else {
+          calendarDayTarget.classList.add("is-selected");
+          calendarToggle?.classList.add("is-active");
+          renderEventList(events.filter((eventData) => eventData.date.startsWith(selectedDate)));
+        }
+        if (calendarPopover) calendarPopover.hidden = true;
+        calendarToggle?.setAttribute("aria-expanded", "false");
+        return;
+      }
+
+      if (calendarPopover && !calendarPopover.hidden && !closestFrom(event.target, "[data-calendar-popover]")) {
+        calendarPopover.hidden = true;
+        calendarToggle?.setAttribute("aria-expanded", "false");
+      }
+
+      const filterTarget = closestFrom(event.target, ".filter-chip");
+      if (filterTarget && !filterTarget.classList.contains("calendar-chip")) {
+        event.preventDefault();
+        event.stopPropagation();
+        const row = filterTarget.closest(".filter-row");
+        const chips = [...(row?.querySelectorAll(".filter-chip:not(.calendar-chip)") || [])];
+        const allChip = chips.find((chip) => chip.textContent.trim() === "전체");
+        renderEventList();
+        document.querySelectorAll("[data-event-date]").forEach((day) => day.classList.remove("is-selected"));
+        calendarToggle?.classList.remove("is-active");
+        if (filterTarget === allChip) {
+          chips.forEach((chip) => chip.classList.remove("is-active"));
+          filterTarget.classList.add("is-active");
+          return;
+        }
+        allChip?.classList.remove("is-active");
+        const label = filterTarget.textContent.trim();
+        const groupLabels = ["서면", "사상", "광안리"];
+        const wasSelected = filterTarget.classList.contains("is-active");
+        chips
+          .filter((chip) => groupLabels.includes(chip.textContent.trim()))
+          .forEach((chip) => chip.classList.remove("is-active"));
+        if (!wasSelected) {
+          filterTarget.classList.add("is-active");
+        }
+        const hasActiveFilter = chips.some((chip) => chip !== allChip && chip.classList.contains("is-active"));
+        if (!hasActiveFilter) {
+          allChip?.classList.add("is-active");
+        }
+        return;
+      }
+
+      const clearFileTarget = closestFrom(event.target, "[data-clear-file]");
+      if (clearFileTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        const fileInput = document.querySelector('[data-file-input="document"]');
+        const preview = document.querySelector("[data-document-preview]");
+        const addButton = document.querySelector("[data-document-add]");
+        const thumb = document.querySelector("[data-document-thumb]");
+        if (fileInput) fileInput.value = "";
+        selectedDocumentFile = null;
+        preview?.classList.add("is-hidden");
+        addButton?.classList.remove("is-hidden");
+        thumb?.style.removeProperty("--document-image");
+        return;
+      }
+
+      const photoRemoveTarget = closestFrom(event.target, ".thumb-remove");
+      if (photoRemoveTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        const thumb = photoRemoveTarget.closest(".photo-thumb");
+        const fileId = thumb?.dataset.fileId;
+        selectedPhotoFiles = selectedPhotoFiles.filter(({ id }) => id !== fileId);
+        thumb?.remove();
+        return;
+      }
+
+      const submitTarget = closestFrom(event.target, ".form-submit-btn");
+      if (submitTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        submitApplication(submitTarget);
+        return;
+      }
+
+      const scrollTarget = closestFrom(event.target, "[data-scroll-target]");
+      if (scrollTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        setPage("home");
+        const target = document.getElementById(scrollTarget.dataset.scrollTarget);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        return;
+      }
+
+      const pageTarget = closestFrom(event.target, "[data-page-link]");
+      if (pageTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        setPage(pageTarget.dataset.pageLink);
+      }
+    }, true);
+
+    document.addEventListener("input", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLInputElement)) return;
+
+      if (target.id === "applyPhone") {
+        target.value = formatPhone(target.value);
+        target.classList.remove("is-invalid");
+        return;
+      }
+
+      if (target.id === "applyBirth") {
+        target.value = formatBirth(target.value);
+        target.classList.remove("is-invalid");
+        return;
+      }
+
+      if (["applyHeight", "applyWeight"].includes(target.id)) {
+        target.value = onlyDigits(target.value, 3);
+      }
+    });
+
+    document.addEventListener("change", (event) => {
+      const target = event.target;
+      if (target instanceof HTMLInputElement && target.matches("[data-file-input]")) {
+        renderSelectedFiles(target);
+      }
+    });
+
+    document.addEventListener("blur", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLInputElement)) return;
+
+      if (target.id === "applyPhone" || target.id === "applyBirth") {
+        validateFormattedInput(target);
+      }
+    }, true);
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        setDrawer(false);
+      }
+    });
+
+    const initial = location.hash.replace("#", "");
+    renderDetail(events[0]);
+    if (["home", "support", "process", "location", "event-detail"].includes(initial)) {
+      setPage(initial, false);
+    }
+
+    const slides = document.querySelectorAll(".hero-slide");
+    const dots = document.querySelectorAll(".hero-dot");
+    let activeSlide = 0;
+    setInterval(() => {
+      activeSlide = (activeSlide + 1) % slides.length;
+      slides.forEach((slide, index) => slide.classList.toggle("is-active", index === activeSlide));
+      dots.forEach((dot, index) => dot.classList.toggle("is-active", index === activeSlide));
+    }, 3800);
+  </script>
+</body>
+</html>
