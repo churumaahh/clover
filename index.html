@@ -123,7 +123,7 @@
 
     .brand-text {
       color: #121218;
-      font-size: clamp(1rem, 4vw, 1.28rem);
+      font-size: calc(clamp(1rem, 4vw, 1.28rem) + 2px);
       line-height: 1;
       font-weight: 950;
       letter-spacing: 0.02em;
@@ -132,7 +132,7 @@
 
     .brand-subtitle {
       color: rgba(18, 18, 24, 0.78);
-      font-size: 0.68rem;
+      font-size: calc(0.68rem - 2px);
       font-weight: 850;
       letter-spacing: 0;
       white-space: nowrap;
@@ -217,6 +217,10 @@
       padding: 0 0.75rem;
       border-bottom: 1px solid var(--line);
       background: rgba(255, 255, 255, 0.98);
+    }
+
+    .section-tabs.guide-tabs {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
     .section-tab {
@@ -1285,6 +1289,36 @@
       box-shadow: 0 0.55rem 1rem rgba(29, 140, 255, 0.28);
     }
 
+    .home-contact-fab {
+      position: fixed;
+      right: max(1rem, calc((100vw - var(--page-max)) / 2 + 1rem));
+      bottom: 1.2rem;
+      z-index: 18;
+      width: 3.75rem;
+      height: 3.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.12rem;
+      padding: 0.3rem;
+      border: 1px solid rgba(18, 18, 24, 0.12);
+      border-radius: 50%;
+      color: #111;
+      background: #00ff40;
+      box-shadow: 0 0.6rem 1.2rem rgba(18, 18, 24, 0.18);
+      font-size: 0.62rem;
+      font-weight: 950;
+      line-height: 1.1;
+    }
+
+    .home-contact-fab img {
+      width: 1.25rem;
+      height: 1.25rem;
+      display: block;
+      object-fit: contain;
+    }
+
     .page-title {
       margin: 0 0 1rem;
       padding: 0 0.25rem;
@@ -1741,6 +1775,16 @@
       gap: 0.85rem;
     }
 
+    .board-form-row {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: 0.65rem;
+    }
+
+    .board-form-row .field {
+      min-width: 0;
+    }
+
     .board-form .field input[readonly] {
       color: #343943;
       background: #f4f5f7;
@@ -1777,11 +1821,185 @@
 
     .board-post {
       display: grid;
-      gap: 0.7rem;
+      gap: 0.8rem;
       padding: 1rem;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: #fff;
+    }
+
+    .board-post-open {
+      width: 100%;
+      min-height: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0;
+      border: 0;
+      color: var(--ink);
+      background: transparent;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .board-post-author-wrap {
+      min-width: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .board-lock-icon {
+      width: 0.95rem;
+      height: 0.95rem;
+      flex: 0 0 auto;
+      color: #121218;
+    }
+
+    .board-post-author {
+      margin: 0;
+      color: var(--ink);
+      font-size: 0.9rem;
+      font-weight: 850;
+    }
+
+    .board-post-time {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-size: 0.7rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .board-post-side {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .board-status {
+      min-width: 2.5rem;
+      padding: 0.24rem 0.5rem;
+      border-radius: 999px;
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 900;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .board-status.is-received {
+      background: #f04444;
+    }
+
+    .board-status.is-checked {
+      background: #f59e0b;
+    }
+
+    .board-status.is-complete {
+      color: #111;
+      background: #00ff40;
+    }
+
+    .board-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      min-height: 2.4rem;
+    }
+
+    .board-pagination[hidden] {
+      display: none;
+    }
+
+    .board-page-button {
+      width: 2.2rem;
+      height: 2.2rem;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: #121218;
+      background: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .board-page-button:disabled {
+      color: #b9bec8;
+      background: #f3f4f6;
+      cursor: default;
+    }
+
+    .board-page-status {
+      min-width: 3.4rem;
+      color: var(--ink);
+      font-size: 0.78rem;
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .board-access-panel,
+    .board-private-view,
+    .board-reply-form {
+      display: grid;
+      gap: 0.65rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .board-access-panel input,
+    .board-reply-form textarea {
+      width: 100%;
+      min-height: 2.65rem;
+      padding: 0.72rem 0.8rem;
+      border: 1px solid var(--line);
+      border-radius: 0.55rem;
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+      outline: none;
+    }
+
+    .board-reply-form textarea {
+      min-height: 6rem;
+      resize: vertical;
+    }
+
+    .board-access-button,
+    .board-reply-button {
+      min-height: 2.5rem;
+      border-radius: 0.55rem;
+      color: #111;
+      background: #00ff40;
+      font-weight: 900;
+    }
+
+    .board-access-message {
+      margin: 0;
+      color: #e53935;
+      font-size: 0.75rem;
+    }
+
+    .board-private-label {
+      margin: 0;
+      color: var(--ink);
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .board-private-text {
+      margin: 0;
+      color: #444b57;
+      font-size: 0.82rem;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
     }
 
     .board-post-head {
@@ -2042,7 +2260,7 @@
         <img class="brand-logo" src="assets/clover-logo-v2.png" alt="">
         <span class="brand-copy">
           <span class="brand-text">cLOVEr</span>
-          <span class="brand-subtitle">부산 · 로테이션 소개팅</span>
+          <span class="brand-subtitle">부산·로테이션 소개팅</span>
         </span>
       </a>
       <button class="menu-button" id="openMenu" type="button" aria-label="메뉴 열기" aria-expanded="false">
@@ -2118,11 +2336,33 @@
         </section>
 
       </main>
+      <button class="home-contact-fab" type="button" onclick="window.goPage(event, 'support')" aria-label="1:1 문의하기">
+        <img src="assets/clover-logo-v2.png" alt="">
+        <span>1:1 문의</span>
+      </button>
+    </section>
+
+    <section class="page" id="page-schedule" data-page="schedule">
+      <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
+        <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'schedule')">일정 안내</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'process')">진행 방식</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'discount')">할인 혜택</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'refund')">환불 규정</button>
+      </nav>
+      <main class="support-page">
+        <h1 class="page-title">일정 안내</h1>
+        <section class="support-card">
+          <h2>일정 안내</h2>
+          <p>등록된 일정 안내가 없습니다.</p>
+        </section>
+      </main>
     </section>
 
     <section class="page" id="page-process" data-page="process">
-      <nav class="section-tabs" aria-label="안내 메뉴">
-        <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'process')">진행방식</button>
+      <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'schedule')">일정 안내</button>
+        <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'process')">진행 방식</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'discount')">할인 혜택</button>
         <button class="section-tab" type="button" onclick="window.goPage(event, 'refund')">환불 규정</button>
       </nav>
       <main class="process-page">
@@ -2224,9 +2464,27 @@
       </main>
     </section>
 
+    <section class="page" id="page-discount" data-page="discount">
+      <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'schedule')">일정 안내</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'process')">진행 방식</button>
+        <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'discount')">할인 혜택</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'refund')">환불 규정</button>
+      </nav>
+      <main class="support-page">
+        <h1 class="page-title">할인 혜택</h1>
+        <section class="support-card">
+          <h2>할인 혜택</h2>
+          <p>등록된 할인 혜택이 없습니다.</p>
+        </section>
+      </main>
+    </section>
+
     <section class="page" id="page-refund" data-page="refund">
-      <nav class="section-tabs" aria-label="안내 메뉴">
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'process')">진행방식</button>
+      <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'schedule')">일정 안내</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'process')">진행 방식</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'discount')">할인 혜택</button>
         <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'refund')">환불 규정</button>
       </nav>
       <main class="support-page">
@@ -2309,18 +2567,17 @@
         <p class="page-description">본 내용은 어디에도 공개되지 않으며 익명으로 운영됩니다.</p>
         <section class="support-card">
           <h2>글 작성</h2>
+          <p>불편했던 점, 하지 못한 말, 이상한 사람 또는 이상했던 점 등 자유롭게 작성해주세요. 다른 사람에게 도움이 됩니다.</p>
           <form class="board-form" id="boardForm" novalidate>
-            <div class="field">
-              <label for="boardAuthor">작성자</label>
-              <input id="boardAuthor" name="author" type="text" maxlength="2" readonly aria-readonly="true">
-            </div>
-            <div class="field">
-              <label for="boardPassword">비밀번호</label>
-              <input id="boardPassword" name="password" type="password" minlength="4" maxlength="20" autocomplete="new-password" placeholder="비밀번호를 입력해 주세요." required>
-            </div>
-            <div class="field">
-              <label for="boardTitle">제목</label>
-              <input id="boardTitle" name="title" type="text" maxlength="60" placeholder="제목을 입력해 주세요." required>
+            <div class="board-form-row">
+              <div class="field">
+                <label for="boardAuthor">작성자</label>
+                <input id="boardAuthor" name="author" type="text" maxlength="2" readonly aria-readonly="true">
+              </div>
+              <div class="field">
+                <label for="boardPassword">비밀번호</label>
+                <input id="boardPassword" name="password" type="password" minlength="4" maxlength="20" autocomplete="new-password" placeholder="비밀번호를 입력해 주세요." required>
+              </div>
             </div>
             <div class="field">
               <label for="boardContent">내용</label>
@@ -2332,6 +2589,7 @@
         <section class="board-list-section" aria-labelledby="boardListTitle">
           <h2 class="board-list-title" id="boardListTitle">게시판 접수</h2>
           <div class="board-post-list" id="boardPostList" aria-live="polite"></div>
+          <nav class="board-pagination" id="boardPagination" aria-label="게시판 페이지 이동" hidden></nav>
         </section>
       </main>
     </section>
@@ -2386,9 +2644,8 @@
     </div>
     <nav class="drawer-links" aria-label="메뉴">
       <button class="drawer-link" type="button" data-page-link="home" onclick="window.goPage(event, 'home')">홈</button>
-      <button class="drawer-link" type="button" data-page-link="process" onclick="window.goPage(event, 'process')">안내</button>
+      <button class="drawer-link" type="button" data-page-link="schedule" onclick="window.goPage(event, 'schedule')">안내</button>
       <button class="drawer-link" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')">후기</button>
-      <button class="drawer-link" type="button" data-page-link="board" onclick="window.goPage(event, 'board')">자유 게시판</button>
     </nav>
     <div class="drawer-shortcuts">
       <p class="drawer-shortcut-label">바로가기</p>
@@ -2421,10 +2678,12 @@
           </svg>
         </button>
         <button class="drawer-social-link" type="button" data-page-link="board" onclick="window.goPage(event, 'board')" aria-label="자유 게시판" title="자유 게시판">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#f51b2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="m3 11 18-5v12L3 13v-2Z"/>
-            <path d="M11.6 8.6v6.8"/>
-            <path d="m5 14 1.7 5h3.6l-1.5-4"/>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5.5 4h10A3.5 3.5 0 0 1 19 7.5v5a3.5 3.5 0 0 1-3.5 3.5H10l-4.5 3v-3A3.5 3.5 0 0 1 2 12.5v-5A3.5 3.5 0 0 1 5.5 4Z" fill="#00ff40"/>
+            <path d="M10 8h8.2A3.8 3.8 0 0 1 22 11.8v3.4a3.8 3.8 0 0 1-3.8 3.8h-2.7L12 21v-2A3.8 3.8 0 0 1 8.2 15.2v-3.4A3.8 3.8 0 0 1 10 8Z" fill="#121218"/>
+            <circle cx="12.5" cy="13.5" r="0.8" fill="#fff"/>
+            <circle cx="15.5" cy="13.5" r="0.8" fill="#fff"/>
+            <circle cx="18.5" cy="13.5" r="0.8" fill="#fff"/>
           </svg>
         </button>
         <button class="drawer-staff-link" type="button" data-page-link="staff" onclick="window.goPage(event, 'staff')">STAFF</button>
@@ -2435,7 +2694,7 @@
   <script>
     const events = [
       {
-        station: "20 - 27세",
+        station: "21 - 27세",
         title: "직장인 로테이션 소개팅",
         date: "06. 29. (월) 오후 07:30",
         place: "클로버 라운지 (확정자만 확인 가능)",
@@ -2484,7 +2743,7 @@
         showGenderCount: true
       },
       {
-        station: "20 - 27세",
+        station: "30 - 37세",
         title: "직장인 로테이션 소개팅",
         date: "06. 29. (월) 오후 07:30",
         place: "클로버 라운지 (확정자만 확인 가능)",
@@ -2500,7 +2759,7 @@
         showGenderCount: true
       },
       {
-        station: "24 - 29세",
+        station: "34 - 39세",
         title: "취미로 만나는 주말 소셜링",
         date: "07. 04. (토) 오후 04:00",
         place: "광안리 프라이빗 카페 (승인자만 확인 가능)",
@@ -2514,22 +2773,6 @@
         male: "5/5",
         female: "5/5",
         showGenderCount: true
-      },
-      {
-        station: "27 - 36세",
-        title: "30대 밸런스 매칭 회차",
-        date: "07. 05. (일) 오후 03:00",
-        place: "해운대 스카이라운지 (승인자만 확인 가능)",
-        confirmed: "2/14",
-        capacity: "14명",
-        target: "30대 밸런스 매칭",
-        price: "20,000원",
-        oldPrice: "",
-        image: "assets/event-3.jpg",
-        dday: "D-4",
-        male: "7/7",
-        female: "7/7",
-        showGenderCount: true
       }
     ];
 
@@ -2537,7 +2780,7 @@
     const iconPin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrUnW6ohj0aTKjH2l2bUrNuoY6oK4rUgNbzUTISG0Y6lUGit1drbNfJYBsPVN8inj5/exec";
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw8PhPKbtKSTQnoyCEp--ha4nfOaEUVuTM8sBcck6v4rkbadkT8TqIFwzM2GFyv-pYb/exec";
     let selectedEvent = events[0];
 
     function eventTemplate(event) {
@@ -2798,28 +3041,13 @@
     let selectedDocumentFile = null;
     let selectedPhotoFiles = [];
     let selectedFileSequence = 0;
-    const boardStorageKey = "clover-free-board-posts";
     const boardForm = document.getElementById("boardForm");
     const boardAuthor = document.getElementById("boardAuthor");
     const boardPostList = document.getElementById("boardPostList");
-    let boardPosts = loadBoardPosts();
-
-    function loadBoardPosts() {
-      try {
-        const stored = JSON.parse(localStorage.getItem(boardStorageKey) || "[]");
-        return Array.isArray(stored) ? stored : [];
-      } catch {
-        return [];
-      }
-    }
-
-    function saveBoardPosts() {
-      try {
-        localStorage.setItem(boardStorageKey, JSON.stringify(boardPosts));
-      } catch {
-        // The current session still shows submitted posts if browser storage is unavailable.
-      }
-    }
+    const boardPagination = document.getElementById("boardPagination");
+    const boardPageSize = 5;
+    let boardCurrentPage = 1;
+    let boardPosts = [];
 
     function createAnonymousName(previousName = "") {
       const first = ["별", "달", "봄", "꽃", "빛", "솔", "꿈", "눈", "해", "산", "강", "숲"];
@@ -2835,6 +3063,221 @@
       if (boardAuthor) boardAuthor.value = createAnonymousName(boardAuthor.value);
     }
 
+    async function boardApi(payload) {
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+        },
+        body: new URLSearchParams({ payload: JSON.stringify(payload) }).toString()
+      });
+      const result = await response.json();
+      if (!response.ok || !result.ok) throw new Error(result.error || "게시판 요청을 처리하지 못했습니다.");
+      return result;
+    }
+
+    async function loadBoardPosts() {
+      if (!boardPostList) return;
+      try {
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardList&t=${Date.now()}`);
+        const result = await response.json();
+        if (!response.ok || !result.ok || !Array.isArray(result.posts)) {
+          throw new Error(result.error || "게시글 목록을 불러오지 못했습니다.");
+        }
+        boardPosts = result.posts;
+        boardCurrentPage = 1;
+        renderBoardPosts();
+      } catch (error) {
+        boardPostList.replaceChildren();
+        const message = document.createElement("p");
+        message.className = "board-empty";
+        message.textContent = error?.message || "게시글 목록을 불러오지 못했습니다.";
+        boardPostList.append(message);
+      }
+    }
+
+    function createBoardLockIcon() {
+      const namespace = "http://www.w3.org/2000/svg";
+      const icon = document.createElementNS(namespace, "svg");
+      icon.classList.add("board-lock-icon");
+      icon.setAttribute("viewBox", "0 0 24 24");
+      icon.setAttribute("fill", "none");
+      icon.setAttribute("stroke", "currentColor");
+      icon.setAttribute("stroke-width", "2.2");
+      icon.setAttribute("stroke-linecap", "round");
+      icon.setAttribute("stroke-linejoin", "round");
+      icon.setAttribute("aria-hidden", "true");
+      const body = document.createElementNS(namespace, "rect");
+      body.setAttribute("x", "3");
+      body.setAttribute("y", "11");
+      body.setAttribute("width", "18");
+      body.setAttribute("height", "10");
+      body.setAttribute("rx", "2");
+      const shackle = document.createElementNS(namespace, "path");
+      shackle.setAttribute("d", "M7 11V7a5 5 0 0 1 10 0v4");
+      icon.append(body, shackle);
+      return icon;
+    }
+
+    function renderBoardPagination(totalPages) {
+      if (!boardPagination) return;
+      boardPagination.replaceChildren();
+      boardPagination.hidden = totalPages <= 1;
+      if (totalPages <= 1) return;
+
+      const previous = document.createElement("button");
+      previous.className = "board-page-button";
+      previous.type = "button";
+      previous.setAttribute("aria-label", "이전 페이지");
+      previous.title = "이전 페이지";
+      previous.textContent = "‹";
+      previous.disabled = boardCurrentPage === 1;
+      previous.addEventListener("click", () => {
+        boardCurrentPage -= 1;
+        renderBoardPosts();
+      });
+
+      const status = document.createElement("span");
+      status.className = "board-page-status";
+      status.textContent = `${boardCurrentPage} / ${totalPages}`;
+
+      const next = document.createElement("button");
+      next.className = "board-page-button";
+      next.type = "button";
+      next.setAttribute("aria-label", "다음 페이지");
+      next.title = "다음 페이지";
+      next.textContent = "›";
+      next.disabled = boardCurrentPage === totalPages;
+      next.addEventListener("click", () => {
+        boardCurrentPage += 1;
+        renderBoardPosts();
+      });
+
+      boardPagination.append(previous, status, next);
+    }
+
+    function setBoardStatusBadge(article, status) {
+      const badge = article.querySelector(".board-status");
+      if (!badge) return;
+      const normalized = ["접수", "확인", "완료"].includes(status) ? status : "접수";
+      badge.textContent = normalized;
+      badge.className = "board-status";
+      badge.classList.add(
+        normalized === "완료" ? "is-complete" : normalized === "확인" ? "is-checked" : "is-received"
+      );
+    }
+
+    function appendPrivatePostView(article, post, result, password) {
+      article.querySelector(".board-access-panel")?.remove();
+      post.status = result.status;
+      setBoardStatusBadge(article, result.status);
+      const view = document.createElement("div");
+      view.className = "board-private-view";
+
+      const contentLabel = document.createElement("p");
+      contentLabel.className = "board-private-label";
+      contentLabel.textContent = "작성 내용";
+      const content = document.createElement("p");
+      content.className = "board-private-text";
+      content.textContent = result.content;
+      const replyLabel = document.createElement("p");
+      replyLabel.className = "board-private-label";
+      replyLabel.textContent = "관리자 답변";
+      const reply = document.createElement("p");
+      reply.className = "board-private-text";
+      reply.textContent = result.reply || "답변 대기 중입니다.";
+      view.append(contentLabel, content, replyLabel, reply);
+
+      if (result.admin) {
+        const replyForm = document.createElement("form");
+        replyForm.className = "board-reply-form";
+        const replyInput = document.createElement("textarea");
+        replyInput.placeholder = "관리자 답변을 입력해 주세요.";
+        replyInput.maxLength = 1000;
+        replyInput.value = result.reply || "";
+        const replyButton = document.createElement("button");
+        replyButton.className = "board-reply-button";
+        replyButton.type = "submit";
+        replyButton.textContent = "답변 저장";
+        const replyMessage = document.createElement("p");
+        replyMessage.className = "board-access-message";
+        replyForm.append(replyInput, replyButton, replyMessage);
+        replyForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const replyValue = replyInput.value.trim();
+          if (!replyValue) {
+            replyMessage.textContent = "답변 내용을 입력해 주세요.";
+            return;
+          }
+          replyButton.disabled = true;
+          replyButton.textContent = "저장 중";
+          try {
+            const saved = await boardApi({
+              type: "boardReply",
+              id: post.id,
+              adminPassword: password,
+              reply: replyValue
+            });
+            reply.textContent = saved.reply;
+            post.status = saved.status;
+            setBoardStatusBadge(article, saved.status);
+            replyMessage.textContent = "";
+            replyButton.textContent = "저장 완료";
+          } catch (error) {
+            replyMessage.textContent = error?.message || "답변을 저장하지 못했습니다.";
+            replyButton.disabled = false;
+            replyButton.textContent = "답변 저장";
+          }
+        });
+        view.append(replyForm);
+      }
+
+      article.append(view);
+    }
+
+    function openBoardPost(article, post) {
+      const existingPanel = article.querySelector(".board-access-panel, .board-private-view");
+      if (existingPanel) {
+        existingPanel.remove();
+        return;
+      }
+
+      const panel = document.createElement("form");
+      panel.className = "board-access-panel";
+      const passwordInput = document.createElement("input");
+      passwordInput.type = "password";
+      passwordInput.placeholder = "작성 비밀번호를 입력해 주세요.";
+      passwordInput.autocomplete = "current-password";
+      const confirmButton = document.createElement("button");
+      confirmButton.className = "board-access-button";
+      confirmButton.type = "submit";
+      confirmButton.textContent = "확인";
+      const message = document.createElement("p");
+      message.className = "board-access-message";
+      panel.append(passwordInput, confirmButton, message);
+      article.append(panel);
+      passwordInput.focus();
+
+      panel.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const password = passwordInput.value;
+        if (!password) {
+          message.textContent = "비밀번호를 입력해 주세요.";
+          return;
+        }
+        confirmButton.disabled = true;
+        confirmButton.textContent = "확인 중";
+        try {
+          const result = await boardApi({ type: "boardRead", id: post.id, password });
+          appendPrivatePostView(article, post, result, password);
+        } catch (error) {
+          message.textContent = error?.message || "게시글을 확인하지 못했습니다.";
+          confirmButton.disabled = false;
+          confirmButton.textContent = "확인";
+        }
+      });
+    }
+
     function renderBoardPosts() {
       if (!boardPostList) return;
       boardPostList.replaceChildren();
@@ -2845,48 +3288,62 @@
         empty.className = "board-empty";
         empty.textContent = "접수된 게시글이 없습니다.";
         boardPostList.append(empty);
+        renderBoardPagination(1);
         return;
       }
 
-      const dateFormatter = new Intl.DateTimeFormat("ko-KR", {
+      const totalPages = Math.ceil(sortedPosts.length / boardPageSize);
+      boardCurrentPage = Math.min(Math.max(boardCurrentPage, 1), totalPages);
+      const pageStart = (boardCurrentPage - 1) * boardPageSize;
+      const pagePosts = sortedPosts.slice(pageStart, pageStart + boardPageSize);
+      const timeFormatter = new Intl.DateTimeFormat("ko-KR", {
         month: "2-digit",
         day: "2-digit",
         hour: "2-digit",
         minute: "2-digit"
       });
 
-      sortedPosts.forEach((post) => {
+      pagePosts.forEach((post) => {
         const article = document.createElement("article");
         article.className = "board-post";
-
-        const head = document.createElement("div");
-        head.className = "board-post-head";
-        const title = document.createElement("h3");
-        title.className = "board-post-title";
-        title.textContent = post.title;
-        const meta = document.createElement("span");
-        meta.className = "board-post-meta";
-        meta.textContent = `${post.author} · ${dateFormatter.format(new Date(post.createdAt))}`;
-        head.append(title, meta);
-
-        const content = document.createElement("p");
-        content.className = "board-post-content";
-        content.textContent = post.content;
-        article.append(head, content);
+        const openButton = document.createElement("button");
+        openButton.className = "board-post-open";
+        openButton.type = "button";
+        openButton.setAttribute("aria-label", `${post.author} 게시글 확인`);
+        const authorWrap = document.createElement("span");
+        authorWrap.className = "board-post-author-wrap";
+        authorWrap.append(createBoardLockIcon());
+        const author = document.createElement("span");
+        author.className = "board-post-author";
+        author.textContent = post.author;
+        authorWrap.append(author);
+        const time = document.createElement("time");
+        time.className = "board-post-time";
+        time.dateTime = new Date(post.createdAt).toISOString();
+        time.textContent = timeFormatter.format(new Date(post.createdAt));
+        const side = document.createElement("span");
+        side.className = "board-post-side";
+        const status = document.createElement("span");
+        status.className = "board-status";
+        side.append(status, time);
+        openButton.append(authorWrap, side);
+        openButton.addEventListener("click", () => openBoardPost(article, post));
+        article.append(openButton);
+        setBoardStatusBadge(article, post.status);
         boardPostList.append(article);
       });
+      renderBoardPagination(totalPages);
     }
 
     boardForm?.addEventListener("input", (event) => {
       event.target?.classList?.remove("is-invalid");
     });
 
-    boardForm?.addEventListener("submit", (event) => {
+    boardForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
       const password = document.getElementById("boardPassword");
-      const title = document.getElementById("boardTitle");
       const content = document.getElementById("boardContent");
-      const invalidField = [password, title, content].find((field) => {
+      const invalidField = [password, content].find((field) => {
         const value = field?.value.trim() || "";
         return !value || (field === password && value.length < 4);
       });
@@ -2897,27 +3354,30 @@
         return;
       }
 
-      boardPosts.unshift({
-        id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-        author: boardAuthor.value,
-        title: title.value.trim(),
-        content: content.value.trim(),
-        createdAt: Date.now()
-      });
-      saveBoardPosts();
-      renderBoardPosts();
-      boardForm.reset();
-      setNextBoardAuthor();
-
       const submitButton = boardForm.querySelector(".board-submit-btn");
-      submitButton.textContent = "접수 완료";
-      window.setTimeout(() => {
+      submitButton.disabled = true;
+      submitButton.textContent = "접수 중";
+      try {
+        await boardApi({
+          type: "boardCreate",
+          author: boardAuthor.value,
+          password: password.value,
+          content: content.value.trim()
+        });
+        boardForm.reset();
+        setNextBoardAuthor();
+        await loadBoardPosts();
+        submitButton.textContent = "접수 완료";
+      } catch (error) {
+        alert(error?.message || "게시글을 접수하지 못했습니다.");
         submitButton.textContent = "접수하기";
-      }, 1200);
+      } finally {
+        submitButton.disabled = false;
+      }
     });
 
     setNextBoardAuthor();
-    renderBoardPosts();
+    loadBoardPosts();
 
     function setGenderModal(open) {
       genderModal.hidden = !open;
@@ -2962,7 +3422,7 @@
       pages.forEach((page) => page.classList.toggle("is-active", page.dataset.page === pageName));
       document.querySelectorAll("[data-page-link]").forEach((link) => {
         const linkPage = link.dataset.pageLink;
-        const isGuidePage = linkPage === "process" && pageName === "refund";
+        const isGuidePage = linkPage === "schedule" && ["process", "discount", "refund"].includes(pageName);
         const isReviewPage = linkPage === "reviews" && pageName === "episodes";
         link.classList.toggle("is-active", linkPage === pageName || isGuidePage || isReviewPage);
       });
@@ -3476,7 +3936,7 @@
 
     const initial = location.hash.replace("#", "");
     renderDetail(events[0]);
-    if (["home", "support", "process", "refund", "reviews", "location", "staff", "episodes", "board", "event-detail"].includes(initial)) {
+    if (["home", "support", "schedule", "process", "discount", "refund", "reviews", "location", "staff", "episodes", "board", "event-detail"].includes(initial)) {
       setPage(initial, false);
     }
 
