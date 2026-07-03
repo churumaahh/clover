@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>관리자 로그인 | cLOVEr</title>
+  <link rel="icon" type="image/png" href="../../assets/clover-logo-v2.png">
+  <style>
+    :root { --green:#00e83b; --ink:#121218; --muted:#6d7280; --line:#e3e5ea; --danger:#d92d20; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100svh; display:grid; place-items:center; padding:1.25rem; color:var(--ink); background:#eef0f4; font-family:Pretendard,"Noto Sans KR",system-ui,-apple-system,"Segoe UI",sans-serif; }
+    .login-shell { width:min(100%,27rem); overflow:hidden; border:1px solid rgba(18,18,24,.07); border-radius:1.25rem; background:#fff; box-shadow:0 1.25rem 3.5rem rgba(18,18,24,.10); }
+    .brand-bar { height:4.5rem; display:flex; align-items:center; gap:.65rem; padding:0 1.35rem; background:var(--green); }
+    .brand-bar img { width:2.35rem; height:2.35rem; object-fit:contain; }
+    .brand-name { font-size:1.3rem; font-weight:950; letter-spacing:.02em; }
+    main { padding:2rem 1.5rem 1.65rem; }
+    .eyebrow { margin:0 0 .5rem; color:#07862b; font-size:.76rem; font-weight:900; letter-spacing:.13em; }
+    h1 { margin:0; font-size:1.65rem; letter-spacing:-.045em; }
+    .description { margin:.65rem 0 1.75rem; color:var(--muted); font-size:.93rem; line-height:1.55; }
+    label { display:block; margin-bottom:.55rem; font-size:.9rem; font-weight:850; }
+    .password-wrap { position:relative; }
+    input { width:100%; height:3.35rem; padding:0 3.2rem 0 1rem; border:1px solid var(--line); border-radius:.75rem; outline:none; font-size:1rem; transition:.18s; }
+    input:focus { border-color:#04b835; box-shadow:0 0 0 .22rem rgba(0,232,59,.13); }
+    .toggle { position:absolute; top:50%; right:.55rem; transform:translateY(-50%); padding:.55rem; border:0; color:#5d6472; background:transparent; font-size:.8rem; font-weight:850; cursor:pointer; }
+    .submit { width:100%; height:3.35rem; margin-top:1rem; border:0; border-radius:.75rem; color:#09120c; background:var(--green); font-size:1rem; font-weight:950; cursor:pointer; transition:.18s; }
+    .submit:hover { filter:brightness(.96); transform:translateY(-1px); }
+    .submit:disabled { opacity:.58; cursor:wait; transform:none; }
+    .message { min-height:1.35rem; margin:.7rem 0 0; color:var(--danger); font-size:.84rem; font-weight:750; }
+    .message.success { color:#07862b; }
+    .back { display:flex; justify-content:center; align-items:center; gap:.35rem; margin-top:.5rem; padding:.8rem; color:#747986; font-size:.84rem; font-weight:750; text-decoration:none; }
+    @media (max-width:30rem) { body { padding:0; background:#fff; } .login-shell { min-height:100svh; border:0; border-radius:0; box-shadow:none; } main { padding-top:2.35rem; } }
+  </style>
+</head>
+<body>
+  <section class="login-shell" aria-labelledby="loginTitle">
+    <header class="brand-bar">
+      <img src="../../assets/clover-logo-v2.png" alt="">
+      <span class="brand-name">cLOVEr</span>
+    </header>
+    <main>
+      <p class="eyebrow">ADMIN</p>
+      <h1 id="loginTitle">관리자 로그인</h1>
+      <p class="description">관리자 전용 페이지입니다.<br>발급된 비밀번호를 입력해 주세요.</p>
+      <form id="loginForm" novalidate>
+        <label for="password">관리자 비밀번호</label>
+        <div class="password-wrap">
+          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="비밀번호 입력" required autofocus>
+          <button class="toggle" id="togglePassword" type="button" aria-label="비밀번호 표시">보기</button>
+        </div>
+        <button class="submit" id="submitButton" type="submit">로그인</button>
+        <p class="message" id="message" role="status" aria-live="polite"></p>
+      </form>
+      <a class="back" href="../../">← 사이트로 돌아가기</a>
+    </main>
+  </section>
+  <script>
+    const form = document.querySelector("#loginForm");
+    const password = document.querySelector("#password");
+    const submitButton = document.querySelector("#submitButton");
+    const message = document.querySelector("#message");
+    document.querySelector("#togglePassword").addEventListener("click", (event) => {
+      const visible = password.type === "text";
+      password.type = visible ? "password" : "text";
+      event.currentTarget.textContent = visible ? "보기" : "숨김";
+      event.currentTarget.setAttribute("aria-label", visible ? "비밀번호 표시" : "비밀번호 숨기기");
+    });
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      message.className = "message";
+      if (!password.value) { message.textContent = "비밀번호를 입력해 주세요."; password.focus(); return; }
+      if (password.value !== "1111") {
+        message.textContent = "비밀번호가 일치하지 않습니다.";
+        password.select();
+        return;
+      }
+      sessionStorage.setItem("cloverAdminAuthenticated", "true");
+      window.location.href = "../admin/index.html";
+    });
+  </script>
+</body>
+</html>

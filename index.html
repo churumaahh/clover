@@ -2780,7 +2780,7 @@
     const iconPin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw8PhPKbtKSTQnoyCEp--ha4nfOaEUVuTM8sBcck6v4rkbadkT8TqIFwzM2GFyv-pYb/exec";
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxjpOkgQ-V2AvF4jv7COpyDHi0x2ar3Sg5AkVISrcHNsl8bPUR0P8Ah8McS1yYPhrQR/exec";
     let selectedEvent = events[0];
 
     function eventTemplate(event) {
@@ -3540,7 +3540,7 @@
         const image = new Image();
         const objectUrl = URL.createObjectURL(file);
         image.onload = () => {
-          const maxEdge = 1280;
+          const maxEdge = 960;
           const scale = Math.min(1, maxEdge / Math.max(image.naturalWidth, image.naturalHeight));
           const canvas = document.createElement("canvas");
           canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
@@ -3555,7 +3555,7 @@
             }
             const baseName = file.name.replace(/\.[^.]+$/, "") || "image";
             resolve(new File([blob], `${baseName}.jpg`, { type: "image/jpeg" }));
-          }, "image/jpeg", 0.82);
+          }, "image/jpeg", 0.72);
         };
         image.onerror = () => {
           URL.revokeObjectURL(objectUrl);
@@ -3632,10 +3632,12 @@
       button.textContent = "파일 준비 중";
 
       try {
-        const documentFile = await fileToPayload(selectedDocumentFile);
-        const photoFiles = await Promise.all(
-          selectedPhotoFiles.map(({ file }) => fileToPayload(file))
-        );
+        const preparedFiles = await Promise.all([
+          fileToPayload(selectedDocumentFile),
+          ...selectedPhotoFiles.map(({ file }) => fileToPayload(file))
+        ]);
+        const documentFile = preparedFiles[0];
+        const photoFiles = preparedFiles.slice(1);
         const payload = {
           submittedAt: new Date().toISOString(),
           eventTitle: `[${selectedApplyGender} 신청] [${selectedEvent.station}] ${selectedEvent.title}`,
@@ -3666,7 +3668,7 @@
         };
 
         button.classList.add("is-loading");
-        button.textContent = "접수 중";
+        button.textContent = "전송 중";
         const response = await fetch(GOOGLE_SCRIPT_URL, {
           method: "POST",
           headers: {
