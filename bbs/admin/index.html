@@ -37,7 +37,7 @@
   </div>
 </div>
 <script>
-  if (sessionStorage.getItem("cloverAdminAuthenticated") !== "true") window.location.replace("../login/index.html");
+  if (sessionStorage.getItem("cloverAdminAuthenticated") !== "true") window.location.replace("/bbs/login");
   const API="https://script.google.com/macros/s/AKfycbxjpOkgQ-V2AvF4jv7COpyDHi0x2ar3Sg5AkVISrcHNsl8bPUR0P8Ah8McS1yYPhrQR/exec";
   const state={applications:[],boardPosts:[],panel:"applications",query:""};
   const $=selector=>document.querySelector(selector);
@@ -52,7 +52,7 @@
   async function loadData(){$("#refreshButton").disabled=true;try{const result=await post({type:"adminDashboard"});state.applications=result.applications||[];state.boardPosts=result.boardPosts||[];updateStats();renderApplications();renderBoard()}catch(error){const html=`<div class="empty">${escapeHtml(error.message)}<br><small>Apps Script를 새 버전으로 배포했는지 확인해 주세요.</small></div>`;$("#applicationsPanel").innerHTML=html;$("#boardPanel").innerHTML=html}finally{$("#refreshButton").disabled=false}}
   document.addEventListener("click",async event=>{const nav=event.target.closest(".nav-button");if(nav){state.panel=nav.dataset.panel;document.querySelectorAll(".nav-button,.panel").forEach(el=>el.classList.remove("active"));nav.classList.add("active");$(`#${state.panel}Panel`).classList.add("active");$("#pageTitle").textContent=state.panel==="applications"?"신청 접수":"게시판 접수";$("#pageDescription").textContent=state.panel==="applications"?"소개팅 신청 내역을 확인합니다.":"익명 게시판 문의와 답변을 관리합니다.";return}const detail=event.target.closest(".detail-button");if(detail){const card=detail.closest(".card");card.classList.toggle("open");detail.textContent=card.classList.contains("open")?"상세 정보 닫기":"상세 정보 보기";return}const save=event.target.closest(".save");if(save){const card=save.closest("[data-id]");const reply=card.querySelector("textarea").value.trim();const msg=card.querySelector(".reply-message");if(!reply){msg.textContent="답변을 입력해 주세요.";return}save.disabled=true;try{await post({type:"boardReply",id:card.dataset.id,adminPassword:"1111",reply});msg.textContent="저장되었습니다.";const item=state.boardPosts.find(post=>post.id===card.dataset.id);item.reply=reply;item.status="완료";updateStats();renderBoard()}catch(error){msg.textContent=error.message;save.disabled=false}}});
   document.addEventListener("error",event=>{const image=event.target;if(!image.matches?.(".photo-preview img"))return;const empty=document.createElement("div");empty.className="photo-empty";empty.textContent="사진 미리보기를 불러올 수 없습니다.";image.replaceWith(empty)},true);
-  $("#searchInput").addEventListener("input",event=>{state.query=event.target.value.trim();renderApplications();renderBoard()});$("#refreshButton").addEventListener("click",loadData);$("#logoutButton").addEventListener("click",()=>{sessionStorage.removeItem("cloverAdminAuthenticated");location.href="../login/index.html"});$("#homeButton").addEventListener("click",()=>location.href="../../index.html");loadData();
+  $("#searchInput").addEventListener("input",event=>{state.query=event.target.value.trim();renderApplications();renderBoard()});$("#refreshButton").addEventListener("click",loadData);$("#logoutButton").addEventListener("click",()=>{sessionStorage.removeItem("cloverAdminAuthenticated");location.href="/bbs/login"});$("#homeButton").addEventListener("click",()=>location.href="/");loadData();
 </script>
 </body>
 </html>
