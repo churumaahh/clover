@@ -902,7 +902,8 @@
     .form-intro {
       display: grid;
       gap: 0.35rem;
-      padding: 0 0.25rem;
+      padding: 0 0.25rem 0 0.75rem;
+      border-left: 0.25rem solid #1688f8;
     }
 
     .form-intro h2 {
@@ -917,6 +918,138 @@
       font-size: 0.8rem;
       line-height: 1.55;
       word-break: keep-all;
+    }
+
+    .schedule-section {
+      --schedule-color: #1688f8;
+      --schedule-soft: #eef7ff;
+      --schedule-border: #9dceff;
+    }
+
+    [data-detail-root][data-gender="여성"] .schedule-section {
+      --schedule-color: #ff7068;
+      --schedule-soft: #fff2f1;
+      --schedule-border: #ffc0bc;
+    }
+
+    .schedule-heading {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.95rem;
+      font-weight: 950;
+    }
+
+    .schedule-description {
+      margin: -0.2rem 0 0;
+      color: var(--muted);
+      font-size: 0.76rem;
+      line-height: 1.55;
+    }
+
+    .application-calendar {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.65rem;
+    }
+
+    .application-month {
+      padding: 0.7rem 0.55rem 0.8rem;
+      border: 1px solid var(--line);
+      border-radius: 0.9rem;
+      background: #fff;
+    }
+
+    .application-month h4 {
+      margin: 0 0 0.65rem;
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 950;
+    }
+
+    .application-week,
+    .application-days {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 0.18rem;
+      text-align: center;
+    }
+
+    .application-week {
+      margin-bottom: 0.3rem;
+      color: #8c94a2;
+      font-size: 0.62rem;
+      font-weight: 850;
+    }
+
+    .application-day {
+      position: relative;
+      min-width: 0;
+      height: 2.9rem;
+      padding: 0;
+      border: 0;
+      border-radius: 0.55rem;
+      color: #a4abb7;
+      background: transparent;
+      font-size: 0.68rem;
+      font-weight: 850;
+    }
+
+    .application-day.is-available {
+      border: 1px solid var(--schedule-border);
+      color: var(--schedule-color);
+      background: var(--schedule-soft);
+      cursor: pointer;
+    }
+
+    .application-day.is-selected {
+      border-color: var(--schedule-color);
+      color: #fff;
+      background: var(--schedule-color);
+      box-shadow: 0 0.25rem 0.7rem color-mix(in srgb, var(--schedule-color) 25%, transparent);
+    }
+
+    .application-day.is-today::before {
+      content: "";
+      position: absolute;
+      top: 0.18rem;
+      left: 50%;
+      width: 0.28rem;
+      height: 0.28rem;
+      border-radius: 50%;
+      background: #ff2f2f;
+      transform: translateX(-50%);
+    }
+
+    .application-day b,
+    .application-day small {
+      display: block;
+      line-height: 1.15;
+    }
+
+    .application-day small {
+      margin-top: 0.15rem;
+      font-size: 0.58rem;
+    }
+
+    .selected-schedule {
+      padding: 0.65rem;
+      border-radius: 0.65rem;
+      color: var(--schedule-color);
+      background: var(--schedule-soft);
+      text-align: center;
+      font-size: 0.74rem;
+      font-weight: 900;
+    }
+
+    .selected-schedule:empty { display: none; }
+
+    @media (max-width: 30rem) {
+      .application-calendar { gap: 0.45rem; }
+      .application-month { padding-inline: 0.35rem; }
+      .application-day { height: 2.65rem; }
     }
 
     .form-section {
@@ -2322,7 +2455,7 @@
             <div class="calendar-days">
               <span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
               <span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span>
-              <span>28</span><button class="calendar-day has-event is-today" type="button" data-event-date="06. 29.">29</button><span>30</span><span class="calendar-empty"></span><span class="calendar-empty"></span><span class="calendar-empty"></span><span class="calendar-empty"></span>
+              <span>28</span><button class="calendar-day has-event" type="button" data-event-date="06. 29.">29</button><span>30</span><span class="calendar-empty"></span><span class="calendar-empty"></span><span class="calendar-empty"></span><span class="calendar-empty"></span>
               <strong class="calendar-month-label">7월</strong>
               <div class="calendar-month-week" aria-hidden="true"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div>
               <span class="calendar-empty"></span><span class="calendar-empty"></span><span class="calendar-empty"></span><span>1</span><span>2</span><span>3</span><button class="calendar-day has-event" type="button" data-event-date="07. 04.">4</button>
@@ -2780,7 +2913,7 @@
     const iconPin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzx0wV9Aw9pgGy2MBEG5tmq3OwKUC-GIKYYMbh-WivSRQg09WzWixPidsKtZmqxKMSN/exec";
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby415TEDugIZ_cG-wMAOZ4LnlnUrn0SeDoMOaYDi-53eGTEg_T-z1P1hIZmD5p9aNdt/exec";
     let selectedEvent = events[0];
 
     function eventTemplate(event) {
@@ -2817,11 +2950,57 @@
       homeEventList.innerHTML = items.map(eventTemplate).join("");
     }
 
+    function markTodayInCalendar() {
+      const parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Seoul",
+        month: "2-digit",
+        day: "2-digit"
+      }).formatToParts(new Date());
+      const month = parts.find((part) => part.type === "month")?.value;
+      const day = parts.find((part) => part.type === "day")?.value;
+      const todayKey = `${month}. ${day}.`;
+
+      document.querySelectorAll("[data-event-date]").forEach((dateButton) => {
+        dateButton.classList.toggle("is-today", dateButton.dataset.eventDate === todayKey);
+      });
+    }
+
+    markTodayInCalendar();
     renderEventList();
     const detailRoot = document.querySelector("[data-detail-root]");
 
+    const applicationSchedules = {
+      "2026-07-10": "오후 7시", "2026-07-12": "오후 1시", "2026-07-18": "오후 1시",
+      "2026-07-19": "오후 1시", "2026-07-25": "오후 4시", "2026-07-26": "오후 4시",
+      "2026-07-31": "오후 7시", "2026-08-01": "오후 7시", "2026-08-08": "오후 4시",
+      "2026-08-12": "오후 4시", "2026-08-15": "오후 7시", "2026-08-16": "오후 7시",
+      "2026-08-21": "오후 7시", "2026-08-23": "오후 7시"
+    };
+
+    function applicationMonthTemplate(year, month) {
+      const firstDay = new Date(year, month - 1, 1).getDay();
+      const lastDate = new Date(year, month, 0).getDate();
+      const todayParts = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Seoul", year: "numeric", month: "2-digit", day: "2-digit"
+      }).formatToParts(new Date());
+      const todayPart = (type) => todayParts.find((part) => part.type === type)?.value;
+      const today = `${todayPart("year")}-${todayPart("month")}-${todayPart("day")}`;
+      const cells = Array.from({ length: firstDay }, () => '<span aria-hidden="true"></span>');
+
+      for (let day = 1; day <= lastDate; day += 1) {
+        const iso = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+        const schedule = applicationSchedules[iso];
+        const classes = ["application-day", schedule ? "is-available" : "", iso === today ? "is-today" : ""]
+          .filter(Boolean).join(" ");
+        cells.push(`<button class="${classes}" type="button" ${schedule ? `data-application-date="${iso}" data-application-time="${schedule}"` : "disabled"}><b>${day}</b>${schedule ? `<small>${schedule.replace("오후 ", "")}</small>` : ""}</button>`);
+      }
+
+      return `<section class="application-month"><h4>${year}년 ${month}월</h4><div class="application-week" aria-hidden="true"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div><div class="application-days">${cells.join("")}</div></section>`;
+    }
+
     function renderDetail(event) {
       selectedEvent = event;
+      selectedScheduleDate = "";
       selectedDocumentFile = null;
       selectedPhotoFiles = [];
       const applicationGender = selectedApplyGender || "";
@@ -2872,6 +3051,16 @@
             <h2>${applicationGender ? `${applicationGender} 신청서 양식` : "신청서 양식"}</h2>
             <p>현재 기준으로 아래 양식을 작성해 주시길 바랍니다.</p>
           </div>
+
+          <section class="form-section schedule-section">
+            <div class="schedule-heading">참여 일정 <span class="req">*</span></div>
+            <p class="schedule-description">오늘부터 8주 이내의 일정입니다. 색상으로 표시된 날짜 중 참여할 시간을 선택해 주세요.</p>
+            <div class="application-calendar">
+              ${applicationMonthTemplate(2026, 7)}
+              ${applicationMonthTemplate(2026, 8)}
+            </div>
+            <div class="selected-schedule" data-selected-schedule></div>
+          </section>
 
           <section class="form-section">
             <h3>기본 정보</h3>
@@ -3038,6 +3227,7 @@
     let pendingEventIndex = 0;
     let selectedApplyGender = "";
     let selectedApplyPrice = "";
+    let selectedScheduleDate = "";
     let selectedDocumentFile = null;
     let selectedPhotoFiles = [];
     let selectedFileSequence = 0;
@@ -3355,21 +3545,30 @@
       }
 
       const submitButton = boardForm.querySelector(".board-submit-btn");
+      const submittedAuthor = boardAuthor.value;
+      const submittedContent = content.value.trim();
       submitButton.disabled = true;
       submitButton.textContent = "접수 중";
       try {
         const result = await boardApi({
           type: "boardCreate",
-          author: boardAuthor.value,
+          author: submittedAuthor,
           password: password.value,
-          content: content.value.trim()
+          content: submittedContent
         });
+        const createdPost = result.post || {
+          id: result.id || `local-${Date.now()}`,
+          author: result.author || submittedAuthor,
+          createdAt: result.createdAt || Date.now(),
+          status: result.status || "접수"
+        };
         boardForm.reset();
         setNextBoardAuthor();
-        boardPosts.unshift(result.post);
+        boardPosts.unshift(createdPost);
         boardCurrentPage = 1;
         renderBoardPosts();
         submitButton.textContent = "접수 완료";
+        loadBoardPosts();
       } catch (error) {
         alert(error?.message || "게시글을 접수하지 못했습니다.");
         submitButton.textContent = "접수하기";
@@ -3582,6 +3781,12 @@
     }
 
     async function submitApplication(button) {
+      if (!selectedScheduleDate) {
+        alert("참여 일정을 선택해 주세요.");
+        document.querySelector(".schedule-section")?.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+
       const required = [
         ["#applyName", "이름"],
         ["#applyPhone", "연락처"],
@@ -3645,7 +3850,7 @@
           eventTitle: `[${selectedApplyGender} 신청] [${selectedEvent.station}] ${selectedEvent.title}`,
           applicationType: `${selectedApplyGender} 신청`,
           gender: selectedApplyGender,
-          eventDate: selectedEvent.date,
+          eventDate: selectedScheduleDate,
           eventPlace: selectedEvent.place,
           eventPrice: selectedApplyPrice,
           name: inputValue("#applyName"),
@@ -3728,7 +3933,7 @@
         event.preventDefault();
         event.stopPropagation();
         selectedApplyGender = genderChoice.dataset.genderChoice;
-        selectedApplyPrice = selectedApplyGender === "남성" ? "30,000원" : "20,000원";
+        selectedApplyPrice = selectedApplyGender === "남성" ? "50,000원" : "30,000원";
         const eventData = events[pendingEventIndex] || events[0];
         setGenderModal(false);
         renderDetail(eventData);
@@ -3872,6 +4077,26 @@
         event.preventDefault();
         event.stopPropagation();
         submitApplication(submitTarget);
+        return;
+      }
+
+      const applicationDateTarget = closestFrom(event.target, "[data-application-date]");
+      if (applicationDateTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        const isSelected = applicationDateTarget.classList.contains("is-selected");
+        document.querySelectorAll("[data-application-date]").forEach((button) => button.classList.remove("is-selected"));
+        const selectedLabel = document.querySelector("[data-selected-schedule]");
+
+        if (isSelected) {
+          selectedScheduleDate = "";
+          if (selectedLabel) selectedLabel.textContent = "";
+        } else {
+          const [year, month, day] = applicationDateTarget.dataset.applicationDate.split("-");
+          selectedScheduleDate = `${year}년 ${Number(month)}월 ${Number(day)}일 ${applicationDateTarget.dataset.applicationTime}`;
+          applicationDateTarget.classList.add("is-selected");
+          if (selectedLabel) selectedLabel.textContent = `선택 일정: ${selectedScheduleDate}`;
+        }
         return;
       }
 
