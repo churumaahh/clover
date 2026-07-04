@@ -56,7 +56,7 @@
   </section>
   <script src="../../config.js"></script>
   <script>
-    const API = window.CLOVER_CONFIG.appsScriptUrl;
+    const API = window.CLOVER_CONFIG?.appsScriptUrl || "https://script.google.com/macros/s/AKfycby415TEDugIZ_cG-wMAOZ4LnlnUrn0SeDoMOaYDi-53eGTEg_T-z1P1hIZmD5p9aNdt/exec";
     const form = document.querySelector("#loginForm");
     const password = document.querySelector("#password");
     const submitButton = document.querySelector("#submitButton");
