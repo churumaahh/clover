@@ -2271,7 +2271,7 @@
     </header>
 
     <section class="page is-active" id="page-home" data-page="home">
-      <div class="hero" aria-label="주요 배너">
+      <div class="hero" id="heroBanner" aria-label="주요 배너">
         <article class="hero-slide is-active" style="--hero-image: url('assets/hero-1.jfif')">
           <div class="hero-content">
             <h1>가입, 로그인 X</h1>
@@ -2780,7 +2780,7 @@
     const iconPin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxjpOkgQ-V2AvF4jv7COpyDHi0x2ar3Sg5AkVISrcHNsl8bPUR0P8Ah8McS1yYPhrQR/exec";
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwOgc4iJEF5_HzqjST_n6Qgd1_WxDydzwDe66q86VrS8XmoLK1ZiPsb2ZR-2e-C5H0i/exec";
     let selectedEvent = events[0];
 
     function eventTemplate(event) {
@@ -3942,14 +3942,75 @@
       setPage(initial, false);
     }
 
-    const slides = document.querySelectorAll(".hero-slide");
-    const dots = document.querySelectorAll(".hero-dot");
-    let activeSlide = 0;
-    setInterval(() => {
-      activeSlide = (activeSlide + 1) % slides.length;
-      slides.forEach((slide, index) => slide.classList.toggle("is-active", index === activeSlide));
-      dots.forEach((dot, index) => dot.classList.toggle("is-active", index === activeSlide));
-    }, 3800);
+    let heroRotationTimer = null;
+
+    function startHeroRotation() {
+      window.clearInterval(heroRotationTimer);
+      const slides = document.querySelectorAll(".hero-slide");
+      const dots = document.querySelectorAll(".hero-dot");
+      if (!slides.length) return;
+      let activeSlide = 0;
+      slides.forEach((slide, index) => slide.classList.toggle("is-active", index === 0));
+      dots.forEach((dot, index) => dot.classList.toggle("is-active", index === 0));
+      if (slides.length < 2) return;
+      heroRotationTimer = window.setInterval(() => {
+        activeSlide = (activeSlide + 1) % slides.length;
+        slides.forEach((slide, index) => slide.classList.toggle("is-active", index === activeSlide));
+        dots.forEach((dot, index) => dot.classList.toggle("is-active", index === activeSlide));
+      }, 3800);
+    }
+
+    function renderManagedHeroSlides(slides) {
+      const hero = document.getElementById("heroBanner");
+      if (!hero || !slides.length) return;
+      hero.replaceChildren();
+      slides.forEach((item, index) => {
+        const slide = document.createElement("article");
+        slide.className = `hero-slide${index === 0 ? " is-active" : ""}`;
+        slide.style.setProperty("--hero-image", `url("${String(item.imageUrl).replace(/["\\]/g, "")}")`);
+        if (item.title || item.description) {
+          const content = document.createElement("div");
+          content.className = "hero-content";
+          if (item.title) {
+            const title = document.createElement("h1");
+            title.textContent = item.title;
+            content.append(title);
+          }
+          if (item.description) {
+            const description = document.createElement("p");
+            description.textContent = item.description;
+            content.append(description);
+          }
+          slide.append(content);
+        }
+        hero.append(slide);
+      });
+
+      const dots = document.createElement("div");
+      dots.className = "hero-dots";
+      dots.setAttribute("aria-hidden", "true");
+      slides.forEach((_, index) => {
+        const dot = document.createElement("span");
+        dot.className = `hero-dot${index === 0 ? " is-active" : ""}`;
+        dots.append(dot);
+      });
+      hero.append(dots);
+    }
+
+    async function loadManagedHeroSlides() {
+      try {
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=heroList&t=${Date.now()}`);
+        const result = await response.json();
+        if (response.ok && result.ok && Array.isArray(result.slides) && result.slides.length) {
+          renderManagedHeroSlides(result.slides);
+        }
+      } catch {
+        // Keep the bundled hero slides when the management API is unavailable.
+      }
+      startHeroRotation();
+    }
+
+    loadManagedHeroSlides();
   </script>
 </body>
 </html>
