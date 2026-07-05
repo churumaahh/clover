@@ -220,7 +220,11 @@
     }
 
     .section-tabs.guide-tabs {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .section-tabs.review-tabs {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .section-tab {
@@ -391,6 +395,30 @@
       overflow: hidden;
       border-radius: 0.5rem;
       background: var(--thumb-image) center / cover no-repeat, #d8dce3;
+    }
+
+    .event-location-badge {
+      position: absolute;
+      top: 0.55rem;
+      left: 0.55rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      padding: 0.3rem 0.45rem;
+      border: 1px solid rgba(18, 18, 24, 0.12);
+      border-radius: 0.35rem;
+      color: #121218;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 0.2rem 0.55rem rgba(18, 18, 24, 0.12);
+      font-size: 0.7rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .event-location-badge svg {
+      width: 0.78rem;
+      height: 0.78rem;
+      flex: 0 0 auto;
     }
 
     .badge {
@@ -629,6 +657,9 @@
     }
 
     .join-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       min-width: 4.6rem;
       min-height: 2.2rem;
       padding: 0 0.85rem;
@@ -637,6 +668,7 @@
       background: #00ff40;
       font-size: 0.95rem;
       font-weight: 950;
+      line-height: 1;
       white-space: nowrap;
     }
 
@@ -1034,17 +1066,52 @@
       font-size: 0.58rem;
     }
 
-    .selected-schedule {
-      padding: 0.65rem;
-      border-radius: 0.65rem;
-      color: var(--schedule-color);
-      background: var(--schedule-soft);
-      text-align: center;
-      font-size: 0.74rem;
-      font-weight: 900;
+    .schedule-result {
+      display: grid;
+      gap: 0.55rem;
+      padding-top: 0.15rem;
     }
 
-    .selected-schedule:empty { display: none; }
+    .schedule-result[hidden] { display: none; }
+
+    .schedule-result-section {
+      padding: 0.7rem 0.8rem;
+      border: 1px solid var(--schedule-border);
+      border-radius: 0.65rem;
+      background: var(--schedule-soft);
+    }
+
+    .schedule-result-section h4 {
+      margin: 0 0 0.35rem;
+      color: var(--schedule-color);
+      font-size: 0.72rem;
+      font-weight: 950;
+    }
+
+    .selected-schedule,
+    .confirmed-schedule-list {
+      margin: 0;
+      color: #303743;
+      font-size: 0.74rem;
+      line-height: 1.5;
+      font-weight: 800;
+    }
+
+    .confirmed-schedule-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .confirmed-person {
+      padding: 0.25rem 0.45rem;
+      border: 1px solid var(--schedule-border);
+      border-radius: 999px;
+      color: var(--schedule-color);
+      background: #fff;
+      font-size: 0.68rem;
+      font-weight: 850;
+    }
 
     @media (max-width: 30rem) {
       .application-calendar { gap: 0.45rem; }
@@ -1930,8 +1997,23 @@
     }
 
     .board-submit-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       color: #111;
       background: #00ff40;
+    }
+
+    .board-submit-btn.is-loading::before {
+      content: "";
+      width: 0.9rem;
+      height: 0.9rem;
+      margin-right: 0.5rem;
+      border: 2px solid rgba(0, 0, 0, 0.25);
+      border-top-color: #111;
+      border-radius: 50%;
+      animation: submit-spin 0.7s linear infinite;
+      flex: 0 0 auto;
     }
 
     .board-list-section {
@@ -2029,12 +2111,13 @@
     }
 
     .board-status.is-checked {
-      background: #f59e0b;
+      color: #111;
+      background: #00ff40;
     }
 
     .board-status.is-complete {
-      color: #111;
-      background: #00ff40;
+      color: #fff;
+      background: #f59e0b;
     }
 
     .board-pagination {
@@ -2078,16 +2161,14 @@
     }
 
     .board-access-panel,
-    .board-private-view,
-    .board-reply-form {
+    .board-private-view {
       display: grid;
       gap: 0.65rem;
       padding-top: 0.8rem;
       border-top: 1px solid var(--line);
     }
 
-    .board-access-panel input,
-    .board-reply-form textarea {
+    .board-access-panel input {
       width: 100%;
       min-height: 2.65rem;
       padding: 0.72rem 0.8rem;
@@ -2099,18 +2180,88 @@
       outline: none;
     }
 
-    .board-reply-form textarea {
-      min-height: 6rem;
-      resize: vertical;
+    .board-access-button {
+      min-height: 2.5rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.55rem;
+      color: #111;
+      background: #00ff40;
+      font-weight: 900;
     }
 
-    .board-access-button,
-    .board-reply-button {
+    .board-access-button.is-loading::before {
+      content: "";
+      width: 0.9rem;
+      height: 0.9rem;
+      margin-right: 0.5rem;
+      border: 2px solid rgba(0, 0, 0, 0.25);
+      border-top-color: #111;
+      border-radius: 50%;
+      animation: submit-spin 0.7s linear infinite;
+      flex: 0 0 auto;
+    }
+
+    .board-edit-form {
+      display: grid;
+      gap: 0.55rem;
+      margin-top: 0.35rem;
+    }
+
+    .board-edit-form[hidden] { display: none; }
+
+    .board-private-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .board-edit-toggle {
+      padding: 0.3rem 0.55rem;
+      border: 1px solid var(--line);
+      border-radius: 0.45rem;
+      color: #343943;
+      background: #fff;
+      font-size: 0.7rem;
+      font-weight: 850;
+    }
+
+    .board-edit-form textarea {
+      width: 100%;
+      min-height: 6rem;
+      padding: 0.75rem 0.8rem;
+      border: 1px solid var(--line);
+      border-radius: 0.55rem;
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+      resize: vertical;
+      outline: none;
+    }
+
+    .board-edit-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       min-height: 2.5rem;
       border-radius: 0.55rem;
       color: #111;
       background: #00ff40;
       font-weight: 900;
+    }
+
+    .board-edit-button.is-loading::before {
+      content: "";
+      width: 0.9rem;
+      height: 0.9rem;
+      margin-right: 0.5rem;
+      border: 2px solid rgba(0, 0, 0, 0.25);
+      border-top-color: #111;
+      border-radius: 50%;
+      animation: submit-spin 0.7s linear infinite;
+      flex: 0 0 auto;
     }
 
     .board-access-message {
@@ -2200,7 +2351,7 @@
       right: max(0px, calc((100vw - var(--page-max)) / 2));
       bottom: 0;
       z-index: 31;
-      width: min(82vw, 20rem);
+      width: min(calc(82vw - 20px), 18.75rem);
       display: flex;
       flex-direction: column;
       padding: 1.1rem;
@@ -2345,6 +2496,15 @@
       font-weight: 950;
     }
 
+    .business-summary {
+      margin: 0;
+      color: #3e4450;
+      font-size: 0.72rem;
+      font-weight: 650;
+      line-height: 1.6;
+      word-break: keep-all;
+    }
+
     .business-info {
       display: grid;
       gap: 0.22rem;
@@ -2360,6 +2520,13 @@
     .business-info dt {
       color: #7a808c;
       font-weight: 800;
+    }
+
+    .board-private-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.35rem;
     }
 
     .business-info dd {
@@ -2438,32 +2605,6 @@
             <button class="filter-chip" type="button" disabled aria-disabled="true">사상</button>
             <button class="filter-chip" type="button" disabled aria-disabled="true">광안리</button>
             <button class="filter-chip" type="button" disabled aria-disabled="true">남포</button>
-            <button class="filter-chip calendar-chip" type="button" aria-label="달력 보기" aria-expanded="false" data-calendar-toggle>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M8 2v4M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01" stroke-width="3" stroke-linecap="round"/>
-              </svg>
-            </button>
-          </div>
-          <div class="calendar-popover" data-calendar-popover hidden>
-            <div class="calendar-head">
-              <span>6월</span>
-              <button class="calendar-close" type="button" aria-label="달력 닫기" data-calendar-close>×</button>
-            </div>
-            <div class="calendar-week" aria-hidden="true">
-              <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
-            </div>
-            <div class="calendar-days">
-              <span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
-              <span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span>
-              <span>28</span><button class="calendar-day has-event" type="button" data-event-date="06. 29.">29</button><span>30</span><span class="calendar-empty"></span><span class="calendar-empty"></span><span class="calendar-empty"></span><span class="calendar-empty"></span>
-              <strong class="calendar-month-label">7월</strong>
-              <div class="calendar-month-week" aria-hidden="true"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div>
-              <span class="calendar-empty"></span><span class="calendar-empty"></span><span class="calendar-empty"></span><span>1</span><span>2</span><span>3</span><button class="calendar-day has-event" type="button" data-event-date="07. 04.">4</button>
-              <button class="calendar-day has-event" type="button" data-event-date="07. 05.">5</button><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span>
-              <span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span>
-              <span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span>
-              <span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span class="muted">1</span>
-            </div>
           </div>
           <ul class="event-list" data-event-list="home"></ul>
         </section>
@@ -2478,6 +2619,7 @@
     <section class="page" id="page-schedule" data-page="schedule">
       <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
         <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'schedule')">일정 안내</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'location')">위치 안내</button>
         <button class="section-tab" type="button" onclick="window.goPage(event, 'process')">진행 방식</button>
         <button class="section-tab" type="button" onclick="window.goPage(event, 'discount')">할인 혜택</button>
         <button class="section-tab" type="button" onclick="window.goPage(event, 'refund')">환불 규정</button>
@@ -2494,6 +2636,7 @@
     <section class="page" id="page-process" data-page="process">
       <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
         <button class="section-tab" type="button" onclick="window.goPage(event, 'schedule')">일정 안내</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'location')">위치 안내</button>
         <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'process')">진행 방식</button>
         <button class="section-tab" type="button" onclick="window.goPage(event, 'discount')">할인 혜택</button>
         <button class="section-tab" type="button" onclick="window.goPage(event, 'refund')">환불 규정</button>
@@ -2600,6 +2743,7 @@
     <section class="page" id="page-discount" data-page="discount">
       <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
         <button class="section-tab" type="button" onclick="window.goPage(event, 'schedule')">일정 안내</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'location')">위치 안내</button>
         <button class="section-tab" type="button" onclick="window.goPage(event, 'process')">진행 방식</button>
         <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'discount')">할인 혜택</button>
         <button class="section-tab" type="button" onclick="window.goPage(event, 'refund')">환불 규정</button>
@@ -2616,6 +2760,7 @@
     <section class="page" id="page-refund" data-page="refund">
       <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
         <button class="section-tab" type="button" onclick="window.goPage(event, 'schedule')">일정 안내</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'location')">위치 안내</button>
         <button class="section-tab" type="button" onclick="window.goPage(event, 'process')">진행 방식</button>
         <button class="section-tab" type="button" onclick="window.goPage(event, 'discount')">할인 혜택</button>
         <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'refund')">환불 규정</button>
@@ -2631,9 +2776,10 @@
     </section>
 
     <section class="page" id="page-reviews" data-page="reviews">
-      <nav class="section-tabs" aria-label="후기 메뉴">
+      <nav class="section-tabs review-tabs" aria-label="후기 메뉴">
         <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
         <button class="section-tab" type="button" onclick="window.goPage(event, 'episodes')">에피소드</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'board')">자유 게시판</button>
       </nav>
       <main class="location-page">
         <h1 class="page-title">후기</h1>
@@ -2647,6 +2793,13 @@
     </section>
 
     <section class="page" id="page-location" data-page="location">
+      <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'schedule')">일정 안내</button>
+        <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'location')">위치 안내</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'process')">진행 방식</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'discount')">할인 혜택</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'refund')">환불 규정</button>
+      </nav>
       <main class="location-page">
         <h1 class="page-title">오시는 길</h1>
         <section class="support-card">
@@ -2681,9 +2834,10 @@
     </section>
 
     <section class="page" id="page-episodes" data-page="episodes">
-      <nav class="section-tabs" aria-label="후기 메뉴">
+      <nav class="section-tabs review-tabs" aria-label="후기 메뉴">
         <button class="section-tab" type="button" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
         <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'episodes')">에피소드</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'board')">자유 게시판</button>
       </nav>
       <main class="location-page">
         <h1 class="page-title">후기</h1>
@@ -2695,12 +2849,17 @@
     </section>
 
     <section class="page" id="page-board" data-page="board">
+      <nav class="section-tabs review-tabs" aria-label="후기 메뉴">
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'episodes')">에피소드</button>
+        <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'board')">자유 게시판</button>
+      </nav>
       <main class="location-page">
         <h1 class="page-title">자유 게시판</h1>
         <p class="page-description">본 내용은 어디에도 공개되지 않으며 익명으로 운영됩니다.</p>
         <section class="support-card">
-          <h2>글 작성</h2>
-          <p>불편했던 점, 하지 못한 말, 이상한 사람 또는 이상했던 점 등 자유롭게 작성해주세요. 다른 사람에게 도움이 됩니다.</p>
+          <h2>익명 작성</h2>
+          <p>좋았던 점, 아쉬웠던 점, 불편했던 점, 이상했던 점 등 자유롭게 적어주세요.</p>
           <form class="board-form" id="boardForm" novalidate>
             <div class="board-form-row">
               <div class="field">
@@ -2709,7 +2868,7 @@
               </div>
               <div class="field">
                 <label for="boardPassword">비밀번호</label>
-                <input id="boardPassword" name="password" type="password" minlength="4" maxlength="20" autocomplete="new-password" placeholder="비밀번호를 입력해 주세요." required>
+                <input id="boardPassword" name="password" type="password" minlength="4" maxlength="20" autocomplete="new-password" placeholder="4자리 이상" required>
               </div>
             </div>
             <div class="field">
@@ -2729,28 +2888,8 @@
 
     <div class="bottom-space"></div>
     <footer class="business-footer">
-      <dl class="business-info">
-        <div>
-          <dt>사업자명</dt>
-          <dd>클로버</dd>
-        </div>
-        <div>
-          <dt>대표</dt>
-          <dd>미정</dd>
-        </div>
-        <div>
-          <dt>사업자등록번호</dt>
-          <dd>미정</dd>
-        </div>
-        <div>
-          <dt>주소지</dt>
-          <dd>미정</dd>
-        </div>
-        <div>
-          <dt>전화</dt>
-          <dd>미정</dd>
-        </div>
-      </dl>
+      <h2>클로버</h2>
+      <p class="business-summary">Copyright © 2026 Apple Inc. 모든 권리 보유. · 대표 000 · 사업자등록번호 000000 · 주소 000</p>
     </footer>
   </div>
 
@@ -2783,12 +2922,6 @@
     <div class="drawer-shortcuts">
       <p class="drawer-shortcut-label">바로가기</p>
       <div class="drawer-social-links">
-        <a class="drawer-social-link" href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="유튜브 바로가기" title="유튜브">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect width="24" height="24" rx="5" fill="#ff0033"/>
-            <path d="M9.4 7.8 17 12l-7.6 4.2V7.8Z" fill="#fff"/>
-          </svg>
-        </a>
         <a class="drawer-social-link" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="인스타그램 바로가기" title="인스타그램">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <defs>
@@ -2804,12 +2937,6 @@
             <circle cx="16.6" cy="7.6" r="1" fill="#fff"/>
           </svg>
         </a>
-        <button class="drawer-social-link" type="button" data-page-link="location" onclick="window.goPage(event, 'location')" aria-label="오시는 길" title="오시는 길">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 2.2a7 7 0 0 0-7 7c0 5.2 7 12.6 7 12.6s7-7.4 7-12.6a7 7 0 0 0-7-7Z" fill="#f51b2b"/>
-            <circle cx="12" cy="9.2" r="2.7" fill="#fff"/>
-          </svg>
-        </button>
         <button class="drawer-social-link" type="button" data-page-link="board" onclick="window.goPage(event, 'board')" aria-label="자유 게시판" title="자유 게시판">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M5.5 4h10A3.5 3.5 0 0 1 19 7.5v5a3.5 3.5 0 0 1-3.5 3.5H10l-4.5 3v-3A3.5 3.5 0 0 1 2 12.5v-5A3.5 3.5 0 0 1 5.5 4Z" fill="#00ff40"/>
@@ -2825,12 +2952,12 @@
   </aside>
 
   <script>
-    const events = [
+    let events = [
       {
         station: "21 - 27세",
         title: "직장인 로테이션 소개팅",
         date: "06. 29. (월) 오후 07:30",
-        place: "클로버 라운지 (확정자만 확인 가능)",
+        place: "서면 클로버 라운지 (승인 후 안내)",
         confirmed: "0/6명",
         showCardStatus: false,
         capacity: "6명",
@@ -2839,8 +2966,8 @@
         oldPrice: "50,000원",
         image: "assets/event-1.jfif",
         dday: "",
-        male: "5/5",
-        female: "0/5",
+        male: "6",
+        female: "6",
         showGenderCount: true
       },
       {
@@ -2855,15 +2982,15 @@
         oldPrice: "",
         image: "assets/event-2.jpg",
         dday: "D-3",
-        male: "5/5",
-        female: "5/5",
+        male: "5",
+        female: "5",
         showGenderCount: true
       },
       {
         station: "27 - 36세",
         title: "30대 밸런스 매칭 회차",
         date: "07. 05. (일) 오후 03:00",
-        place: "해운대 스카이라운지 (승인자만 확인 가능)",
+        place: "해운대 클로버 운지 (승인 후 안내)",
         confirmed: "2/14",
         capacity: "14명",
         target: "30대 밸런스 매칭",
@@ -2871,15 +2998,15 @@
         oldPrice: "",
         image: "assets/event-3.jpg",
         dday: "D-4",
-        male: "7/7",
-        female: "7/7",
+        male: "7",
+        female: "7",
         showGenderCount: true
       },
       {
         station: "30 - 37세",
         title: "직장인 로테이션 소개팅",
         date: "06. 29. (월) 오후 07:30",
-        place: "클로버 라운지 (확정자만 확인 가능)",
+        place: "서면 클로버 라운지 (승인 후 안내)",
         confirmed: "4/12",
         capacity: "12명",
         target: "부산 직장인 남녀",
@@ -2887,8 +3014,8 @@
         oldPrice: "50,000원",
         image: "assets/event-1.jfif",
         dday: "",
-        male: "6/6",
-        female: "6/6",
+        male: "6",
+        female: "6",
         showGenderCount: true
       },
       {
@@ -2903,8 +3030,8 @@
         oldPrice: "",
         image: "assets/event-2.jpg",
         dday: "D-3",
-        male: "5/5",
-        female: "5/5",
+        male: "5",
+        female: "5",
         showGenderCount: true
       }
     ];
@@ -2913,16 +3040,24 @@
     const iconPin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby415TEDugIZ_cG-wMAOZ4LnlnUrn0SeDoMOaYDi-53eGTEg_T-z1P1hIZmD5p9aNdt/exec";
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwIsoZCY7M-Kra0nekBioLvQF_bibB05xjQ7AOOGMPHH3Bbcqo2E0UJNiyk8TKkP4ut/exec";
     let selectedEvent = events[0];
 
     function eventTemplate(event) {
       const index = events.indexOf(event);
+      const locationName = event.place.includes("서면")
+        ? "서면"
+        : event.place.includes("광안리")
+          ? "광안리"
+          : event.place.includes("해운대")
+            ? "해운대"
+            : "부산";
 
       return `
         <li>
           <article class="event-card${event.showGenderCount ? " has-gender-count" : ""}">
             <div class="event-thumb" style="--thumb-image: url('${event.image}')">
+              <span class="event-location-badge">${iconPin}<b>${locationName}</b></span>
             </div>
             <div class="event-body">
               <div>
@@ -2930,7 +3065,7 @@
                   <h3 class="event-title"><span>[${event.station}]</span> ${event.title}</h3>
                 </div>
                 <div class="event-meta">
-                  <div class="meta-line">${event.showGenderCount ? `<div class="gender event-gender-count"><span class="m"><i class="count-content">${iconMale}<b class="count-value">${event.male}</b></i></span><span class="f"><i class="count-content">${iconFemale}<b class="count-value">${event.female}</b></i></span></div>` : ""}${iconCalendar}<span>${event.date}</span></div>
+                  <div class="meta-line">${event.showGenderCount ? `<div class="gender event-gender-count"><span class="m"><i class="count-content">${iconMale}<b class="count-value">${event.male}</b></i></span><span class="f"><i class="count-content">${iconFemale}<b class="count-value">${event.female}</b></i></span></div>` : ""}${iconPin}<span>${event.place}</span></div>
                 </div>
               </div>
               <div class="event-foot">
@@ -2976,6 +3111,16 @@
       "2026-08-12": "오후 4시", "2026-08-15": "오후 7시", "2026-08-16": "오후 7시",
       "2026-08-21": "오후 7시", "2026-08-23": "오후 7시"
     };
+    const confirmedParticipantsBySchedule = {};
+
+    function renderConfirmedParticipants(scheduleKey) {
+      const target = document.querySelector("[data-confirmed-schedule-list]");
+      if (!target) return;
+      const participants = confirmedParticipantsBySchedule[scheduleKey] || [];
+      target.innerHTML = participants.length
+        ? participants.map((name) => `<span class="confirmed-person">${name}</span>`).join("")
+        : "확정자가 없습니다.";
+    }
 
     function applicationMonthTemplate(year, month) {
       const firstDay = new Date(year, month - 1, 1).getDay();
@@ -3033,12 +3178,12 @@
             <dd>${event.capacity}</dd>
           </div>
           <div class="detail-info">
-            <dt>대상</dt>
-            <dd>${applicationGender === "남성" ? "남자" : applicationGender === "여성" ? "여자" : event.target}</dd>
+            <dt>연령대</dt>
+            <dd>[${event.station}]</dd>
           </div>
           <div class="detail-info">
-            <dt>확정 현황</dt>
-            <dd>${event.confirmed}</dd>
+            <dt>대상</dt>
+            <dd>${applicationGender || event.target}</dd>
           </div>
           <div class="detail-info">
             <dt>진행 방식</dt>
@@ -3059,7 +3204,16 @@
               ${applicationMonthTemplate(2026, 7)}
               ${applicationMonthTemplate(2026, 8)}
             </div>
-            <div class="selected-schedule" data-selected-schedule></div>
+            <div class="schedule-result" data-schedule-result hidden>
+              <section class="schedule-result-section">
+                <h4>선택 일정</h4>
+                <p class="selected-schedule" data-selected-schedule></p>
+              </section>
+              <section class="schedule-result-section">
+                <h4>확정자 목록</h4>
+                <div class="confirmed-schedule-list" data-confirmed-schedule-list></div>
+              </section>
+            </div>
           </section>
 
           <section class="form-section">
@@ -3364,62 +3518,177 @@
       const view = document.createElement("div");
       view.className = "board-private-view";
 
+      const contentHeading = document.createElement("div");
+      contentHeading.className = "board-private-heading";
       const contentLabel = document.createElement("p");
       contentLabel.className = "board-private-label";
       contentLabel.textContent = "작성 내용";
+      contentHeading.append(contentLabel);
       const content = document.createElement("p");
       content.className = "board-private-text";
       content.textContent = result.content;
+      const replyHeading = document.createElement("div");
+      replyHeading.className = "board-private-heading";
       const replyLabel = document.createElement("p");
       replyLabel.className = "board-private-label";
       replyLabel.textContent = "관리자 답변";
+      replyHeading.append(replyLabel);
       const reply = document.createElement("p");
       reply.className = "board-private-text";
       reply.textContent = result.reply || "답변 대기 중입니다.";
-      view.append(contentLabel, content, replyLabel, reply);
+      view.append(contentHeading, content);
 
-      if (result.admin) {
-        const replyForm = document.createElement("form");
-        replyForm.className = "board-reply-form";
-        const replyInput = document.createElement("textarea");
-        replyInput.placeholder = "관리자 답변을 입력해 주세요.";
-        replyInput.maxLength = 1000;
-        replyInput.value = result.reply || "";
-        const replyButton = document.createElement("button");
-        replyButton.className = "board-reply-button";
-        replyButton.type = "submit";
-        replyButton.textContent = "답변 저장";
-        const replyMessage = document.createElement("p");
-        replyMessage.className = "board-access-message";
-        replyForm.append(replyInput, replyButton, replyMessage);
-        replyForm.addEventListener("submit", async (event) => {
-          event.preventDefault();
-          const replyValue = replyInput.value.trim();
-          if (!replyValue) {
-            replyMessage.textContent = "답변 내용을 입력해 주세요.";
-            return;
-          }
-          replyButton.disabled = true;
-          replyButton.textContent = "저장 중";
-          try {
-            const saved = await boardApi({
-              type: "boardReply",
-              id: post.id,
-              adminPassword: password,
-              reply: replyValue
-            });
-            reply.textContent = saved.reply;
-            post.status = saved.status;
-            setBoardStatusBadge(article, saved.status);
-            replyMessage.textContent = "";
-            replyButton.textContent = "저장 완료";
-          } catch (error) {
-            replyMessage.textContent = error?.message || "답변을 저장하지 못했습니다.";
-            replyButton.disabled = false;
-            replyButton.textContent = "답변 저장";
+      let editForm = null;
+      let editToggle = null;
+      let actionGroup = null;
+
+      if (result.editable) {
+        actionGroup = document.createElement("div");
+        actionGroup.className = "board-private-actions";
+        editToggle = document.createElement("button");
+        editToggle.className = "board-edit-toggle";
+        editToggle.type = "button";
+        editToggle.textContent = "수정";
+        actionGroup.append(editToggle);
+        contentHeading.append(actionGroup);
+
+        editForm = document.createElement("form");
+        editForm.className = "board-edit-form";
+        editForm.hidden = true;
+        const editInput = document.createElement("textarea");
+        editInput.maxLength = 2000;
+        editInput.value = result.content;
+        editInput.setAttribute("aria-label", "게시글 내용 수정");
+        const editButton = document.createElement("button");
+        editButton.className = "board-edit-button";
+        editButton.type = "submit";
+        editButton.textContent = "수정 저장";
+        const editMessage = document.createElement("p");
+        editMessage.className = "board-access-message";
+        editForm.append(editInput, editButton, editMessage);
+        editToggle.addEventListener("click", () => {
+          const shouldOpen = editForm.hidden;
+          editForm.hidden = !shouldOpen;
+          content.hidden = shouldOpen;
+          editToggle.textContent = shouldOpen ? "취소" : "수정";
+          if (shouldOpen) {
+            editInput.value = content.textContent;
+            editMessage.textContent = "";
+            editInput.focus();
           }
         });
-        view.append(replyForm);
+        editForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const nextContent = editInput.value.trim();
+          if (!nextContent) {
+            editMessage.textContent = "수정할 내용을 입력해 주세요.";
+            return;
+          }
+          editButton.disabled = true;
+          editButton.classList.add("is-loading");
+          editButton.textContent = "저장 중";
+          try {
+            const saved = await boardApi({ type: "boardUpdate", id: post.id, password, content: nextContent });
+            content.textContent = saved.content;
+            editInput.value = saved.content;
+            editMessage.textContent = "";
+            editButton.disabled = false;
+            editButton.textContent = "수정 저장";
+            editForm.hidden = true;
+            content.hidden = false;
+            editToggle.textContent = "수정";
+          } catch (error) {
+            editMessage.textContent = error?.message || "게시글을 수정하지 못했습니다.";
+            editButton.disabled = false;
+            editButton.textContent = "수정 저장";
+          } finally {
+            editButton.classList.remove("is-loading");
+          }
+        });
+        view.append(editForm);
+      }
+
+      view.append(replyHeading, reply);
+
+      if (result.editable && result.reply) {
+        const followUpToggle = document.createElement("button");
+        followUpToggle.className = "board-edit-toggle";
+        followUpToggle.type = "button";
+        followUpToggle.textContent = "답글";
+        replyHeading.append(followUpToggle);
+
+        const followUpLabel = document.createElement("p");
+        followUpLabel.className = "board-private-label";
+        followUpLabel.textContent = "작성자 답글";
+        followUpLabel.hidden = !result.followUp;
+        const followUpText = document.createElement("p");
+        followUpText.className = "board-private-text";
+        followUpText.textContent = result.followUp || "";
+        followUpText.hidden = !result.followUp;
+
+        const followUpForm = document.createElement("form");
+        followUpForm.className = "board-edit-form";
+        followUpForm.hidden = true;
+        const followUpInput = document.createElement("textarea");
+        followUpInput.maxLength = 2000;
+        followUpInput.value = result.followUp || "";
+        followUpInput.setAttribute("aria-label", "관리자 답변에 대한 답글");
+        const followUpButton = document.createElement("button");
+        followUpButton.className = "board-edit-button";
+        followUpButton.type = "submit";
+        followUpButton.textContent = "답글 저장";
+        const followUpMessage = document.createElement("p");
+        followUpMessage.className = "board-access-message";
+        followUpForm.append(followUpInput, followUpButton, followUpMessage);
+
+        followUpToggle.addEventListener("click", () => {
+          const shouldOpen = followUpForm.hidden;
+          followUpForm.hidden = !shouldOpen;
+          followUpToggle.textContent = shouldOpen ? "취소" : "답글";
+          if (shouldOpen) {
+            if (editForm && !editForm.hidden) {
+              editForm.hidden = true;
+              content.hidden = false;
+              editToggle.textContent = "수정";
+            }
+            followUpInput.value = followUpText.textContent;
+            followUpMessage.textContent = "";
+            followUpInput.focus();
+          }
+        });
+
+        followUpForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const nextFollowUp = followUpInput.value.trim();
+          if (!nextFollowUp) {
+            followUpMessage.textContent = "답글 내용을 입력해 주세요.";
+            return;
+          }
+          followUpButton.disabled = true;
+          followUpButton.classList.add("is-loading");
+          followUpButton.textContent = "저장 중";
+          try {
+            const saved = await boardApi({
+              type: "boardFollowUp",
+              id: post.id,
+              password,
+              followUp: nextFollowUp
+            });
+            followUpText.textContent = saved.followUp;
+            followUpLabel.hidden = false;
+            followUpText.hidden = false;
+            followUpForm.hidden = true;
+            followUpToggle.textContent = "답글";
+          } catch (error) {
+            followUpMessage.textContent = error?.message || "답글을 저장하지 못했습니다.";
+          } finally {
+            followUpButton.disabled = false;
+            followUpButton.classList.remove("is-loading");
+            followUpButton.textContent = "답글 저장";
+          }
+        });
+
+        view.append(followUpLabel, followUpText, followUpForm);
       }
 
       article.append(view);
@@ -3456,6 +3725,7 @@
           return;
         }
         confirmButton.disabled = true;
+        confirmButton.classList.add("is-loading");
         confirmButton.textContent = "확인 중";
         try {
           const result = await boardApi({ type: "boardRead", id: post.id, password });
@@ -3464,6 +3734,8 @@
           message.textContent = error?.message || "게시글을 확인하지 못했습니다.";
           confirmButton.disabled = false;
           confirmButton.textContent = "확인";
+        } finally {
+          confirmButton.classList.remove("is-loading");
         }
       });
     }
@@ -3515,7 +3787,7 @@
         side.className = "board-post-side";
         const status = document.createElement("span");
         status.className = "board-status";
-        side.append(status, time);
+        side.append(time, status);
         openButton.append(authorWrap, side);
         openButton.addEventListener("click", () => openBoardPost(article, post));
         article.append(openButton);
@@ -3548,6 +3820,7 @@
       const submittedAuthor = boardAuthor.value;
       const submittedContent = content.value.trim();
       submitButton.disabled = true;
+      submitButton.classList.add("is-loading");
       submitButton.textContent = "접수 중";
       try {
         const result = await boardApi({
@@ -3573,6 +3846,7 @@
         alert(error?.message || "게시글을 접수하지 못했습니다.");
         submitButton.textContent = "접수하기";
       } finally {
+        submitButton.classList.remove("is-loading");
         submitButton.disabled = false;
       }
     });
@@ -3623,8 +3897,8 @@
       pages.forEach((page) => page.classList.toggle("is-active", page.dataset.page === pageName));
       document.querySelectorAll("[data-page-link]").forEach((link) => {
         const linkPage = link.dataset.pageLink;
-        const isGuidePage = linkPage === "schedule" && ["process", "discount", "refund"].includes(pageName);
-        const isReviewPage = linkPage === "reviews" && pageName === "episodes";
+        const isGuidePage = linkPage === "schedule" && ["location", "process", "discount", "refund"].includes(pageName);
+        const isReviewPage = linkPage === "reviews" && ["episodes", "board"].includes(pageName);
         link.classList.toggle("is-active", linkPage === pageName || isGuidePage || isReviewPage);
       });
       setDrawer(false);
@@ -3933,7 +4207,7 @@
         event.preventDefault();
         event.stopPropagation();
         selectedApplyGender = genderChoice.dataset.genderChoice;
-        selectedApplyPrice = selectedApplyGender === "남성" ? "50,000원" : "30,000원";
+        selectedApplyPrice = selectedApplyGender === "남성" ? "30,000원" : "20,000원";
         const eventData = events[pendingEventIndex] || events[0];
         setGenderModal(false);
         renderDetail(eventData);
@@ -4087,15 +4361,19 @@
         const isSelected = applicationDateTarget.classList.contains("is-selected");
         document.querySelectorAll("[data-application-date]").forEach((button) => button.classList.remove("is-selected"));
         const selectedLabel = document.querySelector("[data-selected-schedule]");
+        const scheduleResult = document.querySelector("[data-schedule-result]");
 
         if (isSelected) {
           selectedScheduleDate = "";
           if (selectedLabel) selectedLabel.textContent = "";
+          if (scheduleResult) scheduleResult.hidden = true;
         } else {
           const [year, month, day] = applicationDateTarget.dataset.applicationDate.split("-");
           selectedScheduleDate = `${year}년 ${Number(month)}월 ${Number(day)}일 ${applicationDateTarget.dataset.applicationTime}`;
           applicationDateTarget.classList.add("is-selected");
-          if (selectedLabel) selectedLabel.textContent = `선택 일정: ${selectedScheduleDate}`;
+          if (selectedLabel) selectedLabel.textContent = selectedScheduleDate;
+          renderConfirmedParticipants(applicationDateTarget.dataset.applicationDate);
+          if (scheduleResult) scheduleResult.hidden = false;
         }
         return;
       }
@@ -4237,7 +4515,25 @@
       startHeroRotation();
     }
 
+    async function loadManagedEvents() {
+      try {
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=eventList&t=${Date.now()}`);
+        const result = await response.json();
+        if (response.ok && result.ok && Array.isArray(result.events) && result.events.length) {
+          events = result.events;
+          selectedEvent = events[0];
+          renderEventList();
+          if (document.querySelector('[data-page="event-detail"]')?.classList.contains("is-active")) {
+            renderDetail(selectedEvent);
+          }
+        }
+      } catch {
+        // Keep the bundled selection cards when the management API is unavailable.
+      }
+    }
+
     loadManagedHeroSlides();
+    loadManagedEvents();
   </script>
 </body>
 </html>
