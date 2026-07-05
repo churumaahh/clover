@@ -9,18 +9,15 @@ renderApplications = function renderApplicationsWithSchedule() {
   cards.forEach((card, index) => {
     const item = items[index];
     if (!item) return;
-    card.querySelector(".detail-button")?.remove();
-    const rawGender = String(item["성별"] || item["신청 구분"] || "");
-    const isMale = /남/.test(rawGender);
-    const genderShort = isMale ? "남" : "여";
-    const fixedPrice = isMale ? "50,000원" : "30,000원";
     const avatar = card.querySelector(".avatar");
-    if (avatar) {
-      avatar.textContent = genderShort;
-      avatar.classList.add(isMale ? "is-male" : "is-female");
-    }
+    if (avatar) avatar.textContent = String(items.length - index);
+    card.querySelector(".card-body")?.remove();
+    card.querySelector(".detail-button")?.remove();
+    const genderValue = String(item["성별"] || "").trim();
+    if (["남자", "남성", "남"].includes(genderValue)) card.classList.add("gender-male");
+    if (["여자", "여성", "여"].includes(genderValue)) card.classList.add("gender-female");
     const title = card.querySelector(".card-title strong");
-    if (title) title.textContent = `${genderShort} · ${item["이름"] || "이름 없음"} · 신청`;
+    if (title) title.textContent = `${item["신청 구분"] || "소개팅 신청"} · ${item["이름"] || "이름 없음"}`;
 
     const meta = card.querySelector(".card-title .meta");
     if (meta) {
@@ -28,13 +25,24 @@ renderApplications = function renderApplicationsWithSchedule() {
       schedule.className = "application-schedule";
       schedule.textContent = `▣ 참여 일정: ${item["일정"] || "미선택"}`;
       meta.insertAdjacentElement("afterend", schedule);
+      const badge = card.querySelector(".badge");
+      if (badge) {
+        const statusStack = document.createElement("div");
+        statusStack.className = "application-status-stack";
+        badge.insertAdjacentElement("beforebegin", statusStack);
+        statusStack.append(badge, meta);
+      }
     }
 
     const details = card.querySelector(".details");
     if (details) {
+      const bodySection = [...details.querySelectorAll(".detail-section")].find((section) => section.querySelector("h3")?.textContent.includes("신체"));
+      const bodyGrid = bodySection?.querySelector(".details-grid");
+      if (bodyGrid) bodyGrid.insertAdjacentHTML("afterbegin", field("성별", item["성별"]));
+
       const section = document.createElement("section");
       section.className = "detail-section";
-      section.innerHTML = `<h3>신청 일정</h3><div class="details-grid">${field("성별", genderShort)}${field("선택 날짜 · 시간", item["일정"])}${field("장소", item["장소"])}${field("참가 금액", fixedPrice)}</div>`;
+      section.innerHTML = `<h3>신청 일정</h3><div class="details-grid">${field("선택 날짜 · 시간", item["일정"])}${field("장소", item["장소"])}${field("참가 금액", item["금액"])}</div>`;
       details.insertBefore(section, details.firstChild);
     }
 
