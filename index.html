@@ -2684,13 +2684,29 @@
 
     <section class="page is-active" id="page-home" data-page="home">
       <div class="hero" id="heroBanner" aria-label="주요 배너">
-        <article class="hero-slide is-active hero-loading-slide" style="--hero-image: none">
+        <article class="hero-slide is-active" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1783612814/sczvkrlhggtf2kv3yijy.jpg')">
           <div class="hero-content">
             <h1>가입 X, 로그인 X</h1>
             <p>cLOVEr가 진행하는 소셜링 이벤트로 관심사가 통하는 사람을 만나보세요</p>
           </div>
         </article>
-        <div class="hero-dots" aria-hidden="true"><span class="hero-dot is-active"></span></div>
+        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1783612858/zmfptyjm1whs6oai7ock.jpg')">
+          <div class="hero-content">
+            <h1>대화가 편해지는 만남</h1>
+            <p>처음 만나는 자리도 자연스럽게 이어지도록 운영자가 흐름을 안내합니다</p>
+          </div>
+        </article>
+        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1783612926/nbdfq32f5zico3qcmkqs.jpg')">
+          <div class="hero-content">
+            <h1>퇴근 후 가볍게</h1>
+            <p>취향, 생활권, 대화 온도를 고려한 회차로 부담 없이 참여해보세요</p>
+          </div>
+        </article>
+        <div class="hero-dots" aria-hidden="true">
+          <span class="hero-dot is-active"></span>
+          <span class="hero-dot"></span>
+          <span class="hero-dot"></span>
+        </div>
       </div>
 
       <main class="content">
@@ -3055,7 +3071,7 @@
         target: "부산 직장인 남녀",
         price: "50,000원",
         oldPrice: "50,000원",
-        image: "",
+        image: "https://res.cloudinary.com/lkkfechj/image/upload/v1783611416/l7ofjftkufv7izpkna78.jpg",
         dday: "",
         male: "6",
         female: "6",
@@ -3071,7 +3087,7 @@
         target: "부산 직장인 남녀",
         price: "50,000원",
         oldPrice: "",
-        image: "",
+        image: "https://res.cloudinary.com/lkkfechj/image/upload/v1783611477/w1udbyu4avrk9y8bilvy.jpg",
         dday: "D-3",
         male: "6",
         female: "6",
@@ -3087,7 +3103,7 @@
         target: "부산 직장인 남녀",
         price: "50,000원",
         oldPrice: "",
-        image: "",
+        image: "https://res.cloudinary.com/lkkfechj/image/upload/v1783611506/dtxmo5zqf02id5hl5epl.jpg",
         dday: "D-4",
         male: "6",
         female: "6",
@@ -3103,7 +3119,7 @@
         target: "부산 직장인 남녀",
         price: "50,000원",
         oldPrice: "50,000원",
-        image: "",
+        image: "https://res.cloudinary.com/lkkfechj/image/upload/v1783611534/jlnzzz48rabadh8zifwo.jpg",
         dday: "",
         male: "6",
         female: "6",
@@ -3119,7 +3135,7 @@
         target: "부산 직장인 남녀",
         price: "50,000원",
         oldPrice: "",
-        image: "",
+        image: "https://res.cloudinary.com/lkkfechj/image/upload/v1783611571/rss49ewaqwbkgr1zcohp.jpg",
         dday: "D-3",
         male: "6",
         female: "6",
@@ -3189,6 +3205,7 @@
     }
 
     markTodayInCalendar();
+    renderEventList();
     const detailRoot = document.querySelector("[data-detail-root]");
 
     const applicationSchedules = {
@@ -4748,12 +4765,7 @@
     function browserImageUrl(value) {
       const raw = String(value || "").trim();
       if (!raw || raw === "활성") return "";
-      const match = raw.match(/\/d\/([^/?#]+)|[?&]id=([^&#]+)/);
-      const id = match && (match[1] || match[2]);
-      if (id && /drive\.google\.com|docs\.google\.com/i.test(raw)) {
-        return `https://drive.google.com/thumbnail?id=${encodeURIComponent(id)}&sz=w1600`;
-      }
-      return raw;
+      return /^https:\/\/res\.cloudinary\.com\//i.test(raw) ? raw : "";
     }
 
     function normalizeHeroSlide(item) {
@@ -4957,7 +4969,6 @@
   </script>
 </body>
 </html>
-
 
 
 
