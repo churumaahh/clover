@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>클로버 | 부산 로테이션 소개팅</title>
-  <link rel="icon" type="image/png" href="assets/clover-logo-v2.png">
+  <link rel="icon" type="image/png" href="assets/favicon-clover-circle-preview.png?v=20260708-2336">
   <meta name="description" content="부산 로테이션 소개팅">
   <style>
     :root {
       --page-max: 37.5rem;
-      --accent: #1d8cff;
-      --accent-dark: #0064c8;
+      --accent: #00d838;
+      --accent-dark: #00a82f;
       --ink: #121218;
       --muted: #6d7280;
       --line: #e3e5ea;
@@ -255,8 +255,8 @@
 
     .hero {
       position: relative;
-      min-height: min(58.333vw, 21.875rem);
-      aspect-ratio: 12 / 7;
+      min-height: min(56.25vw, 21.875rem);
+      aspect-ratio: 1920 / 1080;
       overflow: hidden;
       background: #222;
     }
@@ -268,9 +268,7 @@
       align-items: flex-end;
       padding: 1.25rem;
       color: #fff;
-      background:
-        linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.38) 42%, rgba(0, 0, 0, 0.78)),
-        var(--hero-image) center / cover no-repeat;
+      background: var(--hero-image) center / cover no-repeat;
       opacity: 0;
       transform: translateX(5%);
       transition: opacity 0.4s ease, transform 0.4s ease;
@@ -281,7 +279,60 @@
       transform: translateX(0);
     }
 
+    .hero-slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.38) 42%, rgba(0, 0, 0, 0.78));
+      pointer-events: none;
+    }
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #05070a;
+    }
+
+    .hero-slide.has-attached-video .hero-content {
+      margin-bottom: min(10rem, 27vw);
+    }
+
+    .hero-attached-video {
+      position: absolute;
+      right: 1.25rem;
+      bottom: 1.25rem;
+      z-index: 2;
+      width: min(28rem, 42vw);
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 1rem;
+      background: #05070a;
+      box-shadow: 0 0.9rem 2rem rgba(0, 0, 0, 0.35);
+    }
+
+    @media (max-width: 42rem) {
+      .hero-attached-video {
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+        width: auto;
+        max-height: 8rem;
+        border-radius: 0.8rem;
+      }
+
+      .hero-slide.has-attached-video .hero-content {
+        margin-bottom: 8.8rem;
+      }
+    }
+
     .hero-content {
+      position: relative;
+      z-index: 2;
       width: min(23rem, 100%);
       padding-bottom: 0.4rem;
     }
@@ -320,6 +371,7 @@
 
     .hero-dots {
       position: absolute;
+      z-index: 2;
       left: 0;
       right: 0;
       bottom: 0.75rem;
@@ -391,10 +443,21 @@
     .event-thumb {
       position: relative;
       width: 100%;
-      aspect-ratio: 16 / 7;
+      aspect-ratio: 1920 / 1080;
       overflow: hidden;
       border-radius: 0.5rem;
       background: var(--thumb-image) center / cover no-repeat, #d8dce3;
+    }
+
+    .event-media,
+    .detail-media {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      background: #05070a;
     }
 
     .event-location-badge {
@@ -500,10 +563,19 @@
       flex: 0 0 auto;
     }
 
+    .meta-line > svg {
+      width: calc(0.95rem - 2px);
+      height: calc(0.95rem - 2px);
+    }
+
     .meta-line span {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    .meta-line > span {
+      font-size: calc(1em - 2px);
     }
 
     .event-foot {
@@ -772,15 +844,23 @@
     }
 
     .detail-image {
+      position: relative;
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 1920 / 1080;
+      overflow: hidden;
       background: var(--detail-image) center / cover no-repeat, #d8dce3;
     }
 
     .detail-main {
       display: grid;
-      gap: 0.7rem;
-      padding: 1rem;
+      gap: 0.25rem;
+      padding: 0.9rem 1rem 0.7rem;
+    }
+
+    .detail-main .event-meta {
+      margin-top: 0;
+      margin-bottom: 0;
+      gap: 0.18rem;
     }
 
     .detail-title {
@@ -792,7 +872,7 @@
     }
 
     .detail-title span {
-      color: var(--accent);
+      color: #00d838;
     }
 
     .detail-price {
@@ -815,13 +895,13 @@
       gap: 0.35rem 0.8rem;
       align-items: center;
       padding: 1rem;
-      border: 1px solid #b9dcff;
+      border: 1px solid #8cff9f;
       border-radius: var(--radius);
       background: #fff;
     }
 
     .gender-application-card .gender-label {
-      color: #1688f8;
+      color: #00d838;
       font-size: 1.05rem;
       font-weight: 950;
     }
@@ -830,7 +910,7 @@
       grid-column: 2;
       grid-row: 2;
       align-self: end;
-      color: #1688f8;
+      color: #00d838;
       font-size: 1.2rem;
       font-weight: 950;
     }
@@ -844,46 +924,47 @@
     }
 
     [data-detail-root][data-gender="여성"] .gender-application-card {
-      border-color: #ffd0cc;
+      border-color: #8cff9f;
     }
 
     [data-detail-root][data-gender="여성"] .gender-application-card .gender-label,
     [data-detail-root][data-gender="여성"] .gender-application-card strong,
     [data-detail-root][data-gender="여성"] .detail-title span {
-      color: #ff7068;
+      color: #00d838;
     }
 
     [data-detail-root][data-gender="여성"] .form-intro {
-      border-left: 0.25rem solid #ff7068;
+      border-left: 0.25rem solid #00d838;
       padding-left: 0.75rem;
     }
 
     [data-detail-root][data-gender="여성"] .form-help,
     [data-detail-root][data-gender="여성"] .document-status {
-      color: #e95650;
+      color: #00a82f;
     }
 
     [data-detail-root][data-gender="여성"] .choice-chip.is-selected {
-      border-color: #ff7068;
-      color: #e95650;
-      background: #fff7f6;
+      border-color: #00d838;
+      color: #00a82f;
+      background: #effff1;
     }
 
     [data-detail-root][data-gender="여성"] .photo-add {
-      border-color: #ff7068;
+      border-color: #00d838;
     }
 
     [data-detail-root][data-gender="여성"] .document-preview {
-      border-color: #ffd0cc;
+      border-color: #8cff9f;
     }
 
     [data-detail-root][data-gender="여성"] .form-submit-btn {
-      background: #ff7068;
-      box-shadow: 0 0.55rem 1rem rgba(255, 112, 104, 0.25);
+      background: #00ff40;
+      color: #111827;
+      box-shadow: 0 0.55rem 1rem rgba(0, 216, 56, 0.2);
     }
 
     [data-detail-root][data-gender="여성"] .agree-row input {
-      accent-color: #ff7068;
+      accent-color: #00d838;
     }
 
     [data-detail-root][data-gender="여성"] .detail-list li::before {
@@ -891,7 +972,7 @@
     }
 
     [data-detail-root][data-gender="남성"] .form-intro {
-      border-left: 0.25rem solid #1688f8;
+      border-left: 0.25rem solid #00d838;
       padding-left: 0.75rem;
     }
 
@@ -935,7 +1016,7 @@
       display: grid;
       gap: 0.35rem;
       padding: 0 0.25rem 0 0.75rem;
-      border-left: 0.25rem solid #1688f8;
+      border-left: 0.25rem solid #00d838;
     }
 
     .form-intro h2 {
@@ -953,15 +1034,15 @@
     }
 
     .schedule-section {
-      --schedule-color: #1688f8;
-      --schedule-soft: #eef7ff;
-      --schedule-border: #9dceff;
+      --schedule-color: #00d838;
+      --schedule-soft: #effff1;
+      --schedule-border: #8cff9f;
     }
 
     [data-detail-root][data-gender="여성"] .schedule-section {
-      --schedule-color: #ff7068;
-      --schedule-soft: #fff2f1;
-      --schedule-border: #ffc0bc;
+      --schedule-color: #00d838;
+      --schedule-soft: #effff1;
+      --schedule-border: #8cff9f;
     }
 
     .schedule-heading {
@@ -1201,6 +1282,22 @@
       gap: 0.45rem;
     }
 
+    .preference-group {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .preference-group + .preference-group {
+      margin-top: 0.75rem;
+    }
+
+    .preference-title {
+      margin: 0;
+      color: #111827;
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
     .choice-chip {
       min-height: 2.25rem;
       padding: 0 0.8rem;
@@ -1389,6 +1486,7 @@
 
     .agree-row input {
       pointer-events: none;
+      accent-color: #00d838;
     }
 
     .detail-section {
@@ -1733,9 +1831,9 @@
     }
 
     .gender-filter-chip.male.is-active {
-      border-color: var(--accent);
+      border-color: #1688f8;
       color: #fff;
-      background: var(--accent);
+      background: #1688f8;
     }
 
     .gender-filter-chip.male {
@@ -1743,9 +1841,9 @@
     }
 
     .gender-filter-chip.female.is-active {
-      border-color: #ff6f61;
+      border-color: #ff7068;
       color: #fff;
-      background: #ff6f61;
+      background: #ff7068;
     }
 
     .process-section {
@@ -2488,29 +2586,35 @@
     }
 
     .business-footer {
-      padding: 1.25rem 1rem 2rem;
+      padding: 1.05rem 1rem 1.45rem;
       border-top: 1px solid var(--line);
       background: #fff;
-      color: var(--muted);
-      font-size: 0.74rem;
-      line-height: 1.65;
+      color: #6f7683;
+      font-size: 0.66rem;
+      line-height: 1.55;
       text-align: left;
     }
 
-    .business-footer h2 {
-      margin: 0 0 0.65rem;
-      color: var(--ink);
-      font-size: 0.9rem;
-      font-weight: 950;
+    .footer-notice {
+      margin: 0 0 0.35rem;
+      color: #6f7683;
+      font-size: 0.64rem;
+      line-height: 1.55;
+      word-break: keep-all;
     }
 
-    .business-summary {
+    .footer-copy {
       margin: 0;
-      color: #3e4450;
-      font-size: 0.72rem;
-      font-weight: 650;
-      line-height: 1.6;
+      color: #6f7683;
+      font-size: 0.64rem;
+      line-height: 1.5;
       word-break: keep-all;
+    }
+
+    .footer-copy strong {
+      color: #3f4652;
+      font-weight: 950;
+      letter-spacing: 0;
     }
 
     .business-info {
@@ -2580,29 +2684,13 @@
 
     <section class="page is-active" id="page-home" data-page="home">
       <div class="hero" id="heroBanner" aria-label="주요 배너">
-        <article class="hero-slide is-active" style="--hero-image: url('assets/hero-1.jfif')">
+        <article class="hero-slide is-active hero-loading-slide" style="--hero-image: none">
           <div class="hero-content">
-            <h1>가입, 로그인 X</h1>
+            <h1>가입 X, 로그인 X</h1>
             <p>cLOVEr가 진행하는 소셜링 이벤트로 관심사가 통하는 사람을 만나보세요</p>
           </div>
         </article>
-        <article class="hero-slide" style="--hero-image: url('assets/hero-2.jfif')">
-          <div class="hero-content">
-            <h1>대화가 편해지는 만남</h1>
-            <p>처음 만나는 자리도 자연스럽게 이어지도록 운영자가 흐름을 안내합니다</p>
-          </div>
-        </article>
-        <article class="hero-slide" style="--hero-image: url('assets/hero-3.jfif')">
-          <div class="hero-content">
-            <h1>퇴근 후 가볍게</h1>
-            <p>취향, 생활권, 대화 온도를 고려한 회차로 부담 없이 참여해보세요</p>
-          </div>
-        </article>
-        <div class="hero-dots" aria-hidden="true">
-          <span class="hero-dot is-active"></span>
-          <span class="hero-dot"></span>
-          <span class="hero-dot"></span>
-        </div>
+        <div class="hero-dots" aria-hidden="true"><span class="hero-dot is-active"></span></div>
       </div>
 
       <main class="content">
@@ -2889,8 +2977,9 @@
 
     <div class="bottom-space"></div>
     <footer class="business-footer">
-      <h2>클로버</h2>
-      <p class="business-summary">Copyright © 2026 Apple Inc. 모든 권리 보유. · 대표 000 · 사업자등록번호 000000 · 주소 000</p>
+      <p class="footer-notice">대표 000 · 사업자등록번호 000000 · 주소 000</p>
+      <p class="footer-notice">본 콘텐츠의 저작권은 클로버에 있으며, 이를 무단으로 이용하는 경우 저작권법 등에 따라 법적 책임을 질 수 있습니다.</p>
+      <p class="footer-copy"><strong>CLOVER</strong> Copyright © 2026 CLOVER. All Rights Reserved.</p>
     </footer>
   </div>
 
@@ -2957,16 +3046,16 @@
     let events = [
       {
         station: "21 - 27세",
-        title: "직장인 로테이션 소개팅",
+        title: "설레이는 만남",
         date: "06. 29. (월) 오후 07:30",
         place: "서면 클로버 라운지 (승인 후 안내)",
         confirmed: "0/6명",
         showCardStatus: false,
-        capacity: "6명",
+        capacity: "12명",
         target: "부산 직장인 남녀",
-        price: "30,000원",
+        price: "50,000원",
         oldPrice: "50,000원",
-        image: "assets/event-1.jfif",
+        image: "",
         dday: "",
         male: "6",
         female: "6",
@@ -2974,47 +3063,47 @@
       },
       {
         station: "24 - 29세",
-        title: "취미로 만나는 주말 소셜링",
+        title: "티키타카 로테이션 소개팅",
         date: "07. 04. (토) 오후 04:00",
-        place: "광안리 프라이빗 카페 (승인자만 확인 가능)",
-        confirmed: "0/10",
-        capacity: "10명",
-        target: "취미 기반 소셜링",
-        price: "무료",
+        place: "서면 클로버 라운지 (승인 후 안내)",
+        confirmed: "0/6명",
+        capacity: "12명",
+        target: "부산 직장인 남녀",
+        price: "50,000원",
         oldPrice: "",
-        image: "assets/event-2.jpg",
+        image: "",
         dday: "D-3",
-        male: "5",
-        female: "5",
+        male: "6",
+        female: "6",
         showGenderCount: true
       },
       {
         station: "27 - 36세",
-        title: "30대 밸런스 매칭 회차",
+        title: "퇴근 후 약속",
         date: "07. 05. (일) 오후 03:00",
-        place: "해운대 클로버 운지 (승인 후 안내)",
-        confirmed: "2/14",
-        capacity: "14명",
-        target: "30대 밸런스 매칭",
-        price: "20,000원",
+        place: "서면 클로버 라운지 (승인 후 안내)",
+        confirmed: "0/6명",
+        capacity: "12명",
+        target: "부산 직장인 남녀",
+        price: "50,000원",
         oldPrice: "",
-        image: "assets/event-3.jpg",
+        image: "",
         dday: "D-4",
-        male: "7",
-        female: "7",
+        male: "6",
+        female: "6",
         showGenderCount: true
       },
       {
         station: "30 - 37세",
-        title: "직장인 로테이션 소개팅",
+        title: "매일 똑같은 일상, 새로운 만남",
         date: "06. 29. (월) 오후 07:30",
         place: "서면 클로버 라운지 (승인 후 안내)",
-        confirmed: "4/12",
+        confirmed: "0/6명",
         capacity: "12명",
         target: "부산 직장인 남녀",
-        price: "30,000원",
+        price: "50,000원",
         oldPrice: "50,000원",
-        image: "assets/event-1.jfif",
+        image: "",
         dday: "",
         male: "6",
         female: "6",
@@ -3022,18 +3111,18 @@
       },
       {
         station: "34 - 39세",
-        title: "취미로 만나는 주말 소셜링",
+        title: "편안한 대화",
         date: "07. 04. (토) 오후 04:00",
-        place: "광안리 프라이빗 카페 (승인자만 확인 가능)",
-        confirmed: "0/10",
-        capacity: "10명",
-        target: "취미 기반 소셜링",
-        price: "무료",
+        place: "서면 클로버 라운지 (승인 후 안내)",
+        confirmed: "0/6명",
+        capacity: "12명",
+        target: "부산 직장인 남녀",
+        price: "50,000원",
         oldPrice: "",
-        image: "assets/event-2.jpg",
+        image: "",
         dday: "D-3",
-        male: "5",
-        female: "5",
+        male: "6",
+        female: "6",
         showGenderCount: true
       }
     ];
@@ -3042,30 +3131,20 @@
     const iconPin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwNIjnr7bk_XFoxxhTADSK66WgSvnUbfCShkjbOll_dIc-Kgt7oVz8tQ2wdd00H3XW0/exec";
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoUpO64aOLUT9ifv3hSP0QrM2VL7xWQ2ip2Kh4NWKzqlc3IW32HBx_3vDubNwEHVHf/exec";
     let selectedEvent = events[0];
-
-    function eventImageUrl(value) {
-      const source = String(value || "");
-      const match = source.match(/\/d\/([^/]+)|[?&]id=([^&]+)/);
-      const id = match && (match[1] || match[2]);
-      return id ? `https://drive.google.com/thumbnail?id=${encodeURIComponent(id)}&sz=w1200` : source;
-    }
 
     function eventTemplate(event) {
       const index = events.indexOf(event);
-      const locationName = event.place.includes("서면")
-        ? "서면"
-        : event.place.includes("광안리")
-          ? "광안리"
-          : event.place.includes("해운대")
-            ? "해운대"
-            : "부산";
+      const locationName = event.place.includes("서면") ? "서면" : "부산";
+      const thumbImage = eventImageStack(event);
+      const thumbVideo = eventVideoMarkup(event, "event-media");
 
       return `
         <li>
           <article class="event-card${event.showGenderCount ? " has-gender-count" : ""}">
-            <div class="event-thumb" style="--thumb-image: url('${eventImageUrl(event.image)}')">
+            <div class="event-thumb" style="--thumb-image: ${thumbImage}">
+              ${thumbVideo}
               <span class="event-location-badge">${iconPin}<b>${locationName}</b></span>
             </div>
             <div class="event-body">
@@ -3091,7 +3170,7 @@
     const homeEventList = document.querySelector('[data-event-list="home"]');
 
     function renderEventList(items = events) {
-      homeEventList.innerHTML = items.map(eventTemplate).join("");
+      homeEventList.innerHTML = items.length ? items.map(eventTemplate).join("") : '<div class="event-empty">선택창을 불러오는 중입니다.</div>';
     }
 
     function markTodayInCalendar() {
@@ -3110,7 +3189,6 @@
     }
 
     markTodayInCalendar();
-    renderEventList();
     const detailRoot = document.querySelector("[data-detail-root]");
 
     const applicationSchedules = {
@@ -3152,6 +3230,26 @@
       return `<section class="application-month"><h4>${year}년 ${month}월</h4><div class="application-week" aria-hidden="true"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div><div class="application-days">${cells.join("")}</div></section>`;
     }
 
+    function detailCapacityText(event) {
+      const male = Number.parseInt(event.male, 10);
+      const female = Number.parseInt(event.female, 10);
+      if (Number.isFinite(male) && Number.isFinite(female)) {
+        return `총 ${male + female}명 (남 ${male}명 · 여 ${female}명)`;
+      }
+      return event.capacity;
+    }
+
+    function detailAgeText(station) {
+      const match = String(station || "").match(/(\d+)\s*-\s*(\d+)세?/);
+      return match ? `${match[1]}세 - ${match[2]}세` : String(station || "").replace(/^\[|\]$/g, "");
+    }
+
+    function detailAreaText(place) {
+      const value = normalizeEventPlace(place);
+      if (value.includes("서면")) return "서면";
+      return value.split(" ")[0] || "서면";
+    }
+
     function renderDetail(event) {
       selectedEvent = event;
       selectedScheduleDate = "";
@@ -3160,15 +3258,16 @@
       const applicationGender = selectedApplyGender || "";
       const applicationPrice = selectedApplyPrice || event.price;
       detailRoot.dataset.gender = applicationGender;
+      const detailImage = eventImageStack(event);
+      const detailVideo = eventVideoMarkup(event, "detail-media");
 
       detailRoot.innerHTML = `
         <article class="detail-hero">
-          <div class="detail-image" style="--detail-image: url('${eventImageUrl(event.image)}')"></div>
+          <div class="detail-image" style="--detail-image: ${detailImage}">${detailVideo}</div>
           <div class="detail-main">
             <h1 class="detail-title"><span>[${event.station}]</span> ${event.title}</h1>
             <div class="event-meta">
-              <div class="meta-line">${iconCalendar}<span>${event.date}</span></div>
-              <div class="meta-line">${iconPin}<span>${event.place}</span></div>
+              <div class="meta-line">${event.showGenderCount ? `<div class="gender event-gender-count"><span class="m"><i class="count-content">${iconMale}<b class="count-value">${event.male}</b></i></span><span class="f"><i class="count-content">${iconFemale}<b class="count-value">${event.female}</b></i></span></div>` : ""}${iconPin}<span>${event.place}</span></div>
             </div>
           </div>
         </article>
@@ -3184,19 +3283,19 @@
         <dl class="detail-info-grid">
           <div class="detail-info">
             <dt>모집 인원</dt>
-            <dd>${event.capacity}</dd>
+            <dd>${detailCapacityText(event)}</dd>
           </div>
           <div class="detail-info">
             <dt>연령대</dt>
-            <dd>[${event.station}]</dd>
+            <dd>${detailAgeText(event.station)}</dd>
           </div>
           <div class="detail-info">
             <dt>대상</dt>
             <dd>${applicationGender || event.target}</dd>
           </div>
           <div class="detail-info">
-            <dt>진행 방식</dt>
-            <dd>승인 후 안내</dd>
+            <dt>지역</dt>
+            <dd>${detailAreaText(event.place)}</dd>
           </div>
         </dl>
 
@@ -3264,20 +3363,109 @@
           <section class="form-section">
             <h3>직장 및 신원</h3>
             <div class="form-field">
-              <label for="applyJob">회사명 / 직무 <span class="req">*</span></label>
-              <textarea id="applyJob" name="job" placeholder="ex) OO 병원 / 간호사, OO 회사 / 마케터"></textarea>
+              <label for="applyJob">회사명 / 부서 or 직무</label>
+              <textarea id="applyJob" name="job" placeholder="내용을 작성해 주세요."></textarea>
             </div>
           </section>
 
           <section class="form-section">
-            <h3>나의 성향과 이상형</h3>
+            <h3>나의 성향</h3>
             <div class="form-field">
-              <label for="applyIdeal">이상형 (중요도 순 최대 5가지)</label>
-              <textarea id="applyIdeal" name="ideal" placeholder="${applicationGender === "여성" ? "ex) 키 큰 사람, 두부상" : "ex) 고양이상, 강아지상, 웃상"}"></textarea>
+              <label for="applyIdeal">이상형 (1개 이상)</label>
+              <div class="ideal-choice-row" data-ideal-choices>
+                <div class="preference-group">
+                  <p class="preference-title">선호 나이</p>
+                  <div class="choice-row">
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>20대 초</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>20대 중</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>20대 후</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>30대 초</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>30대 중</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>30대 후</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>연상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>동갑</button>
+                  </div>
+                </div>
+                <div class="preference-group">
+                  <p class="preference-title">선호 연령</p>
+                  <div class="choice-row">
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>연상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>연하</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>동갑</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>±2살</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>±5살</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>나이 무관</button>
+                  </div>
+                </div>
+                <div class="preference-group">
+                  <p class="preference-title">키</p>
+                  <div class="choice-row">
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>185cm ↑</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>180cm ↑</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>175cm ↑</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>170cm ↑</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>165cm ↑</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>160cm ↓</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>155cm ↓</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>150cm ↓</button>
+                  </div>
+                </div>
+                <div class="preference-group">
+                  <p class="preference-title">체형</p>
+                  <div class="choice-row">
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>마름</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>슬림</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>탄탄</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>글래머</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>통통</button>
+                  </div>
+                </div>
+                <div class="preference-group">
+                  <p class="preference-title">인상</p>
+                  <div class="choice-row">
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>강아지상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>고양이상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>여우상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>곰상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>사슴상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>늑대상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>꼬부기상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>공룡상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>순둥상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>부두상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>웃상</button>
+                  </div>
+                </div>
+                <div class="preference-group">
+                  <p class="preference-title">분위기</p>
+                  <div class="choice-row">
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>귀여운</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>청순한</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>시크한</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>훈훈한</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>단정한</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>밝은</button>
+                  </div>
+                </div>
+              </div>
+              <input id="applyIdeal" name="ideal" type="hidden">
             </div>
             <div class="form-field">
-              <label for="applyDislike">절대 용납 못하는 한 가지</label>
-              <textarea id="applyDislike" name="dislike" placeholder="ex) 담배, 문신"></textarea>
+              <label for="applyDislike">비선호</label>
+              <div class="choice-row dislike-choice-row" data-dislike-choices>
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>작은 키</button>
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>큰 키</button>
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>너무 마른</button>
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>너무 통통한</button>
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>차가운 인상</button>
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>강한 인상</button>
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>흡연</button>
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>반려동물 알레르기</button>
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>종교 차이</button>
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>장거리</button>
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>주말 근무</button>
+              </div>
+              <input id="applyDislike" name="dislike" type="hidden">
             </div>
             <div class="form-field">
               <label>흡연 유무</label>
@@ -3311,7 +3499,19 @@
           <section class="form-section">
             <h3>제출 서류</h3>
             <div class="form-field">
-              <label>재직 증명 <span class="req">*</span></label>
+              <label>본인 사진 (3-5장) <span class="req">*</span></label>
+              <p class="form-help">얼굴과 전신 사진이 포함되도록 자유롭게 등록해 주세요.</p>
+              <div class="file-drop">
+                <div class="photo-row" data-photo-row>
+                  <label class="photo-add">
+                    + 추가
+                    <input class="file-input" type="file" data-file-input="photos" accept="image/*" multiple>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-field">
+              <label>재직 증명</label>
               <p class="form-help">재직증명서, 급여명세서, 건강보험, 사원증 중 하나를 업로드해 주세요.</p>
             </div>
             <div class="file-drop">
@@ -3328,24 +3528,12 @@
                 <input class="file-input" type="file" data-file-input="document" accept="image/*,.pdf">
               </label>
             </div>
-            <div class="form-field">
-              <label>본인 사진 (3-5장) <span class="req">*</span></label>
-              <p class="form-help">얼굴과 전신 사진이 포함되도록 자유롭게 등록해 주세요.</p>
-              <div class="file-drop">
-                <div class="photo-row" data-photo-row>
-                  <label class="photo-add">
-                    + 추가
-                    <input class="file-input" type="file" data-file-input="photos" accept="image/*" multiple>
-                  </label>
-                </div>
-              </div>
-            </div>
           </section>
 
           <section class="form-section">
             <h3>전달 사항</h3>
             <div class="form-field">
-              <textarea id="applyMessage" name="message" aria-label="전달 사항" placeholder="전달 사항을 자유롭게 작성해 주세요."></textarea>
+              <textarea id="applyMessage" name="message" aria-label="전달 사항" placeholder="자유롭게 작성해 주세요."></textarea>
             </div>
           </section>
 
@@ -3385,7 +3573,9 @@
     const calendarToggle = document.querySelector("[data-calendar-toggle]");
     const calendarPopover = document.querySelector("[data-calendar-popover]");
     const genderModal = document.querySelector("[data-gender-modal]");
+    const detailStateKey = "cloverDetailState";
     let pendingEventIndex = 0;
+    let selectedEventIndex = 0;
     let selectedApplyGender = "";
     let selectedApplyPrice = "";
     let selectedScheduleDate = "";
@@ -3412,6 +3602,36 @@
 
     function setNextBoardAuthor() {
       if (boardAuthor) boardAuthor.value = createAnonymousName(boardAuthor.value);
+    }
+
+    function saveDetailState(index, gender, price) {
+      selectedEventIndex = Number(index) || 0;
+      selectedApplyGender = gender || "";
+      selectedApplyPrice = price || "";
+      try {
+        sessionStorage.setItem(detailStateKey, JSON.stringify({
+          index: selectedEventIndex,
+          gender: selectedApplyGender,
+          price: selectedApplyPrice
+        }));
+      } catch {
+        // Keep in-memory state if session storage is unavailable.
+      }
+    }
+
+    function restoreDetailState() {
+      try {
+        const saved = JSON.parse(sessionStorage.getItem(detailStateKey) || "null");
+        if (!saved || !saved.gender) return false;
+        selectedEventIndex = Number(saved.index) || 0;
+        selectedApplyGender = saved.gender;
+        selectedApplyPrice = selectedApplyGender === "남성" ? "50,000원" : "30,000원";
+        selectedEvent = events[selectedEventIndex] || events[0];
+        renderDetail(selectedEvent);
+        return true;
+      } catch {
+        return false;
+      }
     }
 
     async function boardApi(payload) {
@@ -3946,6 +4166,24 @@
       return field?.querySelector(".choice-chip.is-selected")?.textContent.trim() || "";
     }
 
+    function updateIdealTextareaFromChips() {
+      const idealInput = document.querySelector("#applyIdeal");
+      if (!idealInput) return;
+      const selectedIdeals = [...document.querySelectorAll("[data-ideal-choice].is-selected")]
+        .map((chip) => chip.textContent.trim())
+        .filter(Boolean);
+      idealInput.value = selectedIdeals.join(", ");
+    }
+
+    function updateDislikeTextareaFromChips() {
+      const dislikeInput = document.querySelector("#applyDislike");
+      if (!dislikeInput) return;
+      const selectedDislikes = [...document.querySelectorAll("[data-dislike-choice].is-selected")]
+        .map((chip) => chip.textContent.trim())
+        .filter(Boolean);
+      dislikeInput.value = selectedDislikes.join(", ");
+    }
+
     function onlyDigits(value, maxLength) {
       return value.replace(/\D/g, "").slice(0, maxLength);
     }
@@ -4083,8 +4321,7 @@
         ["#applyBirth", "생년월일"],
         ["#applyHeight", "키"],
         ["#applyWeight", "체중"],
-        ["#applyArea", "거주지"],
-        ["#applyJob", "회사명 / 직무"]
+        ["#applyArea", "거주지"]
       ];
 
       const missing = required.find(([selector]) => !inputValue(selector));
@@ -4107,12 +4344,6 @@
         return;
       }
 
-      if (!selectedDocumentFile) {
-        alert("재직 증명 파일을 등록해 주세요.");
-        document.querySelector('[data-file-input="document"]')?.focus();
-        return;
-      }
-
       if (selectedPhotoFiles.length < 3 || selectedPhotoFiles.length > 5) {
         alert("본인 사진을 3장 이상 5장 이하로 등록해 주세요.");
         document.querySelector('[data-file-input="photos"]')?.focus();
@@ -4130,7 +4361,7 @@
 
       try {
         const preparedFiles = await Promise.all([
-          fileToPayload(selectedDocumentFile),
+          selectedDocumentFile ? fileToPayload(selectedDocumentFile) : Promise.resolve(null),
           ...selectedPhotoFiles.map(({ file }) => fileToPayload(file))
         ]);
         const documentFile = preparedFiles[0];
@@ -4158,7 +4389,7 @@
           message: inputValue("#applyMessage"),
           documentFile,
           photoFiles,
-          documentFileName: documentFile.name,
+          documentFileName: documentFile?.name || "",
           photoFileNames: photoFiles.map((file) => file.name).join(", "),
           refundAgree: agreeInputs[0]?.checked || false,
           marketingAgree: agreeInputs[1]?.checked || false
@@ -4222,9 +4453,10 @@
       if (genderChoice) {
         event.preventDefault();
         event.stopPropagation();
-        selectedApplyGender = genderChoice.dataset.genderChoice;
-        selectedApplyPrice = selectedApplyGender === "남성" ? "30,000원" : "20,000원";
+        const nextGender = genderChoice.dataset.genderChoice;
+        const nextPrice = nextGender === "남성" ? "50,000원" : "30,000원";
         const eventData = events[pendingEventIndex] || events[0];
+        saveDetailState(pendingEventIndex, nextGender, nextPrice);
         setGenderModal(false);
         renderDetail(eventData);
         setPage("event-detail");
@@ -4248,6 +4480,16 @@
       if (choiceTarget) {
         event.preventDefault();
         event.stopPropagation();
+        if (choiceTarget.matches("[data-ideal-choice]")) {
+          choiceTarget.classList.toggle("is-selected");
+          updateIdealTextareaFromChips();
+          return;
+        }
+        if (choiceTarget.matches("[data-dislike-choice]")) {
+          choiceTarget.classList.toggle("is-selected");
+          updateDislikeTextareaFromChips();
+          return;
+        }
         const row = choiceTarget.closest(".choice-row");
         const wasSelected = choiceTarget.classList.contains("is-selected");
         row?.querySelectorAll(".choice-chip").forEach((chip) => chip.classList.remove("is-selected"));
@@ -4458,12 +4700,32 @@
     });
 
     const initial = location.hash.replace("#", "");
-    renderDetail(events[0]);
-    if (["home", "support", "schedule", "process", "discount", "refund", "reviews", "location", "staff", "episodes", "board", "event-detail"].includes(initial)) {
+    if (initial === "event-detail") {
+      if (restoreDetailState()) {
+        setPage("event-detail", false);
+      } else {
+        setPage("home", false);
+        history.replaceState(null, "", "#home");
+      }
+    } else if (["home", "support", "schedule", "process", "discount", "refund", "reviews", "location", "staff", "episodes", "board"].includes(initial)) {
       setPage(initial, false);
     }
 
     let heroRotationTimer = null;
+
+    function syncHeroVideoPlayback(slides) {
+      slides.forEach((slide) => {
+        const video = slide.querySelector("video");
+        if (!video) return;
+        if (slide.classList.contains("is-active")) {
+          const playPromise = video.play();
+          if (playPromise?.catch) playPromise.catch(() => {});
+        } else {
+          video.pause();
+          try { video.currentTime = 0; } catch {}
+        }
+      });
+    }
 
     function startHeroRotation() {
       window.clearInterval(heroRotationTimer);
@@ -4473,28 +4735,93 @@
       let activeSlide = 0;
       slides.forEach((slide, index) => slide.classList.toggle("is-active", index === 0));
       dots.forEach((dot, index) => dot.classList.toggle("is-active", index === 0));
+      syncHeroVideoPlayback(slides);
       if (slides.length < 2) return;
       heroRotationTimer = window.setInterval(() => {
         activeSlide = (activeSlide + 1) % slides.length;
         slides.forEach((slide, index) => slide.classList.toggle("is-active", index === activeSlide));
         dots.forEach((dot, index) => dot.classList.toggle("is-active", index === activeSlide));
+        syncHeroVideoPlayback(slides);
       }, 3800);
     }
 
+    function browserImageUrl(value) {
+      const raw = String(value || "").trim();
+      if (!raw || raw === "활성") return "";
+      const match = raw.match(/\/d\/([^/?#]+)|[?&]id=([^&#]+)/);
+      const id = match && (match[1] || match[2]);
+      if (id && /drive\.google\.com|docs\.google\.com/i.test(raw)) {
+        return `https://drive.google.com/thumbnail?id=${encodeURIComponent(id)}&sz=w1600`;
+      }
+      return raw;
+    }
+
+    function normalizeHeroSlide(item) {
+      const imageUrl = browserImageUrl(item.imageUrl || item.image || item.sourceImageUrl || item.originalImageUrl || item.imageSourceUrl);
+      return {
+        ...item,
+        title: String(item.title || "").replace(/가입\s*x,\s*로그인\s*x/i, "가입 X, 로그인 X").replace("가입, 로그인 X", "가입 X, 로그인 X"),
+        imageUrl: imageUrl,
+        videoUrl: item.videoUrl || item.heroVideoUrl || item.video || ""
+      };
+    }
+    function preloadImage(url) {
+      return new Promise((resolve, reject) => {
+        if (!url || isVideoMedia(url)) return resolve(url);
+        const image = new Image();
+        image.onload = () => resolve(url);
+        image.onerror = () => reject(new Error("히어로 이미지를 불러오지 못했습니다."));
+        image.src = url;
+      });
+    }
+
+    async function preloadHeroSlides(slides) {
+      const imageSlides = slides.filter((item) => !item.videoUrl && !isVideoMedia(item.imageUrl, item.mediaType));
+      await Promise.all(imageSlides.map((item) => preloadImage(item.imageUrl)));
+      return slides;
+    }
     function renderManagedHeroSlides(slides) {
       const hero = document.getElementById("heroBanner");
       if (!hero || !slides.length) return;
       hero.replaceChildren();
       slides.forEach((item, index) => {
         const slide = document.createElement("article");
-        slide.className = `hero-slide${index === 0 ? " is-active" : ""}`;
-        slide.style.setProperty("--hero-image", `url("${String(item.imageUrl).replace(/["\\]/g, "")}")`);
+        const attachedVideoUrl = item.videoUrl || "";
+        const isVideo = !attachedVideoUrl && isVideoMedia(item.imageUrl, item.mediaType);
+        slide.className = `hero-slide${attachedVideoUrl ? " has-attached-video" : ""}${index === 0 ? " is-active" : ""}`;
+        slide.style.setProperty("--hero-image", isVideo ? "none" : cssUrl(item.imageUrl));
+        if (isVideo) {
+          const video = document.createElement("video");
+          video.className = "hero-video";
+          video.src = item.imageUrl;
+          video.width = 1920;
+          video.height = 1080;
+          video.autoplay = true;
+          video.muted = true;
+          video.loop = true;
+          video.playsInline = true;
+          video.preload = "metadata";
+          slide.append(video);
+        }
+        if (attachedVideoUrl) {
+          const attachedVideo = document.createElement("video");
+          attachedVideo.className = "hero-attached-video";
+          attachedVideo.src = attachedVideoUrl;
+          attachedVideo.width = 1280;
+          attachedVideo.height = 720;
+          attachedVideo.autoplay = true;
+          attachedVideo.muted = true;
+          attachedVideo.loop = true;
+          attachedVideo.playsInline = true;
+          attachedVideo.preload = "metadata";
+          slide.append(attachedVideo);
+        }
         if (item.title || item.description) {
           const content = document.createElement("div");
           content.className = "hero-content";
           if (item.title) {
             const title = document.createElement("h1");
-            title.textContent = item.title;
+            title.textContent = String(item.title).replace(/가입\s*x,\s*로그인\s*x/i, "가입 X, 로그인 X").replace("가입, 로그인 X", "가입 X, 로그인 X");
             content.append(title);
           }
           if (item.description) {
@@ -4523,10 +4850,11 @@
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=heroList&t=${Date.now()}`);
         const result = await response.json();
         if (response.ok && result.ok && Array.isArray(result.slides) && result.slides.length) {
-          renderManagedHeroSlides(result.slides);
+          const slides = await preloadHeroSlides(result.slides.map(normalizeHeroSlide));
+          renderManagedHeroSlides(slides);
         }
       } catch {
-        // Keep the bundled hero slides when the management API is unavailable.
+        renderManagedHeroSlides([]);
       }
       startHeroRotation();
     }
@@ -4536,16 +4864,92 @@
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=eventList&t=${Date.now()}`);
         const result = await response.json();
         if (response.ok && result.ok && Array.isArray(result.events) && result.events.length) {
-          events = result.events;
-          selectedEvent = events[0];
+          events = result.events.map((event) => {
+            const imageUrl = browserImageUrl(event.image || event.sourceImage || event.sourceImageUrl || event.originalImage || event.originalImageUrl || event.imageSourceUrl) || defaultEventImage(event.station);
+            return {
+              ...event,
+              title: normalizeEventTitle(event.station, event.title),
+              place: normalizeEventPlace(event.place),
+              image: imageUrl,
+              mediaType: event.mediaType || mediaTypeFromUrl(imageUrl),
+              male: "6",
+              female: "6",
+              capacity: "12명",
+              target: "부산 직장인 남녀",
+              confirmed: "0/6명"
+            };
+          });
+          selectedEvent = events[selectedEventIndex] || events[0];
           renderEventList();
           if (document.querySelector('[data-page="event-detail"]')?.classList.contains("is-active")) {
             renderDetail(selectedEvent);
           }
         }
       } catch {
-        // Keep the bundled selection cards when the management API is unavailable.
+        renderEventList([]);
       }
+    }
+
+    function normalizeEventPlace(place) {
+      const value = String(place || "");
+      if (
+        !value ||
+        value.includes("광안리") ||
+        value.includes("해운대") ||
+        value.includes("클로버 서면") ||
+        value.includes("스카이 라운지") ||
+        value.includes("클로버 운지")
+      ) {
+        return "서면 클로버 라운지 (승인 후 안내)";
+      }
+      return value;
+    }
+
+    function defaultEventImage(station) {
+      return "";
+    }
+
+    function htmlAttr(value) {
+      return String(value || "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
+    }
+
+    function mediaTypeFromUrl(value, mimeType = "") {
+      const type = String(mimeType || "").toLowerCase();
+      const url = String(value || "").toLowerCase();
+      return type === "video" || type.startsWith("video/") || /[?&]media=video(?:&|$)/.test(url) || /\.(mp4|webm|mov|m4v|ogv)(?:[?#].*)?$/.test(url) ? "video" : "image";
+    }
+
+    function isVideoMedia(value, mimeType = "") {
+      return mediaTypeFromUrl(value, mimeType) === "video";
+    }
+
+    function videoMarkup(url, className) {
+      return `<video class="${className}" src="${htmlAttr(url)}" width="1920" height="1080" autoplay muted loop playsinline preload="metadata"></video>`;
+    }
+
+    function cssUrl(value) {
+      return `url('${String(value || "").replace(/['\\]/g, "")}')`;
+    }
+
+    function eventImageStack(event) {
+      const fallback = defaultEventImage(event.station);
+      const image = isVideoMedia(event.image, event.mediaType) ? fallback : event.image || fallback;
+      return cssUrl(image);
+    }
+
+    function eventVideoMarkup(event, className) {
+      return isVideoMedia(event.image, event.mediaType) ? videoMarkup(event.image, className) : "";
+    }
+
+    function normalizeEventTitle(station, title) {
+      const titleByStation = {
+        "21 - 27세": "설레이는 만남",
+        "24 - 29세": "티키타카 로테이션 소개팅",
+        "27 - 36세": "퇴근 후 약속",
+        "30 - 37세": "매일 똑같은 일상, 새로운 만남",
+        "34 - 39세": "편안한 대화"
+      };
+      return titleByStation[String(station || "")] || title || "";
     }
 
     loadManagedHeroSlides();
@@ -4553,3 +4957,10 @@
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
