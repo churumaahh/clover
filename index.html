@@ -2697,22 +2697,22 @@
 
     <section class="page is-active" id="page-home" data-page="home">
       <div class="hero" id="heroBanner" aria-label="주요 배너">
-        <article class="hero-slide is-active" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1783612814/sczvkrlhggtf2kv3yijy.jpg')">
+        <article class="hero-slide is-active" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1783646702/tmqicnvaxwyqrvypifdu.jpg')">
           <div class="hero-content">
             <h1>가입 X, 로그인 X</h1>
-            <p>cLOVEr가 진행하는 소셜링 이벤트로 관심사가 통하는 사람을 만나보세요</p>
+            <p>로그인 없이 이용 가능합니다.</p>
           </div>
         </article>
-        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1783612858/zmfptyjm1whs6oai7ock.jpg')">
+        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1783646543/ulbz7lytulvgpmyphsp9.jpg')">
           <div class="hero-content">
-            <h1>대화가 편해지는 만남</h1>
-            <p>처음 만나는 자리도 자연스럽게 이어지도록 운영자가 흐름을 안내합니다</p>
+            <h1>너와 나</h1>
+            <p>6:6 로테이션 소개팅</p>
           </div>
         </article>
-        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1783612926/nbdfq32f5zico3qcmkqs.jpg')">
+        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1783646923/bidiquisus2fwaekxgyp.jpg')">
           <div class="hero-content">
-            <h1>퇴근 후 가볍게</h1>
-            <p>취향, 생활권, 대화 온도를 고려한 회차로 부담 없이 참여해보세요</p>
+            <h1>사랑은 거창하지 않습니다</h1>
+            <p>하나의 연애 세포면 충분</p>
           </div>
         </article>
         <div class="hero-dots" aria-hidden="true">
@@ -2721,7 +2721,6 @@
           <span class="hero-dot"></span>
         </div>
       </div>
-
       <main class="content">
         <section id="home-events">
           <div class="filter-row" aria-label="이벤트 필터">
@@ -3161,6 +3160,33 @@
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoUpO64aOLUT9ifv3hSP0QrM2VL7xWQ2ip2Kh4NWKzqlc3IW32HBx_3vDubNwEHVHf/exec";
+    const HERO_CACHE_KEY = "clover-managed-hero-slides-v4";
+    const HERO_FALLBACK_SLIDES = [
+      {
+        id: "24a52166-2ce4-4107-992e-09bcf51b7a62",
+        order: 1,
+        title: "가입 X, 로그인 X",
+        description: "로그인 없이 이용 가능합니다.",
+        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/v1783646702/tmqicnvaxwyqrvypifdu.jpg",
+        active: true
+      },
+      {
+        id: "a05a3045-169a-4c71-9e37-b34fa045c7cb",
+        order: 2,
+        title: "너와 나",
+        description: "6:6 로테이션 소개팅",
+        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/v1783646543/ulbz7lytulvgpmyphsp9.jpg",
+        active: true
+      },
+      {
+        id: "378d70ff-4353-4951-b969-7b43640263fc",
+        order: 3,
+        title: "사랑은 거창하지 않습니다",
+        description: "하나의 연애 세포면 충분",
+        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/v1783646923/bidiquisus2fwaekxgyp.jpg",
+        active: true
+      }
+    ];
     let selectedEvent = events[0];
 
     function eventTemplate(event) {
@@ -4790,6 +4816,44 @@
         videoUrl: item.videoUrl || item.heroVideoUrl || item.video || ""
       };
     }
+    function normalizeHeroSlides(items) {
+      return (Array.isArray(items) ? items : [])
+        .map(normalizeHeroSlide)
+        .filter((item) => item.active !== false && (item.imageUrl || item.videoUrl))
+        .sort((a, b) => Number(a.order || 0) - Number(b.order || 0));
+    }
+
+    function readCachedHeroSlides() {
+      try {
+        return normalizeHeroSlides(JSON.parse(localStorage.getItem(HERO_CACHE_KEY) || "[]"));
+      } catch {
+        return [];
+      }
+    }
+
+    function writeCachedHeroSlides(slides) {
+      try {
+        localStorage.setItem(HERO_CACHE_KEY, JSON.stringify(slides.map((item) => ({
+          id: item.id || "",
+          order: item.order || 0,
+          title: item.title || "",
+          description: item.description || "",
+          imageUrl: item.imageUrl || "",
+          videoUrl: item.videoUrl || "",
+          mediaType: item.mediaType || "",
+          active: item.active !== false
+        }))));
+      } catch {}
+    }
+
+    function seedHeroSlides() {
+      const slides = readCachedHeroSlides();
+      const fallbackSlides = normalizeHeroSlides(HERO_FALLBACK_SLIDES);
+      const seedSlides = slides.length ? slides : fallbackSlides;
+      if (!seedSlides.length) return;
+      renderManagedHeroSlides(seedSlides);
+      startHeroRotation();
+    }
     function preloadImage(url) {
       return new Promise((resolve, reject) => {
         if (!url || isVideoMedia(url)) return resolve(url);
@@ -4875,15 +4939,16 @@
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=heroList&t=${Date.now()}`);
         const result = await response.json();
         if (response.ok && result.ok && Array.isArray(result.slides) && result.slides.length) {
-          const slides = await preloadHeroSlides(result.slides.map(normalizeHeroSlide));
-          renderManagedHeroSlides(slides);
+          const normalizedSlides = normalizeHeroSlides(result.slides);
+          if (normalizedSlides.length) {
+            const slides = await preloadHeroSlides(normalizedSlides);
+            renderManagedHeroSlides(slides);
+            writeCachedHeroSlides(slides);
+          }
         }
-      } catch {
-        renderManagedHeroSlides([]);
-      }
+      } catch {}
       startHeroRotation();
     }
-
     async function loadManagedEvents() {
       try {
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=eventList&t=${Date.now()}`);
@@ -4977,6 +5042,7 @@
       return titleByStation[String(station || "")] || title || "";
     }
 
+    seedHeroSlides();
     loadManagedHeroSlides();
     loadManagedEvents();
   </script>
