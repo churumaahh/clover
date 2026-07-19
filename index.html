@@ -15,7 +15,7 @@
   <meta property="og:image:secure_url" content="https://clover-love.vercel.app/assets/link-preview.jpg?v=20260710-link">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1600">
-  <meta property="og:image:height" content="1200">
+  <meta property="og:image:height" content="1600">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="클로버 | 로테이션 소개팅">
   <meta name="twitter:description" content="부산 로테이션 소개팅">
@@ -270,8 +270,7 @@
 
     .hero {
       position: relative;
-      min-height: min(68vw, 26.5rem);
-      aspect-ratio: 5 / 3;
+      aspect-ratio: 25 / 17;
       overflow: hidden;
       background: #222;
     }
@@ -283,7 +282,10 @@
       align-items: flex-end;
       padding: 1.25rem;
       color: #fff;
-      background: var(--hero-image) center / cover no-repeat;
+      background-image: var(--hero-image);
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
       opacity: 0;
       transform: translateX(5%);
       transition: opacity 0.4s ease, transform 0.4s ease;
@@ -309,6 +311,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center center;
       background: #05070a;
     }
 
@@ -390,8 +393,8 @@
       z-index: 2;
       left: 50%;
       right: auto;
-      bottom: 0.75rem;
-      transform: translate3d(calc(-50% - 30px), 0, 0);
+      bottom: calc(0.75rem + 5px);
+      transform: translate3d(-50%, 0, 0);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -486,6 +489,7 @@
       height: 100%;
       display: block;
       object-fit: cover;
+      object-position: center center;
       background: #05070a;
     }
 
@@ -2303,6 +2307,29 @@
       border-top: 1px solid var(--line);
     }
 
+    .board-private-section {
+      display: grid;
+      gap: 0.55rem;
+      padding: 0.85rem;
+      border: 1px solid var(--line);
+      border-radius: 0.75rem;
+      background: #fff;
+    }
+
+    .board-private-section.is-content {
+      border-left: 4px solid #1685ed;
+      background: #f7fbff;
+    }
+
+    .board-private-section.is-reply {
+      border-left: 4px solid #00d83a;
+      background: #f1fff5;
+    }
+
+    .board-private-section.is-follow-up {
+      border-left: 4px solid #1685ed;
+      background: #f7fbff;
+    }
     .board-access-panel input {
       width: 100%;
       min-height: 2.65rem;
@@ -3174,7 +3201,7 @@
     const iconPin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoUpO64aOLUT9ifv3hSP0QrM2VL7xWQ2ip2Kh4NWKzqlc3IW32HBx_3vDubNwEHVHf/exec";
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxKUk4Y_3GANDLIJdoTEei1BJ-sfW4TJ34f3cxgdOccEHNh7rvfEpkRw0ahwz6_H9XB/exec";
     const HERO_CACHE_KEY = "clover-managed-hero-slides-v4";
     const HERO_FALLBACK_SLIDES = [
       {
@@ -3809,53 +3836,62 @@
       );
     }
 
+    function normalizeBoardMessages(value, role) {
+      if (Array.isArray(value)) {
+        return value.map((item) => ({ role: item?.role || role || "", text: String(item?.text || "").trim(), createdAt: Number(item?.createdAt) || 0, updatedAt: Number(item?.updatedAt) || 0 })).filter((item) => item.text);
+      }
+      const raw = String(value || "").trim();
+      if (!raw) return [];
+      try {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) return normalizeBoardMessages(parsed, role);
+      } catch (error) {}
+      return [{ role: role || "", text: raw, createdAt: 0, updatedAt: 0 }];
+    }
+
+    function boardMessagesText(messages, label) {
+      return (messages || []).map((message, index) => `${label} ${index + 1}\n${message.text}`).join("\n\n");
+    }
     function appendPrivatePostView(article, post, result, password) {
       article.querySelector(".board-access-panel")?.remove();
+      article.querySelector(".board-private-view")?.remove();
       post.status = result.status;
       setBoardStatusBadge(article, result.status);
+
       const view = document.createElement("div");
       view.className = "board-private-view";
+      const replyMessages = normalizeBoardMessages(result.replies || result.reply, "admin");
+      const followUpMessages = normalizeBoardMessages(result.followUps || result.followUp, "author");
 
+      const contentSection = document.createElement("section");
+      contentSection.className = "board-private-section is-content";
       const contentHeading = document.createElement("div");
       contentHeading.className = "board-private-heading";
       const contentLabel = document.createElement("p");
       contentLabel.className = "board-private-label";
-      contentLabel.textContent = "작성 내용";
+      contentLabel.textContent = "작성자 내용";
       contentHeading.append(contentLabel);
       const content = document.createElement("p");
       content.className = "board-private-text";
-      content.textContent = result.content;
-      const replyHeading = document.createElement("div");
-      replyHeading.className = "board-private-heading";
-      const replyLabel = document.createElement("p");
-      replyLabel.className = "board-private-label";
-      replyLabel.textContent = "관리자 답변";
-      replyHeading.append(replyLabel);
-      const reply = document.createElement("p");
-      reply.className = "board-private-text";
-      reply.textContent = result.reply || "답변 대기 중입니다.";
-      view.append(contentHeading, content);
+      content.textContent = result.content || "";
+      contentSection.append(contentHeading, content);
 
       let editForm = null;
       let editToggle = null;
-      let actionGroup = null;
 
       if (result.editable) {
-        actionGroup = document.createElement("div");
-        actionGroup.className = "board-private-actions";
         editToggle = document.createElement("button");
         editToggle.className = "board-edit-toggle";
         editToggle.type = "button";
         editToggle.textContent = "수정";
-        actionGroup.append(editToggle);
-        contentHeading.append(actionGroup);
+        contentHeading.append(editToggle);
 
         editForm = document.createElement("form");
         editForm.className = "board-edit-form";
         editForm.hidden = true;
         const editInput = document.createElement("textarea");
         editInput.maxLength = 2000;
-        editInput.value = result.content;
+        editInput.value = result.content || "";
         editInput.setAttribute("aria-label", "게시글 내용 수정");
         const editButton = document.createElement("button");
         editButton.className = "board-edit-button";
@@ -3864,6 +3900,7 @@
         const editMessage = document.createElement("p");
         editMessage.className = "board-access-message";
         editForm.append(editInput, editButton, editMessage);
+
         editToggle.addEventListener("click", () => {
           const shouldOpen = editForm.hidden;
           editForm.hidden = !shouldOpen;
@@ -3875,6 +3912,7 @@
             editInput.focus();
           }
         });
+
         editForm.addEventListener("submit", async (event) => {
           event.preventDefault();
           const nextContent = editInput.value.trim();
@@ -3887,69 +3925,84 @@
           editButton.textContent = "저장 중";
           try {
             const saved = await boardApi({ type: "boardUpdate", id: post.id, password, content: nextContent });
-            content.textContent = saved.content;
-            editInput.value = saved.content;
+            content.textContent = saved.content || nextContent;
+            editInput.value = content.textContent;
             editMessage.textContent = "";
-            editButton.disabled = false;
-            editButton.textContent = "수정 저장";
             editForm.hidden = true;
             content.hidden = false;
             editToggle.textContent = "수정";
           } catch (error) {
             editMessage.textContent = error?.message || "게시글을 수정하지 못했습니다.";
-            editButton.disabled = false;
-            editButton.textContent = "수정 저장";
           } finally {
+            editButton.disabled = false;
             editButton.classList.remove("is-loading");
+            editButton.textContent = "수정 저장";
           }
         });
-        view.append(editForm);
+
+        contentSection.append(editForm);
       }
 
-      view.append(replyHeading, reply);
+      view.append(contentSection);
 
-      if (result.editable && result.reply) {
+      const replySection = document.createElement("section");
+      replySection.className = "board-private-section is-reply";
+      const replyHeading = document.createElement("div");
+      replyHeading.className = "board-private-heading";
+      const replyLabel = document.createElement("p");
+      replyLabel.className = "board-private-label";
+      replyLabel.textContent = "관리자 답변";
+      replyHeading.append(replyLabel);
+      const reply = document.createElement("p");
+      reply.className = "board-private-text";
+      reply.textContent = replyMessages.length ? boardMessagesText(replyMessages, "관리자 답변") : "답변 대기 중입니다.";
+      replySection.append(replyHeading, reply);
+
+      if (result.editable && replyMessages.length) {
         const followUpToggle = document.createElement("button");
         followUpToggle.className = "board-edit-toggle";
         followUpToggle.type = "button";
-        followUpToggle.textContent = "답글";
+        followUpToggle.textContent = "작성자 내용";
         replyHeading.append(followUpToggle);
 
+        const followUpSection = document.createElement("section");
+        followUpSection.className = "board-private-section is-follow-up";
+        followUpSection.hidden = !followUpMessages.length;
         const followUpLabel = document.createElement("p");
         followUpLabel.className = "board-private-label";
-        followUpLabel.textContent = "작성자 답글";
-        followUpLabel.hidden = !result.followUp;
+        followUpLabel.textContent = "작성자 내용";
         const followUpText = document.createElement("p");
         followUpText.className = "board-private-text";
-        followUpText.textContent = result.followUp || "";
-        followUpText.hidden = !result.followUp;
+        followUpText.textContent = boardMessagesText(followUpMessages, "작성자 내용");
+        followUpSection.append(followUpLabel, followUpText);
 
         const followUpForm = document.createElement("form");
         followUpForm.className = "board-edit-form";
         followUpForm.hidden = true;
         const followUpInput = document.createElement("textarea");
         followUpInput.maxLength = 2000;
-        followUpInput.value = result.followUp || "";
-        followUpInput.setAttribute("aria-label", "관리자 답변에 대한 답글");
+        followUpInput.value = "";
+        followUpInput.setAttribute("aria-label", "관리자 답변에 대한 작성자 내용");
         const followUpButton = document.createElement("button");
         followUpButton.className = "board-edit-button";
         followUpButton.type = "submit";
-        followUpButton.textContent = "답글 저장";
+        followUpButton.textContent = "내용 저장";
         const followUpMessage = document.createElement("p");
         followUpMessage.className = "board-access-message";
         followUpForm.append(followUpInput, followUpButton, followUpMessage);
+        replySection.append(followUpForm);
 
         followUpToggle.addEventListener("click", () => {
           const shouldOpen = followUpForm.hidden;
           followUpForm.hidden = !shouldOpen;
-          followUpToggle.textContent = shouldOpen ? "취소" : "답글";
+          followUpToggle.textContent = shouldOpen ? "취소" : "작성자 내용";
           if (shouldOpen) {
             if (editForm && !editForm.hidden) {
               editForm.hidden = true;
               content.hidden = false;
               editToggle.textContent = "수정";
             }
-            followUpInput.value = followUpText.textContent;
+            followUpInput.value = "";
             followUpMessage.textContent = "";
             followUpInput.focus();
           }
@@ -3959,7 +4012,7 @@
           event.preventDefault();
           const nextFollowUp = followUpInput.value.trim();
           if (!nextFollowUp) {
-            followUpMessage.textContent = "답글 내용을 입력해 주세요.";
+            followUpMessage.textContent = "작성자 내용을 입력해 주세요.";
             return;
           }
           followUpButton.disabled = true;
@@ -3972,26 +4025,32 @@
               password,
               followUp: nextFollowUp
             });
-            followUpText.textContent = saved.followUp;
-            followUpLabel.hidden = false;
-            followUpText.hidden = false;
+            if (Array.isArray(saved.followUps)) {
+              followUpMessages.splice(0, followUpMessages.length, ...normalizeBoardMessages(saved.followUps, "author"));
+            } else {
+              followUpMessages.push({ role: "author", text: saved.followUp || nextFollowUp, createdAt: Date.now(), updatedAt: 0 });
+            }
+            followUpText.textContent = boardMessagesText(followUpMessages, "작성자 내용");
+            followUpInput.value = "";
+            followUpSection.hidden = false;
             followUpForm.hidden = true;
-            followUpToggle.textContent = "답글";
+            followUpToggle.textContent = "작성자 내용";
           } catch (error) {
-            followUpMessage.textContent = error?.message || "답글을 저장하지 못했습니다.";
+            followUpMessage.textContent = error?.message || "작성자 내용을 저장하지 못했습니다.";
           } finally {
             followUpButton.disabled = false;
             followUpButton.classList.remove("is-loading");
-            followUpButton.textContent = "답글 저장";
+            followUpButton.textContent = "내용 저장";
           }
         });
 
-        view.append(followUpLabel, followUpText, followUpForm);
+        view.append(replySection, followUpSection);
+      } else {
+        view.append(replySection);
       }
 
       article.append(view);
     }
-
     function openBoardPost(article, post) {
       const existingPanel = article.querySelector(".board-access-panel, .board-private-view");
       if (existingPanel) {
@@ -5082,6 +5141,8 @@
   </script>
 </body>
 </html>
+
+
 
 
 
