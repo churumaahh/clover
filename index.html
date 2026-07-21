@@ -1,25 +1,26 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ko">
 <head>
   <link rel="icon" type="image/png" href="assets/favicon.png?v=20260710-unified-4">
   <link rel="shortcut icon" type="image/png" href="assets/favicon.png?v=20260710-unified-4">
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>클로버 | 로테이션 소개팅</title>
-<meta name="description" content="부산 로테이션 소개팅">
+  <title>클로버ㅣ부산 로테이션 소개팅</title>
+<meta name="description" content="어느 날, 우연히, 슬며시">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://clover-love.vercel.app/">
-  <meta property="og:title" content="클로버 | 로테이션 소개팅">
-  <meta property="og:description" content="부산 로테이션 소개팅">
+  <meta property="og:title" content="클로버ㅣ부산 로테이션 소개팅">
+  <meta property="og:description" content="어느 날, 우연히, 슬며시">
   <meta property="og:image" content="https://clover-love.vercel.app/assets/link-preview.jpg?v=20260710-link">
   <meta property="og:image:secure_url" content="https://clover-love.vercel.app/assets/link-preview.jpg?v=20260710-link">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1600">
   <meta property="og:image:height" content="1600">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="클로버 | 로테이션 소개팅">
-  <meta name="twitter:description" content="부산 로테이션 소개팅">
+  <meta name="twitter:title" content="클로버ㅣ부산 로테이션 소개팅">
+  <meta name="twitter:description" content="어느 날, 우연히, 슬며시">
   <meta name="twitter:image" content="https://clover-love.vercel.app/assets/link-preview.jpg?v=20260710-link">
+  <script src="config.js"></script>
   <style>
     :root {
       --page-max: 37.5rem;
@@ -66,6 +67,17 @@
     a {
       color: inherit;
       text-decoration: none;
+    }
+
+    button,
+    [role="button"],
+    .drawer-social-link {
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-user-drag: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     button {
@@ -353,7 +365,7 @@
       z-index: 2;
       width: min(23rem, 100%);
       padding-bottom: 0.4rem;
-      transform: translateY(-3px);
+      transform: translateY(5px);
     }
 
     .hero h1 {
@@ -371,6 +383,7 @@
       font-size: 0.9rem;
       line-height: 1.65;
       word-break: keep-all;
+      transform: translateY(-8px);
     }
 
     .hero-cta {
@@ -479,6 +492,12 @@
       overflow: hidden;
       border-radius: 0.5rem;
       background: var(--thumb-image) center / cover no-repeat, #d8dce3;
+      cursor: pointer;
+    }
+
+    .event-thumb:focus-visible {
+      outline: 3px solid #00ff40;
+      outline-offset: 3px;
     }
 
     .event-media,
@@ -863,9 +882,14 @@
       background: #f8f9fb;
     }
 
+    .location-page.board-page {
+      padding-bottom: 2rem;
+    }
+
     .detail-page {
       display: grid;
       gap: 0.85rem;
+      padding-bottom: 2rem;
     }
 
     .detail-hero {
@@ -1067,15 +1091,17 @@
     }
 
     .schedule-section {
-      --schedule-color: #00d838;
-      --schedule-soft: #effff1;
-      --schedule-border: #8cff9f;
+      --schedule-color: #188f44;
+      --schedule-soft: #f2fbf5;
+      --schedule-border: #b9e8c8;
+      --schedule-selected-bg: #dff8e7;
     }
 
     [data-detail-root][data-gender="여성"] .schedule-section {
-      --schedule-color: #00d838;
-      --schedule-soft: #effff1;
-      --schedule-border: #8cff9f;
+      --schedule-color: #188f44;
+      --schedule-soft: #f2fbf5;
+      --schedule-border: #b9e8c8;
+      --schedule-selected-bg: #dff8e7;
     }
 
     .schedule-heading {
@@ -1123,6 +1149,16 @@
       text-align: center;
     }
 
+    .application-week span:first-child,
+    .application-day.is-sunday,
+    .application-day.is-holiday {
+      color: #ef4444;
+    }
+
+    .application-week span:last-child,
+    .application-day.is-saturday {
+      color: #2563eb;
+    }
     .application-week {
       margin-bottom: 0.3rem;
       color: #8c94a2;
@@ -1144,6 +1180,10 @@
     }
 
     .application-day.is-available {
+      width: 2.35rem;
+      height: 2.35rem;
+      justify-self: center;
+      align-self: center;
       border: 1px solid var(--schedule-border);
       color: var(--schedule-color);
       background: var(--schedule-soft);
@@ -1151,10 +1191,22 @@
     }
 
     .application-day.is-selected {
-      border-color: var(--schedule-color);
-      color: #fff;
-      background: var(--schedule-color);
-      box-shadow: 0 0.25rem 0.7rem color-mix(in srgb, var(--schedule-color) 25%, transparent);
+      border-color: #188f44;
+      color: #0f6d35;
+      background: var(--schedule-selected-bg);
+      box-shadow: 0 0.2rem 0.55rem rgba(24, 143, 68, 0.14);
+    }
+
+    .application-day.is-available.is-saturday,
+    .application-day.is-selected.is-saturday {
+      color: #2563eb;
+    }
+
+    .application-day.is-available.is-sunday,
+    .application-day.is-available.is-holiday,
+    .application-day.is-selected.is-sunday,
+    .application-day.is-selected.is-holiday {
+      color: #ef4444;
     }
 
     .application-day.is-today::before {
@@ -1176,52 +1228,105 @@
     }
 
     .application-day small {
-      margin-top: 0.15rem;
+      margin-top: 0.55rem;
       font-size: 0.58rem;
     }
 
     .schedule-result {
       display: grid;
-      gap: 0.55rem;
-      padding-top: 0.15rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+      padding: 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 0.75rem;
+      background: #fff;
     }
 
     .schedule-result[hidden] { display: none; }
 
     .schedule-result-section {
-      padding: 0.7rem 0.8rem;
-      border: 1px solid var(--schedule-border);
-      border-radius: 0.65rem;
-      background: var(--schedule-soft);
+      min-width: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    .schedule-result-section:first-child {
+      grid-column: 1 / -1;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid var(--line);
     }
 
     .schedule-result-section h4 {
-      margin: 0 0 0.35rem;
-      color: var(--schedule-color);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin: 0 0 0.45rem;
+      color: #303743;
       font-size: 0.72rem;
       font-weight: 950;
     }
 
+    .schedule-result-section h4::before {
+      width: 0.42rem;
+      height: 0.42rem;
+      border-radius: 50%;
+      background: #8b95a1;
+      content: "";
+      flex: 0 0 auto;
+    }
+
+    .schedule-time-options {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.45rem;
+    }
+
+    .schedule-time-option {
+      width: 100%;
+      min-height: 2.35rem;
+      padding: 0.5rem 0.35rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #303743;
+      background: #fff;
+      font-size: 0.78rem;
+      font-weight: 950;
+      box-shadow: 0 0.2rem 0.65rem rgba(15, 23, 42, 0.04);
+    }
+
+    .schedule-time-option.is-selected {
+      border-color: #111827;
+      color: #111827;
+      background: #fff;
+      box-shadow: none;
+    }
+
     .selected-schedule,
     .confirmed-schedule-list {
+      min-height: 2.25rem;
       margin: 0;
-      color: #303743;
-      font-size: 0.74rem;
-      line-height: 1.5;
-      font-weight: 800;
+      padding: 0.55rem 0.65rem;
+      border-radius: 0.55rem;
+      color: #111827;
+      background: #fff;
+      font-size: 0.76rem;
+      line-height: 1.45;
+      font-weight: 900;
     }
 
     .confirmed-schedule-list {
       display: flex;
       flex-wrap: wrap;
       gap: 0.35rem;
+      color: #303743;
     }
 
     .confirmed-person {
       padding: 0.25rem 0.45rem;
-      border: 1px solid var(--schedule-border);
+      border: 1px solid var(--line);
       border-radius: 999px;
-      color: var(--schedule-color);
+      color: #303743;
       background: #fff;
       font-size: calc(0.68rem - 2px);
       font-weight: 850;
@@ -1231,6 +1336,9 @@
       .application-calendar { gap: 0.45rem; }
       .application-month { padding-inline: 0.35rem; }
       .application-day { height: 2.65rem; }
+      .application-day.is-available { width: 2.3rem; height: 2.3rem; }
+      .schedule-result { grid-template-columns: 1fr; }
+      .schedule-time-options { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
 
     .form-section {
@@ -1315,6 +1423,12 @@
       gap: 0.45rem;
     }
 
+    .choice-break {
+      flex-basis: 100%;
+      width: 100%;
+      height: 0;
+    }
+
     .preference-group {
       display: grid;
       gap: 0.45rem;
@@ -1340,11 +1454,16 @@
       background: #fff;
       font-size: 0.78rem;
       font-weight: 850;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-user-drag: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .choice-chip.is-selected {
-      border-color: var(--accent);
-      color: var(--accent-dark);
+      border-color: #111827;
+      color: #111827;
       background: #fff;
     }
 
@@ -1538,7 +1657,7 @@
     }
 
     .detail-section.is-spaced {
-      margin-top: 100px;
+      margin-top: 28px;
     }
 
     .detail-list {
@@ -1783,7 +1902,7 @@
 
     .calendar-month-label {
       grid-column: 1 / -1;
-      margin-top: 0.15rem;
+      margin-top: 0.55rem;
       padding: 0.35rem 0.15rem 0.3rem;
       border-bottom: 1px solid var(--line);
       color: var(--ink);
@@ -2108,12 +2227,35 @@
 
     .board-form-row {
       display: grid;
-      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr) minmax(0, 1.2fr);
       gap: 0.65rem;
     }
 
     .board-form-row .field {
       min-width: 0;
+    }
+
+    .board-form .field select {
+      width: 100%;
+      min-height: 3rem;
+      padding: 0 2.2rem 0 0.85rem;
+      border: 1px solid var(--line);
+      border-radius: 0.7rem;
+      color: #343943;
+      background-color: #fff;
+      font: inherit;
+      font-weight: 650;
+      outline: none;
+      appearance: none;
+      background-image: linear-gradient(45deg, transparent 50%, #6b7280 50%), linear-gradient(135deg, #6b7280 50%, transparent 50%);
+      background-position: calc(100% - 1rem) 50%, calc(100% - 0.7rem) 50%;
+      background-size: 0.32rem 0.32rem, 0.32rem 0.32rem;
+      background-repeat: no-repeat;
+    }
+
+    .board-form .field select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 14%, transparent);
     }
 
     .board-form .field input[readonly] {
@@ -2150,7 +2292,7 @@
     .board-list-section {
       display: grid;
       gap: 0.75rem;
-      margin-top: 1rem;
+      margin-top: 1.35rem;
     }
 
     .board-list-title {
@@ -2218,6 +2360,19 @@
       font-size: 0.9rem;
       font-weight: 850;
     }
+    .board-post-category {
+      display: inline-flex;
+      align-items: center;
+      min-height: 1.35rem;
+      padding: 0 0.45rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 999px;
+      color: #343943;
+      background: #f4f5f7;
+      font-size: 0.72rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
 
     .board-post-time {
       flex: 0 0 auto;
@@ -2274,17 +2429,24 @@
     .board-page-button {
       width: 2.2rem;
       height: 2.2rem;
-      display: grid;
-      place-items: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       padding: 0;
       border: 1px solid var(--line);
       border-radius: 50%;
       color: #121218;
       background: #fff;
       font-size: 1.2rem;
+      line-height: 1;
+      text-align: center;
       cursor: pointer;
     }
 
+    .board-page-button span {
+      display: block;
+      transform: translateY(-0.04rem);
+    }
     .board-page-button:disabled {
       color: #b9bec8;
       background: #f3f4f6;
@@ -2316,18 +2478,17 @@
       background: #fff;
     }
 
+    .board-private-section[hidden] { display: none; }
+
     .board-private-section.is-content {
-      border-left: 4px solid #1685ed;
       background: #f7fbff;
     }
 
     .board-private-section.is-reply {
-      border-left: 4px solid #00d83a;
       background: #f1fff5;
     }
 
     .board-private-section.is-follow-up {
-      border-left: 4px solid #1685ed;
       background: #f7fbff;
     }
     .board-access-panel input {
@@ -2389,7 +2550,6 @@
       font-size: 0.7rem;
       font-weight: 850;
     }
-
     .board-edit-form textarea {
       width: 100%;
       min-height: 6rem;
@@ -2618,6 +2778,11 @@
       height: 1.25rem;
     }
 
+    .drawer-social-link.is-youtube svg {
+      width: 1.12rem;
+      height: 1.12rem;
+    }
+
     .drawer-staff-link {
       height: 2rem;
       display: grid;
@@ -2719,6 +2884,62 @@
         flex-direction: column;
       }
     }
+    .schedule-feed { display: grid; gap: 1.15rem; }
+    .schedule-feed-empty, .schedule-feed-loading { padding: 2rem 1rem; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: #667085; text-align: center; font-weight: 700; }
+    .schedule-headline-strip { display: grid; gap: .75rem; }
+    .schedule-section-title { margin: 0; font-size: 1.05rem; font-weight: 950; letter-spacing: -.03em; }
+    .schedule-headline-scroller { position: relative; overflow: hidden; }
+    .schedule-headline-row { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(15rem, 78%); gap: .75rem; overflow-x: auto; padding: .1rem .05rem .12rem; scrollbar-width: none; scroll-behavior: smooth; }
+    .schedule-headline-row::-webkit-scrollbar { display: none; }
+    .schedule-scroll-btn { position: absolute; top: 50%; z-index: 2; width: 1.45rem; height: 2.25rem; border: 0; border-radius: 999px; color: #07150b; background: #00ff40; box-shadow: 0 .3rem .75rem rgba(15,23,42,.2); font-size: .9rem; font-weight: 950; display: inline-flex; align-items: center; justify-content: center; transform: translateY(-50%); }
+    .schedule-scroll-btn.prev { left: .35rem; }
+    .schedule-scroll-btn.next { right: .35rem; }
+    .schedule-scroll-btn:active { transform: translateY(-50%) scale(.96); }
+    .schedule-scroll-btn[hidden] { display: none; }
+    .schedule-post-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .72rem; }
+    .schedule-post-card { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #fff; box-shadow: 0 .35rem 1.2rem rgba(15,23,42,.06); }
+    .schedule-post-card.is-headline { min-height: 100%; }
+    .schedule-post-cover { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #e5e7eb; }
+    .schedule-post-cover img { width: 100%; height: 100%; display: block; object-fit: cover; }
+    .schedule-post-badge { position: absolute; left: .55rem; top: .55rem; padding: .22rem .5rem; border-radius: 999px; color: #07150b; background: #00ff40; font-size: .68rem; font-weight: 950; box-shadow: 0 .25rem .65rem rgba(0,0,0,.16); }
+    .schedule-post-body { padding: .75rem .8rem .85rem; }
+    .schedule-post-body h2, .schedule-post-body h3 { margin: 0; font-size: .95rem; line-height: 1.35; letter-spacing: -.035em; }
+    .schedule-post-card.is-headline .schedule-post-body h2 { font-size: 1.05rem; }
+    .schedule-post-content { margin: .45rem 0 0; color: #4b5563; font-size: .78rem; line-height: 1.45; white-space: pre-wrap; }
+    .schedule-post-content { display: -webkit-box; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; white-space: normal; }
+    .schedule-post-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .42rem; margin-top: .6rem; color: #667085; font-size: .7rem; font-weight: 800; }
+    .schedule-post-meta span, .schedule-post-meta button { min-height: 1.75rem; padding: .22rem .55rem; border: 1px solid #d8dee6; border-radius: 999px; color: #344054; background: #fff; font-weight: 900; display: inline-flex; align-items: center; justify-content: center; }
+    .schedule-post-meta button.is-liked { border-color: #00d638; color: #07150b; background: #e9ffef; }
+    .support-page.schedule-detail-page { min-height: calc(100svh - 3.7rem); padding-top: .05rem; padding-bottom: 1.05rem; }
+    .schedule-detail-page { display: grid; gap: 0; }
+    .schedule-detail-page .page-title { margin: 0; padding: 0 .25rem; }
+    .schedule-detail-top { display: flex; align-items: center; justify-content: space-between; gap: .75rem; min-height: auto; padding: .15rem 0 .38rem; transform: translateY(-50px); margin-bottom: -50px; }
+    .schedule-back-btn { min-height: 2.25rem; padding: 0 .85rem; border: 1px solid #d8dee6; border-radius: 999px; background: #fff; color: #111827; font-size: .85rem; font-weight: 900; }
+    .schedule-detail-page [data-schedule-detail] { transform: translateY(-60px); margin-bottom: -60px; }
+    .schedule-detail-card { overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: #fff; box-shadow: 0 .45rem 1.4rem rgba(15,23,42,.06); }
+    .schedule-detail-media { position: relative; overflow: hidden; background: #e5e7eb; }
+    .schedule-detail-image { width: 100%; aspect-ratio: 16 / 9; display: block; object-fit: cover; background: #e5e7eb; }
+    .schedule-detail-date { justify-self: end; color: #111827; background: transparent; border: 0; padding: 0; font-size: .76rem; font-weight: 900; white-space: nowrap; }
+    .schedule-detail-body { display: grid; gap: .38rem; padding: .58rem .85rem .62rem; }
+    .schedule-detail-heading { margin: 0; font-size: 1.25rem; line-height: 1.32; letter-spacing: -.04em; }
+    .schedule-detail-content { margin: 0; color: #475467; font-size: .9rem; line-height: 1.65; white-space: pre-wrap; }
+    .schedule-detail-actions { display: grid; justify-items: end; gap: .28rem; margin-top: .05rem; }
+    .schedule-detail-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .45rem; color: #667085; font-size: .78rem; font-weight: 850; }
+    .schedule-detail-meta span, .schedule-detail-meta button { min-height: 1.9rem; padding: .25rem .65rem; border: 1px solid #d8dee6; border-radius: 999px; color: #344054; background: #fff; font-weight: 900; display: inline-flex; align-items: center; justify-content: center; }
+    .schedule-detail-meta button.is-liked { border-color: #00d638; color: #07150b; background: #e9ffef; }
+    .schedule-comment-section { display: grid; gap: .5rem; padding: 0 .85rem .72rem; }
+    .schedule-comment-title { margin: 0; font-size: .95rem; font-weight: 950; letter-spacing: -.03em; }
+    .schedule-comment-list { display: grid; gap: .4rem; }
+    .schedule-comment { padding: .55rem .6rem; border: 1px solid #edf0f3; border-radius: .55rem; background: #f8fafc; }
+    .schedule-comment strong { display: block; margin-bottom: .18rem; font-size: .72rem; }
+    .schedule-comment p { margin: 0; color: #475467; font-size: .76rem; line-height: 1.45; white-space: pre-wrap; }
+    .schedule-comment-empty { margin: 0; color: #667085; font-size: .8rem; font-weight: 800; }
+    .schedule-comment-form { display: grid; gap: .45rem; }
+    .schedule-comment-form textarea { min-height: 4.1rem; padding: .65rem; border: 1px solid var(--line); border-radius: .6rem; resize: vertical; outline: 0; }
+    .schedule-comment-form textarea:focus { border-color: #00d638; box-shadow: 0 0 0 3px rgba(0,255,64,.12); }
+    .schedule-comment-form button { min-height: 2.45rem; border: 0; border-radius: .6rem; color: #07150b; background: #00ff40; font-weight: 950;
+    }
+    @media(max-width: 42rem) { .schedule-post-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem; } .schedule-post-body { padding: .52rem; } .schedule-post-body h2, .schedule-post-body h3 { font-size: .72rem; } .schedule-post-content { display: none; } .schedule-post-meta { font-size: .62rem; gap: .25rem; } .schedule-headline-row { grid-auto-columns: minmax(15rem, 86%); } .schedule-scroll-btn { width: 1.35rem; height: 2.05rem; } }
   </style>
 </head>
 <body>
@@ -2739,19 +2960,19 @@
 
     <section class="page is-active" id="page-home" data-page="home">
       <div class="hero" id="heroBanner" aria-label="주요 배너">
-        <article class="hero-slide is-active" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1783646702/tmqicnvaxwyqrvypifdu.jpg')">
+        <article class="hero-slide is-active" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1784446329/uhzzvjl5g8k9stjholmx.jpg')">
           <div class="hero-content">
             <h1>가입 X, 로그인 X</h1>
             <p>로그인 없이 이용 가능합니다.</p>
           </div>
         </article>
-        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1783646543/ulbz7lytulvgpmyphsp9.jpg')">
+        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1784446244/kb6ybdlactigqtheezvm.jpg')">
           <div class="hero-content">
             <h1>너와 나</h1>
             <p>6:6 로테이션 소개팅</p>
           </div>
         </article>
-        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1783646923/bidiquisus2fwaekxgyp.jpg')">
+        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1784446329/uhzzvjl5g8k9stjholmx.jpg')">
           <div class="hero-content">
             <h1>사랑은 거창하지 않습니다</h1>
             <p>하나의 연애 세포면 충분</p>
@@ -2766,11 +2987,9 @@
       <main class="content">
         <section id="home-events">
           <div class="filter-row" aria-label="이벤트 필터">
-            <button class="filter-chip is-active" type="button">전체</button>
-            <button class="filter-chip" type="button">서면</button>
+            <button class="filter-chip is-active" type="button">서면</button>
             <button class="filter-chip" type="button" disabled aria-disabled="true">사상</button>
             <button class="filter-chip" type="button" disabled aria-disabled="true">광안리</button>
-            <button class="filter-chip" type="button" disabled aria-disabled="true">남포</button>
           </div>
           <ul class="event-list" data-event-list="home"></ul>
         </section>
@@ -2778,7 +2997,7 @@
       </main>
       <button class="home-contact-fab" type="button" onclick="window.goPage(event, 'support')" aria-label="1:1 문의하기">
         <img src="assets/clover-logo-v2.png" alt="">
-        <span>1:1 문의</span>
+        <span>1:1 채팅</span>
       </button>
     </section>
 
@@ -2792,13 +3011,26 @@
       </nav>
       <main class="support-page">
         <h1 class="page-title">일정</h1>
-        <section class="support-card">
-          <h2>일정</h2>
-          <p>등록된 일정이 없습니다.</p>
-        </section>
+        <section class="schedule-feed" data-schedule-feed><div class="schedule-feed-loading">일정 소식을 불러오는 중입니다.</div></section>
       </main>
     </section>
 
+    <section class="page" id="page-schedule-detail" data-page="schedule-detail">
+      <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
+        <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'schedule')">일정</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'location')">위치</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'process')">진행</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'discount')">할인</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'refund')">환불</button>
+      </nav>
+      <main class="support-page schedule-detail-page">
+        <div class="schedule-detail-top">
+          <h1 class="page-title">일정</h1>
+          <button class="schedule-back-btn" type="button" onclick="window.goPage(event, 'schedule')">목록</button>
+        </div>
+        <section data-schedule-detail><div class="schedule-feed-loading">일정 소식을 불러오는 중입니다.</div></section>
+      </main>
+    </section>
     <section class="page" id="page-process" data-page="process">
       <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
         <button class="section-tab" type="button" onclick="window.goPage(event, 'schedule')">일정</button>
@@ -2942,12 +3174,12 @@
     </section>
 
     <section class="page" id="page-reviews" data-page="reviews">
-      <nav class="section-tabs review-tabs" aria-label="후기 메뉴">
+      <nav class="section-tabs review-tabs" aria-label="이후 메뉴">
         <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
         <button class="section-tab" type="button" onclick="window.goPage(event, 'episodes')">에피소드</button>
       </nav>
       <main class="location-page">
-        <h1 class="page-title">후기</h1>
+        <h1 class="page-title">이후</h1>
         <div class="review-sections">
           <section class="support-card section-anchor" id="review-match">
             <h2>매칭 결과</h2>
@@ -2999,12 +3231,12 @@
     </section>
 
     <section class="page" id="page-episodes" data-page="episodes">
-      <nav class="section-tabs review-tabs" aria-label="후기 메뉴">
+      <nav class="section-tabs review-tabs" aria-label="이후 메뉴">
         <button class="section-tab" type="button" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
         <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'episodes')">에피소드</button>
       </nav>
       <main class="location-page">
-        <h1 class="page-title">후기</h1>
+        <h1 class="page-title">이후</h1>
         <section class="support-card">
           <h2>에피소드</h2>
           <p>등록된 에피소드가 없습니다.</p>
@@ -3013,17 +3245,28 @@
     </section>
 
     <section class="page" id="page-board" data-page="board">
-      <main class="location-page">
-        <h1 class="page-title">자유 게시판</h1>
+      <main class="location-page board-page">
+        <h1 class="page-title">문의</h1>
         <p class="page-description">본 내용은 어디에도 공개되지 않으며 익명으로 운영됩니다.</p>
         <section class="support-card">
           <h2>익명 작성</h2>
-          <p>좋았던 점, 아쉬웠던 점, 불편했던 점, 이상했던 점 등 자유롭게 적어주세요.</p>
           <form class="board-form" id="boardForm" novalidate>
             <div class="board-form-row">
               <div class="field">
                 <label for="boardAuthor">작성자</label>
                 <input id="boardAuthor" name="author" type="text" maxlength="2" readonly aria-readonly="true">
+              </div>
+              <div class="field">
+                <label for="boardCategory">구분</label>
+                <select id="boardCategory" name="category" required>
+                  <option value="일반 문의">일반 문의</option>
+                  <option value="쎼함 제보">쎼함 제보</option>
+                  <option value="연애 상담">연애 상담</option>
+                  <option value="건의사항">건의사항</option>
+                  <option value="신고">신고</option>
+                  <option value="제휴 문의">제휴 문의</option>
+                  <option value="기타">기타</option>
+                </select>
               </div>
               <div class="field">
                 <label for="boardPassword">비밀번호</label>
@@ -3037,7 +3280,7 @@
             <button class="submit-btn board-submit-btn" type="submit">접수하기</button>
           </form>
         </section>
-        <section class="board-list-section" aria-labelledby="boardListTitle">
+        <section class="board-list-section support-card" aria-labelledby="boardListTitle">
           <h2 class="board-list-title" id="boardListTitle">게시판 접수</h2>
           <div class="board-post-list" id="boardPostList" aria-live="polite"></div>
           <nav class="board-pagination" id="boardPagination" aria-label="게시판 페이지 이동" hidden></nav>
@@ -3077,12 +3320,18 @@
     <nav class="drawer-links" aria-label="메뉴">
       <button class="drawer-link" type="button" data-page-link="home" onclick="window.goPage(event, 'home')">홈</button>
       <button class="drawer-link" type="button" data-page-link="schedule" onclick="window.goPage(event, 'schedule')">안내</button>
-      <button class="drawer-link" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')">후기</button>
+      <button class="drawer-link" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')">이후</button>
       <button class="drawer-link" type="button" data-page-link="board" onclick="window.goPage(event, 'board')">문의</button>
     </nav>
     <div class="drawer-shortcuts">
       <p class="drawer-shortcut-label">바로가기</p>
       <div class="drawer-social-links">
+        <a class="drawer-social-link is-youtube" href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="유튜브 바로가기" title="유튜브">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect width="24" height="24" rx="5" fill="#ff0033"/>
+            <path d="M9.2 7.1v9.8l8-4.9-8-4.9Z" fill="#fff"/>
+          </svg>
+        </a>
         <a class="drawer-social-link" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="인스타그램 바로가기" title="인스타그램">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <defs>
@@ -3197,19 +3446,24 @@
       }
     ];
 
+    const DEFAULT_EVENT_IMAGES = Object.freeze(events.reduce((images, event) => {
+      images[String(event.station || "")] = event.image || "";
+      return images;
+    }, {}));
+
     const iconCalendar = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01" stroke-width="3" stroke-linecap="round"/></svg>';
     const iconPin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxKUk4Y_3GANDLIJdoTEei1BJ-sfW4TJ34f3cxgdOccEHNh7rvfEpkRw0ahwz6_H9XB/exec";
-    const HERO_CACHE_KEY = "clover-managed-hero-slides-v4";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbz4maRNMx_yM5C6qzz9CaGUn37E7bxfiEpN60kLYo_-z8IS2w3sPJu69VmhruBfIdyS/exec";
+    const HERO_CACHE_KEY = "clover-managed-hero-slides-v5";
     const HERO_FALLBACK_SLIDES = [
       {
         id: "24a52166-2ce4-4107-992e-09bcf51b7a62",
         order: 1,
         title: "가입 X, 로그인 X",
         description: "로그인 없이 이용 가능합니다.",
-        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/v1783646702/tmqicnvaxwyqrvypifdu.jpg",
+        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/v1784446329/uhzzvjl5g8k9stjholmx.jpg",
         active: true
       },
       {
@@ -3217,7 +3471,7 @@
         order: 2,
         title: "너와 나",
         description: "6:6 로테이션 소개팅",
-        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/v1783646543/ulbz7lytulvgpmyphsp9.jpg",
+        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/v1784446244/kb6ybdlactigqtheezvm.jpg",
         active: true
       },
       {
@@ -3225,7 +3479,7 @@
         order: 3,
         title: "사랑은 거창하지 않습니다",
         description: "하나의 연애 세포면 충분",
-        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/v1783646923/bidiquisus2fwaekxgyp.jpg",
+        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/v1784446329/uhzzvjl5g8k9stjholmx.jpg",
         active: true
       }
     ];
@@ -3240,7 +3494,7 @@
       return `
         <li>
           <article class="event-card${event.showGenderCount ? " has-gender-count" : ""}">
-            <div class="event-thumb" style="--thumb-image: ${thumbImage}">
+            <div class="event-thumb" style="--thumb-image: ${thumbImage}" role="button" tabindex="0" data-join-index="${index}" aria-label="${event.title} 참여 선택">
               ${thumbVideo}
               <span class="event-location-badge">${iconPin}<b>${locationName}</b></span>
             </div>
@@ -3289,13 +3543,24 @@
     renderEventList();
     const detailRoot = document.querySelector("[data-detail-root]");
 
-    const applicationSchedules = {
-      "2026-07-10": "오후 7시", "2026-07-12": "오후 1시", "2026-07-18": "오후 1시",
-      "2026-07-19": "오후 1시", "2026-07-25": "오후 4시", "2026-07-26": "오후 4시",
-      "2026-07-31": "오후 7시", "2026-08-01": "오후 7시", "2026-08-08": "오후 4시",
-      "2026-08-12": "오후 4시", "2026-08-15": "오후 7시", "2026-08-16": "오후 7시",
-      "2026-08-21": "오후 7시", "2026-08-23": "오후 7시"
-    };
+    const applicationScheduleDates = new Set([
+      "2026-07-10", "2026-07-12", "2026-07-18", "2026-07-19", "2026-07-25", "2026-07-26", "2026-07-31",
+      "2026-08-01", "2026-08-08", "2026-08-09", "2026-08-15", "2026-08-16", "2026-08-21", "2026-08-23"
+    ]);
+
+    const applicationHolidayDates = new Set([
+      "2026-07-17", // 제헌절
+      "2026-08-15", // 광복절
+      "2026-08-17"  // 광복절 대체공휴일
+    ]);
+
+    function applicationTimesForDate(isoDate) {
+      if (!applicationScheduleDates.has(isoDate)) return [];
+      const day = new Date(`${isoDate}T00:00:00`).getDay();
+      if (day === 5) return ["오후 7시"];
+      if (day === 6 || day === 0) return ["오후 1시", "오후 4시", "오후 7시"];
+      return [];
+    }
     const confirmedParticipantsBySchedule = {};
 
     function renderConfirmedParticipants(scheduleKey) {
@@ -3304,7 +3569,20 @@
       const participants = confirmedParticipantsBySchedule[scheduleKey] || [];
       target.innerHTML = participants.length
         ? participants.map((name) => `<span class="confirmed-person">${name}</span>`).join("")
-        : "확정자가 없습니다.";
+        : "- 자리 남았습니다.";
+    }
+
+    function formatSelectedSchedule(dateKey, time) {
+      if (!dateKey || !time) return "";
+      const [year, month, day] = dateKey.split("-");
+      return `${year}년 ${Number(month)}월 ${Number(day)}일 ${time}`;
+    }
+
+    function renderScheduleTimeOptions(dateKey) {
+      const target = document.querySelector("[data-schedule-time-options]");
+      if (!target) return;
+      const times = applicationTimesForDate(dateKey);
+      target.innerHTML = times.map((time) => `<button class="schedule-time-option${time === selectedScheduleTime ? " is-selected" : ""}" type="button" data-application-time="${time}">${time}</button>`).join("");
     }
 
     function applicationMonthTemplate(year, month) {
@@ -3319,10 +3597,19 @@
 
       for (let day = 1; day <= lastDate; day += 1) {
         const iso = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-        const schedule = applicationSchedules[iso];
-        const classes = ["application-day", schedule ? "is-available" : "", iso === today ? "is-today" : ""]
-          .filter(Boolean).join(" ");
-        cells.push(`<button class="${classes}" type="button" ${schedule ? `data-application-date="${iso}" data-application-time="${schedule}"` : "disabled"}><b>${day}</b>${schedule ? `<small>${schedule.replace("오후 ", "")}</small>` : ""}</button>`);
+        const dayOfWeek = new Date(`${iso}T00:00:00`).getDay();
+        const times = applicationTimesForDate(iso);
+        const isAvailable = times.length > 0;
+        const isHoliday = applicationHolidayDates.has(iso);
+        const classes = [
+          "application-day",
+          isAvailable ? "is-available" : "",
+          dayOfWeek === 0 ? "is-sunday" : "",
+          dayOfWeek === 6 ? "is-saturday" : "",
+          isHoliday ? "is-holiday" : "",
+          iso === today ? "is-today" : ""
+        ].filter(Boolean).join(" ");
+        cells.push(`<button class="${classes}" type="button" ${isAvailable ? `data-application-date="${iso}"` : "disabled"}><b>${day}</b></button>`);
       }
 
       return `<section class="application-month"><h4>${year}년 ${month}월</h4><div class="application-week" aria-hidden="true"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div><div class="application-days">${cells.join("")}</div></section>`;
@@ -3351,6 +3638,8 @@
     function renderDetail(event) {
       selectedEvent = event;
       selectedScheduleDate = "";
+      selectedScheduleDateKey = "";
+      selectedScheduleTime = "";
       selectedDocumentFile = null;
       selectedPhotoFiles = [];
       const applicationGender = selectedApplyGender || "";
@@ -3412,11 +3701,11 @@
             </div>
             <div class="schedule-result" data-schedule-result hidden>
               <section class="schedule-result-section">
-                <h4>선택 일정</h4>
-                <p class="selected-schedule" data-selected-schedule></p>
+                <h4>시간 선택</h4>
+                <div class="schedule-time-options" data-schedule-time-options></div>
               </section>
               <section class="schedule-result-section">
-                <h4>확정자 목록</h4>
+                <h4>마감 정보</h4>
                 <div class="confirmed-schedule-list" data-confirmed-schedule-list></div>
               </section>
             </div>
@@ -3459,112 +3748,16 @@
           </section>
 
           <section class="form-section">
-            <h3>직장 및 신원</h3>
+            <h3>직업</h3>
             <div class="form-field">
-              <label for="applyJob">회사명 / 부서 or 직무</label>
+              <label for="applyJob">회사명/부서/직무</label>
               <textarea id="applyJob" name="job" placeholder="내용을 작성해 주세요."></textarea>
             </div>
           </section>
 
+
           <section class="form-section">
-            <h3>나의 성향</h3>
-            <div class="form-field">
-              <label for="applyIdeal">이상형 (1개 이상)</label>
-              <div class="ideal-choice-row" data-ideal-choices>
-                <div class="preference-group">
-                  <p class="preference-title">선호 나이</p>
-                  <div class="choice-row">
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>20대 초</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>20대 중</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>20대 후</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>30대 초</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>30대 중</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>30대 후</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>연상</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>동갑</button>
-                  </div>
-                </div>
-                <div class="preference-group">
-                  <p class="preference-title">선호 연령</p>
-                  <div class="choice-row">
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>연상</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>연하</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>동갑</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>±2살</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>±5살</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>나이 무관</button>
-                  </div>
-                </div>
-                <div class="preference-group">
-                  <p class="preference-title">키</p>
-                  <div class="choice-row">
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>185cm ↑</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>180cm ↑</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>175cm ↑</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>170cm ↑</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>165cm ↑</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>160cm ↓</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>155cm ↓</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>150cm ↓</button>
-                  </div>
-                </div>
-                <div class="preference-group">
-                  <p class="preference-title">체형</p>
-                  <div class="choice-row">
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>마름</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>슬림</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>탄탄</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>글래머</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>통통</button>
-                  </div>
-                </div>
-                <div class="preference-group">
-                  <p class="preference-title">인상</p>
-                  <div class="choice-row">
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>강아지상</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>고양이상</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>여우상</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>곰상</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>사슴상</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>늑대상</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>꼬부기상</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>공룡상</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>순둥상</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>부두상</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>웃상</button>
-                  </div>
-                </div>
-                <div class="preference-group">
-                  <p class="preference-title">분위기</p>
-                  <div class="choice-row">
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>귀여운</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>청순한</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>시크한</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>훈훈한</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>단정한</button>
-                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>밝은</button>
-                  </div>
-                </div>
-              </div>
-              <input id="applyIdeal" name="ideal" type="hidden">
-            </div>
-            <div class="form-field">
-              <label for="applyDislike">비선호</label>
-              <div class="choice-row dislike-choice-row" data-dislike-choices>
-                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>작은 키</button>
-                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>큰 키</button>
-                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>너무 마른</button>
-                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>너무 통통한</button>
-                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>차가운 인상</button>
-                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>강한 인상</button>
-                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>흡연</button>
-                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>반려동물 알레르기</button>
-                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>종교 차이</button>
-                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>장거리</button>
-                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>주말 근무</button>
-              </div>
-              <input id="applyDislike" name="dislike" type="hidden">
-            </div>
+            <h3>생활 정보</h3>
             <div class="form-field">
               <label>흡연 유무</label>
               <div class="choice-row">
@@ -3577,9 +3770,10 @@
               <label>음주 빈도</label>
               <div class="choice-row">
                 <button class="choice-chip" type="button">안 마심</button>
+                <button class="choice-chip" type="button">못 마심</button>
                 <button class="choice-chip" type="button">가끔</button>
-                <button class="choice-chip" type="button">주 1~2회</button>
-                <button class="choice-chip" type="button">즐겨 마시는 편</button>
+                <button class="choice-chip" type="button">즐겨 마심</button>
+                <button class="choice-chip" type="button">모임 때만</button>
               </div>
             </div>
             <div class="form-field">
@@ -3591,6 +3785,94 @@
                 <button class="choice-chip" type="button">불교</button>
                 <button class="choice-chip" type="button">기타</button>
               </div>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <h3>나의 호불호</h3>
+            <div class="form-field">
+              <div class="ideal-choice-row" data-ideal-choices>
+                <div class="preference-group">
+                  <p class="preference-title">선호 나이</p>
+                  <div class="choice-row" data-single-ideal-group>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>20대 초반</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>20대 중반</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>20대 후반</button>
+                    <span class="choice-break" aria-hidden="true"></span>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>30대 초반</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>30대 중반</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>30대 후반</button>
+                  </div>
+                </div>
+                <div class="preference-group">
+                  <p class="preference-title">선호 연령</p>
+                  <div class="choice-row" data-single-ideal-group>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>연상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>연하</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>동갑</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>±2살</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>±5살</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>나이 무관</button>
+                  </div>
+                </div>
+                <div class="preference-group">
+                  <p class="preference-title">선호 키</p>
+                  <div class="choice-row" data-single-ideal-group>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>185cm ↑</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>180cm ↑</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>175cm ↑</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>170cm ↑</button>
+                    <span class="choice-break" aria-hidden="true"></span>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>165cm ↓</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>160cm ↓</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>155cm ↓</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>150cm ↓</button>
+                  </div>
+                </div>
+                <div class="preference-group">
+                  <p class="preference-title">선호 체형</p>
+                  <div class="choice-row" data-single-ideal-group>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>마름</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>슬림</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>보통</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>탄탄</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>글래머</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>통통</button>
+                  </div>
+                </div>
+                <div class="preference-group">
+                  <p class="preference-title">선호 인상</p>
+                  <div class="choice-row" data-max-choice="3">
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>강아지상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>공룡상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>곰상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>늑대상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>두부상</button>
+                    <span class="choice-break" aria-hidden="true"></span>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>고양이상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>여우상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>사슴상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>꼬부기상</button>
+                    <button class="choice-chip ideal-chip" type="button" data-ideal-choice>순둥상</button>
+                  </div>
+                </div>
+              </div>
+              <input id="applyIdeal" name="ideal" type="hidden">
+            </div>
+            <div class="form-field">
+              <p class="preference-title">불호</p>
+              <div class="choice-row dislike-choice-row" data-dislike-choices data-max-choice="3">
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>작은 키</button>
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>큰 키</button>
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>매우 마른 편</button>
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>매우 통통한 편</button>
+                <span class="choice-break" aria-hidden="true"></span>
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>차가운 인상</button>
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>강한 인상</button>
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>종교 차이</button>
+                <button class="choice-chip dislike-chip" type="button" data-dislike-choice>주말 근무</button>
+              </div>
+              <input id="applyDislike" name="dislike" type="hidden">
             </div>
           </section>
 
@@ -3677,6 +3959,8 @@
     let selectedApplyGender = "";
     let selectedApplyPrice = "";
     let selectedScheduleDate = "";
+    let selectedScheduleDateKey = "";
+    let selectedScheduleTime = "";
     let selectedDocumentFile = null;
     let selectedPhotoFiles = [];
     let selectedFileSequence = 0;
@@ -3684,7 +3968,7 @@
     const boardAuthor = document.getElementById("boardAuthor");
     const boardPostList = document.getElementById("boardPostList");
     const boardPagination = document.getElementById("boardPagination");
-    const boardPageSize = 5;
+    const boardPageSize = 10;
     let boardCurrentPage = 1;
     let boardPosts = [];
 
@@ -3731,7 +4015,188 @@
         return false;
       }
     }
-
+    const scheduleFeed = document.querySelector('[data-schedule-feed]');
+    let schedulePosts = [];
+    let selectedSchedulePostId = sessionStorage.getItem("cloverSchedulePostId") || "";
+    const SCHEDULE_LIKED_KEY = "clover-schedule-liked:v1";
+    const SCHEDULE_VIEWED_KEY = "clover-schedule-viewed:v1";
+    function readScheduleSet(key) { try { return new Set(JSON.parse(localStorage.getItem(key) || "[]")); } catch { return new Set(); } }
+    function writeScheduleSet(key, set) { try { localStorage.setItem(key, JSON.stringify([...set])); } catch {} }
+    const scheduleLikedPosts = readScheduleSet(SCHEDULE_LIKED_KEY);
+    const scheduleViewedPosts = readScheduleSet(SCHEDULE_VIEWED_KEY);
+    async function schedulePostApi(payload) {
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded;charset=utf-8" },
+        body: new URLSearchParams({ payload: JSON.stringify(payload) }).toString()
+      });
+      const result = await response.json();
+      if (!response.ok || !result.ok) throw new Error(result.error || "일정 요청을 처리하지 못했습니다.");
+      return result;
+    }
+    function scheduleDate(value) {
+      const date = new Date(Number(value) || value);
+      return Number.isNaN(date.getTime()) ? "" : new Intl.DateTimeFormat("ko-KR", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).format(date);
+    }
+    function scheduleFullDate(value) {
+      const date = new Date(Number(value) || value);
+      return Number.isNaN(date.getTime()) ? "" : new Intl.DateTimeFormat("ko-KR", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).format(date);
+    }
+    function updateSchedulePost(nextPost) {
+      if (!nextPost || !nextPost.id) return;
+      const index = schedulePosts.findIndex((post) => String(post.id) === String(nextPost.id));
+      if (index >= 0) schedulePosts[index] = nextPost;
+      renderSchedulePosts();
+      requestAnimationFrame(refreshScheduleHeadlineControls);
+      if (selectedSchedulePostId === String(nextPost.id)) renderScheduleDetail(nextPost);
+    }
+    function scheduleCommentHtml(comments) {
+      return comments.length
+        ? comments.slice().reverse().map((comment) => `<div class="schedule-comment"><strong>${htmlAttr(comment.author || "익명")} · ${htmlAttr(scheduleDate(comment.createdAt))}</strong><p>${htmlAttr(comment.content || "")}</p></div>`).join("")
+        : '<p class="schedule-comment-empty">아직 댓글이 없습니다.</p>';
+    }
+    function schedulePostCard(post, headline = false) {
+      const comments = Array.isArray(post.comments) ? post.comments : [];
+      const liked = scheduleLikedPosts.has(String(post.id));
+      return `<article class="schedule-post-card${headline ? " is-headline" : ""}" data-schedule-post-id="${htmlAttr(post.id)}">
+        <button class="schedule-post-cover" type="button" data-schedule-open="${htmlAttr(post.id)}" aria-label="${htmlAttr(post.title)} 자세히 보기"><img src="${htmlAttr(post.imageUrl)}" alt="${htmlAttr(post.title)}" loading="lazy"><span class="schedule-post-badge">${htmlAttr(post.category || "공지")}</span></button>
+        <div class="schedule-post-body">
+          ${headline ? `<h2>${htmlAttr(post.title)}</h2>` : `<h3>${htmlAttr(post.title)}</h3>`}
+          <p class="schedule-post-content">${htmlAttr(post.content)}</p>
+          <div class="schedule-post-meta"><span>조회 ${Number(post.views) || 0}</span><button type="button" class="${liked ? "is-liked" : ""}" data-schedule-like="${htmlAttr(post.id)}">공감 ${Number(post.likes) || 0}</button><button type="button" data-schedule-open="${htmlAttr(post.id)}">댓글 ${comments.length}</button></div>
+        </div>
+      </article>`;
+    }
+    function renderScheduleDetail(post) {
+      const target = document.querySelector("[data-schedule-detail]");
+      if (!target) return;
+      if (!post) {
+        target.innerHTML = '<div class="schedule-feed-empty">선택한 일정 소식을 찾지 못했습니다.</div>';
+        return;
+      }
+      const comments = Array.isArray(post.comments) ? post.comments : [];
+      const liked = scheduleLikedPosts.has(String(post.id));
+      target.innerHTML = `<article class="schedule-detail-card" data-schedule-post-id="${htmlAttr(post.id)}">
+        <div class="schedule-detail-media"><img class="schedule-detail-image" src="${htmlAttr(post.imageUrl)}" alt="${htmlAttr(post.title)}" loading="eager"></div>
+        <div class="schedule-detail-body">
+          <h2 class="schedule-detail-heading">${htmlAttr(post.title)}</h2>
+          <p class="schedule-detail-content">${htmlAttr(post.content || "")}</p>
+          <div class="schedule-detail-actions"><div class="schedule-detail-meta"><span>조회 ${Number(post.views) || 0}</span><button type="button" class="${liked ? "is-liked" : ""}" data-schedule-like="${htmlAttr(post.id)}">공감 ${Number(post.likes) || 0}</button><span>댓글 ${comments.length}</span></div><time class="schedule-detail-date">${htmlAttr(scheduleFullDate(post.createdAt || post.updatedAt) || "-")}</time></div>
+        </div>
+        <section class="schedule-comment-section">
+          <h3 class="schedule-comment-title">댓글</h3>
+          <div class="schedule-comment-list">${scheduleCommentHtml(comments)}</div>
+          <form class="schedule-comment-form" data-schedule-comment-form="${htmlAttr(post.id)}"><textarea maxlength="500" placeholder="익명 댓글을 작성해 주세요."></textarea><button type="submit">댓글 등록</button></form>
+        </section>
+      </article>`;
+    }
+    function openSchedulePostDetail(id) {
+      const post = schedulePosts.find((item) => String(item.id) === String(id));
+      if (!post) return;
+      selectedSchedulePostId = String(id);
+      try { sessionStorage.setItem("cloverSchedulePostId", selectedSchedulePostId); } catch {}
+      renderScheduleDetail(post);
+      setPage("schedule-detail");
+      if (!scheduleViewedPosts.has(selectedSchedulePostId)) {
+        scheduleViewedPosts.add(selectedSchedulePostId);
+        writeScheduleSet(SCHEDULE_VIEWED_KEY, scheduleViewedPosts);
+        schedulePostApi({ type: "schedulePostView", id: selectedSchedulePostId }).then((result) => updateSchedulePost(result.post)).catch(() => {});
+      }
+    }
+    function updateScheduleHeadlineControls(row) {
+      const scroller = row?.closest(".schedule-headline-scroller");
+      if (!row || !scroller) return;
+      const prev = scroller.querySelector('[data-schedule-scroll="prev"]');
+      const next = scroller.querySelector('[data-schedule-scroll="next"]');
+      const max = row.scrollWidth - row.clientWidth;
+      const left = row.scrollLeft;
+      if (prev) prev.hidden = left <= 2;
+      if (next) next.hidden = false;
+    }
+    function refreshScheduleHeadlineControls() {
+      document.querySelectorAll("[data-schedule-headline-row]").forEach((row) => {
+        updateScheduleHeadlineControls(row);
+        if (!row.dataset.scrollControlBound) {
+          row.dataset.scrollControlBound = "true";
+          row.addEventListener("scroll", () => updateScheduleHeadlineControls(row), { passive: true });
+        }
+      });
+    }
+    function renderSchedulePosts() {
+      if (!scheduleFeed) return;
+      if (!schedulePosts.length) {
+        scheduleFeed.innerHTML = '<div class="schedule-feed-empty">등록된 일정 소식이 없습니다.</div>';
+        return;
+      }
+      const headlines = schedulePosts.filter((post) => post.headline);
+      const regular = schedulePosts.filter((post) => !post.headline);
+      scheduleFeed.innerHTML = `${headlines.length ? `<section class="schedule-headline-strip"><h2 class="schedule-section-title">공지</h2><div class="schedule-headline-scroller">${headlines.length > 1 ? `<button class="schedule-scroll-btn prev" type="button" data-schedule-scroll="prev" aria-label="이전 공지">‹</button>` : ""}<div class="schedule-headline-row" data-schedule-headline-row>${headlines.map((post) => schedulePostCard(post, true)).join("")}</div>${headlines.length > 1 ? `<button class="schedule-scroll-btn next" type="button" data-schedule-scroll="next" aria-label="다음 공지">›</button>` : ""}</div></section>` : ""}<section class="schedule-post-strip"><h2 class="schedule-section-title">일정 소식</h2><div class="schedule-post-grid">${regular.length ? regular.map((post) => schedulePostCard(post, false)).join("") : `<div class="schedule-feed-empty">등록된 일반 일정 소식이 없습니다.</div>`}</div></section>`;
+    }
+    async function loadSchedulePosts() {
+      if (!scheduleFeed) return;
+      try {
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=schedulePostList&t=${Date.now()}`);
+        const result = await response.json();
+        if (!response.ok || !result.ok || !Array.isArray(result.posts)) throw new Error(result.error || "일정 소식을 불러오지 못했습니다.");
+        schedulePosts = result.posts;
+        renderSchedulePosts();
+        requestAnimationFrame(refreshScheduleHeadlineControls);
+        if (selectedSchedulePostId) renderScheduleDetail(schedulePosts.find((post) => String(post.id) === String(selectedSchedulePostId)));
+      } catch (error) {
+        scheduleFeed.innerHTML = `<div class="schedule-feed-empty">${htmlAttr(error?.message || "일정 소식을 불러오지 못했습니다.")}</div>`;
+      }
+    }
+    document.addEventListener("click", async (event) => {
+      const scrollButton = event.target.closest("[data-schedule-scroll]");
+      if (scrollButton) {
+        event.preventDefault();
+        const row = scrollButton.closest(".schedule-headline-scroller")?.querySelector("[data-schedule-headline-row]");
+        if (row) {
+          const card = row.querySelector(".schedule-post-card");
+          const step = card ? card.getBoundingClientRect().width + 12 : row.clientWidth * .8;
+          row.scrollBy({ left: scrollButton.dataset.scheduleScroll === "prev" ? -step : step, behavior: "smooth" });
+          window.setTimeout(() => updateScheduleHeadlineControls(row), 260);
+        }
+        return;
+      }
+      const openButton = event.target.closest("[data-schedule-open]");
+      if (openButton) {
+        event.preventDefault();
+        openSchedulePostDetail(openButton.dataset.scheduleOpen);
+        return;
+      }
+      const likeButton = event.target.closest("[data-schedule-like]");
+      if (likeButton) {
+        event.preventDefault();
+        const id = likeButton.dataset.scheduleLike;
+        if (scheduleLikedPosts.has(id)) return;
+        scheduleLikedPosts.add(id);
+        writeScheduleSet(SCHEDULE_LIKED_KEY, scheduleLikedPosts);
+        try { const result = await schedulePostApi({ type: "schedulePostLike", id }); updateSchedulePost(result.post); } catch { scheduleLikedPosts.delete(id); writeScheduleSet(SCHEDULE_LIKED_KEY, scheduleLikedPosts); }
+      }
+    });
+    document.addEventListener("submit", async (event) => {
+      const form = event.target.closest("[data-schedule-comment-form]");
+      if (!form) return;
+      event.preventDefault();
+      const textarea = form.querySelector("textarea");
+      const button = form.querySelector("button");
+      const content = textarea.value.trim();
+      if (!content) { textarea.focus(); return; }
+      button.disabled = true;
+      button.textContent = "등록 중";
+      try {
+        const result = await schedulePostApi({ type: "schedulePostComment", id: form.dataset.scheduleCommentForm, content });
+        textarea.value = "";
+        selectedSchedulePostId = String(result.post?.id || form.dataset.scheduleCommentForm);
+        updateSchedulePost(result.post);
+      } catch (error) {
+        alert(error?.message || "댓글을 등록하지 못했습니다.");
+      } finally {
+        button.disabled = false;
+        button.textContent = "댓글 등록";
+      }
+    });
     async function boardApi(payload) {
       const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
@@ -3799,7 +4264,7 @@
       previous.type = "button";
       previous.setAttribute("aria-label", "이전 페이지");
       previous.title = "이전 페이지";
-      previous.textContent = "‹";
+      previous.innerHTML = "<span>‹</span>";
       previous.disabled = boardCurrentPage === 1;
       previous.addEventListener("click", () => {
         boardCurrentPage -= 1;
@@ -3815,7 +4280,7 @@
       next.type = "button";
       next.setAttribute("aria-label", "다음 페이지");
       next.title = "다음 페이지";
-      next.textContent = "›";
+      next.innerHTML = "<span>›</span>";
       next.disabled = boardCurrentPage === totalPages;
       next.addEventListener("click", () => {
         boardCurrentPage += 1;
@@ -3849,9 +4314,6 @@
       return [{ role: role || "", text: raw, createdAt: 0, updatedAt: 0 }];
     }
 
-    function boardMessagesText(messages, label) {
-      return (messages || []).map((message, index) => `${label} ${index + 1}\n${message.text}`).join("\n\n");
-    }
     function appendPrivatePostView(article, post, result, password) {
       article.querySelector(".board-access-panel")?.remove();
       article.querySelector(".board-private-view")?.remove();
@@ -3862,6 +4324,7 @@
       view.className = "board-private-view";
       const replyMessages = normalizeBoardMessages(result.replies || result.reply, "admin");
       const followUpMessages = normalizeBoardMessages(result.followUps || result.followUp, "author");
+      const authorFollowUpText = () => followUpMessages.length ? followUpMessages[followUpMessages.length - 1].text : "";
 
       const contentSection = document.createElement("section");
       contentSection.className = "board-private-section is-content";
@@ -3955,26 +4418,28 @@
       replyHeading.append(replyLabel);
       const reply = document.createElement("p");
       reply.className = "board-private-text";
-      reply.textContent = replyMessages.length ? boardMessagesText(replyMessages, "관리자 답변") : "답변 대기 중입니다.";
+      reply.textContent = replyMessages.length ? replyMessages.map((message) => message.text).join("\n\n") : "답변 대기 중입니다.";
       replySection.append(replyHeading, reply);
 
       if (result.editable && replyMessages.length) {
+        const followUpSection = document.createElement("section");
+        followUpSection.className = "board-private-section is-follow-up";
+        followUpSection.hidden = !authorFollowUpText();
+        const followUpHeading = document.createElement("div");
+        followUpHeading.className = "board-private-heading";
+        const followUpLabel = document.createElement("p");
+        followUpLabel.className = "board-private-label";
+        followUpLabel.textContent = "작성자 답글";
         const followUpToggle = document.createElement("button");
         followUpToggle.className = "board-edit-toggle";
         followUpToggle.type = "button";
-        followUpToggle.textContent = "작성자 내용";
-        replyHeading.append(followUpToggle);
-
-        const followUpSection = document.createElement("section");
-        followUpSection.className = "board-private-section is-follow-up";
-        followUpSection.hidden = !followUpMessages.length;
-        const followUpLabel = document.createElement("p");
-        followUpLabel.className = "board-private-label";
-        followUpLabel.textContent = "작성자 내용";
+        followUpToggle.textContent = "수정";
+        followUpHeading.append(followUpLabel, followUpToggle);
         const followUpText = document.createElement("p");
         followUpText.className = "board-private-text";
-        followUpText.textContent = boardMessagesText(followUpMessages, "작성자 내용");
-        followUpSection.append(followUpLabel, followUpText);
+        followUpText.textContent = authorFollowUpText();
+        followUpText.hidden = !authorFollowUpText();
+        followUpSection.append(followUpHeading, followUpText);
 
         const followUpForm = document.createElement("form");
         followUpForm.className = "board-edit-form";
@@ -3982,29 +4447,56 @@
         const followUpInput = document.createElement("textarea");
         followUpInput.maxLength = 2000;
         followUpInput.value = "";
-        followUpInput.setAttribute("aria-label", "관리자 답변에 대한 작성자 내용");
+        followUpInput.setAttribute("aria-label", "관리자 답변에 대한 작성자 답글");
         const followUpButton = document.createElement("button");
         followUpButton.className = "board-edit-button";
         followUpButton.type = "submit";
-        followUpButton.textContent = "내용 저장";
+        followUpButton.textContent = "수정 저장";
         const followUpMessage = document.createElement("p");
         followUpMessage.className = "board-access-message";
         followUpForm.append(followUpInput, followUpButton, followUpMessage);
-        replySection.append(followUpForm);
+        followUpSection.append(followUpForm);
+
+        const followUpCreateButton = document.createElement("button");
+        followUpCreateButton.className = "board-edit-toggle";
+        followUpCreateButton.type = "button";
+        followUpCreateButton.textContent = "답글";
+        followUpCreateButton.hidden = !!authorFollowUpText();
+        replyHeading.append(followUpCreateButton);
+
+        const openFollowUpEditor = () => {
+          followUpSection.hidden = false;
+          followUpForm.hidden = false;
+          followUpText.hidden = true;
+          followUpToggle.textContent = "취소";
+          followUpCreateButton.hidden = true;
+          if (editForm && !editForm.hidden) {
+            editForm.hidden = true;
+            content.hidden = false;
+            editToggle.textContent = "수정";
+          }
+          followUpInput.value = authorFollowUpText();
+          followUpMessage.textContent = "";
+          followUpInput.focus();
+        };
+
+        const closeFollowUpEditor = () => {
+          followUpForm.hidden = true;
+          followUpText.hidden = !authorFollowUpText();
+          followUpToggle.textContent = "수정";
+          if (!authorFollowUpText()) {
+            followUpSection.hidden = true;
+            followUpCreateButton.hidden = false;
+          }
+        };
+
+        followUpCreateButton.addEventListener("click", openFollowUpEditor);
 
         followUpToggle.addEventListener("click", () => {
-          const shouldOpen = followUpForm.hidden;
-          followUpForm.hidden = !shouldOpen;
-          followUpToggle.textContent = shouldOpen ? "취소" : "작성자 내용";
-          if (shouldOpen) {
-            if (editForm && !editForm.hidden) {
-              editForm.hidden = true;
-              content.hidden = false;
-              editToggle.textContent = "수정";
-            }
-            followUpInput.value = "";
-            followUpMessage.textContent = "";
-            followUpInput.focus();
+          if (followUpForm.hidden) {
+            openFollowUpEditor();
+          } else {
+            closeFollowUpEditor();
           }
         });
 
@@ -4012,7 +4504,7 @@
           event.preventDefault();
           const nextFollowUp = followUpInput.value.trim();
           if (!nextFollowUp) {
-            followUpMessage.textContent = "작성자 내용을 입력해 주세요.";
+            followUpMessage.textContent = "수정할 작성자 답글을 입력해 주세요.";
             return;
           }
           followUpButton.disabled = true;
@@ -4028,19 +4520,17 @@
             if (Array.isArray(saved.followUps)) {
               followUpMessages.splice(0, followUpMessages.length, ...normalizeBoardMessages(saved.followUps, "author"));
             } else {
-              followUpMessages.push({ role: "author", text: saved.followUp || nextFollowUp, createdAt: Date.now(), updatedAt: 0 });
+              followUpMessages.splice(0, followUpMessages.length, { role: "author", text: saved.followUp || nextFollowUp, createdAt: Date.now(), updatedAt: 0 });
             }
-            followUpText.textContent = boardMessagesText(followUpMessages, "작성자 내용");
+            followUpText.textContent = authorFollowUpText();
             followUpInput.value = "";
-            followUpSection.hidden = false;
-            followUpForm.hidden = true;
-            followUpToggle.textContent = "작성자 내용";
+            closeFollowUpEditor();
           } catch (error) {
-            followUpMessage.textContent = error?.message || "작성자 내용을 저장하지 못했습니다.";
+            followUpMessage.textContent = error?.message || "작성자 답글을 저장하지 못했습니다.";
           } finally {
             followUpButton.disabled = false;
             followUpButton.classList.remove("is-loading");
-            followUpButton.textContent = "내용 저장";
+            followUpButton.textContent = "수정 저장";
           }
         });
 
@@ -4048,7 +4538,6 @@
       } else {
         view.append(replySection);
       }
-
       article.append(view);
     }
     function openBoardPost(article, post) {
@@ -4145,6 +4634,10 @@
         author.className = "board-post-author";
         author.textContent = post.author;
         authorWrap.append(author);
+        const categoryBadge = document.createElement("span");
+        categoryBadge.className = "board-post-category";
+        categoryBadge.textContent = post.category || "일반 문의";
+        authorWrap.append(categoryBadge);
         const time = document.createElement("time");
         time.className = "board-post-time";
         time.dateTime = new Date(post.createdAt).toISOString();
@@ -4169,6 +4662,7 @@
 
     boardForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
+      const category = document.getElementById("boardCategory");
       const password = document.getElementById("boardPassword");
       const content = document.getElementById("boardContent");
       const invalidField = [password, content].find((field) => {
@@ -4192,6 +4686,7 @@
         const result = await boardApi({
           type: "boardCreate",
           author: submittedAuthor,
+          category: category?.value || "일반 문의",
           password: password.value,
           content: submittedContent
         });
@@ -4263,7 +4758,7 @@
       pages.forEach((page) => page.classList.toggle("is-active", page.dataset.page === pageName));
       document.querySelectorAll("[data-page-link]").forEach((link) => {
         const linkPage = link.dataset.pageLink;
-        const isGuidePage = linkPage === "schedule" && ["location", "process", "discount", "refund"].includes(pageName);
+        const isGuidePage = linkPage === "schedule" && ["schedule-detail", "location", "process", "discount", "refund"].includes(pageName);
         const isReviewPage = linkPage === "reviews" && pageName === "episodes";
         link.classList.toggle("is-active", linkPage === pageName || isGuidePage || isReviewPage);
       });
@@ -4553,6 +5048,12 @@
       }
     }
 
+    document.addEventListener("dragstart", (event) => {
+      if (closestFrom(event.target, "button, [role='button'], .drawer-social-link")) {
+        event.preventDefault();
+      }
+    });
+
     document.addEventListener("click", (event) => {
       const closeTarget = closestFrom(event.target, "#closeMenu, #drawerScrim");
       if (closeTarget) {
@@ -4611,12 +5112,31 @@
         event.preventDefault();
         event.stopPropagation();
         if (choiceTarget.matches("[data-ideal-choice]")) {
-          choiceTarget.classList.toggle("is-selected");
+          const singleIdealGroup = choiceTarget.closest("[data-single-ideal-group]");
+          if (singleIdealGroup) {
+            const wasSelected = choiceTarget.classList.contains("is-selected");
+            singleIdealGroup.querySelectorAll("[data-ideal-choice]").forEach((chip) => chip.classList.remove("is-selected"));
+            if (!wasSelected) choiceTarget.classList.add("is-selected");
+          } else {
+            const maxChoiceGroup = choiceTarget.closest("[data-max-choice]");
+            const maxChoice = Number(maxChoiceGroup?.dataset.maxChoice || 0);
+            const isSelected = choiceTarget.classList.contains("is-selected");
+            const selectedCount = maxChoiceGroup ? maxChoiceGroup.querySelectorAll("[data-ideal-choice].is-selected").length : 0;
+            if (isSelected || !maxChoice || selectedCount < maxChoice) {
+              choiceTarget.classList.toggle("is-selected");
+            }
+          }
           updateIdealTextareaFromChips();
           return;
         }
         if (choiceTarget.matches("[data-dislike-choice]")) {
-          choiceTarget.classList.toggle("is-selected");
+          const maxChoiceGroup = choiceTarget.closest("[data-max-choice]");
+          const maxChoice = Number(maxChoiceGroup?.dataset.maxChoice || 0);
+          const isSelected = choiceTarget.classList.contains("is-selected");
+          const selectedCount = maxChoiceGroup ? maxChoiceGroup.querySelectorAll("[data-dislike-choice].is-selected").length : 0;
+          if (isSelected || !maxChoice || selectedCount < maxChoice) {
+            choiceTarget.classList.toggle("is-selected");
+          }
           updateDislikeTextareaFromChips();
           return;
         }
@@ -4659,7 +5179,7 @@
         if (wasSelected) {
           renderEventList();
           calendarToggle?.classList.remove("is-active");
-          document.querySelector(".filter-row .filter-chip")?.classList.add("is-active");
+          [...document.querySelectorAll(".filter-row .filter-chip:not(.calendar-chip)")].find((chip) => chip.textContent.trim() === "서면")?.classList.add("is-active");
         } else {
           calendarDayTarget.classList.add("is-selected");
           calendarToggle?.classList.add("is-active");
@@ -4681,28 +5201,15 @@
         event.stopPropagation();
         const row = filterTarget.closest(".filter-row");
         const chips = [...(row?.querySelectorAll(".filter-chip:not(.calendar-chip)") || [])];
-        const allChip = chips.find((chip) => chip.textContent.trim() === "전체");
         renderEventList();
         document.querySelectorAll("[data-event-date]").forEach((day) => day.classList.remove("is-selected"));
         calendarToggle?.classList.remove("is-active");
-        if (filterTarget === allChip) {
-          chips.forEach((chip) => chip.classList.remove("is-active"));
-          filterTarget.classList.add("is-active");
-          return;
-        }
-        allChip?.classList.remove("is-active");
-        const label = filterTarget.textContent.trim();
         const groupLabels = ["서면", "사상", "광안리"];
-        const wasSelected = filterTarget.classList.contains("is-active");
-        chips
-          .filter((chip) => groupLabels.includes(chip.textContent.trim()))
-          .forEach((chip) => chip.classList.remove("is-active"));
-        if (!wasSelected) {
+        if (groupLabels.includes(filterTarget.textContent.trim())) {
+          chips
+            .filter((chip) => groupLabels.includes(chip.textContent.trim()))
+            .forEach((chip) => chip.classList.remove("is-active"));
           filterTarget.classList.add("is-active");
-        }
-        const hasActiveFilter = chips.some((chip) => chip !== allChip && chip.classList.contains("is-active"));
-        if (!hasActiveFilter) {
-          allChip?.classList.add("is-active");
         }
         return;
       }
@@ -4753,16 +5260,34 @@
 
         if (isSelected) {
           selectedScheduleDate = "";
+          selectedScheduleDateKey = "";
+          selectedScheduleTime = "";
           if (selectedLabel) selectedLabel.textContent = "";
+          renderScheduleTimeOptions("");
           if (scheduleResult) scheduleResult.hidden = true;
         } else {
-          const [year, month, day] = applicationDateTarget.dataset.applicationDate.split("-");
-          selectedScheduleDate = `${year}년 ${Number(month)}월 ${Number(day)}일 ${applicationDateTarget.dataset.applicationTime}`;
+          selectedScheduleDate = "";
+          selectedScheduleTime = "";
+          selectedScheduleDateKey = applicationDateTarget.dataset.applicationDate;
           applicationDateTarget.classList.add("is-selected");
-          if (selectedLabel) selectedLabel.textContent = selectedScheduleDate;
-          renderConfirmedParticipants(applicationDateTarget.dataset.applicationDate);
+          renderScheduleTimeOptions(selectedScheduleDateKey);
+          renderConfirmedParticipants(selectedScheduleDateKey);
+          if (selectedLabel) selectedLabel.textContent = "시간을 선택해 주세요.";
           if (scheduleResult) scheduleResult.hidden = false;
         }
+        return;
+      }
+
+      const applicationTimeTarget = closestFrom(event.target, "[data-application-time]");
+      if (applicationTimeTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (!selectedScheduleDateKey) return;
+        selectedScheduleTime = applicationTimeTarget.dataset.applicationTime;
+        selectedScheduleDate = formatSelectedSchedule(selectedScheduleDateKey, selectedScheduleTime);
+        document.querySelectorAll("[data-application-time]").forEach((button) => button.classList.toggle("is-selected", button === applicationTimeTarget));
+        const selectedLabel = document.querySelector("[data-selected-schedule]");
+        if (selectedLabel) selectedLabel.textContent = selectedScheduleDate;
         return;
       }
 
@@ -4824,6 +5349,12 @@
     }, true);
 
     document.addEventListener("keydown", (event) => {
+      const joinThumbTarget = closestFrom(event.target, ".event-thumb[data-join-index]");
+      if (joinThumbTarget && (event.key === "Enter" || event.key === " ")) {
+        event.preventDefault();
+        joinThumbTarget.click();
+        return;
+      }
       if (event.key === "Escape") {
         setDrawer(false);
       }
@@ -4837,7 +5368,7 @@
         setPage("home", false);
         history.replaceState(null, "", "#home");
       }
-    } else if (["home", "support", "schedule", "process", "discount", "refund", "reviews", "location", "staff", "episodes", "board"].includes(initial)) {
+    } else if (["home", "support", "schedule", "schedule-detail", "process", "discount", "refund", "reviews", "location", "staff", "episodes", "board"].includes(initial)) {
       setPage(initial, false);
     }
 
@@ -5089,7 +5620,7 @@
     }
 
     function defaultEventImage(station) {
-      return "";
+      return DEFAULT_EVENT_IMAGES[String(station || "")] || "";
     }
 
     function htmlAttr(value) {
@@ -5138,9 +5669,37 @@
     seedHeroSlides();
     loadManagedHeroSlides();
     loadManagedEvents();
+    loadSchedulePosts();
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

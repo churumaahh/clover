@@ -6,7 +6,7 @@
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>클로버 | 로테이션 소개팅</title>
+  <title>클로버ㅣ대시보드 · 관리자 모드</title>
 <style>
     :root{--green:#00e83b;--deep:#087a2a;--ink:#121218;--muted:#707784;--line:#e1e5ea;--bg:#f4f6f8;--white:#fff;--blue:#1685ed;--red:#ff5964;--shadow:0 .45rem 1.5rem rgba(18,18,24,.07)}
     *{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--bg);font-family:Pretendard,"Noto Sans KR",system-ui,-apple-system,"Segoe UI",sans-serif}button,input,textarea{font:inherit}button{cursor:pointer}.app{min-height:100svh}.topbar{position:sticky;top:0;z-index:20;height:4.25rem;display:flex;align-items:center;padding:0 1.5rem;border-bottom:1px solid rgba(18,18,24,.08);background:var(--green)}
@@ -35,6 +35,7 @@
     /* EVENT_LIST_COMPACT_FIX */
     .event-manager>.hero-list{align-self:start;align-content:start}
     .event-manager .hero-list{align-content:start;align-items:start;gap:.55rem}
+    .schedule-admin-preview{min-height:12rem;display:grid;place-items:center;overflow:hidden}.schedule-admin-preview img{width:100%;height:100%;max-height:18rem;object-fit:cover;border-radius:.8rem}.schedule-post-admin-meta{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.35rem;color:var(--muted);font-size:.78rem}.schedule-post-admin-content{margin:.45rem 0 0;color:#475569;font-size:.82rem;line-height:1.45;white-space:pre-line}.schedule-post-admin-badge{display:inline-flex;align-items:center;border-radius:999px;padding:.2rem .45rem;background:#eaffef;color:#009b2f;font-size:.72rem;font-weight:900}.schedule-post-admin-badge.is-off{background:#f1f5f9;color:#94a3b8}.schedule-post-admin-badge.is-headline{background:#fff7ed;color:#f97316}
     .event-item{align-self:start;padding:.65rem .7rem;gap:.7rem;min-height:0;box-shadow:var(--shadow)}
     .event-item img{border-radius:.5rem}    /* BOARD_REPLY_EDIT_TOGGLE_FIX */
     .board-thread{display:grid;gap:.65rem;margin:.85rem 0}.board-message{padding:.78rem .9rem;border:1px solid var(--line);border-left-width:4px;border-radius:.7rem}.board-message-head{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.38rem}.board-message-title{font-size:.82rem;font-weight:950}.board-message-time{color:var(--muted);font-size:.68rem;font-weight:800}.board-message-text{margin:0;white-space:pre-wrap;line-height:1.55;font-size:.86rem}.board-message-original,.board-message-author{border-left-color:#1685ed;background:#f7fbff}.board-message-admin,.admin-reply-view{border-left-color:#00d83a;background:#f1fff5}.admin-reply-view{margin:0;padding:.78rem .9rem;border:1px solid var(--line);border-left-width:4px;border-radius:.7rem}.admin-reply-head{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.38rem;font-weight:900}.admin-reply-head strong{font-size:.82rem}.reply-edit{padding:.48rem .75rem;border:1px solid var(--line);border-radius:.55rem;color:#07150b;background:#fff;font-size:.78rem;font-weight:900;box-shadow:0 .18rem .45rem rgba(18,24,32,.06)}.reply-edit:hover{background:#f8fafc}.admin-reply-text{margin:0!important;white-space:pre-wrap;line-height:1.55}.reply-box.is-hidden{display:none}.reply-box-title{margin:0 0 .45rem;color:#3f4652;font-size:.82rem;font-weight:900}
@@ -64,6 +65,7 @@
       <button class="nav-button" data-panel="board"><span class="nav-icon nav-icon-board" aria-hidden="true"></span><span>게시판 접수</span><b class="count" id="boardCount">0</b></button>
       <button class="nav-button" data-panel="hero"><span class="nav-icon nav-icon-hero" aria-hidden="true"></span><span>히어로 관리</span><b class="count" id="heroCount">0</b></button>
       <button class="nav-button" data-panel="events"><span class="nav-icon nav-icon-events" aria-hidden="true"></span><span>선택창 관리</span><b class="count" id="eventCount">0</b></button>
+      <button class="nav-button" data-panel="schedulePosts"><span class="nav-icon nav-icon-events" aria-hidden="true"></span><span>일정 관리</span><b class="count" id="schedulePostCount">0</b></button>
     </aside>
     <main><div class="content">
       <div class="headline"><div><h1 id="pageTitle">신청 접수</h1><p id="pageDescription">소개팅 신청 내역을 확인합니다.</p></div><button class="refresh" id="refreshButton">새로고침</button></div>
@@ -120,22 +122,46 @@
           <div class="hero-list" id="eventList"><div class="loading">선택창 목록을 불러오는 중입니다.</div></div>
         </div>
       </section>
+      <section class="panel" id="schedulePostsPanel">
+        <div class="event-manager">
+          <form class="event-editor" id="schedulePostForm">
+            <h2>일정 글 작성</h2>
+            <input id="schedulePostId" type="hidden">
+            <div class="event-grid">
+              <div class="hero-field"><label for="schedulePostOrder">노출 순서</label><input id="schedulePostOrder" type="number" min="1" value="1" required></div>
+              <div class="hero-field"><label for="schedulePostCategory">구분</label><input id="schedulePostCategory" list="schedulePostCategories" placeholder="마감 이벤트" required></div>
+            </div>
+            <datalist id="schedulePostCategories"><option value="마감 이벤트"></option><option value="스페셜 모임"></option><option value="마감 기수 안내"></option><option value="공지"></option></datalist>
+            <div class="hero-field"><label for="schedulePostTitle">제목</label><input id="schedulePostTitle" type="text" maxlength="80" placeholder="일정 제목을 입력하세요" required></div>
+            <div class="hero-field"><label for="schedulePostContent">내용</label><textarea id="schedulePostContent" maxlength="1200" placeholder="일정 내용을 입력하세요" required></textarea></div>
+            <div class="hero-field"><label for="schedulePostImage">이미지</label><input id="schedulePostImage" type="file" accept="image/*"></div>
+            <div class="hero-preview schedule-admin-preview" id="schedulePostPreview">선택된 이미지가 없습니다.</div>
+            <label class="hero-check"><input id="schedulePostHeadline" type="checkbox"> 상단 헤드라인에 노출</label>
+            <label class="hero-check"><input id="schedulePostActive" type="checkbox" checked> 공개</label>
+            <div class="hero-form-actions"><button class="hero-save" type="submit">저장</button><button class="hero-reset" id="schedulePostReset" type="button">새 항목</button></div>
+            <p class="hero-message" id="schedulePostMessage"></p>
+          </form>
+          <div class="hero-list" id="schedulePostList"><div class="loading">일정 글 목록을 불러오는 중입니다.</div></div>
+        </div>
+      </section>
     </div></main>
   </div>
 </div>
 <script src="../../config.js"></script>
 <script>
   const CLOVER_ADMIN_FIX_VERSION = "2026-07-07-admin-original-image-source-v5";
-  const API = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbxoUpO64aOLUT9ifv3hSP0QrM2VL7xWQ2ip2Kh4NWKzqlc3IW32HBx_3vDubNwEHVHf/exec";
+  const API = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbzjIqKkqlOH71oc_yhB5vjyk-GOqrfL1bpaZnuJoE8_ckRduw-0TYze0nkMPc1bVajU/exec";
   const CLOUDINARY_CLOUD_NAME = "lkkfechj";
   const CLOUDINARY_UPLOAD_PRESET = "clover_upload";
   const ADMIN_PASSWORD = "1111";
   const CACHE_KEY = "cloverAdminDashboardCache:v5";
   const ORIGINAL_IMAGE_CACHE_KEY = "cloverAdminOriginalImageCache:v1";
   const IMAGE_EDIT_STATE_CACHE_KEY = "cloverAdminImageEditStateCache:v1";
-  const state = { applications: [], boardPosts: [], heroSlides: [], events: [], panel: "applications", query: "", started: false };
+  const state = { applications: [], boardPosts: [], heroSlides: [], events: [], schedulePosts: [], panel: "applications", query: "", started: false };
   let heroVideoFile = null;
   let heroVideoObjectUrl = "";
+  let schedulePostImageFile = null;
+  let schedulePostImageUrl = "";
   const editors = {
     hero: { preview: "#heroPreview", input: "#heroImage", aspectClass: "hero-aspect", outputW: 1500, outputH: 1020, src: "", sourceUrl: "", sourceDataUrl: "", file: null, scale: 1, x: 0, y: 0, dirty: false, name: "hero-image.jpg" },
     event: { preview: "#eventPreview", input: "#eventImage", aspectClass: "event-aspect", outputW: 960, outputH: 420, src: "", sourceUrl: "", sourceDataUrl: "", file: null, scale: 1, x: 0, y: 0, dirty: false, name: "event-image.jpg" }
@@ -208,6 +234,7 @@
   const normalizeEventImage = (station, image) => { const url = String(image ?? "").trim(); return /^https:\/\/res\.cloudinary\.com\//i.test(url) ? url : ""; };
   const normalizeHeroSlides = (items = []) => items.map((item) => ({ ...item, title: normalizeHeroTitle(item.title), imageUrl: normalizeHeroImageUrl(item.imageUrl), sourceImageUrl: item.sourceImageUrl || item.originalImageUrl || item.imageSourceUrl || item.imageUrl || "", videoUrl: item.videoUrl || item.heroVideoUrl || item.video || "" }));
   const normalizeEvents = (items = []) => items.map((item) => ({ ...item, title: normalizeEventTitle(item.station, item.title), place: normalizeEventPlace(item.place), image: normalizeEventImage(item.station, item.image), sourceImage: item.sourceImage || item.sourceImageUrl || item.originalImage || item.originalImageUrl || item.imageSourceUrl || item.image || "" }));
+  const normalizeSchedulePosts = (items = []) => items.map((item) => ({ ...item, imageUrl: assetUrl(item.imageUrl || item.image || ""), active: item.active !== false, headline: item.headline === true || item.headline === "true" }));
   const post = async (payload) => { const body = new URLSearchParams({ payload: JSON.stringify(payload) }); const response = await fetch(API, { method: "POST", body }); const result = await response.json(); if (!result.ok) throw new Error(result.error || "요청에 실패했습니다."); return result; };
   function isLoggedIn() { return sessionStorage.getItem("cloverAdminAuthenticated") === "true"; }
   function showLogin() { $("#adminApp").hidden = true; $("#adminLoginView").hidden = false; setTimeout(() => $("#adminPasswordInput")?.focus(), 30); }
@@ -286,9 +313,10 @@
     $("#applicationSummary").textContent = state.applications.length;
     $("#genderSummary").textContent = todayApplications;
     $("#boardSummary").textContent = state.boardPosts.length;
+    const schedulePostCount = $("#schedulePostCount"); if (schedulePostCount) schedulePostCount.textContent = state.schedulePosts.length;
   }
-  function renderAll() { updateStats(); renderApplications(); renderBoard(); renderHero(); renderEvents(); }
-  function restoreCache() { try { const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null"); if (!cached) return; state.applications = cached.applications || []; state.boardPosts = cached.boardPosts || []; state.heroSlides = normalizeHeroSlides(cached.heroSlides || []); state.events = normalizeEvents(cached.events || []); renderAll(); } catch (error) { localStorage.removeItem(CACHE_KEY); } }
+  function renderAll() { updateStats(); renderApplications(); renderBoard(); renderHero(); renderEvents(); renderSchedulePosts(); }
+  function restoreCache() { try { const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null"); if (!cached) return; state.applications = cached.applications || []; state.boardPosts = cached.boardPosts || []; state.heroSlides = normalizeHeroSlides(cached.heroSlides || []); state.events = normalizeEvents(cached.events || []); state.schedulePosts = normalizeSchedulePosts(cached.schedulePosts || []); renderAll(); } catch (error) { localStorage.removeItem(CACHE_KEY); } }
   async function loadData(options = {}) {
     const silent = options && options.silent === true;
     const button = $("#refreshButton");
@@ -299,12 +327,13 @@
       state.boardPosts = result.boardPosts || [];
       state.heroSlides = normalizeHeroSlides(result.heroSlides || []);
       state.events = normalizeEvents(result.events || []);
-      localStorage.setItem(CACHE_KEY, JSON.stringify({ applications: state.applications, boardPosts: state.boardPosts, heroSlides: state.heroSlides, events: state.events, savedAt: Date.now() }));
+      state.schedulePosts = normalizeSchedulePosts(result.schedulePosts || []);
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ applications: state.applications, boardPosts: state.boardPosts, heroSlides: state.heroSlides, events: state.events, schedulePosts: state.schedulePosts, savedAt: Date.now() })); localStorage.setItem("clover-managed-hero-slides-v5", JSON.stringify(state.heroSlides.map((item) => ({ id: item.id || "", order: item.order || 0, title: item.title || "", description: item.description || "", imageUrl: item.imageUrl || "", videoUrl: item.videoUrl || "", mediaType: item.mediaType || "", active: item.active !== false }))));
       renderAll();
     } catch (error) {
-      if (!state.applications.length && !state.boardPosts.length && !state.heroSlides.length && !state.events.length) {
+      if (!state.applications.length && !state.boardPosts.length && !state.heroSlides.length && !state.events.length && !state.schedulePosts.length) {
         const html = `<div class="empty">${escapeHtml(error.message)}<br><small>잠시 후 새로고침해 주세요.</small></div>`;
-        $("#applicationsPanel").innerHTML = html; $("#boardPanel").innerHTML = html; $("#heroList").innerHTML = html; $("#eventList").innerHTML = html;
+        $("#applicationsPanel").innerHTML = html; $("#boardPanel").innerHTML = html; $("#heroList").innerHTML = html; $("#eventList").innerHTML = html; $("#schedulePostList").innerHTML = html;
       } else {
         button.title = `최근 정보를 표시 중입니다. ${error.message}`;
       }
@@ -379,11 +408,29 @@
   }
   function resetHeroForm() { $("#heroForm").reset(); $("#heroId").value = ""; $("#heroOrder").value = String(state.heroSlides.length + 1); $("#heroActive").checked = true; resetImageEditor("hero"); resetHeroVideoPreview(); $("#heroMessage").textContent = ""; $("#heroMessage").classList.remove("is-error"); }
   function resetEventForm() { $("#eventForm").reset(); $("#eventId").value = ""; $("#eventOrder").value = String(state.events.length + 1); $("#eventActive").checked = true; resetImageEditor("event"); $("#eventMessage").textContent = ""; $("#eventMessage").classList.remove("is-error"); }
+  function showSchedulePostPreview(url) {
+    const preview = $("#schedulePostPreview");
+    const src = assetUrl(url);
+    if (!preview) return;
+    if (!src) { preview.className = "hero-preview schedule-admin-preview"; preview.textContent = "선택된 이미지가 없습니다."; return; }
+    preview.className = "hero-preview schedule-admin-preview has-image";
+    preview.innerHTML = `<img src="${escapeHtml(src)}" alt="일정 이미지 미리보기">`;
+  }
+  function resetSchedulePostForm() {
+    const form = $("#schedulePostForm"); if (!form) return;
+    form.reset(); $("#schedulePostId").value = ""; $("#schedulePostOrder").value = String(state.schedulePosts.length + 1); $("#schedulePostActive").checked = true; $("#schedulePostHeadline").checked = false; schedulePostImageFile = null; schedulePostImageUrl = ""; showSchedulePostPreview(""); setMessage("#schedulePostMessage", "");
+  }
+  function renderSchedulePosts() {
+    const list = $("#schedulePostList"); if (!list) return;
+    const query = state.query.toLowerCase();
+    const source = state.schedulePosts.filter((item) => JSON.stringify(item).toLowerCase().includes(query));
+    list.innerHTML = source.length ? source.map((item) => `<article class="hero-item" data-schedule-post-id="${escapeHtml(item.id)}">${item.imageUrl ? `<img src="${escapeHtml(assetUrl(item.imageUrl))}" alt="${escapeHtml(item.title || "일정 이미지")}" loading="lazy">` : `<div class="image-fallback">이미지 없음</div>`}<div><strong>${escapeHtml(item.title || "제목 없음")}</strong><div class="schedule-post-admin-meta"><span>${escapeHtml(item.category || "일정")}</span><span>조회 ${escapeHtml(item.views || 0)}</span><span>공감 ${escapeHtml(item.likes || 0)}</span><span>댓글 ${escapeHtml(item.commentCount || 0)}</span></div><p class="schedule-post-admin-content">${escapeHtml(String(item.content || "").slice(0, 140))}</p><div class="schedule-post-admin-meta"><span class="schedule-post-admin-badge ${item.active === false ? "is-off" : ""}">${item.active === false ? "비공개" : "공개"}</span>${item.headline ? `<span class="schedule-post-admin-badge is-headline">헤드라인</span>` : ""}</div></div><div class="hero-item-actions"><button class="ghost schedule-post-edit" type="button">수정</button><button class="danger schedule-post-delete" type="button">삭제</button></div></article>`).join("") : `<div class="empty">등록된 일정 글이 없습니다.</div>`;
+  }
   function setMessage(id, text, isError = false) { const el = $(id); el.textContent = text; el.classList.toggle("is-error", isError); }
-  function startAdmin() { if (!state.started) { state.started = true; restoreCache(); resetHeroForm(); resetEventForm(); loadData({ silent: true }); return; } loadData(); }
+  function startAdmin() { if (!state.started) { state.started = true; restoreCache(); resetHeroForm(); resetEventForm(); resetSchedulePostForm(); loadData({ silent: true }); return; } loadData(); }
   document.addEventListener("click", async (event) => {
     const nav = event.target.closest(".nav-button");
-    if (nav) { state.panel = nav.dataset.panel; qa(".nav-button,.panel").forEach((el) => el.classList.remove("active")); nav.classList.add("active"); $(`#${state.panel}Panel`).classList.add("active"); const copy = { applications: ["신청 접수", "소개팅 신청 내역을 확인합니다."], board: ["게시판 접수", "익명 게시판 문의와 답변을 관리합니다."], hero: ["히어로 관리", "메인 배너의 이미지와 문구를 추가, 수정, 삭제합니다."], events: ["선택창 관리", "메인 선택창을 추가, 수정, 삭제하고 노출 순서를 관리합니다."] }[state.panel]; $("#pageTitle").textContent = copy[0]; $("#pageDescription").textContent = copy[1]; return; }
+    if (nav) { state.panel = nav.dataset.panel; qa(".nav-button,.panel").forEach((el) => el.classList.remove("active")); nav.classList.add("active"); $(`#${state.panel}Panel`).classList.add("active"); const copy = { applications: ["신청 접수", "소개팅 신청 내역을 확인합니다."], board: ["게시판 접수", "익명 게시판 문의와 답변을 관리합니다."], hero: ["히어로 관리", "메인 배너의 이미지와 문구를 추가, 수정, 삭제합니다."], events: ["선택창 관리", "메인 선택창을 추가, 수정, 삭제하고 노출 순서를 관리합니다."], schedulePosts: ["일정 관리", "일정 공지, 스페셜 모임, 마감 안내 글을 추가, 수정, 삭제합니다."] }[state.panel]; $("#pageTitle").textContent = copy[0]; $("#pageDescription").textContent = copy[1]; return; }
     const appCard = event.target.closest("#applicationsPanel .application-card");
     if (appCard && !event.target.closest("a,button,input,textarea,select")) { const open = appCard.classList.toggle("open"); appCard.setAttribute("aria-expanded", String(open)); return; }
     const boardToggle = event.target.closest(".board-toggle");
@@ -400,17 +447,38 @@
     if (eventEdit) { const id = eventEdit.closest("[data-event-id]").dataset.eventId; const item = state.events.find((entry) => String(entry.id) === String(id)); if (!item) return; $("#eventId").value = item.id; $("#eventOrder").value = item.order || 1; $("#eventStation").value = item.station || ""; $("#eventTitle").value = item.title || ""; $("#eventDate").value = item.date || ""; $("#eventPlace").value = item.place || ""; $("#eventMale").value = item.male || ""; $("#eventFemale").value = item.female || ""; $("#eventCapacity").value = item.capacity || ""; $("#eventTarget").value = item.target || ""; $("#eventPrice").value = item.price || ""; $("#eventOldPrice").value = item.oldPrice || ""; $("#eventActive").checked = item.active !== false; $("#eventImage").value = ""; const originalImage = originalImageForEvent(item); const currentImage = item.image || originalImage; const editSource = editImageSource("event", item, currentImage, originalImage); showEventPreview(editSource.url, { name: `event-${item.id}.jpg`, sourceUrl: editSource.url, editState: editSource.editState }); setMessage("#eventMessage", editSource.current ? "현재 저장된 이미지를 그대로 불러왔습니다." : (currentImage ? "현재 이미지를 불러왔습니다." : "이미지를 불러오지 못했습니다. 원본 파일을 다시 선택해 주세요."), !(editSource.url || currentImage)); $("#eventForm").scrollIntoView({ behavior: "smooth", block: "start" }); return; }
     const eventRemove = event.target.closest(".event-delete");
     if (eventRemove) { const id = eventRemove.closest("[data-event-id]").dataset.eventId; if (!window.confirm("이 선택창을 삭제할까요?")) return; eventRemove.disabled = true; try { await post({ type: "eventDelete", id, adminPassword: ADMIN_PASSWORD }); state.events = state.events.filter((item) => String(item.id) !== String(id)); renderAll(); resetEventForm(); } catch (error) { window.alert(error.message); eventRemove.disabled = false; } return; }
+    const scheduleEdit = event.target.closest(".schedule-post-edit");
+    if (scheduleEdit) { const id = scheduleEdit.closest("[data-schedule-post-id]").dataset.schedulePostId; const item = state.schedulePosts.find((entry) => String(entry.id) === String(id)); if (!item) return; $("#schedulePostId").value = item.id; $("#schedulePostOrder").value = item.order || 1; $("#schedulePostCategory").value = item.category || ""; $("#schedulePostTitle").value = item.title || ""; $("#schedulePostContent").value = item.content || ""; $("#schedulePostHeadline").checked = item.headline === true; $("#schedulePostActive").checked = item.active !== false; $("#schedulePostImage").value = ""; schedulePostImageFile = null; schedulePostImageUrl = item.imageUrl || ""; showSchedulePostPreview(schedulePostImageUrl); setMessage("#schedulePostMessage", "현재 저장된 일정 글을 불러왔습니다."); $("#schedulePostForm").scrollIntoView({ behavior: "smooth", block: "start" }); return; }
+    const scheduleRemove = event.target.closest(".schedule-post-delete");
+    if (scheduleRemove) { const id = scheduleRemove.closest("[data-schedule-post-id]").dataset.schedulePostId; if (!window.confirm("이 일정 글을 삭제할까요?")) return; scheduleRemove.disabled = true; try { await post({ type: "schedulePostDelete", id, adminPassword: ADMIN_PASSWORD }); state.schedulePosts = state.schedulePosts.filter((item) => String(item.id) !== String(id)); renderAll(); resetSchedulePostForm(); } catch (error) { window.alert(error.message); scheduleRemove.disabled = false; } return; }
     if (event.target.closest("#heroReset")) resetHeroForm();
     if (event.target.closest("#eventReset")) resetEventForm();
+    if (event.target.closest("#schedulePostReset")) resetSchedulePostForm();
   });
   document.addEventListener("keydown", (event) => { const appCard = event.target.closest?.("#applicationsPanel .application-card"); if (appCard && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); const open = appCard.classList.toggle("open"); appCard.setAttribute("aria-expanded", String(open)); } });
   document.addEventListener("error", (event) => { const image = event.target; if (!image.matches?.(".photo-preview img,.hero-item img,.event-item img")) return; const fallback = document.createElement("div"); fallback.className = "image-fallback"; fallback.textContent = "이미지를 불러올 수 없습니다."; image.replaceWith(fallback); }, true);
   $("#heroImage").addEventListener("change", (event) => { const file = event.target.files[0]; if (!file) return; const url = URL.createObjectURL(file); showHeroPreview(url, { file, name: file.name }); setMessage("#heroMessage", "원본 이미지 편집 준비가 완료되었습니다."); });
   $("#heroVideo").addEventListener("change", (event) => { const file = event.target.files[0]; if (!file) return; if (!String(file.type || "").startsWith("video/")) { setMessage("#heroMessage", "동영상 파일만 선택해 주세요.", true); event.target.value = ""; return; } if (heroVideoObjectUrl) URL.revokeObjectURL(heroVideoObjectUrl); heroVideoFile = file; heroVideoObjectUrl = URL.createObjectURL(file); $("#heroVideoRemove").checked = false; showHeroVideoPreview(heroVideoObjectUrl); setMessage("#heroMessage", "동영상 업로드 준비가 완료되었습니다."); });
   $("#eventImage").addEventListener("change", (event) => { const file = event.target.files[0]; if (!file) return; const url = URL.createObjectURL(file); showEventPreview(url, { file, name: file.name }); setMessage("#eventMessage", "원본 이미지 편집 준비가 완료되었습니다."); });
+  $("#schedulePostImage")?.addEventListener("change", (event) => { const file = event.target.files[0]; if (!file) return; schedulePostImageFile = file; const url = URL.createObjectURL(file); schedulePostImageUrl = url; showSchedulePostPreview(url); setMessage("#schedulePostMessage", "이미지 업로드 준비가 완료되었습니다."); });
   $("#heroForm").addEventListener("submit", async (event) => { event.preventDefault(); const button = event.submitter; if (!$("#heroId").value && !editors.hero.src) { setMessage("#heroMessage", "새 배너에는 이미지가 필요합니다.", true); return; } button.disabled = true; button.classList.add("is-saving"); button.textContent = "저장 중"; try { const imageFile = await canvasPayload("hero", "hero-image.jpg"); const sourceImageFile = await sourcePayload("hero", "hero-source-image.jpg"); const imageUrl = await uploadToCloudinary(imageFile); const sourceImageUrl = await uploadToCloudinary(sourceImageFile); const videoFilePayload = await filePayload(heroVideoFile, "hero-video.mp4"); const videoUrl = await uploadToCloudinary(videoFilePayload); const result = await post({ type: "heroSave", id: $("#heroId").value, order: Number($("#heroOrder").value) || 1, title: $("#heroTitle").value.trim(), description: $("#heroDescription").value.trim(), active: $("#heroActive").checked, imageUrl, sourceImageUrl, videoUrl, removeVideo: $("#heroVideoRemove").checked, adminPassword: ADMIN_PASSWORD }); const savedId = result.slide?.id || $("#heroId").value; cacheOriginalImage("hero", savedId, editors.hero.sourceDataUrl); cacheImageEditState("hero", savedId); setMessage("#heroMessage", "저장되었습니다. 이미지 위치가 함께 저장됩니다."); await loadData({ silent: true }); resetHeroForm(); } catch (error) { setMessage("#heroMessage", error.message, true); } finally { button.disabled = false; button.classList.remove("is-saving"); button.textContent = "저장"; } });
   $("#eventForm").addEventListener("submit", async (event) => { event.preventDefault(); const button = event.submitter; if (!$("#eventId").value && !editors.event.src) { setMessage("#eventMessage", "새 선택창에는 이미지가 필요합니다.", true); return; } button.disabled = true; button.classList.add("is-saving"); button.textContent = "저장 중"; try { const imageFile = await canvasPayload("event", "event-image.jpg"); const sourceImageFile = await sourcePayload("event", "event-source-image.jpg"); const imageUrl = await uploadToCloudinary(imageFile); const sourceImageUrl = await uploadToCloudinary(sourceImageFile); const result = await post({ type: "eventSave", id: $("#eventId").value, order: Number($("#eventOrder").value) || 1, station: $("#eventStation").value.trim(), title: $("#eventTitle").value.trim(), date: $("#eventDate").value.trim(), place: $("#eventPlace").value.trim(), male: $("#eventMale").value.trim(), female: $("#eventFemale").value.trim(), capacity: $("#eventCapacity").value.trim(), target: $("#eventTarget").value.trim(), price: $("#eventPrice").value.trim(), oldPrice: $("#eventOldPrice").value.trim(), active: $("#eventActive").checked, imageUrl, sourceImageUrl, adminPassword: ADMIN_PASSWORD }); const savedId = result.event?.id || $("#eventId").value; cacheOriginalImage("event", savedId, editors.event.sourceDataUrl); cacheImageEditState("event", savedId); setMessage("#eventMessage", "저장되었습니다. 이미지 위치가 함께 저장됩니다."); await loadData({ silent: true }); resetEventForm(); } catch (error) { setMessage("#eventMessage", error.message, true); } finally { button.disabled = false; button.classList.remove("is-saving"); button.textContent = "저장"; } });
-  $("#searchInput").addEventListener("input", (event) => { state.query = event.target.value.trim(); renderApplications(); renderBoard(); renderHero(); renderEvents(); });
+  $("#schedulePostForm")?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const button = event.submitter;
+    if (!$("#schedulePostId").value && !schedulePostImageFile) { setMessage("#schedulePostMessage", "일정 글에는 이미지가 필요합니다.", true); return; }
+    button.disabled = true; button.classList.add("is-saving"); button.textContent = "저장 중";
+    try {
+      let imageUrl = /^https:\/\/res\.cloudinary\.com\//i.test(schedulePostImageUrl) ? schedulePostImageUrl : "";
+      if (schedulePostImageFile) imageUrl = await uploadToCloudinary(await filePayload(schedulePostImageFile, "schedule-post-image.jpg"));
+      const result = await post({ type: "schedulePostSave", id: $("#schedulePostId").value, order: Number($("#schedulePostOrder").value) || 1, category: $("#schedulePostCategory").value.trim(), title: $("#schedulePostTitle").value.trim(), content: $("#schedulePostContent").value.trim(), imageUrl, headline: $("#schedulePostHeadline").checked, active: $("#schedulePostActive").checked, adminPassword: ADMIN_PASSWORD });
+      setMessage("#schedulePostMessage", "저장되었습니다.");
+      await loadData({ silent: true });
+      resetSchedulePostForm();
+    } catch (error) { setMessage("#schedulePostMessage", error.message, true); }
+    finally { button.disabled = false; button.classList.remove("is-saving"); button.textContent = "저장"; }
+  });
+  $("#searchInput").addEventListener("input", (event) => { state.query = event.target.value.trim(); renderApplications(); renderBoard(); renderHero(); renderEvents(); renderSchedulePosts(); });
   $("#refreshButton").addEventListener("click", loadData);
   $("#logoutButton").addEventListener("click", () => { sessionStorage.removeItem("cloverAdminAuthenticated"); showLogin(); });
   $("#homeButton").addEventListener("click", goHome);
@@ -421,6 +489,8 @@
 </script>
 </body>
 </html>
+
+
 
 
 
