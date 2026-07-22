@@ -20,7 +20,7 @@
   <meta name="twitter:title" content="클로버ㅣ부산 로테이션 소개팅">
   <meta name="twitter:description" content="어느 날, 우연히, 슬며시">
   <meta name="twitter:image" content="https://clover-love.vercel.app/assets/link-preview.jpg?v=20260710-link">
-  <script src="config.js"></script>
+  <script src="config.js?v=20260722-schedule-api"></script>
   <style>
     :root {
       --page-max: 37.5rem;
@@ -2889,8 +2889,10 @@
     .schedule-headline-strip { display: grid; gap: .75rem; }
     .schedule-section-title { margin: 0; font-size: 1.05rem; font-weight: 950; letter-spacing: -.03em; }
     .schedule-headline-scroller { position: relative; overflow: hidden; }
-    .schedule-headline-row { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(15rem, 78%); gap: .75rem; overflow-x: auto; padding: .1rem .05rem .12rem; scrollbar-width: none; scroll-behavior: smooth; }
+    .schedule-headline-row { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(15rem, 78%); gap: .75rem; overflow-x: auto; padding: .1rem .05rem .12rem; scrollbar-width: none; scroll-behavior: smooth; cursor: grab; touch-action: pan-y; overscroll-behavior-inline: contain; -webkit-overflow-scrolling: touch; }
     .schedule-headline-row::-webkit-scrollbar { display: none; }
+    .schedule-headline-row.is-dragging { cursor: grabbing; scroll-behavior: auto; }
+    .schedule-headline-row.is-dragging * { user-select: none; }
     .schedule-scroll-btn { position: absolute; top: 50%; z-index: 2; width: 1.45rem; height: 2.25rem; border: 0; border-radius: 999px; color: #07150b; background: #00ff40; box-shadow: 0 .3rem .75rem rgba(15,23,42,.2); font-size: .9rem; font-weight: 950; display: inline-flex; align-items: center; justify-content: center; transform: translateY(-50%); }
     .schedule-scroll-btn.prev { left: .35rem; }
     .schedule-scroll-btn.next { right: .35rem; }
@@ -3455,7 +3457,7 @@
     const iconPin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbz4maRNMx_yM5C6qzz9CaGUn37E7bxfiEpN60kLYo_-z8IS2w3sPJu69VmhruBfIdyS/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbzjIqKkqlOH71oc_yhB5vjyk-GOqrfL1bpaZnuJoE8_ckRduw-0TYze0nkMPc1bVajU/exec";
     const HERO_CACHE_KEY = "clover-managed-hero-slides-v5";
     const HERO_FALLBACK_SLIDES = [
       {
@@ -4113,16 +4115,60 @@
       if (prev) prev.hidden = left <= 2;
       if (next) next.hidden = false;
     }
+    function bindScheduleHeadlineDrag(row) {
+      if (!row || row.dataset.dragBound) return;
+      row.dataset.dragBound = "true";
+      let dragging = false;
+      let moved = false;
+      let startX = 0;
+      let startLeft = 0;
+      row.addEventListener("pointerdown", (event) => {
+        if (event.button !== undefined && event.button !== 0) return;
+        dragging = true;
+        moved = false;
+        startX = event.clientX;
+        startLeft = row.scrollLeft;
+        row.classList.add("is-dragging");
+        row.setPointerCapture?.(event.pointerId);
+      });
+      row.addEventListener("pointermove", (event) => {
+        if (!dragging) return;
+        const dx = event.clientX - startX;
+        if (Math.abs(dx) > 4) moved = true;
+        row.scrollLeft = startLeft - dx;
+        if (moved) event.preventDefault();
+      });
+      const endDrag = (event) => {
+        if (!dragging) return;
+        dragging = false;
+        row.classList.remove("is-dragging");
+        row.releasePointerCapture?.(event.pointerId);
+        updateScheduleHeadlineControls(row);
+        if (moved) {
+          row.dataset.dragSuppressClick = "true";
+          window.setTimeout(() => { delete row.dataset.dragSuppressClick; }, 90);
+        }
+      };
+      row.addEventListener("pointerup", endDrag);
+      row.addEventListener("pointercancel", endDrag);
+      row.addEventListener("pointerleave", endDrag);
+      row.addEventListener("click", (event) => {
+        if (row.dataset.dragSuppressClick === "true") {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      }, true);
+    }
     function refreshScheduleHeadlineControls() {
       document.querySelectorAll("[data-schedule-headline-row]").forEach((row) => {
+        bindScheduleHeadlineDrag(row);
         updateScheduleHeadlineControls(row);
         if (!row.dataset.scrollControlBound) {
           row.dataset.scrollControlBound = "true";
           row.addEventListener("scroll", () => updateScheduleHeadlineControls(row), { passive: true });
         }
       });
-    }
-    function renderSchedulePosts() {
+    }    function renderSchedulePosts() {
       if (!scheduleFeed) return;
       if (!schedulePosts.length) {
         scheduleFeed.innerHTML = '<div class="schedule-feed-empty">등록된 일정 소식이 없습니다.</div>';
@@ -5673,6 +5719,8 @@
   </script>
 </body>
 </html>
+
+
 
 
 
