@@ -443,6 +443,48 @@
       padding: 1.5rem 0.75rem 6rem;
       background: #f8f9fb;
     }
+    .home-schedule-headlines {
+      display: grid;
+      gap: .5rem;
+      margin: -.35rem 0 .35rem;
+    }
+
+    .home-schedule-headlines[hidden] {
+      display: none;
+    }
+
+    .home-section-title,
+    .home-schedule-headlines .schedule-section-title {
+      margin: 0 .45rem .5rem;
+      color: #07150b;
+      font-size: .82rem;
+      font-weight: 950;
+      line-height: 1.25;
+      letter-spacing: -.03em;
+    }
+
+    .home-schedule-headlines .schedule-headline-strip {
+      gap: .42rem;
+    }
+
+
+    .home-section-title,
+    .home-schedule-headlines .schedule-section-title {
+      font-size: 1.35rem;
+      line-height: 1.25;
+    }
+    .home-schedule-headlines .schedule-post-cover img {
+      object-fit: cover;
+      object-position: center center;
+    }
+    .home-schedule-headlines .schedule-headline-row {
+      padding-bottom: 0;
+    }
+
+    .home-schedule-headlines .schedule-post-card {
+      box-shadow: none;
+    }
+
 
     .section-head {
       display: flex;
@@ -477,8 +519,8 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-      padding: 0.9rem;
+      gap: 0;
+      padding: 0;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--paper);
@@ -490,7 +532,7 @@
       width: 100%;
       aspect-ratio: 1920 / 1080;
       overflow: hidden;
-      border-radius: 0.5rem;
+      border-radius: 10px 10px 0 0;
       background: var(--thumb-image) center / cover no-repeat, #d8dce3;
       cursor: pointer;
     }
@@ -518,7 +560,7 @@
       left: 0.55rem;
       display: inline-flex;
       align-items: center;
-      gap: 0.2rem;
+      gap: 0;
       padding: 0.3rem 0.45rem;
       border: 1px solid rgba(18, 18, 24, 0.12);
       border-radius: 0.35rem;
@@ -564,6 +606,7 @@
       flex-direction: column;
       justify-content: space-between;
       gap: 0.55rem;
+      padding: 0.78rem 0.85rem 0.85rem;
       text-align: left;
     }
 
@@ -730,6 +773,7 @@
     .event-gender-count {
       position: static;
       width: fit-content;
+      white-space: nowrap;
       display: inline-flex;
       flex: 0 0 auto;
       gap: 0.25rem;
@@ -889,6 +933,7 @@
     .detail-page {
       display: grid;
       gap: 0.85rem;
+      align-content: start;
       padding-bottom: 2rem;
     }
 
@@ -930,6 +975,23 @@
 
     .detail-title span {
       color: #00d838;
+    }
+    .detail-hero.selection-detail-hero {
+      min-height: 0;
+    }
+
+    .detail-hero.selection-detail-hero .detail-image {
+      min-height: 0;
+      aspect-ratio: 16 / 9;
+    }
+
+    .detail-hero.selection-detail-hero .detail-main {
+      min-height: 0;
+      padding: 0.75rem 1rem 0.85rem;
+    }
+
+    .detail-hero.selection-detail-hero .event-meta {
+      margin-bottom: 0;
     }
 
     .detail-price {
@@ -1107,7 +1169,7 @@
     .schedule-heading {
       display: flex;
       align-items: center;
-      gap: 0.2rem;
+      gap: 0;
       padding-bottom: 0.65rem;
       border-bottom: 1px solid var(--line);
       font-size: 0.95rem;
@@ -1172,11 +1234,14 @@
       height: 2.9rem;
       padding: 0;
       border: 0;
-      border-radius: 0.55rem;
+      border-radius: 999px;
       color: #a4abb7;
       background: transparent;
       font-size: calc(0.68rem - 2px);
       font-weight: 850;
+      -webkit-user-select: none;
+      user-select: none;
+      touch-action: manipulation;
     }
 
     .application-day.is-available {
@@ -1184,19 +1249,19 @@
       height: 2.35rem;
       justify-self: center;
       align-self: center;
-      border: 1px solid var(--schedule-border);
-      color: var(--schedule-color);
-      background: var(--schedule-soft);
+      border: 1px solid var(--line);
+      color: #303743;
+      background: #fff;
       cursor: pointer;
+      box-shadow: 0 0.2rem 0.65rem rgba(15, 23, 42, 0.04);
     }
 
     .application-day.is-selected {
-      border-color: #188f44;
-      color: #0f6d35;
-      background: var(--schedule-selected-bg);
-      box-shadow: 0 0.2rem 0.55rem rgba(24, 143, 68, 0.14);
+      border-color: #00f040;
+      color: #008f2a;
+      background: #f2fff5;
+      box-shadow: inset 0 0 0 1px rgba(0, 240, 64, 0.18);
     }
-
     .application-day.is-available.is-saturday,
     .application-day.is-selected.is-saturday {
       color: #2563eb;
@@ -1283,8 +1348,11 @@
     }
 
     .schedule-time-option {
+      position: relative;
+      z-index: 1;
       width: 100%;
       min-height: 2.35rem;
+      touch-action: manipulation;
       padding: 0.5rem 0.35rem;
       border: 1px solid var(--line);
       border-radius: 999px;
@@ -1296,10 +1364,10 @@
     }
 
     .schedule-time-option.is-selected {
-      border-color: #111827;
-      color: #111827;
-      background: #fff;
-      box-shadow: none;
+      border-color: #00f040;
+      color: #008f2a;
+      background: #f2fff5;
+      box-shadow: inset 0 0 0 1px rgba(0, 240, 64, 0.18);
     }
 
     .selected-schedule,
@@ -1341,6 +1409,178 @@
       .schedule-time-options { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
 
+    .application-selection-page {
+      display: grid;
+      gap: 0.85rem;
+      align-content: start;
+    }
+
+    .selection-section {
+      display: grid;
+      gap: 0.75rem;
+      padding: 1rem;
+      align-content: start;
+      align-self: start;
+      min-height: 0;
+      border: 1px solid var(--line);
+      border-radius: 1.15rem;
+      background: var(--paper);
+    }
+
+    .selection-heading {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.95rem;
+      font-weight: 950;
+    }
+
+    .region-choice-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      align-content: flex-start;
+      min-height: 0;
+    }
+
+    .region-choice,
+    .age-option-card {
+      -webkit-user-select: none;
+      user-select: none;
+      touch-action: manipulation;
+      cursor: pointer;
+    }
+
+    .region-choice {
+      width: auto;
+      min-width: 0;
+      min-height: 2.25rem;
+      aspect-ratio: auto;
+      padding: 0.45rem 0.85rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #303743;
+      background: #fff;
+      font-size: 0.84rem;
+      font-weight: 900;
+    }
+
+    .region-choice.is-selected {
+      border-color: #00f040;
+      color: #008f2a;
+      background: #f2fff5;
+      box-shadow: inset 0 0 0 1px rgba(0, 240, 64, 0.18);
+    }
+
+    .age-option-list {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .age-option-card {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 0.75rem;
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid var(--line);
+      border-radius: 0.9rem;
+      color: var(--ink);
+      background: #fff;
+      text-align: left;
+      box-shadow: 0 0.3rem 1rem rgba(15, 23, 42, 0.04);
+    }
+
+    .age-option-card.is-selected,
+    .age-option-card:active {
+      border-color: #00f040;
+      background: #f2fff5;
+      box-shadow: inset 0 0 0 1px rgba(0, 240, 64, 0.22);
+    }
+
+    .age-option-card[disabled] {
+      cursor: not-allowed;
+      opacity: 0.58;
+      background: #f8fafc;
+      box-shadow: none;
+    }
+
+    .age-option-card[disabled]:active {
+      border-color: var(--line);
+      background: #f8fafc;
+      box-shadow: none;
+    }
+
+    .age-option-check {
+      width: 1.05rem;
+      height: 1.05rem;
+      border: 2px solid #d8dee6;
+      border-radius: 999px;
+      background: #fff;
+      box-shadow: inset 0 0 0 0.22rem #fff;
+    }
+
+    .age-option-card.is-selected .age-option-check {
+      border-color: #00d838;
+      background: #00d838;
+    }
+
+    .age-option-main {
+      display: grid;
+      gap: 0;
+      min-width: 0;
+    }
+
+    .age-option-main strong {
+      font-size: 0.98rem;
+      font-weight: 950;
+      line-height: 1.25;
+    }
+
+    .age-option-main span {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .age-option-seat {
+      justify-self: end;
+      width: fit-content;
+      white-space: nowrap;
+      padding: 0.18rem 0.45rem;
+      border-radius: 999px;
+      color: #008f2a;
+      background: #eaffef;
+      font-size: 0.72rem;
+      font-weight: 950;
+    }
+
+    .capacity-info-block.is-muted .confirmed-schedule-list {
+      color: var(--muted);
+    }
+
+    .selection-complete-btn {
+      width: 100%;
+      min-height: 2.85rem;
+      border: 0;
+      border-radius: 0.9rem;
+      color: #07150b;
+      background: #00ff40;
+      font-size: 0.95rem;
+      font-weight: 950;
+      box-shadow: 0 0.55rem 1.2rem rgba(0, 255, 64, 0.18);
+    }
+
+    .selection-complete-btn[disabled] {
+      cursor: not-allowed;
+      color: #9ca3af;
+      background: #eef2f7;
+      box-shadow: none;
+    }
     .form-section {
       display: grid;
       gap: 0.85rem;
@@ -1565,7 +1805,7 @@
 
     .document-copy {
       display: grid;
-      gap: 0.2rem;
+      gap: 0;
       min-width: 0;
     }
 
@@ -1798,6 +2038,8 @@
       background: #f8f9fb;
       box-shadow: 0 0.35rem 0.7rem rgba(18, 18, 24, 0.04);
     }
+
+    #home-events .filter-row { margin-top: 0; }
 
     .filter-chip {
       padding: 0.48rem 0.75rem;
@@ -2237,14 +2479,14 @@
 
     .board-form .field select {
       width: 100%;
-      min-height: 3rem;
+      min-height: 2.75rem;
       padding: 0 2.2rem 0 0.85rem;
       border: 1px solid var(--line);
-      border-radius: 0.7rem;
-      color: #343943;
+      border-radius: 0.55rem;
+      color: var(--ink);
       background-color: #fff;
-      font: inherit;
-      font-weight: 650;
+      font-size: 0.9rem;
+      font-weight: 400;
       outline: none;
       appearance: none;
       background-image: linear-gradient(45deg, transparent 50%, #6b7280 50%), linear-gradient(135deg, #6b7280 50%, transparent 50%);
@@ -2899,28 +3141,67 @@
     .schedule-scroll-btn:active { transform: translateY(-50%) scale(.96); }
     .schedule-scroll-btn[hidden] { display: none; }
     .schedule-post-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .72rem; }
-    .schedule-post-card { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #fff; box-shadow: 0 .35rem 1.2rem rgba(15,23,42,.06); }
+    .schedule-post-card { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #fff; box-shadow: 0 .35rem 1.2rem rgba(15,23,42,.06); cursor: pointer; }
     .schedule-post-card.is-headline { min-height: 100%; }
-    .schedule-post-cover { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #e5e7eb; }
-    .schedule-post-cover img { width: 100%; height: 100%; display: block; object-fit: cover; }
-    .schedule-post-badge { position: absolute; left: .55rem; top: .55rem; padding: .22rem .5rem; border-radius: 999px; color: #07150b; background: #00ff40; font-size: .68rem; font-weight: 950; box-shadow: 0 .25rem .65rem rgba(0,0,0,.16); }
-    .schedule-post-body { padding: .75rem .8rem .85rem; }
-    .schedule-post-body h2, .schedule-post-body h3 { margin: 0; font-size: .95rem; line-height: 1.35; letter-spacing: -.035em; }
-    .schedule-post-card.is-headline .schedule-post-body h2 { font-size: 1.05rem; }
-    .schedule-post-content { margin: .45rem 0 0; color: #4b5563; font-size: .78rem; line-height: 1.45; white-space: pre-wrap; }
+    .schedule-post-cover { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border: 0; padding: 0; margin: 0; display: block; appearance: none; -webkit-appearance: none; background: #e5e7eb; cursor: pointer; }
+    .schedule-post-cover img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center center; }
+    .schedule-post-badge { position: absolute; left: .5rem; top: .5rem; max-width: calc(100% - 1rem); padding: .2rem .48rem; border-radius: 999px; color: #07150b; background: #00ff40; font-size: .66rem; line-height: 1.15; font-weight: 950; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; box-shadow: 0 .25rem .65rem rgba(0,0,0,.16); }
+    .schedule-post-body { min-height: 8.35rem; padding: .75rem .8rem .85rem; display: flex; flex-direction: column; }
+    .schedule-post-body h2, .schedule-post-body h3 { min-height: 2.7em; margin: 0; font-size: .95rem; line-height: 1.35; letter-spacing: -.035em; display: -webkit-box; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+    .schedule-post-card.is-headline .schedule-post-body h2 { min-height: 1.35em; font-size: 1.05rem; -webkit-line-clamp: 1; }
+    .schedule-post-card:not(.is-headline) .schedule-post-body h3 { min-height: 1.35em; -webkit-line-clamp: 1; }
+    .schedule-post-content { min-height: 2.9em; margin: .45rem 0 0; color: #4b5563; font-size: .78rem; line-height: 1.45; white-space: pre-wrap; }
     .schedule-post-content { display: -webkit-box; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; white-space: normal; }
-    .schedule-post-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .42rem; margin-top: .6rem; color: #667085; font-size: .7rem; font-weight: 800; }
-    .schedule-post-meta span, .schedule-post-meta button { min-height: 1.75rem; padding: .22rem .55rem; border: 1px solid #d8dee6; border-radius: 999px; color: #344054; background: #fff; font-weight: 900; display: inline-flex; align-items: center; justify-content: center; }
+    .schedule-post-meta { display: flex; flex-wrap: nowrap; align-items: center; justify-content: flex-end; gap: .24rem; margin-top: auto; color: #667085; font-size: .64rem; font-weight: 800; white-space: nowrap; }
+    .schedule-post-meta span, .schedule-post-meta button { min-height: 1.48rem; padding: .14rem .38rem; border: 1px solid #d8dee6; border-radius: 999px; color: #344054; background: #fff; font-size: inherit; line-height: 1; font-weight: 850; display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; }
     .schedule-post-meta button.is-liked { border-color: #00d638; color: #07150b; background: #e9ffef; }
-    .support-page.schedule-detail-page { min-height: calc(100svh - 3.7rem); padding-top: .05rem; padding-bottom: 1.05rem; }
-    .schedule-detail-page { display: grid; gap: 0; }
-    .schedule-detail-page .page-title { margin: 0; padding: 0 .25rem; }
-    .schedule-detail-top { display: flex; align-items: center; justify-content: space-between; gap: .75rem; min-height: auto; padding: .15rem 0 .38rem; transform: translateY(-50px); margin-bottom: -50px; }
+    .schedule-post-card:not(.is-headline) .schedule-post-meta { gap: .18rem; margin-top: .44rem; font-size: .55rem; }
+    .schedule-post-card:not(.is-headline) .schedule-post-meta span,
+    .schedule-post-card:not(.is-headline) .schedule-post-meta button { min-height: 1.22rem; padding: .08rem .28rem; font-size: .55rem; font-weight: 850; }
+    .support-page.schedule-detail-page { min-height: calc(100svh - 3.7rem); padding: 0 .75rem 1.05rem !important; }
+    .schedule-detail-page { display: grid; grid-template-rows: auto auto; align-content: start; gap: 0; }
+    .schedule-detail-page .page-title { margin: 0; padding: 0; }
+    .schedule-detail-top { display: flex; align-items: center; justify-content: space-between; gap: .75rem; min-height: auto; padding: 0 0 .12rem; }
     .schedule-back-btn { min-height: 2.25rem; padding: 0 .85rem; border: 1px solid #d8dee6; border-radius: 999px; background: #fff; color: #111827; font-size: .85rem; font-weight: 900; }
-    .schedule-detail-page [data-schedule-detail] { transform: translateY(-60px); margin-bottom: -60px; }
+    .schedule-detail-page [data-schedule-detail] { margin: 0; }
+    #page-schedule-detail .section-tabs + .schedule-detail-page {
+      margin-top: .55rem !important;
+    }
+
+    #page-schedule-detail .schedule-detail-page {
+      padding: 0 .75rem 1.05rem !important;
+    }
+
+    #page-schedule-detail .schedule-detail-top {
+      margin: 0 0 .65rem !important;
+      padding-top: .35rem !important;
+      padding-bottom: .35rem !important;
+    }
+
+    #page-schedule-detail [data-schedule-detail] {
+      margin: 0 !important;
+      padding: 0 !important;
+      display: block;
+    }
+    #page-schedule-detail .schedule-detail-page {
+      margin: 0 !important;
+      row-gap: 0 !important;
+      align-content: start !important;
+      grid-template-rows: auto auto !important;
+    }
+
+    #page-schedule-detail .schedule-detail-top .page-title {
+      margin: 0 !important;
+      padding: 0 !important;
+      line-height: 1.1;
+    }
+
+    #page-schedule-detail .schedule-detail-card {
+      margin-top: 0 !important;
+    }
     .schedule-detail-card { overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: #fff; box-shadow: 0 .45rem 1.4rem rgba(15,23,42,.06); }
     .schedule-detail-media { position: relative; overflow: hidden; background: #e5e7eb; }
-    .schedule-detail-image { width: 100%; aspect-ratio: 16 / 9; display: block; object-fit: cover; background: #e5e7eb; }
+    .schedule-detail-image { width: 100%; aspect-ratio: 16 / 9; display: block; object-fit: cover; object-position: center center; background: #e5e7eb; }
     .schedule-detail-date { justify-self: end; color: #111827; background: transparent; border: 0; padding: 0; font-size: .76rem; font-weight: 900; white-space: nowrap; }
     .schedule-detail-body { display: grid; gap: .38rem; padding: .58rem .85rem .62rem; }
     .schedule-detail-heading { margin: 0; font-size: 1.25rem; line-height: 1.32; letter-spacing: -.04em; }
@@ -2941,7 +3222,115 @@
     .schedule-comment-form textarea:focus { border-color: #00d638; box-shadow: 0 0 0 3px rgba(0,255,64,.12); }
     .schedule-comment-form button { min-height: 2.45rem; border: 0; border-radius: .6rem; color: #07150b; background: #00ff40; font-weight: 950;
     }
-    @media(max-width: 42rem) { .schedule-post-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem; } .schedule-post-body { padding: .52rem; } .schedule-post-body h2, .schedule-post-body h3 { font-size: .72rem; } .schedule-post-content { display: none; } .schedule-post-meta { font-size: .62rem; gap: .25rem; } .schedule-headline-row { grid-auto-columns: minmax(15rem, 86%); } .schedule-scroll-btn { width: 1.35rem; height: 2.05rem; } }
+    @media(max-width: 42rem) { .schedule-post-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem; } .schedule-post-body { padding: .52rem; } .schedule-post-body h2, .schedule-post-body h3 { font-size: .72rem; } .schedule-post-content { display: -webkit-box; min-height: 2.7em; font-size: .64rem; line-height: 1.35; } .schedule-post-meta { font-size: .56rem; gap: .14rem; } .schedule-post-meta span, .schedule-post-meta button { min-height: 1.35rem; padding: .1rem .26rem; } .schedule-headline-row { grid-auto-columns: minmax(15rem, 86%); } .schedule-scroll-btn { width: 1.35rem; height: 2.05rem; } }
+  
+    /* selection-page-stretch-fix */
+    .detail-page {
+      grid-auto-rows: max-content !important;
+      align-items: start !important;
+      align-content: start !important;
+    }
+
+    .detail-page > .detail-hero,
+    .detail-page > .application-selection-page,
+    .application-selection-page > .selection-section,
+    .application-selection-page > .form-section,
+    .application-selection-page > .selection-complete-btn {
+      align-self: start !important;
+      height: auto !important;
+      min-height: 0 !important;
+    }
+
+    .detail-hero.selection-detail-hero {
+      display: block !important;
+      height: auto !important;
+      min-height: 0 !important;
+    }
+
+    .detail-hero.selection-detail-hero .detail-image {
+      display: block !important;
+      width: 100% !important;
+      aspect-ratio: 16 / 9 !important;
+      height: auto !important;
+      min-height: 0 !important;
+    }
+
+    .detail-hero.selection-detail-hero .detail-main {
+      display: grid !important;
+      gap: 0.25rem !important;
+      height: auto !important;
+      min-height: 0 !important;
+      padding: 0.75rem 1rem 0.85rem !important;
+    }
+
+    .application-selection-page {
+      display: grid !important;
+      grid-auto-rows: max-content !important;
+      gap: 0.85rem !important;
+      align-items: start !important;
+      align-content: start !important;
+      height: auto !important;
+      min-height: 0 !important;
+    }
+
+    .application-selection-page .selection-section,
+    .application-selection-page .form-section {
+      display: grid !important;
+      grid-auto-rows: max-content !important;
+      gap: 0.75rem !important;
+      align-items: start !important;
+      align-content: start !important;
+      justify-content: stretch !important;
+      height: auto !important;
+      min-height: 0 !important;
+      padding: 1rem !important;
+    }
+
+    .application-selection-page .region-choice-row {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 0.5rem !important;
+      align-items: center !important;
+      align-content: flex-start !important;
+      justify-content: flex-start !important;
+      height: auto !important;
+      min-height: 0 !important;
+    }
+
+    .application-selection-page .region-choice {
+      width: auto !important;
+      min-width: 0 !important;
+      height: auto !important;
+      min-height: 2.25rem !important;
+      aspect-ratio: auto !important;
+      padding: 0.45rem 0.85rem !important;
+      border-radius: 999px !important;
+      line-height: 1 !important;
+    }
+
+    .application-selection-page .schedule-time-options {
+      display: grid !important;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: 0.45rem !important;
+    }
+
+    .application-selection-page .schedule-time-option {
+      width: 100% !important;
+      height: auto !important;
+      min-height: 2.35rem !important;
+      aspect-ratio: auto !important;
+      border-color: var(--line) !important;
+      color: #303743 !important;
+      background: #fff !important;
+      box-shadow: 0 0.2rem 0.65rem rgba(15, 23, 42, 0.04) !important;
+    }
+
+    .application-selection-page .schedule-time-option.is-selected {
+      border-color: #00f040 !important;
+      color: #008f2a !important;
+      background: #f2fff5 !important;
+      box-shadow: inset 0 0 0 1px rgba(0, 240, 64, 0.18) !important;
+    }
   </style>
 </head>
 <body>
@@ -2950,7 +3339,7 @@
         <img class="brand-logo" src="assets/clover-logo-v2.png" alt="">
         <span class="brand-copy">
           <span class="brand-text">CLOVER</span>
-          <span class="brand-subtitle">부산·로테이션 소개팅</span>
+          <span class="brand-subtitle">로테이션 소개팅</span>
         </span>
       </a>
       <button class="menu-button" id="openMenu" type="button" aria-label="메뉴 열기" aria-expanded="false">
@@ -2987,12 +3376,9 @@
         </div>
       </div>
       <main class="content">
+        <section class="home-schedule-headlines" data-home-schedule-headlines hidden></section>
         <section id="home-events">
-          <div class="filter-row" aria-label="이벤트 필터">
-            <button class="filter-chip is-active" type="button">서면</button>
-            <button class="filter-chip" type="button" disabled aria-disabled="true">사상</button>
-            <button class="filter-chip" type="button" disabled aria-disabled="true">광안리</button>
-          </div>
+          <h2 class="home-section-title">로테이션 소개팅</h2>
           <ul class="event-list" data-event-list="home"></ul>
         </section>
 
@@ -3349,7 +3735,7 @@
             <circle cx="16.6" cy="7.6" r="1" fill="#fff"/>
           </svg>
         </a>
-        <button class="drawer-social-link" type="button" data-page-link="board" onclick="window.goPage(event, 'board')" aria-label="자유 게시판" title="자유 게시판">
+        <button class="drawer-social-link" type="button" data-page-link="support" onclick="window.goPage(event, 'support')" aria-label="1:1 채팅" title="1:1 채팅">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M5.5 4h10A3.5 3.5 0 0 1 19 7.5v5a3.5 3.5 0 0 1-3.5 3.5H10l-4.5 3v-3A3.5 3.5 0 0 1 2 12.5v-5A3.5 3.5 0 0 1 5.5 4Z" fill="#00ff40"/>
             <path d="M10 8h8.2A3.8 3.8 0 0 1 22 11.8v3.4a3.8 3.8 0 0 1-3.8 3.8h-2.7L12 21v-2A3.8 3.8 0 0 1 8.2 15.2v-3.4A3.8 3.8 0 0 1 10 8Z" fill="#121218"/>
@@ -3565,21 +3951,6 @@
     }
     const confirmedParticipantsBySchedule = {};
 
-    function renderConfirmedParticipants(scheduleKey) {
-      const target = document.querySelector("[data-confirmed-schedule-list]");
-      if (!target) return;
-      const participants = confirmedParticipantsBySchedule[scheduleKey] || [];
-      target.innerHTML = participants.length
-        ? participants.map((name) => `<span class="confirmed-person">${name}</span>`).join("")
-        : "- 자리 남았습니다.";
-    }
-
-    function formatSelectedSchedule(dateKey, time) {
-      if (!dateKey || !time) return "";
-      const [year, month, day] = dateKey.split("-");
-      return `${year}년 ${Number(month)}월 ${Number(day)}일 ${time}`;
-    }
-
     function renderScheduleTimeOptions(dateKey) {
       const target = document.querySelector("[data-schedule-time-options]");
       if (!target) return;
@@ -3609,7 +3980,8 @@
           dayOfWeek === 0 ? "is-sunday" : "",
           dayOfWeek === 6 ? "is-saturday" : "",
           isHoliday ? "is-holiday" : "",
-          iso === today ? "is-today" : ""
+          iso === today ? "is-today" : "",
+          iso === selectedScheduleDateKey ? "is-selected" : ""
         ].filter(Boolean).join(" ");
         cells.push(`<button class="${classes}" type="button" ${isAvailable ? `data-application-date="${iso}"` : "disabled"}><b>${day}</b></button>`);
       }
@@ -3637,15 +4009,110 @@
       return value.split(" ")[0] || "서면";
     }
 
-    function renderDetail(event) {
-      selectedEvent = event;
+    function resetApplicationSelection() {
       selectedScheduleDate = "";
       selectedScheduleDateKey = "";
       selectedScheduleTime = "";
+      selectedApplicationRegions = [];
+      selectedAgeOption = null;
+      selectedDocumentFile = null;
+      selectedPhotoFiles = [];
+      selectedFileSequence = 0;
+    }
+
+    function isApplicationSelectionReady() {
+      return Boolean(selectedApplicationRegions.length && selectedScheduleDateKey && selectedScheduleTime && selectedAgeOption);
+    }
+
+    function updateSelectionCompleteButton() {
+      const button = document.querySelector("[data-selection-complete]");
+      if (button) button.disabled = !isApplicationSelectionReady();
+    }
+
+    function renderAgeSelectionMarkup() {
+      if (!selectedScheduleTime) return "";
+      const ageCards = applicationAgeOptions.map((option) => `
+        <button class="age-option-card${selectedAgeOption?.id === option.id ? " is-selected" : ""}" type="button" data-age-option="${option.id}">
+          <span class="age-option-check" aria-hidden="true"></span>
+          <span class="age-option-main"><strong>${option.range}</strong></span>
+          <span class="age-option-seat">${option.remaining}명 남음</span>
+        </button>
+      `).join("");
+      return `
+        <section class="selection-section age-selection-block">
+          <div class="selection-heading">연령대 선택 <span class="req">*</span></div>
+          <p class="schedule-description">참여할 연령대를 선택해 주세요.</p>
+          <div class="age-option-list">${ageCards}</div>
+        </section>
+      `;
+    }
+
+    function selectionScheduleMarkup() {
+      if (!selectedApplicationRegions.length) return "";
+      const resultHidden = selectedScheduleDateKey ? "" : " hidden";
+      return `
+        <section class="form-section schedule-section">
+          <div class="schedule-heading">참여 일정 <span class="req">*</span></div>
+          <p class="schedule-description">오늘부터 8주 이내의 일정입니다. 색상으로 표시된 날짜 중 참여할 날짜를 선택해 주세요.</p>
+          <div class="application-calendar">
+            ${applicationMonthTemplate(2026, 7)}
+            ${applicationMonthTemplate(2026, 8)}
+          </div>
+          <div class="schedule-result" data-schedule-result${resultHidden}>
+            <section class="schedule-result-section schedule-time-section">
+              <h4>시간 선택</h4>
+              <div class="schedule-time-options" data-schedule-time-options></div>
+            </section>
+          </div>
+        </section>
+      `;
+    }
+    function renderApplicationSelection(event) {
+      selectedEvent = event;
+      detailRoot.dataset.gender = selectedApplyGender || "";
+      const detailImage = eventImageStack(event);
+      const detailVideo = eventVideoMarkup(event, "detail-media");
+      const regionButtons = ["부산", "울산", "경남"].map((region) => `
+        <button class="region-choice${selectedApplicationRegions.includes(region) ? " is-selected" : ""}" type="button" data-region-choice="${region}">${region}</button>
+      `).join("");
+      const selectionReady = isApplicationSelectionReady();
+
+      detailRoot.innerHTML = `
+        <article class="detail-hero selection-detail-hero">
+          <div class="detail-image" style="--detail-image: ${detailImage}">${detailVideo}</div>
+          <div class="detail-main">
+            <h1 class="detail-title"><span>[${event.station}]</span> ${event.title}</h1>
+            <div class="event-meta">
+              <div class="meta-line">${event.showGenderCount ? `<div class="gender event-gender-count"><span class="m"><i class="count-content">${iconMale}<b class="count-value">${event.male}</b></i></span><span class="f"><i class="count-content">${iconFemale}<b class="count-value">${event.female}</b></i></span></div>` : ""}${iconPin}<span>${event.place}</span></div>
+            </div>
+          </div>
+        </article>
+        <div class="application-selection-page">
+          <section class="selection-section">
+            <div class="selection-heading">방문 가능한 지역 <span class="req">*</span></div>
+            <p class="schedule-description">중복 선택 가능합니다.</p>
+            <div class="region-choice-row">${regionButtons}</div>
+          </section>
+          ${selectionScheduleMarkup()}
+          ${renderAgeSelectionMarkup()}
+          ${selectionReady ? `<button class="selection-complete-btn" type="button" data-selection-complete>선택 완료</button>` : ""}
+        </div>
+      `;
+
+      if (selectedScheduleDateKey) {
+        renderScheduleTimeOptions(selectedScheduleDateKey);
+      }
+
+      updateSelectionCompleteButton();
+    }
+
+    function renderDetail(event) {
+      selectedEvent = event;
       selectedDocumentFile = null;
       selectedPhotoFiles = [];
       const applicationGender = selectedApplyGender || "";
       const applicationPrice = selectedApplyPrice || event.price;
+      const applicationAgeRange = selectedAgeOption?.range || event.station;
       detailRoot.dataset.gender = applicationGender;
       const detailImage = eventImageStack(event);
       const detailVideo = eventVideoMarkup(event, "detail-media");
@@ -3654,7 +4121,7 @@
         <article class="detail-hero">
           <div class="detail-image" style="--detail-image: ${detailImage}">${detailVideo}</div>
           <div class="detail-main">
-            <h1 class="detail-title"><span>[${event.station}]</span> ${event.title}</h1>
+            <h1 class="detail-title"><span>[${applicationAgeRange}]</span> ${event.title}</h1>
             <div class="event-meta">
               <div class="meta-line">${event.showGenderCount ? `<div class="gender event-gender-count"><span class="m"><i class="count-content">${iconMale}<b class="count-value">${event.male}</b></i></span><span class="f"><i class="count-content">${iconFemale}<b class="count-value">${event.female}</b></i></span></div>` : ""}${iconPin}<span>${event.place}</span></div>
             </div>
@@ -3676,7 +4143,7 @@
           </div>
           <div class="detail-info">
             <dt>연령대</dt>
-            <dd>${detailAgeText(event.station)}</dd>
+            <dd>${applicationAgeRange.replace("세", "")}세</dd>
           </div>
           <div class="detail-info">
             <dt>대상</dt>
@@ -3693,25 +4160,6 @@
             <h2>${applicationGender ? `${applicationGender} 신청서 양식` : "신청서 양식"}</h2>
             <p>현재 기준으로 아래 양식을 작성해 주시길 바랍니다.</p>
           </div>
-
-          <section class="form-section schedule-section">
-            <div class="schedule-heading">참여 일정 <span class="req">*</span></div>
-            <p class="schedule-description">오늘부터 8주 이내의 일정입니다. 색상으로 표시된 날짜 중 참여할 시간을 선택해 주세요.</p>
-            <div class="application-calendar">
-              ${applicationMonthTemplate(2026, 7)}
-              ${applicationMonthTemplate(2026, 8)}
-            </div>
-            <div class="schedule-result" data-schedule-result hidden>
-              <section class="schedule-result-section">
-                <h4>시간 선택</h4>
-                <div class="schedule-time-options" data-schedule-time-options></div>
-              </section>
-              <section class="schedule-result-section">
-                <h4>마감 정보</h4>
-                <div class="confirmed-schedule-list" data-confirmed-schedule-list></div>
-              </section>
-            </div>
-          </section>
 
           <section class="form-section">
             <h3>기본 정보</h3>
@@ -3965,12 +4413,25 @@
     let selectedScheduleTime = "";
     let selectedDocumentFile = null;
     let selectedPhotoFiles = [];
+    let selectedApplicationRegions = [];
+    let selectedAgeOption = null;
+    const applicationAgeOptions = [
+      { id: "age-20-27", range: "20세 - 27세", remaining: 6 },
+      { id: "age-24-29", range: "24세 - 29세", remaining: 6 },
+      { id: "age-27-36", range: "27세 - 36세", remaining: 6 },
+      { id: "age-30-37", range: "30세 - 37세", remaining: 6 },
+      { id: "age-34-39", range: "34세 - 39세", remaining: 6 },
+      { id: "age-37-46", range: "37세 - 46세", remaining: 6 },
+      { id: "age-40-46", range: "40세 - 46세", remaining: 6 },
+      { id: "age-44-49", range: "44세 - 49세", remaining: 6 }
+    ];
     let selectedFileSequence = 0;
     const boardForm = document.getElementById("boardForm");
     const boardAuthor = document.getElementById("boardAuthor");
     const boardPostList = document.getElementById("boardPostList");
     const boardPagination = document.getElementById("boardPagination");
     const boardPageSize = 10;
+    const boardCacheKey = "clover-board-posts-v1";
     let boardCurrentPage = 1;
     let boardPosts = [];
 
@@ -4011,17 +4472,19 @@
         selectedApplyGender = saved.gender;
         selectedApplyPrice = selectedApplyGender === "남성" ? "50,000원" : "30,000원";
         selectedEvent = events[selectedEventIndex] || events[0];
-        renderDetail(selectedEvent);
+        renderApplicationSelection(selectedEvent);
         return true;
       } catch {
         return false;
       }
     }
     const scheduleFeed = document.querySelector('[data-schedule-feed]');
+    const homeScheduleHeadlines = document.querySelector('[data-home-schedule-headlines]');
     let schedulePosts = [];
     let selectedSchedulePostId = sessionStorage.getItem("cloverSchedulePostId") || "";
     const SCHEDULE_LIKED_KEY = "clover-schedule-liked:v1";
     const SCHEDULE_VIEWED_KEY = "clover-schedule-viewed:v1";
+    const SCHEDULE_CACHE_KEY = "clover-schedule-posts-cache:v1";
     function readScheduleSet(key) { try { return new Set(JSON.parse(localStorage.getItem(key) || "[]")); } catch { return new Set(); } }
     function writeScheduleSet(key, set) { try { localStorage.setItem(key, JSON.stringify([...set])); } catch {} }
     const scheduleLikedPosts = readScheduleSet(SCHEDULE_LIKED_KEY);
@@ -4048,6 +4511,7 @@
       if (!nextPost || !nextPost.id) return;
       const index = schedulePosts.findIndex((post) => String(post.id) === String(nextPost.id));
       if (index >= 0) schedulePosts[index] = nextPost;
+      writeScheduleCache(schedulePosts);
       renderSchedulePosts();
       requestAnimationFrame(refreshScheduleHeadlineControls);
       if (selectedSchedulePostId === String(nextPost.id)) renderScheduleDetail(nextPost);
@@ -4061,7 +4525,7 @@
       const comments = Array.isArray(post.comments) ? post.comments : [];
       const liked = scheduleLikedPosts.has(String(post.id));
       return `<article class="schedule-post-card${headline ? " is-headline" : ""}" data-schedule-post-id="${htmlAttr(post.id)}">
-        <button class="schedule-post-cover" type="button" data-schedule-open="${htmlAttr(post.id)}" aria-label="${htmlAttr(post.title)} 자세히 보기"><img src="${htmlAttr(post.imageUrl)}" alt="${htmlAttr(post.title)}" loading="lazy"><span class="schedule-post-badge">${htmlAttr(post.category || "공지")}</span></button>
+        <button class="schedule-post-cover" type="button" data-schedule-open="${htmlAttr(post.id)}" aria-label="${htmlAttr(post.title)} 자세히 보기"><img src="${htmlAttr(post.imageUrl)}" alt="${htmlAttr(post.title)}" loading="${headline ? "eager" : "lazy"}" fetchpriority="${headline ? "high" : "auto"}"><span class="schedule-post-badge">${htmlAttr(post.category || "공지")}</span></button>
         <div class="schedule-post-body">
           ${headline ? `<h2>${htmlAttr(post.title)}</h2>` : `<h3>${htmlAttr(post.title)}</h3>`}
           <p class="schedule-post-content">${htmlAttr(post.content)}</p>
@@ -4110,10 +4574,11 @@
       if (!row || !scroller) return;
       const prev = scroller.querySelector('[data-schedule-scroll="prev"]');
       const next = scroller.querySelector('[data-schedule-scroll="next"]');
-      const max = row.scrollWidth - row.clientWidth;
+      const max = Math.max(0, row.scrollWidth - row.clientWidth);
       const left = row.scrollLeft;
-      if (prev) prev.hidden = left <= 2;
-      if (next) next.hidden = false;
+      const hasOverflow = max > 2;
+      if (prev) prev.hidden = !hasOverflow || left <= 2;
+      if (next) next.hidden = !hasOverflow || left >= max - 2;
     }
     function bindScheduleHeadlineDrag(row) {
       if (!row || row.dataset.dragBound) return;
@@ -4122,10 +4587,12 @@
       let moved = false;
       let startX = 0;
       let startLeft = 0;
+      let downTarget = null;
       row.addEventListener("pointerdown", (event) => {
         if (event.button !== undefined && event.button !== 0) return;
         dragging = true;
         moved = false;
+        downTarget = event.target;
         startX = event.clientX;
         startLeft = row.scrollLeft;
         row.classList.add("is-dragging");
@@ -4134,20 +4601,31 @@
       row.addEventListener("pointermove", (event) => {
         if (!dragging) return;
         const dx = event.clientX - startX;
-        if (Math.abs(dx) > 4) moved = true;
+        if (Math.abs(dx) > 14) moved = true;
         row.scrollLeft = startLeft - dx;
         if (moved) event.preventDefault();
       });
       const endDrag = (event) => {
         if (!dragging) return;
+        const wasMoved = moved;
+        const source = downTarget;
         dragging = false;
+        downTarget = null;
         row.classList.remove("is-dragging");
         row.releasePointerCapture?.(event.pointerId);
         updateScheduleHeadlineControls(row);
-        if (moved) {
+        if (wasMoved) {
           row.dataset.dragSuppressClick = "true";
           window.setTimeout(() => { delete row.dataset.dragSuppressClick; }, 90);
+          return;
         }
+        if (event.type !== "pointerup") return;
+        const card = source?.closest?.(".schedule-post-card[data-schedule-post-id]");
+        if (!card || !row.contains(card) || source?.closest?.("[data-schedule-like], [data-schedule-scroll]")) return;
+        row.dataset.dragSuppressClick = "true";
+        window.setTimeout(() => { delete row.dataset.dragSuppressClick; }, 90);
+        event.preventDefault();
+        openSchedulePostDetail(card.dataset.schedulePostId);
       };
       row.addEventListener("pointerup", endDrag);
       row.addEventListener("pointercancel", endDrag);
@@ -4156,7 +4634,13 @@
         if (row.dataset.dragSuppressClick === "true") {
           event.preventDefault();
           event.stopPropagation();
+          return;
         }
+        const card = event.target.closest(".schedule-post-card[data-schedule-post-id]");
+        if (!card || !row.contains(card) || event.target.closest("[data-schedule-like], [data-schedule-scroll]")) return;
+        event.preventDefault();
+        event.stopPropagation();
+        openSchedulePostDetail(card.dataset.schedulePostId);
       }, true);
     }
     function refreshScheduleHeadlineControls() {
@@ -4168,7 +4652,21 @@
           row.addEventListener("scroll", () => updateScheduleHeadlineControls(row), { passive: true });
         }
       });
-    }    function renderSchedulePosts() {
+    }
+    function renderHomeScheduleHeadlines() {
+      if (!homeScheduleHeadlines) return;
+      const headlines = schedulePosts.filter((post) => post.headline);
+      if (!headlines.length) {
+        homeScheduleHeadlines.hidden = true;
+        homeScheduleHeadlines.innerHTML = "";
+        return;
+      }
+      homeScheduleHeadlines.hidden = false;
+      homeScheduleHeadlines.innerHTML = `<section class="schedule-headline-strip"><h2 class="schedule-section-title">공지</h2><div class="schedule-headline-scroller">${headlines.length > 1 ? `<button class="schedule-scroll-btn prev" type="button" data-schedule-scroll="prev" aria-label="이전 공지">‹</button>` : ""}<div class="schedule-headline-row" data-schedule-headline-row>${headlines.map((post) => schedulePostCard(post, true)).join("")}</div>${headlines.length > 1 ? `<button class="schedule-scroll-btn next" type="button" data-schedule-scroll="next" aria-label="다음 공지">›</button>` : ""}</div></section>`;
+      requestAnimationFrame(refreshScheduleHeadlineControls);
+    }
+    function renderSchedulePosts() {
+      renderHomeScheduleHeadlines();
       if (!scheduleFeed) return;
       if (!schedulePosts.length) {
         scheduleFeed.innerHTML = '<div class="schedule-feed-empty">등록된 일정 소식이 없습니다.</div>';
@@ -4177,19 +4675,45 @@
       const headlines = schedulePosts.filter((post) => post.headline);
       const regular = schedulePosts.filter((post) => !post.headline);
       scheduleFeed.innerHTML = `${headlines.length ? `<section class="schedule-headline-strip"><h2 class="schedule-section-title">공지</h2><div class="schedule-headline-scroller">${headlines.length > 1 ? `<button class="schedule-scroll-btn prev" type="button" data-schedule-scroll="prev" aria-label="이전 공지">‹</button>` : ""}<div class="schedule-headline-row" data-schedule-headline-row>${headlines.map((post) => schedulePostCard(post, true)).join("")}</div>${headlines.length > 1 ? `<button class="schedule-scroll-btn next" type="button" data-schedule-scroll="next" aria-label="다음 공지">›</button>` : ""}</div></section>` : ""}<section class="schedule-post-strip"><h2 class="schedule-section-title">일정 소식</h2><div class="schedule-post-grid">${regular.length ? regular.map((post) => schedulePostCard(post, false)).join("") : `<div class="schedule-feed-empty">등록된 일반 일정 소식이 없습니다.</div>`}</div></section>`;
+      requestAnimationFrame(refreshScheduleHeadlineControls);
     }
+    function readScheduleCache() {
+      try {
+        const cached = JSON.parse(localStorage.getItem(SCHEDULE_CACHE_KEY) || "null");
+        return Array.isArray(cached) ? cached : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function writeScheduleCache(posts) {
+      try {
+        localStorage.setItem(SCHEDULE_CACHE_KEY, JSON.stringify(posts.slice(0, 80)));
+      } catch {}
+    }
+
     async function loadSchedulePosts() {
       if (!scheduleFeed) return;
+      const cachedPosts = readScheduleCache();
+      if (cachedPosts.length && !schedulePosts.length) {
+        schedulePosts = cachedPosts;
+        renderSchedulePosts();
+        requestAnimationFrame(refreshScheduleHeadlineControls);
+        if (selectedSchedulePostId) renderScheduleDetail(schedulePosts.find((post) => String(post.id) === String(selectedSchedulePostId)));
+      }
       try {
-        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=schedulePostList&t=${Date.now()}`);
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=schedulePostList&t=${Date.now()}`, { cache: "no-store" });
         const result = await response.json();
         if (!response.ok || !result.ok || !Array.isArray(result.posts)) throw new Error(result.error || "일정 소식을 불러오지 못했습니다.");
         schedulePosts = result.posts;
+        writeScheduleCache(schedulePosts);
         renderSchedulePosts();
         requestAnimationFrame(refreshScheduleHeadlineControls);
         if (selectedSchedulePostId) renderScheduleDetail(schedulePosts.find((post) => String(post.id) === String(selectedSchedulePostId)));
       } catch (error) {
-        scheduleFeed.innerHTML = `<div class="schedule-feed-empty">${htmlAttr(error?.message || "일정 소식을 불러오지 못했습니다.")}</div>`;
+        if (!cachedPosts.length) {
+          scheduleFeed.innerHTML = `<div class="schedule-feed-empty">${htmlAttr(error?.message || "일정 소식을 불러오지 못했습니다.")}</div>`;
+        }
       }
     }
     document.addEventListener("click", async (event) => {
@@ -4199,7 +4723,7 @@
         const row = scrollButton.closest(".schedule-headline-scroller")?.querySelector("[data-schedule-headline-row]");
         if (row) {
           const card = row.querySelector(".schedule-post-card");
-          const step = card ? card.getBoundingClientRect().width + 12 : row.clientWidth * .8;
+          const step = card ? (card.getBoundingClientRect().width + 12) * 1.5 : row.clientWidth * .9;
           row.scrollBy({ left: scrollButton.dataset.scheduleScroll === "prev" ? -step : step, behavior: "smooth" });
           window.setTimeout(() => updateScheduleHeadlineControls(row), 260);
         }
@@ -4219,6 +4743,12 @@
         scheduleLikedPosts.add(id);
         writeScheduleSet(SCHEDULE_LIKED_KEY, scheduleLikedPosts);
         try { const result = await schedulePostApi({ type: "schedulePostLike", id }); updateSchedulePost(result.post); } catch { scheduleLikedPosts.delete(id); writeScheduleSet(SCHEDULE_LIKED_KEY, scheduleLikedPosts); }
+        return;
+      }
+      const scheduleCard = event.target.closest(".schedule-post-card[data-schedule-post-id]");
+      if (scheduleCard && !event.target.closest("button, a, input, textarea, select, label")) {
+        event.preventDefault();
+        openSchedulePostDetail(scheduleCard.dataset.schedulePostId);
       }
     });
     document.addEventListener("submit", async (event) => {
@@ -4256,26 +4786,49 @@
       return result;
     }
 
+    function readBoardCache() {
+      try {
+        const cached = JSON.parse(localStorage.getItem(boardCacheKey) || "null");
+        return Array.isArray(cached) ? cached : [];
+      } catch (_) {
+        return [];
+      }
+    }
+
+    function writeBoardCache(posts) {
+      try {
+        localStorage.setItem(boardCacheKey, JSON.stringify(posts.slice(0, 60)));
+      } catch (_) {}
+    }
+
     async function loadBoardPosts() {
       if (!boardPostList) return;
+      const cachedPosts = readBoardCache();
+      if (cachedPosts.length && !boardPosts.length) {
+        boardPosts = cachedPosts;
+        boardCurrentPage = 1;
+        renderBoardPosts();
+      }
       try {
-        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardList&t=${Date.now()}`);
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardList&t=${Date.now()}`, { cache: "no-store" });
         const result = await response.json();
         if (!response.ok || !result.ok || !Array.isArray(result.posts)) {
           throw new Error(result.error || "게시글 목록을 불러오지 못했습니다.");
         }
         boardPosts = result.posts;
-        boardCurrentPage = 1;
+        boardCurrentPage = Math.min(boardCurrentPage, Math.max(1, Math.ceil(boardPosts.length / boardPageSize)));
+        writeBoardCache(boardPosts);
         renderBoardPosts();
       } catch (error) {
-        boardPostList.replaceChildren();
-        const message = document.createElement("p");
-        message.className = "board-empty";
-        message.textContent = error?.message || "게시글 목록을 불러오지 못했습니다.";
-        boardPostList.append(message);
+        if (!cachedPosts.length) {
+          boardPostList.replaceChildren();
+          const message = document.createElement("p");
+          message.className = "board-empty";
+          message.textContent = error?.message || "게시글 목록을 불러오지 못했습니다.";
+          boardPostList.append(message);
+        }
       }
     }
-
     function createBoardLockIcon() {
       const namespace = "http://www.w3.org/2000/svg";
       const icon = document.createElementNS(namespace, "svg");
@@ -4981,8 +5534,11 @@
 
     async function submitApplication(button) {
       if (!selectedScheduleDate) {
-        alert("참여 일정을 선택해 주세요.");
-        document.querySelector(".schedule-section")?.scrollIntoView({ behavior: "smooth", block: "center" });
+        alert("참여 일정은 이전 단계에서 선택해 주세요.");
+        return;
+      }
+      if (!selectedAgeOption) {
+        alert("연령대를 이전 단계에서 선택해 주세요.");
         return;
       }
 
@@ -5039,10 +5595,13 @@
         const photoFiles = preparedFiles.slice(1);
         const payload = {
           submittedAt: new Date().toISOString(),
-          eventTitle: `[${selectedApplyGender} 신청] [${selectedEvent.station}] ${selectedEvent.title}`,
+          eventTitle: `[${selectedApplyGender} 신청] [${selectedAgeOption?.range || selectedEvent.station}] ${selectedEvent.title}`,
           applicationType: `${selectedApplyGender} 신청`,
           gender: selectedApplyGender,
           eventDate: selectedScheduleDate,
+          selectedRegions: selectedApplicationRegions.join(", "),
+          selectedAgeRange: selectedAgeOption?.range || "",
+          selectedAgeLabel: selectedAgeOption?.label || "",
           eventPlace: selectedEvent.place,
           eventPrice: selectedApplyPrice,
           name: inputValue("#applyName"),
@@ -5134,8 +5693,9 @@
         const nextPrice = nextGender === "남성" ? "50,000원" : "30,000원";
         const eventData = events[pendingEventIndex] || events[0];
         saveDetailState(pendingEventIndex, nextGender, nextPrice);
+        resetApplicationSelection();
         setGenderModal(false);
-        renderDetail(eventData);
+        renderApplicationSelection(eventData);
         setPage("event-detail");
         return;
       }
@@ -5153,6 +5713,84 @@
         return;
       }
 
+      const regionChoiceTarget = closestFrom(event.target, "[data-region-choice]");
+      if (regionChoiceTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        const region = regionChoiceTarget.dataset.regionChoice;
+        selectedApplicationRegions = selectedApplicationRegions.includes(region)
+          ? selectedApplicationRegions.filter((item) => item !== region)
+          : [...selectedApplicationRegions, region];
+        if (!selectedApplicationRegions.length) {
+          selectedScheduleDate = "";
+          selectedScheduleDateKey = "";
+          selectedScheduleTime = "";
+          selectedAgeOption = null;
+        }
+        renderApplicationSelection(selectedEvent);
+        return;
+      }
+
+      const applicationDateTarget = closestFrom(event.target, "[data-application-date]");
+      if (applicationDateTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        const isSelected = applicationDateTarget.classList.contains("is-selected");
+        selectedScheduleDate = "";
+        selectedScheduleTime = "";
+        selectedAgeOption = null;
+        selectedScheduleDateKey = isSelected ? "" : applicationDateTarget.dataset.applicationDate;
+        renderApplicationSelection(selectedEvent);
+        return;
+      }
+
+      const applicationTimeTarget = closestFrom(event.target, "[data-application-time]");
+      if (applicationTimeTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (!selectedScheduleDateKey) return;
+        selectedScheduleTime = applicationTimeTarget.dataset.applicationTime;
+        selectedScheduleDate = formatSelectedSchedule(selectedScheduleDateKey, selectedScheduleTime);
+        selectedAgeOption = null;
+        renderApplicationSelection(selectedEvent);
+        return;
+      }
+
+      const selectionCompleteTarget = closestFrom(event.target, "[data-selection-complete]");
+      if (selectionCompleteTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (!selectedApplicationRegions.length) {
+          alert("방문 가능한 지역을 선택해 주세요.");
+          return;
+        }
+        if (!selectedScheduleDateKey || !selectedScheduleTime) {
+          alert("참여 일정과 시간을 선택해 주세요.");
+          document.querySelector(".schedule-section")?.scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
+        if (!selectedAgeOption) {
+          alert("연령대를 선택해 주세요.");
+          document.querySelector(".age-selection-block")?.scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
+        renderDetail(selectedEvent);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+      const ageOptionTarget = closestFrom(event.target, "[data-age-option]");
+      if (ageOptionTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (ageOptionTarget.disabled || !selectedScheduleDateKey || !selectedScheduleTime) {
+          alert("시간을 먼저 선택해 주세요.");
+          document.querySelector(".schedule-section")?.scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
+        selectedAgeOption = applicationAgeOptions.find((option) => option.id === ageOptionTarget.dataset.ageOption) || null;
+        renderApplicationSelection(selectedEvent);
+        return;
+      }
       const choiceTarget = closestFrom(event.target, ".choice-chip");
       if (choiceTarget) {
         event.preventDefault();
@@ -5295,47 +5933,6 @@
         return;
       }
 
-      const applicationDateTarget = closestFrom(event.target, "[data-application-date]");
-      if (applicationDateTarget) {
-        event.preventDefault();
-        event.stopPropagation();
-        const isSelected = applicationDateTarget.classList.contains("is-selected");
-        document.querySelectorAll("[data-application-date]").forEach((button) => button.classList.remove("is-selected"));
-        const selectedLabel = document.querySelector("[data-selected-schedule]");
-        const scheduleResult = document.querySelector("[data-schedule-result]");
-
-        if (isSelected) {
-          selectedScheduleDate = "";
-          selectedScheduleDateKey = "";
-          selectedScheduleTime = "";
-          if (selectedLabel) selectedLabel.textContent = "";
-          renderScheduleTimeOptions("");
-          if (scheduleResult) scheduleResult.hidden = true;
-        } else {
-          selectedScheduleDate = "";
-          selectedScheduleTime = "";
-          selectedScheduleDateKey = applicationDateTarget.dataset.applicationDate;
-          applicationDateTarget.classList.add("is-selected");
-          renderScheduleTimeOptions(selectedScheduleDateKey);
-          renderConfirmedParticipants(selectedScheduleDateKey);
-          if (selectedLabel) selectedLabel.textContent = "시간을 선택해 주세요.";
-          if (scheduleResult) scheduleResult.hidden = false;
-        }
-        return;
-      }
-
-      const applicationTimeTarget = closestFrom(event.target, "[data-application-time]");
-      if (applicationTimeTarget) {
-        event.preventDefault();
-        event.stopPropagation();
-        if (!selectedScheduleDateKey) return;
-        selectedScheduleTime = applicationTimeTarget.dataset.applicationTime;
-        selectedScheduleDate = formatSelectedSchedule(selectedScheduleDateKey, selectedScheduleTime);
-        document.querySelectorAll("[data-application-time]").forEach((button) => button.classList.toggle("is-selected", button === applicationTimeTarget));
-        const selectedLabel = document.querySelector("[data-selected-schedule]");
-        if (selectedLabel) selectedLabel.textContent = selectedScheduleDate;
-        return;
-      }
 
       const scrollTarget = closestFrom(event.target, "[data-scroll-target]");
       if (scrollTarget) {
@@ -5719,6 +6316,70 @@
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
