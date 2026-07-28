@@ -2001,10 +2001,9 @@
       font-weight: 950;
       line-height: 1.1;
     }
-
     .home-contact-fab img {
-      width: 1.25rem;
-      height: 1.25rem;
+      width: 1.75rem;
+      height: 1.75rem;
       display: block;
       object-fit: contain;
     }
@@ -3309,20 +3308,29 @@
     }
 
     .application-selection-page .schedule-time-options {
-      display: grid !important;
-      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-      gap: 0.45rem !important;
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 0.5rem !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
     }
 
     .application-selection-page .schedule-time-option {
-      width: 100% !important;
+      width: auto !important;
+      min-width: 5.6rem !important;
       height: auto !important;
-      min-height: 2.35rem !important;
+      min-height: 2.25rem !important;
       aspect-ratio: auto !important;
-      border-color: var(--line) !important;
+      padding: 0.45rem 0.9rem !important;
+      border: 1px solid var(--line) !important;
+      border-radius: 999px !important;
       color: #303743 !important;
       background: #fff !important;
       box-shadow: 0 0.2rem 0.65rem rgba(15, 23, 42, 0.04) !important;
+      line-height: 1 !important;
+      pointer-events: auto !important;
+      cursor: pointer !important;
+      -webkit-tap-highlight-color: transparent !important;
     }
 
     .application-selection-page .schedule-time-option.is-selected {
@@ -3414,7 +3422,7 @@
       <main class="support-page schedule-detail-page">
         <div class="schedule-detail-top">
           <h1 class="page-title">일정</h1>
-          <button class="schedule-back-btn" type="button" onclick="window.goPage(event, 'schedule')">목록</button>
+          <button class="schedule-back-btn" type="button" onclick="window.goBack(event, 'schedule')">목록</button>
         </div>
         <section data-schedule-detail><div class="schedule-feed-loading">일정 소식을 불러오는 중입니다.</div></section>
       </main>
@@ -3955,9 +3963,28 @@
       const target = document.querySelector("[data-schedule-time-options]");
       if (!target) return;
       const times = applicationTimesForDate(dateKey);
-      target.innerHTML = times.map((time) => `<button class="schedule-time-option${time === selectedScheduleTime ? " is-selected" : ""}" type="button" data-application-time="${time}">${time}</button>`).join("");
+      target.innerHTML = times.map((time) => `<button class="schedule-time-option${time === selectedScheduleTime ? " is-selected" : ""}" type="button" data-application-time="${time}" onpointerdown="selectApplicationTime(event, this.dataset.applicationTime); return false;" onpointerup="selectApplicationTime(event, this.dataset.applicationTime); return false;" onclick="selectApplicationTime(event, this.dataset.applicationTime); return false;">${time}</button>`).join("");
     }
 
+    function applyScheduleTimeSelection(time) {
+      if (!selectedScheduleDateKey) {
+        const selectedDateButton = document.querySelector("[data-application-date].is-selected");
+        selectedScheduleDateKey = selectedDateButton?.dataset.applicationDate || "";
+      }
+      if (!selectedScheduleDateKey || !time) return;
+      selectedScheduleTime = time;
+      selectedScheduleDate = formatSelectedSchedule(selectedScheduleDateKey, selectedScheduleTime);
+      selectedAgeOption = null;
+      renderApplicationSelection(selectedEvent);
+    }
+
+    window.selectApplicationTime = function selectApplicationTime(event, time) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      applyScheduleTimeSelection(time);
+    };
     function applicationMonthTemplate(year, month) {
       const firstDay = new Date(year, month - 1, 1).getDay();
       const lastDate = new Date(year, month, 0).getDate();
@@ -4047,8 +4074,18 @@
       `;
     }
 
+    function renderClosingInfoMarkup() {
+      if (!selectedScheduleTime) return "";
+      const remainingText = selectedAgeOption ? `${selectedAgeOption.remaining}명 남았습니다.` : "연령대를 선택하면 마감 정보를 확인할 수 있습니다.";
+      return `
+        <section class="selection-section closing-info-block">
+          <div class="selection-heading">마감 정보</div>
+          <p class="schedule-description">${remainingText}</p>
+        </section>
+      `;
+    }
+
     function selectionScheduleMarkup() {
-      if (!selectedApplicationRegions.length) return "";
       const resultHidden = selectedScheduleDateKey ? "" : " hidden";
       return `
         <section class="form-section schedule-section">
@@ -4095,7 +4132,8 @@
           </section>
           ${selectionScheduleMarkup()}
           ${renderAgeSelectionMarkup()}
-          ${selectionReady ? `<button class="selection-complete-btn" type="button" data-selection-complete>선택 완료</button>` : ""}
+          ${renderClosingInfoMarkup()}
+          <button class="selection-complete-btn" type="button" data-selection-complete ${selectionReady ? "" : "disabled"}>선택 완료</button>
         </div>
       `;
 
@@ -4415,6 +4453,8 @@
     let selectedPhotoFiles = [];
     let selectedApplicationRegions = [];
     let selectedAgeOption = null;
+    let currentPageName = document.querySelector(".page.is-active")?.dataset.page || "home";
+    const validPageNames = new Set([...pages].map((page) => page.dataset.page));
     const applicationAgeOptions = [
       { id: "age-20-27", range: "20세 - 27세", remaining: 6 },
       { id: "age-24-29", range: "24세 - 29세", remaining: 6 },
@@ -4797,8 +4837,39 @@
 
     function writeBoardCache(posts) {
       try {
-        localStorage.setItem(boardCacheKey, JSON.stringify(posts.slice(0, 60)));
+        const safePosts = posts.slice(0, 60).map((post) => {
+          const { localPassword, ...safePost } = post;
+          return safePost;
+        });
+        localStorage.setItem(boardCacheKey, JSON.stringify(safePosts));
       } catch (_) {}
+    }
+
+    function createOptimisticBoardPost({ author, category, password, content }) {
+      return {
+        id: `local-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        author,
+        category,
+        content,
+        createdAt: Date.now(),
+        status: "접수",
+        editable: true,
+        replies: [],
+        followUps: [],
+        isPending: true,
+        localPassword: password
+      };
+    }
+
+    function replaceBoardPost(tempId, nextPost) {
+      const index = boardPosts.findIndex((post) => post.id === tempId);
+      if (index >= 0) {
+        boardPosts.splice(index, 1, nextPost);
+      } else {
+        boardPosts.unshift(nextPost);
+      }
+      writeBoardCache(boardPosts);
+      renderBoardPosts();
     }
 
     async function loadBoardPosts() {
@@ -5173,7 +5244,20 @@
         confirmButton.classList.add("is-loading");
         confirmButton.textContent = "확인 중";
         try {
-          const result = await boardApi({ type: "boardRead", id: post.id, password });
+          const result = post.isPending
+            ? (() => {
+                if (post.localPassword && password !== post.localPassword) {
+                  throw new Error("비밀번호가 일치하지 않습니다.");
+                }
+                return {
+                  status: post.status || "접수",
+                  content: post.content || "",
+                  replies: post.replies || [],
+                  followUps: post.followUps || [],
+                  editable: true
+                };
+              })()
+            : await boardApi({ type: "boardRead", id: post.id, password });
           appendPrivatePostView(article, post, result, password);
         } catch (error) {
           message.textContent = error?.message || "게시글을 확인하지 못했습니다.";
@@ -5259,7 +5343,7 @@
       event.target?.classList?.remove("is-invalid");
     });
 
-    boardForm?.addEventListener("submit", async (event) => {
+    boardForm?.addEventListener("submit", (event) => {
       event.preventDefault();
       const category = document.getElementById("boardCategory");
       const password = document.getElementById("boardPassword");
@@ -5277,38 +5361,60 @@
 
       const submitButton = boardForm.querySelector(".board-submit-btn");
       const submittedAuthor = boardAuthor.value;
+      const submittedCategory = category?.value || "일반 문의";
+      const submittedPassword = password.value;
       const submittedContent = content.value.trim();
+      const optimisticPost = createOptimisticBoardPost({
+        author: submittedAuthor,
+        category: submittedCategory,
+        password: submittedPassword,
+        content: submittedContent
+      });
+
+      boardPosts.unshift(optimisticPost);
+      boardCurrentPage = 1;
+      writeBoardCache(boardPosts);
+      renderBoardPosts();
+      boardForm.reset();
+      setNextBoardAuthor();
+
       submitButton.disabled = true;
-      submitButton.classList.add("is-loading");
-      submitButton.textContent = "접수 중";
-      try {
-        const result = await boardApi({
-          type: "boardCreate",
-          author: submittedAuthor,
-          category: category?.value || "일반 문의",
-          password: password.value,
-          content: submittedContent
-        });
-        const createdPost = result.post || {
-          id: result.id || `local-${Date.now()}`,
-          author: result.author || submittedAuthor,
-          createdAt: result.createdAt || Date.now(),
-          status: result.status || "접수"
-        };
-        boardForm.reset();
-        setNextBoardAuthor();
-        boardPosts.unshift(createdPost);
-        boardCurrentPage = 1;
-        renderBoardPosts();
-        submitButton.textContent = "접수 완료";
-        loadBoardPosts();
-      } catch (error) {
-        alert(error?.message || "게시글을 접수하지 못했습니다.");
-        submitButton.textContent = "접수하기";
-      } finally {
-        submitButton.classList.remove("is-loading");
+      submitButton.classList.add("is-complete");
+      submitButton.textContent = "접수 완료";
+      window.setTimeout(() => {
         submitButton.disabled = false;
-      }
+        submitButton.classList.remove("is-complete");
+        submitButton.textContent = "접수하기";
+      }, 900);
+
+      boardApi({
+        type: "boardCreate",
+        author: submittedAuthor,
+        category: submittedCategory,
+        password: submittedPassword,
+        content: submittedContent
+      })
+        .then((result) => {
+          const createdPost = {
+            ...optimisticPost,
+            ...(result.post || {}),
+            id: result.post?.id || result.id || optimisticPost.id,
+            author: result.post?.author || result.author || submittedAuthor,
+            category: result.post?.category || result.category || submittedCategory,
+            content: result.post?.content || result.content || submittedContent,
+            createdAt: result.post?.createdAt || result.createdAt || optimisticPost.createdAt,
+            status: result.post?.status || result.status || "접수",
+            isPending: false
+          };
+          delete createdPost.localPassword;
+          replaceBoardPost(optimisticPost.id, createdPost);
+          loadBoardPosts();
+        })
+        .catch((error) => {
+          console.warn("게시글 서버 저장 실패", error);
+          const failedPost = { ...optimisticPost, syncError: true };
+          replaceBoardPost(optimisticPost.id, failedPost);
+        });
     });
 
     setNextBoardAuthor();
@@ -5342,6 +5448,18 @@
       setPage(pageName);
     };
 
+    window.goBack = function goBack(event, fallbackPage = "home") {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      if (history.length > 1) {
+        history.back();
+        return;
+      }
+      setPage(fallbackPage);
+    };
+
     window.jumpToSection = function jumpToSection(event, sectionId) {
       if (event) {
         event.preventDefault();
@@ -5354,18 +5472,44 @@
     };
 
     function setPage(pageName, updateHash = true) {
-      pages.forEach((page) => page.classList.toggle("is-active", page.dataset.page === pageName));
+      const safePageName = validPageNames.has(pageName) ? pageName : "home";
+      pages.forEach((page) => page.classList.toggle("is-active", page.dataset.page === safePageName));
       document.querySelectorAll("[data-page-link]").forEach((link) => {
         const linkPage = link.dataset.pageLink;
-        const isGuidePage = linkPage === "schedule" && ["schedule-detail", "location", "process", "discount", "refund"].includes(pageName);
-        const isReviewPage = linkPage === "reviews" && pageName === "episodes";
-        link.classList.toggle("is-active", linkPage === pageName || isGuidePage || isReviewPage);
+        const isGuidePage = linkPage === "schedule" && ["schedule-detail", "location", "process", "discount", "refund"].includes(safePageName);
+        const isReviewPage = linkPage === "reviews" && safePageName === "episodes";
+        link.classList.toggle("is-active", linkPage === safePageName || isGuidePage || isReviewPage);
       });
       setDrawer(false);
       if (updateHash) {
-        history.replaceState(null, "", `#${pageName}`);
+        const nextHash = `#${safePageName}`;
+        if (location.hash !== nextHash) {
+          history.pushState({ pageName: safePageName }, "", nextHash);
+        } else {
+          history.replaceState({ pageName: safePageName }, "", nextHash);
+        }
       }
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      currentPageName = safePageName;
+      window.scrollTo({ top: 0, behavior: updateHash ? "smooth" : "auto" });
+    }
+
+    function pageFromHash() {
+      const hashPage = location.hash.replace("#", "");
+      return validPageNames.has(hashPage) ? hashPage : "home";
+    }
+
+    function renderPageFromHistory() {
+      const targetPage = pageFromHash();
+      if (targetPage === "event-detail") {
+        if (restoreDetailState()) {
+          setPage("event-detail", false);
+        } else {
+          setPage("home", false);
+          history.replaceState({ pageName: "home" }, "", "#home");
+        }
+        return;
+      }
+      setPage(targetPage, false);
     }
 
     function closestFrom(target, selector) {
@@ -5659,6 +5803,21 @@
       }
     });
 
+    document.addEventListener("pointerdown", (event) => {
+      const applicationTimeTarget = closestFrom(event.target, "[data-application-time]");
+      if (!applicationTimeTarget) return;
+      event.preventDefault();
+      event.stopPropagation();
+      applyScheduleTimeSelection(applicationTimeTarget.dataset.applicationTime);
+    }, { passive: false });
+
+    document.addEventListener("pointerup", (event) => {
+      const applicationTimeTarget = closestFrom(event.target, "[data-application-time]");
+      if (!applicationTimeTarget) return;
+      event.preventDefault();
+      event.stopPropagation();
+      applyScheduleTimeSelection(applicationTimeTarget.dataset.applicationTime);
+    }, { passive: false });
     document.addEventListener("click", (event) => {
       const closeTarget = closestFrom(event.target, "#closeMenu, #drawerScrim");
       if (closeTarget) {
@@ -5748,11 +5907,7 @@
       if (applicationTimeTarget) {
         event.preventDefault();
         event.stopPropagation();
-        if (!selectedScheduleDateKey) return;
-        selectedScheduleTime = applicationTimeTarget.dataset.applicationTime;
-        selectedScheduleDate = formatSelectedSchedule(selectedScheduleDateKey, selectedScheduleTime);
-        selectedAgeOption = null;
-        renderApplicationSelection(selectedEvent);
+        applyScheduleTimeSelection(applicationTimeTarget.dataset.applicationTime);
         return;
       }
 
@@ -5760,6 +5915,7 @@
       if (selectionCompleteTarget) {
         event.preventDefault();
         event.stopPropagation();
+        if (selectionCompleteTarget.disabled) return;
         if (!selectedApplicationRegions.length) {
           alert("방문 가능한 지역을 선택해 주세요.");
           return;
@@ -6003,17 +6159,8 @@
       }
     });
 
-    const initial = location.hash.replace("#", "");
-    if (initial === "event-detail") {
-      if (restoreDetailState()) {
-        setPage("event-detail", false);
-      } else {
-        setPage("home", false);
-        history.replaceState(null, "", "#home");
-      }
-    } else if (["home", "support", "schedule", "schedule-detail", "process", "discount", "refund", "reviews", "location", "staff", "episodes", "board"].includes(initial)) {
-      setPage(initial, false);
-    }
+    renderPageFromHistory();
+    window.addEventListener("popstate", renderPageFromHistory);
 
     let heroRotationTimer = null;
 
@@ -6239,7 +6386,11 @@
           selectedEvent = events[selectedEventIndex] || events[0];
           renderEventList();
           if (document.querySelector('[data-page="event-detail"]')?.classList.contains("is-active")) {
-            renderDetail(selectedEvent);
+            if (detailRoot?.querySelector(".application-selection-page")) {
+              renderApplicationSelection(selectedEvent);
+            } else {
+              renderDetail(selectedEvent);
+            }
           }
         }
       } catch {
@@ -6316,6 +6467,22 @@
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
