@@ -854,6 +854,51 @@
       display: none;
     }
 
+    .app-edit-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 0;
+      background: rgba(18, 24, 35, 0.42);
+    }
+
+    .app-edit-modal[hidden] {
+      display: none;
+    }
+
+    .app-edit-panel {
+      width: min(100%, var(--page-max));
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 1.1rem 1.1rem 1.4rem;
+      border-radius: 1rem 1rem 0 0;
+      background: #fff;
+      box-shadow: 0 -1rem 2.4rem rgba(18, 24, 35, 0.2);
+    }
+
+    .app-edit-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .app-edit-head h3 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 950;
+    }
+
+    .app-edit-title {
+      margin: 0 0 0.9rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
     .gender-modal-panel {
       position: relative;
       width: min(18rem, calc(100vw - 2rem));
@@ -1150,6 +1195,18 @@
       font-size: 0.8rem;
       line-height: 1.55;
       word-break: keep-all;
+    }
+
+    .apply-same-as-profile-btn {
+      justify-self: start;
+      margin-top: 0.2rem;
+      padding: 0.4rem 0.8rem;
+      border: 1px solid #00d838;
+      border-radius: 999px;
+      background: #f2fff5;
+      color: #008f2a;
+      font-size: 0.78rem;
+      font-weight: 900;
     }
 
     .schedule-section {
@@ -2655,6 +2712,374 @@
       background: #f59e0b;
     }
 
+    .mypage-profile-card {
+      display: grid;
+      gap: 0.6rem;
+    }
+
+    .mypage-profile-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .mypage-profile-label {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      min-width: 4rem;
+    }
+
+    .mypage-profile-value {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      justify-content: flex-end;
+    }
+
+    .mypage-profile-name {
+      font-size: 1rem;
+      font-weight: 950;
+    }
+
+    .mypage-profile-number {
+      font-size: 0.88rem;
+      font-weight: 900;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    .mypage-edit-btn {
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: 0.72rem;
+      font-weight: 900;
+      color: #303743;
+    }
+
+    .mypage-name-input {
+      width: 8rem;
+      padding: 0.3rem 0.5rem;
+      border: 1px solid #00d838;
+      border-radius: 0.5rem;
+      font-size: 0.95rem;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .mypage-profile-error {
+      color: #f04444;
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .mypage-info-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 950;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .mypage-section-title {
+      margin: 0 0 0.7rem;
+      font-size: 1rem;
+      font-weight: 950;
+    }
+
+    .mypage-info-title::-webkit-details-marker {
+      display: none;
+    }
+
+    .mypage-info-title::after {
+      content: "";
+      width: 0.5rem;
+      height: 0.5rem;
+      border-right: 2px solid var(--muted);
+      border-bottom: 2px solid var(--muted);
+      transform: rotate(45deg);
+      transition: transform 0.2s ease;
+    }
+
+    .mypage-info-card[open] .mypage-info-title::after {
+      transform: rotate(-135deg);
+    }
+
+    .mypage-info-content {
+      margin-top: 0.7rem;
+    }
+
+    .mypage-info-list {
+      display: grid;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    .mypage-info-form {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .mypage-info-save-btn {
+      margin-top: 0.2rem;
+    }
+
+    .counsel-page-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .counsel-page-head .page-title {
+      margin: 0;
+    }
+
+    .counsel-write-btn {
+      flex: 0 0 auto;
+      padding: 0.5rem 0.9rem;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .counsel-list {
+      display: grid;
+      gap: 0.7rem;
+      margin-top: 0.9rem;
+    }
+
+    .counsel-card {
+      display: grid;
+      gap: 0.4rem;
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 0.9rem;
+      background: #fff;
+      text-align: left;
+      box-shadow: 0 0.3rem 1rem rgba(15, 23, 42, 0.04);
+    }
+
+    .counsel-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .counsel-card-author {
+      color: var(--ink);
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .counsel-card-date {
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .counsel-card-title {
+      margin: 0;
+      font-size: 0.98rem;
+      font-weight: 950;
+      line-height: 1.35;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+
+    .counsel-card-content {
+      margin: 0;
+      color: #4b5563;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .counsel-card-meta {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.15rem;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .counsel-detail-card {
+      display: grid;
+      gap: 0.6rem;
+      padding: 1.1rem;
+      border: 1px solid var(--line);
+      border-radius: 0.9rem;
+      background: #fff;
+    }
+
+    .counsel-detail-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .counsel-detail-title {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 950;
+      line-height: 1.35;
+    }
+
+    .counsel-detail-content {
+      margin: 0;
+      color: #344054;
+      font-size: 0.92rem;
+      line-height: 1.65;
+      white-space: pre-wrap;
+    }
+
+    .counsel-detail-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: 0.1rem;
+    }
+
+    .counsel-detail-actions span,
+    .counsel-detail-actions button {
+      min-height: 1.9rem;
+      padding: 0.25rem 0.7rem;
+      border: 1px solid #d8dee6;
+      border-radius: 999px;
+      color: #344054;
+      background: #fff;
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .counsel-detail-actions button.is-liked,
+    .counsel-detail-actions button.is-saved {
+      border-color: #00d638;
+      color: #07150b;
+      background: #e9ffef;
+    }
+
+    .counsel-comment-section {
+      margin-top: 0.4rem;
+      padding-top: 0.9rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .counsel-comment-section h3 {
+      margin: 0 0 0.6rem;
+      font-size: 0.95rem;
+      font-weight: 950;
+    }
+
+    .counsel-comment-list {
+      display: grid;
+      gap: 0.6rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .counsel-comment {
+      display: grid;
+      gap: 0.25rem;
+      padding: 0.7rem 0.8rem;
+      border: 1px solid var(--line);
+      border-radius: 0.7rem;
+      background: #f8fafc;
+    }
+
+    .counsel-comment.is-reply {
+      margin-left: 1.3rem;
+      border-left: 2px solid #00d838;
+      background: #f2fff5;
+    }
+
+    .counsel-comment-head {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+    }
+
+    .counsel-comment-head strong {
+      font-weight: 900;
+    }
+
+    .counsel-author-badge {
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      background: #00ff40;
+      color: #07150b;
+      font-size: 0.64rem;
+      font-weight: 950;
+    }
+
+    .counsel-comment-date {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .counsel-comment p {
+      margin: 0;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .counsel-reply-btn {
+      justify-self: start;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .counsel-comment-form {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .counsel-comment-form textarea {
+      min-height: 4.5rem;
+    }
+
+    .counsel-reply-target {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.4rem 0.7rem;
+      border-radius: 0.6rem;
+      background: #f2fff5;
+      color: #008f2a;
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .counsel-reply-target.is-active {
+      display: flex;
+    }
+
     .mypage-list {
       display: grid;
       gap: 0.75rem;
@@ -2729,6 +3154,18 @@
     .mypage-step.is-done {
       color: #111;
       background: #00ff40;
+    }
+
+    .mypage-card.is-editable {
+      cursor: pointer;
+      border-color: #00d838;
+    }
+
+    .mypage-edit-hint {
+      margin: 0;
+      color: #008f2a;
+      font-size: 0.74rem;
+      font-weight: 800;
     }
 
     .board-pagination {
@@ -3737,7 +4174,7 @@
             <div class="board-form-row">
               <div class="field">
                 <label for="boardAuthor">작성자</label>
-                <input id="boardAuthor" name="author" type="text" maxlength="2" readonly aria-readonly="true">
+                <input id="boardAuthor" name="author" type="text" maxlength="8" readonly aria-readonly="true">
               </div>
               <div class="field">
                 <label for="boardCategory">구분</label>
@@ -3771,12 +4208,71 @@
       </main>
     </section>
 
+    <section class="page" id="page-counsel" data-page="counsel">
+      <main class="location-page">
+        <div class="counsel-page-head">
+          <h1 class="page-title">연애 상담</h1>
+          <button class="counsel-write-btn" type="button" data-counsel-write>글쓰기</button>
+        </div>
+        <p class="page-description">이용자들이 자유롭게 상담을 나누는 공간입니다. 운영자는 참여하지 않습니다.</p>
+        <div class="counsel-list" data-counsel-list></div>
+      </main>
+    </section>
+
+    <section class="page" id="page-counsel-detail" data-page="counsel-detail">
+      <main class="location-page">
+        <div class="schedule-detail-top">
+          <button class="board-page-button" type="button" onclick="window.goPage(event,'counsel')" aria-label="목록으로">
+            <span>‹</span>
+          </button>
+          <h1 class="page-title">연애 상담</h1>
+        </div>
+        <div data-counsel-detail></div>
+      </main>
+    </section>
+
+    <section class="page" id="page-counsel-write" data-page="counsel-write">
+      <main class="location-page">
+        <h1 class="page-title" data-counsel-write-title>글쓰기</h1>
+        <section class="support-card">
+          <form class="board-form" data-counsel-write-form novalidate>
+            <div class="field">
+              <label for="counselTitleInput">제목</label>
+              <input id="counselTitleInput" type="text" maxlength="60" placeholder="제목을 입력해 주세요." required>
+            </div>
+            <div class="field">
+              <label for="counselContentInput">내용</label>
+              <textarea id="counselContentInput" maxlength="2000" placeholder="내용을 입력해 주세요." required></textarea>
+            </div>
+            <button class="submit-btn" type="submit" data-counsel-write-submit>등록하기</button>
+          </form>
+        </section>
+      </main>
+    </section>
+
     <section class="page" id="page-mypage" data-page="mypage">
       <main class="location-page">
         <h1 class="page-title">마이페이지</h1>
         <p class="page-description">내가 신청한 내역과 진행 상태를 확인할 수 있습니다.</p>
+        <section class="support-card mypage-profile-card">
+          <h2 class="mypage-section-title">클로버 프로필</h2>
+          <div data-mypage-profile></div>
+        </section>
+        <details class="support-card mypage-info-card">
+          <summary class="mypage-info-title">내 정보</summary>
+          <div class="mypage-info-content">
+            <p class="schedule-description">신청 시 자동으로 저장되며, 새 신청서 작성 시 불러올 수 있습니다. 펼쳐서 수정할 수 있습니다.</p>
+            <div class="mypage-info-list" data-mypage-info></div>
+          </div>
+        </details>
         <section class="support-card">
+          <h2 class="mypage-section-title">신청 내역</h2>
           <div class="mypage-list" data-mypage-list></div>
+        </section>
+        <section class="support-card">
+          <h2 class="mypage-section-title">연애 상담 사연</h2>
+          <div class="counsel-list" data-mypage-saved-counsel></div>
+          <nav class="board-pagination" data-mypage-saved-counsel-pagination aria-label="저장한 글 페이지 이동" hidden></nav>
         </section>
       </main>
     </section>
@@ -3800,6 +4296,8 @@
     </div>
   </div>
 
+  <div class="app-edit-modal" data-app-edit-modal role="dialog" aria-modal="true" hidden></div>
+
   <div class="drawer-scrim" id="drawerScrim" onclick="window.closeDrawer(event)"></div>
   <aside class="drawer" id="drawer" aria-hidden="true">
     <div class="drawer-head">
@@ -3815,6 +4313,7 @@
       <button class="drawer-link" type="button" data-page-link="schedule" onclick="window.goPage(event, 'schedule')">안내</button>
       <button class="drawer-link" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')">이후</button>
       <button class="drawer-link" type="button" data-page-link="board" onclick="window.goPage(event, 'board')">문의</button>
+      <button class="drawer-link" type="button" data-page-link="counsel" onclick="window.goPage(event, 'counsel')">연애 상담</button>
       <button class="drawer-link" type="button" data-page-link="mypage" onclick="window.goPage(event, 'mypage')">마이페이지</button>
     </nav>
     <div class="drawer-shortcuts">
@@ -3949,7 +4448,7 @@
     const iconPin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbzlYgKfutQEUC5K-4onQCf_ga8V2M8rITPH8wm6ZDkz1MGYyj73VKGlhS_kqNL3j3hm/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbwFMvt0GP_ayYqA_ZXXh1GGT7vnqscAUK8t4PLB-DEnJ3KI4dITo9leptWa0cKDkGDh/exec";
     const HERO_CACHE_KEY = "clover-managed-hero-slides-v5";
     const HERO_FALLBACK_SLIDES = [
       {
@@ -4212,6 +4711,7 @@
       `;
     }
     function renderApplicationSelection(event) {
+      const preservedScrollY = window.scrollY;
       selectedEvent = event;
       detailRoot.dataset.gender = selectedApplyGender || "";
       const detailImage = eventImageStack(event);
@@ -4249,6 +4749,7 @@
       }
 
       updateSelectionCompleteButton();
+      window.scrollTo({ top: preservedScrollY, left: 0, behavior: "instant" });
     }
 
     function renderDetail(event) {
@@ -4304,6 +4805,7 @@
           <div class="form-intro">
             <h2>${applicationGender ? `${applicationGender} 신청서 양식` : "신청서 양식"}</h2>
             <p>현재 기준으로 아래 양식을 작성해 주시길 바랍니다.</p>
+            <button class="apply-same-as-profile-btn" type="button" data-apply-same-as-profile>내 정보와 동일</button>
           </div>
 
           <section class="form-section">
@@ -4594,6 +5096,9 @@
 
     const visitorIdKey = "cloverVisitorId";
     const visitorNameKey = "cloverVisitorName";
+    const visitorNumberKey = "cloverVisitorNumber";
+    const mypageCacheKey = "clover-mypage-applications-v1";
+    const profileInfoCacheKey = "clover-mypage-profile-info-v1";
 
     function createVisitorId() {
       if (window.crypto && typeof window.crypto.randomUUID === "function") return window.crypto.randomUUID();
@@ -4622,26 +5127,277 @@
       if (boardAuthor) boardAuthor.value = getVisitorIdentity().name;
     }
 
+    function readMypageCache() {
+      try {
+        const cached = JSON.parse(localStorage.getItem(mypageCacheKey) || "null");
+        return Array.isArray(cached) ? cached : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function writeMypageCache(applications) {
+      try { localStorage.setItem(mypageCacheKey, JSON.stringify(applications)); } catch {}
+    }
+
+    async function visitorApi(payload) {
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded;charset=utf-8" },
+        body: new URLSearchParams({ payload: JSON.stringify(payload) }).toString()
+      });
+      const result = await response.json();
+      if (!response.ok || !result.ok) throw new Error(result.error || "요청을 처리하지 못했습니다.");
+      return result;
+    }
+
+    function readVisitorNumberCache() {
+      try { return localStorage.getItem(visitorNumberKey) || ""; } catch { return ""; }
+    }
+
+    function writeVisitorNumberCache(value) {
+      try { localStorage.setItem(visitorNumberKey, String(value)); } catch {}
+    }
+
+    function formatVisitorNumber(value) {
+      const number = Number(value);
+      if (!Number.isFinite(number) || number <= 0) return "";
+      const padded = String(number).padStart(6, "0").slice(-6);
+      return `${padded.slice(0, 3)}-${padded.slice(3)}`;
+    }
+
+    function renderProfileBar(editing = false, errorText = "") {
+      const container = document.querySelector("[data-mypage-profile]");
+      if (!container) return;
+      const { name } = getVisitorIdentity();
+      const number = formatVisitorNumber(readVisitorNumberCache());
+      container.innerHTML = `
+        <div class="mypage-profile-row">
+          <span class="mypage-profile-label">ID</span>
+          <div class="mypage-profile-value">
+            ${editing
+              ? `<input class="mypage-name-input" data-mypage-name-input type="text" maxlength="8" value="${name}">
+                 <button class="mypage-edit-btn" type="button" data-mypage-name-save>저장</button>
+                 <button class="mypage-edit-btn" type="button" data-mypage-name-cancel>취소</button>`
+              : `<span class="mypage-profile-name">${name}</span>
+                 <button class="mypage-edit-btn" type="button" data-mypage-name-edit>수정</button>`}
+          </div>
+        </div>
+        ${errorText ? `<p class="mypage-profile-error">${errorText}</p>` : ""}
+        <div class="mypage-profile-row">
+          <span class="mypage-profile-label">고유번호</span>
+          <span class="mypage-profile-number">${number || "-"}</span>
+        </div>
+      `;
+    }
+
+    async function ensureVisitorRegistered() {
+      const cachedNumber = readVisitorNumberCache();
+      if (cachedNumber) {
+        renderProfileBar();
+        return;
+      }
+      renderProfileBar();
+      try {
+        const { id, name } = getVisitorIdentity();
+        const profile = await visitorApi({ type: "visitorRegister", visitorId: id, nickname: name, isExplicitEdit: false });
+        if (profile.nickname && profile.nickname !== name) {
+          try { localStorage.setItem(visitorNameKey, profile.nickname); } catch {}
+          setNextBoardAuthor();
+        }
+        writeVisitorNumberCache(profile.visitorNumber || "");
+        renderProfileBar();
+      } catch {}
+    }
+
+    async function saveVisitorNickname(newName) {
+      const trimmed = newName.trim();
+      if (!/^[가-힣]{2,8}$/.test(trimmed)) {
+        renderProfileBar(true, "한글 2~8자로 입력해 주세요.");
+        return;
+      }
+      try {
+        const { id } = getVisitorIdentity();
+        const profile = await visitorApi({ type: "visitorRegister", visitorId: id, nickname: trimmed, isExplicitEdit: true });
+        try { localStorage.setItem(visitorNameKey, profile.nickname); } catch {}
+        writeVisitorNumberCache(profile.visitorNumber || "");
+        setNextBoardAuthor();
+        renderProfileBar();
+      } catch (error) {
+        renderProfileBar(true, error?.message || "저장하지 못했습니다.");
+      }
+    }
+
+    document.addEventListener("click", (event) => {
+      const editBtn = closestFrom(event.target, "[data-mypage-name-edit]");
+      if (editBtn) {
+        renderProfileBar(true);
+        return;
+      }
+      const cancelBtn = closestFrom(event.target, "[data-mypage-name-cancel]");
+      if (cancelBtn) {
+        renderProfileBar(false);
+        return;
+      }
+      const saveBtn = closestFrom(event.target, "[data-mypage-name-save]");
+      if (saveBtn) {
+        const input = document.querySelector("[data-mypage-name-input]");
+        if (input) saveVisitorNickname(input.value);
+        return;
+      }
+      const sameAsProfileBtn = closestFrom(event.target, "[data-apply-same-as-profile]");
+      if (sameAsProfileBtn) {
+        event.preventDefault();
+        applySameAsProfile();
+        return;
+      }
+      const infoSaveBtn = closestFrom(event.target, "[data-mypage-info-save]");
+      if (infoSaveBtn) {
+        if (infoSaveBtn.disabled) return;
+        saveMyProfileInfo();
+        return;
+      }
+      const counselWriteBtn = closestFrom(event.target, "[data-counsel-write]");
+      if (counselWriteBtn) {
+        event.preventDefault();
+        openCounselWrite(null);
+        return;
+      }
+      const counselOpenBtn = closestFrom(event.target, "[data-counsel-open]");
+      if (counselOpenBtn) {
+        event.preventDefault();
+        openCounselDetail(counselOpenBtn.dataset.counselOpen);
+        return;
+      }
+      const counselLikeBtn = closestFrom(event.target, "[data-counsel-like]");
+      if (counselLikeBtn) {
+        event.preventDefault();
+        (async () => {
+          try {
+            const { id: visitorId } = getVisitorIdentity();
+            const result = await visitorApi({ type: "counselLike", id: counselLikeBtn.dataset.counselLike, visitorId });
+            updateCounselPostInState(result.post);
+          } catch (error) {
+            alert(error?.message || "처리하지 못했습니다.");
+          }
+        })();
+        return;
+      }
+      const counselSaveBtn = closestFrom(event.target, "[data-counsel-save]");
+      if (counselSaveBtn) {
+        event.preventDefault();
+        (async () => {
+          try {
+            const { id: visitorId } = getVisitorIdentity();
+            const result = await visitorApi({ type: "counselSave", id: counselSaveBtn.dataset.counselSave, visitorId });
+            updateCounselPostInState(result.post);
+          } catch (error) {
+            alert(error?.message || "처리하지 못했습니다.");
+          }
+        })();
+        return;
+      }
+      const counselEditBtn = closestFrom(event.target, "[data-counsel-edit]");
+      if (counselEditBtn) {
+        event.preventDefault();
+        const post = counselPosts.find((item) => String(item.id) === counselEditBtn.dataset.counselEdit);
+        if (post) openCounselWrite(post);
+        return;
+      }
+      const counselReplyBtn = closestFrom(event.target, "[data-counsel-reply-id]");
+      if (counselReplyBtn) {
+        event.preventDefault();
+        setCounselReplyTarget(counselReplyBtn.dataset.counselReplyId, counselReplyBtn.dataset.counselReplyAuthor);
+        return;
+      }
+      const counselReplyCancelBtn = closestFrom(event.target, "[data-counsel-reply-cancel]");
+      if (counselReplyCancelBtn) {
+        event.preventDefault();
+        setCounselReplyTarget(null);
+        return;
+      }
+    });
+
+    document.addEventListener("submit", async (event) => {
+      const writeForm = closestFrom(event.target, "[data-counsel-write-form]");
+      if (writeForm) {
+        event.preventDefault();
+        const title = document.querySelector("#counselTitleInput").value.trim();
+        const content = document.querySelector("#counselContentInput").value.trim();
+        if (!title || !content) {
+          alert("제목과 내용을 입력해 주세요.");
+          return;
+        }
+        const submitBtn = document.querySelector("[data-counsel-write-submit]");
+        if (submitBtn) submitBtn.disabled = true;
+        try {
+          const { id: visitorId, name } = getVisitorIdentity();
+          const payload = counselEditingId
+            ? { type: "counselUpdate", id: counselEditingId, visitorId, title, content }
+            : { type: "counselCreate", visitorId, author: name, title, content };
+          const result = await visitorApi(payload);
+          updateCounselPostInState(result.post);
+          openCounselDetail(result.post.id);
+        } catch (error) {
+          alert(error?.message || "저장하지 못했습니다.");
+        } finally {
+          if (submitBtn) submitBtn.disabled = false;
+        }
+        return;
+      }
+      const commentForm = closestFrom(event.target, "[data-counsel-comment-form]");
+      if (commentForm) {
+        event.preventDefault();
+        const textarea = commentForm.querySelector("textarea");
+        const content = textarea.value.trim();
+        if (!content) return;
+        const submitBtn = commentForm.querySelector("button[type='submit']");
+        if (submitBtn) submitBtn.disabled = true;
+        try {
+          const { id: visitorId, name } = getVisitorIdentity();
+          const result = await visitorApi({
+            type: "counselComment",
+            id: commentForm.dataset.counselCommentForm,
+            visitorId,
+            author: name,
+            content,
+            parentId: counselReplyTo?.id || null
+          });
+          textarea.value = "";
+          setCounselReplyTarget(null);
+          updateCounselPostInState(result.post);
+        } catch (error) {
+          alert(error?.message || "댓글을 등록하지 못했습니다.");
+        } finally {
+          if (submitBtn) submitBtn.disabled = false;
+        }
+        return;
+      }
+    });
+
     const applicationStatusSteps = ["접수", "확인", "승인"];
+    let currentMyApplications = [];
 
     function renderMyApplications(applications) {
+      currentMyApplications = applications;
       const list = document.querySelector("[data-mypage-list]");
       if (!list) return;
       if (!applications.length) {
         list.innerHTML = `<p class="mypage-empty">신청 내역이 없습니다.</p>`;
         return;
       }
-      list.innerHTML = applications.map((application) => {
+      list.innerHTML = applications.map((application, index) => {
         const status = applicationStatusSteps.includes(application.status) ? application.status : "접수";
         const stepIndex = applicationStatusSteps.indexOf(status);
         const statusClass = status === "승인" ? "is-complete" : status === "확인" ? "is-checked" : "is-received";
+        const isEditable = status === "접수";
         const dateText = application.submittedAt
           ? new Date(application.submittedAt).toLocaleString("ko-KR", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })
           : "";
         const metaText = [application.eventDate, application.selectedAgeRange].filter(Boolean).join(" · ");
-        const steps = applicationStatusSteps.map((step, index) => `<span class="mypage-step${index <= stepIndex ? " is-done" : ""}">${step}</span>`).join("");
+        const steps = applicationStatusSteps.map((step, i) => `<span class="mypage-step${i <= stepIndex ? " is-done" : ""}">${step}</span>`).join("");
         return `
-          <article class="mypage-card">
+          <article class="mypage-card${isEditable ? " is-editable" : ""}" ${isEditable ? `data-mypage-edit-open="${index}"` : ""}>
             <div class="mypage-card-head">
               <span class="board-status ${statusClass}">${status}</span>
               <span class="mypage-date">${dateText}</span>
@@ -4649,24 +5405,615 @@
             <h3 class="mypage-event-title">${application.eventTitle || ""}</h3>
             ${metaText ? `<p class="mypage-event-meta">${metaText}</p>` : ""}
             <div class="mypage-steps">${steps}</div>
+            ${isEditable ? `<p class="mypage-edit-hint">접수 상태에서는 수정 가능합니다.</p>` : ""}
           </article>
         `;
       }).join("");
     }
 
-    async function loadMyApplications() {
+    async function loadMyApplications(forceRefresh = false) {
       const list = document.querySelector("[data-mypage-list]");
-      if (list) list.innerHTML = `<p class="mypage-empty">불러오는 중...</p>`;
+      const cached = forceRefresh ? null : readMypageCache();
+      if (cached) {
+        renderMyApplications(cached);
+      } else if (list) {
+        list.innerHTML = `<p class="mypage-empty">불러오는 중...</p>`;
+      }
+      ensureVisitorRegistered();
       try {
         const { id } = getVisitorIdentity();
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=myApplications&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`);
         const result = await response.json();
         const applications = response.ok && result.ok && Array.isArray(result.applications) ? result.applications : [];
+        writeMypageCache(applications);
         renderMyApplications(applications);
       } catch {
-        renderMyApplications([]);
+        if (!cached) renderMyApplications([]);
       }
     }
+
+    function readProfileInfoCache() {
+      try { return JSON.parse(localStorage.getItem(profileInfoCacheKey) || "null"); } catch { return null; }
+    }
+
+    function writeProfileInfoCache(profile) {
+      try { localStorage.setItem(profileInfoCacheKey, JSON.stringify(profile)); } catch {}
+    }
+
+    async function refreshProfileInfoCache() {
+      try {
+        const { id } = getVisitorIdentity();
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=myProfileInfo&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`);
+        const result = await response.json();
+        if (response.ok && result.ok && result.registered) {
+          writeProfileInfoCache(result);
+          return result;
+        }
+      } catch {}
+      return null;
+    }
+
+    function infoChoiceGroup(groupKey, label, options, selectedValue) {
+      const chips = options.map((option) => `<button class="choice-chip${selectedValue === option ? " is-selected" : ""}" type="button">${option}</button>`).join("");
+      return `
+        <div class="form-field">
+          <label>${label}</label>
+          <div class="choice-row" data-info-group="${groupKey}">${chips}</div>
+        </div>
+      `;
+    }
+
+    function renderMyProfileInfo(profile) {
+      const container = document.querySelector("[data-mypage-info]");
+      if (!container) return;
+      const p = profile && profile.registered ? profile : {};
+      container.innerHTML = `
+        <div class="mypage-info-form">
+          <div class="form-field">
+            <label for="infoName">이름</label>
+            <input id="infoName" type="text" value="${p.name || ""}" placeholder="이름">
+          </div>
+          <div class="form-field">
+            <label for="infoPhone">연락처</label>
+            <input id="infoPhone" type="text" inputmode="numeric" maxlength="13" value="${p.phone || ""}" placeholder="010-0000-0000">
+          </div>
+          <div class="form-field">
+            <label for="infoBirth">생년월일</label>
+            <input id="infoBirth" type="text" inputmode="numeric" maxlength="10" value="${p.birth || ""}" placeholder="1990-00-00">
+          </div>
+          <div class="form-field">
+            <label for="infoHeight">키</label>
+            <input id="infoHeight" type="text" inputmode="numeric" value="${p.height || ""}" placeholder="cm">
+          </div>
+          <div class="form-field">
+            <label for="infoWeight">체중</label>
+            <input id="infoWeight" type="text" inputmode="numeric" value="${p.weight || ""}" placeholder="kg">
+          </div>
+          <div class="form-field">
+            <label for="infoArea">거주지</label>
+            <input id="infoArea" type="text" value="${p.area || ""}" placeholder="현재 사는 곳">
+          </div>
+          <div class="form-field">
+            <label for="infoJob">회사명/부서/직무</label>
+            <textarea id="infoJob" placeholder="내용을 작성해 주세요.">${p.job || ""}</textarea>
+          </div>
+          ${infoChoiceGroup("smoking", "흡연 유무", ["비흡연", "전자담배", "연초"], p.smoking)}
+          ${infoChoiceGroup("drinking", "음주 빈도", ["안 마심", "못 마심", "가끔", "즐겨 마심", "모임 때만"], p.drinking)}
+          ${infoChoiceGroup("religion", "종교", ["무교", "기독교", "천주교", "불교", "기타"], p.religion)}
+          <button class="submit-btn mypage-info-save-btn" type="button" data-mypage-info-save>저장</button>
+        </div>
+      `;
+    }
+
+    async function saveMyProfileInfo() {
+      const container = document.querySelector("[data-mypage-info]");
+      if (!container) return;
+      const getValue = (id) => container.querySelector(`#${id}`)?.value.trim() || "";
+      const getChoice = (groupKey) => container.querySelector(`[data-info-group="${groupKey}"] .choice-chip.is-selected`)?.textContent.trim() || "";
+      const payload = {
+        visitorId: getVisitorIdentity().id,
+        name: getValue("infoName"),
+        phone: getValue("infoPhone"),
+        birth: getValue("infoBirth"),
+        height: getValue("infoHeight"),
+        weight: getValue("infoWeight"),
+        area: getValue("infoArea"),
+        job: getValue("infoJob"),
+        smoking: getChoice("smoking"),
+        drinking: getChoice("drinking"),
+        religion: getChoice("religion")
+      };
+      const saveBtn = container.querySelector("[data-mypage-info-save]");
+      if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.textContent = "저장 중";
+      }
+      try {
+        await visitorApi({ type: "profileInfoSave", ...payload });
+        const profile = { ok: true, registered: true, ...payload };
+        writeProfileInfoCache(profile);
+        renderMyProfileInfo(profile);
+      } catch (error) {
+        alert(error?.message || "저장하지 못했습니다.");
+        if (saveBtn) {
+          saveBtn.disabled = false;
+          saveBtn.textContent = "저장";
+        }
+      }
+    }
+
+    const counselCacheKey = "clover-counsel-posts-v1";
+    const counselViewedKey = "clover-counsel-viewed-v1";
+    let counselPosts = [];
+    let counselCurrentId = "";
+    let counselEditingId = "";
+    let counselReplyTo = null;
+
+    function counselDate(value) {
+      const date = new Date(Number(value) || value);
+      return Number.isNaN(date.getTime()) ? "" : new Intl.DateTimeFormat("ko-KR", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).format(date);
+    }
+
+    function readCounselCache() {
+      try {
+        const cached = JSON.parse(localStorage.getItem(counselCacheKey) || "null");
+        return Array.isArray(cached) ? cached : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function writeCounselCache(posts) {
+      try { localStorage.setItem(counselCacheKey, JSON.stringify(posts.slice(0, 100))); } catch {}
+    }
+
+    function counselCardHtml(post) {
+      return `
+        <button class="counsel-card" type="button" data-counsel-open="${htmlAttr(post.id)}">
+          <div class="counsel-card-head">
+            <span class="counsel-card-author">${htmlAttr(post.author)}</span>
+            <span class="counsel-card-date">${counselDate(post.createdAt)}</span>
+          </div>
+          <h3 class="counsel-card-title">${htmlAttr(post.title)}</h3>
+          <p class="counsel-card-content">${htmlAttr(post.content)}</p>
+          <div class="counsel-card-meta"><span>조회 ${Number(post.views) || 0}</span><span>공감 ${Number(post.likeCount) || 0}</span><span>댓글 ${Number(post.commentCount) || 0}</span></div>
+        </button>
+      `;
+    }
+
+    function renderCounselList() {
+      const container = document.querySelector("[data-counsel-list]");
+      if (!container) return;
+      if (!counselPosts.length) {
+        container.innerHTML = `<p class="mypage-empty">등록된 글이 없습니다.</p>`;
+        return;
+      }
+      container.innerHTML = counselPosts.map(counselCardHtml).join("");
+    }
+
+    async function loadCounselPosts() {
+      const cached = readCounselCache();
+      if (cached) {
+        counselPosts = cached;
+        renderCounselList();
+      }
+      try {
+        const { id } = getVisitorIdentity();
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=counselList&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`);
+        const result = await response.json();
+        if (response.ok && result.ok && Array.isArray(result.posts)) {
+          counselPosts = result.posts;
+          writeCounselCache(counselPosts);
+          renderCounselList();
+        }
+      } catch {
+        if (!cached) renderCounselList();
+      }
+    }
+
+    let mySavedCounselPosts = [];
+    let mySavedCounselPage = 1;
+    const mySavedCounselPageSize = 10;
+
+    function renderMySavedCounsel() {
+      const container = document.querySelector("[data-mypage-saved-counsel]");
+      const pagination = document.querySelector("[data-mypage-saved-counsel-pagination]");
+      if (!container) return;
+      if (!mySavedCounselPosts.length) {
+        container.innerHTML = `<p class="mypage-empty">저장한 글이 없습니다.</p>`;
+        if (pagination) pagination.hidden = true;
+        return;
+      }
+      const totalPages = Math.ceil(mySavedCounselPosts.length / mySavedCounselPageSize);
+      mySavedCounselPage = Math.min(Math.max(mySavedCounselPage, 1), totalPages);
+      const start = (mySavedCounselPage - 1) * mySavedCounselPageSize;
+      const pagePosts = mySavedCounselPosts.slice(start, start + mySavedCounselPageSize);
+      container.innerHTML = pagePosts.map(counselCardHtml).join("");
+      if (!pagination) return;
+      pagination.hidden = totalPages <= 1;
+      pagination.innerHTML = totalPages > 1 ? `
+        <button class="board-page-button" type="button" data-mypage-counsel-prev ${mySavedCounselPage === 1 ? "disabled" : ""} aria-label="이전 페이지" title="이전 페이지"><span>‹</span></button>
+        <span class="board-page-status">${mySavedCounselPage} / ${totalPages}</span>
+        <button class="board-page-button" type="button" data-mypage-counsel-next ${mySavedCounselPage === totalPages ? "disabled" : ""} aria-label="다음 페이지" title="다음 페이지"><span>›</span></button>
+      ` : "";
+    }
+
+    async function loadMySavedCounsel() {
+      const container = document.querySelector("[data-mypage-saved-counsel]");
+      if (!container) return;
+      try {
+        const { id } = getVisitorIdentity();
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=counselList&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`);
+        const result = await response.json();
+        const posts = response.ok && result.ok && Array.isArray(result.posts) ? result.posts : [];
+        if (posts.length) {
+          counselPosts = posts;
+          writeCounselCache(posts);
+        }
+        mySavedCounselPosts = posts.filter((post) => post.saved);
+        mySavedCounselPage = 1;
+        renderMySavedCounsel();
+      } catch {
+        mySavedCounselPosts = [];
+        renderMySavedCounsel();
+      }
+    }
+
+    function updateCounselPostInState(nextPost) {
+      if (!nextPost || !nextPost.id) return;
+      const index = counselPosts.findIndex((post) => String(post.id) === String(nextPost.id));
+      if (index >= 0) counselPosts[index] = nextPost;
+      else counselPosts.unshift(nextPost);
+      writeCounselCache(counselPosts);
+      renderCounselList();
+      if (counselCurrentId === String(nextPost.id)) renderCounselDetail(nextPost);
+    }
+
+    function counselCommentHtml(comments, postVisitorId) {
+      if (!comments.length) return `<p class="mypage-empty">아직 댓글이 없습니다.</p>`;
+      const topLevel = comments.filter((comment) => !comment.parentId);
+      const repliesByParent = {};
+      comments.filter((comment) => comment.parentId).forEach((comment) => {
+        (repliesByParent[comment.parentId] = repliesByParent[comment.parentId] || []).push(comment);
+      });
+      const renderOne = (comment, isReply) => `
+        <div class="counsel-comment${isReply ? " is-reply" : ""}">
+          <div class="counsel-comment-head">
+            <strong>${htmlAttr(comment.author || "익명")}</strong>
+            ${comment.visitorId === postVisitorId ? `<span class="counsel-author-badge">작성자</span>` : ""}
+            <span class="counsel-comment-date">${counselDate(comment.createdAt)}</span>
+          </div>
+          <p>${htmlAttr(comment.content || "")}</p>
+          ${!isReply ? `<button class="counsel-reply-btn" type="button" data-counsel-reply-id="${htmlAttr(comment.id)}" data-counsel-reply-author="${htmlAttr(comment.author || "익명")}">답글</button>` : ""}
+        </div>
+      `;
+      return topLevel
+        .map((comment) => renderOne(comment, false) + (repliesByParent[comment.id] || []).map((reply) => renderOne(reply, true)).join(""))
+        .join("");
+    }
+
+    function renderCounselDetail(post) {
+      const target = document.querySelector("[data-counsel-detail]");
+      if (!target) return;
+      if (!post) {
+        target.innerHTML = `<p class="mypage-empty">게시글을 찾을 수 없습니다.</p>`;
+        return;
+      }
+      const comments = Array.isArray(post.comments) ? post.comments : [];
+      target.innerHTML = `
+        <article class="counsel-detail-card" data-counsel-post-id="${htmlAttr(post.id)}">
+          <div class="counsel-detail-head">
+            <span class="counsel-card-author">${htmlAttr(post.author)}</span>
+            <time>${counselDate(post.createdAt)}</time>
+          </div>
+          <h2 class="counsel-detail-title">${htmlAttr(post.title)}</h2>
+          <p class="counsel-detail-content">${htmlAttr(post.content)}</p>
+          <div class="counsel-detail-actions">
+            <span>조회 ${Number(post.views) || 0}</span>
+            <button type="button" class="${post.liked ? "is-liked" : ""}" data-counsel-like="${htmlAttr(post.id)}">공감 ${Number(post.likeCount) || 0}</button>
+            <button type="button" class="${post.saved ? "is-saved" : ""}" data-counsel-save="${htmlAttr(post.id)}">${post.saved ? "저장됨" : "저장"}</button>
+            ${post.isMine ? `<button type="button" data-counsel-edit="${htmlAttr(post.id)}">수정</button>` : ""}
+          </div>
+          <section class="counsel-comment-section">
+            <h3>댓글 ${comments.length}</h3>
+            <div class="counsel-comment-list">${counselCommentHtml(comments, post.visitorId)}</div>
+            <div class="counsel-reply-target" data-counsel-reply-target><span data-counsel-reply-label></span><button type="button" data-counsel-reply-cancel>취소</button></div>
+            <form class="counsel-comment-form" data-counsel-comment-form="${htmlAttr(post.id)}">
+              <textarea maxlength="500" placeholder="댓글을 입력해 주세요." required></textarea>
+              <button class="submit-btn" type="submit">댓글 등록</button>
+            </form>
+          </section>
+        </article>
+      `;
+    }
+
+    function setCounselReplyTarget(id, author) {
+      counselReplyTo = id ? { id, author } : null;
+      const banner = document.querySelector("[data-counsel-reply-target]");
+      const label = document.querySelector("[data-counsel-reply-label]");
+      if (!banner || !label) return;
+      if (counselReplyTo) {
+        label.textContent = `${counselReplyTo.author}님에게 답글 남기는 중`;
+        banner.classList.add("is-active");
+        document.querySelector(".counsel-comment-form textarea")?.focus();
+      } else {
+        banner.classList.remove("is-active");
+      }
+    }
+
+    async function openCounselDetail(id) {
+      counselCurrentId = String(id);
+      setCounselReplyTarget(null);
+      const post = counselPosts.find((item) => String(item.id) === counselCurrentId);
+      renderCounselDetail(post || null);
+      setPage("counsel-detail");
+      let viewedSet;
+      try { viewedSet = new Set(JSON.parse(localStorage.getItem(counselViewedKey) || "[]")); } catch { viewedSet = new Set(); }
+      if (!viewedSet.has(counselCurrentId)) {
+        viewedSet.add(counselCurrentId);
+        try { localStorage.setItem(counselViewedKey, JSON.stringify([...viewedSet])); } catch {}
+        try {
+          const { id: visitorId } = getVisitorIdentity();
+          const result = await visitorApi({ type: "counselView", id: counselCurrentId, visitorId });
+          updateCounselPostInState(result.post);
+        } catch {}
+      }
+    }
+
+    function openCounselWrite(editingPost) {
+      counselEditingId = editingPost ? String(editingPost.id) : "";
+      document.querySelector("[data-counsel-write-title]").textContent = editingPost ? "글 수정" : "글쓰기";
+      document.querySelector("[data-counsel-write-submit]").textContent = editingPost ? "수정하기" : "등록하기";
+      document.querySelector("#counselTitleInput").value = editingPost?.title || "";
+      document.querySelector("#counselContentInput").value = editingPost?.content || "";
+      setPage("counsel-write");
+    }
+
+    async function loadMyProfileInfo() {
+      const cached = readProfileInfoCache();
+      renderMyProfileInfo(cached);
+      const fresh = await refreshProfileInfoCache();
+      if (fresh) renderMyProfileInfo(fresh);
+      else if (!cached) renderMyProfileInfo(null);
+    }
+
+    function selectChoiceByLabelAndText(labelText, valueText) {
+      if (!valueText) return;
+      const labels = [...document.querySelectorAll(".application-form .form-field label")];
+      const label = labels.find((item) => item.textContent.includes(labelText));
+      const field = label?.closest(".form-field");
+      const chips = field ? [...field.querySelectorAll(".choice-chip")] : [];
+      if (!chips.length) return;
+      chips.forEach((chip) => chip.classList.remove("is-selected"));
+      const match = chips.find((chip) => chip.textContent.trim() === valueText);
+      if (match) match.classList.add("is-selected");
+    }
+
+    async function applySameAsProfile() {
+      let profile = readProfileInfoCache();
+      if (!profile || !profile.registered) profile = await refreshProfileInfoCache();
+      if (!profile || !profile.registered) {
+        alert("저장된 내 정보가 없습니다. 신청 후 자동으로 저장됩니다.");
+        return;
+      }
+      const setValue = (selector, value) => {
+        const el = document.querySelector(selector);
+        if (el && value) el.value = value;
+      };
+      setValue("#applyName", profile.name);
+      setValue("#applyPhone", profile.phone);
+      setValue("#applyBirth", profile.birth);
+      setValue("#applyHeight", profile.height);
+      setValue("#applyWeight", profile.weight);
+      setValue("#applyArea", profile.area);
+      setValue("#applyJob", profile.job);
+      selectChoiceByLabelAndText("흡연", profile.smoking);
+      selectChoiceByLabelAndText("음주", profile.drinking);
+      selectChoiceByLabelAndText("종교", profile.religion);
+    }
+
+    let editingApplication = null;
+    let editRegion = "";
+    let editDateKey = "";
+    let editTime = "";
+    let editAgeOptionId = "";
+
+    function parseScheduleDateText(text) {
+      const match = String(text || "").match(/^(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일\([^)]*\)\s*(.+)$/);
+      if (!match) return null;
+      const [, year, month, day, time] = match;
+      return {
+        isoDate: `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`,
+        time: time.trim()
+      };
+    }
+
+    function editMonthTemplate(year, month) {
+      const firstDay = new Date(year, month - 1, 1).getDay();
+      const lastDate = new Date(year, month, 0).getDate();
+      const todayParts = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Seoul", year: "numeric", month: "2-digit", day: "2-digit"
+      }).formatToParts(new Date());
+      const todayPart = (type) => todayParts.find((part) => part.type === type)?.value;
+      const today = `${todayPart("year")}-${todayPart("month")}-${todayPart("day")}`;
+      const cells = Array.from({ length: firstDay }, () => '<span aria-hidden="true"></span>');
+
+      for (let day = 1; day <= lastDate; day += 1) {
+        const iso = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+        const dayOfWeek = new Date(`${iso}T00:00:00`).getDay();
+        const times = applicationTimesForDate(iso);
+        const isAvailable = times.length > 0;
+        const isHoliday = applicationHolidayDates.has(iso);
+        const classes = [
+          "application-day",
+          isAvailable ? "is-available" : "",
+          dayOfWeek === 0 ? "is-sunday" : "",
+          dayOfWeek === 6 ? "is-saturday" : "",
+          isHoliday ? "is-holiday" : "",
+          iso === today ? "is-today" : "",
+          iso === editDateKey ? "is-selected" : ""
+        ].filter(Boolean).join(" ");
+        cells.push(`<button class="${classes}" type="button" ${isAvailable ? `data-edit-date="${iso}"` : "disabled"}><b>${day}</b></button>`);
+      }
+
+      return `<section class="application-month"><h4>${year}년 ${month}월</h4><div class="application-week" aria-hidden="true"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div><div class="application-days">${cells.join("")}</div></section>`;
+    }
+
+    function renderAppEditModal() {
+      const modal = document.querySelector("[data-app-edit-modal]");
+      if (!modal || !editingApplication) return;
+      const existingPanel = modal.querySelector(".app-edit-panel");
+      const preservedScrollTop = existingPanel ? existingPanel.scrollTop : 0;
+      const regionButtons = ["부산", "울산", "경남"].map((region) => `
+        <button class="region-choice${editRegion === region ? " is-selected" : ""}" type="button" data-edit-region="${region}">${region}</button>
+      `).join("");
+      const times = editDateKey ? applicationTimesForDate(editDateKey) : [];
+      const timeButtons = times.map((time) => `<button class="schedule-time-option${time === editTime ? " is-selected" : ""}" type="button" data-edit-time="${time}">${time}</button>`).join("");
+      const ageCards = applicationAgeOptions.map((option) => `
+        <button class="age-option-card${editAgeOptionId === option.id ? " is-selected" : ""}" type="button" data-edit-age="${option.id}">
+          <span class="age-option-check" aria-hidden="true"></span>
+          <span class="age-option-main"><strong>${option.range}</strong></span>
+        </button>
+      `).join("");
+      const ready = Boolean(editRegion && editDateKey && editTime && editAgeOptionId);
+      modal.innerHTML = `
+        <div class="app-edit-panel">
+          <div class="app-edit-head">
+            <h3>신청 수정</h3>
+            <button class="menu-button" type="button" data-app-edit-close aria-label="닫기">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <p class="app-edit-title">${editingApplication.baseTitle}</p>
+          <section class="selection-section">
+            <div class="selection-heading">방문 가능한 지역 <span class="req">*</span></div>
+            <p class="schedule-description">1개 지역만 선택 가능합니다.</p>
+            <div class="region-choice-row">${regionButtons}</div>
+          </section>
+          <section class="form-section schedule-section">
+            <div class="schedule-heading">참여 일정 <span class="req">*</span></div>
+            <div class="application-calendar">${editMonthTemplate(2026, 7)}${editMonthTemplate(2026, 8)}</div>
+            <div class="schedule-result"${editDateKey ? "" : " hidden"}>
+              <section class="schedule-result-section schedule-time-section">
+                <h4>시간 선택</h4>
+                <div class="schedule-time-options">${timeButtons}</div>
+              </section>
+            </div>
+          </section>
+          <section class="selection-section age-selection-block">
+            <div class="selection-heading">연령대 선택 <span class="req">*</span></div>
+            <div class="age-option-list">${ageCards}</div>
+          </section>
+          <button class="selection-complete-btn" type="button" data-app-edit-save ${ready ? "" : "disabled"}>저장</button>
+        </div>
+      `;
+      const panel = modal.querySelector(".app-edit-panel");
+      if (panel) panel.scrollTop = preservedScrollTop;
+    }
+
+    function openAppEditModal(application) {
+      const baseTitle = String(application.eventTitle || "").replace(/^\[[^\]]*\]\s*\[[^\]]*\]\s*/, "");
+      editingApplication = { ...application, baseTitle };
+      editRegion = String(application.selectedRegions || "").split(",")[0].trim();
+      const parsed = parseScheduleDateText(application.eventDate);
+      editDateKey = parsed?.isoDate || "";
+      editTime = parsed?.time || "";
+      const matchedAge = applicationAgeOptions.find((option) => option.range === application.selectedAgeRange);
+      editAgeOptionId = matchedAge?.id || "";
+      document.querySelector("[data-app-edit-modal]").hidden = false;
+      renderAppEditModal();
+    }
+
+    function closeAppEditModal() {
+      editingApplication = null;
+      document.querySelector("[data-app-edit-modal]").hidden = true;
+    }
+
+    async function saveAppEdit() {
+      if (!editingApplication) return;
+      const ageOption = applicationAgeOptions.find((option) => option.id === editAgeOptionId);
+      if (!editRegion || !editDateKey || !editTime || !ageOption) return;
+      const saveButton = document.querySelector("[data-app-edit-save]");
+      if (saveButton) {
+        saveButton.disabled = true;
+        saveButton.textContent = "저장 중";
+      }
+      try {
+        const newEventDate = formatSelectedSchedule(editDateKey, editTime);
+        const newEventTitle = `[${editingApplication.applicationType}] [${ageOption.range}] ${editingApplication.baseTitle}`;
+        await visitorApi({
+          type: "applicationUpdate",
+          visitorId: editingApplication.visitorId,
+          submittedAt: editingApplication.submittedAt,
+          eventTitle: newEventTitle,
+          eventDate: newEventDate,
+          selectedRegions: editRegion,
+          selectedAgeRange: ageOption.range,
+          selectedAgeLabel: ""
+        });
+        closeAppEditModal();
+        loadMyApplications(true);
+      } catch (error) {
+        alert(error?.message || "수정하지 못했습니다.");
+        if (saveButton) {
+          saveButton.disabled = false;
+          saveButton.textContent = "저장";
+        }
+      }
+    }
+
+    document.addEventListener("click", (event) => {
+      const openTarget = closestFrom(event.target, "[data-mypage-edit-open]");
+      if (openTarget) {
+        const application = currentMyApplications[Number(openTarget.dataset.mypageEditOpen)];
+        if (application) openAppEditModal(application);
+        return;
+      }
+      const closeTarget = closestFrom(event.target, "[data-app-edit-close]");
+      if (closeTarget) {
+        closeAppEditModal();
+        return;
+      }
+      if (event.target === document.querySelector("[data-app-edit-modal]")) {
+        closeAppEditModal();
+        return;
+      }
+      const regionTarget = closestFrom(event.target, "[data-edit-region]");
+      if (regionTarget) {
+        const region = regionTarget.dataset.editRegion;
+        editRegion = editRegion === region ? "" : region;
+        renderAppEditModal();
+        return;
+      }
+      const dateTarget = closestFrom(event.target, "[data-edit-date]");
+      if (dateTarget) {
+        const isSelected = dateTarget.classList.contains("is-selected");
+        editTime = "";
+        editDateKey = isSelected ? "" : dateTarget.dataset.editDate;
+        renderAppEditModal();
+        return;
+      }
+      const timeTarget = closestFrom(event.target, "[data-edit-time]");
+      if (timeTarget) {
+        const time = timeTarget.dataset.editTime;
+        editTime = editTime === time ? "" : time;
+        renderAppEditModal();
+        return;
+      }
+      const ageTarget = closestFrom(event.target, "[data-edit-age]");
+      if (ageTarget) {
+        const ageId = ageTarget.dataset.editAge;
+        editAgeOptionId = editAgeOptionId === ageId ? "" : ageId;
+        renderAppEditModal();
+        return;
+      }
+      const saveTarget = closestFrom(event.target, "[data-app-edit-save]");
+      if (saveTarget) {
+        if (saveTarget.disabled) return;
+        saveAppEdit();
+        return;
+      }
+    });
 
     function saveDetailState(index, gender, price) {
       selectedEventIndex = Number(index) || 0;
@@ -5661,7 +7008,8 @@
         link.classList.toggle("is-active", linkPage === safePageName || isGuidePage || isReviewPage);
       });
       setDrawer(false);
-      if (safePageName === "mypage") loadMyApplications();
+      if (safePageName === "mypage") { loadMyApplications(); loadMyProfileInfo(); loadMySavedCounsel(); }
+      if (safePageName === "counsel") loadCounselPosts();
       if (updateHash) {
         const nextHash = `#${safePageName}`;
         if (location.hash !== nextHash) {
@@ -5709,7 +7057,7 @@
     }
 
     function selectedChoice(labelText) {
-      const labels = [...document.querySelectorAll(".form-field label")];
+      const labels = [...document.querySelectorAll(".application-form .form-field label")];
       const label = labels.find((item) => item.textContent.includes(labelText));
       const field = label?.closest(".form-field");
       return field?.querySelector(".choice-chip.is-selected")?.textContent.trim() || "";
@@ -6273,19 +7621,19 @@
       const target = event.target;
       if (!(target instanceof HTMLInputElement)) return;
 
-      if (target.id === "applyPhone") {
+      if (target.id === "applyPhone" || target.id === "infoPhone") {
         target.value = formatPhone(target.value);
         target.classList.remove("is-invalid");
         return;
       }
 
-      if (target.id === "applyBirth") {
+      if (target.id === "applyBirth" || target.id === "infoBirth") {
         target.value = formatBirth(target.value);
         target.classList.remove("is-invalid");
         return;
       }
 
-      if (["applyHeight", "applyWeight"].includes(target.id)) {
+      if (["applyHeight", "applyWeight", "infoHeight", "infoWeight"].includes(target.id)) {
         target.value = onlyDigits(target.value, 3);
       }
     });
