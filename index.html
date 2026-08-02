@@ -247,7 +247,7 @@
     }
 
     .section-tabs.guide-tabs {
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .section-tabs.review-tabs {
@@ -472,6 +472,16 @@
     .home-schedule-headlines .schedule-section-title {
       font-size: 1.35rem;
       line-height: 1.25;
+    }
+
+    .title-clover-logo {
+      display: inline-block;
+      width: 1.1em;
+      height: 1.1em;
+      margin-right: 0.28rem;
+      background: url("assets/clover-logo-v2.png") center / contain no-repeat;
+      filter: brightness(0);
+      vertical-align: -0.12em;
     }
     .home-schedule-headlines .schedule-post-cover img {
       object-fit: cover;
@@ -870,6 +880,8 @@
     }
 
     .app-edit-panel {
+      display: grid;
+      gap: 0.9rem;
       width: min(100%, var(--page-max));
       max-height: 88vh;
       overflow-y: auto;
@@ -883,7 +895,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 0.5rem;
+      gap: 0.75rem;
     }
 
     .app-edit-head h3 {
@@ -893,10 +905,33 @@
     }
 
     .app-edit-title {
-      margin: 0 0 0.9rem;
+      margin: 0;
       color: var(--muted);
       font-size: 0.82rem;
       font-weight: 700;
+    }
+
+    .app-edit-close-btn {
+      flex: 0 0 auto;
+      min-height: 2rem;
+      padding: 0 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #303743;
+      background: #fff;
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .app-edit-actions {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 0.55rem;
+      align-items: center;
+    }
+
+    .app-edit-actions .selection-complete-btn {
+      min-width: 0;
     }
 
     .gender-modal-panel {
@@ -1205,32 +1240,66 @@
     }
 
     .apply-same-as-profile-btn {
+      position: relative;
       display: inline-flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
+      gap: 0.38rem;
       align-self: flex-start;
+      width: auto;
+      max-width: max-content;
       flex: 0 0 auto;
       min-height: 2.05rem;
       margin: 0.5rem 0 0;
-      padding: 0.48rem 0.85rem;
-      border: 1px solid #d8dee6;
+      padding: 0.5rem 0.95rem;
+      border: 1px solid #00d838;
       border-radius: 999px;
-      background: #fff;
-      color: #4b5563;
-      box-shadow: none;
+      background: #f3fff6;
+      color: #06120a;
+      box-shadow: 0 0.35rem 0.8rem rgba(0, 216, 56, 0.12);
       font-size: 0.82rem;
-      font-weight: 850;
+      font-weight: 950;
       line-height: 1;
       cursor: pointer;
       touch-action: manipulation;
       user-select: none;
     }
 
-    .apply-same-as-profile-btn.is-applied {
-      background: #f1fff5;
+    .apply-same-as-profile-btn::before {
+      content: "";
+      display: inline-grid;
+      place-items: center;
+      width: 0.92rem;
+      height: 0.92rem;
+      border: 1.5px solid #06120a;
+      border-radius: 50%;
+      background: #fff;
+      color: #06120a;
+      font-size: 0.72rem;
+      font-weight: 950;
+      line-height: 1;
+      box-sizing: border-box;
+      flex: 0 0 auto;
+    }
+
+    .apply-same-as-profile-btn:hover {
+      background: #00ff40;
       border-color: #00d838;
-      color: #00a72c;
-      box-shadow: none;
+      color: #06120a;
+      box-shadow: 0 0.45rem 0.9rem rgba(0, 216, 56, 0.2);
+    }
+
+    .apply-same-as-profile-btn.is-applied {
+      background: #00ff40;
+      border-color: #00d838;
+      color: #06120a;
+      box-shadow: 0 0.45rem 0.9rem rgba(0, 216, 56, 0.18);
+    }
+
+    .apply-same-as-profile-btn.is-applied::before {
+      content: "✓";
+      background: #06120a;
+      color: #00ff40;
     }
 
     .apply-same-as-profile-btn:active {
@@ -1425,35 +1494,6 @@
       flex: 0 0 auto;
     }
 
-    .schedule-time-options {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.45rem;
-    }
-
-    .schedule-time-option {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      min-height: 2.35rem;
-      touch-action: manipulation;
-      padding: 0.5rem 0.35rem;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: #303743;
-      background: #fff;
-      font-size: 0.78rem;
-      font-weight: 950;
-      box-shadow: 0 0.2rem 0.65rem rgba(15, 23, 42, 0.04);
-    }
-
-    .schedule-time-option.is-selected {
-      border-color: #00f040;
-      color: #008f2a;
-      background: #f2fff5;
-      box-shadow: inset 0 0 0 1px rgba(0, 240, 64, 0.18);
-    }
-
     .selected-schedule,
     .confirmed-schedule-list {
       min-height: 2.25rem;
@@ -1490,7 +1530,6 @@
       .application-day { height: 2.65rem; }
       .application-day.is-available { width: 2.3rem; height: 2.3rem; }
       .schedule-result { grid-template-columns: 1fr; }
-      .schedule-time-options { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
 
     .application-selection-page {
@@ -1855,13 +1894,33 @@
       place-items: center;
       width: 1.1rem;
       height: 1.1rem;
+      padding: 0;
       border: 0;
       border-radius: 999px;
-      background: rgba(29, 34, 43, 0.82);
+      background: #00ff40;
       color: #06120a;
-      font-size: 0.8rem;
-      line-height: 1;
+      font-size: 0;
+      line-height: 1.1rem;
+      text-align: center;
       cursor: pointer;
+    }
+
+    .thumb-remove::before,
+    .thumb-remove::after {
+      content: "";
+      position: absolute;
+      width: 0.62rem;
+      height: 0.12rem;
+      border-radius: 999px;
+      background: #06120a;
+    }
+
+    .thumb-remove::before {
+      transform: rotate(45deg);
+    }
+
+    .thumb-remove::after {
+      transform: rotate(-45deg);
     }
 
     .file-input {
@@ -1933,22 +1992,26 @@
       margin-top: 20px;
       border-radius: 999px;
       color: #06120a;
-      background: var(--accent);
+      background: #00ff40;
       font-size: 1rem;
       font-weight: 950;
-      box-shadow: 0 0.55rem 1rem rgba(29, 140, 255, 0.26);
+      box-shadow: 0 0.55rem 1rem rgba(0, 255, 64, 0.18);
     }
 
     .form-submit-btn.is-loading::before {
       content: "";
       width: 0.95rem;
       height: 0.95rem;
-      margin-right: 0.5rem;
-      border: 2px solid rgba(255, 255, 255, 0.42);
-      border-top-color: #fff;
+      margin-right: 0;
+      border: 2px solid rgba(6, 18, 10, 0.2);
+      border-top-color: #06120a;
       border-radius: 50%;
       animation: submit-spin 0.7s linear infinite;
       flex: 0 0 auto;
+    }
+
+    .form-submit-btn.is-loading {
+      gap: 0.5rem;
     }
 
     @keyframes submit-spin {
@@ -2473,6 +2536,10 @@
     }
 
     .staff-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
       padding: 0.9rem 0;
       border-bottom: 1px solid var(--line);
       color: var(--ink);
@@ -2484,6 +2551,13 @@
       border-bottom: 0;
     }
 
+    .staff-name {
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 850;
+      text-align: right;
+    }
+
     .naver-map {
       position: relative;
       min-height: 14rem;
@@ -2493,12 +2567,28 @@
       background: #eef6ff;
     }
 
-    .naver-map iframe {
-      width: calc(100% + 800px);
+    .naver-map-canvas {
+      width: 100%;
       height: 14rem;
       display: block;
-      margin-left: -400px;
-      border: 0;
+      background: #eef6ff;
+    }
+
+    .naver-map-fallback {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 850;
+      text-align: center;
+      background: #eef6ff;
+    }
+
+    .naver-map.is-ready .naver-map-fallback {
+      display: none;
     }
 
     .map-open-link {
@@ -2749,6 +2839,11 @@
       background: #f59e0b;
     }
 
+    .board-status.is-canceled {
+      color: #ef4444;
+      background: #fff1f2;
+    }
+
     #page-mypage .location-page {
       display: flex;
       flex-direction: column;
@@ -2762,9 +2857,76 @@
     #page-mypage .page-description {
       margin-bottom: 0.15rem;
     }
+
+    .mypage-title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .mypage-title-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.55rem;
+      height: 1.55rem;
+      border: 1px solid var(--line);
+      border-radius: 0.45rem;
+      background: #fff;
+      color: #101116;
+      flex: 0 0 auto;
+    }
+
+    .mypage-title-icon svg {
+      width: 1.05rem;
+      height: 1.05rem;
+    }
+
     .mypage-profile-card {
       display: grid;
       gap: 0.6rem;
+    }
+
+    .mypage-profile-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .mypage-profile-header .mypage-section-title {
+      margin: 0;
+    }
+
+    .mypage-unique-number {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .mypage-profile-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .mypage-profile-fields {
+      display: grid;
+      gap: 0.45rem;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    .mypage-profile-tools {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.35rem;
+      flex: 0 0 auto;
     }
 
     .mypage-profile-row {
@@ -2778,14 +2940,14 @@
       color: var(--muted);
       font-size: 0.78rem;
       font-weight: 800;
-      min-width: 4rem;
+      min-width: 3rem;
     }
 
     .mypage-profile-value {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      justify-content: flex-end;
+      justify-content: flex-start;
     }
 
     .mypage-profile-name {
@@ -2798,6 +2960,71 @@
       font-weight: 900;
       color: var(--muted);
       letter-spacing: 0.02em;
+    }
+
+    .mypage-gender-control {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .mypage-gender-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.28rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .mypage-gender-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      min-width: 3.2rem;
+      min-height: 1.8rem;
+      padding: 0.28rem 0.65rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: #303743;
+      font-size: 0.76rem;
+      font-weight: 950;
+      cursor: pointer;
+    }
+
+    .mypage-gender-btn.is-selected {
+      border-color: #00d838;
+      background: #00ff40;
+      color: #06120a;
+      box-shadow: 0 0.35rem 0.75rem rgba(0, 216, 56, 0.14);
+    }
+
+    .mypage-gender-icon {
+      display: inline-grid;
+      place-items: center;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      color: #fff;
+      flex: 0 0 auto;
+    }
+
+    .mypage-gender-icon.is-male {
+      background: #1688f8;
+    }
+
+    .mypage-gender-icon.is-female {
+      background: #ff7068;
+    }
+
+    .mypage-gender-icon svg {
+      width: 0.68rem;
+      height: 0.68rem;
+      stroke: currentColor;
     }
 
     .mypage-edit-btn {
@@ -2827,7 +3054,7 @@
       text-align: right;
     }
 
-    .mypage-info-title {
+    .mypage-layer-title {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -2838,17 +3065,46 @@
       list-style: none;
     }
 
+    .mypage-layer-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .mypage-layer-count {
+      color: #00a82f;
+      font-size: inherit;
+      font-weight: 950;
+      line-height: inherit;
+    }
+
+    .mypage-layer-status {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 1.2rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .mypage-layer-status:empty {
+      display: none;
+    }
+
     .mypage-section-title {
       margin: 0 0 0.7rem;
       font-size: 1rem;
       font-weight: 950;
     }
 
-    .mypage-info-title::-webkit-details-marker {
+    .mypage-layer-title::-webkit-details-marker {
       display: none;
     }
 
-    .mypage-info-title::after {
+    .mypage-layer-title::after {
       content: "";
       width: 0.5rem;
       height: 0.5rem;
@@ -2858,11 +3114,11 @@
       transition: transform 0.2s ease;
     }
 
-    .mypage-info-card[open] .mypage-info-title::after {
+    .mypage-fold-card[open] .mypage-layer-title::after {
       transform: rotate(-135deg);
     }
 
-    .mypage-info-content {
+    .mypage-layer-content {
       margin-top: 0.7rem;
     }
 
@@ -2875,6 +3131,7 @@
     .mypage-info-form {
       display: grid;
       gap: 0.9rem;
+      margin-top: 0.8rem;
     }
 
     .mypage-info-save-btn {
@@ -2883,6 +3140,7 @@
       justify-content: center;
       gap: 0;
       margin-top: 0.2rem;
+      background: #00ff40;
       color: #06120a;
     }
 
@@ -2956,9 +3214,7 @@
     }
 
     .mypage-info-file-summary {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: grid;
       gap: 0.8rem;
       border: 1px dashed var(--line);
       border-radius: 12px;
@@ -2969,10 +3225,58 @@
       font-weight: 850;
     }
 
+    .mypage-info-file-summary-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
     .mypage-info-file-summary strong {
       color: var(--ink);
       font-weight: 900;
       text-align: right;
+    }
+
+    .mypage-file-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(4.2rem, 1fr));
+      gap: 0.5rem;
+    }
+
+    .mypage-file-preview {
+      display: grid;
+      gap: 0.28rem;
+      min-width: 0;
+      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 850;
+      text-decoration: none;
+    }
+
+    .mypage-file-preview-thumb {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1;
+      border: 1px solid var(--line);
+      border-radius: 0.55rem;
+      background: #f0f3f7 var(--preview-image, none) center / cover no-repeat;
+      overflow: hidden;
+    }
+
+    .mypage-file-preview.is-document .mypage-file-preview-thumb {
+      display: grid;
+      place-items: center;
+      background-color: #fff;
+      color: #303743;
+      font-size: 1.25rem;
+      font-weight: 950;
+    }
+
+    .mypage-file-preview span:last-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .mypage-info-form-actions {
@@ -3016,10 +3320,37 @@
       flex: 0 0 auto;
       padding: 0.5rem 0.9rem;
       border-radius: 999px;
-      background: var(--accent);
-      color: #fff;
+      background: #00ff40;
+      color: #06120a;
       font-size: 0.82rem;
       font-weight: 900;
+    }
+
+    [data-counsel-write-submit],
+    .counsel-comment-form .submit-btn {
+      background: #00ff40;
+      color: #06120a;
+    }
+
+    [data-counsel-write-submit].is-loading,
+    .counsel-comment-form .submit-btn.is-loading {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+
+    [data-counsel-write-submit].is-loading::before,
+    .counsel-comment-form .submit-btn.is-loading::before {
+      content: "";
+      width: 0.95rem;
+      height: 0.95rem;
+      margin-right: 0.5rem;
+      border: 2px solid rgba(6, 18, 10, 0.25);
+      border-top-color: #06120a;
+      border-radius: 50%;
+      animation: submit-spin 0.7s linear infinite;
+      flex: 0 0 auto;
     }
 
     .counsel-list {
@@ -3030,13 +3361,29 @@
 
     .counsel-card {
       display: grid;
-      gap: 0.4rem;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 0.45rem;
       padding: 1rem;
       border: 1px solid var(--line);
       border-radius: 0.9rem;
       background: #fff;
       text-align: left;
       box-shadow: 0 0.3rem 1rem rgba(15, 23, 42, 0.04);
+    }
+
+    .counsel-card-number {
+      align-self: center;
+      min-width: 1.35rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .counsel-card-main {
+      display: grid;
+      gap: 0.45rem;
+      min-width: 0;
     }
 
     .counsel-card-head {
@@ -3047,19 +3394,57 @@
     }
 
     .counsel-card-author {
-      color: var(--ink);
-      font-size: 0.8rem;
-      font-weight: 900;
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .counsel-author-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      min-width: 0;
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .counsel-gender-icon {
+      display: inline-grid;
+      place-items: center;
+      width: 0.98rem;
+      height: 0.98rem;
+      border-radius: 50%;
+      color: #fff;
+      flex: 0 0 auto;
+      position: relative;
+      top: 1px;
+    }
+
+    .counsel-gender-icon.is-male {
+      background: #1688f8;
+    }
+
+    .counsel-gender-icon.is-female {
+      background: #ff7068;
+    }
+
+    .counsel-gender-icon svg {
+      width: 0.68rem;
+      height: 0.68rem;
+      stroke: currentColor;
     }
 
     .counsel-card-date {
       color: var(--muted);
       font-size: 0.74rem;
       font-weight: 700;
+      flex: 0 0 auto;
     }
 
     .counsel-card-title {
       margin: 0;
+      min-width: 0;
       font-size: 0.98rem;
       font-weight: 950;
       line-height: 1.35;
@@ -3069,16 +3454,20 @@
       -webkit-box-orient: vertical;
     }
 
+    .counsel-title-stage {
+      color: #00d838;
+    }
+
+    .counsel-card-body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      min-width: 0;
+    }
+
     .counsel-card-content {
-      margin: 0;
-      color: #4b5563;
-      font-size: 0.82rem;
-      line-height: 1.5;
-      white-space: pre-wrap;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
+      display: none;
     }
 
     .counsel-card-meta {
@@ -3089,11 +3478,23 @@
       justify-self: end;
       align-self: end;
       gap: 0.18rem;
-      margin-top: 0.35rem;
+      margin-top: 0;
       color: #667085;
       font-size: 0.55rem;
       font-weight: 800;
       white-space: nowrap;
+    }
+
+    @media (max-width: 520px) {
+      .counsel-card-body {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.35rem;
+      }
+
+      .counsel-card-meta {
+        justify-self: start;
+      }
     }
 
     .counsel-card-meta span {
@@ -3202,7 +3603,6 @@
 
     .counsel-comment.is-reply {
       margin-left: 1.3rem;
-      border-left: 2px solid #00d838;
       background: #f2fff5;
     }
 
@@ -3300,6 +3700,14 @@
       gap: 0.5rem;
     }
 
+    .mypage-card-side {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.4rem;
+      flex: 0 0 auto;
+    }
+
     .mypage-date {
       color: var(--muted);
       font-size: 0.76rem;
@@ -3348,6 +3756,12 @@
       background: #00ff40;
     }
 
+    .mypage-step.is-canceled {
+      border-radius: 999px;
+      color: #ef4444;
+      background: #fff1f2;
+    }
+
     .mypage-card.is-editable {
       cursor: pointer;
       border-color: #00d838;
@@ -3358,6 +3772,40 @@
       color: #008f2a;
       font-size: 0.74rem;
       font-weight: 800;
+    }
+
+    .mypage-card-edit-btn {
+      padding: 0.28rem 0.62rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: #303743;
+      font-size: 0.72rem;
+      font-weight: 900;
+    }
+
+    .mypage-card-cancel-btn {
+      color: #ef4444;
+    }
+
+    .mypage-card-cancel-btn.is-loading {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      color: #8b95a1;
+      cursor: wait;
+    }
+
+    .mypage-card-cancel-btn.is-loading::before {
+      content: "";
+      width: 0.72rem;
+      height: 0.72rem;
+      border: 2px solid rgba(139, 149, 161, 0.26);
+      border-top-color: #8b95a1;
+      border-radius: 50%;
+      animation: submit-spin 0.7s linear infinite;
+      flex: 0 0 auto;
     }
 
     .board-pagination {
@@ -4012,39 +4460,6 @@
       line-height: 1 !important;
     }
 
-    .application-selection-page .schedule-time-options {
-      display: flex !important;
-      flex-wrap: wrap !important;
-      gap: 0.5rem !important;
-      align-items: center !important;
-      justify-content: flex-start !important;
-    }
-
-    .application-selection-page .schedule-time-option {
-      width: auto !important;
-      min-width: 5.6rem !important;
-      height: auto !important;
-      min-height: 2.25rem !important;
-      aspect-ratio: auto !important;
-      padding: 0.45rem 0.9rem !important;
-      border: 1px solid var(--line) !important;
-      border-radius: 999px !important;
-      color: #303743 !important;
-      background: #fff !important;
-      box-shadow: 0 0.2rem 0.65rem rgba(15, 23, 42, 0.04) !important;
-      line-height: 1 !important;
-      pointer-events: auto !important;
-      cursor: pointer !important;
-      -webkit-tap-highlight-color: transparent !important;
-    }
-
-    .application-selection-page .schedule-time-option.is-selected {
-      border-color: #00f040 !important;
-      color: #008f2a !important;
-      background: #f2fff5 !important;
-      box-shadow: inset 0 0 0 1px rgba(0, 240, 64, 0.18) !important;
-    }
-
     .application-selection-page > .selection-complete-btn {
       display: flex !important;
       align-items: center !important;
@@ -4158,7 +4573,7 @@
       <main class="content">
         <section class="home-schedule-headlines" data-home-schedule-headlines hidden></section>
         <section id="home-events">
-          <h2 class="home-section-title">로테이션 소개팅</h2>
+          <h2 class="home-section-title"><span class="title-clover-logo" aria-hidden="true"></span>로테이션 소개팅</h2>
           <ul class="event-list" data-event-list="home"></ul>
         </section>
 
@@ -4172,10 +4587,7 @@
     <section class="page" id="page-schedule" data-page="schedule">
       <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
         <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'schedule')">일정</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'location')">위치</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'process')">진행</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'discount')">할인</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'refund')">환불</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'process')">진행 · 할인 · 환불</button>
       </nav>
       <main class="support-page">
         <h1 class="page-title">일정</h1>
@@ -4186,10 +4598,7 @@
     <section class="page" id="page-schedule-detail" data-page="schedule-detail">
       <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
         <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'schedule')">일정</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'location')">위치</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'process')">진행</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'discount')">할인</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'refund')">환불</button>
+        <button class="section-tab" type="button" onclick="window.goPage(event, 'process')">진행 · 할인 · 환불</button>
       </nav>
       <main class="support-page schedule-detail-page">
         <div class="schedule-detail-top">
@@ -4202,10 +4611,7 @@
     <section class="page" id="page-process" data-page="process">
       <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
         <button class="section-tab" type="button" onclick="window.goPage(event, 'schedule')">일정</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'location')">위치</button>
-        <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'process')">진행</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'discount')">할인</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'refund')">환불</button>
+        <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'process')">진행 · 할인 · 환불</button>
       </nav>
       <main class="process-page">
         <section class="process-section" aria-labelledby="processTitle">
@@ -4258,6 +4664,15 @@
           </ol>
           <div class="process-guidance">
             <section class="detail-section">
+              <h2>할인 · 환불 안내</h2>
+              <ul class="detail-list">
+                <li>할인 적용 여부와 최종 금액은 신청 확인 후 개별 안내됩니다.</li>
+                <li>입금 전 취소는 마이 클로버 신청 내역에서 직접 취소할 수 있습니다.</li>
+                <li>입금 후 취소 및 환불은 행사 준비 상황에 따라 별도 안내됩니다.</li>
+                <li>정확한 환불 기준은 참여 확정 전 안내되는 규정을 확인해 주세요.</li>
+              </ul>
+            </section>
+            <section class="detail-section">
               <h2>진행 안내</h2>
               <ul class="detail-list">
                 <li>참여자는 사전 신청 후 안내 문자를 받은 분에 한해 확정됩니다.</li>
@@ -4285,10 +4700,10 @@
 
     <section class="page" id="page-support" data-page="support">
       <main class="support-page">
-        <h1 class="page-title">문의하기</h1>
+        <h1 class="page-title">제휴 문의</h1>
         <section class="support-card">
-          <h2>궁금한 점을 남겨주세요</h2>
-          <p>참여 가능 회차, 연령대 구성, 진행 방식 등 궁금한 내용을 보내주시면 운영 시간 내 순차적으로 답변드립니다.</p>
+          <h2>제휴와 관련된 내용</h2>
+          <p>제휴와 관련된 내용을 보내주시면 운영 시간 내 순차적으로 답변드립니다.</p>
           <div class="field">
             <label for="supportName">이름</label>
             <input id="supportName" name="name" placeholder="이름을 입력하세요">
@@ -4306,48 +4721,12 @@
       </main>
     </section>
 
-    <section class="page" id="page-discount" data-page="discount">
-      <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'schedule')">일정</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'location')">위치</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'process')">진행</button>
-        <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'discount')">할인</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'refund')">환불</button>
-      </nav>
-      <main class="support-page">
-        <h1 class="page-title">할인</h1>
-        <section class="support-card">
-          <h2>할인</h2>
-          <p>등록된 할인이 없습니다.</p>
-        </section>
-      </main>
-    </section>
-
-    <section class="page" id="page-refund" data-page="refund">
-      <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'schedule')">일정</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'location')">위치</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'process')">진행</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'discount')">할인</button>
-        <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'refund')">환불</button>
-      </nav>
-      <main class="support-page">
-        <h1 class="page-title">환불</h1>
-        <section class="support-card">
-          <h2>환불 및 취소 안내</h2>
-          <p>참여 확정 후 취소 및 환불은 행사 준비 상황에 따라 별도 안내됩니다.</p>
-          <p>정확한 규정은 신청 전 운영자가 안내하는 환불 및 취소 규정을 확인해 주세요.</p>
-        </section>
-      </main>
-    </section>
-
     <section class="page" id="page-reviews" data-page="reviews">
-      <nav class="section-tabs review-tabs" aria-label="이후 메뉴">
+      <nav class="section-tabs review-tabs" aria-label="매칭 결과 메뉴">
         <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'episodes')">에피소드</button>
       </nav>
       <main class="location-page">
-        <h1 class="page-title">이후</h1>
+        <h1 class="page-title">매칭 결과</h1>
         <div class="review-sections">
           <section class="support-card section-anchor" id="review-match">
             <h2>매칭 결과</h2>
@@ -4358,24 +4737,15 @@
     </section>
 
     <section class="page" id="page-location" data-page="location">
-      <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'schedule')">일정</button>
-        <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'location')">위치</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'process')">진행</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'discount')">할인</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'refund')">환불</button>
-      </nav>
       <main class="location-page">
         <h1 class="page-title">오시는 길</h1>
         <section class="support-card">
-          <div class="naver-map">
-            <iframe
-              title="CLOVER 네이버 지도"
-              src="https://map.naver.com/p/search/%EC%84%9C%EB%A9%B4%EC%97%AD%2012%EB%B2%88%20%EC%B6%9C%EA%B5%AC"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div>
           <h2>CLOVER 위치</h2>
+          <div class="naver-map">
+            <div class="naver-map-canvas" id="cloverNaverMap" role="img" aria-label="서면역 12번 출구 지도"></div>
+            <div class="naver-map-fallback">지도를 불러오는 중입니다.</div>
+          </div>
+          <h2>[클로버 1기] 위치 공유</h2>
           <p>장소: 서면역 12번 출구</p>
           <p>주소: 미정</p>
           <p>방문 전 운영자 안내를 확인해 주세요.</p>
@@ -4389,25 +4759,11 @@
         <h1 class="page-title">스태프 안내</h1>
         <section class="support-card">
           <ul class="staff-list" aria-label="직원 구성">
-            <li>대표</li>
+            <li><span>대표</span><span class="staff-name">고라파덕</span></li>
             <li>관리자</li>
             <li>매니저</li>
             <li>스태프</li>
           </ul>
-        </section>
-      </main>
-    </section>
-
-    <section class="page" id="page-episodes" data-page="episodes">
-      <nav class="section-tabs review-tabs" aria-label="이후 메뉴">
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
-        <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'episodes')">에피소드</button>
-      </nav>
-      <main class="location-page">
-        <h1 class="page-title">이후</h1>
-        <section class="support-card">
-          <h2>에피소드</h2>
-          <p>등록된 에피소드가 없습니다.</p>
         </section>
       </main>
     </section>
@@ -4459,11 +4815,12 @@
     <section class="page" id="page-counsel" data-page="counsel">
       <main class="location-page">
         <div class="counsel-page-head">
-          <h1 class="page-title">연애 상담</h1>
+          <h1 class="page-title">연애 상담 자유 게시판</h1>
           <button class="counsel-write-btn" type="button" data-counsel-write>글쓰기</button>
         </div>
         <p class="page-description">이용자들이 자유롭게 상담을 나누는 공간입니다. 운영자는 참여하지 않습니다.</p>
         <div class="counsel-list" data-counsel-list></div>
+        <nav class="board-pagination" data-counsel-pagination aria-label="연애 상담 페이지 이동" hidden></nav>
       </main>
     </section>
 
@@ -4473,7 +4830,7 @@
           <button class="board-page-button" type="button" onclick="window.goPage(event,'counsel')" aria-label="목록으로">
             <span>‹</span>
           </button>
-          <h1 class="page-title">연애 상담</h1>
+          <h1 class="page-title">연애 상담 자유 게시판</h1>
         </div>
         <div data-counsel-detail></div>
       </main>
@@ -4484,6 +4841,24 @@
         <h1 class="page-title" data-counsel-write-title>글쓰기</h1>
         <section class="support-card">
           <form class="board-form" data-counsel-write-form novalidate>
+            <div class="field">
+              <label for="counselAuthorInput">작성자</label>
+              <input id="counselAuthorInput" type="text" readonly aria-readonly="true">
+            </div>
+            <div class="field">
+              <label for="counselStageInput">단계</label>
+              <select id="counselStageInput" required>
+                <option value="관심 단계">관심 단계</option>
+                <option value="호감 단계">호감 단계</option>
+                <option value="썸 단계">썸 단계</option>
+                <option value="초기 커플">초기 커플</option>
+                <option value="장기 연애">장기 연애</option>
+                <option value="권태기">권태기</option>
+                <option value="결혼 준비">결혼 준비</option>
+                <option value="결혼 초기">결혼 초기</option>
+                <option value="돌싱 단계">돌싱 단계</option>
+              </select>
+            </div>
             <div class="field">
               <label for="counselTitleInput">제목</label>
               <input id="counselTitleInput" type="text" maxlength="60" placeholder="제목을 입력해 주세요." required>
@@ -4500,28 +4875,53 @@
 
     <section class="page" id="page-mypage" data-page="mypage">
       <main class="location-page">
-        <h1 class="page-title">마이페이지</h1>
+        <div class="mypage-title-row">
+          <h1 class="page-title">마이 클로버</h1>
+          <span class="mypage-title-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M5.5 4h10A3.5 3.5 0 0 1 19 7.5v5a3.5 3.5 0 0 1-3.5 3.5H10l-4.5 3v-3A3.5 3.5 0 0 1 2 12.5v-5A3.5 3.5 0 0 1 5.5 4Z" fill="#00ff40"/>
+              <path d="M10 8h8.2A3.8 3.8 0 0 1 22 11.8v3.4a3.8 3.8 0 0 1-3.8 3.8h-2.7L12 21v-2A3.8 3.8 0 0 1 8.2 15.2v-3.4A3.8 3.8 0 0 1 10 8Z" fill="#121218"/>
+              <circle cx="12.5" cy="13.5" r="0.8" fill="#fff"/>
+              <circle cx="15.5" cy="13.5" r="0.8" fill="#fff"/>
+              <circle cx="18.5" cy="13.5" r="0.8" fill="#fff"/>
+            </svg>
+          </span>
+          <span class="mypage-unique-number" data-mypage-unique-number>고유번호: -</span>
+        </div>
         <p class="page-description">내가 신청한 내역과 진행 상태를 확인할 수 있습니다.</p>
         <section class="support-card mypage-profile-card">
-          <h2 class="mypage-section-title">클로버 프로필</h2>
+          <div class="mypage-profile-header">
+            <h2 class="mypage-section-title">클로버 프로필</h2>
+            <span class="mypage-profile-actions" data-mypage-profile-actions></span>
+          </div>
           <div data-mypage-profile></div>
         </section>
-        <details class="support-card mypage-info-card">
-          <summary class="mypage-info-title">내 정보</summary>
-          <div class="mypage-info-content">
-            <p class="schedule-description">신청 시 자동으로 저장되며, 새 신청서 작성 시 불러올 수 있습니다. 펼쳐서 수정할 수 있습니다.</p>
+        <details class="support-card mypage-fold-card">
+          <summary class="mypage-layer-title">신청서</summary>
+          <div class="mypage-layer-content">
             <div class="mypage-info-list" data-mypage-info></div>
           </div>
         </details>
-        <section class="support-card">
-          <h2 class="mypage-section-title">신청 내역</h2>
-          <div class="mypage-list" data-mypage-list></div>
-        </section>
-        <section class="support-card">
-          <h2 class="mypage-section-title">연애 상담 사연</h2>
-          <div class="counsel-list" data-mypage-saved-counsel></div>
-          <nav class="board-pagination" data-mypage-saved-counsel-pagination aria-label="저장한 글 페이지 이동" hidden></nav>
-        </section>
+        <details class="support-card mypage-fold-card">
+          <summary class="mypage-layer-title"><span class="mypage-layer-label">신청 내역 <span class="board-status mypage-layer-status" data-mypage-application-status></span></span></summary>
+          <div class="mypage-layer-content">
+            <div class="mypage-list" data-mypage-list></div>
+          </div>
+        </details>
+        <details class="support-card mypage-fold-card">
+          <summary class="mypage-layer-title"><span class="mypage-layer-label">연애 상담 <span class="mypage-layer-count" data-mypage-counsel-count></span></span></summary>
+          <div class="mypage-layer-content">
+            <div class="counsel-list" data-mypage-counsel></div>
+            <nav class="board-pagination" data-mypage-counsel-pagination aria-label="내 연애 상담 페이지 이동" hidden></nav>
+          </div>
+        </details>
+        <details class="support-card mypage-fold-card">
+          <summary class="mypage-layer-title"><span class="mypage-layer-label">익명 문의 <span class="mypage-layer-count" data-mypage-board-count></span></span></summary>
+          <div class="mypage-layer-content">
+            <div class="board-post-list" data-mypage-board></div>
+            <nav class="board-pagination" data-mypage-board-pagination aria-label="내 익명 문의 페이지 이동" hidden></nav>
+          </div>
+        </details>
       </main>
     </section>
 
@@ -4559,10 +4959,11 @@
     <nav class="drawer-links" aria-label="메뉴">
       <button class="drawer-link" type="button" data-page-link="home" onclick="window.goPage(event, 'home')">홈</button>
       <button class="drawer-link" type="button" data-page-link="schedule" onclick="window.goPage(event, 'schedule')">안내</button>
-      <button class="drawer-link" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')">이후</button>
+      <button class="drawer-link" type="button" data-page-link="location" onclick="window.goPage(event, 'location')">오시는 길</button>
+      <button class="drawer-link" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
       <button class="drawer-link" type="button" data-page-link="board" onclick="window.goPage(event, 'board')">익명 문의</button>
       <button class="drawer-link" type="button" data-page-link="counsel" onclick="window.goPage(event, 'counsel')">연애 상담</button>
-      <button class="drawer-link" type="button" data-page-link="mypage" onclick="window.goPage(event, 'mypage')">마이페이지</button>
+      <button class="drawer-link" type="button" data-page-link="mypage" onclick="window.goPage(event, 'mypage')">마이 클로버</button>
     </nav>
     <div class="drawer-shortcuts">
       <p class="drawer-shortcut-label">바로가기</p>
@@ -4588,13 +4989,13 @@
             <circle cx="16.6" cy="7.6" r="1" fill="#fff"/>
           </svg>
         </a>
-        <button class="drawer-social-link" type="button" data-page-link="support" onclick="window.goPage(event, 'support')" aria-label="1:1 채팅" title="1:1 채팅">
+        <button class="drawer-social-link" type="button" data-page-link="support" onclick="window.goPage(event, 'support')" aria-label="제휴 문의" title="제휴 문의">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M5.5 4h10A3.5 3.5 0 0 1 19 7.5v5a3.5 3.5 0 0 1-3.5 3.5H10l-4.5 3v-3A3.5 3.5 0 0 1 2 12.5v-5A3.5 3.5 0 0 1 5.5 4Z" fill="#00ff40"/>
-            <path d="M10 8h8.2A3.8 3.8 0 0 1 22 11.8v3.4a3.8 3.8 0 0 1-3.8 3.8h-2.7L12 21v-2A3.8 3.8 0 0 1 8.2 15.2v-3.4A3.8 3.8 0 0 1 10 8Z" fill="#121218"/>
-            <circle cx="12.5" cy="13.5" r="0.8" fill="#fff"/>
-            <circle cx="15.5" cy="13.5" r="0.8" fill="#fff"/>
-            <circle cx="18.5" cy="13.5" r="0.8" fill="#fff"/>
+            <rect width="24" height="24" rx="5" fill="#00ff40"/>
+            <path d="M7.2 9.4 4.8 12l3.6 3.8c.9 1 2.5 1 3.5 0l.45-.45" fill="none" stroke="#121218" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16.8 9.4 19.2 12l-3.6 3.8c-.9 1-2.5 1-3.5 0l-2.5-2.5" fill="none" stroke="#121218" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9.2 10.8 11 9h2.2l1.6 1.6-2.2 2.2" fill="none" stroke="#121218" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10 15.6 8.4 14M12 16.4l-2-2M14 16l-2.3-2.3" fill="none" stroke="#121218" stroke-width="1.45" stroke-linecap="round"/>
           </svg>
         </button>
         <button class="drawer-staff-link" type="button" data-page-link="staff" onclick="window.goPage(event, 'staff')">STAFF</button>
@@ -4696,7 +5097,7 @@
     const iconPin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbwFMvt0GP_ayYqA_ZXXh1GGT7vnqscAUK8t4PLB-DEnJ3KI4dITo9leptWa0cKDkGDh/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbwhdgxpL4RUv6lhakUUA7zWPgFbGaJi2cn_jAudVZeMouwgn2aEIitwEc9abez-gxxr/exec";
     const HERO_CACHE_KEY = "clover-managed-hero-slides-v5";
     const HERO_FALLBACK_SLIDES = [
       {
@@ -4786,38 +5187,50 @@
 
     const applicationScheduleDates = new Set([
       "2026-07-10", "2026-07-12", "2026-07-18", "2026-07-19", "2026-07-25", "2026-07-26", "2026-07-31",
-      "2026-08-01", "2026-08-08", "2026-08-09", "2026-08-15", "2026-08-16", "2026-08-21", "2026-08-23"
+      "2026-08-01", "2026-08-08", "2026-08-09", "2026-08-15", "2026-08-16", "2026-08-21", "2026-08-23",
+      "2026-09-05", "2026-09-06", "2026-09-12", "2026-09-13", "2026-09-18", "2026-09-20", "2026-09-24", "2026-09-25", "2026-09-26"
     ]);
 
     const applicationHolidayDates = new Set([
+      "2026-01-01",
+      "2026-02-16", "2026-02-17", "2026-02-18",
+      "2026-03-01", "2026-03-02",
+      "2026-05-05", "2026-05-24", "2026-05-25",
+      "2026-06-03", "2026-06-06",
       "2026-07-17", // 제헌절
       "2026-08-15", // 광복절
-      "2026-08-17"  // 광복절 대체공휴일
+      "2026-08-17", // 광복절 대체공휴일
+      "2026-09-24", "2026-09-25", "2026-09-26",
+      "2026-10-03", "2026-10-05", "2026-10-09",
+      "2026-12-25"
     ]);
 
     function applicationTimesForDate(isoDate) {
-      if (!applicationScheduleDates.has(isoDate)) return [];
-      const day = new Date(`${isoDate}T00:00:00`).getDay();
-      if (day === 5) return ["오후 7시"];
-      if (day === 6 || day === 0) return ["오후 1시", "오후 4시", "오후 7시"];
-      return [];
+      return applicationScheduleDates.has(isoDate) ? [""] : [];
     }
     const confirmedParticipantsBySchedule = {};
 
-    function renderScheduleTimeOptions(dateKey) {
-      const target = document.querySelector("[data-schedule-time-options]");
-      if (!target) return;
-      const times = applicationTimesForDate(dateKey);
-      const matchingSlot = selectedScheduleSlots.find((slot) => slot.dateKey === dateKey);
-      const activeTime = matchingSlot?.time || (selectedScheduleDateKey === dateKey ? selectedScheduleTime : "");
-      target.innerHTML = times.map((time) => `<button class="schedule-time-option${time === activeTime ? " is-selected" : ""}" type="button" data-application-time="${time}">${time}</button>`).join("");
-      target.querySelectorAll("[data-application-time]").forEach((button) => {
-        button.addEventListener("click", (event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          event.stopImmediatePropagation();
-          applyScheduleTimeSelection(button.dataset.applicationTime);
-        });
+    function getSeoulTodayParts() {
+      const parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Seoul",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      }).formatToParts(new Date());
+      const part = (type) => parts.find((item) => item.type === type)?.value || "";
+      return {
+        year: Number(part("year")),
+        month: Number(part("month")),
+        day: Number(part("day"))
+      };
+    }
+
+    function getApplicationCalendarMonths() {
+      const today = getSeoulTodayParts();
+      const first = new Date(today.year, today.month - 1, 1);
+      return [0, 1].map((offset) => {
+        const date = new Date(first.getFullYear(), first.getMonth() + offset, 1);
+        return { year: date.getFullYear(), month: date.getMonth() + 1 };
       });
     }
 
@@ -4833,7 +5246,7 @@
         <div class="selected-schedule-list" data-selected-schedule-list>
           ${selectedScheduleSlots.map((slot, index) => `
             <div class="selected-schedule-item">
-              <span>${slot.label} ${slot.time}</span>
+              <span>${slot.label}</span>
               <button class="selected-schedule-remove" type="button" data-remove-schedule-slot="${index}" aria-label="선택 일정 삭제">×</button>
             </div>
           `).join("")}
@@ -4857,8 +5270,8 @@
       if (selectedScheduleSlots.length) {
         const slot = selectedScheduleSlots[selectedScheduleSlots.length - 1];
         selectedScheduleDateKey = slot.dateKey;
-        selectedScheduleTime = slot.time;
-        selectedScheduleDate = `${slot.label} ${slot.time}`;
+        selectedScheduleTime = "";
+        selectedScheduleDate = slot.label;
       } else {
         selectedScheduleDateKey = "";
         selectedScheduleTime = "";
@@ -4866,11 +5279,11 @@
       }
     }
 
-    function formatSelectedSchedule(isoDate, time) {
-      if (!isoDate || !time) return "";
+    function formatSelectedSchedule(isoDate) {
+      if (!isoDate) return "";
       const [year, month, day] = isoDate.split("-").map(Number);
       const weekday = ["일", "월", "화", "수", "목", "금", "토"][new Date(`${isoDate}T00:00:00`).getDay()];
-      return `${year}년 ${month}월 ${day}일(${weekday}) ${time}`;
+      return `${year}년 ${month}월 ${day}일(${weekday})`;
     }
 
     function formatKoreanEventDate(value) {
@@ -4896,35 +5309,6 @@
       return `${part("year")}년 ${part("month")}월 ${part("day")}일 ${period} ${part("hour")}시${minute ? ` ${minute}분` : ""}`;
     }
 
-    function applyScheduleTimeSelection(time) {
-      const selectedDateButton = document.querySelector(".application-day.is-selected");
-      const activeDateKey = selectedDateButton?.dataset.applicationDate || selectedScheduleDateKey || "";
-      if (!activeDateKey || !time) return;
-      selectedScheduleDateKey = activeDateKey;
-      selectedScheduleTime = time;
-      const nextSlot = {
-        dateKey: activeDateKey,
-        label: formatScheduleDateOnly(activeDateKey),
-        time
-      };
-      selectedScheduleDate = `${nextSlot.label} ${time}`;
-      const existingIndex = selectedScheduleSlots.findIndex((slot) => slot.dateKey === activeDateKey);
-      if (existingIndex >= 0) {
-        selectedScheduleSlots.splice(existingIndex, 1, nextSlot);
-      } else {
-        selectedScheduleSlots.push(nextSlot);
-      }
-      renderApplicationSelection(selectedEvent);
-    }
-
-    window.selectApplicationTime = function selectApplicationTime(event, time) {
-      if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      applyScheduleTimeSelection(time);
-    };
-
     function applicationMonthTemplate(year, month) {
       const firstDay = new Date(year, month - 1, 1).getDay();
       const lastDate = new Date(year, month, 0).getDate();
@@ -4948,7 +5332,7 @@
           dayOfWeek === 6 ? "is-saturday" : "",
           isHoliday ? "is-holiday" : "",
           iso === today ? "is-today" : "",
-          iso === selectedScheduleDateKey ? "is-selected" : ""
+          (iso === selectedScheduleDateKey || selectedScheduleSlots.some((slot) => slot.dateKey === iso)) ? "is-selected" : ""
         ].filter(Boolean).join(" ");
         cells.push(`<button class="${classes}" type="button" ${isAvailable ? `data-application-date="${iso}"` : "disabled"}><b>${day}</b></button>`);
       }
@@ -4980,10 +5364,13 @@
       selectedScheduleDate = "";
       selectedScheduleDateKey = "";
       selectedScheduleTime = "";
+      selectedScheduleSlots = [];
       selectedApplicationRegions = [];
       selectedAgeOption = null;
       selectedDocumentFile = null;
       selectedPhotoFiles = [];
+      selectedExistingDocumentUrl = "";
+      selectedExistingPhotoUrls = [];
       selectedFileSequence = 0;
     }
 
@@ -5017,19 +5404,12 @@
     }
 
     function selectionScheduleMarkup() {
-      const resultHidden = selectedScheduleDateKey ? "" : " hidden";
       return `
         <section class="form-section schedule-section">
-          <div class="schedule-heading">참여 희망 일자 (중복 가능) <span class="req">*</span></div>
+          <div class="schedule-heading">참여 희망 일자 (다중 선택 가능) <span class="req">*</span></div>
           <p class="schedule-description">가능한 날짜를 선택해주세요.</p>
           <div class="application-calendar">
-            ${applicationMonthTemplate(2026, 7)}
-            ${applicationMonthTemplate(2026, 8)}
-          </div>
-          <div class="schedule-result" data-schedule-result${resultHidden}>
-            <section class="schedule-result-section schedule-time-section">
-              <div class="schedule-time-options" data-schedule-time-options></div>
-            </section>
+            ${getApplicationCalendarMonths().map(({ year, month }) => applicationMonthTemplate(year, month)).join("")}
           </div>
           ${selectedScheduleSectionMarkup()}
         </section>
@@ -5062,15 +5442,11 @@
           </div>
         </article>
         <div class="application-selection-page">
-          ${renderAgeSelectionMarkup()}
           ${selectionScheduleMarkup()}
+          ${renderAgeSelectionMarkup()}
           <button class="selection-complete-btn" type="button" data-selection-complete ${selectionReady ? "" : "disabled"}>선택 완료</button>
         </div>
       `;
-
-      if (selectedScheduleDateKey) {
-        renderScheduleTimeOptions(selectedScheduleDateKey);
-      }
 
       updateSelectionCompleteButton();
       window.scrollTo({ top: preservedScrollY, left: 0, behavior: "instant" });
@@ -5080,6 +5456,8 @@
       selectedEvent = event;
       selectedDocumentFile = null;
       selectedPhotoFiles = [];
+      selectedExistingDocumentUrl = "";
+      selectedExistingPhotoUrls = [];
       const applicationGender = selectedApplyGender || "";
       const applicationPrice = selectedApplyPrice || event.price;
       const applicationAgeRange = selectedAgeOption?.range || event.station;
@@ -5132,7 +5510,7 @@
             </div>
             <p>현재 기준으로 아래 양식을 작성해 주시길 바랍니다.</p>
           </div>
-          <button class="apply-same-as-profile-btn" type="button" data-apply-same-as-profile>내정보와 동일</button>
+          <button class="apply-same-as-profile-btn" type="button" data-apply-same-as-profile>내 정보와 동일</button>
 
           <section class="form-section">
             <h3>기본 정보</h3>
@@ -5387,10 +5765,20 @@
     let selectedScheduleSlots = [];
     let selectedDocumentFile = null;
     let selectedPhotoFiles = [];
+    let selectedExistingDocumentUrl = "";
+    let selectedExistingPhotoUrls = [];
     let selectedApplicationRegions = [];
     let selectedAgeOption = null;
     let currentPageName = document.querySelector(".page.is-active")?.dataset.page || "home";
     const validPageNames = new Set([...pages].map((page) => page.dataset.page));
+    const naverMapClientId = "evk9pbogap";
+    const cloverLocation = {
+      title: "서면역 12번 출구",
+      lat: 35.157878,
+      lng: 129.059168
+    };
+    let cloverMapLoaded = false;
+    let cloverMapLoading = false;
     const applicationAgeOptions = [
       { id: "age-20-27", range: "20세 - 27세", remaining: 6 },
       { id: "age-24-29", range: "24세 - 29세", remaining: 6 },
@@ -5431,6 +5819,7 @@
     const visitorIdKey = "cloverVisitorId";
     const visitorNameKey = "cloverVisitorName";
     const visitorNumberKey = "cloverVisitorNumber";
+    const profileGenderKey = "cloverProfileGender";
     const mypageCacheKey = "clover-mypage-applications-v1";
     const profileInfoCacheKey = "clover-mypage-profile-info-v1";
 
@@ -5480,7 +5869,17 @@
         headers: { "Content-Type": "application/x-www-form-urlencoded;charset=utf-8" },
         body: new URLSearchParams({ payload: JSON.stringify(payload) }).toString()
       });
-      const result = await response.json();
+      const text = await response.text();
+      let result = null;
+      try {
+        result = JSON.parse(text);
+      } catch {
+        const plainText = text.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+        const message = plainText
+          ? `서버 응답 오류: ${plainText.slice(0, 120)}`
+          : "서버에서 올바르지 않은 응답을 받았습니다.";
+        throw new Error(message);
+      }
       if (!response.ok || !result.ok) throw new Error(result.error || "요청을 처리하지 못했습니다.");
       return result;
     }
@@ -5493,37 +5892,87 @@
       try { localStorage.setItem(visitorNumberKey, String(value)); } catch {}
     }
 
+    function readProfileGender() {
+      try {
+        const gender = localStorage.getItem(profileGenderKey) || "";
+        return ["남성", "여성"].includes(gender) ? gender : "";
+      } catch {
+        return "";
+      }
+    }
+
+    function writeProfileGender(gender) {
+      const cleanGender = ["남성", "여성"].includes(gender) ? gender : "";
+      try {
+        if (cleanGender) localStorage.setItem(profileGenderKey, cleanGender);
+        else localStorage.removeItem(profileGenderKey);
+      } catch {}
+      return cleanGender;
+    }
+
+    function syncProfileGender(gender, keepEditing = false) {
+      const cleanGender = writeProfileGender(gender);
+      if (currentPageName === "mypage") {
+        renderProfileBar(keepEditing);
+        renderMyCounsel();
+      }
+      if (currentPageName === "counsel") renderCounselList();
+      return cleanGender;
+    }
+
+    function visitorNumberFromVisitorId(visitorId) {
+      const cleanId = String(visitorId || "").replace(/[^a-zA-Z0-9]/g, "");
+      return cleanId.slice(-4).toUpperCase();
+    }
+
     function formatVisitorNumber(value) {
-      const number = Number(value);
-      if (!Number.isFinite(number) || number <= 0) return "";
-      const padded = String(number).padStart(6, "0").slice(-6);
-      return `${padded.slice(0, 3)}-${padded.slice(3)}`;
+      return String(value || "").replace(/[^a-zA-Z0-9]/g, "").slice(-4).toUpperCase();
+    }
+
+    function profileGenderIconHtml(gender) {
+      if (gender === "남성") return `<span class="mypage-gender-icon is-male" aria-hidden="true">${iconMale}</span>`;
+      if (gender === "여성") return `<span class="mypage-gender-icon is-female" aria-hidden="true">${iconFemale}</span>`;
+      return "";
     }
 
     function renderProfileBar(editing = false, errorText = "") {
       const container = document.querySelector("[data-mypage-profile]");
       if (!container) return;
-      const { name } = getVisitorIdentity();
-      const number = formatVisitorNumber(readVisitorNumberCache());
+      const { id, name } = getVisitorIdentity();
+      const number = formatVisitorNumber(readVisitorNumberCache()) || visitorNumberFromVisitorId(id);
+      const profileGender = readProfileGender();
+      const numberLabel = document.querySelector("[data-mypage-unique-number]");
+      if (numberLabel) numberLabel.textContent = `고유번호: ${number || "-"}`;
+      const actions = document.querySelector("[data-mypage-profile-actions]");
+      if (actions) {
+        actions.innerHTML = editing
+          ? `<button class="mypage-edit-btn" type="button" data-mypage-name-save>저장</button>
+             <button class="mypage-edit-btn" type="button" data-mypage-name-cancel>취소</button>`
+          : `<button class="mypage-edit-btn" type="button" data-mypage-name-edit>수정</button>`;
+      }
       container.innerHTML = `
-        <div class="mypage-profile-row">
-          <span class="mypage-profile-label">ID</span>
-          <div class="mypage-profile-value">
-            ${editing
-              ? `<input class="mypage-name-input" data-mypage-name-input type="text" maxlength="8" value="${name}">
-                 <button class="mypage-edit-btn" type="button" data-mypage-name-save>저장</button>
-                 <button class="mypage-edit-btn" type="button" data-mypage-name-cancel>취소</button>`
-              : `<span class="mypage-profile-name">${name}</span>
-                 <span class="mypage-profile-actions">
-                   <button class="mypage-edit-btn" type="button" data-mypage-open-info>내 정보</button>
-                   <button class="mypage-edit-btn" type="button" data-mypage-name-edit>수정</button>
-                 </span>`}
+        <div class="mypage-profile-top">
+          <div class="mypage-profile-fields">
+            <div class="mypage-profile-row">
+              <span class="mypage-profile-label">ID</span>
+              <div class="mypage-profile-value">
+                ${editing
+                  ? `<input class="mypage-name-input" data-mypage-name-input type="text" maxlength="8" value="${name}">`
+                  : `<span class="mypage-profile-name">${name}</span>`}
+              </div>
+            </div>
+            ${errorText ? `<p class="mypage-profile-error">${errorText}</p>` : ""}
+            <div class="mypage-profile-row">
+              <span class="mypage-profile-label">성별</span>
+              <span class="mypage-gender-control" ${editing ? `role="group" aria-label="성별 선택"` : ""}>
+                ${editing
+                  ? `<button class="mypage-gender-btn${!profileGender ? " is-selected" : ""}" type="button" data-profile-gender-choice="">미설정</button>
+                     <button class="mypage-gender-btn${profileGender === "남성" ? " is-selected" : ""}" type="button" data-profile-gender-choice="남성">${profileGenderIconHtml("남성")}남성</button>
+                     <button class="mypage-gender-btn${profileGender === "여성" ? " is-selected" : ""}" type="button" data-profile-gender-choice="여성">${profileGenderIconHtml("여성")}여성</button>`
+                  : `<span class="mypage-gender-status">${profileGender ? `${profileGenderIconHtml(profileGender)}${profileGender}` : "미설정"}</span>`}
+              </span>
+            </div>
           </div>
-        </div>
-        ${errorText ? `<p class="mypage-profile-error">${errorText}</p>` : ""}
-        <div class="mypage-profile-row">
-          <span class="mypage-profile-label">고유번호</span>
-          <span class="mypage-profile-number">${number || "-"}</span>
         </div>
       `;
     }
@@ -5588,17 +6037,6 @@
         if (input) saveVisitorNickname(input.value);
         return;
       }
-      const mypageOpenInfoBtn = closestFrom(event.target, "[data-mypage-open-info]");
-      if (mypageOpenInfoBtn) {
-        event.preventDefault();
-        event.stopPropagation();
-        const card = document.querySelector(".mypage-info-card");
-        if (card) card.open = true;
-        mypageInfoEditing = false;
-        renderMyProfileInfo(mypageInfoCurrentProfile || readProfileInfoCache(), false);
-        setTimeout(() => card?.scrollIntoView({ block: "start", behavior: "smooth" }), 0);
-        return;
-      }
       const mypageInfoEditBtn = closestFrom(event.target, "[data-mypage-info-edit]");
       if (mypageInfoEditBtn) {
         event.preventDefault();
@@ -5618,9 +6056,21 @@
       const sameAsProfileBtn = closestFrom(event.target, "[data-apply-same-as-profile]");
       if (sameAsProfileBtn) {
         event.preventDefault();
+        if (sameAsProfileBtn.classList.contains("is-applied")) {
+          clearSameAsProfile();
+          sameAsProfileBtn.classList.remove("is-applied");
+          return;
+        }
         applySameAsProfile().then((applied) => {
           if (applied) sameAsProfileBtn.classList.add("is-applied");
         });
+        return;
+      }
+      const profileGenderChoice = closestFrom(event.target, "[data-profile-gender-choice]");
+      if (profileGenderChoice) {
+        event.preventDefault();
+        event.stopPropagation();
+        syncProfileGender(profileGenderChoice.dataset.profileGenderChoice, true);
         return;
       }
       const infoSaveBtn = closestFrom(event.target, "[data-mypage-info-save]");
@@ -5718,20 +6168,52 @@
         setCounselReplyTarget(null);
         return;
       }
-      const savedCounselPrev = closestFrom(event.target, "[data-mypage-counsel-prev]");
-      if (savedCounselPrev) {
+      const counselPrev = closestFrom(event.target, "[data-counsel-prev]");
+      if (counselPrev) {
         event.preventDefault();
-        if (savedCounselPrev.disabled) return;
-        mySavedCounselPage -= 1;
-        renderMySavedCounsel();
+        if (counselPrev.disabled) return;
+        counselCurrentPage -= 1;
+        renderCounselList();
         return;
       }
-      const savedCounselNext = closestFrom(event.target, "[data-mypage-counsel-next]");
-      if (savedCounselNext) {
+      const counselNext = closestFrom(event.target, "[data-counsel-next]");
+      if (counselNext) {
         event.preventDefault();
-        if (savedCounselNext.disabled) return;
-        mySavedCounselPage += 1;
-        renderMySavedCounsel();
+        if (counselNext.disabled) return;
+        counselCurrentPage += 1;
+        renderCounselList();
+        return;
+      }
+      const myCounselPrev = closestFrom(event.target, "[data-mypage-counsel-prev]");
+      if (myCounselPrev) {
+        event.preventDefault();
+        if (myCounselPrev.disabled) return;
+        myCounselPage -= 1;
+        renderMyCounsel();
+        return;
+      }
+      const myCounselNext = closestFrom(event.target, "[data-mypage-counsel-next]");
+      if (myCounselNext) {
+        event.preventDefault();
+        if (myCounselNext.disabled) return;
+        myCounselPage += 1;
+        renderMyCounsel();
+        return;
+      }
+      const myBoardPrev = closestFrom(event.target, "[data-mypage-board-prev]");
+      if (myBoardPrev) {
+        event.preventDefault();
+        if (myBoardPrev.disabled) return;
+        myBoardPage -= 1;
+        renderMyBoardPosts();
+        return;
+      }
+      const myBoardNext = closestFrom(event.target, "[data-mypage-board-next]");
+      if (myBoardNext) {
+        event.preventDefault();
+        if (myBoardNext.disabled) return;
+        myBoardPage += 1;
+        renderMyBoardPosts();
         return;
       }
     });
@@ -5740,26 +6222,48 @@
       const writeForm = closestFrom(event.target, "[data-counsel-write-form]");
       if (writeForm) {
         event.preventDefault();
+        if (counselSubmitting) return;
         const title = document.querySelector("#counselTitleInput").value.trim();
+        const stage = document.querySelector("#counselStageInput")?.value || "관심 단계";
         const content = document.querySelector("#counselContentInput").value.trim();
         if (!title || !content) {
           alert("제목과 내용을 입력해 주세요.");
           return;
         }
         const submitBtn = document.querySelector("[data-counsel-write-submit]");
-        if (submitBtn) submitBtn.disabled = true;
+        const submitText = counselEditingId ? "수정하기" : "등록하기";
+        const isEditingCounsel = Boolean(counselEditingId);
+        counselSubmitting = true;
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.classList.add("is-loading");
+          submitBtn.textContent = isEditingCounsel ? "수정 중" : "등록 중";
+        }
         try {
-          const { id: visitorId, name } = getVisitorIdentity();
+          const { id: visitorId } = getVisitorIdentity();
+          const author = document.querySelector("#counselAuthorInput")?.value || getVisitorIdentity().name;
+          const gender = readProfileGender();
           const payload = counselEditingId
-            ? { type: "counselUpdate", id: counselEditingId, visitorId, title, content }
-            : { type: "counselCreate", visitorId, author: name, title, content };
+            ? { type: "counselUpdate", id: counselEditingId, visitorId, authorKey: counselLegacyAuthorKey(), title, stage, content, gender }
+            : { type: "counselCreate", visitorId, author, title, stage, content, gender };
           const result = await visitorApi(payload);
-          updateCounselPostInState(result.post);
-          openCounselDetail(result.post.id);
+          const savedPost = result.post ? { ...result.post, stage: result.post.stage || stage, gender: result.post.gender || gender } : null;
+          updateCounselPostInState(savedPost);
+          openCounselDetail(savedPost.id);
         } catch (error) {
-          alert(error?.message || "저장하지 못했습니다.");
+          if (isEditingCounsel) {
+            alert(error?.message || "저장하지 못했습니다.");
+          } else {
+            await loadCounselPosts();
+            setPage("counsel");
+          }
         } finally {
-          if (submitBtn) submitBtn.disabled = false;
+          counselSubmitting = false;
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.classList.remove("is-loading");
+            submitBtn.textContent = submitText;
+          }
         }
         return;
       }
@@ -5770,7 +6274,11 @@
         const content = textarea.value.trim();
         if (!content) return;
         const submitBtn = commentForm.querySelector("button[type='submit']");
-        if (submitBtn) submitBtn.disabled = true;
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.classList.add("is-loading");
+          submitBtn.textContent = "등록 중";
+        }
         try {
           const { id: visitorId, name } = getVisitorIdentity();
           const result = await visitorApi({
@@ -5787,38 +6295,102 @@
         } catch (error) {
           alert(error?.message || "댓글을 등록하지 못했습니다.");
         } finally {
-          if (submitBtn) submitBtn.disabled = false;
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.classList.remove("is-loading");
+            submitBtn.textContent = "댓글 등록";
+          }
         }
         return;
       }
     });
 
     const applicationStatusSteps = ["접수", "확인", "승인"];
+    const canceledApplicationStatus = "취소";
     let currentMyApplications = [];
 
+    function applicationGenderValue(application) {
+      const source = `${application?.gender || ""} ${application?.applicationType || ""} ${application?.eventTitle || ""}`;
+      if (source.includes("남성")) return "남성";
+      if (source.includes("여성")) return "여성";
+      return "";
+    }
+
+    function latestApplicationGender(applications) {
+      const latest = [...applications]
+        .map((application) => ({ application, gender: applicationGenderValue(application) }))
+        .filter((item) => item.gender)
+        .sort((a, b) => new Date(b.application.submittedAt || 0) - new Date(a.application.submittedAt || 0))[0];
+      return latest?.gender || "";
+    }
+
+    function applicationStatusClass(status) {
+      return status === "취소" ? "is-canceled" : status === "승인" ? "is-complete" : status === "확인" ? "is-checked" : "is-received";
+    }
+
+    function normalizedApplicationStatus(application) {
+      const status = application?.status || "";
+      return status === canceledApplicationStatus || applicationStatusSteps.includes(status) ? status : "접수";
+    }
+
+    function applicationDisplayRank(application) {
+      return normalizedApplicationStatus(application) === canceledApplicationStatus ? 1 : 0;
+    }
+
+    function sortApplicationsForDisplay(applications) {
+      return [...applications].sort((a, b) => {
+        const rankDiff = applicationDisplayRank(a) - applicationDisplayRank(b);
+        if (rankDiff) return rankDiff;
+        return Number(b.submittedAt || 0) - Number(a.submittedAt || 0);
+      });
+    }
+
+    function updateApplicationLayerStatus(applications) {
+      const badge = document.querySelector("[data-mypage-application-status]");
+      if (!badge) return;
+      const primary = sortApplicationsForDisplay(applications)[0];
+      if (!primary) {
+        badge.textContent = "";
+        badge.className = "board-status mypage-layer-status";
+        return;
+      }
+      const status = normalizedApplicationStatus(primary);
+      badge.textContent = status;
+      badge.className = `board-status mypage-layer-status ${applicationStatusClass(status)}`;
+    }
+
     function renderMyApplications(applications) {
-      currentMyApplications = applications;
+      const displayApplications = sortApplicationsForDisplay(applications);
+      currentMyApplications = displayApplications;
+      updateApplicationLayerStatus(displayApplications);
+      const applicationGender = latestApplicationGender(displayApplications);
+      if (applicationGender) syncProfileGender(applicationGender);
       const list = document.querySelector("[data-mypage-list]");
       if (!list) return;
-      if (!applications.length) {
+      if (!displayApplications.length) {
         list.innerHTML = `<p class="mypage-empty">신청 내역이 없습니다.</p>`;
         return;
       }
-      list.innerHTML = applications.map((application, index) => {
-        const status = applicationStatusSteps.includes(application.status) ? application.status : "접수";
+      list.innerHTML = displayApplications.map((application, index) => {
+        const status = normalizedApplicationStatus(application);
         const stepIndex = applicationStatusSteps.indexOf(status);
-        const statusClass = status === "승인" ? "is-complete" : status === "확인" ? "is-checked" : "is-received";
+        const statusClass = applicationStatusClass(status);
         const isEditable = status === "접수";
         const dateText = application.submittedAt
           ? new Date(application.submittedAt).toLocaleString("ko-KR", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })
           : "";
         const metaText = [formatKoreanEventDate(application.eventDate), application.selectedAgeRange].filter(Boolean).join(" · ");
-        const steps = applicationStatusSteps.map((step, i) => `<span class="mypage-step${i <= stepIndex ? " is-done" : ""}">${step}</span>`).join("");
+        const steps = status === canceledApplicationStatus
+          ? `<span class="mypage-step is-canceled">취소</span>`
+          : applicationStatusSteps.map((step, i) => `<span class="mypage-step${i <= stepIndex ? " is-done" : ""}">${step}</span>`).join("");
         return `
           <article class="mypage-card${isEditable ? " is-editable" : ""}" ${isEditable ? `data-mypage-edit-open="${index}"` : ""}>
             <div class="mypage-card-head">
               <span class="board-status ${statusClass}">${status}</span>
-              <span class="mypage-date">${dateText}</span>
+              <span class="mypage-card-side">
+                <span class="mypage-date">${dateText}</span>
+                ${isEditable ? `<button class="mypage-card-edit-btn" type="button" data-mypage-edit-open="${index}">수정</button><button class="mypage-card-edit-btn mypage-card-cancel-btn" type="button" data-mypage-cancel-open="${index}">취소</button>` : ""}
+              </span>
             </div>
             <h3 class="mypage-event-title">${application.eventTitle || ""}</h3>
             ${metaText ? `<p class="mypage-event-meta">${metaText}</p>` : ""}
@@ -5850,6 +6422,38 @@
       }
     }
 
+    async function cancelMyApplication(index, button) {
+      const application = currentMyApplications[Number(index)];
+      if (!application) return;
+      if (!confirm("접수된 신청을 취소하시겠습니까?")) return;
+      if (button) {
+        button.disabled = true;
+        button.classList.add("is-loading");
+        button.textContent = "취소 중";
+      }
+      try {
+        const result = await visitorApi({
+          type: "applicationCancel",
+          visitorId: application.visitorId,
+          submittedAt: application.submittedAt,
+          eventTitle: application.eventTitle,
+          eventDate: application.eventDate,
+          selectedAgeRange: application.selectedAgeRange
+        });
+        currentMyApplications[Number(index)] = { ...application, status: result.status || "취소" };
+        writeMypageCache(currentMyApplications);
+        renderMyApplications(currentMyApplications);
+        loadMyApplications(true);
+      } catch (error) {
+        alert(error?.message || "신청을 취소하지 못했습니다.");
+        if (button) {
+          button.disabled = false;
+          button.classList.remove("is-loading");
+          button.textContent = "취소";
+        }
+      }
+    }
+
     function readProfileInfoCache() {
       try { return JSON.parse(localStorage.getItem(profileInfoCacheKey) || "null"); } catch { return null; }
     }
@@ -5859,13 +6463,15 @@
     }
 
     async function refreshProfileInfoCache() {
+      const cached = readProfileInfoCache();
       try {
         const { id } = getVisitorIdentity();
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=myProfileInfo&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`);
         const result = await response.json();
         if (response.ok && result.ok && result.registered) {
-          writeProfileInfoCache(result);
-          return result;
+          const normalized = mergeProfileFileFallbacks(result, cached) || result;
+          writeProfileInfoCache(normalized);
+          return normalized;
         }
       } catch {}
       return null;
@@ -5881,10 +6487,155 @@
       `;
     }
 
+    function infoMultiChoiceGroup(groupKey, label, options, selectedValue, maxChoice = 0) {
+      const selected = String(selectedValue || "").split(",").map((item) => item.trim()).filter(Boolean);
+      const chips = options.map((option) => `<button class="choice-chip${selected.includes(option) ? " is-selected" : ""}" type="button">${option}</button>`).join("");
+      return `
+        <div class="form-field full">
+          <label>${label}</label>
+          <div class="choice-row" data-info-multi-group="${groupKey}" ${maxChoice ? `data-max-choice="${maxChoice}"` : ""}>${chips}</div>
+        </div>
+      `;
+    }
+
+    function preferenceSummaryItems(profile) {
+      return [
+        profileSummaryItem("선호 나이", profile.idealAge),
+        profileSummaryItem("선호 연령", profile.idealRelationAge),
+        profileSummaryItem("선호 키", profile.idealHeight),
+        profileSummaryItem("선호 체형", profile.idealBody),
+        profileSummaryItem("선호 인상", profile.idealImpression),
+        profileSummaryItem("불호", profile.dislike)
+      ].join("");
+    }
+
+    function normalizeProfileFileUrl(value) {
+      if (!value) return "";
+      if (typeof value === "string") {
+        const trimmed = value.trim();
+        if (!trimmed || trimmed === "-" || trimmed === "[]") return "";
+        if ((trimmed.startsWith("[") && trimmed.endsWith("]")) || (trimmed.startsWith("{") && trimmed.endsWith("}"))) {
+          try { return normalizeProfileFileUrl(JSON.parse(trimmed)); } catch {}
+        }
+        return trimmed;
+      }
+      if (Array.isArray(value)) {
+        for (const item of value) {
+          const url = normalizeProfileFileUrl(item);
+          if (url) return url;
+        }
+        return "";
+      }
+      if (typeof value === "object") {
+        return normalizeProfileFileUrl(
+          value.url || value.fileUrl || value.fileURL || value.downloadUrl || value.viewUrl ||
+          value.link || value.secure_url || value.path || value.dataUrl ||
+          (value.base64 ? `data:${value.mimeType || value.type || "image/jpeg"};base64,${value.base64}` : "")
+        );
+      }
+      return "";
+    }
+
+    function profileDriveFileId(url) {
+      const text = String(url || "");
+      const patterns = [
+        /\/file\/d\/([^/?#]+)/,
+        /[?&]id=([^&#]+)/,
+        /\/d\/([^/?#]+)/
+      ];
+      for (const pattern of patterns) {
+        const match = text.match(pattern);
+        if (match?.[1]) return decodeURIComponent(match[1]);
+      }
+      return "";
+    }
+
+    function profilePreviewImageUrl(url) {
+      const cleanUrl = normalizeProfileFileUrl(url);
+      if (!cleanUrl) return "";
+      if (cleanUrl.startsWith("data:image/") || /\.(png|jpe?g|gif|webp|bmp|avif)(\?|#|$)/i.test(cleanUrl)) return cleanUrl;
+      const driveId = profileDriveFileId(cleanUrl);
+      return driveId ? `https://drive.google.com/thumbnail?id=${encodeURIComponent(driveId)}&sz=w320` : "";
+    }
+
+    function profileFileName(url, fallback) {
+      const cleanUrl = normalizeProfileFileUrl(url);
+      if (!cleanUrl) return fallback || "파일";
+      try {
+        const parsed = new URL(cleanUrl, window.location.href);
+        const name = decodeURIComponent(parsed.pathname.split("/").filter(Boolean).pop() || "");
+        return name && !["view", "open", "thumbnail"].includes(name) ? name : (fallback || "파일");
+      } catch {
+        return fallback || "파일";
+      }
+    }
+
+    function profileFilePreviewHtml(url, label, type = "photo") {
+      const cleanUrl = normalizeProfileFileUrl(url);
+      if (!cleanUrl) return "";
+      const previewUrl = profilePreviewImageUrl(cleanUrl);
+      const isDocument = type === "document";
+      const thumb = previewUrl
+        ? `<span class="mypage-file-preview-thumb" style="--preview-image:url('${htmlAttr(previewUrl)}')"></span>`
+        : `<span class="mypage-file-preview-thumb">파일</span>`;
+      return `
+        <a class="mypage-file-preview${isDocument ? " is-document" : ""}" href="${htmlAttr(cleanUrl)}" target="_blank" rel="noopener">
+          ${thumb}
+          <span>${htmlAttr(label || profileFileName(cleanUrl, isDocument ? "재직 증명" : "본인 사진"))}</span>
+        </a>
+      `;
+    }
+
+    function renderProfileFilePreviews(photoUrls, documentUrl) {
+      const previews = [
+        ...photoUrls.map((url, index) => profileFilePreviewHtml(url, `사진 ${index + 1}`, "photo")),
+        profileFilePreviewHtml(documentUrl, "재직 증명", "document")
+      ].filter(Boolean).join("");
+      return previews ? `<div class="mypage-file-preview-grid">${previews}</div>` : "";
+    }
+
     function normalizeProfilePhotoUrls(profile) {
       if (!profile) return [];
-      if (Array.isArray(profile.photoUrls)) return profile.photoUrls.filter(Boolean);
-      return [profile.photoUrl1, profile.photoUrl2, profile.photoUrl3, profile.photoUrl4, profile.photoUrl5].filter(Boolean);
+      const sources = [
+        profile.photoUrls, profile.photoFiles, profile.photos, profile.photoUrl,
+        profile.photoUrl1, profile.photoUrl2, profile.photoUrl3, profile.photoUrl4, profile.photoUrl5,
+        profile.photoFile1, profile.photoFile2, profile.photoFile3, profile.photoFile4, profile.photoFile5
+      ];
+      const urls = [];
+      sources.forEach((source) => {
+        if (Array.isArray(source)) {
+          source.forEach((item) => {
+            const url = normalizeProfileFileUrl(item);
+            if (url) urls.push(url);
+          });
+          return;
+        }
+        const url = normalizeProfileFileUrl(source);
+        if (url) urls.push(url);
+      });
+      return [...new Set(urls)];
+    }
+
+    function normalizeProfileDocumentUrl(profile) {
+      if (!profile) return "";
+      return normalizeProfileFileUrl(
+        profile.documentUrl || profile.documentFileUrl || profile.documentFile ||
+        profile.document || profile.workProofUrl || profile.employmentProofUrl ||
+        profile.proofUrl || profile.proofFile || profile.documentUrls || profile.documents
+      );
+    }
+
+    function mergeProfileFileFallbacks(profile, fallback) {
+      if (!profile) return fallback || null;
+      if (!fallback) return profile;
+      const merged = { ...profile };
+      const profilePhotos = normalizeProfilePhotoUrls(profile);
+      const fallbackPhotos = normalizeProfilePhotoUrls(fallback);
+      const profileDocument = normalizeProfileDocumentUrl(profile);
+      const fallbackDocument = normalizeProfileDocumentUrl(fallback);
+      if (!profilePhotos.length && fallbackPhotos.length) merged.photoUrls = fallbackPhotos;
+      if (!profileDocument && fallbackDocument) merged.documentUrl = fallbackDocument;
+      return merged;
     }
 
     function profileFileAnchor(url, label) {
@@ -5893,18 +6644,25 @@
     }
 
     function renderProfileDocumentFields() {
+      const documentPreviewUrl = profilePreviewImageUrl(mypageExistingDocumentUrl);
       const documentLink = mypageExistingDocumentUrl ? `
-        <div class="profile-file-link" data-mypage-document-existing>
-          <span>등록된 재직 증명</span>
-          ${profileFileAnchor(mypageExistingDocumentUrl, "파일 보기")}
+        <div class="document-preview" data-mypage-document-existing>
+          <span class="document-thumb" ${documentPreviewUrl ? `style="--document-image:url('${htmlAttr(documentPreviewUrl)}')"` : ""}></span>
+          <span class="document-copy">
+            <strong class="document-title">등록된 재직 증명</strong>
+            <span class="document-status">${profileFileAnchor(mypageExistingDocumentUrl, "파일 보기")}</span>
+          </span>
           <button class="remove-file-btn" type="button" data-mypage-clear-file="document" aria-label="재직 증명 삭제">×</button>
         </div>` : "";
       const documentPreviewHidden = mypageExistingDocumentUrl ? " is-hidden" : "";
       const documentAddHidden = mypageExistingDocumentUrl ? " is-hidden" : "";
-      const photoThumbs = mypageExistingPhotoUrls.map((url, index) => `
-        <span class="photo-thumb" data-existing-photo-url="${htmlAttr(url)}" style="--photo-image:url('${htmlAttr(url)}')">
-          <button class="thumb-remove mypage-thumb-remove" type="button" aria-label="사진 삭제">×</button>
-        </span>`).join("");
+      const photoThumbs = mypageExistingPhotoUrls.map((url) => {
+        const previewUrl = profilePreviewImageUrl(url);
+        return `
+          <span class="photo-thumb" data-existing-photo-url="${htmlAttr(url)}" ${previewUrl ? `style="--photo-image:url('${htmlAttr(previewUrl)}')"` : ""}>
+            <button class="thumb-remove mypage-thumb-remove" type="button" aria-label="사진 삭제">×</button>
+          </span>`;
+      }).join("");
       return `
         <section class="form-section mypage-file-section">
           <h3>제출 서류</h3>
@@ -5961,17 +6719,18 @@
       mypageDocumentFile = null;
       mypagePhotoFiles = [];
       mypageFileSequence = 0;
-      mypageExistingDocumentUrl = p.documentUrl || "";
+      mypageExistingDocumentUrl = normalizeProfileDocumentUrl(p);
       mypageExistingPhotoUrls = normalizeProfilePhotoUrls(p);
 
       if (!mypageInfoEditing) {
         const photoText = mypageExistingPhotoUrls.length ? `본인 사진 ${mypageExistingPhotoUrls.length}장` : "본인 사진 없음";
         const documentText = mypageExistingDocumentUrl ? "재직 증명 등록됨" : "재직 증명 없음";
+        const filePreviewHtml = renderProfileFilePreviews(mypageExistingPhotoUrls, mypageExistingDocumentUrl);
         container.innerHTML = `
           <div class="mypage-info-summary">
             <div class="mypage-info-summary-head">
               <div>
-                <h3 class="mypage-info-summary-title">내 정보</h3>
+                <h3 class="mypage-info-summary-title">기본 정보</h3>
                 <p class="schedule-description">수정 버튼을 누르면 저장된 정보를 변경할 수 있습니다.</p>
               </div>
               <button class="mypage-edit-btn" type="button" data-mypage-info-edit>수정</button>
@@ -5988,9 +6747,20 @@
               ${profileSummaryItem("음주 빈도", p.drinking)}
               ${profileSummaryItem("종교", p.religion)}
             </div>
+            <div class="mypage-info-summary-head">
+              <div>
+                <h3 class="mypage-info-summary-title">나의 호불호</h3>
+              </div>
+            </div>
+            <div class="mypage-info-summary-grid">
+              ${preferenceSummaryItems(p)}
+            </div>
             <div class="mypage-info-file-summary">
-              <span>제출 서류</span>
-              <strong>${photoText} · ${documentText}</strong>
+              <div class="mypage-info-file-summary-head">
+                <span>제출 서류</span>
+                <strong>${photoText} · ${documentText}</strong>
+              </div>
+              ${filePreviewHtml}
             </div>
           </div>
         `;
@@ -5998,6 +6768,13 @@
       }
 
       container.innerHTML = `
+        <div class="mypage-info-summary-head">
+          <div>
+            <h3 class="mypage-info-summary-title">기본 정보 수정</h3>
+            <p class="schedule-description">저장할 정보를 확인해 주세요.</p>
+          </div>
+          <button class="mypage-edit-btn" type="button" data-mypage-info-cancel>취소</button>
+        </div>
         <div class="mypage-info-form">
           <div class="form-field">
             <label for="infoName">이름</label>
@@ -6030,10 +6807,18 @@
           ${infoChoiceGroup("smoking", "흡연 유무", ["비흡연", "전자담배", "연초"], p.smoking)}
           ${infoChoiceGroup("drinking", "음주 빈도", ["안 마심", "못 마심", "가끔", "즐겨 마심", "모임 때만"], p.drinking)}
           ${infoChoiceGroup("religion", "종교", ["무교", "기독교", "천주교", "불교", "기타"], p.religion)}
+          <div class="form-field full">
+            <label>나의 호불호</label>
+          </div>
+          ${infoChoiceGroup("idealAge", "선호 나이", ["20대 초반", "20대 중반", "20대 후반", "30대 초반", "30대 중반", "30대 후반"], p.idealAge)}
+          ${infoChoiceGroup("idealRelationAge", "선호 연령", ["연상", "연하", "동갑", "±2살", "±5살", "나이 무관"], p.idealRelationAge)}
+          ${infoChoiceGroup("idealHeight", "선호 키", ["185cm ↑", "180cm ↑", "175cm ↑", "170cm ↑", "165cm ↓", "160cm ↓", "155cm ↓", "150cm ↓"], p.idealHeight)}
+          ${infoChoiceGroup("idealBody", "선호 체형", ["마름", "슬림", "보통", "탄탄", "글래머", "통통"], p.idealBody)}
+          ${infoChoiceGroup("idealImpression", "선호 인상", ["강아지상", "공룡상", "곰상", "늑대상", "두부상", "고양이상", "여우상", "사슴상", "꼬부기상", "순둥상"], p.idealImpression)}
+          ${infoMultiChoiceGroup("dislike", "불호", ["작은 키", "큰 키", "매우 마른 편", "매우 통통한 편", "차가운 인상", "강한 인상", "종교 차이", "주말 근무"], p.dislike, 3)}
           ${renderProfileDocumentFields()}
           <div class="mypage-info-form-actions">
             <button class="submit-btn mypage-info-save-btn" type="button" data-mypage-info-save>저장</button>
-            <button class="mypage-edit-btn" type="button" data-mypage-info-cancel>취소</button>
           </div>
         </div>
       `;
@@ -6044,6 +6829,7 @@
       if (!container) return;
       const getValue = (id) => container.querySelector(`#${id}`)?.value.trim() || "";
       const getChoice = (groupKey) => container.querySelector(`[data-info-group="${groupKey}"] .choice-chip.is-selected`)?.textContent.trim() || "";
+      const getMultiChoice = (groupKey) => [...container.querySelectorAll(`[data-info-multi-group="${groupKey}"] .choice-chip.is-selected`)].map((chip) => chip.textContent.trim()).join(", ");
       const payload = {
         visitorId: getVisitorIdentity().id,
         name: getValue("infoName"),
@@ -6056,6 +6842,13 @@
         smoking: getChoice("smoking"),
         drinking: getChoice("drinking"),
         religion: getChoice("religion"),
+        idealAge: getChoice("idealAge"),
+        idealRelationAge: getChoice("idealRelationAge"),
+        idealHeight: getChoice("idealHeight"),
+        idealBody: getChoice("idealBody"),
+        idealImpression: getChoice("idealImpression"),
+        ideal: [getChoice("idealAge"), getChoice("idealRelationAge"), getChoice("idealHeight"), getChoice("idealBody"), getChoice("idealImpression")].filter(Boolean).join(", "),
+        dislike: getMultiChoice("dislike"),
         existingDocumentUrl: mypageExistingDocumentUrl,
         existingPhotoUrls: [...mypageExistingPhotoUrls]
       };
@@ -6067,22 +6860,27 @@
       }
       try {
         const preparedFiles = await Promise.all([
-          mypageDocumentFile ? fileToPayload(mypageDocumentFile) : Promise.resolve(null),
-          ...mypagePhotoFiles.map(({ file }) => fileToPayload(file))
+          mypageDocumentFile ? fileToPayload(mypageDocumentFile, { maxEdge: 520, quality: 0.55, maxSize: 2 * 1024 * 1024 }) : Promise.resolve(null),
+          ...mypagePhotoFiles.map(({ file }) => fileToPayload(file, { maxEdge: 520, quality: 0.55, maxSize: 2 * 1024 * 1024 }))
         ]);
+        const documentPayload = preparedFiles[0];
+        const photoPayloads = preparedFiles.slice(1);
         const response = await visitorApi({
           type: "profileInfoSave",
           ...payload,
-          documentFile: preparedFiles[0],
-          photoFiles: preparedFiles.slice(1)
+          documentFile: documentPayload,
+          photoFiles: photoPayloads
         });
-        const returnedPhotoUrls = Array.isArray(response.photoUrls) ? response.photoUrls.filter(Boolean) : [];
+        const returnedPhotoUrls = normalizeProfilePhotoUrls(response);
+        const returnedDocumentUrl = normalizeProfileDocumentUrl(response);
+        if (photoPayloads.length && !returnedPhotoUrls.length) throw new Error("사진 파일 업로드 결과를 확인하지 못했습니다.");
+        if (documentPayload && !returnedDocumentUrl) throw new Error("재직 증명 파일 업로드 결과를 확인하지 못했습니다.");
         const mergedPhotoUrls = [...new Set([...payload.existingPhotoUrls, ...returnedPhotoUrls])];
         const profile = {
           ok: true,
           registered: true,
           ...payload,
-          documentUrl: response.documentUrl || payload.existingDocumentUrl || "",
+          documentUrl: returnedDocumentUrl || payload.existingDocumentUrl || "",
           photoUrls: mergedPhotoUrls
         };
         writeProfileInfoCache(profile);
@@ -6104,10 +6902,75 @@
     let counselCurrentId = "";
     let counselEditingId = "";
     let counselReplyTo = null;
+    let counselSubmitting = false;
+    let counselCurrentPage = 1;
+    const counselPageSize = 10;
 
     function counselDate(value) {
       const date = new Date(Number(value) || value);
       return Number.isNaN(date.getTime()) ? "" : new Intl.DateTimeFormat("ko-KR", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).format(date);
+    }
+
+    function counselVisibleAuthor(post) {
+      const author = String(post?.author || "").trim();
+      const { id, name } = getVisitorIdentity();
+      const isMine = post?.isMine || (!!post?.visitorId && String(post.visitorId) === id);
+      if (/^D\d{4,}$/i.test(author)) return isMine ? name : "익명";
+      return author || "익명";
+    }
+
+    function counselAuthorGender(post) {
+      const storedGender = ["남성", "여성"].includes(post?.gender) ? post.gender : "";
+      if (storedGender) return storedGender;
+      const { id, name } = getVisitorIdentity();
+      if (post?.isMine || (!!post?.visitorId && String(post.visitorId) === id) || counselVisibleAuthor(post) === name) {
+        return readProfileGender();
+      }
+      return "";
+    }
+
+    function counselAuthorHtml(post) {
+      const author = counselVisibleAuthor(post);
+      const gender = counselAuthorGender(post);
+      const genderIcon = gender === "남성"
+        ? `<span class="counsel-gender-icon is-male" aria-label="남성">${iconMale}</span>`
+        : gender === "여성"
+          ? `<span class="counsel-gender-icon is-female" aria-label="여성">${iconFemale}</span>`
+          : "";
+      return `<span class="counsel-author-inline"><span class="counsel-card-author">${htmlAttr(author)}</span>${genderIcon}</span>`;
+    }
+
+    function counselLegacyAuthorKey() {
+      const authorNumber = formatVisitorNumber(readVisitorNumberCache()) || visitorNumberFromVisitorId(getVisitorIdentity().id);
+      return authorNumber ? `D${authorNumber}` : "";
+    }
+
+    function isMyCounselPost(post) {
+      const { id, name } = getVisitorIdentity();
+      const author = String(post?.author || "").trim().toUpperCase();
+      const legacyAuthor = counselLegacyAuthorKey().toUpperCase();
+      return Boolean(
+        post?.isMine ||
+        (!!post?.visitorId && String(post.visitorId) === id) ||
+        (!!name && String(post?.author || "").trim() === name) ||
+        (!!legacyAuthor && author === legacyAuthor)
+      );
+    }
+
+    function counselCanEditPost(post) {
+      return isMyCounselPost(post);
+    }
+
+    function counselTitleWithStage(post) {
+      const stage = String(post?.stage || "관심 단계").trim();
+      const title = String(post?.title || "").trim();
+      return stage ? `[${stage}] ${title}` : title;
+    }
+
+    function counselTitleHtml(post) {
+      const stage = String(post?.stage || "관심 단계").trim();
+      const title = String(post?.title || "").trim();
+      return `${stage ? `<span class="counsel-title-stage">[${htmlAttr(stage)}]</span> ` : ""}${htmlAttr(title)}`;
     }
 
     function readCounselCache() {
@@ -6123,28 +6986,49 @@
       try { localStorage.setItem(counselCacheKey, JSON.stringify(posts.slice(0, 100))); } catch {}
     }
 
-    function counselCardHtml(post) {
+    function counselCardHtml(post, postNumber = "") {
       return `
         <button class="counsel-card" type="button" data-counsel-open="${htmlAttr(post.id)}">
-          <div class="counsel-card-head">
-            <span class="counsel-card-author">${htmlAttr(post.author)}</span>
-            <span class="counsel-card-date">${counselDate(post.createdAt)}</span>
+          ${postNumber ? `<span class="counsel-card-number">${postNumber}</span>` : ""}
+          <div class="counsel-card-main">
+            <div class="counsel-card-head">
+              <h3 class="counsel-card-title">${counselTitleHtml(post)}</h3>
+              <span class="counsel-card-date">${counselDate(post.createdAt)}</span>
+            </div>
+            <div class="counsel-card-body">
+              ${counselAuthorHtml(post)}
+              <div class="counsel-card-meta"><span>조회 ${Number(post.views) || 0}</span><span>공감 ${Number(post.likeCount) || 0}</span><span>댓글 ${Number(post.commentCount) || 0}</span></div>
+            </div>
           </div>
-          <h3 class="counsel-card-title">${htmlAttr(post.title)}</h3>
-          <p class="counsel-card-content">${htmlAttr(post.content)}</p>
-          <div class="counsel-card-meta"><span>조회 ${Number(post.views) || 0}</span><span>공감 ${Number(post.likeCount) || 0}</span><span>댓글 ${Number(post.commentCount) || 0}</span></div>
         </button>
       `;
     }
 
     function renderCounselList() {
       const container = document.querySelector("[data-counsel-list]");
+      const pagination = document.querySelector("[data-counsel-pagination]");
       if (!container) return;
       if (!counselPosts.length) {
         container.innerHTML = `<p class="mypage-empty">등록된 글이 없습니다.</p>`;
+        if (pagination) pagination.hidden = true;
         return;
       }
-      container.innerHTML = counselPosts.map(counselCardHtml).join("");
+      const sortedPosts = [...counselPosts].sort((a, b) => b.createdAt - a.createdAt);
+      const totalPages = Math.ceil(sortedPosts.length / counselPageSize);
+      counselCurrentPage = Math.min(Math.max(counselCurrentPage, 1), totalPages);
+      const start = (counselCurrentPage - 1) * counselPageSize;
+      const pagePosts = sortedPosts.slice(start, start + counselPageSize);
+      container.innerHTML = pagePosts.map((post, index) => {
+        const postNumber = sortedPosts.length - (start + index);
+        return counselCardHtml(post, postNumber);
+      }).join("");
+      if (!pagination) return;
+      pagination.hidden = totalPages <= 1;
+      pagination.innerHTML = totalPages > 1 ? `
+        <button class="board-page-button" type="button" data-counsel-prev ${counselCurrentPage === 1 ? "disabled" : ""} aria-label="이전 페이지" title="이전 페이지"><span>‹</span></button>
+        <span class="board-page-status">${counselCurrentPage} / ${totalPages}</span>
+        <button class="board-page-button" type="button" data-counsel-next ${counselCurrentPage === totalPages ? "disabled" : ""} aria-label="다음 페이지" title="다음 페이지"><span>›</span></button>
+      ` : "";
     }
 
     async function loadCounselPosts() {
@@ -6159,6 +7043,7 @@
         const result = await response.json();
         if (response.ok && result.ok && Array.isArray(result.posts)) {
           counselPosts = result.posts;
+          counselCurrentPage = Math.min(counselCurrentPage, Math.max(1, Math.ceil(counselPosts.length / counselPageSize)));
           writeCounselCache(counselPosts);
           renderCounselList();
         }
@@ -6167,51 +7052,165 @@
       }
     }
 
-    let mySavedCounselPosts = [];
-    let mySavedCounselPage = 1;
-    const mySavedCounselPageSize = 10;
+    let myCounselPosts = [];
+    let myCounselPage = 1;
+    const myCounselPageSize = 10;
+    let myBoardPosts = [];
+    let myBoardPage = 1;
+    const myBoardPageSize = 10;
 
-    function renderMySavedCounsel() {
-      const container = document.querySelector("[data-mypage-saved-counsel]");
-      const pagination = document.querySelector("[data-mypage-saved-counsel-pagination]");
+    function isMyBoardPost(post, visitorId, visitorName = "") {
+      return Boolean(
+        post?.isMine ||
+        (visitorId && post?.visitorId === visitorId) ||
+        (!post?.visitorId && visitorName && post?.author === visitorName)
+      );
+    }
+
+    function renderMyCounsel() {
+      const container = document.querySelector("[data-mypage-counsel]");
+      const pagination = document.querySelector("[data-mypage-counsel-pagination]");
+      const count = document.querySelector("[data-mypage-counsel-count]");
+      if (count) count.textContent = `(${myCounselPosts.length})`;
       if (!container) return;
-      if (!mySavedCounselPosts.length) {
-        container.innerHTML = `<p class="mypage-empty">저장한 글이 없습니다.</p>`;
+      if (!myCounselPosts.length) {
+        container.innerHTML = `<p class="mypage-empty">작성한 연애 상담이 없습니다.</p>`;
         if (pagination) pagination.hidden = true;
         return;
       }
-      const totalPages = Math.ceil(mySavedCounselPosts.length / mySavedCounselPageSize);
-      mySavedCounselPage = Math.min(Math.max(mySavedCounselPage, 1), totalPages);
-      const start = (mySavedCounselPage - 1) * mySavedCounselPageSize;
-      const pagePosts = mySavedCounselPosts.slice(start, start + mySavedCounselPageSize);
-      container.innerHTML = pagePosts.map(counselCardHtml).join("");
+      const totalPages = Math.ceil(myCounselPosts.length / myCounselPageSize);
+      myCounselPage = Math.min(Math.max(myCounselPage, 1), totalPages);
+      const start = (myCounselPage - 1) * myCounselPageSize;
+      const pagePosts = myCounselPosts.slice(start, start + myCounselPageSize);
+      container.innerHTML = pagePosts.map((post) => counselCardHtml(post, "")).join("");
       if (!pagination) return;
       pagination.hidden = totalPages <= 1;
       pagination.innerHTML = totalPages > 1 ? `
-        <button class="board-page-button" type="button" data-mypage-counsel-prev ${mySavedCounselPage === 1 ? "disabled" : ""} aria-label="이전 페이지" title="이전 페이지"><span>‹</span></button>
-        <span class="board-page-status">${mySavedCounselPage} / ${totalPages}</span>
-        <button class="board-page-button" type="button" data-mypage-counsel-next ${mySavedCounselPage === totalPages ? "disabled" : ""} aria-label="다음 페이지" title="다음 페이지"><span>›</span></button>
+        <button class="board-page-button" type="button" data-mypage-counsel-prev ${myCounselPage === 1 ? "disabled" : ""} aria-label="이전 페이지" title="이전 페이지"><span>‹</span></button>
+        <span class="board-page-status">${myCounselPage} / ${totalPages}</span>
+        <button class="board-page-button" type="button" data-mypage-counsel-next ${myCounselPage === totalPages ? "disabled" : ""} aria-label="다음 페이지" title="다음 페이지"><span>›</span></button>
       ` : "";
     }
 
-    async function loadMySavedCounsel() {
-      const container = document.querySelector("[data-mypage-saved-counsel]");
+    async function loadMyCounsel() {
+      const container = document.querySelector("[data-mypage-counsel]");
       if (!container) return;
       try {
-        const { id } = getVisitorIdentity();
-        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=counselList&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`);
+        const { id, name } = getVisitorIdentity();
+        const authorKey = counselLegacyAuthorKey();
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=counselMine&visitorId=${encodeURIComponent(id)}&nickname=${encodeURIComponent(name)}&authorKey=${encodeURIComponent(authorKey)}&t=${Date.now()}`);
         const result = await response.json();
-        const posts = response.ok && result.ok && Array.isArray(result.posts) ? result.posts : [];
-        if (posts.length) {
-          counselPosts = posts;
-          writeCounselCache(posts);
+        let posts = response.ok && result.ok && Array.isArray(result.posts) ? result.posts : [];
+        if (!posts.length) {
+          const fallbackResponse = await fetch(`${GOOGLE_SCRIPT_URL}?action=counselList&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`);
+          const fallbackResult = await fallbackResponse.json();
+          const fallbackPosts = fallbackResponse.ok && fallbackResult.ok && Array.isArray(fallbackResult.posts) ? fallbackResult.posts : [];
+          posts = fallbackPosts.filter(isMyCounselPost);
         }
-        mySavedCounselPosts = posts.filter((post) => post.saved);
-        mySavedCounselPage = 1;
-        renderMySavedCounsel();
+        myCounselPosts = posts;
+        myCounselPage = 1;
+        renderMyCounsel();
       } catch {
-        mySavedCounselPosts = [];
-        renderMySavedCounsel();
+        myCounselPosts = [];
+        renderMyCounsel();
+      }
+    }
+
+    function renderMyBoardPosts() {
+      const container = document.querySelector("[data-mypage-board]");
+      const pagination = document.querySelector("[data-mypage-board-pagination]");
+      const count = document.querySelector("[data-mypage-board-count]");
+      if (count) count.textContent = `(${myBoardPosts.length})`;
+      if (!container) return;
+      container.replaceChildren();
+      const sortedPosts = [...myBoardPosts].sort((a, b) => b.createdAt - a.createdAt);
+      if (!sortedPosts.length) {
+        const empty = document.createElement("p");
+        empty.className = "mypage-empty";
+        empty.textContent = "작성한 익명 문의가 없습니다.";
+        container.append(empty);
+        if (pagination) pagination.hidden = true;
+        return;
+      }
+
+      const totalPages = Math.ceil(sortedPosts.length / myBoardPageSize);
+      myBoardPage = Math.min(Math.max(myBoardPage, 1), totalPages);
+      const pageStart = (myBoardPage - 1) * myBoardPageSize;
+      const pagePosts = sortedPosts.slice(pageStart, pageStart + myBoardPageSize);
+      const timeFormatter = new Intl.DateTimeFormat("ko-KR", {
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+
+      pagePosts.forEach((post) => {
+        const article = document.createElement("article");
+        article.className = "board-post";
+        const openButton = document.createElement("button");
+        openButton.className = "board-post-open";
+        openButton.type = "button";
+        openButton.setAttribute("aria-label", `${post.author} 문의 확인`);
+        const authorWrap = document.createElement("span");
+        authorWrap.className = "board-post-author-wrap";
+        authorWrap.append(createBoardLockIcon());
+        const author = document.createElement("span");
+        author.className = "board-post-author";
+        author.textContent = post.author;
+        authorWrap.append(author);
+        const categoryBadge = document.createElement("span");
+        categoryBadge.className = "board-post-category";
+        categoryBadge.textContent = post.category || "일반 문의";
+        authorWrap.append(categoryBadge);
+        const time = document.createElement("time");
+        time.className = "board-post-time";
+        time.dateTime = new Date(post.createdAt).toISOString();
+        time.textContent = timeFormatter.format(new Date(post.createdAt));
+        const side = document.createElement("span");
+        side.className = "board-post-side";
+        const status = document.createElement("span");
+        status.className = "board-status";
+        side.append(time, status);
+        openButton.append(authorWrap, side);
+        openButton.addEventListener("click", () => openBoardPost(article, post));
+        article.append(openButton);
+        setBoardStatusBadge(article, post.status);
+        container.append(article);
+      });
+
+      if (!pagination) return;
+      pagination.hidden = totalPages <= 1;
+      pagination.innerHTML = totalPages > 1 ? `
+        <button class="board-page-button" type="button" data-mypage-board-prev ${myBoardPage === 1 ? "disabled" : ""} aria-label="이전 페이지" title="이전 페이지"><span>‹</span></button>
+        <span class="board-page-status">${myBoardPage} / ${totalPages}</span>
+        <button class="board-page-button" type="button" data-mypage-board-next ${myBoardPage === totalPages ? "disabled" : ""} aria-label="다음 페이지" title="다음 페이지"><span>›</span></button>
+      ` : "";
+    }
+
+    async function loadMyBoardPosts() {
+      const container = document.querySelector("[data-mypage-board]");
+      if (!container) return;
+      const { id, name } = getVisitorIdentity();
+      const cachedMine = readBoardCache().filter((post) => isMyBoardPost(post, id, name));
+      if (cachedMine.length) {
+        myBoardPosts = cachedMine;
+        myBoardPage = 1;
+        renderMyBoardPosts();
+      }
+      try {
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardList&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`, { cache: "no-store" });
+        const result = await response.json();
+        if (!response.ok || !result.ok || !Array.isArray(result.posts)) throw new Error(result.error || "문의 목록을 불러오지 못했습니다.");
+        boardPosts = result.posts;
+        writeBoardCache(boardPosts);
+        myBoardPosts = boardPosts.filter((post) => isMyBoardPost(post, id, name));
+        myBoardPage = 1;
+        renderMyBoardPosts();
+      } catch {
+        if (!cachedMine.length) {
+          myBoardPosts = [];
+          renderMyBoardPosts();
+        }
       }
     }
 
@@ -6219,7 +7218,10 @@
       if (!nextPost || !nextPost.id) return;
       const index = counselPosts.findIndex((post) => String(post.id) === String(nextPost.id));
       if (index >= 0) counselPosts[index] = nextPost;
-      else counselPosts.unshift(nextPost);
+      else {
+        counselPosts.unshift(nextPost);
+        counselCurrentPage = 1;
+      }
       writeCounselCache(counselPosts);
       renderCounselList();
       if (counselCurrentId === String(nextPost.id)) renderCounselDetail(nextPost);
@@ -6259,16 +7261,16 @@
       target.innerHTML = `
         <article class="counsel-detail-card" data-counsel-post-id="${htmlAttr(post.id)}">
           <div class="counsel-detail-head">
-            <span class="counsel-card-author">${htmlAttr(post.author)}</span>
+            ${counselAuthorHtml(post)}
             <time>${counselDate(post.createdAt)}</time>
           </div>
-          <h2 class="counsel-detail-title">${htmlAttr(post.title)}</h2>
+          <h2 class="counsel-detail-title">${counselTitleHtml(post)}</h2>
           <p class="counsel-detail-content">${htmlAttr(post.content)}</p>
           <div class="counsel-detail-actions">
             <span>조회 ${Number(post.views) || 0}</span>
             <button type="button" class="${post.liked ? "is-liked" : ""}" data-counsel-like="${htmlAttr(post.id)}">공감 ${Number(post.likeCount) || 0}</button>
             <button type="button" class="${post.saved ? "is-saved" : ""}" data-counsel-save="${htmlAttr(post.id)}">${post.saved ? "저장됨" : "저장"}</button>
-            ${post.isMine ? `<button type="button" data-counsel-edit="${htmlAttr(post.id)}">수정</button>` : ""}
+            ${counselCanEditPost(post) ? `<button type="button" data-counsel-edit="${htmlAttr(post.id)}">수정</button>` : ""}
           </div>
           <section class="counsel-comment-section">
             <h3>댓글 ${comments.length}</h3>
@@ -6318,8 +7320,15 @@
 
     function openCounselWrite(editingPost) {
       counselEditingId = editingPost ? String(editingPost.id) : "";
+      counselSubmitting = false;
+      const { name } = getVisitorIdentity();
+      document.querySelector("#counselAuthorInput").value = editingPost ? counselVisibleAuthor(editingPost) : name;
+      document.querySelector("#counselStageInput").value = editingPost?.stage || "관심 단계";
       document.querySelector("[data-counsel-write-title]").textContent = editingPost ? "글 수정" : "글쓰기";
-      document.querySelector("[data-counsel-write-submit]").textContent = editingPost ? "수정하기" : "등록하기";
+      const submitButton = document.querySelector("[data-counsel-write-submit]");
+      submitButton.disabled = false;
+      submitButton.classList.remove("is-loading");
+      submitButton.textContent = editingPost ? "수정하기" : "등록하기";
       document.querySelector("#counselTitleInput").value = editingPost?.title || "";
       document.querySelector("#counselContentInput").value = editingPost?.content || "";
       setPage("counsel-write");
@@ -6329,8 +7338,15 @@
       const cached = readProfileInfoCache();
       renderMyProfileInfo(cached, false);
       const fresh = await refreshProfileInfoCache();
-      if (fresh && !mypageInfoEditing) renderMyProfileInfo(fresh, false);
-      else if (!cached && !mypageInfoEditing) renderMyProfileInfo(null, false);
+      if (fresh && !mypageInfoEditing) {
+        const merged = mergeProfileFileFallbacks(fresh, cached);
+        if (merged) {
+          writeProfileInfoCache(merged);
+          renderMyProfileInfo(merged, false);
+        }
+      } else if (!cached && !mypageInfoEditing) {
+        renderMyProfileInfo(null, false);
+      }
     }
 
     function selectChoiceByLabelAndText(labelText, valueText) {
@@ -6343,6 +7359,22 @@
       chips.forEach((chip) => chip.classList.remove("is-selected"));
       const match = chips.find((chip) => chip.textContent.trim() === valueText);
       if (match) match.classList.add("is-selected");
+    }
+
+    function selectApplicationChips(selector, values, singleGroup = false) {
+      const selectedValues = Array.isArray(values)
+        ? values.map((value) => String(value || "").trim()).filter(Boolean)
+        : String(values || "").split(",").map((value) => value.trim()).filter(Boolean);
+      document.querySelectorAll(selector).forEach((chip) => {
+        const shouldSelect = selectedValues.includes(chip.textContent.trim());
+        if (singleGroup) {
+          const group = chip.closest("[data-single-ideal-group]");
+          if (group && shouldSelect) {
+            group.querySelectorAll(selector).forEach((item) => item.classList.remove("is-selected"));
+          }
+        }
+        chip.classList.toggle("is-selected", shouldSelect);
+      });
     }
 
     async function applySameAsProfile() {
@@ -6363,10 +7395,57 @@
       setValue("#applyWeight", profile.weight);
       setValue("#applyArea", profile.area);
       setValue("#applyJob", profile.job);
+      selectedDocumentFile = null;
+      selectedPhotoFiles = [];
+      document.querySelectorAll("[data-photo-row] .photo-thumb").forEach((thumb) => thumb.remove());
+      document.querySelectorAll(".application-form [data-file-input]").forEach((input) => { input.value = ""; });
+      selectedExistingDocumentUrl = normalizeProfileDocumentUrl(profile);
+      selectedExistingPhotoUrls = normalizeProfilePhotoUrls(profile);
       selectChoiceByLabelAndText("흡연", profile.smoking);
       selectChoiceByLabelAndText("음주", profile.drinking);
       selectChoiceByLabelAndText("종교", profile.religion);
+      const profileIdealValues = [
+        profile.idealAge,
+        profile.idealRelationAge,
+        profile.idealHeight,
+        profile.idealBody,
+        profile.idealImpression
+      ].filter(Boolean);
+      selectApplicationChips("[data-ideal-choice]", profileIdealValues.length ? profileIdealValues : profile.ideal, true);
+      selectApplicationChips("[data-dislike-choice]", profile.dislike);
+      updateIdealTextareaFromChips();
+      updateDislikeTextareaFromChips();
+      renderAppliedProfileFiles();
       return true;
+    }
+
+    function clearSameAsProfile() {
+      [
+        "#applyName",
+        "#applyPhone",
+        "#applyBirth",
+        "#applyHeight",
+        "#applyWeight",
+        "#applyArea",
+        "#applyJob",
+        "#applyIdeal",
+        "#applyDislike"
+      ].forEach((selector) => {
+        const el = document.querySelector(selector);
+        if (el) el.value = "";
+      });
+      selectedExistingDocumentUrl = "";
+      selectedExistingPhotoUrls = [];
+      clearAppliedProfileFiles();
+      ["흡연", "음주", "종교"].forEach((labelText) => {
+        const labels = [...document.querySelectorAll(".application-form .form-field label")];
+        const label = labels.find((item) => item.textContent.includes(labelText));
+        const field = label?.closest(".form-field");
+        field?.querySelectorAll(".choice-chip").forEach((chip) => chip.classList.remove("is-selected"));
+      });
+      document.querySelectorAll("[data-ideal-choice].is-selected, [data-dislike-choice].is-selected").forEach((chip) => {
+        chip.classList.remove("is-selected");
+      });
     }
 
     let editingApplication = null;
@@ -6376,12 +7455,12 @@
     let editAgeOptionId = "";
 
     function parseScheduleDateText(text) {
-      const match = String(text || "").match(/^(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일\([^)]*\)\s*(.+)$/);
+      const match = String(text || "").match(/^(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일(?:\([^)]*\))?\s*(.*)$/);
       if (!match) return null;
       const [, year, month, day, time] = match;
       return {
         isoDate: `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`,
-        time: time.trim()
+        time: String(time || "").trim()
       };
     }
 
@@ -6421,50 +7500,32 @@
       if (!modal || !editingApplication) return;
       const existingPanel = modal.querySelector(".app-edit-panel");
       const preservedScrollTop = existingPanel ? existingPanel.scrollTop : 0;
-      const regionButtons = ["부산", "울산", "경남"].map((region) => {
-        const disabled = region !== "부산";
-        return `
-        <button class="region-choice${editRegion === region ? " is-selected" : ""}${disabled ? " is-disabled" : ""}" type="button" data-edit-region="${region}"${disabled ? " disabled aria-disabled=\"true\"" : ""}>${region}</button>
-      `;
-      }).join("");
-      const times = editDateKey ? applicationTimesForDate(editDateKey) : [];
-      const timeButtons = times.map((time) => `<button class="schedule-time-option${time === editTime ? " is-selected" : ""}" type="button" data-edit-time="${time}">${time}</button>`).join("");
       const ageCards = applicationAgeOptions.map((option) => `
         <button class="age-option-card${editAgeOptionId === option.id ? " is-selected" : ""}" type="button" data-edit-age="${option.id}">
           <span class="age-option-check" aria-hidden="true"></span>
           <span class="age-option-main"><strong>${option.range}</strong></span>
         </button>
       `).join("");
-      const ready = Boolean(editRegion && editDateKey && editTime && editAgeOptionId);
+      const ready = Boolean(editRegion && editDateKey && editAgeOptionId);
       modal.innerHTML = `
         <div class="app-edit-panel">
           <div class="app-edit-head">
             <h3>신청 수정</h3>
-            <button class="menu-button" type="button" data-app-edit-close aria-label="닫기">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-            </button>
+            <button class="app-edit-close-btn" type="button" data-app-edit-close>닫기</button>
           </div>
           <p class="app-edit-title">${editingApplication.baseTitle}</p>
-          <section class="selection-section">
-            <div class="selection-heading">방문 가능한 지역 <span class="req">*</span></div>
-            <p class="schedule-description">1개 지역만 선택 가능합니다.</p>
-            <div class="region-choice-row">${regionButtons}</div>
-          </section>
           <section class="form-section schedule-section">
             <div class="schedule-heading">참여 일정 <span class="req">*</span></div>
-            <div class="application-calendar">${editMonthTemplate(2026, 7)}${editMonthTemplate(2026, 8)}</div>
-            <div class="schedule-result"${editDateKey ? "" : " hidden"}>
-              <section class="schedule-result-section schedule-time-section">
-                <h4>시간 선택</h4>
-                <div class="schedule-time-options">${timeButtons}</div>
-              </section>
-            </div>
+            <div class="application-calendar">${getApplicationCalendarMonths().map(({ year, month }) => editMonthTemplate(year, month)).join("")}</div>
           </section>
           <section class="selection-section age-selection-block">
             <div class="selection-heading">연령대 선택 <span class="req">*</span></div>
             <div class="age-option-list">${ageCards}</div>
           </section>
-          <button class="selection-complete-btn" type="button" data-app-edit-save ${ready ? "" : "disabled"}>저장</button>
+          <div class="app-edit-actions">
+            <button class="selection-complete-btn" type="button" data-app-edit-save ${ready ? "" : "disabled"}>저장</button>
+            <button class="app-edit-close-btn" type="button" data-app-edit-close>닫기</button>
+          </div>
         </div>
       `;
       const panel = modal.querySelector(".app-edit-panel");
@@ -6474,7 +7535,7 @@
     function openAppEditModal(application) {
       const baseTitle = String(application.eventTitle || "").replace(/^\[[^\]]*\]\s*\[[^\]]*\]\s*/, "");
       editingApplication = { ...application, baseTitle };
-      editRegion = String(application.selectedRegions || "").split(",")[0].trim();
+      editRegion = String(application.selectedRegions || "").split(",")[0].trim() || "부산";
       const parsed = parseScheduleDateText(application.eventDate);
       editDateKey = parsed?.isoDate || "";
       editTime = parsed?.time || "";
@@ -6492,14 +7553,14 @@
     async function saveAppEdit() {
       if (!editingApplication) return;
       const ageOption = applicationAgeOptions.find((option) => option.id === editAgeOptionId);
-      if (!editRegion || !editDateKey || !editTime || !ageOption) return;
+      if (!editRegion || !editDateKey || !ageOption) return;
       const saveButton = document.querySelector("[data-app-edit-save]");
       if (saveButton) {
         saveButton.disabled = true;
         saveButton.textContent = "저장 중";
       }
       try {
-        const newEventDate = formatSelectedSchedule(editDateKey, editTime);
+        const newEventDate = formatSelectedSchedule(editDateKey);
         const newEventTitle = `[${editingApplication.applicationType}] [${ageOption.range}] ${editingApplication.baseTitle}`;
         await visitorApi({
           type: "applicationUpdate",
@@ -6523,8 +7584,17 @@
     }
 
     document.addEventListener("click", (event) => {
+      const cancelApplicationTarget = closestFrom(event.target, "[data-mypage-cancel-open]");
+      if (cancelApplicationTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        cancelMyApplication(cancelApplicationTarget.dataset.mypageCancelOpen, cancelApplicationTarget);
+        return;
+      }
       const openTarget = closestFrom(event.target, "[data-mypage-edit-open]");
       if (openTarget) {
+        event.preventDefault();
+        event.stopPropagation();
         const application = currentMyApplications[Number(openTarget.dataset.mypageEditOpen)];
         if (application) openAppEditModal(application);
         return;
@@ -6549,8 +7619,8 @@
       const dateTarget = closestFrom(event.target, "[data-edit-date]");
       if (dateTarget) {
         const isSelected = dateTarget.classList.contains("is-selected");
-        editTime = "";
         editDateKey = isSelected ? "" : dateTarget.dataset.editDate;
+        editTime = "";
         renderAppEditModal();
         return;
       }
@@ -6789,7 +7859,7 @@
         return;
       }
       homeScheduleHeadlines.hidden = false;
-      homeScheduleHeadlines.innerHTML = `<section class="schedule-headline-strip"><h2 class="schedule-section-title">공지</h2><div class="schedule-headline-scroller">${headlines.length > 1 ? `<button class="schedule-scroll-btn prev" type="button" data-schedule-scroll="prev" aria-label="이전 공지">‹</button>` : ""}<div class="schedule-headline-row" data-schedule-headline-row>${headlines.map((post) => schedulePostCard(post, true)).join("")}</div>${headlines.length > 1 ? `<button class="schedule-scroll-btn next" type="button" data-schedule-scroll="next" aria-label="다음 공지">›</button>` : ""}</div></section>`;
+      homeScheduleHeadlines.innerHTML = `<section class="schedule-headline-strip"><h2 class="schedule-section-title"><span class="title-clover-logo" aria-hidden="true"></span>클로버 소식</h2><div class="schedule-headline-scroller">${headlines.length > 1 ? `<button class="schedule-scroll-btn prev" type="button" data-schedule-scroll="prev" aria-label="이전 공지">‹</button>` : ""}<div class="schedule-headline-row" data-schedule-headline-row>${headlines.map((post) => schedulePostCard(post, true)).join("")}</div>${headlines.length > 1 ? `<button class="schedule-scroll-btn next" type="button" data-schedule-scroll="next" aria-label="다음 공지">›</button>` : ""}</div></section>`;
       requestAnimationFrame(refreshScheduleHeadlineControls);
     }
     function renderSchedulePosts() {
@@ -6932,15 +8002,17 @@
       } catch (_) {}
     }
 
-    function createOptimisticBoardPost({ author, category, password, content }) {
+    function createOptimisticBoardPost({ author, category, password, content, visitorId }) {
       return {
         id: `local-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        visitorId,
         author,
         category,
         content,
         createdAt: Date.now(),
         status: "접수",
         editable: true,
+        isMine: true,
         replies: [],
         followUps: [],
         isPending: true,
@@ -6957,6 +8029,9 @@
       }
       writeBoardCache(boardPosts);
       renderBoardPosts();
+      const { id, name } = getVisitorIdentity();
+      myBoardPosts = boardPosts.filter((post) => isMyBoardPost(post, id, name));
+      renderMyBoardPosts();
     }
 
     async function loadBoardPosts() {
@@ -6968,7 +8043,8 @@
         renderBoardPosts();
       }
       try {
-        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardList&t=${Date.now()}`, { cache: "no-store" });
+        const { id } = getVisitorIdentity();
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardList&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`, { cache: "no-store" });
         const result = await response.json();
         if (!response.ok || !result.ok || !Array.isArray(result.posts)) {
           throw new Error(result.error || "게시글 목록을 불러오지 못했습니다.");
@@ -7451,11 +8527,13 @@
       const submittedCategory = category?.value || "일반 문의";
       const submittedPassword = password.value;
       const submittedContent = content.value.trim();
+      const submittedVisitorId = getVisitorIdentity().id;
       const optimisticPost = createOptimisticBoardPost({
         author: submittedAuthor,
         category: submittedCategory,
         password: submittedPassword,
-        content: submittedContent
+        content: submittedContent,
+        visitorId: submittedVisitorId
       });
 
       boardPosts.unshift(optimisticPost);
@@ -7476,7 +8554,7 @@
 
       boardApi({
         type: "boardCreate",
-        visitorId: getVisitorIdentity().id,
+        visitorId: submittedVisitorId,
         author: submittedAuthor,
         category: submittedCategory,
         password: submittedPassword,
@@ -7492,6 +8570,8 @@
             content: result.post?.content || result.content || submittedContent,
             createdAt: result.post?.createdAt || result.createdAt || optimisticPost.createdAt,
             status: result.post?.status || result.status || "접수",
+            visitorId: result.post?.visitorId || submittedVisitorId,
+            isMine: result.post?.isMine ?? true,
             isPending: false
           };
           delete createdPost.localPassword;
@@ -7560,16 +8640,17 @@
     };
 
     function setPage(pageName, updateHash = true) {
-      const safePageName = validPageNames.has(pageName) ? pageName : "home";
+      const normalizedPageName = pageName === "episodes" ? "reviews" : pageName;
+      const safePageName = validPageNames.has(normalizedPageName) ? normalizedPageName : "home";
       pages.forEach((page) => page.classList.toggle("is-active", page.dataset.page === safePageName));
       document.querySelectorAll("[data-page-link]").forEach((link) => {
         const linkPage = link.dataset.pageLink;
-        const isGuidePage = linkPage === "schedule" && ["schedule-detail", "location", "process", "discount", "refund"].includes(safePageName);
-        const isReviewPage = linkPage === "reviews" && safePageName === "episodes";
-        link.classList.toggle("is-active", linkPage === safePageName || isGuidePage || isReviewPage);
+        const isGuidePage = linkPage === "schedule" && ["schedule-detail", "process"].includes(safePageName);
+        link.classList.toggle("is-active", linkPage === safePageName || isGuidePage);
       });
       setDrawer(false);
-      if (safePageName === "mypage") { loadMyApplications(); loadMyProfileInfo(); loadMySavedCounsel(); }
+      if (safePageName === "location") initCloverMap();
+      if (safePageName === "mypage") { loadMyApplications(); loadMyProfileInfo(); loadMyCounsel(); loadMyBoardPosts(); }
       if (safePageName === "counsel") loadCounselPosts();
       if (updateHash) {
         const nextHash = `#${safePageName}`;
@@ -7585,6 +8666,7 @@
 
     function pageFromHash() {
       const hashPage = location.hash.replace("#", "");
+      if (hashPage === "episodes") return "reviews";
       return validPageNames.has(hashPage) ? hashPage : "home";
     }
 
@@ -7611,6 +8693,62 @@
         node = node.parentNode;
       }
       return null;
+    }
+
+    function loadNaverMapScript() {
+      if (window.naver?.maps) return Promise.resolve();
+      if (cloverMapLoading) {
+        return new Promise((resolve, reject) => {
+          const startedAt = Date.now();
+          const timer = window.setInterval(() => {
+            if (window.naver?.maps) {
+              window.clearInterval(timer);
+              resolve();
+            } else if (Date.now() - startedAt > 8000) {
+              window.clearInterval(timer);
+              reject(new Error("네이버 지도를 불러오지 못했습니다."));
+            }
+          }, 80);
+        });
+      }
+      cloverMapLoading = true;
+      return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${encodeURIComponent(naverMapClientId)}`;
+        script.async = true;
+        script.onload = () => resolve();
+        script.onerror = () => reject(new Error("네이버 지도를 불러오지 못했습니다."));
+        document.head.appendChild(script);
+      });
+    }
+
+    async function initCloverMap() {
+      if (cloverMapLoaded) return;
+      const mapWrap = document.querySelector(".naver-map");
+      const mapElement = document.getElementById("cloverNaverMap");
+      const fallback = document.querySelector(".naver-map-fallback");
+      if (!mapWrap || !mapElement) return;
+      try {
+        await loadNaverMapScript();
+        const position = new naver.maps.LatLng(cloverLocation.lat, cloverLocation.lng);
+        const map = new naver.maps.Map(mapElement, {
+          center: position,
+          zoom: 17,
+          minZoom: 12,
+          zoomControl: true,
+          zoomControlOptions: { position: naver.maps.Position.TOP_RIGHT }
+        });
+        new naver.maps.Marker({
+          position,
+          map,
+          title: cloverLocation.title
+        });
+        window.setTimeout(() => naver.maps.Event.trigger(map, "resize"), 80);
+        mapWrap.classList.add("is-ready");
+        cloverMapLoaded = true;
+      } catch (error) {
+        if (fallback) fallback.textContent = "지도를 불러오지 못했습니다. 아래 버튼으로 네이버 지도에서 확인해 주세요.";
+      }
     }
 
     function inputValue(selector) {
@@ -7640,6 +8778,49 @@
         .map((chip) => chip.textContent.trim())
         .filter(Boolean);
       dislikeInput.value = selectedDislikes.join(", ");
+    }
+
+    function clearAppliedProfileFiles() {
+      document.querySelectorAll("[data-profile-photo-url]").forEach((thumb) => thumb.remove());
+      const preview = document.querySelector("[data-document-preview]");
+      const thumb = document.querySelector("[data-document-thumb]");
+      const addButton = document.querySelector("[data-document-add]");
+      if (!selectedDocumentFile) {
+        preview?.classList.add("is-hidden");
+        thumb?.style.removeProperty("--document-image");
+        addButton?.classList.remove("is-hidden");
+      }
+    }
+
+    function renderAppliedProfileFiles() {
+      const row = document.querySelector("[data-photo-row]");
+      const addButton = row?.querySelector(".photo-add");
+      document.querySelectorAll("[data-profile-photo-url]").forEach((thumb) => thumb.remove());
+      selectedExistingPhotoUrls.slice(0, 5).forEach((url) => {
+        const thumb = document.createElement("span");
+        thumb.className = "photo-thumb";
+        thumb.dataset.profilePhotoUrl = url;
+        const previewUrl = profilePreviewImageUrl(url);
+        if (previewUrl) thumb.style.setProperty("--photo-image", `url('${previewUrl}')`);
+        const removeButton = document.createElement("button");
+        removeButton.className = "thumb-remove";
+        removeButton.type = "button";
+        removeButton.setAttribute("aria-label", "사진 삭제");
+        removeButton.textContent = "×";
+        thumb.appendChild(removeButton);
+        row?.insertBefore(thumb, addButton);
+      });
+
+      const preview = document.querySelector("[data-document-preview]");
+      const documentThumb = document.querySelector("[data-document-thumb]");
+      const documentAdd = document.querySelector("[data-document-add]");
+      if (selectedExistingDocumentUrl) {
+        const previewUrl = profilePreviewImageUrl(selectedExistingDocumentUrl);
+        documentThumb?.style.removeProperty("--document-image");
+        if (previewUrl) documentThumb?.style.setProperty("--document-image", `url('${previewUrl}')`);
+        preview?.classList.remove("is-hidden");
+        documentAdd?.classList.add("is-hidden");
+      }
     }
 
     function onlyDigits(value, maxLength) {
@@ -7768,12 +8949,13 @@
       });
     }
 
-    function compressImage(file) {
+    function compressImage(file, options = {}) {
       return new Promise((resolve, reject) => {
         const image = new Image();
         const objectUrl = URL.createObjectURL(file);
         image.onload = () => {
-          const maxEdge = 960;
+          const maxEdge = Number(options.maxEdge) || 720;
+          const quality = Number(options.quality) || 0.64;
           const scale = Math.min(1, maxEdge / Math.max(image.naturalWidth, image.naturalHeight));
           const canvas = document.createElement("canvas");
           canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
@@ -7788,7 +8970,7 @@
             }
             const baseName = file.name.replace(/\.[^.]+$/, "") || "image";
             resolve(new File([blob], `${baseName}.jpg`, { type: "image/jpeg" }));
-          }, "image/jpeg", 0.72);
+          }, "image/jpeg", quality);
         };
         image.onerror = () => {
           URL.revokeObjectURL(objectUrl);
@@ -7798,10 +8980,11 @@
       });
     }
 
-    async function fileToPayload(file) {
-      const preparedFile = file.type.startsWith("image/") ? await compressImage(file) : file;
-      if (preparedFile.size > 5 * 1024 * 1024) {
-        throw new Error(`${file.name} 파일은 5MB 이하로 등록해 주세요.`);
+    async function fileToPayload(file, options = {}) {
+      const maxSize = Number(options.maxSize) || 5 * 1024 * 1024;
+      const preparedFile = file.type.startsWith("image/") ? await compressImage(file, options) : file;
+      if (preparedFile.size > maxSize) {
+        throw new Error(`${file.name} 파일은 ${Math.round(maxSize / 1024 / 1024)}MB 이하로 등록해 주세요.`);
       }
       const dataUrl = await readAsDataUrl(preparedFile);
       return {
@@ -7852,7 +9035,8 @@
         return;
       }
 
-      if (selectedPhotoFiles.length < 3 || selectedPhotoFiles.length > 5) {
+      const totalPhotoCount = selectedExistingPhotoUrls.length + selectedPhotoFiles.length;
+      if (totalPhotoCount < 3 || totalPhotoCount > 5) {
         alert("본인 사진을 3장 이상 5장 이하로 등록해 주세요.");
         document.querySelector('[data-file-input="photos"]')?.focus();
         return;
@@ -7865,6 +9049,7 @@
       }
 
       button.disabled = true;
+      button.classList.add("is-loading");
       button.textContent = "파일 준비 중";
 
       try {
@@ -7901,13 +9086,14 @@
           message: inputValue("#applyMessage"),
           documentFile,
           photoFiles,
-          documentFileName: documentFile?.name || "",
-          photoFileNames: photoFiles.map((file) => file.name).join(", "),
+          documentFileUrl: selectedExistingDocumentUrl,
+          photoFileUrls: [...selectedExistingPhotoUrls],
+          documentFileName: documentFile?.name || (selectedExistingDocumentUrl ? "내 정보 재직 증명" : ""),
+          photoFileNames: [...selectedExistingPhotoUrls.map((_, index) => `내 정보 사진 ${index + 1}`), ...photoFiles.map((file) => file.name)].join(", "),
           refundAgree: agreeInputs[0]?.checked || false,
           marketingAgree: agreeInputs[1]?.checked || false
         };
 
-        button.classList.add("is-loading");
         button.textContent = "전송 중";
         const response = await fetch(GOOGLE_SCRIPT_URL, {
           method: "POST",
@@ -7924,6 +9110,7 @@
           }
           throw new Error(serverError || "신청 정보를 저장하지 못했습니다.");
         }
+        syncProfileGender(selectedApplyGender);
         alert("신청이 접수되었습니다.");
         button.classList.remove("is-loading");
         button.textContent = "접수 완료";
@@ -7974,6 +9161,7 @@
         const nextGender = genderChoice.dataset.genderChoice;
         const nextPrice = nextGender === "남성" ? "50,000원" : "30,000원";
         const eventData = events[pendingEventIndex] || events[0];
+        syncProfileGender(nextGender);
         saveDetailState(pendingEventIndex, nextGender, nextPrice);
         resetApplicationSelection();
         setGenderModal(false);
@@ -8014,24 +9202,19 @@
         const isSelected = applicationDateTarget.classList.contains("is-selected");
         if (isSelected) {
           selectedScheduleSlots = selectedScheduleSlots.filter((slot) => slot.dateKey !== dateKey);
-          selectedScheduleDateKey = "";
-          selectedScheduleTime = "";
-          selectedScheduleDate = "";
+          syncSelectedScheduleFromSlots();
         } else {
           selectedScheduleDateKey = dateKey;
-          const matchingSlot = selectedScheduleSlots.find((slot) => slot.dateKey === dateKey);
-          selectedScheduleTime = matchingSlot?.time || "";
-          selectedScheduleDate = matchingSlot ? `${matchingSlot.label} ${matchingSlot.time}` : "";
+          selectedScheduleTime = "";
+          const nextSlot = {
+            dateKey,
+            label: formatSelectedSchedule(dateKey),
+            time: ""
+          };
+          selectedScheduleDate = nextSlot.label;
+          selectedScheduleSlots.push(nextSlot);
         }
         renderApplicationSelection(selectedEvent);
-        return;
-      }
-
-      const applicationTimeTarget = closestFrom(event.target, "[data-application-time]");
-      if (applicationTimeTarget) {
-        event.preventDefault();
-        event.stopPropagation();
-        applyScheduleTimeSelection(applicationTimeTarget.dataset.applicationTime);
         return;
       }
 
@@ -8054,7 +9237,7 @@
         event.stopPropagation();
         if (selectionCompleteTarget.disabled) return;
         if (!selectedScheduleSlots.length) {
-          alert("참여 일정과 시간을 선택해 주세요.");
+          alert("참여 희망 일자를 선택해 주세요.");
           document.querySelector(".schedule-section")?.scrollIntoView({ behavior: "smooth", block: "center" });
           return;
         }
@@ -8084,6 +9267,23 @@
       if (choiceTarget) {
         event.preventDefault();
         event.stopPropagation();
+        const infoMultiGroup = choiceTarget.closest("[data-info-multi-group]");
+        if (infoMultiGroup) {
+          const maxChoice = Number(infoMultiGroup.dataset.maxChoice || 0);
+          const isSelected = choiceTarget.classList.contains("is-selected");
+          const selectedCount = infoMultiGroup.querySelectorAll(".choice-chip.is-selected").length;
+          if (isSelected || !maxChoice || selectedCount < maxChoice) {
+            choiceTarget.classList.toggle("is-selected");
+          }
+          return;
+        }
+        const infoGroup = choiceTarget.closest("[data-info-group]");
+        if (infoGroup) {
+          const wasSelected = choiceTarget.classList.contains("is-selected");
+          infoGroup.querySelectorAll(".choice-chip").forEach((chip) => chip.classList.remove("is-selected"));
+          if (!wasSelected) choiceTarget.classList.add("is-selected");
+          return;
+        }
         if (choiceTarget.matches("[data-ideal-choice]")) {
           const singleIdealGroup = choiceTarget.closest("[data-single-ideal-group]");
           if (singleIdealGroup) {
@@ -8197,6 +9397,7 @@
         const thumb = document.querySelector("[data-document-thumb]");
         if (fileInput) fileInput.value = "";
         selectedDocumentFile = null;
+        selectedExistingDocumentUrl = "";
         preview?.classList.add("is-hidden");
         addButton?.classList.remove("is-hidden");
         thumb?.style.removeProperty("--document-image");
@@ -8209,7 +9410,9 @@
         event.stopPropagation();
         const thumb = photoRemoveTarget.closest(".photo-thumb");
         const fileId = thumb?.dataset.fileId;
+        const profilePhotoUrl = thumb?.dataset.profilePhotoUrl;
         selectedPhotoFiles = selectedPhotoFiles.filter(({ id }) => id !== fileId);
+        if (profilePhotoUrl) selectedExistingPhotoUrls = selectedExistingPhotoUrls.filter((url) => url !== profilePhotoUrl);
         thumb?.remove();
         return;
       }
@@ -8605,6 +9808,7 @@
   </script>
 </body>
 </html>
+
 
 
 
