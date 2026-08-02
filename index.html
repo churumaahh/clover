@@ -2640,8 +2640,8 @@
     .submit-btn {
       min-height: 2.9rem;
       border-radius: 0.55rem;
-      color: #fff;
-      background: var(--accent);
+      color: #07150b;
+      background: #00ff40;
       font-weight: 950;
     }
 
@@ -4177,6 +4177,11 @@
       height: 1.12rem;
     }
 
+    .drawer-social-link.is-partner svg {
+      width: 1.35rem;
+      height: auto;
+    }
+
     .drawer-staff-link {
       height: 2rem;
       display: grid;
@@ -4573,7 +4578,7 @@
       <main class="content">
         <section class="home-schedule-headlines" data-home-schedule-headlines hidden></section>
         <section id="home-events">
-          <h2 class="home-section-title"><span class="title-clover-logo" aria-hidden="true"></span>로테이션 소개팅</h2>
+          <h2 class="home-section-title">로테이션 소개팅</h2>
           <ul class="event-list" data-event-list="home"></ul>
         </section>
 
@@ -4700,10 +4705,9 @@
 
     <section class="page" id="page-support" data-page="support">
       <main class="support-page">
-        <h1 class="page-title">제휴 문의</h1>
+        <h1 class="page-title">제휴 · 협업 문의</h1>
+        <p class="page-description">좋은 아이디어와 협업 제안이 있다면 언제든 편하게 문의해 주세요.</p>
         <section class="support-card">
-          <h2>제휴와 관련된 내용</h2>
-          <p>제휴와 관련된 내용을 보내주시면 운영 시간 내 순차적으로 답변드립니다.</p>
           <div class="field">
             <label for="supportName">이름</label>
             <input id="supportName" name="name" placeholder="이름을 입력하세요">
@@ -4989,13 +4993,9 @@
             <circle cx="16.6" cy="7.6" r="1" fill="#fff"/>
           </svg>
         </a>
-        <button class="drawer-social-link" type="button" data-page-link="support" onclick="window.goPage(event, 'support')" aria-label="제휴 문의" title="제휴 문의">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect width="24" height="24" rx="5" fill="#00ff40"/>
-            <path d="M7.2 9.4 4.8 12l3.6 3.8c.9 1 2.5 1 3.5 0l.45-.45" fill="none" stroke="#121218" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M16.8 9.4 19.2 12l-3.6 3.8c-.9 1-2.5 1-3.5 0l-2.5-2.5" fill="none" stroke="#121218" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M9.2 10.8 11 9h2.2l1.6 1.6-2.2 2.2" fill="none" stroke="#121218" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M10 15.6 8.4 14M12 16.4l-2-2M14 16l-2.3-2.3" fill="none" stroke="#121218" stroke-width="1.45" stroke-linecap="round"/>
+        <button class="drawer-social-link is-partner" type="button" data-page-link="support" onclick="window.goPage(event, 'support')" aria-label="제휴 문의" title="제휴 문의">
+          <svg viewBox="0 0 640 512" aria-hidden="true" fill="#00ff40">
+            <path d="M323.4 85.2l-96.8 78.4c-16.1 13-19.2 36.4-7 53.1c12.9 17.8 38 21.3 55.3 7.8l99.3-77.2c7-5.4 17-4.2 22.5 2.8s4.2 17-2.8 22.5l-20.9 16.2L512 316.8 512 128l-.7 0-3.9-2.5L434.8 79c-15.3-9.8-33.2-15-51.4-15c-21.8 0-43 7.5-60 21.2zm22.8 124.4l-51.7 40.2C263 274.4 217.3 268 193.7 235.6c-22.2-30.5-16.6-73.1 12.7-96.8l83.2-67.3c-11.6-4.9-24.1-7.4-36.8-7.4C234 64 215.7 69.6 200 80l-72 48 0 224 28.2 0 91.4 83.4c19.6 17.9 49.9 16.5 67.8-3.1c5.5-6.1 9.2-13.2 11.1-20.6l17 15.6c19.5 17.9 49.9 16.6 67.8-2.9c4.5-4.9 7.8-10.6 9.9-16.5c19.4 13 45.8 10.3 62.1-7.5c17.9-19.5 16.6-49.9-2.9-67.8l-134.2-123zM16 128c-8.8 0-16 7.2-16 16L0 352c0 17.7 14.3 32 32 32l32 0c17.7 0 32-14.3 32-32l0-224-80 0zM48 320a16 16 0 1 1 0 32 16 16 0 1 1 0-32zM544 128l0 224c0 17.7 14.3 32 32 32l32 0c17.7 0 32-14.3 32-32l0-208c0-8.8-7.2-16-16-16l-80 0zm32 208a16 16 0 1 1 32 0 16 16 0 1 1 -32 0z"/>
           </svg>
         </button>
         <button class="drawer-staff-link" type="button" data-page-link="staff" onclick="window.goPage(event, 'staff')">STAFF</button>
@@ -7865,7 +7865,7 @@
         return;
       }
       homeScheduleHeadlines.hidden = false;
-      homeScheduleHeadlines.innerHTML = `<section class="schedule-headline-strip"><h2 class="schedule-section-title"><span class="title-clover-logo" aria-hidden="true"></span>클로버 소식</h2><div class="schedule-headline-scroller">${headlines.length > 1 ? `<button class="schedule-scroll-btn prev" type="button" data-schedule-scroll="prev" aria-label="이전 공지">‹</button>` : ""}<div class="schedule-headline-row" data-schedule-headline-row>${headlines.map((post) => schedulePostCard(post, true)).join("")}</div>${headlines.length > 1 ? `<button class="schedule-scroll-btn next" type="button" data-schedule-scroll="next" aria-label="다음 공지">›</button>` : ""}</div></section>`;
+      homeScheduleHeadlines.innerHTML = `<section class="schedule-headline-strip"><h2 class="schedule-section-title">클로버 소식</h2><div class="schedule-headline-scroller">${headlines.length > 1 ? `<button class="schedule-scroll-btn prev" type="button" data-schedule-scroll="prev" aria-label="이전 공지">‹</button>` : ""}<div class="schedule-headline-row" data-schedule-headline-row>${headlines.map((post) => schedulePostCard(post, true)).join("")}</div>${headlines.length > 1 ? `<button class="schedule-scroll-btn next" type="button" data-schedule-scroll="next" aria-label="다음 공지">›</button>` : ""}</div></section>`;
       requestAnimationFrame(refreshScheduleHeadlineControls);
     }
     function renderSchedulePosts() {
