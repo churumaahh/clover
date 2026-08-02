@@ -4739,18 +4739,18 @@
     <section class="page" id="page-location" data-page="location">
       <main class="location-page">
         <h1 class="page-title">오시는 길</h1>
-        <section class="support-card">
-          <h2>CLOVER 위치</h2>
-          <div class="naver-map">
-            <div class="naver-map-canvas" id="cloverNaverMap" role="img" aria-label="서면역 12번 출구 지도"></div>
-            <div class="naver-map-fallback">지도를 불러오는 중입니다.</div>
+        <details class="support-card mypage-fold-card" data-location-map-layer>
+          <summary class="mypage-layer-title">[클로버 1기] 위치</summary>
+          <div class="mypage-layer-content">
+            <div class="naver-map">
+              <div class="naver-map-canvas" id="cloverNaverMap" role="img" aria-label="서면역 12번 출구 지도"></div>
+              <div class="naver-map-fallback">지도를 불러오는 중입니다.</div>
+            </div>
+            <p>장소: 서면역 12번 출구</p>
+            <p>방문 전 운영자 안내를 확인해 주세요.</p>
+            <a class="map-open-link" href="https://map.naver.com/p/search/%EC%84%9C%EB%A9%B4%EC%97%AD%2012%EB%B2%88%20%EC%B6%9C%EA%B5%AC" target="_blank" rel="noopener">네이버 지도에서 보기</a>
           </div>
-          <h2>[클로버 1기] 위치 공유</h2>
-          <p>장소: 서면역 12번 출구</p>
-          <p>주소: 미정</p>
-          <p>방문 전 운영자 안내를 확인해 주세요.</p>
-          <a class="map-open-link" href="https://map.naver.com/p/search/%EC%84%9C%EB%A9%B4%EC%97%AD%2012%EB%B2%88%20%EC%B6%9C%EA%B5%AC" target="_blank" rel="noopener">네이버 지도에서 보기</a>
-        </section>
+        </details>
       </main>
     </section>
 
@@ -5779,6 +5779,7 @@
     };
     let cloverMapLoaded = false;
     let cloverMapLoading = false;
+    let cloverMapLayerBound = false;
     const applicationAgeOptions = [
       { id: "age-20-27", range: "20세 - 27세", remaining: 6 },
       { id: "age-24-29", range: "24세 - 29세", remaining: 6 },
@@ -7198,12 +7199,17 @@
         renderMyBoardPosts();
       }
       try {
-        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardList&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`, { cache: "no-store" });
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardMine&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`, { cache: "no-store" });
         const result = await response.json();
         if (!response.ok || !result.ok || !Array.isArray(result.posts)) throw new Error(result.error || "문의 목록을 불러오지 못했습니다.");
-        boardPosts = result.posts;
-        writeBoardCache(boardPosts);
-        myBoardPosts = boardPosts.filter((post) => isMyBoardPost(post, id, name));
+        let posts = result.posts;
+        if (!posts.length && name) {
+          const fallbackResponse = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardList&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`, { cache: "no-store" });
+          const fallbackResult = await fallbackResponse.json();
+          const fallbackPosts = fallbackResponse.ok && fallbackResult.ok && Array.isArray(fallbackResult.posts) ? fallbackResult.posts : [];
+          posts = fallbackPosts.filter((post) => isMyBoardPost(post, id, name));
+        }
+        myBoardPosts = posts;
         myBoardPage = 1;
         renderMyBoardPosts();
       } catch {
@@ -8649,7 +8655,7 @@
         link.classList.toggle("is-active", linkPage === safePageName || isGuidePage);
       });
       setDrawer(false);
-      if (safePageName === "location") initCloverMap();
+      if (safePageName === "location") bindLocationMapLayer();
       if (safePageName === "mypage") { loadMyApplications(); loadMyProfileInfo(); loadMyCounsel(); loadMyBoardPosts(); }
       if (safePageName === "counsel") loadCounselPosts();
       if (updateHash) {
@@ -8749,6 +8755,17 @@
       } catch (error) {
         if (fallback) fallback.textContent = "지도를 불러오지 못했습니다. 아래 버튼으로 네이버 지도에서 확인해 주세요.";
       }
+    }
+
+    function bindLocationMapLayer() {
+      const layer = document.querySelector("[data-location-map-layer]");
+      if (!layer) return;
+      if (layer.open) initCloverMap();
+      if (cloverMapLayerBound) return;
+      layer.addEventListener("toggle", () => {
+        if (layer.open) initCloverMap();
+      });
+      cloverMapLayerBound = true;
     }
 
     function inputValue(selector) {
@@ -9808,8 +9825,6 @@
   </script>
 </body>
 </html>
-
-
 
 
 
