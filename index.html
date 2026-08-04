@@ -449,6 +449,163 @@
       margin: -.35rem 0 .35rem;
     }
 
+    .home-participation-calendar {
+      display: grid;
+      gap: .5rem;
+      margin: -.35rem 0 .35rem;
+    }
+
+    .home-participation-calendar .schedule-section-title {
+      margin: 0 .45rem .5rem;
+      font-size: 1.35rem;
+    }
+
+    .home-schedule-layer {
+      display: grid;
+      align-content: start;
+      gap: .5rem;
+      padding: .7rem .55rem .8rem;
+      border: 1px solid var(--line);
+      border-radius: .9rem;
+      background: #fff;
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+
+    .home-schedule-layer.is-empty {
+      align-items: center;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .home-schedule-layer .schedule-post-card {
+      border: 0;
+      padding: 0;
+    }
+
+    .home-schedule-layer-tabs {
+      display: flex;
+      gap: .4rem;
+    }
+
+    .home-schedule-time-btn:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+    }
+
+    .home-schedule-time-btn {
+      flex: 1;
+      min-height: 2rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: #4b5260;
+      font-size: .78rem;
+      font-weight: 850;
+    }
+
+    .home-schedule-time-btn.is-active {
+      border-color: var(--accent);
+      color: var(--accent-dark);
+      background: #f2fff5;
+    }
+
+    .home-schedule-layer .schedule-status-card {
+      display: grid;
+      gap: .4rem;
+      border: 1px solid var(--line);
+      border-radius: .75rem;
+      padding: .85rem .9rem;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .schedule-status-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .4rem;
+    }
+
+    .schedule-status-category {
+      padding: .18rem .55rem;
+      border-radius: 999px;
+      background: #e9ffef;
+      color: #07150b;
+      font-size: .68rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .schedule-status-badge {
+      padding: .18rem .55rem;
+      border-radius: 999px;
+      font-size: .68rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .schedule-status-card.is-countdown .schedule-status-badge {
+      background: #eaf2ff;
+      color: #1d4ed8;
+    }
+
+    .schedule-status-card.is-checking .schedule-status-badge {
+      background: #fff4e0;
+      color: #92400e;
+    }
+
+    .schedule-status-card.is-result .schedule-status-badge {
+      background: #f2fff5;
+      color: var(--accent-dark);
+    }
+
+    .schedule-status-card.is-result .schedule-status-category {
+      background: var(--accent);
+      color: #07150b;
+    }
+
+    .schedule-status-title {
+      margin: 0;
+      color: #101828;
+      font-size: .92rem;
+      font-weight: 900;
+      line-height: 1.35;
+    }
+
+    .schedule-status-desc {
+      margin: 0;
+      color: #475467;
+      font-size: .78rem;
+      line-height: 1.5;
+      white-space: pre-line;
+    }
+
+    .schedule-status-card.is-result .schedule-status-desc {
+      color: #07150b;
+      font-weight: 700;
+      border-top: 1px dashed var(--line);
+      padding-top: .45rem;
+    }
+
+    .home-participation-grid {
+      align-items: start;
+    }
+
+    .home-participation-grid .application-month h4 {
+      margin-bottom: 1.05rem;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 640px) {
+      .home-participation-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .home-participation-grid .home-schedule-layer {
+        height: auto !important;
+      }
+    }
+
     .home-schedule-headlines[hidden] {
       display: none;
     }
@@ -465,6 +622,27 @@
 
     .home-schedule-headlines .schedule-headline-strip {
       gap: .42rem;
+    }
+
+    .schedule-headline-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .5rem;
+    }
+
+    .schedule-headline-head .schedule-section-title {
+      margin: 0;
+    }
+
+    .schedule-more-btn {
+      flex: 0 0 auto;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 800;
+      padding: .2rem .45rem .5rem;
     }
 
 
@@ -973,6 +1151,17 @@
       gap: 0.65rem;
     }
 
+    #submitSuccessTitle {
+      font-size: 1.2rem;
+    }
+
+    .submit-success-hint {
+      margin: -0.6rem 0 1rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
     .gender-select-btn {
       min-width: 5.2rem;
       min-height: 2.6rem;
@@ -988,6 +1177,17 @@
       border-color: #1688f8;
       color: #fff;
       background: #1688f8;
+    }
+
+    .modal-confirm-btn {
+      min-width: 8rem;
+      min-height: 2.6rem;
+      border: 0;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 900;
     }
 
     .gender-select-btn.female {
@@ -1448,6 +1648,58 @@
     .application-day small {
       margin-top: 0.55rem;
       font-size: 0.58rem;
+    }
+
+    .weekday-select {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 0.5rem;
+    }
+
+    .weekday-chip {
+      width: 2.35rem;
+      height: 2.35rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #303743;
+      font-size: 0.75rem;
+      font-weight: 850;
+      cursor: pointer;
+      box-shadow: 0 0.2rem 0.65rem rgba(15, 23, 42, 0.04);
+      -webkit-user-select: none;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    .weekday-chip.is-sunday {
+      color: #ef4444;
+    }
+
+    .weekday-chip.is-saturday {
+      color: #2563eb;
+    }
+
+    .weekday-chip.is-selected {
+      border-color: #00f040;
+      color: #008f2a;
+      background: #f2fff5;
+      box-shadow: inset 0 0 0 1px rgba(0, 240, 64, 0.18);
+    }
+
+    .weekday-chip.is-selected.is-sunday {
+      color: #ef4444;
+    }
+
+    .weekday-chip.is-selected.is-saturday {
+      color: #2563eb;
+    }
+
+    .weekday-chip.is-wide {
+      width: auto;
+      min-width: 2.35rem;
+      padding: 0 0.75rem;
     }
 
     .schedule-result {
@@ -4576,6 +4828,7 @@
         </div>
       </div>
       <main class="content">
+        <section class="home-participation-calendar" data-home-participation-calendar></section>
         <section class="home-schedule-headlines" data-home-schedule-headlines hidden></section>
         <section id="home-events">
           <h2 class="home-section-title">로테이션 소개팅</h2>
@@ -4949,6 +5202,17 @@
   </div>
 
   <div class="app-edit-modal" data-app-edit-modal role="dialog" aria-modal="true" hidden></div>
+
+  <div class="gender-modal" data-submit-success-modal role="dialog" aria-modal="true" aria-labelledby="submitSuccessTitle" hidden>
+    <div class="gender-modal-panel">
+      <button class="gender-modal-close" type="button" aria-label="닫기" data-submit-success-close>×</button>
+      <p class="gender-modal-title" id="submitSuccessTitle">신청이 접수되었습니다.</p>
+      <p class="submit-success-hint">'마이 클로버'에서 확인 가능합니다.</p>
+      <div class="gender-modal-actions">
+        <button class="modal-confirm-btn" type="button" data-submit-success-close>확인</button>
+      </div>
+    </div>
+  </div>
 
   <div class="drawer-scrim" id="drawerScrim" onclick="window.closeDrawer(event)"></div>
   <aside class="drawer" id="drawer" aria-hidden="true">
@@ -5365,6 +5629,7 @@
       selectedScheduleDateKey = "";
       selectedScheduleTime = "";
       selectedScheduleSlots = [];
+      selectedWeekdays = [];
       selectedApplicationRegions = [];
       selectedAgeOption = null;
       selectedDocumentFile = null;
@@ -5375,7 +5640,7 @@
     }
 
     function isApplicationSelectionReady() {
-      return Boolean(selectedScheduleSlots.length && selectedAgeOption);
+      return Boolean(selectedWeekdays.length && selectedAgeOption);
     }
 
     function isAgeSelectionEnabled() {
@@ -5403,15 +5668,27 @@
       return "";
     }
 
+    const weekdayOptions = ["월", "화", "수", "목", "금", "토", "일", "상관없음", "유동일정"];
+
+    function weekdayChipClass(day) {
+      return [
+        "weekday-chip",
+        day === "일" ? "is-sunday" : "",
+        day === "토" ? "is-saturday" : "",
+        (day === "상관없음" || day === "유동일정") ? "is-wide" : "",
+        selectedWeekdays.includes(day) ? "is-selected" : ""
+      ].filter(Boolean).join(" ");
+    }
+
     function selectionScheduleMarkup() {
+      const weekdayChips = weekdayOptions.map((day) => `
+        <button class="${weekdayChipClass(day)}" type="button" data-weekday-option="${day}">${day}</button>
+      `).join("");
       return `
         <section class="form-section schedule-section">
-          <div class="schedule-heading">참여 희망 일자 (다중 선택 가능) <span class="req">*</span></div>
-          <p class="schedule-description">가능한 날짜를 선택해주세요.</p>
-          <div class="application-calendar">
-            ${getApplicationCalendarMonths().map(({ year, month }) => applicationMonthTemplate(year, month)).join("")}
-          </div>
-          ${selectedScheduleSectionMarkup()}
+          <div class="schedule-heading">가능한 요일 (N개 선택 가능) <span class="req">*</span></div>
+          <p class="schedule-description">참여 가능한 요일을 선택해주세요.</p>
+          <div class="weekday-select">${weekdayChips}</div>
         </section>
       `;
     }
@@ -5442,8 +5719,8 @@
           </div>
         </article>
         <div class="application-selection-page">
-          ${selectionScheduleMarkup()}
           ${renderAgeSelectionMarkup()}
+          ${selectionScheduleMarkup()}
           <button class="selection-complete-btn" type="button" data-selection-complete ${selectionReady ? "" : "disabled"}>선택 완료</button>
         </div>
       `;
@@ -5763,6 +6040,7 @@
     let selectedScheduleDateKey = "";
     let selectedScheduleTime = "";
     let selectedScheduleSlots = [];
+    let selectedWeekdays = [];
     let selectedDocumentFile = null;
     let selectedPhotoFiles = [];
     let selectedExistingDocumentUrl = "";
@@ -5867,8 +6145,8 @@
     async function visitorApi(payload) {
       const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded;charset=utf-8" },
-        body: new URLSearchParams({ payload: JSON.stringify(payload) }).toString()
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
       });
       const text = await response.text();
       let result = null;
@@ -7695,8 +7973,8 @@
     async function schedulePostApi(payload) {
       const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded;charset=utf-8" },
-        body: new URLSearchParams({ payload: JSON.stringify(payload) }).toString()
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
       });
       const result = await response.json();
       if (!response.ok || !result.ok) throw new Error(result.error || "일정 요청을 처리하지 못했습니다.");
@@ -7760,13 +8038,16 @@
       </article>`;
     }
     function openSchedulePostDetail(id) {
-      const post = schedulePosts.find((item) => String(item.id) === String(id));
+      const isPlaceholder = String(id).startsWith("placeholder-");
+      const post = isPlaceholder
+        ? homeCalendarPlaceholderPosts.find((item) => String(item.id) === String(id))
+        : schedulePosts.find((item) => String(item.id) === String(id));
       if (!post) return;
       selectedSchedulePostId = String(id);
       try { sessionStorage.setItem("cloverSchedulePostId", selectedSchedulePostId); } catch {}
       renderScheduleDetail(post);
       setPage("schedule-detail");
-      if (!scheduleViewedPosts.has(selectedSchedulePostId)) {
+      if (!isPlaceholder && !scheduleViewedPosts.has(selectedSchedulePostId)) {
         scheduleViewedPosts.add(selectedSchedulePostId);
         writeScheduleSet(SCHEDULE_VIEWED_KEY, scheduleViewedPosts);
         schedulePostApi({ type: "schedulePostView", id: selectedSchedulePostId }).then((result) => updateSchedulePost(result.post)).catch(() => {});
@@ -7791,21 +8072,66 @@
       let startX = 0;
       let startLeft = 0;
       let downTarget = null;
+      let lastMoveTime = 0;
+      let lastMoveX = 0;
+      let velocity = 0;
+      let momentumFrame = null;
+      let moveHistory = [];
+      const VELOCITY_WINDOW_MS = 100;
+      const stopMomentum = () => {
+        if (momentumFrame) cancelAnimationFrame(momentumFrame);
+        momentumFrame = null;
+        row.style.scrollBehavior = "";
+      };
+      const runMomentum = () => {
+        let v = velocity;
+        let lastTime = performance.now();
+        row.style.scrollBehavior = "auto";
+        const step = (now) => {
+          const dt = Math.min(48, now - lastTime);
+          lastTime = now;
+          if (Math.abs(v) < 0.02) { momentumFrame = null; row.style.scrollBehavior = ""; return; }
+          const max = row.scrollWidth - row.clientWidth;
+          const next = row.scrollLeft - v * dt;
+          if (next <= 0 || next >= max) {
+            row.scrollLeft = Math.max(0, Math.min(max, next));
+            momentumFrame = null;
+            row.style.scrollBehavior = "";
+            updateScheduleHeadlineControls(row);
+            return;
+          }
+          row.scrollLeft = next;
+          v *= 0.94;
+          updateScheduleHeadlineControls(row);
+          momentumFrame = requestAnimationFrame(step);
+        };
+        momentumFrame = requestAnimationFrame(step);
+      };
       row.addEventListener("pointerdown", (event) => {
         if (event.button !== undefined && event.button !== 0) return;
+        stopMomentum();
         dragging = true;
         moved = false;
         downTarget = event.target;
         startX = event.clientX;
         startLeft = row.scrollLeft;
+        lastMoveTime = performance.now();
+        lastMoveX = event.clientX;
+        velocity = 0;
+        moveHistory = [{ t: lastMoveTime, x: event.clientX }];
         row.classList.add("is-dragging");
-        row.setPointerCapture?.(event.pointerId);
+        try { row.setPointerCapture?.(event.pointerId); } catch {}
       });
       row.addEventListener("pointermove", (event) => {
         if (!dragging) return;
         const dx = event.clientX - startX;
         if (Math.abs(dx) > 14) moved = true;
         row.scrollLeft = startLeft - dx;
+        const now = performance.now();
+        lastMoveTime = now;
+        lastMoveX = event.clientX;
+        moveHistory.push({ t: now, x: event.clientX });
+        while (moveHistory.length > 1 && now - moveHistory[0].t > VELOCITY_WINDOW_MS) moveHistory.shift();
         if (moved) event.preventDefault();
       });
       const endDrag = (event) => {
@@ -7815,11 +8141,16 @@
         dragging = false;
         downTarget = null;
         row.classList.remove("is-dragging");
-        row.releasePointerCapture?.(event.pointerId);
+        try { row.releasePointerCapture?.(event.pointerId); } catch {}
         updateScheduleHeadlineControls(row);
         if (wasMoved) {
           row.dataset.dragSuppressClick = "true";
           window.setTimeout(() => { delete row.dataset.dragSuppressClick; }, 90);
+          const oldest = moveHistory[0];
+          const newest = moveHistory[moveHistory.length - 1];
+          const dt = newest && oldest ? newest.t - oldest.t : 0;
+          velocity = dt > 0 ? (newest.x - oldest.x) / dt : 0;
+          if (Math.abs(velocity) > 0.03) runMomentum();
           return;
         }
         if (event.type !== "pointerup") return;
@@ -7832,7 +8163,6 @@
       };
       row.addEventListener("pointerup", endDrag);
       row.addEventListener("pointercancel", endDrag);
-      row.addEventListener("pointerleave", endDrag);
       row.addEventListener("click", (event) => {
         if (row.dataset.dragSuppressClick === "true") {
           event.preventDefault();
@@ -7865,10 +8195,198 @@
         return;
       }
       homeScheduleHeadlines.hidden = false;
-      homeScheduleHeadlines.innerHTML = `<section class="schedule-headline-strip"><h2 class="schedule-section-title">클로버 소식</h2><div class="schedule-headline-scroller">${headlines.length > 1 ? `<button class="schedule-scroll-btn prev" type="button" data-schedule-scroll="prev" aria-label="이전 공지">‹</button>` : ""}<div class="schedule-headline-row" data-schedule-headline-row>${headlines.map((post) => schedulePostCard(post, true)).join("")}</div>${headlines.length > 1 ? `<button class="schedule-scroll-btn next" type="button" data-schedule-scroll="next" aria-label="다음 공지">›</button>` : ""}</div></section>`;
+      homeScheduleHeadlines.innerHTML = `<section class="schedule-headline-strip"><div class="schedule-headline-head"><h2 class="schedule-section-title">클로버 소식</h2><button class="schedule-more-btn" type="button" onclick="window.goPage(event, 'schedule')">더보기</button></div><div class="schedule-headline-scroller">${headlines.length > 1 ? `<button class="schedule-scroll-btn prev" type="button" data-schedule-scroll="prev" aria-label="이전 공지">‹</button>` : ""}<div class="schedule-headline-row" data-schedule-headline-row>${headlines.map((post) => schedulePostCard(post, true)).join("")}</div>${headlines.length > 1 ? `<button class="schedule-scroll-btn next" type="button" data-schedule-scroll="next" aria-label="다음 공지">›</button>` : ""}</div></section>`;
       requestAnimationFrame(refreshScheduleHeadlineControls);
     }
+    let selectedHomeCalendarDate = "";
+    let selectedHomeCalendarTime = "";
+    const HOME_CALENDAR_TIME_ORDER = { "13시": 0, "16시": 1, "19시": 2 };
+    const SCHEDULE_TIME_HOUR = { "13시": 13, "16시": 16, "19시": 19 };
+
+    function scheduleEventTimestamp(iso, time) {
+      const hour = SCHEDULE_TIME_HOUR[time];
+      if (!iso || hour === undefined) return NaN;
+      const [y, m, d] = String(iso).split("-").map(Number);
+      if (!y || !m || !d) return NaN;
+      return Date.UTC(y, m - 1, d, hour - 9, 0, 0);
+    }
+
+    function formatScheduleCountdown(eventTs) {
+      const diffMs = eventTs - Date.now();
+      if (diffMs <= 0) return "시작됨";
+      const totalMinutes = Math.floor(diffMs / 60000);
+      const days = Math.floor(totalMinutes / 1440);
+      const hours = Math.floor((totalMinutes % 1440) / 60);
+      const minutes = totalMinutes % 60;
+      if (days >= 1) return `D-${days}`;
+      if (hours >= 1) return `${hours}시간 ${minutes}분 후`;
+      return `${minutes}분 후`;
+    }
+
+    function homeScheduleStatusCard(post) {
+      const comments = Array.isArray(post.comments) ? post.comments : [];
+      const liked = scheduleLikedPosts.has(String(post.id));
+      const matchResult = String(post.matchResult || "").trim();
+      const eventTs = scheduleEventTimestamp(post.scheduleDate, post.scheduleTime);
+      const isPast = !Number.isNaN(eventTs) && Date.now() >= eventTs;
+      const phase = matchResult ? "result" : (isPast ? "checking" : "countdown");
+      const categoryLabel = phase === "result" ? "매칭 결과" : (post.category || "일정 안내");
+      const statusBadge = phase === "countdown" ? formatScheduleCountdown(eventTs) : phase === "checking" ? "확인 중" : "종료";
+      return `<article class="schedule-post-card schedule-status-card is-${phase}" data-schedule-post-id="${htmlAttr(post.id)}">
+        <div class="schedule-status-top">
+          <span class="schedule-status-category">${htmlAttr(categoryLabel)}</span>
+          <span class="schedule-status-badge">${htmlAttr(statusBadge)}</span>
+        </div>
+        <p class="schedule-status-title">${htmlAttr(post.title)}</p>
+        ${phase === "result" ? `<p class="schedule-status-desc">${htmlAttr(matchResult)}</p>` : ""}
+        <div class="schedule-post-meta"><span>조회 ${Number(post.views) || 0}</span><button type="button" class="${liked ? "is-liked" : ""}" data-schedule-like="${htmlAttr(post.id)}">공감 ${Number(post.likes) || 0}</button><button type="button" data-schedule-open="${htmlAttr(post.id)}">댓글 ${comments.length}</button></div>
+      </article>`;
+    }
+
+    function homeCalendarAvailableMap() {
+      const map = {};
+      schedulePosts.forEach((post) => {
+        const iso = String(post.scheduleDate || "").trim();
+        if (!iso) return;
+        (map[iso] = map[iso] || []).push(post);
+      });
+      Object.keys(map).forEach((iso) => {
+        map[iso].sort((a, b) => (HOME_CALENDAR_TIME_ORDER[a.scheduleTime] ?? 9) - (HOME_CALENDAR_TIME_ORDER[b.scheduleTime] ?? 9));
+      });
+      return map;
+    }
+
+    // TEMP: 관리자가 실제 일정을 연결하기 전까지, 금/토/일요일에 임시 안내 슬롯을 자동으로 채워 보여준다.
+    // 실제 일정 소식이 하나라도 연결되면 이 임시 데이터는 쓰이지 않는다.
+    let homeCalendarPlaceholderPosts = [];
+
+    function homeCalendarPlaceholderMap(year, month) {
+      const map = {};
+      const lastDate = new Date(year, month, 0).getDate();
+      const progressPost = schedulePosts.find((post) => post.category === "진행 과정");
+      const fallbackImage = (progressPost && progressPost.imageUrl)
+        || (schedulePosts[0] && schedulePosts[0].imageUrl)
+        || (events[0] && events[0].image)
+        || "https://res.cloudinary.com/lkkfechj/image/upload/v1784446329/uhzzvjl5g8k9stjholmx.jpg";
+      for (let day = 1; day <= lastDate; day += 1) {
+        const iso = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+        const dayOfWeek = new Date(`${iso}T00:00:00`).getDay();
+        let times = [];
+        if (dayOfWeek === 5) times = ["19시"];
+        else if (dayOfWeek === 6 || dayOfWeek === 0) times = ["13시", "16시", "19시"];
+        if (!times.length) continue;
+        const weekdayLabel = ["일", "월", "화", "수", "목", "금", "토"][dayOfWeek];
+        map[iso] = times.map((time) => ({
+          id: `placeholder-${iso}-${time}`,
+          title: `${month}월 ${day}일(${weekdayLabel}) ${time} 로테이션 소개팅`,
+          content: "세부 일정은 확정되는 대로 안내됩니다. (임시 데이터)",
+          imageUrl: fallbackImage,
+          category: "일정 안내",
+          views: 0,
+          likes: 0,
+          comments: [],
+          scheduleDate: iso,
+          scheduleTime: time
+        }));
+      }
+      homeCalendarPlaceholderPosts = Object.values(map).flat();
+      return map;
+    }
+
+    function homeCalendarTodayIso() {
+      const today = getSeoulTodayParts();
+      return `${today.year}-${String(today.month).padStart(2, "0")}-${String(today.day).padStart(2, "0")}`;
+    }
+
+    function nearestHomeCalendarSelection(availableMap) {
+      const todayIso = homeCalendarTodayIso();
+      const isos = Object.keys(availableMap).filter((iso) => availableMap[iso].length).sort();
+      const upcoming = isos.find((iso) => iso >= todayIso) || isos[isos.length - 1] || "";
+      if (!upcoming) return { date: "", time: "" };
+      return { date: upcoming, time: availableMap[upcoming][0]?.scheduleTime || "" };
+    }
+
+    function homeCalendarDayTemplate(year, month, availableMap) {
+      const firstDay = new Date(year, month - 1, 1).getDay();
+      const lastDate = new Date(year, month, 0).getDate();
+      const todayIso = homeCalendarTodayIso();
+      const cells = Array.from({ length: firstDay }, () => '<span aria-hidden="true"></span>');
+      for (let day = 1; day <= lastDate; day += 1) {
+        const iso = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+        const dayOfWeek = new Date(`${iso}T00:00:00`).getDay();
+        const isAvailable = !!(availableMap[iso] && availableMap[iso].length);
+        const classes = [
+          "application-day",
+          isAvailable ? "is-available" : "",
+          dayOfWeek === 0 ? "is-sunday" : "",
+          dayOfWeek === 6 ? "is-saturday" : "",
+          iso === todayIso ? "is-today" : "",
+          iso === selectedHomeCalendarDate ? "is-selected" : ""
+        ].filter(Boolean).join(" ");
+        cells.push(`<button class="${classes}" type="button" ${isAvailable ? `data-home-calendar-date="${iso}"` : "disabled"}><b>${day}</b></button>`);
+      }
+      return `<section class="application-month"><h4>${year}년 ${month}월</h4><div class="application-week" aria-hidden="true"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div><div class="application-days">${cells.join("")}</div></section>`;
+    }
+
+    function resolveHomeCalendarSelection(availableMap) {
+      if (!selectedHomeCalendarDate || !(availableMap[selectedHomeCalendarDate] && availableMap[selectedHomeCalendarDate].length)) {
+        const nearest = nearestHomeCalendarSelection(availableMap);
+        selectedHomeCalendarDate = nearest.date;
+        selectedHomeCalendarTime = nearest.time;
+      }
+    }
+
+    function homeCalendarLayerMarkup(availableMap) {
+      if (!selectedHomeCalendarDate) {
+        return `<div class="home-schedule-layer is-empty"><p class="schedule-feed-empty">등록된 참여 일정이 없습니다.</p></div>`;
+      }
+      const posts = availableMap[selectedHomeCalendarDate] || [];
+      if (!posts.length) {
+        return `<div class="home-schedule-layer is-empty"><p class="schedule-feed-empty">등록된 참여 일정이 없습니다.</p></div>`;
+      }
+      return `<div class="home-schedule-layer">${posts.map((post) => homeScheduleStatusCard(post)).join("")}</div>`;
+    }
+
+    function renderHomeParticipationCalendar() {
+      const container = document.querySelector("[data-home-participation-calendar]");
+      if (!container) return;
+      const { year, month } = getApplicationCalendarMonths()[0];
+      const realMap = homeCalendarAvailableMap();
+      const availableMap = Object.keys(realMap).length ? realMap : homeCalendarPlaceholderMap(year, month);
+      resolveHomeCalendarSelection(availableMap);
+      container.innerHTML = `
+        <h2 class="schedule-section-title">참여 일정</h2>
+        <div class="application-calendar home-participation-grid">
+          ${homeCalendarDayTemplate(year, month, availableMap)}
+          ${homeCalendarLayerMarkup(availableMap)}
+        </div>
+      `;
+      requestAnimationFrame(() => {
+        const monthEl = container.querySelector(".application-month");
+        const layerEl = container.querySelector(".home-schedule-layer");
+        if (!monthEl || !layerEl) return;
+        const isStacked = layerEl.getBoundingClientRect().left === monthEl.getBoundingClientRect().left;
+        layerEl.style.height = isStacked ? "" : `${monthEl.getBoundingClientRect().height}px`;
+      });
+    }
+    setInterval(() => {
+      if (document.querySelector("[data-home-participation-calendar]")) renderHomeParticipationCalendar();
+    }, 60000);
+    let homeCalendarResizeTimer = null;
+    window.addEventListener("resize", () => {
+      clearTimeout(homeCalendarResizeTimer);
+      homeCalendarResizeTimer = setTimeout(() => {
+        const container = document.querySelector("[data-home-participation-calendar]");
+        const monthEl = container?.querySelector(".application-month");
+        const layerEl = container?.querySelector(".home-schedule-layer");
+        if (!monthEl || !layerEl) return;
+        const isStacked = layerEl.getBoundingClientRect().left === monthEl.getBoundingClientRect().left;
+        layerEl.style.height = isStacked ? "" : `${monthEl.getBoundingClientRect().height}px`;
+      }, 150);
+    });
+
     function renderSchedulePosts() {
+      renderHomeParticipationCalendar();
       renderHomeScheduleHeadlines();
       if (!scheduleFeed) return;
       if (!schedulePosts.length) {
@@ -7920,6 +8438,21 @@
       }
     }
     document.addEventListener("click", async (event) => {
+      const homeCalendarDateTarget = event.target.closest("[data-home-calendar-date]");
+      if (homeCalendarDateTarget) {
+        event.preventDefault();
+        selectedHomeCalendarDate = homeCalendarDateTarget.dataset.homeCalendarDate;
+        selectedHomeCalendarTime = "";
+        renderHomeParticipationCalendar();
+        return;
+      }
+      const homeCalendarTimeTarget = event.target.closest("[data-home-calendar-time]");
+      if (homeCalendarTimeTarget) {
+        event.preventDefault();
+        selectedHomeCalendarTime = homeCalendarTimeTarget.dataset.homeCalendarTime;
+        renderHomeParticipationCalendar();
+        return;
+      }
       const scrollButton = event.target.closest("[data-schedule-scroll]");
       if (scrollButton) {
         event.preventDefault();
@@ -7979,10 +8512,8 @@
     async function boardApi(payload) {
       const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
-        },
-        body: new URLSearchParams({ payload: JSON.stringify(payload) }).toString()
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
       });
       const result = await response.json();
       if (!response.ok || !result.ok) throw new Error(result.error || "게시판 요청을 처리하지 못했습니다.");
@@ -8598,6 +9129,11 @@
       genderModal.hidden = !open;
     }
 
+    function setSubmitSuccessModal(open) {
+      const modal = document.querySelector("[data-submit-success-modal]");
+      if (modal) modal.hidden = !open;
+    }
+
     function setDrawer(open) {
       document.body.classList.toggle("menu-open", open);
       drawer.classList.toggle("is-open", open);
@@ -9013,7 +9549,6 @@
     }
 
     async function submitApplication(button) {
-      syncSelectedScheduleFromSlots();
       if (!selectedScheduleDate) {
         alert("참여 일정은 이전 단계에서 선택해 주세요.");
         return;
@@ -9114,10 +9649,8 @@
         button.textContent = "전송 중";
         const response = await fetch(GOOGLE_SCRIPT_URL, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
-          },
-          body: new URLSearchParams({ payload: JSON.stringify(payload) }).toString()
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
         });
         const result = await response.json();
         if (!response.ok || !result.ok) {
@@ -9128,7 +9661,7 @@
           throw new Error(serverError || "신청 정보를 저장하지 못했습니다.");
         }
         syncProfileGender(selectedApplyGender);
-        alert("신청이 접수되었습니다.");
+        setSubmitSuccessModal(true);
         button.classList.remove("is-loading");
         button.textContent = "접수 완료";
       } catch (error) {
@@ -9195,6 +9728,15 @@
         return;
       }
 
+      const submitSuccessClose = closestFrom(event.target, "[data-submit-success-close]");
+      if (submitSuccessClose) {
+        event.preventDefault();
+        event.stopPropagation();
+        setSubmitSuccessModal(false);
+        setPage("home");
+        return;
+      }
+
       if (event.target === genderModal) {
         setGenderModal(false);
         return;
@@ -9211,40 +9753,21 @@
         return;
       }
 
-      const applicationDateTarget = closestFrom(event.target, "[data-application-date]");
-      if (applicationDateTarget) {
+      const weekdayOptionTarget = closestFrom(event.target, "[data-weekday-option]");
+      if (weekdayOptionTarget) {
         event.preventDefault();
         event.stopPropagation();
-        const dateKey = applicationDateTarget.dataset.applicationDate;
-        const isSelected = applicationDateTarget.classList.contains("is-selected");
-        if (isSelected) {
-          selectedScheduleSlots = selectedScheduleSlots.filter((slot) => slot.dateKey !== dateKey);
-          syncSelectedScheduleFromSlots();
+        const day = weekdayOptionTarget.dataset.weekdayOption;
+        const exclusiveOptions = ["상관없음", "유동일정"];
+        const isSelected = selectedWeekdays.includes(day);
+        if (exclusiveOptions.includes(day)) {
+          selectedWeekdays = isSelected ? [] : [day];
         } else {
-          selectedScheduleDateKey = dateKey;
-          selectedScheduleTime = "";
-          const nextSlot = {
-            dateKey,
-            label: formatSelectedSchedule(dateKey),
-            time: ""
-          };
-          selectedScheduleDate = nextSlot.label;
-          selectedScheduleSlots.push(nextSlot);
+          selectedWeekdays = isSelected
+            ? selectedWeekdays.filter((item) => item !== day)
+            : [...selectedWeekdays.filter((item) => !exclusiveOptions.includes(item)), day];
         }
         renderApplicationSelection(selectedEvent);
-        return;
-      }
-
-      const removeScheduleSlotTarget = closestFrom(event.target, "[data-remove-schedule-slot]");
-      if (removeScheduleSlotTarget) {
-        event.preventDefault();
-        event.stopPropagation();
-        const index = Number(removeScheduleSlotTarget.dataset.removeScheduleSlot);
-        if (Number.isInteger(index) && index >= 0) {
-          selectedScheduleSlots.splice(index, 1);
-          syncSelectedScheduleFromSlots();
-          renderApplicationSelection(selectedEvent);
-        }
         return;
       }
 
@@ -9253,8 +9776,8 @@
         event.preventDefault();
         event.stopPropagation();
         if (selectionCompleteTarget.disabled) return;
-        if (!selectedScheduleSlots.length) {
-          alert("참여 희망 일자를 선택해 주세요.");
+        if (!selectedWeekdays.length) {
+          alert("가능한 요일을 선택해 주세요.");
           document.querySelector(".schedule-section")?.scrollIntoView({ behavior: "smooth", block: "center" });
           return;
         }
@@ -9263,7 +9786,7 @@
           document.querySelector(".age-selection-block")?.scrollIntoView({ behavior: "smooth", block: "center" });
           return;
         }
-        syncSelectedScheduleFromSlots();
+        selectedScheduleDate = selectedWeekdays.join(", ");
         renderDetail(selectedEvent);
         window.scrollTo({ top: 0, behavior: "smooth" });
         return;
@@ -9746,8 +10269,7 @@
             if (detailRoot?.querySelector(".application-selection-page")) {
               renderApplicationSelection(selectedEvent);
             } else {
-              syncSelectedScheduleFromSlots();
-        renderDetail(selectedEvent);
+              renderDetail(selectedEvent);
             }
           }
         }
