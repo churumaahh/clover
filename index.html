@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ko">
 <head>
   <link rel="icon" type="image/png" href="assets/favicon.png?v=20260710-unified-4">
@@ -31,10 +31,48 @@
       --line: #e3e5ea;
       --soft: #f5f6f8;
       --paper: #ffffff;
+      --surface: #ffffff;
+      --page-bg: #eef0f4;
       --male: #0ea5e9;
       --female: #ff4d79;
       --success: #10a86b;
       --radius: 0.75rem;
+      --tint-green: #f2fff5;
+      --tint-green-strong: #e9ffef;
+      --tint-blue: #eaf2ff;
+      --tint-orange: #fff4e0;
+      --tint-red: #fff1f2;
+      --tint-neutral: #f8f9fb;
+      --tint-green-text: #008f2a;
+      --tint-blue-text: #1d4ed8;
+      --tint-orange-text: #92400e;
+    }
+
+    :root[data-theme="dark"] {
+      --ink: #f1f1f1;
+      --muted: #aaaaaa;
+      --line: #2a2a2a;
+      --soft: #1e1e1e;
+      --paper: #121212;
+      --surface: #1e1e1e;
+      --page-bg: #121212;
+      --tint-green: #1e1e1e;
+      --tint-green-strong: #1e1e1e;
+      --tint-blue: #1e1e1e;
+      --tint-orange: #1e1e1e;
+      --tint-red: #1e1e1e;
+      --tint-neutral: #1e1e1e;
+      --tint-green-text: #4ade80;
+      --tint-blue-text: #6ea8fe;
+      --tint-orange-text: #ffb454;
+    }
+
+    body,
+    .app,
+    .home-schedule-panel,
+    .drawer,
+    .gender-modal-panel {
+      transition: background-color .2s ease, color .2s ease;
     }
 
     * {
@@ -48,7 +86,7 @@
     body {
       margin: 0;
       color: var(--ink);
-      background: #eef0f4;
+      background: var(--page-bg);
       font-family: Pretendard, "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       letter-spacing: 0;
     }
@@ -243,7 +281,7 @@
       min-height: 3.2rem;
       padding: 0 0.75rem;
       border-bottom: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.98);
+      background: var(--surface);
     }
 
     .section-tabs.guide-tabs {
@@ -256,13 +294,13 @@
 
     .section-tab {
       position: relative;
-      color: #5a6170;
+      color: var(--muted);
       font-size: 0.9rem;
       font-weight: 850;
     }
 
     .section-tab.is-active {
-      color: #121218;
+      color: var(--ink);
     }
 
     .section-tab.is-active::after {
@@ -395,7 +433,7 @@
       padding: 0 1.25rem;
       border-radius: 999px;
       color: var(--ink);
-      background: #fff;
+      background: var(--surface);
       font-weight: 900;
       font-size: 0.92rem;
       box-shadow: 0 0.75rem 1.6rem rgba(0, 0, 0, 0.25);
@@ -434,16 +472,21 @@
 
     .hero-dot.is-active {
       width: 1.5rem;
-      background: #fff;
+      background: var(--surface);
     }
 
     .content {
       display: grid;
       gap: 1.5rem;
       padding: 1.5rem 0.75rem 6rem;
-      background: #f8f9fb;
+      background: var(--tint-neutral);
     }
     .home-schedule-headlines {
+      display: grid;
+      gap: .5rem;
+      margin: -.35rem 0 .35rem;
+    }
+    .home-counsel-layer {
       display: grid;
       gap: .5rem;
       margin: -.35rem 0 .35rem;
@@ -451,13 +494,63 @@
 
     .home-participation-calendar {
       display: grid;
-      gap: .5rem;
+      gap: .75rem;
       margin: -.35rem 0 .35rem;
     }
 
-    .home-participation-calendar .schedule-section-title {
-      margin: 0 .45rem .5rem;
+    .home-participation-calendar .schedule-headline-head {
+      margin: 0 .45rem 0;
+    }
+
+    .home-participation-calendar .schedule-headline-head .schedule-section-title {
+      margin: 0;
       font-size: 1.35rem;
+    }
+
+    .home-participation-calendar .schedule-section-title {
+      margin: 0 .45rem 0;
+      font-size: 1.35rem;
+    }
+
+    .home-match-result-btn {
+      flex: 0 0 auto;
+      min-height: 2.1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .46rem;
+      border: 1px solid rgba(0, 240, 64, .34);
+      border-radius: .72rem;
+      background: linear-gradient(135deg, #111827 0%, #020617 100%);
+      color: #fff;
+      padding: 0 .72rem 0 .58rem;
+      font-size: .8rem;
+      font-weight: 950;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 .45rem 1rem rgba(15, 23, 42, .14);
+      touch-action: manipulation;
+    }
+
+    .home-match-result-btn::before {
+      content: "";
+      width: .48rem;
+      height: .48rem;
+      border-radius: 999px;
+      background: #00f040;
+      box-shadow: 0 0 0 .22rem rgba(0, 240, 64, .16);
+    }
+
+    .home-match-result-btn::after {
+      content: "";
+      width: .42rem;
+      height: .42rem;
+      border-top: 2px solid #00f040;
+      border-right: 2px solid #00f040;
+      transform: rotate(45deg);
+      margin-left: -.05rem;
+    }
+
+    .home-match-result-btn:active {
+      transform: translateY(1px) scale(.99);
     }
 
     .home-schedule-layer {
@@ -467,7 +560,7 @@
       padding: .7rem .55rem .8rem;
       border: 1px solid var(--line);
       border-radius: .9rem;
-      background: #fff;
+      background: var(--paper);
       overflow-y: auto;
       scrollbar-width: thin;
     }
@@ -481,6 +574,7 @@
     .home-schedule-layer .schedule-post-card {
       border: 0;
       padding: 0;
+      background: var(--paper);
     }
 
     .home-schedule-layer-tabs {
@@ -498,7 +592,7 @@
       min-height: 2rem;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: #fff;
+      background: var(--surface);
       color: #4b5260;
       font-size: .78rem;
       font-weight: 850;
@@ -507,7 +601,7 @@
     .home-schedule-time-btn.is-active {
       border-color: var(--accent);
       color: var(--accent-dark);
-      background: #f2fff5;
+      background: var(--tint-green);
     }
 
     .home-schedule-layer .schedule-status-card {
@@ -516,7 +610,7 @@
       border: 1px solid var(--line);
       border-radius: .75rem;
       padding: .85rem .9rem;
-      background: #fff;
+      background: var(--paper);
       cursor: pointer;
     }
 
@@ -528,35 +622,37 @@
     }
 
     .schedule-status-category {
-      padding: .18rem .55rem;
+      padding: .2rem .48rem;
       border-radius: 999px;
-      background: #e9ffef;
+      background: #00ff40;
       color: #07150b;
-      font-size: .68rem;
-      font-weight: 900;
+      font-size: .66rem;
+      line-height: 1.15;
+      font-weight: 950;
       white-space: nowrap;
     }
 
     .schedule-status-badge {
-      padding: .18rem .55rem;
+      padding: .2rem .48rem;
       border-radius: 999px;
-      font-size: .68rem;
-      font-weight: 900;
+      font-size: .66rem;
+      line-height: 1.15;
+      font-weight: 950;
       white-space: nowrap;
     }
 
     .schedule-status-card.is-countdown .schedule-status-badge {
-      background: #eaf2ff;
-      color: #1d4ed8;
+      background: var(--tint-blue);
+      color: var(--tint-blue-text);
     }
 
     .schedule-status-card.is-checking .schedule-status-badge {
-      background: #fff4e0;
-      color: #92400e;
+      background: var(--tint-orange);
+      color: var(--tint-orange-text);
     }
 
     .schedule-status-card.is-result .schedule-status-badge {
-      background: #f2fff5;
+      background: var(--tint-green);
       color: var(--accent-dark);
     }
 
@@ -567,7 +663,7 @@
 
     .schedule-status-title {
       margin: 0;
-      color: #101828;
+      color: var(--ink);
       font-size: .92rem;
       font-weight: 900;
       line-height: 1.35;
@@ -575,7 +671,7 @@
 
     .schedule-status-desc {
       margin: 0;
-      color: #475467;
+      color: var(--muted);
       font-size: .78rem;
       line-height: 1.5;
       white-space: pre-line;
@@ -588,6 +684,32 @@
       padding-top: .45rem;
     }
 
+    .schedule-match-result-btn {
+      width: 100%;
+      margin-top: auto;
+      padding: .5rem .6rem;
+      border: 1px solid var(--line);
+      border-radius: .55rem;
+      background: var(--surface);
+      color: var(--ink);
+      font-size: .74rem;
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .schedule-status-card.is-result .schedule-match-result-btn,
+    .schedule-status-card.is-checking .schedule-match-result-btn:not(:disabled) {
+      border-color: var(--accent);
+      background: var(--tint-green);
+      color: var(--accent-dark);
+    }
+
+    .schedule-match-result-btn:disabled {
+      color: var(--muted);
+      cursor: not-allowed;
+      opacity: .75;
+    }
+
     .home-participation-grid {
       align-items: start;
     }
@@ -597,23 +719,19 @@
       font-size: 1rem;
     }
 
-    @media (max-width: 640px) {
-      .home-participation-grid {
-        grid-template-columns: 1fr !important;
-      }
-      .home-participation-grid .home-schedule-layer {
-        height: auto !important;
-      }
-    }
-
     .home-schedule-headlines[hidden] {
       display: none;
     }
 
+    .home-counsel-layer[hidden] {
+      display: none;
+    }
+
     .home-section-title,
-    .home-schedule-headlines .schedule-section-title {
+    .home-schedule-headlines .schedule-section-title,
+    .home-counsel-layer .schedule-section-title {
       margin: 0 .45rem .5rem;
-      color: #07150b;
+      color: var(--ink);
       font-size: .82rem;
       font-weight: 950;
       line-height: 1.25;
@@ -621,7 +739,7 @@
     }
 
     .home-schedule-headlines .schedule-headline-strip {
-      gap: .42rem;
+      gap: .75rem;
     }
 
     .schedule-headline-head {
@@ -647,7 +765,8 @@
 
 
     .home-section-title,
-    .home-schedule-headlines .schedule-section-title {
+    .home-schedule-headlines .schedule-section-title,
+    .home-counsel-layer .schedule-section-title {
       font-size: 1.35rem;
       line-height: 1.25;
     }
@@ -671,6 +790,196 @@
 
     .home-schedule-headlines .schedule-post-card {
       box-shadow: none;
+    }
+
+    :root[data-theme="dark"] .home-schedule-headlines .schedule-post-card {
+      background: #121212;
+    }
+
+    .home-counsel-strip {
+      display: grid;
+      gap: .55rem;
+    }
+
+    .home-counsel-row {
+      display: grid;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: .65rem;
+      background: var(--surface);
+    }
+
+    :root[data-theme="dark"] .home-counsel-row {
+      background: #121212;
+    }
+
+    .home-counsel-card {
+      display: grid;
+      grid-template-columns: 2rem minmax(0, 1fr) minmax(3.4rem, auto) 2.2rem minmax(6.8rem, auto);
+      align-items: center;
+      gap: .42rem;
+      width: 100%;
+      min-width: 0;
+      min-height: 2.05rem;
+      padding: 0 .7rem;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      color: var(--ink);
+      text-align: left;
+      box-shadow: none;
+    }
+
+    .home-counsel-card:last-child {
+      border-bottom: 0;
+    }
+
+    .home-counsel-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      justify-self: center;
+      min-width: 1.32rem;
+      height: 1.32rem;
+      padding: 0 .2rem;
+      border: 1px solid rgba(0, 216, 56, .28);
+      border-radius: .42rem;
+      background: rgba(0, 255, 64, .08);
+      color: #087a24;
+      font-size: .64rem;
+      font-weight: 950;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    :root[data-theme="dark"] .home-counsel-number {
+      border-color: rgba(0, 255, 64, .22);
+      background: rgba(0, 255, 64, .1);
+      color: #64f07b;
+    }
+
+    .home-counsel-title {
+      display: block;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: .82rem;
+      font-weight: 850;
+      line-height: 1.2;
+    }
+
+    .home-counsel-title .counsel-title-stage {
+      display: none;
+    }
+
+    .home-counsel-author {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: .18rem;
+      min-width: 0;
+      color: var(--muted);
+      font-size: .68rem;
+      font-weight: 800;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .home-counsel-author-name {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .home-counsel-author .counsel-gender-icon {
+      width: .82rem;
+      height: .82rem;
+      top: 0;
+    }
+
+    .home-counsel-author .counsel-gender-icon svg {
+      width: .56rem;
+      height: .56rem;
+    }
+
+    .home-counsel-date {
+      color: var(--muted);
+      font-size: .62rem;
+      font-weight: 800;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .home-counsel-meta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: .18rem;
+      color: var(--muted);
+      font-size: .58rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .home-counsel-meta span {
+      display: inline;
+      color: var(--muted);
+      line-height: 1;
+    }
+
+    .home-counsel-empty {
+      margin: 0;
+      padding: .7rem .8rem;
+      border: 1px solid var(--line);
+      border-radius: .65rem;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    @media (max-width: 420px) {
+      .home-counsel-card {
+        grid-template-columns: 1.35rem minmax(0, 1fr) minmax(2.5rem, auto) 1.8rem minmax(4.9rem, auto);
+        min-height: 1.95rem;
+        gap: .24rem;
+        padding: 0 .55rem;
+      }
+
+      .home-counsel-number {
+        min-width: 1.12rem;
+        height: 1.12rem;
+        border-radius: .36rem;
+        font-size: .56rem;
+      }
+
+      .home-counsel-author,
+      .home-counsel-date {
+        font-size: .58rem;
+      }
+
+      .home-counsel-author .counsel-gender-icon {
+        width: .72rem;
+        height: .72rem;
+      }
+
+      .home-counsel-author .counsel-gender-icon svg {
+        width: .48rem;
+        height: .48rem;
+      }
+
+      .home-counsel-meta {
+        gap: .1rem;
+        font-size: .5rem;
+      }
+
+      .home-counsel-title {
+        font-size: .76rem;
+      }
     }
 
 
@@ -698,7 +1007,7 @@
     .event-list {
       display: grid;
       gap: 0.85rem;
-      margin: 20px 0 0;
+      margin: .75rem 0 0;
       padding: 0;
       list-style: none;
     }
@@ -713,6 +1022,10 @@
       border-radius: var(--radius);
       background: var(--paper);
       box-shadow: 0 0.25rem 0.8rem rgba(18, 18, 24, 0.035);
+    }
+
+    :root[data-theme="dark"] .event-card {
+      background: #121212;
     }
 
     .event-thumb {
@@ -1057,6 +1370,69 @@
       display: none;
     }
 
+    .home-counsel-modal,
+    .home-schedule-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+      background: rgba(18, 24, 35, 0.42);
+    }
+
+    .home-counsel-modal[hidden],
+    .home-schedule-modal[hidden] {
+      display: none;
+    }
+
+    .home-counsel-panel,
+    .home-schedule-panel {
+      position: relative;
+      width: min(28rem, 96vw);
+      max-height: 86vh;
+      overflow-y: auto;
+      border-radius: 1rem;
+      background: var(--surface);
+      box-shadow: 0 1rem 2.4rem rgba(18, 24, 35, 0.2);
+    }
+
+    .home-counsel-panel .counsel-detail-card {
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .home-counsel-panel .counsel-detail-content {
+      max-height: 34vh;
+      overflow-y: auto;
+    }
+
+    .home-schedule-panel .schedule-detail-card {
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .home-counsel-close-btn,
+    .home-schedule-close-btn {
+      position: absolute;
+      top: 0.55rem;
+      right: 0.55rem;
+      z-index: 1;
+      width: 1.9rem;
+      height: 1.9rem;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 999px;
+      color: #303743;
+      background: rgba(255, 255, 255, 0.88);
+      font-size: 1.25rem;
+      line-height: 1;
+      box-shadow: 0 .1rem .4rem rgba(18, 24, 35, 0.18);
+    }
+
     .app-edit-panel {
       display: grid;
       gap: 0.9rem;
@@ -1065,7 +1441,7 @@
       overflow-y: auto;
       padding: 1.1rem 1.1rem 1.4rem;
       border-radius: 1rem 1rem 0 0;
-      background: #fff;
+      background: var(--surface);
       box-shadow: 0 -1rem 2.4rem rgba(18, 24, 35, 0.2);
     }
 
@@ -1095,8 +1471,8 @@
       padding: 0 0.75rem;
       border: 1px solid var(--line);
       border-radius: 999px;
-      color: #303743;
-      background: #fff;
+      color: var(--ink);
+      background: var(--surface);
       font-size: 0.78rem;
       font-weight: 900;
     }
@@ -1118,7 +1494,7 @@
       padding: 1.15rem;
       border: 1px solid var(--line);
       border-radius: 0.75rem;
-      background: #fff;
+      background: var(--surface);
       box-shadow: 0 1rem 2.4rem rgba(18, 24, 35, 0.2);
       text-align: center;
     }
@@ -1167,7 +1543,7 @@
       min-height: 2.6rem;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: #fff;
+      background: var(--surface);
       color: #4b5260;
       font-size: 0.95rem;
       font-weight: 900;
@@ -1203,7 +1579,7 @@
     .location-page {
       min-height: calc(100svh - 6.25rem);
       padding: 1.5rem 0.75rem 6rem;
-      background: #f8f9fb;
+      background: var(--tint-neutral);
     }
 
     .location-page.board-page {
@@ -1296,7 +1672,7 @@
       padding: 1rem;
       border: 1px solid #8cff9f;
       border-radius: var(--radius);
-      background: #fff;
+      background: var(--surface);
     }
 
     .gender-application-card .gender-label {
@@ -1473,7 +1849,7 @@
       height: 0.92rem;
       border: 1.5px solid #06120a;
       border-radius: 50%;
-      background: #fff;
+      background: var(--surface);
       color: #06120a;
       font-size: 0.72rem;
       font-weight: 950;
@@ -1546,7 +1922,7 @@
       padding: 0.7rem 0.55rem 0.8rem;
       border: 1px solid var(--line);
       border-radius: 0.9rem;
-      background: #fff;
+      background: var(--paper);
     }
 
     .application-month h4 {
@@ -1598,21 +1974,21 @@
     }
 
     .application-day.is-available {
-      width: 2.35rem;
-      height: 2.35rem;
+      width: 2.1rem;
+      height: 2.1rem;
       justify-self: center;
       align-self: center;
       border: 1px solid var(--line);
-      color: #303743;
-      background: #fff;
+      color: var(--ink);
+      background: var(--surface);
       cursor: pointer;
       box-shadow: 0 0.2rem 0.65rem rgba(15, 23, 42, 0.04);
     }
 
     .application-day.is-selected {
       border-color: #00f040;
-      color: #008f2a;
-      background: #f2fff5;
+      color: var(--tint-green-text);
+      background: var(--tint-green);
       box-shadow: inset 0 0 0 1px rgba(0, 240, 64, 0.18);
     }
     .application-day.is-available.is-saturday,
@@ -1662,8 +2038,8 @@
       height: 2.35rem;
       border-radius: 999px;
       border: 1px solid var(--line);
-      background: #fff;
-      color: #303743;
+      background: var(--surface);
+      color: var(--ink);
       font-size: 0.75rem;
       font-weight: 850;
       cursor: pointer;
@@ -1683,8 +2059,8 @@
 
     .weekday-chip.is-selected {
       border-color: #00f040;
-      color: #008f2a;
-      background: #f2fff5;
+      color: var(--tint-green-text);
+      background: var(--tint-green);
       box-shadow: inset 0 0 0 1px rgba(0, 240, 64, 0.18);
     }
 
@@ -1709,7 +2085,7 @@
       padding: 0.75rem;
       border: 1px solid var(--line);
       border-radius: 0.75rem;
-      background: #fff;
+      background: var(--surface);
     }
 
     .schedule-result[hidden] { display: none; }
@@ -1732,7 +2108,7 @@
       align-items: center;
       gap: 0.35rem;
       margin: 0 0 0.45rem;
-      color: #303743;
+      color: var(--ink);
       font-size: 0.72rem;
       font-weight: 950;
     }
@@ -1752,8 +2128,8 @@
       margin: 0;
       padding: 0.55rem 0.65rem;
       border-radius: 0.55rem;
-      color: #111827;
-      background: #fff;
+      color: var(--ink);
+      background: var(--surface);
       font-size: 0.76rem;
       line-height: 1.45;
       font-weight: 900;
@@ -1763,15 +2139,15 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.35rem;
-      color: #303743;
+      color: var(--ink);
     }
 
     .confirmed-person {
       padding: 0.25rem 0.45rem;
       border: 1px solid var(--line);
       border-radius: 999px;
-      color: #303743;
-      background: #fff;
+      color: var(--ink);
+      background: var(--surface);
       font-size: calc(0.68rem - 2px);
       font-weight: 850;
     }
@@ -1837,17 +2213,94 @@
       padding: 0.45rem 0.85rem;
       border: 1px solid var(--line);
       border-radius: 999px;
-      color: #303743;
-      background: #fff;
+      color: var(--ink);
+      background: var(--surface);
       font-size: 0.84rem;
       font-weight: 900;
     }
 
     .region-choice.is-selected {
       border-color: #00f040;
-      color: #008f2a;
-      background: #f2fff5;
+      color: var(--tint-green-text);
+      background: var(--tint-green);
       box-shadow: inset 0 0 0 1px rgba(0, 240, 64, 0.18);
+    }
+
+    .composition-choice-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+    }
+
+    .composition-choice {
+      min-height: 3rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+      border-radius: 0.9rem;
+      background: var(--surface);
+      color: var(--ink);
+      font-size: 1rem;
+      font-weight: 950;
+      box-shadow: 0 0.3rem 1rem rgba(15, 23, 42, 0.04);
+      touch-action: manipulation;
+      user-select: none;
+    }
+
+    .composition-choice.is-selected,
+    .composition-choice:active {
+      border-color: #00f040;
+      color: var(--tint-green-text);
+      background: var(--tint-green);
+      box-shadow: inset 0 0 0 1px rgba(0, 240, 64, 0.18);
+    }
+
+    .composition-choice-badges {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.22rem;
+    }
+
+    .composition-gender-badge {
+      min-width: 2rem;
+      height: 1.28rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.12rem;
+      padding: 0 0.38rem;
+      border-radius: 999px;
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .composition-gender-badge.is-male {
+      background: #1688f8;
+    }
+
+    .composition-gender-badge.is-female {
+      background: #ff7068;
+    }
+
+    .composition-gender-badge svg {
+      width: 0.72rem;
+      height: 0.72rem;
+      color: #fff;
+      stroke: currentColor;
+      flex: 0 0 auto;
+    }
+
+    .composition-guide {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      line-height: 1.45;
+      word-break: keep-all;
     }
 
     
@@ -1874,7 +2327,7 @@
       border: 1px solid var(--line);
       border-radius: 0.9rem;
       color: var(--ink);
-      background: #fff;
+      background: var(--surface);
       text-align: left;
       box-shadow: 0 0.3rem 1rem rgba(15, 23, 42, 0.04);
     }
@@ -1882,29 +2335,49 @@
     .age-option-card.is-selected,
     .age-option-card:active {
       border-color: #00f040;
-      background: #f2fff5;
+      background: var(--tint-green);
       box-shadow: inset 0 0 0 1px rgba(0, 240, 64, 0.22);
     }
 
     .age-option-card[disabled] {
       cursor: not-allowed;
       opacity: 0.58;
-      background: #f8fafc;
+      background: var(--tint-neutral);
       box-shadow: none;
     }
 
     .age-option-card[disabled]:active {
       border-color: var(--line);
-      background: #f8fafc;
+      background: var(--tint-neutral);
       box-shadow: none;
+    }
+
+    .age-selection-block.is-disabled {
+      background: #f8fafc;
+    }
+
+    .age-selection-block.is-disabled .selection-heading,
+    .age-selection-block.is-disabled .schedule-description {
+      color: #8a96a8;
+    }
+
+    .age-selection-block.is-disabled .age-option-card {
+      border-color: #e3e8ef;
+      color: #94a3b8;
+      background: #f8fafc;
+    }
+
+    .age-selection-block.is-disabled .age-option-seat {
+      color: #94a3b8;
+      background: #eef2f6;
     }
 
     .age-option-check {
       width: 1.05rem;
       height: 1.05rem;
-      border: 2px solid #d8dee6;
+      border: 2px solid var(--line);
       border-radius: 999px;
-      background: #fff;
+      background: var(--surface);
       box-shadow: inset 0 0 0 0.22rem #fff;
     }
 
@@ -1937,7 +2410,7 @@
       white-space: nowrap;
       padding: 0.18rem 0.45rem;
       border-radius: 999px;
-      color: #008f2a;
+      color: var(--tint-green-text);
       background: #eaffef;
       font-size: 0.72rem;
       font-weight: 950;
@@ -2017,7 +2490,7 @@
       border: 1px solid var(--line);
       border-radius: 0.8rem;
       color: var(--ink);
-      background: #fff;
+      background: var(--surface);
       outline: none;
       font-size: 0.9rem;
     }
@@ -2064,7 +2537,7 @@
 
     .preference-title {
       margin: 0;
-      color: #111827;
+      color: var(--ink);
       font-size: 0.82rem;
       font-weight: 900;
     }
@@ -2075,7 +2548,7 @@
       border: 1px solid var(--line);
       border-radius: 999px;
       color: #6c7280;
-      background: #fff;
+      background: var(--surface);
       font-size: 0.78rem;
       font-weight: 850;
       touch-action: manipulation;
@@ -2087,8 +2560,8 @@
 
     .choice-chip.is-selected {
       border-color: #00f040;
-      color: #008f2a;
-      background: #f2fff5;
+      color: var(--tint-green-text);
+      background: var(--tint-green);
       box-shadow: inset 0 0 0 1px rgba(0, 240, 64, 0.18);
     }
 
@@ -2098,7 +2571,7 @@
       padding: 0.9rem;
       border: 1px dashed var(--line);
       border-radius: 0.9rem;
-      background: #fff;
+      background: var(--surface);
     }
 
     .photo-row {
@@ -2132,7 +2605,7 @@
       place-items: center;
       border: 1px dashed var(--accent);
       color: var(--ink);
-      background: #fff;
+      background: var(--surface);
       font-size: 0.78rem;
       font-weight: 900;
       cursor: pointer;
@@ -2187,7 +2660,7 @@
       padding: 0.65rem;
       border: 1px solid #d7e8ff;
       border-radius: 0.75rem;
-      background: #fff;
+      background: var(--surface);
     }
 
     .document-preview.is-hidden,
@@ -2280,7 +2753,7 @@
       display: flex;
       align-items: center;
       gap: 0.45rem;
-      color: #3f4652;
+      color: var(--ink);
       font-size: 0.82rem;
       font-weight: 500;
     }
@@ -2320,7 +2793,7 @@
     .detail-list li {
       display: flex;
       gap: 0.55rem;
-      color: #3f4652;
+      color: var(--ink);
       font-size: 0.9rem;
       line-height: 1.55;
       word-break: keep-all;
@@ -2443,7 +2916,7 @@
       margin: -1.5rem -0.75rem 0;
       padding: 0.75rem 1rem 1rem;
       overflow-x: auto;
-      background: #f8f9fb;
+      background: var(--tint-neutral);
       box-shadow: 0 0.35rem 0.7rem rgba(18, 18, 24, 0.04);
     }
 
@@ -2453,7 +2926,7 @@
       padding: 0.48rem 0.75rem;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: #fff;
+      background: var(--surface);
       color: #4b5260;
       font-size: 0.8rem;
       font-weight: 850;
@@ -2498,7 +2971,7 @@
       padding: 1rem;
       border: 1px solid var(--line);
       border-radius: 1rem;
-      background: #fff;
+      background: var(--surface);
       box-shadow: 0 1rem 2rem rgba(18, 18, 24, 0.16);
       transform: translateX(-50%);
     }
@@ -2526,7 +2999,7 @@
       place-items: center;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: #fff;
+      background: var(--surface);
       color: #4b5260;
       font-size: 1rem;
       line-height: 1;
@@ -2600,7 +3073,7 @@
     .calendar-day.has-event {
       border: 1px solid rgba(0, 255, 64, 0.65);
       color: #00b832;
-      background: #fff;
+      background: var(--surface);
     }
 
     .calendar-day.is-today {
@@ -2628,7 +3101,7 @@
     .gender-filter-chip {
       border-color: var(--line);
       color: #4b5260;
-      background: #fff;
+      background: var(--surface);
       font-weight: 850;
     }
 
@@ -2662,7 +3135,7 @@
     }
 
     .process-kicker {
-      color: #121218;
+      color: var(--muted);
       font-size: 0.72rem;
       font-weight: 950;
       letter-spacing: 0.12em;
@@ -2720,7 +3193,7 @@
       overflow: hidden;
       border: 1px solid #eadfe5;
       border-radius: 1rem;
-      background: #fff;
+      background: var(--surface);
     }
 
     .step-badge {
@@ -2762,7 +3235,7 @@
       padding: 1.1rem;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: #fff;
+      background: var(--surface);
     }
 
     .support-card h2 {
@@ -2816,14 +3289,14 @@
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: 0.9rem;
-      background: #eef6ff;
+      background: var(--tint-blue);
     }
 
     .naver-map-canvas {
       width: 100%;
       height: 14rem;
       display: block;
-      background: #eef6ff;
+      background: var(--tint-blue);
     }
 
     .naver-map-fallback {
@@ -2836,7 +3309,7 @@
       font-size: 0.85rem;
       font-weight: 850;
       text-align: center;
-      background: #eef6ff;
+      background: var(--tint-blue);
     }
 
     .naver-map.is-ready .naver-map-fallback {
@@ -2864,7 +3337,7 @@
     .field label {
       font-size: 0.82rem;
       font-weight: 900;
-      color: #3e4450;
+      color: var(--ink);
     }
 
     .field input,
@@ -2872,7 +3345,7 @@
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 0.55rem;
-      background: #fff;
+      background: var(--surface);
       color: var(--ink);
       outline: none;
       font-size: 0.9rem;
@@ -2919,7 +3392,7 @@
       border: 1px solid var(--line);
       border-radius: 0.55rem;
       color: var(--ink);
-      background-color: #fff;
+      background-color: var(--surface);
       font-size: 0.9rem;
       font-weight: 400;
       outline: none;
@@ -2937,7 +3410,7 @@
 
     .board-form .field input[readonly] {
       color: #343943;
-      background: #f4f5f7;
+      background: var(--tint-neutral);
       cursor: default;
     }
 
@@ -2990,7 +3463,7 @@
       padding: 1rem;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: #fff;
+      background: var(--surface);
     }
 
     .board-post-open {
@@ -3045,7 +3518,7 @@
       border: 1px solid #e5e7eb;
       border-radius: 999px;
       color: #343943;
-      background: #f4f5f7;
+      background: var(--tint-neutral);
       font-size: 0.72rem;
       font-weight: 800;
       white-space: nowrap;
@@ -3093,7 +3566,7 @@
 
     .board-status.is-canceled {
       color: #ef4444;
-      background: #fff1f2;
+      background: var(--tint-red);
     }
 
     #page-mypage .location-page {
@@ -3124,7 +3597,7 @@
       height: 1.55rem;
       border: 1px solid var(--line);
       border-radius: 0.45rem;
-      background: #fff;
+      background: var(--surface);
       color: #101116;
       flex: 0 0 auto;
     }
@@ -3241,8 +3714,8 @@
       padding: 0.28rem 0.65rem;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: #fff;
-      color: #303743;
+      background: var(--surface);
+      color: var(--ink);
       font-size: 0.76rem;
       font-weight: 950;
       cursor: pointer;
@@ -3283,10 +3756,10 @@
       padding: 0.3rem 0.65rem;
       border-radius: 999px;
       border: 1px solid var(--line);
-      background: #fff;
+      background: var(--surface);
       font-size: 0.72rem;
       font-weight: 900;
-      color: #303743;
+      color: var(--ink);
     }
 
     .mypage-name-input {
@@ -3445,7 +3918,7 @@
       border: 1px solid var(--line);
       border-radius: 12px;
       padding: 0.65rem 0.75rem;
-      background: #fff;
+      background: var(--surface);
     }
 
     .mypage-info-summary-item span {
@@ -3471,7 +3944,7 @@
       border: 1px dashed var(--line);
       border-radius: 12px;
       padding: 0.75rem;
-      background: #fbfcff;
+      background: var(--tint-neutral);
       color: var(--muted);
       font-size: 0.8rem;
       font-weight: 850;
@@ -3618,9 +4091,13 @@
       padding: 1rem;
       border: 1px solid var(--line);
       border-radius: 0.9rem;
-      background: #fff;
+      background: var(--surface);
       text-align: left;
       box-shadow: 0 0.3rem 1rem rgba(15, 23, 42, 0.04);
+    }
+
+    :root[data-theme="dark"] .counsel-card {
+      background: #121212;
     }
 
     .counsel-card-number {
@@ -3752,10 +4229,10 @@
     .counsel-card-meta span {
       min-height: 1.22rem;
       padding: 0.08rem 0.28rem;
-      border: 1px solid #d8dee6;
+      border: 1px solid var(--line);
       border-radius: 999px;
-      background: #fff;
-      color: #344054;
+      background: var(--surface);
+      color: var(--ink);
       font-size: inherit;
       line-height: 1;
       font-weight: 850;
@@ -3771,7 +4248,7 @@
       padding: 1.1rem;
       border: 1px solid var(--line);
       border-radius: 0.9rem;
-      background: #fff;
+      background: var(--surface);
     }
 
     .counsel-detail-head {
@@ -3793,7 +4270,7 @@
 
     .counsel-detail-content {
       margin: 0;
-      color: #344054;
+      color: var(--ink);
       font-size: 0.92rem;
       line-height: 1.65;
       white-space: pre-wrap;
@@ -3811,10 +4288,10 @@
     .counsel-detail-actions button {
       min-height: 1.9rem;
       padding: 0.25rem 0.7rem;
-      border: 1px solid #d8dee6;
+      border: 1px solid var(--line);
       border-radius: 999px;
-      color: #344054;
-      background: #fff;
+      color: var(--ink);
+      background: var(--surface);
       font-size: 0.78rem;
       font-weight: 900;
     }
@@ -3822,8 +4299,8 @@
     .counsel-detail-actions button.is-liked,
     .counsel-detail-actions button.is-saved {
       border-color: #00d638;
-      color: #07150b;
-      background: #e9ffef;
+      color: var(--tint-green-text);
+      background: var(--tint-green-strong);
     }
 
     .counsel-comment-section {
@@ -3850,12 +4327,12 @@
       padding: 0.7rem 0.8rem;
       border: 1px solid var(--line);
       border-radius: 0.7rem;
-      background: #f8fafc;
+      background: var(--tint-neutral);
     }
 
     .counsel-comment.is-reply {
       margin-left: 1.3rem;
-      background: #f2fff5;
+      background: var(--tint-green);
     }
 
     .counsel-comment-head {
@@ -3906,6 +4383,8 @@
 
     .counsel-comment-form textarea {
       min-height: 4.5rem;
+      background: var(--surface);
+      color: var(--ink);
     }
 
     .counsel-reply-target {
@@ -3914,8 +4393,8 @@
       justify-content: space-between;
       padding: 0.4rem 0.7rem;
       border-radius: 0.6rem;
-      background: #f2fff5;
-      color: #008f2a;
+      background: var(--tint-green);
+      color: var(--tint-green-text);
       font-size: 0.76rem;
       font-weight: 800;
     }
@@ -3942,7 +4421,7 @@
       padding: 1rem;
       border: 1px solid var(--line);
       border-radius: 0.9rem;
-      background: #fff;
+      background: var(--surface);
     }
 
     .mypage-card-head {
@@ -4011,7 +4490,7 @@
     .mypage-step.is-canceled {
       border-radius: 999px;
       color: #ef4444;
-      background: #fff1f2;
+      background: var(--tint-red);
     }
 
     .mypage-card.is-editable {
@@ -4021,7 +4500,7 @@
 
     .mypage-edit-hint {
       margin: 0;
-      color: #008f2a;
+      color: var(--tint-green-text);
       font-size: 0.74rem;
       font-weight: 800;
     }
@@ -4030,8 +4509,8 @@
       padding: 0.28rem 0.62rem;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: #fff;
-      color: #303743;
+      background: var(--surface);
+      color: var(--ink);
       font-size: 0.72rem;
       font-weight: 900;
     }
@@ -4082,7 +4561,7 @@
       border: 1px solid var(--line);
       border-radius: 50%;
       color: #121218;
-      background: #fff;
+      background: var(--surface);
       font-size: 1.2rem;
       line-height: 1;
       text-align: center;
@@ -4095,7 +4574,7 @@
     }
     .board-page-button:disabled {
       color: #b9bec8;
-      background: #f3f4f6;
+      background: var(--tint-neutral);
       cursor: default;
     }
 
@@ -4121,13 +4600,13 @@
       padding: 0.85rem;
       border: 1px solid var(--line);
       border-radius: 0.75rem;
-      background: #fff;
+      background: var(--surface);
     }
 
     .board-private-section[hidden] { display: none; }
 
     .board-private-section.is-content {
-      background: #f7fbff;
+      background: var(--tint-blue);
     }
 
     .board-private-section.is-reply {
@@ -4135,7 +4614,7 @@
     }
 
     .board-private-section.is-follow-up {
-      background: #f7fbff;
+      background: var(--tint-blue);
     }
     .board-access-panel input {
       width: 100%;
@@ -4144,7 +4623,7 @@
       border: 1px solid var(--line);
       border-radius: 0.55rem;
       color: var(--ink);
-      background: #fff;
+      background: var(--surface);
       font: inherit;
       outline: none;
     }
@@ -4192,7 +4671,7 @@
       border: 1px solid var(--line);
       border-radius: 0.45rem;
       color: #343943;
-      background: #fff;
+      background: var(--surface);
       font-size: 0.7rem;
       font-weight: 850;
     }
@@ -4203,7 +4682,7 @@
       border: 1px solid var(--line);
       border-radius: 0.55rem;
       color: var(--ink);
-      background: #fff;
+      background: var(--surface);
       font: inherit;
       resize: vertical;
       outline: none;
@@ -4293,7 +4772,7 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       color: var(--muted);
-      background: #fff;
+      background: var(--surface);
       font-size: 0.82rem;
       text-align: center;
     }
@@ -4323,7 +4802,7 @@
       display: flex;
       flex-direction: column;
       padding: 1.1rem;
-      background: #fff;
+      background: var(--surface);
       transform: translateX(105%);
       transition: transform 0.24s ease;
       box-shadow: -1rem 0 2rem rgba(0, 0, 0, 0.18);
@@ -4362,7 +4841,7 @@
       align-items: center;
       padding: 0 0.8rem;
       border-radius: 0.55rem;
-      color: #4b5260;
+      color: var(--ink);
       font-weight: 900;
       transition: background 0.16s ease, color 0.16s ease, transform 0.12s ease;
     }
@@ -4386,7 +4865,7 @@
 
     .drawer-shortcut-label {
       margin: 0 0 0.5rem;
-      color: #7a808c;
+      color: var(--muted);
       font-size: calc(0.68rem - 2px);
       font-weight: 700;
       text-align: left;
@@ -4409,14 +4888,14 @@
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: 0.4rem;
-      background: #fff;
+      background: var(--surface);
       cursor: pointer;
       transition: transform 0.14s ease, border-color 0.14s ease;
     }
 
     .drawer-social-link:hover {
       transform: translateY(-1px);
-      border-color: #121218;
+      border-color: var(--ink);
     }
 
     .drawer-social-link svg {
@@ -4434,6 +4913,70 @@
       height: auto;
     }
 
+    .theme-toggle {
+      display: grid;
+      place-items: center;
+      padding: 0;
+      margin-left: auto;
+    }
+
+    .theme-toggle-track {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 3.3rem;
+      height: 1.7rem;
+      padding: 0 0.3rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--soft);
+      transition: background-color 0.16s ease, border-color 0.16s ease;
+    }
+
+    .theme-toggle-icon {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: grid;
+      place-items: center;
+      font-size: 0.72rem;
+      line-height: 1;
+      color: var(--muted);
+    }
+
+    .theme-toggle-icon.is-light {
+      visibility: hidden;
+    }
+
+    :root[data-theme="dark"] .theme-toggle-icon.is-light {
+      visibility: visible;
+    }
+
+    :root[data-theme="dark"] .theme-toggle-icon.is-dark {
+      visibility: hidden;
+    }
+
+    .theme-toggle-knob {
+      position: absolute;
+      top: 0.16rem;
+      left: 0.16rem;
+      width: 1.28rem;
+      height: 1.28rem;
+      border-radius: 999px;
+      background: var(--surface);
+      box-shadow: 0 0.1rem 0.3rem rgba(18, 24, 35, 0.25);
+      transition: transform 0.18s ease, background-color 0.16s ease;
+    }
+
+    :root[data-theme="dark"] .theme-toggle-track {
+      background: #0d0f13;
+    }
+
+    :root[data-theme="dark"] .theme-toggle-knob {
+      transform: translateX(1.55rem);
+      background: #00d838;
+    }
+
     .drawer-staff-link {
       height: 2rem;
       display: grid;
@@ -4441,8 +4984,8 @@
       padding: 0 0.55rem;
       border: 1px solid var(--line);
       border-radius: 0.4rem;
-      color: #121218;
-      background: #fff;
+      color: var(--ink);
+      background: var(--surface);
       font-size: 0.66rem;
       font-weight: 900;
       letter-spacing: 0;
@@ -4460,16 +5003,20 @@
     .business-footer {
       padding: 1.05rem 1rem 1.45rem;
       border-top: 1px solid var(--line);
-      background: #fff;
-      color: #6f7683;
+      background: var(--surface);
+      color: var(--muted);
       font-size: 0.66rem;
       line-height: 1.55;
       text-align: left;
     }
 
+    :root[data-theme="dark"] .business-footer {
+      background: #121212;
+    }
+
     .footer-notice {
       margin: 0 0 0.35rem;
-      color: #6f7683;
+      color: var(--muted);
       font-size: 0.64rem;
       line-height: 1.55;
       word-break: keep-all;
@@ -4477,14 +5024,14 @@
 
     .footer-copy {
       margin: 0;
-      color: #6f7683;
+      color: var(--muted);
       font-size: 0.64rem;
       line-height: 1.5;
       word-break: keep-all;
     }
 
     .footer-copy strong {
-      color: #3f4652;
+      color: var(--ink);
       font-weight: 950;
       letter-spacing: 0;
     }
@@ -4536,9 +5083,11 @@
       }
     }
     .schedule-feed { display: grid; gap: 1.15rem; }
-    .schedule-feed-empty, .schedule-feed-loading { padding: 2rem 1rem; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: #667085; text-align: center; font-weight: 700; }
+    .schedule-feed-empty, .schedule-feed-loading { padding: 2rem 1rem; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: #667085; text-align: center; font-weight: 700; }
     .schedule-headline-strip { display: grid; gap: .75rem; }
-    .schedule-section-title { margin: 0; font-size: 1.05rem; font-weight: 950; letter-spacing: -.03em; }
+    .schedule-section-title { margin: 0; font-size: 1.05rem; font-weight: 950; letter-spacing: -.03em; display: inline-flex; align-items: center; gap: .32rem; }
+    .home-section-title { display: inline-flex; align-items: center; gap: .32rem; }
+    .section-title-icon { width: 1.15em; height: 1.15em; flex: 0 0 auto; }
     .schedule-headline-scroller { position: relative; overflow: hidden; }
     .schedule-headline-row { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(15rem, 78%); gap: .75rem; overflow-x: auto; padding: .1rem .05rem .12rem; scrollbar-width: none; scroll-behavior: smooth; cursor: grab; touch-action: pan-y; overscroll-behavior-inline: contain; -webkit-overflow-scrolling: touch; }
     .schedule-headline-row::-webkit-scrollbar { display: none; }
@@ -4550,20 +5099,20 @@
     .schedule-scroll-btn:active { transform: translateY(-50%) scale(.96); }
     .schedule-scroll-btn[hidden] { display: none; }
     .schedule-post-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .72rem; }
-    .schedule-post-card { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #fff; box-shadow: 0 .35rem 1.2rem rgba(15,23,42,.06); cursor: pointer; }
+    .schedule-post-card { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); box-shadow: 0 .35rem 1.2rem rgba(15,23,42,.06); cursor: pointer; }
     .schedule-post-card.is-headline { min-height: 100%; }
-    .schedule-post-cover { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border: 0; padding: 0; margin: 0; display: block; appearance: none; -webkit-appearance: none; background: #e5e7eb; cursor: pointer; }
+    .schedule-post-cover { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border: 0; padding: 0; margin: 0; display: block; appearance: none; -webkit-appearance: none; background: var(--tint-neutral); cursor: pointer; }
     .schedule-post-cover img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center center; }
     .schedule-post-badge { position: absolute; left: .5rem; top: .5rem; max-width: calc(100% - 1rem); padding: .2rem .48rem; border-radius: 999px; color: #07150b; background: #00ff40; font-size: .66rem; line-height: 1.15; font-weight: 950; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; box-shadow: 0 .25rem .65rem rgba(0,0,0,.16); }
     .schedule-post-body { min-height: 8.35rem; padding: .75rem .8rem .85rem; display: flex; flex-direction: column; }
     .schedule-post-body h2, .schedule-post-body h3 { min-height: 2.7em; margin: 0; font-size: .95rem; line-height: 1.35; letter-spacing: -.035em; display: -webkit-box; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
     .schedule-post-card.is-headline .schedule-post-body h2 { min-height: 1.35em; font-size: 1.05rem; -webkit-line-clamp: 1; }
     .schedule-post-card:not(.is-headline) .schedule-post-body h3 { min-height: 1.35em; -webkit-line-clamp: 1; }
-    .schedule-post-content { min-height: 2.9em; margin: .45rem 0 0; color: #4b5563; font-size: .78rem; line-height: 1.45; white-space: pre-wrap; }
+    .schedule-post-content { min-height: 2.9em; margin: .45rem 0 0; color: var(--muted); font-size: .78rem; line-height: 1.45; white-space: pre-wrap; }
     .schedule-post-content { display: -webkit-box; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; white-space: normal; }
     .schedule-post-meta { display: flex; flex-wrap: nowrap; align-items: center; justify-content: flex-end; gap: .24rem; margin-top: auto; color: #667085; font-size: .64rem; font-weight: 800; white-space: nowrap; }
-    .schedule-post-meta span, .schedule-post-meta button { min-height: 1.48rem; padding: .14rem .38rem; border: 1px solid #d8dee6; border-radius: 999px; color: #344054; background: #fff; font-size: inherit; line-height: 1; font-weight: 850; display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; }
-    .schedule-post-meta button.is-liked { border-color: #00d638; color: #07150b; background: #e9ffef; }
+    .schedule-post-meta span, .schedule-post-meta button { min-height: 1.48rem; padding: .14rem .38rem; border: 1px solid var(--line); border-radius: 999px; color: var(--ink); background: var(--surface); font-size: inherit; line-height: 1; font-weight: 850; display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; }
+    .schedule-post-meta button.is-liked { border-color: var(--line); color: var(--ink); background: var(--surface); }
     .schedule-post-card:not(.is-headline) .schedule-post-meta { gap: .18rem; margin-top: .44rem; font-size: .55rem; }
     .schedule-post-card:not(.is-headline) .schedule-post-meta span,
     .schedule-post-card:not(.is-headline) .schedule-post-meta button { min-height: 1.22rem; padding: .08rem .28rem; font-size: .55rem; font-weight: 850; }
@@ -4571,7 +5120,7 @@
     .schedule-detail-page { display: grid; grid-template-rows: auto auto; align-content: start; gap: 0; }
     .schedule-detail-page .page-title { margin: 0; padding: 0; }
     .schedule-detail-top { display: flex; align-items: center; justify-content: space-between; gap: .75rem; min-height: auto; padding: 0 0 .12rem; }
-    .schedule-back-btn { min-height: 2.25rem; padding: 0 .85rem; border: 1px solid #d8dee6; border-radius: 999px; background: #fff; color: #111827; font-size: .85rem; font-weight: 900; }
+    .schedule-back-btn { min-height: 2.25rem; padding: 0 .85rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink); font-size: .85rem; font-weight: 900; }
     .schedule-detail-page [data-schedule-detail] { margin: 0; }
     #page-schedule-detail .section-tabs + .schedule-detail-page {
       margin-top: .55rem !important;
@@ -4608,26 +5157,26 @@
     #page-schedule-detail .schedule-detail-card {
       margin-top: 0 !important;
     }
-    .schedule-detail-card { overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: #fff; box-shadow: 0 .45rem 1.4rem rgba(15,23,42,.06); }
-    .schedule-detail-media { position: relative; overflow: hidden; background: #e5e7eb; }
-    .schedule-detail-image { width: 100%; aspect-ratio: 16 / 9; display: block; object-fit: cover; object-position: center center; background: #e5e7eb; }
-    .schedule-detail-date { justify-self: end; color: #111827; background: transparent; border: 0; padding: 0; font-size: .76rem; font-weight: 900; white-space: nowrap; }
+    .schedule-detail-card { overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); box-shadow: 0 .45rem 1.4rem rgba(15,23,42,.06); }
+    .schedule-detail-media { position: relative; overflow: hidden; background: var(--tint-neutral); }
+    .schedule-detail-image { width: 100%; aspect-ratio: 16 / 9; display: block; object-fit: cover; object-position: center center; background: var(--tint-neutral); }
+    .schedule-detail-date { justify-self: end; color: var(--ink); background: transparent; border: 0; padding: 0; font-size: .76rem; font-weight: 900; white-space: nowrap; }
     .schedule-detail-body { display: grid; gap: .38rem; padding: .58rem .85rem .62rem; }
     .schedule-detail-heading { margin: 0; font-size: 1.25rem; line-height: 1.32; letter-spacing: -.04em; }
-    .schedule-detail-content { margin: 0; color: #475467; font-size: .9rem; line-height: 1.65; white-space: pre-wrap; }
+    .schedule-detail-content { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.65; white-space: pre-wrap; }
     .schedule-detail-actions { display: grid; justify-items: end; gap: .28rem; margin-top: .05rem; }
     .schedule-detail-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .45rem; color: #667085; font-size: .78rem; font-weight: 850; }
-    .schedule-detail-meta span, .schedule-detail-meta button { min-height: 1.9rem; padding: .25rem .65rem; border: 1px solid #d8dee6; border-radius: 999px; color: #344054; background: #fff; font-weight: 900; display: inline-flex; align-items: center; justify-content: center; }
-    .schedule-detail-meta button.is-liked { border-color: #00d638; color: #07150b; background: #e9ffef; }
+    .schedule-detail-meta span, .schedule-detail-meta button { min-height: 1.9rem; padding: .25rem .65rem; border: 1px solid var(--line); border-radius: 999px; color: var(--ink); background: var(--surface); font-weight: 900; display: inline-flex; align-items: center; justify-content: center; }
+    .schedule-detail-meta button.is-liked { border-color: var(--line); color: var(--ink); background: var(--surface); }
     .schedule-comment-section { display: grid; gap: .5rem; padding: 0 .85rem .72rem; }
     .schedule-comment-title { margin: 0; font-size: .95rem; font-weight: 950; letter-spacing: -.03em; }
     .schedule-comment-list { display: grid; gap: .4rem; }
-    .schedule-comment { padding: .55rem .6rem; border: 1px solid #edf0f3; border-radius: .55rem; background: #f8fafc; }
+    .schedule-comment { padding: .55rem .6rem; border: 1px solid #edf0f3; border-radius: .55rem; background: var(--tint-neutral); }
     .schedule-comment strong { display: block; margin-bottom: .18rem; font-size: .72rem; }
-    .schedule-comment p { margin: 0; color: #475467; font-size: .76rem; line-height: 1.45; white-space: pre-wrap; }
+    .schedule-comment p { margin: 0; color: var(--muted); font-size: .76rem; line-height: 1.45; white-space: pre-wrap; }
     .schedule-comment-empty { margin: 0; color: #667085; font-size: .8rem; font-weight: 800; }
     .schedule-comment-form { display: grid; gap: .45rem; }
-    .schedule-comment-form textarea { min-height: 4.1rem; padding: .65rem; border: 1px solid var(--line); border-radius: .6rem; resize: vertical; outline: 0; }
+    .schedule-comment-form textarea { min-height: 4.1rem; padding: .65rem; border: 1px solid var(--line); border-radius: .6rem; resize: vertical; outline: 0; background: var(--surface); color: var(--ink); }
     .schedule-comment-form textarea:focus { border-color: #00d638; box-shadow: 0 0 0 3px rgba(0,255,64,.12); }
     .schedule-comment-form button { min-height: 2.45rem; border: 0; border-radius: .6rem; color: #07150b; background: #00ff40; font-weight: 950;
     }
@@ -4753,7 +5302,7 @@
       border: 1px solid rgba(0, 240, 64, 0.45);
       border-radius: 999px;
       background: rgba(0, 240, 64, 0.08);
-      color: #101828;
+      color: var(--ink);
       font-weight: 800;
       font-size: 0.92rem;
     }
@@ -4767,8 +5316,8 @@
       flex: 0 0 auto;
       border: 1px solid rgba(17, 24, 39, 0.12);
       border-radius: 50%;
-      background: #fff;
-      color: #111827;
+      background: var(--surface);
+      color: var(--ink);
       font-size: 1rem;
       font-weight: 900;
       line-height: 1;
@@ -4778,7 +5327,7 @@
     .region-choice:disabled,
     .region-choice.is-disabled {
       pointer-events: none;
-      background: #f3f4f6;
+      background: var(--tint-neutral);
       border-color: #d9e0e8;
       color: #a0a8b3;
       box-shadow: none;
@@ -4830,8 +5379,9 @@
       <main class="content">
         <section class="home-participation-calendar" data-home-participation-calendar></section>
         <section class="home-schedule-headlines" data-home-schedule-headlines hidden></section>
+        <section class="home-counsel-layer" data-home-counsel-layer hidden></section>
         <section id="home-events">
-          <h2 class="home-section-title">로테이션 소개팅</h2>
+          <h2 class="home-section-title"><img class="section-title-icon" src="assets/favicon.png" alt="" aria-hidden="true">로테이션 소개팅</h2>
           <ul class="event-list" data-event-list="home"></ul>
         </section>
 
@@ -5203,6 +5753,9 @@
 
   <div class="app-edit-modal" data-app-edit-modal role="dialog" aria-modal="true" hidden></div>
 
+  <div class="home-schedule-modal" data-home-schedule-modal role="dialog" aria-modal="true" hidden></div>
+  <div class="home-counsel-modal" data-home-counsel-modal role="dialog" aria-modal="true" hidden></div>
+
   <div class="gender-modal" data-submit-success-modal role="dialog" aria-modal="true" aria-labelledby="submitSuccessTitle" hidden>
     <div class="gender-modal-panel">
       <button class="gender-modal-close" type="button" aria-label="닫기" data-submit-success-close>×</button>
@@ -5227,8 +5780,6 @@
     <nav class="drawer-links" aria-label="메뉴">
       <button class="drawer-link" type="button" data-page-link="home" onclick="window.goPage(event, 'home')">홈</button>
       <button class="drawer-link" type="button" data-page-link="schedule" onclick="window.goPage(event, 'schedule')">안내</button>
-      <button class="drawer-link" type="button" data-page-link="location" onclick="window.goPage(event, 'location')">오시는 길</button>
-      <button class="drawer-link" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
       <button class="drawer-link" type="button" data-page-link="board" onclick="window.goPage(event, 'board')">익명 문의</button>
       <button class="drawer-link" type="button" data-page-link="counsel" onclick="window.goPage(event, 'counsel')">연애 상담</button>
       <button class="drawer-link" type="button" data-page-link="mypage" onclick="window.goPage(event, 'mypage')">마이 클로버</button>
@@ -5262,7 +5813,13 @@
             <path d="M323.4 85.2l-96.8 78.4c-16.1 13-19.2 36.4-7 53.1c12.9 17.8 38 21.3 55.3 7.8l99.3-77.2c7-5.4 17-4.2 22.5 2.8s4.2 17-2.8 22.5l-20.9 16.2L512 316.8 512 128l-.7 0-3.9-2.5L434.8 79c-15.3-9.8-33.2-15-51.4-15c-21.8 0-43 7.5-60 21.2zm22.8 124.4l-51.7 40.2C263 274.4 217.3 268 193.7 235.6c-22.2-30.5-16.6-73.1 12.7-96.8l83.2-67.3c-11.6-4.9-24.1-7.4-36.8-7.4C234 64 215.7 69.6 200 80l-72 48 0 224 28.2 0 91.4 83.4c19.6 17.9 49.9 16.5 67.8-3.1c5.5-6.1 9.2-13.2 11.1-20.6l17 15.6c19.5 17.9 49.9 16.6 67.8-2.9c4.5-4.9 7.8-10.6 9.9-16.5c19.4 13 45.8 10.3 62.1-7.5c17.9-19.5 16.6-49.9-2.9-67.8l-134.2-123zM16 128c-8.8 0-16 7.2-16 16L0 352c0 17.7 14.3 32 32 32l32 0c17.7 0 32-14.3 32-32l0-224-80 0zM48 320a16 16 0 1 1 0 32 16 16 0 1 1 0-32zM544 128l0 224c0 17.7 14.3 32 32 32l32 0c17.7 0 32-14.3 32-32l0-208c0-8.8-7.2-16-16-16l-80 0zm32 208a16 16 0 1 1 32 0 16 16 0 1 1 -32 0z"/>
           </svg>
         </button>
-        <button class="drawer-staff-link" type="button" data-page-link="staff" onclick="window.goPage(event, 'staff')">STAFF</button>
+        <button class="theme-toggle" type="button" id="themeToggle" data-theme-toggle aria-label="다크 모드 전환" aria-pressed="false" title="밝은 모드 / 다크 모드">
+          <span class="theme-toggle-track">
+            <span class="theme-toggle-icon is-light" aria-hidden="true">☀</span>
+            <span class="theme-toggle-icon is-dark" aria-hidden="true">☾</span>
+            <span class="theme-toggle-knob" aria-hidden="true"></span>
+          </span>
+        </button>
       </div>
     </div>
   </aside>
@@ -5632,6 +6189,7 @@
       selectedWeekdays = [];
       selectedApplicationRegions = [];
       selectedAgeOption = null;
+      selectedComposition = "";
       selectedDocumentFile = null;
       selectedPhotoFiles = [];
       selectedExistingDocumentUrl = "";
@@ -5640,24 +6198,50 @@
     }
 
     function isApplicationSelectionReady() {
-      return Boolean(selectedWeekdays.length && selectedAgeOption);
+      return Boolean(selectedComposition && selectedWeekdays.length && (selectedComposition !== "6:6" || selectedAgeOption));
     }
 
     function isAgeSelectionEnabled() {
-      return true;
+      return selectedComposition === "6:6";
+    }
+
+    const compositionOptions = ["1:1", "6:6"];
+
+    function compositionOptionLabel(option) {
+      const [maleCount, femaleCount] = String(option).split(":");
+      return `
+        <span class="composition-choice-badges" aria-hidden="true">
+          <span class="composition-gender-badge is-male">${iconMale}<b>${htmlAttr(maleCount)}</b></span>
+          <span class="composition-gender-badge is-female">${iconFemale}<b>${htmlAttr(femaleCount)}</b></span>
+        </span>
+      `;
+    }
+
+    function renderCompositionSelectionMarkup() {
+      const buttons = compositionOptions.map((option) => `
+        <button class="composition-choice${selectedComposition === option ? " is-selected" : ""}" type="button" data-composition-option="${htmlAttr(option)}" aria-label="${htmlAttr(option)} 인원 구성">${compositionOptionLabel(option)}</button>
+      `).join("");
+      return `
+        <section class="selection-section composition-selection-block">
+          <div class="selection-heading">인원 구성 선택 <span class="req">*</span></div>
+          <div class="composition-choice-row">${buttons}</div>
+          ${selectedComposition === "1:1" ? `<p class="composition-guide">1:1 인원 구성은 클로버 관계자가 미팅 장소만 제공합니다.</p>` : ""}
+        </section>
+      `;
     }
 
     function renderAgeSelectionMarkup() {
+      const ageEnabled = isAgeSelectionEnabled();
       const ageCards = applicationAgeOptions.map((option) => `
-        <button class="age-option-card${selectedAgeOption?.id === option.id ? " is-selected" : ""}" type="button" data-age-option="${option.id}">
+        <button class="age-option-card${ageEnabled && selectedAgeOption?.id === option.id ? " is-selected" : ""}" type="button" data-age-option="${option.id}" ${ageEnabled ? "" : "disabled"}>
           <span class="age-option-check" aria-hidden="true"></span>
           <span class="age-option-main"><strong>${option.range}</strong></span>
           <span class="age-option-seat">${option.remaining}명 남음</span>
         </button>
       `).join("");
       return `
-        <section class="selection-section age-selection-block">
-          <div class="selection-heading">연령대 선택 <span class="req">*</span></div>
+        <section class="selection-section age-selection-block${ageEnabled ? "" : " is-disabled"}" aria-disabled="${ageEnabled ? "false" : "true"}">
+          <div class="selection-heading">연령대 선택${ageEnabled ? ` <span class="req">*</span>` : ""}</div>
           <p class="schedule-description">'남자 6명/여자 6명' 정원이 다 차면 마감되어 이후 스케줄이 공유됩니다.</p>
           <div class="age-option-list">${ageCards}</div>
         </section>
@@ -5686,7 +6270,7 @@
       `).join("");
       return `
         <section class="form-section schedule-section">
-          <div class="schedule-heading">가능한 요일 (N개 선택 가능) <span class="req">*</span></div>
+          <div class="schedule-heading">가능한 요일 N개 선택</div>
           <p class="schedule-description">참여 가능한 요일을 선택해주세요.</p>
           <div class="weekday-select">${weekdayChips}</div>
         </section>
@@ -5719,8 +6303,9 @@
           </div>
         </article>
         <div class="application-selection-page">
-          ${renderAgeSelectionMarkup()}
           ${selectionScheduleMarkup()}
+          ${renderCompositionSelectionMarkup()}
+          ${isAgeSelectionEnabled() ? renderAgeSelectionMarkup() : ""}
           <button class="selection-complete-btn" type="button" data-selection-complete ${selectionReady ? "" : "disabled"}>선택 완료</button>
         </div>
       `;
@@ -5737,7 +6322,9 @@
       selectedExistingPhotoUrls = [];
       const applicationGender = selectedApplyGender || "";
       const applicationPrice = selectedApplyPrice || event.price;
-      const applicationAgeRange = selectedAgeOption?.range || event.station;
+      const applicationAgeRange = selectedComposition === "6:6" ? (selectedAgeOption?.range || event.station) : "";
+      const applicationComposition = selectedComposition || "";
+      const applicationTitleMeta = [applicationComposition && `[${applicationComposition}]`, applicationAgeRange && `[${applicationAgeRange}]`].filter(Boolean).join(" ");
       detailRoot.dataset.gender = applicationGender;
       const detailImage = eventImageStack(event);
       const detailVideo = eventVideoMarkup(event, "detail-media");
@@ -5746,7 +6333,7 @@
         <article class="detail-hero">
           <div class="detail-image" style="--detail-image: ${detailImage}">${detailVideo}</div>
           <div class="detail-main">
-            <h1 class="detail-title"><span>[${applicationAgeRange}]</span> ${event.title}</h1>
+            <h1 class="detail-title"><span>${applicationTitleMeta}</span> ${event.title}</h1>
             <div class="event-meta">
               <div class="meta-line">${event.showGenderCount ? `<div class="gender event-gender-count"><span class="m"><i class="count-content">${iconMale}<b class="count-value">${event.male}</b></i></span><span class="f"><i class="count-content">${iconFemale}<b class="count-value">${event.female}</b></i></span></div>` : ""}${iconPin}<span>${event.place}</span></div>
             </div>
@@ -5766,10 +6353,10 @@
             <dt>모집 인원</dt>
             <dd>${detailCapacityText(event)}</dd>
           </div>
-          <div class="detail-info">
+          ${applicationAgeRange ? `<div class="detail-info">
             <dt>연령대</dt>
             <dd>${applicationAgeRange.replace("세", "")}세</dd>
-          </div>
+          </div>` : ""}
           <div class="detail-info">
             <dt>대상</dt>
             <dd>${applicationGender || event.target}</dd>
@@ -6047,6 +6634,7 @@
     let selectedExistingPhotoUrls = [];
     let selectedApplicationRegions = [];
     let selectedAgeOption = null;
+    let selectedComposition = "";
     let currentPageName = document.querySelector(".page.is-active")?.dataset.page || "home";
     const validPageNames = new Set([...pages].map((page) => page.dataset.page));
     const naverMapClientId = "evk9pbogap";
@@ -6394,10 +6982,24 @@
         openCounselWrite(null);
         return;
       }
+      const homeCounselCloseBtn = closestFrom(event.target, "[data-home-counsel-close]");
+      if (homeCounselCloseBtn) {
+        event.preventDefault();
+        closeHomeCounselModal();
+        return;
+      }
+      if (event.target === document.querySelector("[data-home-counsel-modal]")) {
+        closeHomeCounselModal();
+        return;
+      }
       const counselOpenBtn = closestFrom(event.target, "[data-counsel-open]");
       if (counselOpenBtn) {
         event.preventDefault();
-        openCounselDetail(counselOpenBtn.dataset.counselOpen);
+        if (counselOpenBtn.closest("[data-home-counsel-layer]")) {
+          openHomeCounselModal(counselOpenBtn.dataset.counselOpen);
+        } else {
+          openCounselDetail(counselOpenBtn.dataset.counselOpen);
+        }
         return;
       }
       const counselLikeBtn = closestFrom(event.target, "[data-counsel-like]");
@@ -7210,6 +7812,7 @@
 
     function counselAuthorHtml(post) {
       const author = counselVisibleAuthor(post);
+      const createdDate = homeCounselShortDate(post?.createdAt);
       const gender = counselAuthorGender(post);
       const genderIcon = gender === "남성"
         ? `<span class="counsel-gender-icon is-male" aria-label="남성">${iconMale}</span>`
@@ -7265,6 +7868,60 @@
       try { localStorage.setItem(counselCacheKey, JSON.stringify(posts.slice(0, 100))); } catch {}
     }
 
+    function counselPostTimestamp(post) {
+      const raw = post?.createdAt;
+      const time = Number(raw) || new Date(raw).getTime();
+      return Number.isNaN(time) ? 0 : time;
+    }
+
+    function homeCounselShortDate(value) {
+      const date = new Date(Number(value) || value);
+      if (Number.isNaN(date.getTime())) return "";
+      return `${date.getMonth() + 1}/${date.getDate()}`;
+    }
+
+    function homeCounselCardHtml(post, postNumber = "") {
+      const title = counselTitleWithStage(post) || "상담 글";
+      const titleHtml = post?.title ? counselTitleHtml(post) : htmlAttr(title);
+      const author = counselVisibleAuthor(post);
+      const createdDate = homeCounselShortDate(post?.createdAt);
+      const gender = counselAuthorGender(post);
+      const genderIcon = gender === "남성"
+        ? `<span class="counsel-gender-icon is-male" aria-label="남성">${iconMale}</span>`
+        : gender === "여성"
+          ? `<span class="counsel-gender-icon is-female" aria-label="여성">${iconFemale}</span>`
+          : "";
+      const views = Number(post?.views) || 0;
+      const likes = Number(post?.likeCount ?? post?.likes) || 0;
+      const comments = Number(post?.commentCount ?? (Array.isArray(post?.comments) ? post.comments.length : 0)) || 0;
+      return `
+        <button class="home-counsel-card" type="button" data-counsel-open="${htmlAttr(post.id)}" title="${htmlAttr(title)}" aria-label="${htmlAttr(title)} 자세히 보기">
+          <span class="home-counsel-number">${htmlAttr(postNumber)}</span>
+          <span class="home-counsel-title">${titleHtml}</span>
+          <span class="home-counsel-author"><span class="home-counsel-author-name">${htmlAttr(author)}</span>${genderIcon}</span>
+          <span class="home-counsel-date">${htmlAttr(createdDate)}</span>
+          <span class="home-counsel-meta" aria-hidden="true"><span>조회 ${views}</span><span>·</span><span>공감 ${likes}</span><span>·</span><span>댓글 ${comments}</span></span>
+        </button>
+      `;
+    }
+
+    function renderHomeCounselLayer() {
+      const container = document.querySelector("[data-home-counsel-layer]");
+      if (!container) return;
+      const sortedPosts = [...counselPosts]
+        .sort((a, b) => counselPostTimestamp(b) - counselPostTimestamp(a));
+      const latestPosts = sortedPosts.slice(0, 5);
+      container.hidden = false;
+      container.innerHTML = `
+        <section class="home-counsel-strip">
+          <div class="schedule-headline-head">
+            <h2 class="schedule-section-title"><img class="section-title-icon" src="assets/favicon.png" alt="" aria-hidden="true">연애 상담</h2>
+            <button class="schedule-more-btn" type="button" onclick="window.goPage(event, 'counsel')">더보기</button>
+          </div>
+          ${latestPosts.length ? `<div class="home-counsel-row">${latestPosts.map((post, index) => homeCounselCardHtml(post, sortedPosts.length - index)).join("")}</div>` : `<p class="home-counsel-empty">등록된 상담 글이 없습니다.</p>`}
+        </section>
+      `;
+    }
     function counselCardHtml(post, postNumber = "") {
       return `
         <button class="counsel-card" type="button" data-counsel-open="${htmlAttr(post.id)}">
@@ -7315,6 +7972,7 @@
       if (cached) {
         counselPosts = cached;
         renderCounselList();
+        renderHomeCounselLayer();
       }
       try {
         const { id } = getVisitorIdentity();
@@ -7325,9 +7983,13 @@
           counselCurrentPage = Math.min(counselCurrentPage, Math.max(1, Math.ceil(counselPosts.length / counselPageSize)));
           writeCounselCache(counselPosts);
           renderCounselList();
+          renderHomeCounselLayer();
+        } else {
+          renderHomeCounselLayer();
         }
       } catch {
         if (!cached) renderCounselList();
+        renderHomeCounselLayer();
       }
     }
 
@@ -7508,7 +8170,9 @@
       }
       writeCounselCache(counselPosts);
       renderCounselList();
+      renderHomeCounselLayer();
       if (counselCurrentId === String(nextPost.id)) renderCounselDetail(nextPost);
+      if (openHomeCounselPostId === String(nextPost.id)) renderHomeCounselModal(nextPost);
     }
 
     function counselCommentHtml(comments, postVisitorId) {
@@ -7534,15 +8198,10 @@
         .join("");
     }
 
-    function renderCounselDetail(post) {
-      const target = document.querySelector("[data-counsel-detail]");
-      if (!target) return;
-      if (!post) {
-        target.innerHTML = `<p class="mypage-empty">게시글을 찾을 수 없습니다.</p>`;
-        return;
-      }
+    function counselDetailHtml(post) {
+      if (!post) return `<p class="mypage-empty">게시글을 찾을 수 없습니다.</p>`;
       const comments = Array.isArray(post.comments) ? post.comments : [];
-      target.innerHTML = `
+      return `
         <article class="counsel-detail-card" data-counsel-post-id="${htmlAttr(post.id)}">
           <div class="counsel-detail-head">
             ${counselAuthorHtml(post)}
@@ -7569,6 +8228,11 @@
       `;
     }
 
+    function renderCounselDetail(post) {
+      const target = document.querySelector("[data-counsel-detail]");
+      if (!target) return;
+      target.innerHTML = counselDetailHtml(post);
+    }
     function setCounselReplyTarget(id, author) {
       counselReplyTo = id ? { id, author } : null;
       const banner = document.querySelector("[data-counsel-reply-target]");
@@ -7581,6 +8245,48 @@
       } else {
         banner.classList.remove("is-active");
       }
+    }
+
+    let openHomeCounselPostId = "";
+
+    function renderHomeCounselModal(post) {
+      const modal = document.querySelector("[data-home-counsel-modal]");
+      if (!modal || !post) return;
+      modal.innerHTML = `
+        <div class="home-counsel-panel">
+          <button class="home-counsel-close-btn" type="button" data-home-counsel-close aria-label="닫기">×</button>
+          ${counselDetailHtml(post)}
+        </div>
+      `;
+    }
+
+    async function openHomeCounselModal(id) {
+      const post = counselPosts.find((item) => String(item.id) === String(id));
+      if (!post) return;
+      openHomeCounselPostId = String(id);
+      counselCurrentId = String(id);
+      setCounselReplyTarget(null);
+      renderHomeCounselModal(post);
+      const modal = document.querySelector("[data-home-counsel-modal]");
+      if (modal) modal.hidden = false;
+      let viewedSet;
+      try { viewedSet = new Set(JSON.parse(localStorage.getItem(counselViewedKey) || "[]")); } catch { viewedSet = new Set(); }
+      if (!viewedSet.has(openHomeCounselPostId)) {
+        viewedSet.add(openHomeCounselPostId);
+        try { localStorage.setItem(counselViewedKey, JSON.stringify([...viewedSet])); } catch {}
+        try {
+          const { id: visitorId } = getVisitorIdentity();
+          const result = await visitorApi({ type: "counselView", id: openHomeCounselPostId, visitorId });
+          updateCounselPostInState(result.post);
+        } catch {}
+      }
+    }
+
+    function closeHomeCounselModal() {
+      openHomeCounselPostId = "";
+      setCounselReplyTarget(null);
+      const modal = document.querySelector("[data-home-counsel-modal]");
+      if (modal) { modal.hidden = true; modal.innerHTML = ""; }
     }
 
     async function openCounselDetail(id) {
@@ -7996,6 +8702,7 @@
       renderSchedulePosts();
       requestAnimationFrame(refreshScheduleHeadlineControls);
       if (selectedSchedulePostId === String(nextPost.id)) renderScheduleDetail(nextPost);
+      if (openHomeSchedulePostId === String(nextPost.id)) renderHomeScheduleModal(nextPost);
     }
     function scheduleCommentHtml(comments) {
       return comments.length
@@ -8052,6 +8759,48 @@
         writeScheduleSet(SCHEDULE_VIEWED_KEY, scheduleViewedPosts);
         schedulePostApi({ type: "schedulePostView", id: selectedSchedulePostId }).then((result) => updateSchedulePost(result.post)).catch(() => {});
       }
+    }
+    let openHomeSchedulePostId = "";
+    function renderHomeScheduleModal(post) {
+      const modal = document.querySelector("[data-home-schedule-modal]");
+      if (!modal || !post) return;
+      modal.innerHTML = `
+        <div class="home-schedule-panel">
+          <button class="home-schedule-close-btn" type="button" data-home-schedule-close aria-label="닫기">×</button>
+          <section class="support-card mypage-fold-card" style="margin:0; padding:.9rem;" data-schedule-post-id="${htmlAttr(post.id)}">
+            <h2 class="schedule-detail-heading" style="margin:0 0 .4rem;">${htmlAttr(post.title)}</h2>
+            ${post.content ? `<p class="schedule-detail-content" style="margin:0 0 .75rem;">${htmlAttr(post.content)}</p>` : ""}
+            <div class="naver-map">
+              <div class="naver-map-canvas" id="homeScheduleNaverMap" role="img" aria-label="${htmlAttr(cloverLocation.title)} 지도"></div>
+              <div class="naver-map-fallback">지도를 불러오는 중입니다.</div>
+            </div>
+            <p style="margin:.65rem 0 0; font-weight:850;">장소: ${htmlAttr(cloverLocation.title)}</p>
+            <p style="margin:.2rem 0 .65rem; color:var(--muted); font-size:.82rem;">방문 전 운영자 안내를 확인해 주세요.</p>
+            <a class="map-open-link" href="https://map.naver.com/p/search/${encodeURIComponent(cloverLocation.title)}" target="_blank" rel="noopener">네이버 지도에서 보기</a>
+          </section>
+        </div>
+      `;
+      initHomeScheduleMap();
+    }
+    function openHomeScheduleModal(id) {
+      const isPlaceholder = String(id).startsWith("placeholder-");
+      const post = isPlaceholder
+        ? homeCalendarPlaceholderPosts.find((item) => String(item.id) === String(id))
+        : schedulePosts.find((item) => String(item.id) === String(id));
+      if (!post) return;
+      openHomeSchedulePostId = String(id);
+      renderHomeScheduleModal(post);
+      document.querySelector("[data-home-schedule-modal]").hidden = false;
+      if (!isPlaceholder && !scheduleViewedPosts.has(openHomeSchedulePostId)) {
+        scheduleViewedPosts.add(openHomeSchedulePostId);
+        writeScheduleSet(SCHEDULE_VIEWED_KEY, scheduleViewedPosts);
+        schedulePostApi({ type: "schedulePostView", id: openHomeSchedulePostId }).then((result) => updateSchedulePost(result.post)).catch(() => {});
+      }
+    }
+    function closeHomeScheduleModal() {
+      openHomeSchedulePostId = "";
+      const modal = document.querySelector("[data-home-schedule-modal]");
+      if (modal) { modal.hidden = true; modal.innerHTML = ""; }
     }
     function updateScheduleHeadlineControls(row) {
       const scroller = row?.closest(".schedule-headline-scroller");
@@ -8159,7 +8908,11 @@
         row.dataset.dragSuppressClick = "true";
         window.setTimeout(() => { delete row.dataset.dragSuppressClick; }, 90);
         event.preventDefault();
-        openSchedulePostDetail(card.dataset.schedulePostId);
+        if (card.closest(".home-schedule-layer, .home-schedule-headlines")) {
+          openHomeScheduleModal(card.dataset.schedulePostId);
+        } else {
+          openSchedulePostDetail(card.dataset.schedulePostId);
+        }
       };
       row.addEventListener("pointerup", endDrag);
       row.addEventListener("pointercancel", endDrag);
@@ -8173,7 +8926,11 @@
         if (!card || !row.contains(card) || event.target.closest("[data-schedule-like], [data-schedule-scroll]")) return;
         event.preventDefault();
         event.stopPropagation();
-        openSchedulePostDetail(card.dataset.schedulePostId);
+        if (card.closest(".home-schedule-layer, .home-schedule-headlines")) {
+          openHomeScheduleModal(card.dataset.schedulePostId);
+        } else {
+          openSchedulePostDetail(card.dataset.schedulePostId);
+        }
       }, true);
     }
     function refreshScheduleHeadlineControls() {
@@ -8195,7 +8952,7 @@
         return;
       }
       homeScheduleHeadlines.hidden = false;
-      homeScheduleHeadlines.innerHTML = `<section class="schedule-headline-strip"><div class="schedule-headline-head"><h2 class="schedule-section-title">클로버 소식</h2><button class="schedule-more-btn" type="button" onclick="window.goPage(event, 'schedule')">더보기</button></div><div class="schedule-headline-scroller">${headlines.length > 1 ? `<button class="schedule-scroll-btn prev" type="button" data-schedule-scroll="prev" aria-label="이전 공지">‹</button>` : ""}<div class="schedule-headline-row" data-schedule-headline-row>${headlines.map((post) => schedulePostCard(post, true)).join("")}</div>${headlines.length > 1 ? `<button class="schedule-scroll-btn next" type="button" data-schedule-scroll="next" aria-label="다음 공지">›</button>` : ""}</div></section>`;
+      homeScheduleHeadlines.innerHTML = `<section class="schedule-headline-strip"><div class="schedule-headline-head"><h2 class="schedule-section-title"><img class="section-title-icon" src="assets/favicon.png" alt="" aria-hidden="true">에피소드</h2><button class="schedule-more-btn" type="button" onclick="window.goPage(event, 'schedule')">더보기</button></div><div class="schedule-headline-scroller">${headlines.length > 1 ? `<button class="schedule-scroll-btn prev" type="button" data-schedule-scroll="prev" aria-label="이전 공지">‹</button>` : ""}<div class="schedule-headline-row" data-schedule-headline-row>${headlines.map((post) => schedulePostCard(post, true)).join("")}</div>${headlines.length > 1 ? `<button class="schedule-scroll-btn next" type="button" data-schedule-scroll="next" aria-label="다음 공지">›</button>` : ""}</div></section>`;
       requestAnimationFrame(refreshScheduleHeadlineControls);
     }
     let selectedHomeCalendarDate = "";
@@ -8219,27 +8976,68 @@
       const hours = Math.floor((totalMinutes % 1440) / 60);
       const minutes = totalMinutes % 60;
       if (days >= 1) return `D-${days}`;
-      if (hours >= 1) return `${hours}시간 ${minutes}분 후`;
+      if (hours >= 1) return `${hours}시간 후`;
       return `${minutes}분 후`;
     }
 
+    function scheduleResultUnlockTimestamp(iso) {
+      if (!iso) return NaN;
+      const [y, m, d] = String(iso).split("-").map(Number);
+      if (!y || !m || !d) return NaN;
+      return Date.UTC(y, m - 1, d + 1, 12 - 9, 0, 0);
+    }
+
+    const SCHEDULE_EPISODE_BASE_ISO = "2026-08-01";
+    const SCHEDULE_EPISODE_SLOT_ORDER = { "13시": 0, "16시": 1, "19시": 2 };
+
+    function scheduleSlotsForDayOfWeek(dayOfWeek) {
+      if (dayOfWeek === 5) return ["19시"];
+      if (dayOfWeek === 6 || dayOfWeek === 0) return ["13시", "16시", "19시"];
+      return [];
+    }
+
+    function scheduleEpisodeNumber(post) {
+      const iso = String(post.scheduleDate || "").trim();
+      if (!iso || SCHEDULE_EPISODE_SLOT_ORDER[post.scheduleTime] === undefined) return 1;
+      const [by, bm, bd] = SCHEDULE_EPISODE_BASE_ISO.split("-").map(Number);
+      const [y, m, d] = iso.split("-").map(Number);
+      if (!y || !m || !d) return 1;
+      const baseUtc = Date.UTC(by, bm - 1, bd);
+      const targetUtc = Date.UTC(y, m - 1, d);
+      const dayOffset = Math.round((targetUtc - baseUtc) / 86400000);
+      let episode = 0;
+      for (let i = 0; i < dayOffset; i += 1) {
+        const dow = new Date(baseUtc + i * 86400000).getUTCDay();
+        episode += scheduleSlotsForDayOfWeek(dow).length;
+      }
+      const todaySlots = scheduleSlotsForDayOfWeek(new Date(targetUtc).getUTCDay());
+      const slotIdx = todaySlots.indexOf(post.scheduleTime);
+      if (slotIdx === -1) return episode + 1;
+      return episode + slotIdx + 1;
+    }
+
     function homeScheduleStatusCard(post) {
-      const comments = Array.isArray(post.comments) ? post.comments : [];
-      const liked = scheduleLikedPosts.has(String(post.id));
       const matchResult = String(post.matchResult || "").trim();
       const eventTs = scheduleEventTimestamp(post.scheduleDate, post.scheduleTime);
       const isPast = !Number.isNaN(eventTs) && Date.now() >= eventTs;
       const phase = matchResult ? "result" : (isPast ? "checking" : "countdown");
-      const categoryLabel = phase === "result" ? "매칭 결과" : (post.category || "일정 안내");
+      const episode = scheduleEpisodeNumber(post);
+      const categoryLabel = `${episode}화`;
       const statusBadge = phase === "countdown" ? formatScheduleCountdown(eventTs) : phase === "checking" ? "확인 중" : "종료";
+      const hour = SCHEDULE_TIME_HOUR[post.scheduleTime];
+      const titleLine = hour !== undefined ? `[${String(hour).padStart(2, "0")}:00 시작] 소개팅 안내` : htmlAttr(post.title);
+      const unlockTs = scheduleResultUnlockTimestamp(post.scheduleDate);
+      const resultUnlocked = phase === "result" || (!Number.isNaN(unlockTs) && Date.now() >= unlockTs);
       return `<article class="schedule-post-card schedule-status-card is-${phase}" data-schedule-post-id="${htmlAttr(post.id)}">
         <div class="schedule-status-top">
           <span class="schedule-status-category">${htmlAttr(categoryLabel)}</span>
           <span class="schedule-status-badge">${htmlAttr(statusBadge)}</span>
         </div>
-        <p class="schedule-status-title">${htmlAttr(post.title)}</p>
+        <p class="schedule-status-title">${titleLine}</p>
         ${phase === "result" ? `<p class="schedule-status-desc">${htmlAttr(matchResult)}</p>` : ""}
-        <div class="schedule-post-meta"><span>조회 ${Number(post.views) || 0}</span><button type="button" class="${liked ? "is-liked" : ""}" data-schedule-like="${htmlAttr(post.id)}">공감 ${Number(post.likes) || 0}</button><button type="button" data-schedule-open="${htmlAttr(post.id)}">댓글 ${comments.length}</button></div>
+        <div class="schedule-post-meta">
+          <button type="button" class="schedule-match-result-btn" ${resultUnlocked ? `data-schedule-open="${htmlAttr(post.id)}"` : "disabled"}>${resultUnlocked ? "매칭 결과 확인" : "매칭 결과 (다음날 12시 공개)"}</button>
+        </div>
       </article>`;
     }
 
@@ -8355,7 +9153,10 @@
       const availableMap = Object.keys(realMap).length ? realMap : homeCalendarPlaceholderMap(year, month);
       resolveHomeCalendarSelection(availableMap);
       container.innerHTML = `
-        <h2 class="schedule-section-title">참여 일정</h2>
+        <div class="schedule-headline-head">
+          <h2 class="schedule-section-title"><img class="section-title-icon" src="assets/favicon.png" alt="" aria-hidden="true">일정 안내</h2>
+          <button class="home-match-result-btn" type="button" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
+        </div>
         <div class="application-calendar home-participation-grid">
           ${homeCalendarDayTemplate(year, month, availableMap)}
           ${homeCalendarLayerMarkup(availableMap)}
@@ -8365,10 +9166,19 @@
         const monthEl = container.querySelector(".application-month");
         const layerEl = container.querySelector(".home-schedule-layer");
         if (!monthEl || !layerEl) return;
-        const isStacked = layerEl.getBoundingClientRect().left === monthEl.getBoundingClientRect().left;
-        layerEl.style.height = isStacked ? "" : `${monthEl.getBoundingClientRect().height}px`;
+        const syncHeight = () => {
+          const isStacked = layerEl.getBoundingClientRect().left === monthEl.getBoundingClientRect().left;
+          layerEl.style.height = isStacked ? "" : `${monthEl.getBoundingClientRect().height}px`;
+        };
+        syncHeight();
+        if (window.ResizeObserver) {
+          if (homeCalendarHeightObserver) homeCalendarHeightObserver.disconnect();
+          homeCalendarHeightObserver = new ResizeObserver(syncHeight);
+          homeCalendarHeightObserver.observe(monthEl);
+        }
       });
     }
+    let homeCalendarHeightObserver = null;
     setInterval(() => {
       if (document.querySelector("[data-home-participation-calendar]")) renderHomeParticipationCalendar();
     }, 60000);
@@ -8468,7 +9278,21 @@
       const openButton = event.target.closest("[data-schedule-open]");
       if (openButton) {
         event.preventDefault();
-        openSchedulePostDetail(openButton.dataset.scheduleOpen);
+        if (openButton.closest(".home-schedule-layer, .home-schedule-headlines")) {
+          openHomeScheduleModal(openButton.dataset.scheduleOpen);
+        } else {
+          openSchedulePostDetail(openButton.dataset.scheduleOpen);
+        }
+        return;
+      }
+      const homeScheduleCloseTarget = event.target.closest("[data-home-schedule-close]");
+      if (homeScheduleCloseTarget) {
+        event.preventDefault();
+        closeHomeScheduleModal();
+        return;
+      }
+      if (event.target === document.querySelector("[data-home-schedule-modal]")) {
+        closeHomeScheduleModal();
         return;
       }
       const likeButton = event.target.closest("[data-schedule-like]");
@@ -8484,7 +9308,11 @@
       const scheduleCard = event.target.closest(".schedule-post-card[data-schedule-post-id]");
       if (scheduleCard && !event.target.closest("button, a, input, textarea, select, label")) {
         event.preventDefault();
-        openSchedulePostDetail(scheduleCard.dataset.schedulePostId);
+        if (scheduleCard.closest(".home-schedule-layer, .home-schedule-headlines")) {
+          openHomeScheduleModal(scheduleCard.dataset.schedulePostId);
+        } else {
+          openSchedulePostDetail(scheduleCard.dataset.schedulePostId);
+        }
       }
     });
     document.addEventListener("submit", async (event) => {
@@ -9158,6 +9986,24 @@
       setPage(pageName);
     };
 
+    const THEME_KEY = "cloverTheme";
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      const toggle = document.getElementById("themeToggle");
+      if (toggle) toggle.setAttribute("aria-pressed", String(theme === "dark"));
+    }
+    function initTheme() {
+      let saved = "";
+      try { saved = localStorage.getItem(THEME_KEY) || ""; } catch {}
+      applyTheme(saved === "dark" ? "dark" : "light");
+    }
+    document.getElementById("themeToggle")?.addEventListener("click", () => {
+      const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      applyTheme(next);
+      try { localStorage.setItem(THEME_KEY, next); } catch {}
+    });
+    initTheme();
+
     window.goBack = function goBack(event, fallbackPage = "home") {
       if (event) {
         event.preventDefault();
@@ -9264,12 +10110,8 @@
       });
     }
 
-    async function initCloverMap() {
-      if (cloverMapLoaded) return;
-      const mapWrap = document.querySelector(".naver-map");
-      const mapElement = document.getElementById("cloverNaverMap");
-      const fallback = document.querySelector(".naver-map-fallback");
-      if (!mapWrap || !mapElement) return;
+    async function mountNaverMap(mapElement, fallback, mapWrap) {
+      if (!mapElement) return;
       try {
         await loadNaverMapScript();
         const position = new naver.maps.LatLng(cloverLocation.lat, cloverLocation.lng);
@@ -9286,11 +10128,27 @@
           title: cloverLocation.title
         });
         window.setTimeout(() => naver.maps.Event.trigger(map, "resize"), 80);
-        mapWrap.classList.add("is-ready");
-        cloverMapLoaded = true;
+        if (mapWrap) mapWrap.classList.add("is-ready");
       } catch (error) {
         if (fallback) fallback.textContent = "지도를 불러오지 못했습니다. 아래 버튼으로 네이버 지도에서 확인해 주세요.";
       }
+    }
+
+    async function initCloverMap() {
+      if (cloverMapLoaded) return;
+      const mapWrap = document.querySelector(".naver-map");
+      const mapElement = document.getElementById("cloverNaverMap");
+      const fallback = document.querySelector(".naver-map-fallback");
+      if (!mapWrap || !mapElement) return;
+      await mountNaverMap(mapElement, fallback, mapWrap);
+      cloverMapLoaded = true;
+    }
+
+    async function initHomeScheduleMap() {
+      const mapWrap = document.querySelector("[data-home-schedule-modal] .naver-map");
+      const mapElement = document.getElementById("homeScheduleNaverMap");
+      const fallback = document.querySelector("[data-home-schedule-modal] .naver-map-fallback");
+      await mountNaverMap(mapElement, fallback, mapWrap);
     }
 
     function bindLocationMapLayer() {
@@ -9553,7 +10411,7 @@
         alert("참여 일정은 이전 단계에서 선택해 주세요.");
         return;
       }
-      if (!selectedAgeOption) {
+      if (isAgeSelectionEnabled() && !selectedAgeOption) {
         alert("연령대를 이전 단계에서 선택해 주세요.");
         return;
       }
@@ -9614,13 +10472,14 @@
         const payload = {
           submittedAt: new Date().toISOString(),
           visitorId: getVisitorIdentity().id,
-          eventTitle: `[${selectedApplyGender} 신청] [${selectedAgeOption?.range || selectedEvent.station}] ${selectedEvent.title}`,
+          eventTitle: `[${selectedApplyGender} 신청]${selectedComposition ? ` [${selectedComposition}]` : ""}${selectedComposition === "1:1" ? "" : ` [${selectedAgeOption?.range || selectedEvent.station}]`} ${selectedEvent.title}`,
           applicationType: `${selectedApplyGender} 신청`,
           gender: selectedApplyGender,
           eventDate: selectedScheduleDate,
           selectedRegions: selectedApplicationRegions.join(", "),
           selectedAgeRange: selectedAgeOption?.range || "",
           selectedAgeLabel: selectedAgeOption?.label || "",
+          selectedComposition: selectedComposition || "",
           eventPlace: selectedEvent.place,
           eventPrice: selectedApplyPrice,
           name: inputValue("#applyName"),
@@ -9753,6 +10612,16 @@
         return;
       }
 
+      const compositionOptionTarget = closestFrom(event.target, "[data-composition-option]");
+      if (compositionOptionTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        selectedComposition = selectedComposition === compositionOptionTarget.dataset.compositionOption ? "" : (compositionOptionTarget.dataset.compositionOption || "");
+        if (!isAgeSelectionEnabled()) selectedAgeOption = null;
+        renderApplicationSelection(selectedEvent);
+        return;
+      }
+
       const weekdayOptionTarget = closestFrom(event.target, "[data-weekday-option]");
       if (weekdayOptionTarget) {
         event.preventDefault();
@@ -9776,12 +10645,17 @@
         event.preventDefault();
         event.stopPropagation();
         if (selectionCompleteTarget.disabled) return;
+        if (!selectedComposition) {
+          alert("희망 인원 구성을 선택해 주세요.");
+          document.querySelector(".composition-selection-block")?.scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
         if (!selectedWeekdays.length) {
           alert("가능한 요일을 선택해 주세요.");
           document.querySelector(".schedule-section")?.scrollIntoView({ behavior: "smooth", block: "center" });
           return;
         }
-        if (!selectedAgeOption) {
+        if (isAgeSelectionEnabled() && !selectedAgeOption) {
           alert("연령대를 선택해 주세요.");
           document.querySelector(".age-selection-block")?.scrollIntoView({ behavior: "smooth", block: "center" });
           return;
@@ -9795,7 +10669,7 @@
       if (ageOptionTarget) {
         event.preventDefault();
         event.stopPropagation();
-        if (ageOptionTarget.disabled) return;
+        if (!isAgeSelectionEnabled() || ageOptionTarget.disabled) return;
         const ageOptionId = ageOptionTarget.dataset.ageOption;
         selectedAgeOption = selectedAgeOption?.id === ageOptionId
           ? null
@@ -10344,6 +11218,7 @@
     loadManagedHeroSlides();
     loadManagedEvents();
     loadSchedulePosts();
+    if (currentPageName !== "counsel") loadCounselPosts();
   </script>
 </body>
 </html>
