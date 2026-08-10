@@ -284,6 +284,10 @@
       background: var(--surface);
     }
 
+    .section-tabs.schedule-info-tabs {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     .section-tabs.guide-tabs {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -495,8 +499,10 @@
     .home-participation-calendar {
       display: grid;
       gap: .75rem;
-      margin: -.35rem 0 .35rem;
+      margin: calc(-.35rem + 6px) 0 .35rem;
     }
+
+
 
     .home-participation-calendar .schedule-headline-head {
       margin: 0 .45rem 0;
@@ -514,19 +520,19 @@
 
     .home-match-result-btn {
       flex: 0 0 auto;
-      min-height: 2.1rem;
+      min-height: 2.05rem;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: .46rem;
-      border: 1px solid rgba(0, 240, 64, .34);
-      border-radius: .72rem;
-      background: linear-gradient(135deg, #111827 0%, #020617 100%);
-      color: #fff;
-      padding: 0 .72rem 0 .58rem;
-      font-size: .8rem;
+      gap: 0.38rem;
+      border: 1px solid rgba(0, 240, 64, .52);
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ffffff 0%, #eef3f1 100%);
+      color: #111827;
+      padding: 0.5rem 0.95rem;
+      font-size: 0.82rem;
       font-weight: 950;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 .45rem 1rem rgba(15, 23, 42, .14);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 .45rem 1rem rgba(15, 23, 42, .12);
       touch-action: manipulation;
     }
 
@@ -553,6 +559,50 @@
       transform: translateY(1px) scale(.99);
     }
 
+    :root[data-theme="dark"] .home-match-result-btn {
+      border-color: rgba(0, 240, 64, .34);
+      background: linear-gradient(135deg, #111827 0%, #020617 100%);
+      color: #fff;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 .45rem 1rem rgba(0, 0, 0, .24);
+    }
+
+    .schedule-info-page {
+      display: grid;
+      gap: 0.95rem;
+      padding-top: 0.75rem !important;
+      padding-bottom: 1.75rem !important;
+    }
+
+    .schedule-info-calendar {
+      display: grid;
+      gap: 0.75rem;
+      align-content: start;
+    }
+
+    .schedule-info-calendar .page-title {
+      margin: 0 0.25rem;
+    }
+
+    .schedule-info-months {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.65rem;
+    }
+
+    .schedule-info-layer-wrap {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .schedule-info-layer-wrap .home-schedule-layer {
+      min-height: 8rem;
+    }
+
+    @media (max-width: 520px) {
+      .schedule-info-months {
+        grid-template-columns: 1fr;
+      }
+    }
     .home-schedule-layer {
       display: grid;
       align-content: start;
@@ -1103,10 +1153,10 @@
 
     .event-body {
       min-width: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 0.55rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 0.75rem;
       padding: 0.78rem 0.85rem 0.85rem;
       text-align: left;
     }
@@ -1140,7 +1190,7 @@
       display: grid;
       gap: 0.36rem;
       margin-top: 0.42rem;
-      margin-bottom: 18px;
+      margin-bottom: 0;
       color: var(--muted);
       font-size: clamp(0.88rem, 3vw, 0.98rem);
       line-height: 1.35;
@@ -1176,14 +1226,15 @@
 
     .event-foot {
       min-width: 0;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      align-items: flex-end;
-      gap: 0.75rem;
-      margin-bottom: -1.875rem;
-      padding-top: 0.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0;
+      margin-bottom: 0;
+      padding-top: 0;
       font-size: 0.76rem;
       color: var(--muted);
+      align-self: center;
     }
 
     .price {
@@ -1201,15 +1252,14 @@
     }
 
     .event-action {
-      grid-column: 2;
       display: grid;
       justify-items: end;
       align-items: end;
-      gap: 0.5rem;
-      min-width: 6.2rem;
+      gap: 0;
+      min-width: 0;
       line-height: 1;
       text-align: right;
-      transform: translate(-5px, -2.125rem);
+      transform: none;
     }
 
     .event-card.has-gender-count .event-action {
@@ -1820,20 +1870,20 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.38rem;
+      gap: .46rem;
       align-self: flex-start;
       width: auto;
       max-width: max-content;
       flex: 0 0 auto;
-      min-height: 2.05rem;
+      min-height: 2.1rem;
       margin: 0.5rem 0 0;
-      padding: 0.5rem 0.95rem;
-      border: 1px solid #00d838;
-      border-radius: 999px;
-      background: #f3fff6;
-      color: #06120a;
-      box-shadow: 0 0.35rem 0.8rem rgba(0, 216, 56, 0.12);
-      font-size: 0.82rem;
+      padding: 0 .72rem 0 .58rem;
+      border: 1px solid rgba(0, 240, 64, .52);
+      border-radius: .72rem;
+      background: linear-gradient(135deg, #ffffff 0%, #eef3f1 100%);
+      color: #111827;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 .45rem 1rem rgba(15, 23, 42, .12);
+      font-size: .8rem;
       font-weight: 950;
       line-height: 1;
       cursor: pointer;
@@ -1843,44 +1893,40 @@
 
     .apply-same-as-profile-btn::before {
       content: "";
-      display: inline-grid;
-      place-items: center;
-      width: 0.92rem;
-      height: 0.92rem;
-      border: 1.5px solid #06120a;
-      border-radius: 50%;
-      background: var(--surface);
-      color: #06120a;
-      font-size: 0.72rem;
-      font-weight: 950;
-      line-height: 1;
+      width: .48rem;
+      height: .48rem;
+      border: 1px solid #00f040;
+      border-radius: 999px;
+      background: transparent;
+      box-shadow: none;
       box-sizing: border-box;
       flex: 0 0 auto;
     }
 
-    .apply-same-as-profile-btn:hover {
-      background: #00ff40;
-      border-color: #00d838;
-      color: #06120a;
-      box-shadow: 0 0.45rem 0.9rem rgba(0, 216, 56, 0.2);
-    }
 
-    .apply-same-as-profile-btn.is-applied {
-      background: #00ff40;
-      border-color: #00d838;
-      color: #06120a;
-      box-shadow: 0 0.45rem 0.9rem rgba(0, 216, 56, 0.18);
+    .apply-same-as-profile-btn:hover {
+      border-color: rgba(0, 240, 64, .72);
+      background: linear-gradient(135deg, #ffffff 0%, #f4faf7 100%);
+      color: #111827;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .95), 0 .5rem 1.05rem rgba(15, 23, 42, .14);
     }
 
     .apply-same-as-profile-btn.is-applied::before {
-      content: "✓";
-      background: #06120a;
-      color: #00ff40;
+      background: #00f040;
+      box-shadow: 0 0 0 .22rem rgba(0, 240, 64, .16);
     }
 
     .apply-same-as-profile-btn:active {
-      transform: translateY(1px);
+      transform: translateY(1px) scale(.99);
     }
+
+    :root[data-theme="dark"] .apply-same-as-profile-btn {
+      border-color: rgba(0, 240, 64, .34);
+      background: linear-gradient(135deg, #111827 0%, #020617 100%);
+      color: #fff;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 .45rem 1rem rgba(0, 0, 0, .24);
+    }
+
     .schedule-section {
       --schedule-color: #188f44;
       --schedule-soft: #f2fbf5;
@@ -3612,6 +3658,12 @@
       gap: 0.6rem;
     }
 
+    .mypage-section-divider {
+      height: 1px;
+      margin: 0.15rem 0;
+      background: var(--line);
+    }
+
     .mypage-profile-header {
       display: flex;
       align-items: center;
@@ -3780,14 +3832,18 @@
     }
 
     .mypage-layer-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: block;
       margin: 0;
       font-size: 1rem;
       font-weight: 950;
       cursor: pointer;
       list-style: none;
+    }
+
+    .mypage-layer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .mypage-layer-label {
@@ -3829,7 +3885,7 @@
       display: none;
     }
 
-    .mypage-layer-title::after {
+    .mypage-layer-row::after {
       content: "";
       width: 0.5rem;
       height: 0.5rem;
@@ -3839,8 +3895,16 @@
       transition: transform 0.2s ease;
     }
 
-    .mypage-fold-card[open] .mypage-layer-title::after {
+    .mypage-fold-card[open] .mypage-layer-row::after {
       transform: rotate(-135deg);
+    }
+
+    .mypage-latest-preview:empty {
+      display: none;
+    }
+
+    .mypage-fold-card[open] .mypage-latest-preview {
+      display: none;
     }
 
     .mypage-layer-content {
@@ -4030,6 +4094,193 @@
       }
     }
 
+    #page-mypage .location-page {
+      gap: 0.75rem;
+      padding-top: 1.05rem;
+    }
+
+    #page-mypage .mypage-hero {
+      display: grid;
+      gap: 0.45rem;
+      padding: 0 0.25rem;
+    }
+
+    #page-mypage .mypage-title-row {
+      gap: 0.55rem;
+      min-width: 0;
+    }
+
+    #page-mypage .page-title {
+      font-size: 1.45rem;
+      line-height: 1.15;
+    }
+
+    #page-mypage .page-description {
+      margin: 0;
+      padding: 0 0.05rem;
+      color: #687182;
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }
+
+    #page-mypage .mypage-title-icon {
+      width: 1.72rem;
+      height: 1.72rem;
+      border-radius: 0.58rem;
+      box-shadow: 0 0.25rem 0.7rem rgba(15, 23, 42, 0.06);
+    }
+
+    #page-mypage .mypage-title-icon svg {
+      width: 1.14rem;
+      height: 1.14rem;
+    }
+
+    #page-mypage .mypage-unique-number {
+      padding: 0.32rem 0.55rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: #5f6877;
+      font-size: 0.7rem;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    }
+
+    #page-mypage .mypage-profile-card {
+      gap: 0.82rem;
+      padding: 1rem;
+      border-color: rgba(0, 240, 64, 0.16);
+      box-shadow: 0 0.45rem 1.15rem rgba(15, 23, 42, 0.055);
+    }
+
+    #page-mypage .mypage-profile-header {
+      padding-bottom: 0.72rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    #page-mypage .mypage-section-title {
+      font-size: 1.05rem;
+      line-height: 1.2;
+    }
+
+    #page-mypage .mypage-edit-btn {
+      min-height: 2rem;
+      padding: 0 0.78rem;
+      border-color: #dbe2ea;
+      background: #fff;
+      box-shadow: 0 0.25rem 0.65rem rgba(15, 23, 42, 0.06);
+    }
+
+    #page-mypage .mypage-profile-fields {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+    }
+
+    #page-mypage .mypage-profile-row {
+      display: grid;
+      align-content: center;
+      justify-content: stretch;
+      gap: 0.35rem;
+      min-height: 4rem;
+      padding: 0.68rem 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 0.75rem;
+      background: var(--tint-neutral);
+    }
+
+    #page-mypage .mypage-profile-label {
+      min-width: 0;
+      color: #7a8391;
+      font-size: 0.7rem;
+      line-height: 1;
+    }
+
+    #page-mypage .mypage-profile-value,
+    #page-mypage .mypage-gender-control {
+      justify-content: flex-start;
+      min-width: 0;
+    }
+
+    #page-mypage .mypage-profile-name {
+      font-size: 1.05rem;
+      line-height: 1.2;
+    }
+
+    #page-mypage .mypage-gender-status {
+      color: #3f4754;
+      font-size: 0.86rem;
+    }
+
+    #page-mypage .mypage-fold-card {
+      padding: 0;
+      overflow: hidden;
+      border-radius: 0.95rem;
+      box-shadow: 0 0.42rem 1.05rem rgba(15, 23, 42, 0.045);
+    }
+
+    #page-mypage .mypage-layer-title {
+      padding: 0 1rem;
+      font-size: 1rem;
+    }
+
+    #page-mypage .mypage-layer-row {
+      min-height: 4.15rem;
+      justify-content: flex-start;
+      gap: 0.62rem;
+    }
+
+    #page-mypage .mypage-layer-row::before {
+      content: "";
+      width: 0.48rem;
+      height: 0.48rem;
+      border-radius: 999px;
+      background: #00f040;
+      box-shadow: 0 0 0 0.22rem rgba(0, 240, 64, 0.12);
+      flex: 0 0 auto;
+    }
+
+    #page-mypage .mypage-layer-row::after {
+      margin-left: auto;
+      border-color: #76808f;
+    }
+
+    #page-mypage .mypage-latest-preview {
+      padding: 0 0 0.9rem;
+    }
+
+    #page-mypage .mypage-fold-card[open] .mypage-layer-title {
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(135deg, #ffffff 0%, #f8fbf9 100%);
+    }
+
+    #page-mypage .mypage-layer-content {
+      margin-top: 0;
+      padding: 0.9rem 1rem 1rem;
+    }
+
+    #page-mypage .mypage-layer-count {
+      color: #00a82f;
+    }
+
+    #page-mypage .mypage-layer-status {
+      min-width: 2.4rem;
+      min-height: 1.35rem;
+    }
+
+    @media (max-width: 520px) {
+      #page-mypage .mypage-title-row {
+        flex-wrap: wrap;
+      }
+
+      #page-mypage .mypage-unique-number {
+        width: 100%;
+        margin-left: 0;
+        text-align: left;
+      }
+
+      #page-mypage .mypage-profile-fields {
+        grid-template-columns: 1fr;
+      }
+    }
     .counsel-page-head {
       display: flex;
       align-items: center;
@@ -4080,69 +4331,109 @@
 
     .counsel-list {
       display: grid;
-      gap: 0.7rem;
+      gap: 0;
       margin-top: 0.9rem;
+      border: 1px solid var(--line);
+      border-radius: 0.8rem;
+      background: var(--surface);
+      overflow: hidden;
+      box-shadow: 0 0.35rem 1.1rem rgba(15, 23, 42, 0.04);
+    }
+
+    :root[data-theme="dark"] .counsel-list {
+      background: #121212;
     }
 
     .counsel-card {
       display: grid;
-      grid-template-columns: auto minmax(0, 1fr);
-      gap: 0.45rem;
-      padding: 1rem;
-      border: 1px solid var(--line);
-      border-radius: 0.9rem;
-      background: var(--surface);
+      grid-template-columns: 2rem minmax(0, 1fr) minmax(3.4rem, auto) 2.2rem minmax(6.8rem, auto);
+      align-items: center;
+      gap: 0.65rem;
+      min-height: 2.05rem;
+      padding: 0.35rem 0.65rem;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
       text-align: left;
-      box-shadow: 0 0.3rem 1rem rgba(15, 23, 42, 0.04);
+      box-shadow: none;
     }
 
-    :root[data-theme="dark"] .counsel-card {
-      background: #121212;
+    .counsel-card:last-child {
+      border-bottom: 0;
     }
 
     .counsel-card-number {
-      align-self: center;
-      min-width: 1.35rem;
-      color: var(--muted);
-      font-size: 0.78rem;
-      font-weight: 900;
-      text-align: center;
-    }
-
-    .counsel-card-main {
-      display: grid;
-      gap: 0.45rem;
-      min-width: 0;
-    }
-
-    .counsel-card-head {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 0.5rem;
+      justify-content: center;
+      justify-self: center;
+      min-width: 1.28rem;
+      height: 1.28rem;
+      padding: 0 0.2rem;
+      border: 1px solid rgba(0, 216, 56, 0.3);
+      border-radius: 0.36rem;
+      background: rgba(0, 240, 64, 0.09);
+      color: #00b832;
+      font-size: 0.68rem;
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    :root[data-theme="dark"] .counsel-card-number {
+      border-color: rgba(0, 255, 64, .22);
+      background: rgba(0, 255, 64, .1);
+      color: #44ff72;
+    }
+
+    .counsel-card-title {
+      display: block;
+      min-width: 0;
+      margin: 0;
+      color: var(--ink);
+      font-size: 0.82rem;
+      font-weight: 950;
+      line-height: 1.2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .counsel-card-title .counsel-title-stage {
+      display: none;
     }
 
     .counsel-card-author {
       color: var(--muted);
-      font-size: 0.74rem;
-      font-weight: 700;
+      font-size: 0.68rem;
+      font-weight: 850;
     }
 
     .counsel-author-inline {
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
+      justify-content: flex-end;
+      gap: 0.24rem;
       min-width: 0;
       color: var(--muted);
-      font-size: 0.74rem;
-      font-weight: 700;
+      font-size: 0.68rem;
+      font-weight: 850;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .counsel-author-inline .counsel-card-author {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .counsel-gender-icon {
       display: inline-grid;
       place-items: center;
-      width: 0.98rem;
-      height: 0.98rem;
+      width: 0.82rem;
+      height: 0.82rem;
       border-radius: 50%;
       color: #fff;
       flex: 0 0 auto;
@@ -4159,89 +4450,85 @@
     }
 
     .counsel-gender-icon svg {
-      width: 0.68rem;
-      height: 0.68rem;
+      width: 0.56rem;
+      height: 0.56rem;
       stroke: currentColor;
     }
 
     .counsel-card-date {
       color: var(--muted);
-      font-size: 0.74rem;
-      font-weight: 700;
-      flex: 0 0 auto;
-    }
-
-    .counsel-card-title {
-      margin: 0;
-      min-width: 0;
-      font-size: 0.98rem;
-      font-weight: 950;
-      line-height: 1.35;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 1;
-      -webkit-box-orient: vertical;
-    }
-
-    .counsel-title-stage {
-      color: #00d838;
-    }
-
-    .counsel-card-body {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-      min-width: 0;
-    }
-
-    .counsel-card-content {
-      display: none;
+      font-size: 0.62rem;
+      font-weight: 850;
+      text-align: center;
+      white-space: nowrap;
     }
 
     .counsel-card-meta {
-      display: flex;
-      flex-wrap: nowrap;
+      display: inline-flex;
       align-items: center;
       justify-content: flex-end;
-      justify-self: end;
-      align-self: end;
-      gap: 0.18rem;
-      margin-top: 0;
+      gap: 0.15rem;
+      min-width: 0;
       color: #667085;
-      font-size: 0.55rem;
-      font-weight: 800;
+      font-size: 0.56rem;
+      font-weight: 850;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .counsel-card-meta span {
+      display: inline;
+      min-height: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: inherit;
+      line-height: 1;
+      font-weight: inherit;
       white-space: nowrap;
     }
 
     @media (max-width: 520px) {
-      .counsel-card-body {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 0.35rem;
+      .counsel-card {
+        grid-template-columns: 1.35rem minmax(0, 1fr) minmax(2.5rem, auto) 1.8rem minmax(4.9rem, auto);
+        min-height: 1.95rem;
+        gap: 0.34rem;
+        padding: 0.32rem 0.42rem;
+      }
+
+      .counsel-card-number {
+        min-width: 1.12rem;
+        height: 1.12rem;
+        border-radius: 0.3rem;
+        font-size: 0.58rem;
+      }
+
+      .counsel-author-inline,
+      .counsel-card-date {
+        font-size: 0.58rem;
+      }
+
+      .counsel-gender-icon {
+        width: 0.72rem;
+        height: 0.72rem;
+      }
+
+      .counsel-gender-icon svg {
+        width: 0.48rem;
+        height: 0.48rem;
       }
 
       .counsel-card-meta {
-        justify-self: start;
+        gap: 0.1rem;
+        font-size: 0.5rem;
+      }
+
+      .counsel-card-title {
+        font-size: 0.76rem;
       }
     }
-
-    .counsel-card-meta span {
-      min-height: 1.22rem;
-      padding: 0.08rem 0.28rem;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: var(--surface);
-      color: var(--ink);
-      font-size: inherit;
-      line-height: 1;
-      font-weight: 850;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      white-space: nowrap;
-    }
-
     .counsel-detail-card {
       display: grid;
       gap: 0.6rem;
@@ -4422,6 +4709,34 @@
       border: 1px solid var(--line);
       border-radius: 0.9rem;
       background: var(--surface);
+    }
+
+    .mypage-preview-card {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 0.85rem;
+      border: 1px solid var(--line);
+      border-radius: 0.8rem;
+      background: var(--surface);
+      cursor: default;
+    }
+
+    .mypage-preview-title {
+      flex: 1 1 auto;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 0.88rem;
+      font-weight: 900;
+    }
+
+    .mypage-preview-date {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 800;
     }
 
     .mypage-card-head {
@@ -4835,6 +5150,11 @@
       padding: 1rem 0;
     }
 
+    .drawer-divider {
+      height: 1px;
+      margin: 0.65rem 0 0.45rem;
+      background: var(--line);
+    }
     .drawer-link {
       min-height: 3rem;
       display: flex;
@@ -4908,9 +5228,9 @@
       height: 1.12rem;
     }
 
-    .drawer-social-link.is-partner svg {
-      width: 1.35rem;
-      height: auto;
+    .drawer-social-link.is-anonymous svg {
+      width: 1.55rem;
+      height: 1.55rem;
     }
 
     .theme-toggle {
@@ -5077,9 +5397,13 @@
         gap: 0.65rem;
       }
 
+      .event-body {
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+
       .event-foot {
-        align-items: flex-start;
-        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
       }
     }
     .schedule-feed { display: grid; gap: 1.15rem; }
@@ -5174,7 +5498,7 @@
     .schedule-comment { padding: .55rem .6rem; border: 1px solid #edf0f3; border-radius: .55rem; background: var(--tint-neutral); }
     .schedule-comment strong { display: block; margin-bottom: .18rem; font-size: .72rem; }
     .schedule-comment p { margin: 0; color: var(--muted); font-size: .76rem; line-height: 1.45; white-space: pre-wrap; }
-    .schedule-comment-empty { margin: 0; color: #667085; font-size: .8rem; font-weight: 800; }
+    .schedule-comment-empty { margin: 0; color: #667085; font-size: 0.82rem; font-weight: 800; }
     .schedule-comment-form { display: grid; gap: .45rem; }
     .schedule-comment-form textarea { min-height: 4.1rem; padding: .65rem; border: 1px solid var(--line); border-radius: .6rem; resize: vertical; outline: 0; background: var(--surface); color: var(--ink); }
     .schedule-comment-form textarea:focus { border-color: #00d638; box-shadow: 0 0 0 3px rgba(0,255,64,.12); }
@@ -5377,9 +5701,8 @@
         </div>
       </div>
       <main class="content">
-        <section class="home-participation-calendar" data-home-participation-calendar></section>
+        <section class="home-participation-calendar" id="homeParticipationCalendar" data-home-participation-calendar></section>
         <section class="home-schedule-headlines" data-home-schedule-headlines hidden></section>
-        <section class="home-counsel-layer" data-home-counsel-layer hidden></section>
         <section id="home-events">
           <h2 class="home-section-title"><img class="section-title-icon" src="assets/favicon.png" alt="" aria-hidden="true">로테이션 소개팅</h2>
           <ul class="event-list" data-event-list="home"></ul>
@@ -5392,11 +5715,19 @@
       </button>
     </section>
 
-    <section class="page" id="page-schedule" data-page="schedule">
-      <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
-        <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'schedule')">일정</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'process')">진행 · 할인 · 환불</button>
+    <section class="page" id="page-schedule-info" data-page="schedule-info">
+      <nav class="section-tabs schedule-info-tabs" aria-label="일정 안내 메뉴">
+        <button class="section-tab is-active" type="button" data-page-link="schedule-info" onclick="window.goPage(event, 'schedule-info')">일정 안내</button>
+        <button class="section-tab" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
+        <button class="section-tab" type="button" data-page-link="process" onclick="window.goPage(event, 'process')">진행 · 할인 · 환불</button>
       </nav>
+      <main class="support-page schedule-info-page">
+        <section class="schedule-info-calendar" data-schedule-info-calendar></section>
+      </main>
+    </section>
+
+        <section class="page" id="page-schedule" data-page="schedule">
+
       <main class="support-page">
         <h1 class="page-title">일정</h1>
         <section class="schedule-feed" data-schedule-feed><div class="schedule-feed-loading">일정 소식을 불러오는 중입니다.</div></section>
@@ -5404,10 +5735,7 @@
     </section>
 
     <section class="page" id="page-schedule-detail" data-page="schedule-detail">
-      <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
-        <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'schedule')">일정</button>
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'process')">진행 · 할인 · 환불</button>
-      </nav>
+
       <main class="support-page schedule-detail-page">
         <div class="schedule-detail-top">
           <h1 class="page-title">일정</h1>
@@ -5417,9 +5745,10 @@
       </main>
     </section>
     <section class="page" id="page-process" data-page="process">
-      <nav class="section-tabs guide-tabs" aria-label="안내 메뉴">
-        <button class="section-tab" type="button" onclick="window.goPage(event, 'schedule')">일정</button>
-        <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'process')">진행 · 할인 · 환불</button>
+      <nav class="section-tabs schedule-info-tabs" aria-label="일정 안내 메뉴">
+        <button class="section-tab" type="button" data-page-link="schedule-info" onclick="window.goPage(event, 'schedule-info')">일정 안내</button>
+        <button class="section-tab" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
+        <button class="section-tab is-active" type="button" data-page-link="process" onclick="window.goPage(event, 'process')">진행 · 할인 · 환불</button>
       </nav>
       <main class="process-page">
         <section class="process-section" aria-labelledby="processTitle">
@@ -5507,6 +5836,10 @@
     </section>
 
     <section class="page" id="page-support" data-page="support">
+      <nav class="section-tabs contact-tabs" aria-label="문의 메뉴">
+        <button class="section-tab" type="button" data-page-link="board" onclick="window.goPage(event, 'board')">문의</button>
+        <button class="section-tab is-active" type="button" data-page-link="support" onclick="window.goPage(event, 'support')">협업</button>
+      </nav>
       <main class="support-page">
         <h1 class="page-title">제휴 · 협업 문의</h1>
         <p class="page-description">좋은 아이디어와 협업 제안이 있다면 언제든 편하게 문의해 주세요.</p>
@@ -5529,8 +5862,10 @@
     </section>
 
     <section class="page" id="page-reviews" data-page="reviews">
-      <nav class="section-tabs review-tabs" aria-label="매칭 결과 메뉴">
-        <button class="section-tab is-active" type="button" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
+      <nav class="section-tabs schedule-info-tabs" aria-label="일정 안내 메뉴">
+        <button class="section-tab" type="button" data-page-link="schedule-info" onclick="window.goPage(event, 'schedule-info')">일정 안내</button>
+        <button class="section-tab is-active" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
+        <button class="section-tab" type="button" data-page-link="process" onclick="window.goPage(event, 'process')">진행 · 할인 · 환불</button>
       </nav>
       <main class="location-page">
         <h1 class="page-title">매칭 결과</h1>
@@ -5576,6 +5911,10 @@
     </section>
 
     <section class="page" id="page-board" data-page="board">
+      <nav class="section-tabs contact-tabs" aria-label="문의 메뉴">
+        <button class="section-tab is-active" type="button" data-page-link="board" onclick="window.goPage(event, 'board')">문의</button>
+        <button class="section-tab" type="button" data-page-link="support" onclick="window.goPage(event, 'support')">협업</button>
+      </nav>
       <main class="location-page board-page">
         <h1 class="page-title">문의</h1>
         <p class="page-description">본 내용은 어디에도 공개되지 않으며 익명으로 운영됩니다.</p>
@@ -5682,35 +6021,26 @@
 
     <section class="page" id="page-mypage" data-page="mypage">
       <main class="location-page">
-        <div class="mypage-title-row">
+        <section class="mypage-hero"><div class="mypage-title-row">
           <h1 class="page-title">마이 클로버</h1>
-          <span class="mypage-title-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path d="M5.5 4h10A3.5 3.5 0 0 1 19 7.5v5a3.5 3.5 0 0 1-3.5 3.5H10l-4.5 3v-3A3.5 3.5 0 0 1 2 12.5v-5A3.5 3.5 0 0 1 5.5 4Z" fill="#00ff40"/>
-              <path d="M10 8h8.2A3.8 3.8 0 0 1 22 11.8v3.4a3.8 3.8 0 0 1-3.8 3.8h-2.7L12 21v-2A3.8 3.8 0 0 1 8.2 15.2v-3.4A3.8 3.8 0 0 1 10 8Z" fill="#121218"/>
-              <circle cx="12.5" cy="13.5" r="0.8" fill="#fff"/>
-              <circle cx="15.5" cy="13.5" r="0.8" fill="#fff"/>
-              <circle cx="18.5" cy="13.5" r="0.8" fill="#fff"/>
-            </svg>
-          </span>
           <span class="mypage-unique-number" data-mypage-unique-number>고유번호: -</span>
         </div>
-        <p class="page-description">내가 신청한 내역과 진행 상태를 확인할 수 있습니다.</p>
+        <p class="page-description">내가 신청한 내역과 진행 상태를 확인할 수 있습니다.</p></section>
         <section class="support-card mypage-profile-card">
           <div class="mypage-profile-header">
             <h2 class="mypage-section-title">클로버 프로필</h2>
             <span class="mypage-profile-actions" data-mypage-profile-actions></span>
           </div>
           <div data-mypage-profile></div>
+          <div class="mypage-info-list" data-mypage-info></div>
         </section>
         <details class="support-card mypage-fold-card">
-          <summary class="mypage-layer-title">신청서</summary>
-          <div class="mypage-layer-content">
-            <div class="mypage-info-list" data-mypage-info></div>
-          </div>
-        </details>
-        <details class="support-card mypage-fold-card">
-          <summary class="mypage-layer-title"><span class="mypage-layer-label">신청 내역 <span class="board-status mypage-layer-status" data-mypage-application-status></span></span></summary>
+          <summary class="mypage-layer-title">
+            <span class="mypage-layer-row">
+              <span class="mypage-layer-label">신청 내역 <span class="board-status mypage-layer-status" data-mypage-application-status></span></span>
+            </span>
+            <div class="mypage-latest-preview" data-mypage-latest-preview></div>
+          </summary>
           <div class="mypage-layer-content">
             <div class="mypage-list" data-mypage-list></div>
           </div>
@@ -5779,9 +6109,10 @@
     </div>
     <nav class="drawer-links" aria-label="메뉴">
       <button class="drawer-link" type="button" data-page-link="home" onclick="window.goPage(event, 'home')">홈</button>
-      <button class="drawer-link" type="button" data-page-link="schedule" onclick="window.goPage(event, 'schedule')">안내</button>
-      <button class="drawer-link" type="button" data-page-link="board" onclick="window.goPage(event, 'board')">익명 문의</button>
+      <button class="drawer-link" type="button" data-page-link="schedule-info" onclick="window.goPage(event, 'schedule-info')">일정 안내</button>
+      <button class="drawer-link" type="button" data-page-link="schedule" onclick="window.goPage(event, 'schedule')">에피소드</button>
       <button class="drawer-link" type="button" data-page-link="counsel" onclick="window.goPage(event, 'counsel')">연애 상담</button>
+      <div class="drawer-divider" role="separator"></div>
       <button class="drawer-link" type="button" data-page-link="mypage" onclick="window.goPage(event, 'mypage')">마이 클로버</button>
     </nav>
     <div class="drawer-shortcuts">
@@ -5808,9 +6139,13 @@
             <circle cx="16.6" cy="7.6" r="1" fill="#fff"/>
           </svg>
         </a>
-        <button class="drawer-social-link is-partner" type="button" data-page-link="support" onclick="window.goPage(event, 'support')" aria-label="제휴 문의" title="제휴 문의">
-          <svg viewBox="0 0 640 512" aria-hidden="true" fill="#00ff40">
-            <path d="M323.4 85.2l-96.8 78.4c-16.1 13-19.2 36.4-7 53.1c12.9 17.8 38 21.3 55.3 7.8l99.3-77.2c7-5.4 17-4.2 22.5 2.8s4.2 17-2.8 22.5l-20.9 16.2L512 316.8 512 128l-.7 0-3.9-2.5L434.8 79c-15.3-9.8-33.2-15-51.4-15c-21.8 0-43 7.5-60 21.2zm22.8 124.4l-51.7 40.2C263 274.4 217.3 268 193.7 235.6c-22.2-30.5-16.6-73.1 12.7-96.8l83.2-67.3c-11.6-4.9-24.1-7.4-36.8-7.4C234 64 215.7 69.6 200 80l-72 48 0 224 28.2 0 91.4 83.4c19.6 17.9 49.9 16.5 67.8-3.1c5.5-6.1 9.2-13.2 11.1-20.6l17 15.6c19.5 17.9 49.9 16.6 67.8-2.9c4.5-4.9 7.8-10.6 9.9-16.5c19.4 13 45.8 10.3 62.1-7.5c17.9-19.5 16.6-49.9-2.9-67.8l-134.2-123zM16 128c-8.8 0-16 7.2-16 16L0 352c0 17.7 14.3 32 32 32l32 0c17.7 0 32-14.3 32-32l0-224-80 0zM48 320a16 16 0 1 1 0 32 16 16 0 1 1 0-32zM544 128l0 224c0 17.7 14.3 32 32 32l32 0c17.7 0 32-14.3 32-32l0-208c0-8.8-7.2-16-16-16l-80 0zm32 208a16 16 0 1 1 32 0 16 16 0 1 1 -32 0z"/>
+        <button class="drawer-social-link is-anonymous" type="button" data-page-link="board" onclick="window.goPage(event, 'board')" aria-label="익명 문의" title="익명 문의">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5.5 4h10A3.5 3.5 0 0 1 19 7.5v5a3.5 3.5 0 0 1-3.5 3.5H10l-4.5 3v-3A3.5 3.5 0 0 1 2 12.5v-5A3.5 3.5 0 0 1 5.5 4Z" fill="#00ff40"/>
+            <path d="M10 8h8.2A3.8 3.8 0 0 1 22 11.8v3.4a3.8 3.8 0 0 1-3.8 3.8h-2.7L12 21v-2A3.8 3.8 0 0 1 8.2 15.2v-3.4A3.8 3.8 0 0 1 10 8Z" fill="#121218"/>
+            <circle cx="12.5" cy="13.5" r="0.8" fill="#fff"/>
+            <circle cx="15.5" cy="13.5" r="0.8" fill="#fff"/>
+            <circle cx="18.5" cy="13.5" r="0.8" fill="#fff"/>
           </svg>
         </button>
         <button class="theme-toggle" type="button" id="themeToggle" data-theme-toggle aria-label="다크 모드 전환" aria-pressed="false" title="밝은 모드 / 다크 모드">
@@ -5830,7 +6165,7 @@
         station: "21 - 27세",
         title: "설레이는 만남",
         date: "06. 29. (월) 오후 07:30",
-        place: "서면 클로버 라운지 (승인 후 안내)",
+        place: "부산 클로버 라운지 (승인 후 안내)",
         confirmed: "0/6명",
         showCardStatus: false,
         capacity: "12명",
@@ -5847,7 +6182,7 @@
         station: "24 - 29세",
         title: "티키타카 로테이션 소개팅",
         date: "07. 04. (토) 오후 04:00",
-        place: "서면 클로버 라운지 (승인 후 안내)",
+        place: "부산 클로버 라운지 (승인 후 안내)",
         confirmed: "0/6명",
         capacity: "12명",
         target: "부산 직장인 남녀",
@@ -5863,7 +6198,7 @@
         station: "27 - 36세",
         title: "퇴근 후 약속",
         date: "07. 05. (일) 오후 03:00",
-        place: "서면 클로버 라운지 (승인 후 안내)",
+        place: "부산 클로버 라운지 (승인 후 안내)",
         confirmed: "0/6명",
         capacity: "12명",
         target: "부산 직장인 남녀",
@@ -5879,7 +6214,7 @@
         station: "30 - 37세",
         title: "매일 똑같은 일상, 새로운 만남",
         date: "06. 29. (월) 오후 07:30",
-        place: "서면 클로버 라운지 (승인 후 안내)",
+        place: "부산 클로버 라운지 (승인 후 안내)",
         confirmed: "0/6명",
         capacity: "12명",
         target: "부산 직장인 남녀",
@@ -5895,7 +6230,7 @@
         station: "34 - 39세",
         title: "편안한 대화",
         date: "07. 04. (토) 오후 04:00",
-        place: "서면 클로버 라운지 (승인 후 안내)",
+        place: "부산 클로버 라운지 (승인 후 안내)",
         confirmed: "0/6명",
         capacity: "12명",
         target: "부산 직장인 남녀",
@@ -5918,7 +6253,7 @@
     const iconPin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbwhdgxpL4RUv6lhakUUA7zWPgFbGaJi2cn_jAudVZeMouwgn2aEIitwEc9abez-gxxr/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbwOkUM3C0qOLvEyoexGzahBWpHdEMHIyxWLnW4bLTzQROBV7N_tFtD3Ys2mzp6EO2la/exec";
     const HERO_CACHE_KEY = "clover-managed-hero-slides-v5";
     const HERO_FALLBACK_SLIDES = [
       {
@@ -5950,13 +6285,13 @@
 
     function eventTemplate(event) {
       const index = events.indexOf(event);
-      const locationName = event.place.includes("서면") ? "서면" : "부산";
+      const locationName = "부산";
       const thumbImage = eventImageStack(event);
       const thumbVideo = eventVideoMarkup(event, "event-media");
 
       return `
         <li>
-          <article class="event-card${event.showGenderCount ? " has-gender-count" : ""}">
+          <article class="event-card">
             <div class="event-thumb" style="--thumb-image: ${thumbImage}" role="button" tabindex="0" data-join-index="${index}" aria-label="${event.title} 참여 선택">
               ${thumbVideo}
               <span class="event-location-badge">${iconPin}<b>${locationName}</b></span>
@@ -5967,7 +6302,7 @@
                   <h3 class="event-title"><span>[${event.station}]</span> ${event.title}</h3>
                 </div>
                 <div class="event-meta">
-                  <div class="meta-line">${event.showGenderCount ? `<div class="gender event-gender-count"><span class="m"><i class="count-content">${iconMale}<b class="count-value">${event.male}</b></i></span><span class="f"><i class="count-content">${iconFemale}<b class="count-value">${event.female}</b></i></span></div>` : ""}${iconPin}<span>${event.place}</span></div>
+                  <div class="meta-line">${iconPin}<span>${event.place}</span></div>
                 </div>
               </div>
               <div class="event-foot">
@@ -6177,8 +6512,8 @@
 
     function detailAreaText(place) {
       const value = normalizeEventPlace(place);
-      if (value.includes("서면")) return "서면";
-      return value.split(" ")[0] || "서면";
+      if (value.includes("부산") || value.includes("서면")) return "부산";
+      return value.split(" ")[0] || "부산";
     }
 
     function resetApplicationSelection() {
@@ -6225,7 +6560,7 @@
         <section class="selection-section composition-selection-block">
           <div class="selection-heading">인원 구성 선택 <span class="req">*</span></div>
           <div class="composition-choice-row">${buttons}</div>
-          ${selectedComposition === "1:1" ? `<p class="composition-guide">1:1 인원 구성은 클로버 관계자가 미팅 장소만 제공합니다.</p>` : ""}
+          ${selectedComposition === "1:1" ? `<p class="composition-guide">1:1 소개팅은 미팅 장소만 제공됩니다.</p>` : ""}
         </section>
       `;
     }
@@ -6298,7 +6633,7 @@
           <div class="detail-main">
             <h1 class="detail-title"><span>[${event.station}]</span> ${event.title}</h1>
             <div class="event-meta">
-              <div class="meta-line">${event.showGenderCount ? `<div class="gender event-gender-count"><span class="m"><i class="count-content">${iconMale}<b class="count-value">${event.male}</b></i></span><span class="f"><i class="count-content">${iconFemale}<b class="count-value">${event.female}</b></i></span></div>` : ""}${iconPin}<span>${event.place}</span></div>
+              <div class="meta-line">${iconPin}<span>${event.place}</span></div>
             </div>
           </div>
         </article>
@@ -6335,7 +6670,7 @@
           <div class="detail-main">
             <h1 class="detail-title"><span>${applicationTitleMeta}</span> ${event.title}</h1>
             <div class="event-meta">
-              <div class="meta-line">${event.showGenderCount ? `<div class="gender event-gender-count"><span class="m"><i class="count-content">${iconMale}<b class="count-value">${event.male}</b></i></span><span class="f"><i class="count-content">${iconFemale}<b class="count-value">${event.female}</b></i></span></div>` : ""}${iconPin}<span>${event.place}</span></div>
+              <div class="meta-line">${iconPin}<span>${event.place}</span></div>
             </div>
           </div>
         </article>
@@ -6347,25 +6682,6 @@
             <p>${applicationGender} 참가자 전용 신청 페이지입니다.</p>
           </section>
         ` : ""}
-
-        <dl class="detail-info-grid">
-          <div class="detail-info">
-            <dt>모집 인원</dt>
-            <dd>${detailCapacityText(event)}</dd>
-          </div>
-          ${applicationAgeRange ? `<div class="detail-info">
-            <dt>연령대</dt>
-            <dd>${applicationAgeRange.replace("세", "")}세</dd>
-          </div>` : ""}
-          <div class="detail-info">
-            <dt>대상</dt>
-            <dd>${applicationGender || event.target}</dd>
-          </div>
-          <div class="detail-info">
-            <dt>지역</dt>
-            <dd>${detailAreaText(event.place)}</dd>
-          </div>
-        </dl>
 
         <form class="application-form">
           <div class="form-intro">
@@ -6834,9 +7150,9 @@
               <span class="mypage-gender-control" ${editing ? `role="group" aria-label="성별 선택"` : ""}>
                 ${editing
                   ? `<button class="mypage-gender-btn${!profileGender ? " is-selected" : ""}" type="button" data-profile-gender-choice="">미설정</button>
-                     <button class="mypage-gender-btn${profileGender === "남성" ? " is-selected" : ""}" type="button" data-profile-gender-choice="남성">${profileGenderIconHtml("남성")}남성</button>
-                     <button class="mypage-gender-btn${profileGender === "여성" ? " is-selected" : ""}" type="button" data-profile-gender-choice="여성">${profileGenderIconHtml("여성")}여성</button>`
-                  : `<span class="mypage-gender-status">${profileGender ? `${profileGenderIconHtml(profileGender)}${profileGender}` : "미설정"}</span>`}
+                     <button class="mypage-gender-btn${profileGender === "남성" ? " is-selected" : ""}" type="button" data-profile-gender-choice="남성">남성${profileGenderIconHtml("남성")}</button>
+                     <button class="mypage-gender-btn${profileGender === "여성" ? " is-selected" : ""}" type="button" data-profile-gender-choice="여성">여성${profileGenderIconHtml("여성")}</button>`
+                  : `<span class="mypage-gender-status">${profileGender ? `${profileGender}${profileGenderIconHtml(profileGender)}` : "미설정"}</span>`}
               </span>
             </div>
           </div>
@@ -7246,6 +7562,26 @@
       updateApplicationLayerStatus(displayApplications);
       const applicationGender = latestApplicationGender(displayApplications);
       if (applicationGender) syncProfileGender(applicationGender);
+      const preview = document.querySelector("[data-mypage-latest-preview]");
+      if (preview) {
+        const latest = displayApplications[0];
+        if (!latest) {
+          preview.innerHTML = "";
+        } else {
+          const status = normalizedApplicationStatus(latest);
+          const statusClass = applicationStatusClass(status);
+          const dateText = latest.submittedAt
+            ? new Date(latest.submittedAt).toLocaleString("ko-KR", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })
+            : "";
+          preview.innerHTML = `
+            <div class="mypage-preview-card">
+              <span class="board-status ${statusClass}">${status}</span>
+              <span class="mypage-preview-title">${latest.eventTitle || ""}</span>
+              ${dateText ? `<span class="mypage-preview-date">${dateText}</span>` : ""}
+            </div>
+          `;
+        }
+      }
       const list = document.querySelector("[data-mypage-list]");
       if (!list) return;
       if (!displayApplications.length) {
@@ -7616,6 +7952,7 @@
               </div>
               <button class="mypage-edit-btn" type="button" data-mypage-info-edit>수정</button>
             </div>
+            <div class="mypage-section-divider"></div>
             <div class="mypage-info-summary-grid">
               ${profileSummaryItem("이름", p.name)}
               ${profileSummaryItem("연락처", p.phone)}
@@ -7923,23 +8260,20 @@
       `;
     }
     function counselCardHtml(post, postNumber = "") {
+      const title = counselTitleWithStage(post) || "상담 글";
+      const views = Number(post.views) || 0;
+      const likes = Number(post.likeCount) || 0;
+      const comments = Number(post.commentCount) || 0;
       return `
-        <button class="counsel-card" type="button" data-counsel-open="${htmlAttr(post.id)}">
-          ${postNumber ? `<span class="counsel-card-number">${postNumber}</span>` : ""}
-          <div class="counsel-card-main">
-            <div class="counsel-card-head">
-              <h3 class="counsel-card-title">${counselTitleHtml(post)}</h3>
-              <span class="counsel-card-date">${counselDate(post.createdAt)}</span>
-            </div>
-            <div class="counsel-card-body">
-              ${counselAuthorHtml(post)}
-              <div class="counsel-card-meta"><span>조회 ${Number(post.views) || 0}</span><span>공감 ${Number(post.likeCount) || 0}</span><span>댓글 ${Number(post.commentCount) || 0}</span></div>
-            </div>
-          </div>
+        <button class="counsel-card" type="button" data-counsel-open="${htmlAttr(post.id)}" title="${htmlAttr(title)}" aria-label="${htmlAttr(title)} 자세히 보기">
+          <span class="counsel-card-number">${htmlAttr(postNumber)}</span>
+          <span class="counsel-card-title">${counselTitleHtml(post)}</span>
+          ${counselAuthorHtml(post)}
+          <span class="counsel-card-date">${htmlAttr(homeCounselShortDate(post.createdAt))}</span>
+          <span class="counsel-card-meta" aria-hidden="true"><span>조회 ${views}</span><span>·</span><span>공감 ${likes}</span><span>·</span><span>댓글 ${comments}</span></span>
         </button>
       `;
     }
-
     function renderCounselList() {
       const container = document.querySelector("[data-counsel-list]");
       const pagination = document.querySelector("[data-counsel-pagination]");
@@ -9145,6 +9479,42 @@
       return `<div class="home-schedule-layer">${posts.map((post) => homeScheduleStatusCard(post)).join("")}</div>`;
     }
 
+    function scheduleInfoAvailableMap(months) {
+      const realMap = homeCalendarAvailableMap();
+      if (Object.keys(realMap).length) return realMap;
+      const previousPlaceholders = [...homeCalendarPlaceholderPosts];
+      const mergedMap = {};
+      const mergedPosts = [];
+      months.forEach(({ year, month }) => {
+        const monthMap = homeCalendarPlaceholderMap(year, month);
+        Object.entries(monthMap).forEach(([iso, posts]) => {
+          mergedMap[iso] = posts;
+          mergedPosts.push(...posts);
+        });
+      });
+      homeCalendarPlaceholderPosts = mergedPosts.length ? mergedPosts : previousPlaceholders;
+      return mergedMap;
+    }
+
+    function renderScheduleInfoCalendar() {
+      const container = document.querySelector("[data-schedule-info-calendar]");
+      if (!container) return;
+      const months = getApplicationCalendarMonths();
+      const availableMap = scheduleInfoAvailableMap(months);
+      resolveHomeCalendarSelection(availableMap);
+      container.innerHTML = `
+        <h1 class="page-title">일정 안내</h1>
+        <section class="support-card">
+          <div class="schedule-info-months">
+            ${months.map(({ year, month }) => homeCalendarDayTemplate(year, month, availableMap)).join("")}
+          </div>
+        </section>
+        <section class="support-card schedule-info-layer-wrap">
+          <h2>소개팅 안내</h2>
+          ${homeCalendarLayerMarkup(availableMap)}
+        </section>
+      `;
+    }
     function renderHomeParticipationCalendar() {
       const container = document.querySelector("[data-home-participation-calendar]");
       if (!container) return;
@@ -9197,6 +9567,7 @@
 
     function renderSchedulePosts() {
       renderHomeParticipationCalendar();
+      renderScheduleInfoCalendar();
       renderHomeScheduleHeadlines();
       if (!scheduleFeed) return;
       if (!schedulePosts.length) {
@@ -9253,14 +9624,24 @@
         event.preventDefault();
         selectedHomeCalendarDate = homeCalendarDateTarget.dataset.homeCalendarDate;
         selectedHomeCalendarTime = "";
-        renderHomeParticipationCalendar();
+        if (homeCalendarDateTarget.closest("[data-schedule-info-calendar]")) {
+          renderScheduleInfoCalendar();
+        } else {
+          renderHomeParticipationCalendar();
+          renderScheduleInfoCalendar();
+        }
         return;
       }
       const homeCalendarTimeTarget = event.target.closest("[data-home-calendar-time]");
       if (homeCalendarTimeTarget) {
         event.preventDefault();
         selectedHomeCalendarTime = homeCalendarTimeTarget.dataset.homeCalendarTime;
-        renderHomeParticipationCalendar();
+        if (homeCalendarTimeTarget.closest("[data-schedule-info-calendar]")) {
+          renderScheduleInfoCalendar();
+        } else {
+          renderHomeParticipationCalendar();
+          renderScheduleInfoCalendar();
+        }
         return;
       }
       const scrollButton = event.target.closest("[data-schedule-scroll]");
@@ -9985,6 +10366,7 @@
       }
       setPage(pageName);
     };
+
 
     const THEME_KEY = "cloverTheme";
     function applyTheme(theme) {
@@ -11162,7 +11544,7 @@
         value.includes("스카이 라운지") ||
         value.includes("클로버 운지")
       ) {
-        return "서면 클로버 라운지 (승인 후 안내)";
+        return "부산 클로버 라운지 (승인 후 안내)";
       }
       return value;
     }
