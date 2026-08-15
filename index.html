@@ -555,8 +555,43 @@
 
     .schedule-info-months {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: minmax(0, 1fr);
       gap: 0.65rem;
+    }
+
+    .schedule-info-calendar-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+    }
+
+    .schedule-info-calendar-nav {
+      display: grid;
+      grid-template-columns: 2.05rem 2.05rem;
+      align-items: center;
+      gap: .38rem;
+    }
+
+    .schedule-info-calendar-btn {
+      width: 2.05rem;
+      height: 2.05rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--ink);
+      font-size: 1.15rem;
+      font-weight: 950;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 .2rem .65rem rgba(15, 23, 42, .06);
+    }
+
+    .schedule-info-calendar-btn[hidden] {
+      visibility: hidden;
+      pointer-events: none;
     }
 
     .schedule-info-layer-wrap {
@@ -584,6 +619,8 @@
       word-break: keep-all;
     }
     .schedule-info-layer-wrap .home-schedule-layer {
+      display: grid;
+      gap: .58rem;
       min-height: 8rem;
       padding: 0;
       border: 0;
@@ -591,6 +628,14 @@
       background: transparent;
     }
 
+
+    .schedule-info-layer-wrap .home-schedule-layer.is-single {
+      min-height: 0;
+    }
+
+    .schedule-info-layer-wrap .home-schedule-layer.is-single .schedule-status-card {
+      min-height: 4.65rem;
+    }
     .match-result-page {
       display: grid;
       gap: 0.75rem;
@@ -833,122 +878,17 @@
       color: #64f28f;
     }
 
-    @media(max-width: 30rem) {
-      .match-result-card {
-        grid-template-columns: auto minmax(0, 1fr);
-      }
-
-      .match-result-badge {
-        grid-column: 2;
-        justify-self: start;
-      }
-
-      .match-result-detail-card {
-        padding: 0.8rem;
-      }
-
-      .match-result-detail-flow {
-        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-        gap: 0.42rem;
-        padding: 0.6rem;
-      }
-
-      .match-result-person {
-        min-height: 2.55rem;
-        padding-inline: 0.35rem;
-        font-size: 0.78rem;
-      }
-
-      .match-result-heart {
-        width: 2.55rem;
-        min-height: 2.55rem;
-      }
-    }
-
-    .home-schedule-layer {
-      display: grid;
-      align-content: start;
-      gap: .5rem;
-      padding: .7rem .55rem .8rem;
-      border: 1px solid var(--line);
-      border-radius: .9rem;
-      background: var(--paper);
-      overflow-y: auto;
-      scrollbar-width: thin;
-    }
-
-    .home-schedule-selected-date {
-      margin: .25rem .12rem .78rem;
-      color: var(--ink);
-      font-size: 0.82rem;
-      font-weight: 950;
-      line-height: 1.2;
-      text-align: center;
-    }
-
-    :root[data-theme="dark"] .home-schedule-selected-date {
-      color: #f8fafc;
-    }
-
-    .home-schedule-layer.is-empty {
-      place-content: center;
-      place-items: center;
-      text-align: center;
-    }
-
-    .home-schedule-layer.is-empty .schedule-feed-empty {
-      margin: 0;
-      padding: 0;
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      color: #667085;
-      font-weight: 800;
-    }
-
-    .home-schedule-layer .schedule-post-card {
-      border: 0;
-      padding: 0;
-      background: var(--paper);
-    }
-
-    .home-schedule-layer-tabs {
-      display: flex;
-      gap: .4rem;
-    }
-
-    .home-schedule-time-btn:disabled {
-      opacity: .4;
-      cursor: not-allowed;
-    }
-
-    .home-schedule-time-btn {
-      flex: 1;
-      min-height: 2rem;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: var(--surface);
-      color: #4b5260;
-      font-size: .78rem;
-      font-weight: 850;
-    }
-
-    .home-schedule-time-btn.is-active {
-      border-color: var(--accent);
-      color: var(--accent-dark);
-      background: var(--tint-green);
-    }
 
     .home-schedule-layer .schedule-status-card {
       position: relative;
       display: grid;
-      gap: .52rem;
-      min-height: 5.9rem;
-      border: 1px solid var(--line);
-      border-radius: .82rem;
-      padding: .78rem .82rem;
-      background: var(--paper);
-      box-shadow: 0 .3rem .95rem rgba(15, 23, 42, .05);
+      gap: .46rem;
+      min-height: 4.65rem;
+      border: 1px solid rgba(148, 163, 184, .24);
+      border-radius: .86rem;
+      padding: .84rem .92rem;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+      box-shadow: 0 .28rem .82rem rgba(15, 23, 42, .045);
       cursor: pointer;
       transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease;
     }
@@ -961,26 +901,31 @@
 
     .schedule-status-shell {
       display: grid;
-      grid-template-columns: auto minmax(0, 1fr);
+      grid-template-columns: auto 1px minmax(0, 1fr) auto;
       align-items: center;
-      column-gap: .72rem;
+      column-gap: .86rem;
       width: 100%;
       min-width: 0;
     }
 
     .schedule-status-main {
       display: grid;
-      grid-template-columns: auto minmax(0, 1fr);
       align-items: center;
-      gap: .62rem;
+      gap: .44rem;
       min-width: 0;
+    }
+
+    .schedule-status-divider {
+      width: 1px;
+      height: 2.72rem;
+      background: rgba(148, 163, 184, .32);
     }
 
     .schedule-status-copy {
       display: grid;
-      gap: .38rem;
+      gap: .54rem;
       min-width: 0;
-      padding-right: 4.9rem;
+      padding-right: 0;
     }
 
     .schedule-status-category,
@@ -998,63 +943,61 @@
     }
 
     .schedule-status-category {
-      align-self: center;
-      min-width: 2.85rem;
-      height: 2.85rem;
-      padding: 0 .34rem;
+      min-width: 2.52rem;
+      height: 2.52rem;
+      padding: 0 .28rem;
       background: #00ff40;
       color: #07150b;
-      box-shadow: 0 .28rem .7rem rgba(0, 240, 64, .16);
+      box-shadow: 0 .24rem .62rem rgba(0, 240, 64, .16);
     }
 
     .schedule-status-time {
-      min-width: 4.72rem;
-      min-height: 3.05rem;
-      flex-direction: column;
-      gap: .12rem;
-      padding: .36rem .56rem;
-      border: 1px solid rgba(0, 240, 64, .18);
-      border-radius: .72rem;
-      background: linear-gradient(180deg, #ecfff1 0%, #f9fffb 100%);
-      color: var(--accent-dark);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .66);
+      min-width: 0;
+      min-height: 0;
+      flex-direction: row;
+      justify-content: flex-start;
+      gap: .26rem;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: var(--ink);
+      box-shadow: none;
     }
 
     .schedule-status-time strong,
     .schedule-status-time small {
-      display: block;
-      line-height: 1;
-      letter-spacing: 0;
-    }
-
-    .schedule-status-time strong {
-      font-size: .96rem;
-      font-weight: 1000;
-    }
-
-    .schedule-status-time small {
-      color: #15803d;
-      font-size: .56rem;
-      font-weight: 900;
-    }
-
-    .schedule-status-side {
-      position: absolute;
-      top: .78rem;
-      right: .82rem;
       display: inline-flex;
       align-items: center;
-      justify-content: flex-end;
+      color: #07150b;
+      font-size: 1.16rem;
+      font-weight: 1000;
+      line-height: 1;
+    }
+
+
+    .schedule-status-time .schedule-time-period {
+      display: inline-flex;
+      align-items: center;
+      color: #667085;
+      font-size: .72em;
+      font-weight: 650;
+      line-height: 1;
+    }
+    .schedule-status-side {
+      position: static;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       min-width: 0;
       white-space: nowrap;
     }
 
     .schedule-status-badge {
-      min-height: 1.5rem;
-      min-width: 4.05rem;
-      padding: .28rem .58rem;
+      min-height: 1.42rem;
+      min-width: 3.7rem;
+      padding: .24rem .52rem;
     }
-
 
     .schedule-status-card.is-countdown .schedule-status-badge {
       background: var(--tint-orange);
@@ -1086,7 +1029,7 @@
       margin: 0;
       color: var(--ink);
       font-size: 1.05rem;
-      font-weight: 950;
+      font-weight: 850;
       line-height: 1.28;
       white-space: nowrap;
       overflow: hidden;
@@ -1097,59 +1040,64 @@
     .schedule-status-detail {
       min-width: 0;
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       align-items: center;
-      gap: .36rem;
+      gap: .46rem;
       color: #475467;
-      font-size: .8rem;
+      font-size: .64rem;
       font-weight: 850;
-      line-height: 1.25;
+      line-height: 1.15;
     }
 
-    .schedule-status-detail span {
+    .schedule-status-detail > span {
       display: inline-flex;
       align-items: center;
-      min-height: 1.46rem;
-      padding: .25rem .54rem;
+      min-height: 1.18rem;
+      padding: .14rem .34rem;
       border: 1px solid rgba(148, 163, 184, .22);
       border-radius: 999px;
       background: #f8fafc;
       white-space: nowrap;
     }
 
-    .schedule-status-detail span:first-child {
-      border-color: rgba(0, 240, 64, .25);
-      background: var(--tint-green);
-      color: var(--accent-dark);
-      font-weight: 950;
+
+    .schedule-status-detail > .schedule-mode-badges {
+      min-height: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
     }
 
-    :root[data-theme="dark"] .schedule-status-time {
-      border-color: rgba(0, 240, 64, .22);
-      background: rgba(0, 240, 64, .1);
+    .schedule-status-detail .composition-choice-badges {
+      gap: .16rem;
+    }
+
+    .schedule-status-detail .composition-gender-badge {
+      min-width: 1.62rem;
+      height: 1.14rem;
+      gap: .08rem;
+      padding: 0 .28rem;
+      font-size: .64rem;
       box-shadow: none;
     }
 
-    :root[data-theme="dark"] .schedule-status-time small {
-      color: #64f28f;
+    .schedule-status-detail .composition-gender-badge svg {
+      width: .58rem;
+      height: .58rem;
     }
-
-    :root[data-theme="dark"] .schedule-status-detail {
-      color: #c9ced8;
-    }
-
-    :root[data-theme="dark"] .schedule-status-detail span {
-      border-color: rgba(255, 255, 255, .1);
-      background: rgba(255, 255, 255, .05);
-    }
-
     @media(max-width: 30rem) {
       .schedule-status-shell {
-        grid-template-columns: auto minmax(0, 1fr);
+        grid-template-columns: auto 1px minmax(0, 1fr) auto;
+        column-gap: .48rem;
       }
 
       .schedule-status-copy {
-        padding-right: 4.7rem;
+        padding-right: 0;
+      }
+
+      .schedule-status-badge {
+        min-width: 3.2rem;
+        padding-inline: .42rem;
       }
     }
 
@@ -1213,7 +1161,14 @@
       margin-bottom: 1.05rem;
       font-size: 0.82rem;
     }
-
+    .home-schedule-selected-date {
+      margin: .25rem .12rem .78rem;
+      color: var(--ink);
+      font-size: 0.82rem;
+      font-weight: 950;
+      line-height: 1.2;
+      text-align: center;
+    }
     .home-participation-calendar .home-schedule-layer.is-home-compact {
       gap: .42rem;
       padding: .45rem;
@@ -1475,7 +1430,7 @@
     .event-guide-tab {
       display: inline-flex;
       align-items: center;
-      gap: .22rem;
+      gap: .46rem;
       min-height: 1.85rem;
       padding: .34rem .52rem;
       border: 1px solid var(--line);
@@ -1512,7 +1467,7 @@
 
     .event-guide-panel {
       margin: -.28rem var(--home-title-inline-offset) .08rem;
-      padding: .72rem .82rem;
+      padding: .68rem .76rem;
       border: 1px solid rgba(0, 240, 64, .28);
       border-radius: 0 0 12px 12px;
       background: var(--paper);
@@ -1532,7 +1487,7 @@
 
     .event-guide-panel ul {
       display: grid;
-      gap: .42rem;
+      gap: .54rem;
       margin: 0;
       padding: 0;
       list-style: none;
@@ -1567,7 +1522,7 @@
 
       .event-guide-tabs {
         width: 100%;
-        justify-content: flex-end;
+        justify-content: center;
       }
 
       .event-guide-tab {
@@ -1667,8 +1622,8 @@
     .home-counsel-author {
       display: inline-flex;
       align-items: center;
-      justify-content: flex-end;
-      gap: .18rem;
+      justify-content: center;
+      gap: .44rem;
       min-width: 0;
       color: var(--muted);
       font-size: .68rem;
@@ -1706,8 +1661,8 @@
     .home-counsel-meta {
       display: inline-flex;
       align-items: center;
-      justify-content: flex-end;
-      gap: .18rem;
+      justify-content: center;
+      gap: .44rem;
       color: var(--muted);
       font-size: .66rem;
       font-weight: 800;
@@ -1753,7 +1708,7 @@
 
       .home-counsel-author .counsel-gender-icon {
         width: .72rem;
-        height: 1rem;
+      height: 1.58rem;
       }
 
       .home-counsel-author .counsel-gender-icon svg {
@@ -1967,7 +1922,7 @@
       min-width: 0;
       display: flex;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: center;
       gap: 0;
       margin-bottom: 0;
       padding-top: 0;
@@ -2314,7 +2269,7 @@
 
     .info-modal-message {
       display: grid;
-      gap: .28rem;
+      gap: .54rem;
       margin: 0 0 1rem;
       text-align: center;
     }
@@ -2569,7 +2524,7 @@
     }
 
     .detail-info {
-      min-height: 4.25rem;
+      min-height: 4.65rem;
       display: grid;
       align-content: center;
       gap: 0.25rem;
@@ -3826,7 +3781,7 @@
 
     .calendar-chip svg {
       width: 1rem;
-      height: 1rem;
+      height: 1.58rem;
     }
 
     .calendar-popover {
@@ -4522,7 +4477,7 @@
     .mypage-profile-tools {
       display: inline-flex;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: center;
       gap: 0.35rem;
       flex: 0 0 auto;
     }
@@ -4605,7 +4560,7 @@
       display: inline-grid;
       place-items: center;
       width: 1rem;
-      height: 1rem;
+      height: 1.58rem;
       border-radius: 50%;
       color: var(--ink);
       flex: 0 0 auto;
@@ -4813,7 +4768,7 @@
     .mypage-profile-actions {
       display: inline-flex;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: center;
       gap: 0.35rem;
       flex-wrap: wrap;
     }
@@ -4981,7 +4936,7 @@
 
     #page-mypage .mypage-title-icon {
       width: 1.72rem;
-      height: 1.98rem;
+      height: 2.36rem;
       border-radius: 0.58rem;
       box-shadow: 0 0.25rem 0.7rem rgba(15, 23, 42, 0.06);
     }
@@ -5188,16 +5143,33 @@
 
     .counsel-write-btn {
       flex: 0 0 auto;
-      min-height: 2.45rem;
-      padding: 0.55rem 0.95rem;
+      min-height: 2.15rem;
+      padding: 0.42rem 0.78rem;
+      border: 1px solid rgba(0, 216, 56, .45);
       border-radius: 999px;
-      background: #00ff40;
-      color: #06120a;
-      font-size: 0.82rem;
+      background: #ffffff;
+      color: #00a832;
+      font-size: 0.78rem;
       font-weight: 950;
-      box-shadow: 0 .45rem 1rem rgba(0, 216, 56, .24);
+      box-shadow: 0 .18rem .55rem rgba(15, 23, 42, .08);
     }
 
+    .counsel-write-btn::before {
+      content: "+";
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: .9rem;
+      height: .9rem;
+      margin-right: .28rem;
+      border-radius: 50%;
+      background: #00ff40;
+      color: #06120a;
+      font-size: .76rem;
+      line-height: 1;
+      font-weight: 950;
+      vertical-align: middle;
+    }
     [data-counsel-write-submit],
     .counsel-comment-form .submit-btn {
       background: #00ff40;
@@ -5308,7 +5280,7 @@
       --medal-shadow: rgba(184, 115, 51, .28);
       position: relative;
       min-width: 1.65rem;
-      height: 1.98rem;
+      height: 2.36rem;
       padding: 0;
       border-color: transparent;
       border-radius: 999px;
@@ -5329,10 +5301,10 @@
     }
 
     .counsel-card-number.is-top3::before {
-      top: .05rem;
+      top: .7rem;
       z-index: 1;
-      width: .92rem;
-      height: 1rem;
+      width: 1.05rem;
+      height: 1.58rem;
       background:
         linear-gradient(135deg, var(--medal-ribbon-left) 0 48%, transparent 49%),
         linear-gradient(225deg, var(--medal-ribbon-right) 0 48%, transparent 49%);
@@ -5341,7 +5313,7 @@
     }
 
     .counsel-card-number.is-top3::after {
-      bottom: .08rem;
+      top: .08rem;
       z-index: 2;
       width: 1.1rem;
       height: 1.1rem;
@@ -5413,7 +5385,7 @@
     .counsel-author-inline {
       display: inline-flex;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: center;
       gap: 0.24rem;
       min-width: 0;
       color: var(--muted);
@@ -5467,7 +5439,7 @@
     .counsel-card-meta {
       display: inline-flex;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: center;
       gap: 0.15rem;
       min-width: 0;
       color: #667085;
@@ -5532,27 +5504,41 @@
     }
     #page-counsel .counsel-top3 {
       margin-top: 0;
-      padding: .85rem;
-      border: 1px solid var(--line);
-      border-radius: 1rem;
-      background: var(--surface);
-      box-shadow: 0 .5rem 1.5rem rgba(15,23,42,.045);
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
     }
 
     #page-counsel .counsel-top3-title,
     #page-counsel .counsel-live-title {
       margin: 0 0 .6rem;
-      font-size: 0.82rem;
+      font-size: 1.35rem;
+      font-weight: 950;
+      gap: .56rem;
+    }
+
+    #page-counsel .counsel-live-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      margin: 1.1rem 0 .6rem;
+    }
+
+    #page-counsel .counsel-live-head .counsel-live-title {
+      margin: 0;
     }
 
     #page-counsel .counsel-live-section {
       display: grid;
       gap: 0;
-      padding: .85rem;
-      border: 1px solid var(--line);
-      border-radius: 1rem;
-      background: var(--surface);
-      box-shadow: 0 .5rem 1.5rem rgba(15,23,42,.045);
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
     }
 
     #page-counsel .counsel-list {
@@ -5568,7 +5554,7 @@
     #page-counsel .counsel-card {
       grid-template-columns: 2.05rem minmax(0, 1fr) auto;
       grid-template-areas:
-        "num title date"
+        "num title title"
         "num author meta";
       gap: .25rem .65rem;
       min-height: 3.35rem;
@@ -5591,26 +5577,25 @@
       border-radius: 0;
     }
 
+    #page-counsel .counsel-card-number.is-top3 {
+      align-self: center;
+      justify-self: center;
+      width: 1.65rem;
+      min-width: 1.65rem;
+      height: 2.36rem;
+    }
+
     #page-counsel .counsel-card-title {
       grid-area: title;
       font-size: .9rem;
       line-height: 1.35;
+      font-weight: 650;
     }
 
     #page-counsel .counsel-author-inline {
       grid-area: author;
       justify-content: flex-start;
       font-size: .7rem;
-    }
-
-    #page-counsel .counsel-card-date {
-      grid-area: date;
-      justify-self: end;
-      align-self: center;
-      color: var(--muted);
-      font-size: .62rem;
-      font-weight: 850;
-      white-space: nowrap;
     }
 
     #page-counsel .counsel-card-meta {
@@ -5642,42 +5627,26 @@
 
       .counsel-write-btn {
         align-self: center;
-        min-height: 2.25rem;
-        padding-inline: .85rem;
+        min-height: 2.05rem;
+        padding-inline: .7rem;
       }
 
-      #page-counsel .counsel-top3,
-      #page-counsel .counsel-live-section {
-        padding: .7rem;
-        border-radius: .85rem;
-      }
 
       #page-counsel .counsel-card {
         grid-template-columns: 1.72rem minmax(0, 1fr) auto;
         grid-template-areas:
-          "num title date"
-          "num author meta";
+        "num title title"
+        "num author meta";
         align-items: center;
         min-height: 3.3rem;
         gap: .18rem .55rem;
         padding: .58rem .58rem;
       }
 
-      #page-counsel .counsel-card-date {
-        display: block;
-        grid-area: date;
-        justify-self: end;
-        align-self: center;
-        color: var(--muted);
-        font-size: .66rem;
-        font-weight: 850;
-        white-space: nowrap;
-      }
-
       #page-counsel .counsel-card-meta {
         justify-self: end;
         align-self: center;
-        max-width: 7.1rem;
+        max-width: none;
         gap: .12rem;
         font-size: .54rem;
         text-align: right;
@@ -5884,7 +5853,7 @@
     .mypage-card-side {
       display: inline-flex;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: center;
       gap: 0.4rem;
       flex: 0 0 auto;
     }
@@ -6618,7 +6587,7 @@
 
       .event-foot {
         align-items: center;
-        justify-content: flex-end;
+        justify-content: center;
       }
     }
     .schedule-feed { display: grid; gap: 1.85rem; }
@@ -6660,6 +6629,20 @@
     .schedule-post-cover img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center center; }
     .schedule-post-card.is-clover-proof .schedule-post-cover { aspect-ratio: 4 / 3; }
     .schedule-post-card.is-clover-proof .schedule-post-cover img { object-position: center center; }
+    .schedule-post-card.is-clover-proof .schedule-post-body {
+      min-height: 6.25rem;
+      padding: .6rem .72rem .58rem;
+    }
+
+    .schedule-post-card.is-clover-proof .schedule-post-content {
+      min-height: 0;
+      margin-top: .32rem;
+      line-height: 1.38;
+    }
+
+    .schedule-post-card.is-clover-proof .schedule-post-meta {
+      margin-top: .46rem;
+    }
     .schedule-post-badge { position: absolute; left: .5rem; top: .5rem; max-width: calc(100% - 1rem); padding: .2rem .48rem; border-radius: 999px; color: #07150b; background: #00ff40; font-size: .66rem; line-height: 1.15; font-weight: 950; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; box-shadow: 0 .25rem .65rem rgba(0,0,0,.16); }
     .schedule-post-body { min-height: 8.35rem; padding: .75rem .8rem .85rem; display: flex; flex-direction: column; }
     .schedule-post-body h2, .schedule-post-body h3 { min-height: 2.7em; margin: 0; font-size: .95rem; line-height: 1.35; letter-spacing: -.035em; display: -webkit-box; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
@@ -6733,6 +6716,19 @@
 
     #page-schedule-detail .schedule-detail-card {
       margin-top: 0 !important;
+    }
+
+    #page-schedule-detail .schedule-detail-top {
+      display: none;
+    }
+
+    #page-schedule-detail .schedule-detail-page {
+      padding-top: .75rem !important;
+      gap: 0;
+    }
+
+    #page-schedule-detail [data-schedule-detail] {
+      margin-top: 0;
     }
     .schedule-detail-card { overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); box-shadow: 0 .45rem 1.4rem rgba(15,23,42,.06); }
     .schedule-detail-media { position: relative; overflow: hidden; background: var(--tint-neutral); }
@@ -7284,16 +7280,12 @@
         <button class="section-tab is-active" type="button" data-page-link="counsel" onclick="window.goPage(event, 'counsel')">익명 연애 상담</button>
       </nav>
       <main class="location-page counsel-page-main">
-        <section class="counsel-hero">
-          <div class="counsel-hero-copy">
-            <h1 class="page-title">익명 연애 상담</h1>
-            <p class="page-description">익명으로 편하게 고민을 나누는 공간입니다.</p>
-          </div>
-          <button class="counsel-write-btn" type="button" data-counsel-write>글쓰기</button>
-        </section>
         <section class="counsel-top3" data-counsel-top3 hidden></section>
         <section class="counsel-live-section">
-          <h2 class="schedule-section-title counsel-live-title">실시간 연애 상담</h2>
+          <div class="counsel-live-head">
+            <h2 class="schedule-section-title counsel-live-title"><span class="section-title-dot" aria-hidden="true"></span>실시간 연애 상담</h2>
+            <button class="counsel-write-btn" type="button" data-counsel-write>글쓰기</button>
+          </div>
           <div class="counsel-list" data-counsel-list></div>
           <nav class="board-pagination" data-counsel-pagination aria-label="연애 상담 페이지 이동" hidden></nav>
         </section>
@@ -7741,7 +7733,7 @@
     function getApplicationCalendarMonths() {
       const today = getSeoulTodayParts();
       const first = new Date(today.year, today.month - 1, 1);
-      return [0, 1].map((offset) => {
+      return [0, 1, 2].map((offset) => {
         const date = new Date(first.getFullYear(), first.getMonth() + offset, 1);
         return { year: date.getFullYear(), month: date.getMonth() + 1 };
       });
@@ -9702,7 +9694,7 @@
       const date = new Date(Number(value) || value);
       if (Number.isNaN(date.getTime())) return "";
       const pad = number => String(number).padStart(2, "0");
-      return `${date.getFullYear()}.${pad(date.getMonth() + 1)}.${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+      return `${pad(date.getMonth() + 1)}.${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
     }
 
     function homeCounselCardHtml(post, postNumber = "") {
@@ -9757,8 +9749,7 @@
           <span class="counsel-card-number${isTop3 ? ` is-top3 is-rank-${postNumber}` : ""}">${htmlAttr(postNumber)}</span>
           <span class="counsel-card-title">${counselTitleHtml(post)}</span>
           ${counselAuthorHtml(post)}
-          <span class="counsel-card-date">${htmlAttr(counselFullDate(post.createdAt))}</span>
-          <span class="counsel-card-meta" aria-hidden="true"><span>조회 ${views}</span><span>·</span><span>공감 ${likes}</span><span>·</span><span>댓글 ${comments}</span></span>
+          <span class="counsel-card-meta" aria-hidden="true"><span class="counsel-card-meta-date">${htmlAttr(counselFullDate(post.createdAt))}</span><span>·</span><span>조회 ${views}</span><span>·</span><span>공감 ${likes}</span><span>·</span><span>댓글 ${comments}</span></span>
         </button>
       `;
     }
@@ -9776,7 +9767,7 @@
       }
       top3Container.hidden = false;
       top3Container.innerHTML = `
-        <h2 class="schedule-section-title counsel-top3-title">인기글 TOP3</h2>
+        <h2 class="schedule-section-title counsel-top3-title"><span class="section-title-dot" aria-hidden="true"></span>인기글 TOP3</h2>
         <div class="counsel-list counsel-top3-list">
           ${ranked.map((post, index) => counselCardHtml(post, index + 1, true)).join("")}
         </div>
@@ -10867,12 +10858,13 @@
         return;
       }
       homeScheduleHeadlines.hidden = false;
-      homeScheduleHeadlines.innerHTML = `<section class="schedule-headline-strip"><div class="schedule-headline-head"><h2 class="schedule-section-title"><span class="section-title-dot" aria-hidden="true"></span>클로버 근황</h2><button class="schedule-more-btn" type="button" onclick="window.goPage(event, 'schedule')">자세히</button></div><div class="schedule-headline-scroller">${headlines.length > 1 ? `<button class="schedule-scroll-btn prev" type="button" data-schedule-scroll="prev" aria-label="이전 근황">‹</button>` : ""}<div class="schedule-headline-row" data-schedule-headline-row>${headlines.map((post) => schedulePostCard(post, true)).join("")}</div>${headlines.length > 1 ? `<button class="schedule-scroll-btn next" type="button" data-schedule-scroll="next" aria-label="다음 근황">›</button>` : ""}</div></section>`;
+      homeScheduleHeadlines.innerHTML = `<section class="schedule-headline-strip"><div class="schedule-headline-head"><h2 class="schedule-section-title"><span class="section-title-dot" aria-hidden="true"></span>클로버 근황</h2><button class="schedule-more-btn" type="button" onclick="window.goPage(event, 'schedule')">자세히</button></div><div class="schedule-headline-scroller"><div class="schedule-headline-row" data-schedule-headline-row>${headlines.map((post) => schedulePostCard(post, true)).join("")}</div></div></section>`;
       requestAnimationFrame(refreshScheduleHeadlineControls);
     }
     let selectedHomeCalendarDate = "";
     let selectedHomeCalendarTime = "";
     let homeCalendarSelectionCleared = false;
+    let scheduleInfoVisibleMonthIndex = 0;
     const HOME_CALENDAR_TIME_ORDER = { "13시": 0, "16시": 1, "19시": 2 };
     const SCHEDULE_TIME_HOUR = { "13시": 13, "16시": 16, "19시": 19 };
 
@@ -11133,18 +11125,24 @@
       const container = document.querySelector("[data-schedule-info-calendar]");
       if (!container) return;
       const months = getApplicationCalendarMonths();
+      scheduleInfoVisibleMonthIndex = Math.min(Math.max(scheduleInfoVisibleMonthIndex, 0), months.length - 1);
+      const visibleMonth = months[scheduleInfoVisibleMonthIndex];
       const availableMap = scheduleInfoAvailableMap(months);
       resolveHomeCalendarSelection(availableMap);
       container.innerHTML = `
         <section class="schedule-info-group-card schedule-info-calendar-card">
-          <h1 class="page-title"><span class="section-title-dot" aria-hidden="true"></span>일정 안내</h1>
+          <div class="schedule-info-calendar-head">
+            <h1 class="page-title"><span class="section-title-dot" aria-hidden="true"></span>일정 안내</h1>
+            <div class="schedule-info-calendar-nav" aria-label="달력 월 이동">
+              <button class="schedule-info-calendar-btn" type="button" data-home-calendar-nav="prev" aria-label="이전 달" ${scheduleInfoVisibleMonthIndex <= 0 ? "hidden" : ""}>‹</button>
+              <button class="schedule-info-calendar-btn" type="button" data-home-calendar-nav="next" aria-label="다음 달" ${scheduleInfoVisibleMonthIndex >= months.length - 1 ? "hidden" : ""}>›</button>
+            </div>
+          </div>
           <div class="schedule-info-months">
-            ${months.map(({ year, month }) => homeCalendarDayTemplate(year, month, availableMap)).join("")}
+            ${homeCalendarDayTemplate(visibleMonth.year, visibleMonth.month, availableMap)}
           </div>
         </section>
         <section class="schedule-info-group-card schedule-info-layer-wrap">
-          <h2><span class="section-title-dot" aria-hidden="true"></span>소개팅 안내</h2>
-          <p class="schedule-info-note">회차별 유형·진행 방식·연령대만 표시됩니다. 상세 장소는 각 회차 당사자에게만 개별 안내됩니다.</p>
           ${homeCalendarLayerMarkup(availableMap)}
         </section>
       `;
@@ -11300,27 +11298,26 @@ const groups = [
         })
       );
       const cloverCoupleProofs = [
-        { episode: 1, title: "#1 커플 인증", content: "두 분이 서면 인생네컷에서 첫 만남의 어색함까지 예쁘게 남겨주셨어요. 사진 속 표정이 점점 가까워지는 느낌이라 매니저도 흐뭇했습니다.", imageUrl: "assets/clover-proof-01.jpg?v=20260815-hq" },
-        { episode: 2, title: "#2 커플 인증", content: "놀이동산에서 하루를 보내며 자연스럽게 웃음이 많아졌다고 전해주셨어요. 관람차 앞 사진이 두 분 분위기와 잘 어울렸습니다.", imageUrl: "assets/clover-proof-02.jpg?v=20260815-hq" },
-        { episode: 3, title: "#3 커플 인증", content: "따뜻한 조명의 카페에서 나란히 앉아 찍은 사진을 보내주셨어요. 대화가 편했다는 말처럼 사진도 차분하고 다정했습니다.", imageUrl: "assets/clover-proof-03.jpg?v=20260815-hq" },
-        { episode: 4, title: "#4 커플 인증", content: "바닷바람 맞으며 걸은 산책 사진을 공유해주셨어요. 부담 없이 이어진 만남이 좋은 기억으로 남은 것 같아 기분 좋은 인증이었습니다.", imageUrl: "assets/clover-proof-04.jpg?v=20260815-hq" },
-        { episode: 5, title: "#5 커플 인증", content: "서로 고른 책을 바꿔 읽기로 했다는 이야기가 인상적이었어요. 조용한 서점 사진에서 두 분의 취향이 잘 느껴졌습니다.", imageUrl: "assets/clover-proof-05.jpg?v=20260815-hq" },
-        { episode: 6, title: "#6 커플 인증", content: "영화 취향이 잘 맞아 다음 약속까지 자연스럽게 잡혔다고 해요. 로비에서 찍은 인증 사진도 편안한 분위기였습니다.", imageUrl: "assets/clover-proof-06.jpg?v=20260815-hq" },
-        { episode: 7, title: "#7 커플 인증", content: "햇살 좋은 공원에서 커피를 들고 찍은 사진을 보내주셨어요. 말수가 많지 않아도 편한 사이처럼 보여 따뜻했습니다.", imageUrl: "assets/clover-proof-07.jpg?v=20260815-hq" },
-        { episode: 8, title: "#8 커플 인증", content: "저녁 산책 중 찍은 야경 사진이 도착했어요. 불빛 사이로 나란히 걷는 모습이 첫 데이트의 설렘을 잘 담고 있었습니다.", imageUrl: "assets/clover-proof-08.jpg?v=20260815-hq" },
-        { episode: 9, title: "#9 커플 인증", content: "작은 꽃다발을 고르던 순간을 남겨주셨어요. 과하지 않은 배려가 사진에도 그대로 보여서 기억에 남는 인증이었습니다.", imageUrl: "assets/clover-proof-09.jpg?v=20260815-hq" },
-        { episode: 10, title: "#10 커플 인증", content: "전시를 보고 감상평을 나누다 더 가까워졌다고 전해주셨어요. 포토존 사진도 차분하고 감성적으로 잘 어울렸습니다.", imageUrl: "assets/clover-proof-10.jpg?v=20260815-hq" },
-        { episode: 11, title: "#11 커플 인증", content: "짧은 근교 여행을 다녀온 사진을 보내주셨어요. 플랫폼에서 찍은 인증이 다음 만남을 기대하게 만드는 분위기였습니다.", imageUrl: "assets/clover-proof-11.jpg?v=20260815-hq" },
-        { episode: 12, title: "#12 커플 인증", content: "돗자리와 간단한 간식을 준비해 공원 피크닉을 즐기셨다고 해요. 꾸밈없는 일상 사진이라 더 예뻤습니다.", imageUrl: "assets/clover-proof-12.jpg?v=20260815-hq" },
-        { episode: 13, title: "#13 커플 인증", content: "선선한 바람이 부는 루프탑에서 찍은 사진이 도착했습니다. 서로의 템포가 잘 맞는다는 후기가 특히 좋았어요.", imageUrl: "assets/clover-proof-13.jpg?v=20260815-hq" },
-        { episode: 14, title: "#14 커플 인증", content: "가벼운 게임으로 긴장이 풀렸다는 이야기를 남겨주셨어요. 웃음이 많은 인증 사진이라 보는 사람도 즐거웠습니다.", imageUrl: "assets/clover-proof-14.jpg?v=20260815-hq" },
-        { episode: 15, title: "#15 커플 인증", content: "좋아하는 빵을 고르며 서로의 취향을 알아갔다고 해요. 베이커리 앞 사진에서 편안한 설렘이 느껴졌습니다.", imageUrl: "assets/clover-proof-15.jpg?v=20260815-hq" },
-        { episode: 16, title: "#16 커플 인증", content: "음악 이야기가 끊기지 않았다는 두 분의 인증입니다. 레코드 숍에서 남긴 사진이 취향 있는 만남처럼 보였어요.", imageUrl: "assets/clover-proof-16.jpg?v=20260815-hq" },
-        { episode: 17, title: "#17 커플 인증", content: "강변을 걷다가 다리 위에서 찍은 사진을 보내주셨어요. 천천히 가까워지는 분위기가 자연스럽게 담겼습니다.", imageUrl: "assets/clover-proof-17.jpg?v=20260815-hq" },
-        { episode: 18, title: "#18 커플 인증", content: "조용한 라운지에서 차분히 대화를 나눈 뒤 인증을 남겨주셨어요. 두 분 모두 편안했다는 후기가 인상적이었습니다.", imageUrl: "assets/clover-proof-18.jpg?v=20260815-hq" },
-        { episode: 19, title: "#19 커플 인증", content: "작은 소품을 구경하며 주말 마켓을 함께 걸었다고 해요. 일상적인 장면이라 오히려 더 오래 기억될 사진이었습니다.", imageUrl: "assets/clover-proof-19.jpg?v=20260815-hq" },
-        { episode: 20, title: "#20 커플 인증", content: "늦은 아침 브런치 자리에서 찍은 인증이 도착했습니다. 담백한 대화와 편안한 웃음이 잘 어울리는 커플이었어요.", imageUrl: "assets/clover-proof-20.jpg?v=20260815-hq" }
-      ].map((item, i) => ({
+        { episode: 1, title: "#1 커플 인증", content: "동네 카페에서 편하게 마주 앉아 찍은 사진을 보내주셨어요. 첫 만남의 긴장보다 자연스러운 웃음이 더 많이 남은 인증이었습니다.", imageUrl: "assets/clover-proof-01.jpg?v=20260816-summer2" },
+        { episode: 2, title: "#2 커플 인증", content: "엘리베이터 거울 앞에서 남긴 담백한 인증입니다. 어색함이 조금씩 풀리던 순간이 사진에도 차분하게 담겼어요.", imageUrl: "assets/clover-proof-02.jpg?v=20260816-summer2" },
+        { episode: 3, title: "#3 커플 인증", content: "저녁 식사 자리에서 찍은 사진을 보내주셨어요. 대화가 길어졌다는 후기처럼 편안한 분위기가 잘 느껴졌습니다.", imageUrl: "assets/clover-proof-03.jpg?v=20260816-summer2" },
+        { episode: 4, title: "#4 커플 인증", content: "비 오는 날 우산 아래서 남긴 인증입니다. 날씨 덕분에 오히려 더 오래 기억될 만남이었다고 전해주셨어요.", imageUrl: "assets/clover-proof-04.jpg?v=20260816-summer2" },
+        { episode: 5, title: "#5 커플 인증", content: "노래방에서 아이스 음료를 두고 남긴 여름 인증입니다. 어색했지만 편하게 한 곡씩 부르며 분위기가 풀렸다고 해요.", imageUrl: "assets/clover-proof-05.jpg?v=20260816-plain-summer" },
+        { episode: 6, title: "#6 커플 인증", content: "고깃집에서 식사를 마치고 보내주신 인증입니다. 특별한 포즈 없이도 편안한 대화가 이어진 느낌이 좋았습니다.", imageUrl: "assets/clover-proof-06.jpg?v=20260816-plain-summer" },
+        { episode: 7, title: "#7 커플 인증", content: "카페에서 아이스 음료와 디저트를 앞에 두고 남긴 인증입니다. 과하게 꾸미지 않은 표정이라 더 편안하게 느껴졌어요.", imageUrl: "assets/clover-proof-07.jpg?v=20260816-cafe7" },
+        { episode: 8, title: "#8 커플 인증", content: "엘리베이터 앞 거울에서 남긴 여름 인증입니다. 꾸미지 않은 담백한 모습이라 두 분 분위기가 자연스럽게 느껴졌어요.", imageUrl: "assets/clover-proof-08.jpg?v=20260816-plain-summer" },
+        { episode: 9, title: "#9 커플 인증", content: "빙수 카페에서 더위를 식히며 남긴 인증입니다. 시원한 디저트 앞에서 어색함이 풀렸다는 후기가 좋았어요.", imageUrl: "assets/clover-proof-09.jpg?v=20260816-summer3" },
+        { episode: 10, title: "#10 커플 인증", content: "레코드 숍에서 서로 좋아하는 음악을 골라보셨다고 합니다. 취향 이야기가 자연스럽게 이어진 만남이었어요.", imageUrl: "assets/clover-proof-10.jpg?v=20260816-summer2" },
+        { episode: 11, title: "#11 커플 인증", content: "차 안에서 이동 중 남긴 편안한 인증입니다. 목적지보다 가는 길의 대화가 더 좋았다는 후기를 남겨주셨어요.", imageUrl: "assets/clover-proof-11.jpg?v=20260816-summer2" },
+        { episode: 12, title: "#12 커플 인증", content: "클라이밍을 함께 해본 뒤 찍은 사진입니다. 서툴러서 더 많이 웃었다는 말이 두 분 분위기와 잘 어울렸어요.", imageUrl: "assets/clover-proof-12.jpg?v=20260816-summer2" },
+        { episode: 13, title: "#13 커플 인증", content: "강변 산책로에서 햇살을 맞으며 남긴 인증입니다. 더운 날씨에도 천천히 걸으며 대화가 잘 이어졌다고 해요.", imageUrl: "assets/clover-proof-13.jpg?v=20260816-summer2" },
+        { episode: 14, title: "#14 커플 인증", content: "여름 카페 테라스에서 아이스커피와 함께 남긴 인증입니다. 밝은 햇살 아래 편하게 대화가 이어졌다고 해요.", imageUrl: "assets/clover-proof-14.jpg?v=20260816-summer3" },
+        { episode: 15, title: "#15 커플 인증", content: "분식집에서 점심을 함께하며 남긴 인증입니다. 메뉴를 고르는 작은 대화부터 편하게 이어졌다고 전해주셨어요.", imageUrl: "assets/clover-proof-15.jpg?v=20260816-plain-summer" },
+        { episode: 16, title: "#16 커플 인증", content: "지하철에서 이동 중 남긴 담백한 셀카입니다. 긴 데이트 뒤에도 편하게 앉아 이야기했다는 후기가 좋았습니다.", imageUrl: "assets/clover-proof-16.jpg?v=20260816-plain-summer" },
+        { episode: 17, title: "#17 커플 인증", content: "여름 저녁 야외 테이블에서 간식을 나누며 찍은 사진입니다. 가벼운 만남이라 더 편했다는 후기가 남았습니다.", imageUrl: "assets/clover-proof-17.jpg?v=20260816-summer2" },
+        { episode: 18, title: "#18 커플 인증", content: "여름밤 가벼운 안주와 함께 남긴 인증입니다. 과하지 않은 자리였지만 대화가 잘 맞았다고 전해주셨어요.", imageUrl: "assets/clover-proof-18.jpg?v=20260816-plain-summer" },
+        { episode: 19, title: "#19 커플 인증", content: "셀프 포토존 근처 거울에서 남긴 인증입니다. 담백한 표정 그대로라 오히려 더 실제 만남처럼 느껴졌습니다.", imageUrl: "assets/clover-proof-19.jpg?v=20260816-face19" },
+        { episode: 20, title: "#20 커플 인증", content: "카페 창가 자리에서 아이스커피와 함께 남긴 인증입니다. 차분하게 대화가 이어진 여름 만남이었다고 해요.", imageUrl: "assets/clover-proof-20.jpg?v=20260816-plain-summer" }      ].map((item, i) => ({
         id: `placeholder-clover-proof-${String(item.episode).padStart(2, "0")}`,
         headline: false,
         category: "클로버 근황",
@@ -11344,7 +11341,7 @@ const groups = [
 
     function scheduleHeadlineStripHtml(title, posts, key, hasData = true) {
       return posts.length
-        ? `<section class="schedule-headline-strip"><h2 class="schedule-section-title">${scheduleSectionTitleHtml(title, hasData)}</h2><div class="schedule-headline-scroller">${posts.length > 1 ? `<button class="schedule-scroll-btn prev" type="button" data-schedule-scroll="prev" aria-label="이전 ${title}">‹</button>` : ""}<div class="schedule-headline-row" data-schedule-headline-row="${key}">${posts.map((post) => schedulePostCard(post, true)).join("")}</div>${posts.length > 1 ? `<button class="schedule-scroll-btn next" type="button" data-schedule-scroll="next" aria-label="다음 ${title}">›</button>` : ""}</div></section>`
+        ? `<section class="schedule-headline-strip"><h2 class="schedule-section-title">${scheduleSectionTitleHtml(title, hasData)}</h2><div class="schedule-headline-scroller"><div class="schedule-headline-row" data-schedule-headline-row="${key}">${posts.map((post) => schedulePostCard(post, true)).join("")}</div></div></section>`
         : "";
     }
 
@@ -11470,6 +11467,16 @@ const groups = [
       }
     }
     document.addEventListener("click", async (event) => {
+      const homeCalendarNavTarget = event.target.closest("[data-home-calendar-nav]");
+      if (homeCalendarNavTarget) {
+        event.preventDefault();
+        const months = getApplicationCalendarMonths();
+        const direction = homeCalendarNavTarget.dataset.homeCalendarNav === "prev" ? -1 : 1;
+        scheduleInfoVisibleMonthIndex = Math.min(Math.max(scheduleInfoVisibleMonthIndex + direction, 0), months.length - 1);
+        homeCalendarSelectionCleared = false;
+        renderScheduleInfoCalendar();
+        return;
+      }
       const homeCalendarDateTarget = event.target.closest("[data-home-calendar-date]");
       if (homeCalendarDateTarget) {
         event.preventDefault();
@@ -13568,6 +13575,58 @@ const groups = [
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
