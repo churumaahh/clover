@@ -3,6 +3,9 @@
 <head>
   <link rel="icon" type="image/png" href="assets/favicon.png?v=20260710-unified-4">
   <link rel="shortcut icon" type="image/png" href="assets/favicon.png?v=20260710-unified-4">
+  <link rel="preconnect" href="https://res.cloudinary.com">
+  <link rel="dns-prefetch" href="//res.cloudinary.com">
+  <link rel="preload" as="image" href="https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg" fetchpriority="high">
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>클로버ㅣ부산 로테이션 소개팅</title>
@@ -7672,7 +7675,7 @@
 
     <section class="page is-active" id="page-home" data-page="home">
       <div class="hero" id="heroBanner" aria-label="주요 배너">
-        <article class="hero-slide is-active" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1784446329/uhzzvjl5g8k9stjholmx.jpg')">
+        <article class="hero-slide is-active" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg')">
           <div class="hero-content">
             <h1>가입 X, 로그인 X</h1>
             <p>로그인 없이 이용 가능합니다.</p>
@@ -7684,7 +7687,7 @@
             <p>6:6 로테이션 소개팅</p>
           </div>
         </article>
-        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1784446329/uhzzvjl5g8k9stjholmx.jpg')">
+        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg')">
           <div class="hero-content">
             <h1>사랑은 거창하지 않습니다</h1>
             <p>하나의 연애 세포면 충분</p>
@@ -8139,7 +8142,7 @@
         </div>
         <button class="footer-partnership-btn" type="button" onclick="event.stopPropagation(); window.goPage(event, 'support')">문의 하기</button>
       </section>
-      <p class="footer-notice">대표 000 · 사업자등록번호 000000 · 주소 000</p>
+      <p class="footer-notice">대표 박성은 · 사업자등록번호 000000 · 주소 000</p>
       <p class="footer-notice">본 콘텐츠의 저작권은 클로버에 있으며, 이를 무단으로 이용하는 경우 저작권법 등에 따라 법적 책임을 질 수 있습니다.</p>
       <p class="footer-copy"><strong>CLOVER</strong> Copyright © 2026 CLOVER. All Rights Reserved.</p>
     </footer>
@@ -8319,7 +8322,7 @@
         order: 1,
         title: "가입 X, 로그인 X",
         description: "로그인 없이 이용 가능합니다.",
-        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/v1784446329/uhzzvjl5g8k9stjholmx.jpg",
+        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg",
         active: true
       },
       {
@@ -8335,7 +8338,7 @@
         order: 3,
         title: "사랑은 거창하지 않습니다",
         description: "하나의 연애 세포면 충분",
-        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/v1784446329/uhzzvjl5g8k9stjholmx.jpg",
+        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg",
         active: true
       }
     ];
@@ -11362,7 +11365,7 @@
       const categoryBadge = hideCategoryBadge ? "" : `<span class="schedule-post-badge">${htmlAttr(category)}</span>`;
       const cloverProofClass = category === "클로버 근황" ? " is-clover-proof" : "";
       return `<article class="schedule-post-card${headline ? " is-headline" : ""}${cloverProofClass}" data-schedule-post-id="${htmlAttr(post.id)}">
-        <button class="schedule-post-cover" type="button" data-schedule-open="${htmlAttr(post.id)}" aria-label="${htmlAttr(post.title)} 자세히 보기"><img src="${htmlAttr(post.imageUrl)}" alt="${htmlAttr(post.title)}" loading="${headline ? "eager" : "lazy"}" fetchpriority="${headline ? "high" : "auto"}">${categoryBadge}</button>
+        <button class="schedule-post-cover" type="button" data-schedule-open="${htmlAttr(post.id)}" aria-label="${htmlAttr(post.title)} 자세히 보기"><img src="${htmlAttr(optimizedAssetUrl(post.imageUrl))}" alt="${htmlAttr(post.title)}" loading="${headline ? "eager" : "lazy"}" fetchpriority="${headline ? "high" : "auto"}" decoding="async">${categoryBadge}</button>
         <div class="schedule-post-body">
           ${headline ? `<h2>${htmlAttr(post.title)}</h2>` : `<h3>${htmlAttr(post.title)}</h3>`}
           <p class="schedule-post-content">${htmlAttr(post.content)}</p>
@@ -11372,7 +11375,7 @@
     }
     function scheduleImageCardHtml(post) {
       return `<button class="schedule-image-card" type="button" data-schedule-open="${htmlAttr(post.id)}" aria-label="${htmlAttr(post.title)} 자세히 보기">
-        <img src="${htmlAttr(post.imageUrl)}" alt="${htmlAttr(post.title)}" loading="lazy">
+        <img src="${htmlAttr(optimizedAssetUrl(post.imageUrl))}" alt="${htmlAttr(post.title)}" loading="lazy" decoding="async">
         <span class="schedule-image-card-title">${htmlAttr(post.title)}</span>
       </button>`;
     }
@@ -11389,7 +11392,7 @@
       const hideCategoryBadge = ["칼럼", "클로버 근황"].includes(category);
       const categoryBadge = hideCategoryBadge ? "" : `<span class="schedule-post-badge">${htmlAttr(category)}</span>`;
       target.innerHTML = `<article class="schedule-detail-card" data-schedule-post-id="${htmlAttr(post.id)}">
-        <div class="schedule-detail-media"><img class="schedule-detail-image" src="${htmlAttr(post.imageUrl)}" alt="${htmlAttr(post.title)}" loading="eager"></div>
+        <div class="schedule-detail-media"><img class="schedule-detail-image" src="${htmlAttr(post.imageUrl)}" alt="${htmlAttr(post.title)}" loading="eager" decoding="async"></div>
         <div class="schedule-detail-body">
           <h2 class="schedule-detail-heading">${htmlAttr(post.title)}</h2>
           <p class="schedule-detail-content">${htmlAttr(post.content || "")}</p>
@@ -11793,7 +11796,7 @@
       const fallbackImage = (progressPost && progressPost.imageUrl)
         || (schedulePosts[0] && schedulePosts[0].imageUrl)
         || (events[0] && events[0].image)
-        || "https://res.cloudinary.com/lkkfechj/image/upload/v1784446329/uhzzvjl5g8k9stjholmx.jpg";
+        || "https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg";
       for (let day = 1; day <= lastDate; day += 1) {
         const iso = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
         const dayOfWeek = new Date(`${iso}T00:00:00`).getDay();
@@ -11995,7 +11998,7 @@
     function scheduleFeedPlaceholderPosts() {
       if (scheduleFeedPlaceholderCache) return scheduleFeedPlaceholderCache;
       const images = [
-        "https://res.cloudinary.com/lkkfechj/image/upload/v1784446329/uhzzvjl5g8k9stjholmx.jpg",
+        "https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg",
         "https://res.cloudinary.com/lkkfechj/image/upload/v1784446244/kb6ybdlactigqtheezvm.jpg",
         "https://res.cloudinary.com/lkkfechj/image/upload/v1783611416/l7ofjftkufv7izpkna78.jpg",
         "https://res.cloudinary.com/lkkfechj/image/upload/v1783611477/w1udbyu4avrk9y8bilvy.jpg",
@@ -14316,6 +14319,15 @@ const groups = [
       return `<video class="${className}" src="${htmlAttr(url)}" width="1920" height="1080" autoplay muted loop playsinline preload="metadata"></video>`;
     }
 
+    function optimizedAssetUrl(value) {
+      const url = String(value || "").trim();
+      const match = url.match(/^assets\/([^?#\/]+)\.(png|jpe?g)([?#].*)?$/i);
+      if (!match) return url;
+      const name = match[1];
+      if (/^(favicon|clover-logo)/i.test(name)) return url;
+      return `assets/optimized/${name}.webp${match[3] || ""}`;
+    }
+
     function cssUrl(value) {
       return `url('${String(value || "").replace(/['\\]/g, "")}')`;
     }
@@ -14323,7 +14335,7 @@ const groups = [
     function eventImageStack(event) {
       const fallback = defaultEventImage(event.station);
       const image = isVideoMedia(event.image, event.mediaType) ? fallback : event.image || fallback;
-      return cssUrl(image);
+      return cssUrl(optimizedAssetUrl(image));
     }
 
     function eventVideoMarkup(event, className) {
@@ -14342,6 +14354,11 @@ const groups = [
   </script>
 </body>
 </html>
+
+
+
+
+
 
 
 
