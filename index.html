@@ -705,9 +705,9 @@
       width: 100%;
       min-height: 4.35rem;
       display: grid;
-      grid-template-columns: auto minmax(0, 1fr) auto;
+      grid-template-columns: auto 1px minmax(0, 1fr) auto;
       align-items: center;
-      gap: 0.7rem;
+      column-gap: 0.7rem;
       padding: 0.78rem 0.82rem;
       border: 1px solid var(--line);
       border-radius: 0.82rem;
@@ -739,13 +739,13 @@
       gap: 0.1rem;
       flex: 0 0 auto;
       border-radius: 1rem;
-      background: #f1f5f9;
-      color: #07150b;
+      background: #eef1f5;
+      color: #121218;
       font-size: 0.58rem;
       line-height: 1;
       font-weight: 1000;
       white-space: nowrap;
-      box-shadow: 0 .24rem .62rem rgba(0, 240, 64, .16);
+      box-shadow: 0.55rem 0.55rem 1.1rem rgba(148, 163, 184, 0.28), -0.45rem -0.45rem 1rem rgba(255, 255, 255, 0.9);
     }
 
     .match-result-number::before {
@@ -767,6 +767,13 @@
       filter: brightness(0) invert(1);
     }
 
+    .match-result-divider {
+      width: 1px;
+      height: 2.72rem;
+      background: rgba(148, 163, 184, .32);
+      align-self: center;
+    }
+
     .match-result-copy {
       min-width: 0;
       display: grid;
@@ -777,9 +784,9 @@
       min-width: 0;
       display: block;
       color: var(--ink);
-      font-size: 1.02rem;
+      font-size: 1.05rem;
       line-height: 1.28;
-      font-weight: 950;
+      font-weight: 850;
       white-space: nowrap;
       overflow: visible;
       text-overflow: ellipsis;
@@ -788,19 +795,20 @@
     .match-result-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.32rem;
+      align-items: center;
+      gap: 0.46rem;
     }
 
     .match-result-tags span {
       display: inline-flex;
       align-items: center;
-      min-height: 1.46rem;
-      padding: .25rem .54rem;
+      min-height: 1.18rem;
+      padding: .14rem .34rem;
       border: 1px solid rgba(148, 163, 184, .22);
       border-radius: 999px;
       background: #f8fafc;
       color: #475467;
-      font-size: .76rem;
+      font-size: .64rem;
       font-weight: 850;
       white-space: nowrap;
     }
@@ -814,17 +822,27 @@
     }
 
     .match-result-tags .composition-gender-badge {
-      min-height: 1.36rem;
+      min-height: 1.16rem;
       min-width: 0;
-      padding: 0 0.32rem;
+      padding: 0 0.3rem;
       border: 0;
-      font-size: .76rem;
+      font-size: .64rem;
     }
 
     .match-result-tags .composition-gender-badge.is-male {
       background: #1688f8;
       color: #fff;
       border-radius: 999px 0 0 999px;
+    }
+
+    :root[data-theme="dark"] .match-result-tags .composition-gender-badge.is-male {
+      background: #1688f8;
+      color: #fff;
+    }
+
+    :root[data-theme="dark"] .match-result-tags .composition-gender-badge.is-female {
+      background: #ff7068;
+      color: #fff;
     }
 
     .match-result-tags .composition-gender-badge.is-female {
@@ -838,15 +856,15 @@
 \r\n\r\n
     .match-result-badge {
       align-self: center;
-      min-height: 1.5rem;
-      min-width: 4.05rem;
+      min-height: 1.42rem;
+      min-width: 3.7rem;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: .28rem .58rem;
+      padding: .24rem .52rem;
       border-radius: 999px;
-      background: var(--tint-blue);
-      color: var(--tint-blue-text);
+      background: var(--tint-orange);
+      color: var(--tint-orange-text);
       font-size: .74rem;
       font-weight: 950;
       white-space: nowrap;
@@ -2516,6 +2534,19 @@
       box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(148, 163, 184, 0.28), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.88);
     }
 
+    :root[data-theme="dark"] .gender-modal-close {
+      color: #f1f1f1;
+      background: #232323;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(0, 0, 0, 0.45), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.04);
+    }
+
+    :root[data-theme="dark"] .gender-modal-close:hover,
+    :root[data-theme="dark"] .gender-modal-close:active {
+      color: #00c934;
+      background: #232323;
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(0, 0, 0, 0.45), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.05);
+    }
+
     .gender-modal-title {
       margin: 0 0 1rem;
       font-size: 0.95rem;
@@ -3110,6 +3141,12 @@
       gap: 0.5rem;
     }
 
+    .weekday-break {
+      flex-basis: 100%;
+      width: 0;
+      height: 0;
+    }
+
     .weekday-chip {
       width: 2.35rem;
       height: 2.35rem;
@@ -3537,6 +3574,16 @@
       background: #eef2f7;
       box-shadow: none;
     }
+
+    :root[data-theme="dark"] .selection-complete-btn {
+      color: #6b6b6b;
+      background: #232323;
+    }
+
+    :root[data-theme="dark"] .selection-complete-btn[disabled] {
+      color: #6b6b6b;
+      background: #232323;
+    }
     .form-section {
       display: grid;
       gap: 0.85rem;
@@ -3820,6 +3867,17 @@
       font-size: 0.82rem;
       font-weight: 950;
       box-shadow: 0 0.55rem 1rem rgba(0, 255, 64, 0.18);
+    }
+
+    :root[data-theme="dark"] .form-submit-btn {
+      color: #f1f1f1;
+      background: #232323;
+      box-shadow: 0 0.55rem 1rem rgba(0, 240, 64, 0.22);
+    }
+
+    :root[data-theme="dark"] .form-submit-btn.is-loading::before {
+      border: 2px solid rgba(241, 241, 241, 0.2);
+      border-top-color: #f1f1f1;
     }
 
     .form-submit-btn.is-loading::before {
@@ -6710,8 +6768,9 @@
     }
 
     :root[data-theme="dark"] .footer-partnership-banner {
-      border-color: #d8dee8;
+      border: 0;
       background: #fff;
+      box-shadow: none;
     }
 
     @media (max-width: 390px) {
@@ -7472,6 +7531,41 @@
       background: #e8edf4 !important;
     }
 
+    :root[data-theme="dark"] .home-schedule-panel {
+      background: #1a1a1a !important;
+      box-shadow: 0 1.2rem 2.5rem rgba(0, 0, 0, 0.5), inset 0.65rem 0.65rem 1.2rem rgba(255, 255, 255, 0.03), inset -0.7rem -0.7rem 1.25rem rgba(0, 0, 0, 0.4) !important;
+    }
+
+    :root[data-theme="dark"] .home-schedule-panel .home-schedule-close-btn,
+    :root[data-theme="dark"] .home-schedule-panel .home-schedule-modal-logo {
+      background: #232323 !important;
+      color: #f1f1f1 !important;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(0, 0, 0, 0.45), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.04) !important;
+    }
+
+    :root[data-theme="dark"] .home-schedule-panel .home-schedule-close-btn:hover {
+      color: #00c934 !important;
+      background: #232323 !important;
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(0, 0, 0, 0.45), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.05) !important;
+    }
+
+    :root[data-theme="dark"] .home-schedule-modal-logo img {
+      filter: brightness(0) invert(1);
+    }
+
+    :root[data-theme="dark"] .home-schedule-panel .schedule-detail-heading,
+    :root[data-theme="dark"] .home-schedule-panel p {
+      color: #f1f1f1;
+    }
+
+    :root[data-theme="dark"] .home-schedule-panel .naver-map,
+    :root[data-theme="dark"] .home-schedule-panel .naver-map-canvas,
+    :root[data-theme="dark"] .home-schedule-panel .naver-map-fallback {
+      background: #232323 !important;
+      color: #aaaaaa;
+      box-shadow: inset 0.35rem 0.35rem 0.7rem rgba(0, 0, 0, 0.4), inset -0.3rem -0.3rem 0.7rem rgba(255, 255, 255, 0.03) !important;
+    }
+
     .home-schedule-panel .map-open-link:not(:disabled) {
       background: #00ff40 !important;
       box-shadow: 0 .4rem .9rem rgba(0, 240, 64, 0.18) !important;
@@ -7632,6 +7726,19 @@
       box-shadow: inset 0.25rem 0.25rem 0.58rem rgba(148, 163, 184, 0.26), inset -0.25rem -0.25rem 0.58rem rgba(255, 255, 255, 0.88) !important;
     }
 
+    :root[data-theme="dark"] .map-open-link[data-page-link="reviews"]:not(:disabled) {
+      background: #232323 !important;
+      background-color: #232323 !important;
+      color: #f1f1f1 !important;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(0, 0, 0, 0.45), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.04) !important;
+    }
+
+    :root[data-theme="dark"] .map-open-link[data-page-link="reviews"]:not(:disabled):hover,
+    :root[data-theme="dark"] .map-open-link[data-page-link="reviews"]:not(:disabled):active {
+      color: #00c934 !important;
+      box-shadow: inset 0.25rem 0.25rem 0.58rem rgba(0, 0, 0, 0.45), inset -0.25rem -0.25rem 0.58rem rgba(255, 255, 255, 0.05) !important;
+    }
+
     /* Disabled map open link final override */
     .map-open-link:disabled {
       background-color: #e5e7eb !important;
@@ -7642,6 +7749,14 @@
       pointer-events: none !important;
       box-shadow: none !important;
       opacity: 1 !important;
+    }
+
+    :root[data-theme="dark"] .map-open-link:disabled {
+      background-color: #232323 !important;
+      background: #232323 !important;
+      border-color: #232323 !important;
+      color: #6b6b6b !important;
+      box-shadow: inset 0.22rem 0.22rem 0.5rem rgba(0, 0, 0, 0.4), inset -0.22rem -0.22rem 0.5rem rgba(255, 255, 255, 0.03) !important;
     }    .naver-map-small-link {
       position: absolute;
       right: 0.7rem;
@@ -7667,6 +7782,17 @@
       border-color: #cbd5e1;
       background: #eef2f7;
     }
+
+    :root[data-theme="dark"] .naver-map-small-link {
+      border-color: rgba(255, 255, 255, .12);
+      background: #2c2c2c;
+      color: #e6e6e6;
+    }
+
+    :root[data-theme="dark"] .naver-map-small-link:hover {
+      border-color: rgba(255, 255, 255, .2);
+      background: #333333;
+    }
     /* Match result badge repair */
     .match-result-card {
       grid-template-columns: auto minmax(0, 1fr) max-content !important;
@@ -7674,11 +7800,11 @@
 
     .match-result-badge {
       width: auto !important;
-      min-width: 4.35rem !important;
+      min-width: 3.7rem !important;
       max-width: none !important;
-      height: 1.7rem !important;
-      min-height: 1.7rem !important;
-      padding: 0 0.65rem !important;
+      height: 1.42rem !important;
+      min-height: 1.42rem !important;
+      padding: 0 0.52rem !important;
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
@@ -7699,20 +7825,20 @@
       width: 100% !important;
       min-height: 4.35rem !important;
       display: grid !important;
-      grid-template-columns: 3.35rem minmax(0, 1fr) 4.5rem !important;
+      grid-template-columns: 3.15rem 1px minmax(0, 1fr) 3.9rem !important;
       align-items: center !important;
-      gap: 0.7rem !important;
+      column-gap: 0.7rem !important;
       padding: 0.78rem 0.82rem !important;
       overflow: hidden !important;
     }
 
     #page-reviews .match-result-card .match-result-badge {
       box-sizing: border-box !important;
-      width: 4.5rem !important;
-      min-width: 4.5rem !important;
-      max-width: 4.5rem !important;
-      height: 1.7rem !important;
-      min-height: 1.7rem !important;
+      width: 3.9rem !important;
+      min-width: 3.9rem !important;
+      max-width: 3.9rem !important;
+      height: 1.42rem !important;
+      min-height: 1.42rem !important;
       padding: 0 !important;
       display: inline-flex !important;
       align-items: center !important;
@@ -8129,16 +8255,16 @@
         <h1 class="page-title"><svg class="page-title-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4 4L19 6.5"/><path d="M4 5.5h9"/><path d="M4 9h6"/><path d="M4 18.5h14"/></svg>매칭 결과</h1>
         <p class="match-result-intro">서로 호감 선택이 맞으면 연락을 주고받을 수 있는 매칭 결과로 안내됩니다.</p>
         <div class="match-result-list" aria-label="매칭 결과 아이콘 샘플">
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '두 사람이 서로 호감을 선택해 연락이 열린 상태입니다.')"><span class="match-result-number" aria-hidden="true">10화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>27 - 36세</span><span>운동형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '서로의 마음이 같은 방향으로 맞아 연락을 시작할 수 있습니다.')"><span class="match-result-number" aria-hidden="true">9화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>24 - 29세</span><span>운명형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '양쪽 선택이 확인되어 매칭 결과가 확정되었습니다.')"><span class="match-result-number" aria-hidden="true">8화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>30 - 37세</span><span>활동형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '서로 호감이 맞아 자연스럽게 연락을 주고받는 단계입니다.')"><span class="match-result-number" aria-hidden="true">7화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>20 - 27세</span><span>여행형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '서로에게 긍정적인 호감이 확인된 결과입니다.')"><span class="match-result-number" aria-hidden="true">6화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>34 - 39세</span><span>집콕형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '두 사람의 선택이 이어져 연락 가능한 사이가 되었습니다.')"><span class="match-result-number" aria-hidden="true">5화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>27 - 36세</span><span>직장인</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '매칭이 성사되어 첫 연락을 이어갈 수 있습니다.')"><span class="match-result-number" aria-hidden="true">4화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>37 - 46세</span><span>교대 근무</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '두 사람 모두 다시 대화를 이어가고 싶은 마음이 확인되었습니다.')"><span class="match-result-number" aria-hidden="true">3화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>24 - 29세</span><span>기독교</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '서로 선택이 맞아 새로운 인연으로 이어질 수 있습니다.')"><span class="match-result-number" aria-hidden="true">2화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>30 - 37세</span><span>전문직 남성</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '두 사람의 호감 표시가 서로 맞아 매칭되었습니다.')"><span class="match-result-number" aria-hidden="true">1화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>34 - 39세</span><span>돌싱</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '두 사람이 서로 호감을 선택해 연락이 열린 상태입니다.')"><span class="match-result-number" aria-hidden="true">10화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>27 - 36세</span><span>운동형</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '서로의 마음이 같은 방향으로 맞아 연락을 시작할 수 있습니다.')"><span class="match-result-number" aria-hidden="true">9화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>24 - 29세</span><span>운명형</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '양쪽 선택이 확인되어 매칭 결과가 확정되었습니다.')"><span class="match-result-number" aria-hidden="true">8화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>30 - 37세</span><span>활동형</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '서로 호감이 맞아 자연스럽게 연락을 주고받는 단계입니다.')"><span class="match-result-number" aria-hidden="true">7화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>20 - 27세</span><span>여행형</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '서로에게 긍정적인 호감이 확인된 결과입니다.')"><span class="match-result-number" aria-hidden="true">6화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>34 - 39세</span><span>집콕형</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '두 사람의 선택이 이어져 연락 가능한 사이가 되었습니다.')"><span class="match-result-number" aria-hidden="true">5화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>27 - 36세</span><span>직장인</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '매칭이 성사되어 첫 연락을 이어갈 수 있습니다.')"><span class="match-result-number" aria-hidden="true">4화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>37 - 46세</span><span>교대 근무</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '두 사람 모두 다시 대화를 이어가고 싶은 마음이 확인되었습니다.')"><span class="match-result-number" aria-hidden="true">3화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>24 - 29세</span><span>기독교</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '서로 선택이 맞아 새로운 인연으로 이어질 수 있습니다.')"><span class="match-result-number" aria-hidden="true">2화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>30 - 37세</span><span>전문직 남성</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '두 사람의 호감 표시가 서로 맞아 매칭되었습니다.')"><span class="match-result-number" aria-hidden="true">1화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>34 - 39세</span><span>돌싱</span></span></span><span class="match-result-badge">결과 확인</span></button>
         </div>
       </main>
     </section>
@@ -8971,7 +9097,7 @@
 
     function selectionScheduleMarkup() {
       const weekdayChips = weekdayOptions.map((day) => `
-        <button class="${weekdayChipClass(day)}" type="button" data-weekday-option="${day}">${day}</button>
+        ${day === "상관없음" ? `<span class="weekday-break" aria-hidden="true"></span>` : ""}<button class="${weekdayChipClass(day)}" type="button" data-weekday-option="${day}">${day}</button>
       `).join("");
       return `
         <section class="form-section schedule-section">
