@@ -7615,6 +7615,43 @@
         font-size: 0.7rem !important;
       }
     }
+  
+    /* Force mobile event title and guide buttons into one row */
+    @media (max-width: 430px) {
+      #home-events .home-events-head {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) auto !important;
+        align-items: center !important;
+        column-gap: 0.45rem !important;
+        row-gap: 0 !important;
+        margin: 0 var(--home-title-inline-offset) !important;
+      }
+
+      #home-events .home-events-head .home-section-title {
+        grid-column: 1 !important;
+        margin: 0 !important;
+        min-width: 0 !important;
+        white-space: nowrap !important;
+        font-size: 1.18rem !important;
+      }
+
+      #home-events .event-guide-tabs {
+        grid-column: 2 !important;
+        width: auto !important;
+        min-width: max-content !important;
+        display: inline-flex !important;
+        justify-content: flex-end !important;
+        align-items: center !important;
+        gap: 0.26rem !important;
+      }
+
+      #home-events .event-guide-tab {
+        min-height: 1.72rem !important;
+        padding: 0 0.48rem !important;
+        font-size: 0.66rem !important;
+        border-radius: 0.62rem !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -14305,6 +14342,7 @@ const groups = [
   </script>
 </body>
 </html>
+
 
 
 
