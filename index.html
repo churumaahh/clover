@@ -723,23 +723,29 @@
       transform: translateY(-1px);
     }
 
+    :root[data-theme="dark"] .match-result-card {
+      border-color: rgba(255, 255, 255, .1);
+      background: linear-gradient(180deg, #1c1c1c 0%, #171717 100%);
+      box-shadow: 0 .28rem .82rem rgba(0, 0, 0, .4);
+    }
+
     .match-result-number {
-      width: 3.35rem;
-      height: 3.35rem;
+      width: 3.15rem;
+      height: 3.15rem;
       display: inline-flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 0.1rem;
       flex: 0 0 auto;
-      border-radius: 0.85rem;
-      background: #f3f6fa;
+      border-radius: 1rem;
+      background: #f1f5f9;
       color: #07150b;
-      font-size: 0.64rem;
+      font-size: 0.58rem;
       line-height: 1;
       font-weight: 1000;
       white-space: nowrap;
-      box-shadow: 0 .35rem .9rem rgba(15, 23, 42, .08), inset .16rem .16rem .38rem rgba(255,255,255,.9), inset -.16rem -.16rem .38rem rgba(148,163,184,.14);
+      box-shadow: 0 .24rem .62rem rgba(0, 240, 64, .16);
     }
 
     .match-result-number::before {
@@ -749,6 +755,16 @@
       display: block;
       background: url("assets/clover-logo-v2.png") center / contain no-repeat;
       filter: brightness(0);
+    }
+
+    :root[data-theme="dark"] .match-result-number {
+      background: #232323;
+      color: #f1f1f1;
+      box-shadow: 0 .35rem .9rem rgba(0, 0, 0, .4), inset .16rem .16rem .38rem rgba(255, 255, 255, .04), inset -.16rem -.16rem .38rem rgba(0, 0, 0, .3);
+    }
+
+    :root[data-theme="dark"] .match-result-number::before {
+      filter: brightness(0) invert(1);
     }
 
     .match-result-copy {
@@ -787,6 +803,34 @@
       font-size: .76rem;
       font-weight: 850;
       white-space: nowrap;
+    }
+
+    .match-result-tags .composition-choice-badges {
+      min-height: 0;
+      padding: 0;
+      border: 0;
+      background: none;
+      gap: 0;
+    }
+
+    .match-result-tags .composition-gender-badge {
+      min-height: 1.36rem;
+      min-width: 0;
+      padding: 0 0.32rem;
+      border: 0;
+      font-size: .76rem;
+    }
+
+    .match-result-tags .composition-gender-badge.is-male {
+      background: #1688f8;
+      color: #fff;
+      border-radius: 999px 0 0 999px;
+    }
+
+    .match-result-tags .composition-gender-badge.is-female {
+      background: #ff7068;
+      color: #fff;
+      border-radius: 0 999px 999px 0;
     }
 
 
@@ -944,6 +988,22 @@
       border-color: var(--line);
       box-shadow: 0 .48rem 1.15rem rgba(15, 23, 42, .075);
       transform: translateY(-1px);
+    }
+
+    :root[data-theme="dark"] .home-schedule-layer .schedule-status-card {
+      border-color: rgba(255, 255, 255, .1);
+      background: linear-gradient(180deg, #1c1c1c 0%, #171717 100%);
+      box-shadow: 0 .28rem .82rem rgba(0, 0, 0, .4);
+    }
+
+    :root[data-theme="dark"] .schedule-status-title {
+      color: #f1f1f1;
+    }
+
+    :root[data-theme="dark"] .schedule-status-detail > span {
+      border-color: rgba(255, 255, 255, .1);
+      background: #232323;
+      color: #c9ced8;
     }
 
     .schedule-status-shell {
@@ -1530,6 +1590,9 @@
       line-height: 1;
       white-space: nowrap;
       box-shadow: 0 .18rem .5rem rgba(18, 18, 24, .045);
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
     }
 
     .event-guide-tab::before {
@@ -1603,22 +1666,33 @@
     .event-guide-panel::before {
       content: "";
       position: absolute;
-      z-index: -1;
+      z-index: 4;
       left: var(--event-guide-pointer-left, 2rem);
-      top: -0.48rem;
-      width: .92rem;
-      height: .92rem;
-      border: 1px solid #d8dee8;
-      border-right: 0;
-      border-bottom: 0;
-      border-radius: .18rem 0 0 0;
-      background: #fff;
+      top: -0.52rem;
+      width: 0;
+      height: 0;
+      border-left: 0.52rem solid transparent;
+      border-right: 0.52rem solid transparent;
+      border-bottom: 0.52rem solid #d8dee8;
+      transform: translateX(-50%);
+      filter: drop-shadow(0 -0.14rem 0.2rem rgba(15, 23, 42, .08));
       pointer-events: none;
-      transform: translateX(-50%) rotate(45deg);
     }
 
     .event-guide-panel::after {
-      display: none;
+      display: block;
+      content: "";
+      position: absolute;
+      z-index: 5;
+      left: var(--event-guide-pointer-left, 2rem);
+      top: -0.44rem;
+      width: 0;
+      height: 0;
+      border-left: 0.44rem solid transparent;
+      border-right: 0.44rem solid transparent;
+      border-bottom: 0.44rem solid #fff;
+      transform: translateX(-50%);
+      pointer-events: none;
     }
     .event-guide-panel[hidden] {
       display: none;
@@ -1691,9 +1765,7 @@
     }
 
     .event-guide-panel::before {
-      border-color: rgba(148, 163, 184, 0.28) !important;
-      background: #fff !important;
-      box-shadow: -0.1rem -0.1rem 0 rgba(0, 184, 50, 0.14) !important;
+      border-bottom-color: rgba(148, 163, 184, 0.28) !important;
     }
 
     .event-guide-panel h3 {
@@ -1927,6 +1999,10 @@
       margin: .75rem 0 0;
       padding: 0;
       list-style: none;
+    }
+
+    .event-list-heading {
+      margin-top: 0.4rem;
     }
 
     .event-card {
@@ -2425,16 +2501,24 @@
       display: grid;
       place-items: center;
       border: 0;
-      border-radius: 999px;
-      color: #59606d;
-      background: #f3f5f8;
+      border-radius: 0.7rem;
+      color: #121218;
+      background: #eef1f5;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(148, 163, 184, 0.28), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9);
       font-size: 1.25rem;
       line-height: 1;
     }
 
+    .gender-modal-close:hover,
+    .gender-modal-close:active {
+      color: #00c934;
+      background: #eef1f5;
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(148, 163, 184, 0.28), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.88);
+    }
+
     .gender-modal-title {
       margin: 0 0 1rem;
-      font-size: 0.82rem;
+      font-size: 0.95rem;
       font-weight: 900;
     }
 
@@ -2543,6 +2627,7 @@
       width: 100%;
       aspect-ratio: 1920 / 1080;
       overflow: visible;
+      border-radius: var(--radius) var(--radius) 0 0;
       background: var(--detail-image) center / cover no-repeat, #d8dce3;
     }
 
@@ -2782,9 +2867,9 @@
       content: "";
       width: .48rem;
       height: .48rem;
-      border: 1px solid #00f040;
+      border: 1px solid #111827;
       border-radius: 999px;
-      background: transparent;
+      background: #111827;
       box-shadow: none;
       box-sizing: border-box;
       flex: 0 0 auto;
@@ -2799,6 +2884,7 @@
     }
 
     .apply-same-as-profile-btn.is-applied::before {
+      border-color: #00f040;
       background: #00f040;
       box-shadow: 0 0 0 .22rem rgba(0, 240, 64, .16);
     }
@@ -3220,7 +3306,21 @@
     .composition-choice-row {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: end;
       gap: 0.55rem;
+    }
+
+    .composition-choice-cell {
+      display: grid;
+      gap: 0.32rem;
+    }
+
+    .composition-choice-caption {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      line-height: 1.3;
     }
 
     .composition-choice {
@@ -3418,11 +3518,17 @@
       min-height: 2.85rem;
       border: 0;
       border-radius: 0.9rem;
-      color: #07150b;
-      background: #f1f5f9;
+      color: #9ca3af;
+      background: #eef2f7;
       font-size: 0.95rem;
       font-weight: 950;
-      box-shadow: 0 0.55rem 1.2rem rgba(0, 255, 64, 0.18);
+      box-shadow: none;
+    }
+
+    .selection-complete-btn:not([disabled]) {
+      color: #07150b;
+      background: #0f2;
+      box-shadow: 0 0.55rem 1.2rem rgba(0, 255, 34, 0.18);
     }
 
     .selection-complete-btn[disabled] {
@@ -3884,11 +3990,28 @@
     }
 
     .page-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       margin: 0 0 1rem;
       padding: 0 0.25rem;
       font-size: 1.35rem;
       font-weight: 950;
       letter-spacing: 0;
+    }
+
+    .page-title-icon {
+      width: 1.6rem;
+      height: 1.6rem;
+      color: currentColor;
+      stroke: currentColor;
+      flex: 0 0 auto;
+    }
+
+    #page-counsel .page-title-icon,
+    #page-schedule .page-title-icon {
+      position: relative;
+      top: 3px;
     }
 
     .page-description {
@@ -4739,8 +4862,8 @@
     .mypage-gender-icon {
       display: inline-grid;
       place-items: center;
-      width: 1rem;
-      height: 1.58rem;
+      width: 1.1rem;
+      height: 1.1rem;
       border-radius: 50%;
       color: var(--ink);
       flex: 0 0 auto;
@@ -5482,11 +5605,11 @@
     }
 
     .counsel-card-number.is-top3::before {
-      top: .72rem;
+      top: 0;
       z-index: 1;
       width: .92rem;
       height: .72rem;
-      transform: translateX(-50%) rotate(45deg);
+      transform: translateX(-50%);
       background:
         linear-gradient(135deg, var(--medal-ribbon-left) 0 48%, transparent 49%),
         linear-gradient(225deg, var(--medal-ribbon-right) 0 48%, transparent 49%);
@@ -5495,7 +5618,7 @@
     }
 
     .counsel-card-number.is-top3::after {
-      top: .06rem;
+      top: .38rem;
       z-index: 2;
       width: 1.08rem;
       height: 1.08rem;
@@ -5603,6 +5726,13 @@
     .counsel-card-meta span {
       color: var(--muted);
       line-height: 1;
+    }
+
+    #page-counsel .counsel-list {
+      gap: .55rem;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
     }
 
     #page-counsel .counsel-card {
@@ -6309,10 +6439,6 @@
       padding: 1rem 0;
     }
 
-    .drawer-divider.is-after-home {
-      margin: 0.72rem 0 0.68rem;
-      background: var(--line);
-    }
     .drawer-divider {
       height: 1px;
       margin: 0.65rem 0 0.45rem;
@@ -6338,7 +6464,7 @@
     .drawer-link.is-active {
       transform: scale(0.97);
       color: #121218;
-      background: #00ff40;
+      background: #eef1f5;
     }
 
     .drawer-shortcuts {
@@ -6391,6 +6517,15 @@
     .drawer-social-link:hover {
       border-color: transparent !important;
       background: #e8edf4 !important;
+    }
+
+    :root[data-theme="dark"] .drawer-social-link {
+      background: #232323 !important;
+      box-shadow: 0 0.45rem 0.95rem rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+    }
+
+    :root[data-theme="dark"] .drawer-social-link:hover {
+      background: #2c2c2c !important;
     }
 
     .drawer-social-link svg {
@@ -6501,7 +6636,7 @@
       gap: .65rem;
       margin: 0 0 .85rem;
       padding: .78rem .85rem;
-      overflow: visible;
+      overflow: hidden;
       border: 1px solid #d8dee8;
       border-radius: .85rem;
       background: #fff;
@@ -6675,12 +6810,15 @@
     .section-title-icon { width: 1.15em; height: 1.15em; flex: 0 0 auto; }
     .section-title-icon.is-empty { filter: grayscale(1) opacity(.55); }
     .section-title-dot {
+      display: inline-block;
       width: 0.48rem;
       height: 0.48rem;
       border-radius: 999px;
       background: #00f040;
       box-shadow: 0 0 0 0.22rem rgba(0, 240, 64, 0.12);
       flex: 0 0 auto;
+      vertical-align: middle;
+      margin-right: 0.5rem;
     }
     .schedule-headline-scroller { position: relative; overflow: hidden; }
     .schedule-headline-row { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(15rem, 78%); gap: .75rem; overflow-x: auto; padding: .1rem .05rem .12rem; scrollbar-width: none; scroll-behavior: smooth; cursor: grab; touch-action: pan-y; overscroll-behavior-inline: contain; -webkit-overflow-scrolling: touch; }
@@ -7083,9 +7221,60 @@
     .drawer-link:active,
     .drawer-link.is-active {
       transform: none;
-      color: #07150b;
-      background: #00ff40;
-      box-shadow: 0 0.55rem 1rem rgba(0, 216, 56, 0.22);
+      color: #121218;
+      background: #eef1f5;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(148, 163, 184, 0.28), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9);
+    }
+
+    :root[data-theme="dark"] .drawer {
+      background: #1a1a1a;
+      box-shadow: -1.2rem 0 2.5rem rgba(0, 0, 0, 0.4), inset 0.65rem 0.65rem 1.2rem rgba(255, 255, 255, 0.03), inset -0.7rem -0.7rem 1.25rem rgba(0, 0, 0, 0.4);
+    }
+
+    :root[data-theme="dark"] .drawer-brand-logo {
+      background: #232323;
+      box-shadow: 0.55rem 0.55rem 1.1rem rgba(0, 0, 0, 0.45), -0.45rem -0.45rem 1rem rgba(255, 255, 255, 0.04);
+    }
+
+    :root[data-theme="dark"] .drawer-brand-logo img {
+      filter: brightness(0) invert(1);
+    }
+
+    :root[data-theme="dark"] .drawer-brand-title {
+      color: #f1f1f1;
+    }
+
+    :root[data-theme="dark"] .drawer-brand-subtitle {
+      color: #aaaaaa;
+    }
+
+    :root[data-theme="dark"] .drawer .menu-button {
+      color: #f1f1f1;
+      background: #232323;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(0, 0, 0, 0.45), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.04);
+    }
+
+    :root[data-theme="dark"] .drawer .menu-button:hover {
+      color: #00c934;
+      background: #232323;
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(0, 0, 0, 0.45), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.05);
+    }
+
+    :root[data-theme="dark"] .drawer-link {
+      color: #aaaaaa;
+    }
+
+    :root[data-theme="dark"] .drawer-link:hover {
+      color: #f1f1f1;
+      background: #232323;
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(0, 0, 0, 0.45), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.05);
+    }
+
+    :root[data-theme="dark"] .drawer-link:active,
+    :root[data-theme="dark"] .drawer-link.is-active {
+      color: #f1f1f1;
+      background: #232323;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(0, 0, 0, 0.45), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.04);
     }
 
     .schedule-status-card .schedule-status-category {
@@ -7106,6 +7295,16 @@
       position: relative;
       font-size: 0.58rem;
       line-height: 1;
+    }
+
+    :root[data-theme="dark"] .schedule-status-card .schedule-status-category {
+      background: #232323;
+      color: #f1f1f1;
+      box-shadow: 0.55rem 0.55rem 1.1rem rgba(0, 0, 0, 0.45), -0.45rem -0.45rem 1rem rgba(255, 255, 255, 0.04);
+    }
+
+    :root[data-theme="dark"] .schedule-status-card .schedule-status-category::before {
+      filter: brightness(0) invert(1);
     }
 
     .schedule-status-card .schedule-status-category::before {
@@ -7317,21 +7516,21 @@
     }
 
     .home-schedule-panel .schedule-modal-detail .composition-choice-badges {
-      height: 1.58rem;
+      height: 1.33rem;
     }
 
     .home-schedule-panel .schedule-modal-detail .composition-gender-badge {
-      min-width: 2.28rem;
-      height: 1.58rem;
+      min-width: 2.23rem;
+      height: 1.33rem;
       padding: 0 0.42rem;
-      gap: 0.12rem;
-      font-size: 0.8rem;
+      gap: 0.16rem;
+      font-size: 0.86rem;
       font-weight: 950;
     }
 
     .home-schedule-panel .schedule-modal-detail .composition-gender-badge svg {
-      width: 0.78rem;
-      height: 0.78rem;
+      width: 0.94rem;
+      height: 0.94rem;
     }
   
     /* Schedule card click affordance */
@@ -7418,6 +7617,21 @@
       opacity: 1 !important;
       pointer-events: none !important;
     }
+    /* 매칭 결과 button: embossed style, green text on hover/active */
+    .map-open-link[data-page-link="reviews"]:not(:disabled) {
+      background: #eef1f5 !important;
+      background-color: #eef1f5 !important;
+      color: #07150b !important;
+      border-color: transparent !important;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(148, 163, 184, 0.28), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9) !important;
+    }
+
+    .map-open-link[data-page-link="reviews"]:not(:disabled):hover,
+    .map-open-link[data-page-link="reviews"]:not(:disabled):active {
+      color: #00c934 !important;
+      box-shadow: inset 0.25rem 0.25rem 0.58rem rgba(148, 163, 184, 0.26), inset -0.25rem -0.25rem 0.58rem rgba(255, 255, 255, 0.88) !important;
+    }
+
     /* Disabled map open link final override */
     .map-open-link:disabled {
       background-color: #e5e7eb !important;
@@ -7542,6 +7756,23 @@
       background: #f8fafc !important;
       color: #00f040 !important;
       box-shadow: inset 0.28rem 0.28rem 0.62rem rgba(148, 163, 184, 0.22), inset -0.28rem -0.28rem 0.62rem rgba(255, 255, 255, 0.92) !important;
+    }
+
+    :root[data-theme="dark"] .schedule-info-calendar-btn,
+    :root[data-theme="dark"] .home-schedule-headlines .schedule-more-btn,
+    :root[data-theme="dark"] .event-guide-tab {
+      background: #232323 !important;
+      color: #f1f1f1 !important;
+      box-shadow: 0.42rem 0.42rem 0.9rem rgba(0, 0, 0, 0.45), -0.32rem -0.32rem 0.82rem rgba(255, 255, 255, 0.04) !important;
+    }
+
+    :root[data-theme="dark"] .schedule-info-calendar-btn:hover,
+    :root[data-theme="dark"] .home-schedule-headlines .schedule-more-btn:hover,
+    :root[data-theme="dark"] .event-guide-tab:hover,
+    :root[data-theme="dark"] .event-guide-tab.is-active {
+      background: #232323 !important;
+      color: #00f040 !important;
+      box-shadow: inset 0.28rem 0.28rem 0.62rem rgba(0, 0, 0, 0.45), inset -0.28rem -0.28rem 0.62rem rgba(255, 255, 255, 0.05) !important;
     }
 
     .schedule-info-calendar-btn[disabled],
@@ -7758,6 +7989,7 @@
         <button class="section-tab is-active" type="button" data-page-link="schedule" onclick="window.goPage(event, 'schedule')">클로버 소식</button>
       </nav>
       <main class="support-page">
+<h1 class="page-title"><svg class="page-title-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16"/><path d="M4 12h16"/><path d="M4 18.5h11"/><path d="M7 3v4"/><path d="M17 3v4"/></svg>클로버 소식</h1>
 <section class="schedule-feed" data-schedule-feed><div class="schedule-feed-loading">일정 소식을 불러오는 중입니다.</div></section>
       </main>
     </section>
@@ -7894,19 +8126,19 @@
         <button class="section-tab is-active" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
       </nav>
       <main class="location-page match-result-page">
-        <h1 class="page-title"><span class="section-title-dot" aria-hidden="true"></span>매칭 결과</h1>
+        <h1 class="page-title"><svg class="page-title-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4 4L19 6.5"/><path d="M4 5.5h9"/><path d="M4 9h6"/><path d="M4 18.5h14"/></svg>매칭 결과</h1>
         <p class="match-result-intro">서로 호감 선택이 맞으면 연락을 주고받을 수 있는 매칭 결과로 안내됩니다.</p>
         <div class="match-result-list" aria-label="매칭 결과 아이콘 샘플">
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '두 사람이 서로 호감을 선택해 연락이 열린 상태입니다.')"><span class="match-result-number" aria-hidden="true">10화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span>1:1</span><span>27 - 36세</span><span>운동형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '서로의 마음이 같은 방향으로 맞아 연락을 시작할 수 있습니다.')"><span class="match-result-number" aria-hidden="true">9화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span>6:6</span><span>24 - 29세</span><span>운명형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '양쪽 선택이 확인되어 매칭 결과가 확정되었습니다.')"><span class="match-result-number" aria-hidden="true">8화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span>1:1</span><span>30 - 37세</span><span>활동형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '서로 호감이 맞아 자연스럽게 연락을 주고받는 단계입니다.')"><span class="match-result-number" aria-hidden="true">7화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span>6:6</span><span>20 - 27세</span><span>여행형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '서로에게 긍정적인 호감이 확인된 결과입니다.')"><span class="match-result-number" aria-hidden="true">6화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span>1:1</span><span>34 - 39세</span><span>집콕형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '두 사람의 선택이 이어져 연락 가능한 사이가 되었습니다.')"><span class="match-result-number" aria-hidden="true">5화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span>6:6</span><span>27 - 36세</span><span>직장인</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '매칭이 성사되어 첫 연락을 이어갈 수 있습니다.')"><span class="match-result-number" aria-hidden="true">4화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span>1:1</span><span>37 - 46세</span><span>교대 근무</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '두 사람 모두 다시 대화를 이어가고 싶은 마음이 확인되었습니다.')"><span class="match-result-number" aria-hidden="true">3화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span>6:6</span><span>24 - 29세</span><span>기독교</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '서로 선택이 맞아 새로운 인연으로 이어질 수 있습니다.')"><span class="match-result-number" aria-hidden="true">2화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span>1:1</span><span>30 - 37세</span><span>전문직 남성</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '두 사람의 호감 표시가 서로 맞아 매칭되었습니다.')"><span class="match-result-number" aria-hidden="true">1화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span>6:6</span><span>34 - 39세</span><span>돌싱</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '두 사람이 서로 호감을 선택해 연락이 열린 상태입니다.')"><span class="match-result-number" aria-hidden="true">10화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>27 - 36세</span><span>운동형</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '서로의 마음이 같은 방향으로 맞아 연락을 시작할 수 있습니다.')"><span class="match-result-number" aria-hidden="true">9화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>24 - 29세</span><span>운명형</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '양쪽 선택이 확인되어 매칭 결과가 확정되었습니다.')"><span class="match-result-number" aria-hidden="true">8화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>30 - 37세</span><span>활동형</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '서로 호감이 맞아 자연스럽게 연락을 주고받는 단계입니다.')"><span class="match-result-number" aria-hidden="true">7화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>20 - 27세</span><span>여행형</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '서로에게 긍정적인 호감이 확인된 결과입니다.')"><span class="match-result-number" aria-hidden="true">6화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>34 - 39세</span><span>집콕형</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '두 사람의 선택이 이어져 연락 가능한 사이가 되었습니다.')"><span class="match-result-number" aria-hidden="true">5화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>27 - 36세</span><span>직장인</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '매칭이 성사되어 첫 연락을 이어갈 수 있습니다.')"><span class="match-result-number" aria-hidden="true">4화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>37 - 46세</span><span>교대 근무</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '두 사람 모두 다시 대화를 이어가고 싶은 마음이 확인되었습니다.')"><span class="match-result-number" aria-hidden="true">3화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>24 - 29세</span><span>기독교</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '서로 선택이 맞아 새로운 인연으로 이어질 수 있습니다.')"><span class="match-result-number" aria-hidden="true">2화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>30 - 37세</span><span>전문직 남성</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '두 사람의 호감 표시가 서로 맞아 매칭되었습니다.')"><span class="match-result-number" aria-hidden="true">1화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>34 - 39세</span><span>돌싱</span></span></span><span class="match-result-badge">결과 확인</span></button>
         </div>
       </main>
     </section>
@@ -8013,6 +8245,7 @@
         <button class="section-tab is-active" type="button" data-page-link="counsel" onclick="window.goPage(event, 'counsel')">연애 상담</button>
       </nav>
       <main class="location-page counsel-page-main">
+        <h1 class="page-title"><svg class="page-title-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 9h8M8 13h5"/></svg>연애 상담</h1>
         <section class="counsel-top3" data-counsel-top3 hidden></section>
         <section class="counsel-live-section">
           <div class="counsel-live-head">
@@ -8146,7 +8379,7 @@
         </div>
         <button class="footer-partnership-btn" type="button" onclick="event.stopPropagation(); window.goPage(event, 'support')">문의 하기</button>
       </section>
-      <p class="footer-notice">대표 박성은 · 사업자등록번호 000000 · 주소 000</p>
+      <p class="footer-notice">대표 000 · 사업자등록번호 000000 · 주소 000</p>
       <p class="footer-notice">본 콘텐츠의 저작권은 클로버에 있으며, 이를 무단으로 이용하는 경우 저작권법 등에 따라 법적 책임을 질 수 있습니다.</p>
       <p class="footer-copy"><strong>CLOVER</strong> Copyright © 2026 CLOVER. All Rights Reserved.</p>
     </footer>
@@ -8267,23 +8500,24 @@
   <script>
     const romanticFacelessEventImage = "assets/event-romance-faceless.png";
     const eventCardPresets = Object.freeze([
-      { station: "랜덤", title: "운명형", target: "우연처럼 시작되는 설렘", image: "assets/event-random-destiny-new.png" },
-      { station: "취향", title: "운동형", target: "같이 땀 흘리고 건강하게 가까워지는 만남", image: "assets/event-taste-workout.png" },
-      { station: "취향", title: "활동형", target: "새로운 경험을 좋아하는 에너지 있는 만남", image: "assets/event-taste-active.png" },
-      { station: "취향", title: "여행형", target: "낯선 길과 작은 순간을 함께 즐기는 만남", image: "assets/event-taste-travel.png" },
-      { station: "취향", title: "집콕형", target: "편안한 공간에서 천천히 가까워지는 만남", image: "assets/event-taste-homebody.png" },
-      { station: "라이브", title: "직장인", target: "퇴근 후 일상에 설렘을 더하는 만남", image: "assets/event-live-office-worker-new.png" },
-      { station: "라이브", title: "교대 근무", target: "서로의 리듬을 이해하는 현실적인 만남", image: "assets/event-live-shift-worker.png" },
-      { station: "라이브", title: "기독교", target: "가치관과 따뜻한 대화가 통하는 만남", image: "assets/event-live-christian.png" },
-      { station: "테마", title: "훈훈 남/여", target: "첫인상부터 편안한 분위기의 만남", image: "assets/event-theme-warm.png" },
-      { station: "테마", title: "일본인 여성", target: "다른 문화의 매력을 자연스럽게 만나는 시간", image: "assets/event-theme-japanese-woman.png" },
-      { station: "테마", title: "180cm 이상 남성", target: "든든한 분위기를 선호하는 분들을 위한 만남", image: "assets/event-theme-tall-man.png" },
-      { station: "테마", title: "전문직 남성", target: "전문성과 안정감을 갖춘 대화 중심의 만남", image: "assets/event-theme-professional-man.png" },
-      { station: "테마", title: "공무원 여성", target: "단정하고 안정적인 일상을 함께 나누는 만남", image: "assets/event-theme-public-servant-woman.png" },
-      { station: "테마", title: "커리어 남성", target: "일과 삶을 균형 있게 바라보는 만남", image: "assets/event-theme-career-man.png" },
-      { station: "테마", title: "재력가 남성", target: "여유와 책임감을 중요하게 보는 만남", image: "assets/event-theme-wealthy-man.png" },
-      { station: "테마", title: "돌싱", target: "조금 더 성숙하고 솔직한 두 번째 설렘", image: "assets/event-theme-divorced.png" },
-      { station: "모임", title: "스터디", target: "가벼운 스터디로 자연스럽게 가까워지는 모임", image: "assets/event-group-study-cafe.png" }
+      { station: "테마", title: "드레스 코드를 맞춰 만나는 소개팅", target: "정해진 콘셉트로 맞춰 입고 즐기는 특별한 만남", image: null },
+      { station: "랜덤", title: "순차적으로 무작위 선정", target: "우연처럼 시작되는 설렘", image: "assets/event-random-destiny-new.png" },
+      { station: "취향", title: "운동을 좋아하는 사람", target: "같이 땀 흘리고 건강하게 가까워지는 만남", image: "assets/event-taste-workout.png" },
+      { station: "취향", title: "활동적인 데이트 선호", target: "새로운 경험을 좋아하는 에너지 있는 만남", image: "assets/event-taste-active.png" },
+      { station: "취향", title: "국내·외 여행을 즐기는 사람", target: "낯선 길과 작은 순간을 함께 즐기는 만남", image: "assets/event-taste-travel.png" },
+      { station: "취향", title: "집에서 보내는 걸 선호", target: "편안한 공간에서 천천히 가까워지는 만남", image: "assets/event-taste-homebody.png" },
+      { station: "라이브", title: "9 to 6 직장인", target: "퇴근 후 일상에 설렘을 더하는 만남", image: "assets/event-live-office-worker-new.png" },
+      { station: "라이브", title: "교대 근무자를 하는 사람", target: "서로의 리듬을 이해하는 현실적인 만남", image: "assets/event-live-shift-worker.png" },
+      { station: "라이브", title: "기독교 종교를 가진 사람", target: "가치관과 따뜻한 대화가 통하는 만남", image: "assets/event-live-christian.png" },
+      { station: "테마", title: "호감형 외모를 가진 사람", target: "첫인상부터 편안한 분위기의 만남", image: "assets/event-theme-warm.png" },
+      { station: "테마", title: "한국어 가능한 일본인 여성 선호", target: "다른 문화의 매력을 자연스럽게 만나는 시간", image: "assets/event-theme-japanese-woman.png" },
+      { station: "테마", title: "180cm 이상 남성 선호", target: "든든한 분위기를 선호하는 분들을 위한 만남", image: "assets/event-theme-tall-man.png" },
+      { station: "테마", title: "전문직 남성 선호", target: "전문성과 안정감을 갖춘 대화 중심의 만남", image: "assets/event-theme-professional-man.png" },
+      { station: "테마", title: "공무원 여성 선호", target: "단정하고 안정적인 일상을 함께 나누는 만남", image: "assets/event-theme-public-servant-woman.png" },
+      { station: "테마", title: "연봉 7천 이상 남성 선호", target: "일과 삶을 균형 있게 바라보는 만남", image: "assets/event-theme-career-man.png" },
+      { station: "테마", title: "자산 5억 이상 남성 선호", target: "여유와 책임감을 중요하게 보는 만남", image: "assets/event-theme-wealthy-man.png" },
+      { station: "테마", title: "이혼 경험이 있는 남·여", target: "조금 더 성숙하고 솔직한 두 번째 설렘", image: "assets/event-theme-divorced.png" },
+      { station: "모임", title: "함께 공부하는 모임", target: "가벼운 스터디로 자연스럽게 가까워지는 모임", image: "assets/event-group-study-cafe.png" }
     ]);
 
     function createEventFromPreset(preset) {
@@ -8298,7 +8532,7 @@
         target: preset.target,
         price: "50,000원",
         oldPrice: "",
-        image: preset.image || romanticFacelessEventImage,
+        image: preset.image === null ? "" : (preset.image || romanticFacelessEventImage),
         dday: "",
         male: "6",
         female: "6",
@@ -8430,7 +8664,28 @@
     });
 
     function renderEventList(items = events) {
-      homeEventList.innerHTML = items.length ? items.map(eventTemplate).join("") : '<div class="event-empty">선택창을 불러오는 중입니다.</div>';
+      if (!items.length) {
+        homeEventList.innerHTML = '<div class="event-empty">선택창을 불러오는 중입니다.</div>';
+      } else {
+        let sawGroupStation = false;
+        homeEventList.innerHTML = items.map((item) => {
+          const isGroupStation = item.station === "모임";
+          const heading = isGroupStation && !sawGroupStation
+            ? `<li class="event-list-heading" aria-hidden="false">
+                <div class="home-events-head group-events-head">
+                  <h2 class="home-section-title"><span class="section-title-dot" aria-hidden="true"></span>지역 기반 소모임</h2>
+                  <div class="event-guide-tabs" role="tablist" aria-label="지역 기반 소모임 지역">
+                    <button class="event-guide-tab" type="button">서면</button>
+                    <button class="event-guide-tab" type="button">전포</button>
+                    <button class="event-guide-tab" type="button">사상</button>
+                  </div>
+                </div>
+              </li>`
+            : "";
+          if (isGroupStation) sawGroupStation = true;
+          return heading + eventTemplate(item);
+        }).join("");
+      }
       const icon = document.querySelector(".home-section-title .section-title-icon");
       if (icon) icon.classList.toggle("is-empty", !eventsAreReal);
     }
@@ -8646,11 +8901,11 @@
     }
 
     function isApplicationSelectionReady() {
-      return Boolean(selectedComposition && selectedWeekdays.length && (selectedComposition !== "6:6" || selectedAgeOption));
+      return Boolean(selectedComposition && selectedWeekdays.length && selectedAgeOption);
     }
 
     function isAgeSelectionEnabled() {
-      return selectedComposition === "6:6";
+      return true;
     }
 
     const compositionOptions = ["1:1", "6:6"];
@@ -8667,13 +8922,15 @@
 
     function renderCompositionSelectionMarkup() {
       const buttons = compositionOptions.map((option) => `
-        <button class="composition-choice${selectedComposition === option ? " is-selected" : ""}" type="button" data-composition-option="${htmlAttr(option)}" aria-label="${htmlAttr(option)} 인원 구성">${compositionOptionLabel(option)}</button>
+        <div class="composition-choice-cell">
+          ${option === "1:1" ? `<p class="composition-choice-caption">1:1 인원 구성은 관리자 개입 없이 진행됩니다.</p>` : ""}
+          <button class="composition-choice${selectedComposition === option ? " is-selected" : ""}" type="button" data-composition-option="${htmlAttr(option)}" aria-label="${htmlAttr(option)} 인원 구성">${compositionOptionLabel(option)}</button>
+        </div>
       `).join("");
       return `
         <section class="selection-section composition-selection-block">
           <div class="selection-heading">인원 구성 선택 <span class="req">*</span></div>
           <div class="composition-choice-row">${buttons}</div>
-          ${selectedComposition === "1:1" ? `<p class="composition-guide">1:1 소개팅은 미팅 장소만 제공됩니다.</p>` : ""}
         </section>
       `;
     }
@@ -8753,7 +9010,7 @@
         <div class="application-selection-page">
           ${selectionScheduleMarkup()}
           ${renderCompositionSelectionMarkup()}
-          ${isAgeSelectionEnabled() ? renderAgeSelectionMarkup() : ""}
+          ${renderAgeSelectionMarkup()}
           <button class="selection-complete-btn" type="button" data-selection-complete ${selectionReady ? "" : "disabled"}>선택 완료</button>
         </div>
       `;
@@ -14010,6 +14267,8 @@ const groups = [
       if (pageTarget) {
         event.preventDefault();
         event.stopPropagation();
+        const homeScheduleModal = document.querySelector("[data-home-schedule-modal]");
+        if (homeScheduleModal && !homeScheduleModal.hidden) closeHomeScheduleModal();
         setPage(pageTarget.dataset.pageLink);
       }
     }, true);
@@ -14338,7 +14597,7 @@ const groups = [
 
     function eventImageStack(event) {
       const fallback = defaultEventImage(event.station);
-      const image = isVideoMedia(event.image, event.mediaType) ? fallback : event.image || fallback;
+      const image = isVideoMedia(event.image, event.mediaType) ? fallback : (event.image === "" ? "" : event.image || fallback);
       return cssUrl(optimizedAssetUrl(image));
     }
 
@@ -14358,6 +14617,7 @@ const groups = [
   </script>
 </body>
 </html>
+
 
 
 
