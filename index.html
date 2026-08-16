@@ -6302,6 +6302,10 @@
       padding: 1rem 0;
     }
 
+    .drawer-divider.is-after-home {
+      margin: 0.72rem 0 0.68rem;
+      background: var(--line);
+    }
     .drawer-divider {
       height: 1px;
       margin: 0.65rem 0 0.45rem;
@@ -7582,6 +7586,35 @@
     .schedule-status-detail .composition-gender-badge:last-child {
       border-radius: 0 999px 999px 0 !important;
     }
+  
+    /* Mobile event header alignment fix */
+    @media (max-width: 430px) {
+      #home-events .home-events-head {
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 0.5rem !important;
+      }
+
+      #home-events .home-events-head .home-section-title {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        white-space: nowrap !important;
+      }
+
+      #home-events .event-guide-tabs {
+        width: auto !important;
+        flex: 0 0 auto !important;
+        justify-content: flex-end !important;
+        gap: 0.34rem !important;
+      }
+
+      #home-events .event-guide-tab {
+        min-height: 1.85rem !important;
+        padding-inline: 0.58rem !important;
+        font-size: 0.7rem !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -8138,6 +8171,7 @@
     </div>
     <nav class="drawer-links" aria-label="메뉴">
       <button class="drawer-link" type="button" data-page-link="home" onclick="window.goPage(event, 'home')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.8 12 3l9 7.8"/><path d="M5.5 9.5V21h13V9.5"/><path d="M9.5 21v-6h5v6"/></svg><span>홈</span></button>
+      <div class="drawer-divider is-after-home" role="separator"></div>
       <button class="drawer-link" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4 4L19 6.5"/><path d="M4 5.5h9"/><path d="M4 9h6"/><path d="M4 18.5h14"/></svg><span>매칭 결과</span></button>
       <button class="drawer-link" type="button" data-page-link="counsel" onclick="window.goPage(event, 'counsel')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 9h8M8 13h5"/></svg><span>연애 상담</span></button>
       <button class="drawer-link" type="button" data-page-link="schedule" onclick="window.goPage(event, 'schedule')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16"/><path d="M4 12h16"/><path d="M4 18.5h11"/><path d="M7 3v4"/><path d="M17 3v4"/></svg><span>클로버 소식</span></button>
@@ -13989,7 +14023,8 @@ const groups = [
       }
     });
 
-    renderPageFromHistory();
+    setPage("home", false);
+    history.replaceState({ pageName: "home" }, "", `${location.pathname}${location.search}`);
     window.addEventListener("popstate", renderPageFromHistory);
 
     let heroRotationTimer = null;
@@ -14270,6 +14305,12 @@ const groups = [
   </script>
 </body>
 </html>
+
+
+
+
+
+
 
 
 
