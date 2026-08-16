@@ -92,7 +92,7 @@
     }
 
     body.menu-open {
-      overflow: hidden;
+      overflow: visible;
     }
 
     a,
@@ -105,20 +105,7 @@
     a {
       color: inherit;
       text-decoration: none;
-    }
-
-    button,
-    [role="button"],
-    .drawer-social-link {
-      touch-action: manipulation;
-      user-select: none;
-      -webkit-user-select: none;
-      -webkit-user-drag: none;
-      -webkit-touch-callout: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    button {
+    }    button {
       border: 0;
       cursor: pointer;
       background: transparent;
@@ -285,11 +272,11 @@
     }
 
     .section-tabs.schedule-info-tabs {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: minmax(0, 1fr);
     }
 
     .section-tabs.guide-tabs {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: minmax(0, 1fr);
     }
 
     .section-tabs.review-tabs {
@@ -315,7 +302,7 @@
       left: 1rem;
       height: 0.2rem;
       border-radius: 999px 999px 0 0;
-      background: #00ff40;
+      background: #f1f5f9;
     }
 
     .section-anchor {
@@ -325,7 +312,7 @@
     .hero {
       position: relative;
       aspect-ratio: 25 / 17;
-      overflow: hidden;
+      overflow: visible;
       background: #222;
     }
 
@@ -594,7 +581,53 @@
       pointer-events: none;
     }
 
-    .schedule-info-layer-wrap {
+
+    /* Schedule info nav buttons match menu close */
+    .schedule-info-calendar-nav {
+      grid-template-columns: 2.45rem 2.45rem !important;
+      gap: 0.5rem !important;
+    }
+
+    .schedule-info-calendar-btn {
+      width: 2.45rem !important;
+      height: 2.45rem !important;
+      border: 0 !important;
+      border-radius: 0.9rem !important;
+      color: #121218 !important;
+      background: #eef1f5 !important;
+      font-size: 1.18rem !important;
+      font-weight: 950 !important;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(148, 163, 184, 0.28), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9) !important;
+    }
+
+    .schedule-info-calendar-btn:hover {
+      color: #00c934 !important;
+      background: #eef1f5 !important;
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(148, 163, 184, 0.28), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.88) !important;
+    }
+
+    .schedule-info-calendar-btn[hidden] {
+      visibility: hidden !important;
+      pointer-events: none !important;
+      display: inline-flex !important;
+    }
+    /* Schedule info nav disabled state */
+    .schedule-info-calendar-btn[disabled],
+    .schedule-info-calendar-btn[aria-disabled="true"] {
+      color: #9ca3af !important;
+      background: #eef1f5 !important;
+      cursor: default !important;
+      pointer-events: none !important;
+      opacity: 1 !important;
+      box-shadow: 0.28rem 0.28rem 0.65rem rgba(148, 163, 184, 0.16), -0.22rem -0.22rem 0.6rem rgba(255, 255, 255, 0.82) !important;
+    }
+
+    .schedule-info-calendar-btn[disabled]:hover,
+    .schedule-info-calendar-btn[aria-disabled="true"]:hover {
+      color: #9ca3af !important;
+      background: #eef1f5 !important;
+      box-shadow: 0.28rem 0.28rem 0.65rem rgba(148, 163, 184, 0.16), -0.22rem -0.22rem 0.6rem rgba(255, 255, 255, 0.82) !important;
+    }    .schedule-info-layer-wrap {
       display: grid;
       gap: 0.55rem;
     }
@@ -679,25 +712,36 @@
     }
 
     .match-result-card:hover {
-      border-color: rgba(0, 240, 64, .42);
+      border-color: var(--line);
       transform: translateY(-1px);
     }
 
     .match-result-number {
-      width: 2.85rem;
-      height: 2.85rem;
+      width: 3.35rem;
+      height: 3.35rem;
       display: inline-flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 0.1rem;
       flex: 0 0 auto;
-      border-radius: 999px;
-      background: #00f040;
+      border-radius: 0.85rem;
+      background: #f3f6fa;
       color: #07150b;
-      font-size: 0.82rem;
+      font-size: 0.64rem;
       line-height: 1;
       font-weight: 1000;
       white-space: nowrap;
-      box-shadow: 0 .28rem .7rem rgba(0, 240, 64, .16);
+      box-shadow: 0 .35rem .9rem rgba(15, 23, 42, .08), inset .16rem .16rem .38rem rgba(255,255,255,.9), inset -.16rem -.16rem .38rem rgba(148,163,184,.14);
+    }
+
+    .match-result-number::before {
+      content: "";
+      width: 1.55rem;
+      height: 1.55rem;
+      display: block;
+      background: url("assets/clover-logo-v2.png") center / contain no-repeat;
+      filter: brightness(0);
     }
 
     .match-result-copy {
@@ -714,7 +758,7 @@
       line-height: 1.28;
       font-weight: 950;
       white-space: nowrap;
-      overflow: hidden;
+      overflow: visible;
       text-overflow: ellipsis;
     }
 
@@ -738,15 +782,11 @@
       white-space: nowrap;
     }
 
-    .match-result-tags span:first-child {
-      border-color: rgba(0, 240, 64, .25);
-      background: var(--tint-green);
-      color: var(--accent-dark);
-      font-weight: 950;
-    }
 
+
+\r\n\r\n
     .match-result-badge {
-      align-self: start;
+      align-self: center;
       min-height: 1.5rem;
       min-width: 4.05rem;
       display: inline-flex;
@@ -894,7 +934,7 @@
     }
 
     .home-schedule-layer .schedule-status-card:hover {
-      border-color: rgba(0, 240, 64, .42);
+      border-color: var(--line);
       box-shadow: 0 .48rem 1.15rem rgba(15, 23, 42, .075);
       transform: translateY(-1px);
     }
@@ -946,7 +986,7 @@
       min-width: 2.52rem;
       height: 2.52rem;
       padding: 0 .28rem;
-      background: #00ff40;
+      background: #f1f5f9;
       color: #07150b;
       box-shadow: 0 .24rem .62rem rgba(0, 240, 64, .16);
     }
@@ -1032,7 +1072,7 @@
       font-weight: 850;
       line-height: 1.28;
       white-space: nowrap;
-      overflow: hidden;
+      overflow: visible;
       text-overflow: ellipsis;
       word-break: keep-all;
     }
@@ -1069,21 +1109,34 @@
     }
 
     .schedule-status-detail .composition-choice-badges {
-      gap: .16rem;
-    }
-
-    .schedule-status-detail .composition-gender-badge {
-      min-width: 1.62rem;
-      height: 1.14rem;
-      gap: .08rem;
-      padding: 0 .28rem;
-      font-size: .64rem;
+      height: calc(1.18rem - 2px);
+      gap: 0;
+      overflow: visible;
+      border-radius: 999px;
       box-shadow: none;
     }
 
+    .schedule-status-detail .composition-gender-badge {
+      min-width: calc(1.72rem - 3px);
+      height: calc(1.18rem - 2px);
+      gap: .05rem;
+      padding: 0 calc(.3rem - 1.5px);
+      border-radius: 0;
+      font-size: .64rem;
+      box-shadow: none;
+    }
     .schedule-status-detail .composition-gender-badge svg {
-      width: .58rem;
-      height: .58rem;
+      width: calc(.58rem - 1px);
+      height: calc(.58rem - 1px);
+      transform: translateY(0.7px);
+    }
+
+    .schedule-status-detail .composition-gender-badge.is-female > svg {
+      transform: translate(-2px, 0.7px);
+    }
+
+    .schedule-status-detail .composition-gender-badge.is-female > b {
+      transform: translateX(-2px);
     }
     @media(max-width: 30rem) {
       .schedule-status-shell {
@@ -1171,7 +1224,10 @@
     }
     .home-participation-calendar .home-schedule-layer.is-home-compact {
       gap: .42rem;
-      padding: .45rem;
+      padding: 0.7rem 0.55rem 0.8rem;
+      border: 1px solid var(--line);
+      border-radius: 0.9rem;
+      background: var(--paper);
       overflow-y: auto;
     }
 
@@ -1278,7 +1334,7 @@
       font-weight: 900;
       line-height: 1.2;
       white-space: nowrap;
-      overflow: hidden;
+      overflow: visible;
       text-overflow: ellipsis;
       word-break: keep-all;
     }
@@ -1323,7 +1379,31 @@
       display: none;
     }
 
-    .home-section-title,
+
+    /* Clover news plus more button */
+    .home-schedule-headlines .schedule-more-btn {
+      width: 2.1rem !important;
+      height: 2.1rem !important;
+      min-width: 2.1rem !important;
+      min-height: 2.1rem !important;
+      padding: 0 !important;
+      display: inline-grid !important;
+      place-items: center !important;
+      border: 0 !important;
+      border-radius: 0.72rem !important;
+      background: #eef1f5 !important;
+      color: #121218 !important;
+      font-size: 1.2rem !important;
+      line-height: 1 !important;
+      font-weight: 950 !important;
+      box-shadow: 0.35rem 0.35rem 0.72rem rgba(148, 163, 184, 0.26), -0.28rem -0.28rem 0.68rem rgba(255, 255, 255, 0.9) !important;
+    }
+
+    .home-schedule-headlines .schedule-more-btn:hover {
+      color: #00c934 !important;
+      background: #eef1f5 !important;
+      box-shadow: inset 0.25rem 0.25rem 0.58rem rgba(148, 163, 184, 0.26), inset -0.25rem -0.25rem 0.58rem rgba(255, 255, 255, 0.88) !important;
+    }    .home-section-title,
     .home-schedule-headlines .schedule-section-title,
     .home-counsel-layer .schedule-section-title {
       margin: 0 .45rem .5rem;
@@ -1397,6 +1477,7 @@
     }
 
     #home-events {
+      position: relative;
       display: grid;
     }
 
@@ -1455,6 +1536,8 @@
     }
 
     .event-guide-tab.is-active {
+      position: relative;
+      z-index: 21;
       border-color: var(--line);
       background: var(--paper);
       color: var(--text);
@@ -1465,15 +1548,71 @@
       box-shadow: 0 0 0 .18rem rgba(0, 240, 64, .12);
     }
 
-    .event-guide-panel {
-      margin: -.28rem var(--home-title-inline-offset) .08rem;
-      padding: .68rem .76rem;
-      border: 1px solid rgba(0, 240, 64, .28);
-      border-radius: 0 0 12px 12px;
-      background: var(--paper);
-      box-shadow: 0 .25rem .85rem rgba(18, 18, 24, .045);
+
+    /* Event guide buttons match menu close */
+    .event-guide-tabs {
+      gap: 0.48rem !important;
     }
 
+    .event-guide-tab {
+      min-height: 2.05rem !important;
+      padding: 0 0.78rem !important;
+      gap: 0 !important;
+      border: 0 !important;
+      border-radius: 0.72rem !important;
+      background: #eef1f5 !important;
+      color: #121218 !important;
+      box-shadow: 0.35rem 0.35rem 0.72rem rgba(148, 163, 184, 0.26), -0.28rem -0.28rem 0.68rem rgba(255, 255, 255, 0.9) !important;
+    }
+
+    .event-guide-tab:hover,
+    .event-guide-tab.is-active {
+      color: #121218 !important;
+      background: #eef1f5 !important;
+      box-shadow: inset 0.25rem 0.25rem 0.58rem rgba(148, 163, 184, 0.26), inset -0.25rem -0.25rem 0.58rem rgba(255, 255, 255, 0.88) !important;
+    }
+
+    .event-guide-tab::before,
+    .event-guide-tab.is-active::before {
+      content: none !important;
+      display: none !important;
+    }
+
+    .event-guide-panel {
+      position: absolute;
+      z-index: 20;
+      isolation: isolate;
+      overflow: visible;
+      top: var(--event-guide-top, 2.1rem);
+      left: var(--event-guide-left, var(--home-title-inline-offset));
+      width: min(var(--event-guide-width, 23rem), calc(100% - var(--home-title-inline-offset) * 2));
+      padding: .78rem .9rem .84rem;
+      border: 1px solid #d8dee8;
+      border-radius: 1rem;
+      background: #fff;
+      box-shadow: 0 .72rem 1.8rem rgba(15, 23, 42, .13);
+    }
+
+    .event-guide-panel::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      left: var(--event-guide-pointer-left, 2rem);
+      top: -0.48rem;
+      width: .92rem;
+      height: .92rem;
+      border: 1px solid #d8dee8;
+      border-right: 0;
+      border-bottom: 0;
+      border-radius: .18rem 0 0 0;
+      background: #fff;
+      pointer-events: none;
+      transform: translateX(-50%) rotate(45deg);
+    }
+
+    .event-guide-panel::after {
+      display: none;
+    }
     .event-guide-panel[hidden] {
       display: none;
     }
@@ -1530,7 +1669,34 @@
         padding-inline: .48rem;
       }
     }
-    #home-events .event-list {
+    /* Event guide active connected panel */
+    .event-guide-tab:hover,
+    .event-guide-tab.is-active {
+      color: #00b832 !important;
+      background: #eef1f5 !important;
+      box-shadow: inset 0.25rem 0.25rem 0.58rem rgba(148, 163, 184, 0.26), inset -0.25rem -0.25rem 0.58rem rgba(255, 255, 255, 0.88) !important;
+    }
+
+    .event-guide-panel {
+      border-color: rgba(148, 163, 184, 0.28) !important;
+      background: #fff !important;
+      box-shadow: 0 0.85rem 1.85rem rgba(15, 23, 42, 0.13), 0 -0.16rem 0 rgba(0, 184, 50, 0.16) !important;
+    }
+
+    .event-guide-panel::before {
+      border-color: rgba(148, 163, 184, 0.28) !important;
+      background: #fff !important;
+      box-shadow: -0.1rem -0.1rem 0 rgba(0, 184, 50, 0.14) !important;
+    }
+
+    .event-guide-panel h3 {
+      color: #07150b !important;
+    }
+
+    .event-guide-panel li::before {
+      background: #00f040 !important;
+      box-shadow: 0 0 0 0.16rem rgba(0, 240, 64, 0.12) !important;
+    }#home-events .event-list {
       margin: 0;
     }
 
@@ -1545,7 +1711,7 @@
 
     .home-counsel-row {
       display: grid;
-      overflow: hidden;
+      overflow: visible;
       border: 1px solid var(--line);
       border-radius: .65rem;
       background: var(--surface);
@@ -1605,7 +1771,7 @@
     .home-counsel-title {
       display: block;
       min-width: 0;
-      overflow: hidden;
+      overflow: visible;
       text-overflow: ellipsis;
       white-space: nowrap;
       font-size: .82rem;
@@ -1634,7 +1800,7 @@
 
     .home-counsel-author-name {
       min-width: 0;
-      overflow: hidden;
+      overflow: visible;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
@@ -1776,7 +1942,7 @@
       position: relative;
       width: 100%;
       aspect-ratio: 1920 / 1080;
-      overflow: hidden;
+      overflow: visible;
       border-radius: 10px 10px 0 0;
       background: var(--thumb-image) center / cover no-repeat, #d8dce3;
       cursor: pointer;
@@ -1857,7 +2023,7 @@
 
     .event-title {
       margin: 0;
-      overflow: hidden;
+      overflow: visible;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -1909,7 +2075,7 @@
     }
 
     .meta-line span {
-      overflow: hidden;
+      overflow: visible;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
@@ -1994,7 +2160,7 @@
 
     .gender {
       display: inline-flex;
-      overflow: hidden;
+      overflow: visible;
       border-radius: 0.25rem;
       color: var(--ink);
       font-size: calc(0.68rem - 2px);
@@ -2079,8 +2245,8 @@
       min-height: 2.2rem;
       padding: 0 0.85rem;
       border-radius: 999px;
-      color: #083b18;
-      background: #00ff40;
+      color: var(--ink);
+      background: #00f040;
       font-size: 0.95rem;
       font-weight: 950;
       line-height: 1;
@@ -2158,9 +2324,7 @@
       border: 0;
       border-radius: 0;
       box-shadow: none;
-    }
-
-    .home-counsel-close-btn,
+    }.home-counsel-close-btn,
     .home-schedule-close-btn {
       position: absolute;
       top: 0.55rem;
@@ -2360,7 +2524,7 @@
     }
 
     .detail-hero {
-      overflow: hidden;
+      overflow: visible;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--paper);
@@ -2371,7 +2535,7 @@
       position: relative;
       width: 100%;
       aspect-ratio: 1920 / 1080;
-      overflow: hidden;
+      overflow: visible;
       background: var(--detail-image) center / cover no-repeat, #d8dce3;
     }
 
@@ -2499,7 +2663,7 @@
     }
 
     [data-detail-root][data-gender="여성"] .form-submit-btn {
-      background: #00ff40;
+      background: #f1f5f9;
       color: #111827;
       box-shadow: 0 0.55rem 1rem rgba(0, 216, 56, 0.2);
     }
@@ -2832,7 +2996,7 @@
       height: 0.24rem;
       border-radius: 50%;
       background: #ff2f2f;
-      transform: translateX(-50%);
+      transform: translateX(-50%) rotate(45deg);
     }
 
     .application-day b,
@@ -3248,7 +3412,7 @@
       border: 0;
       border-radius: 0.9rem;
       color: #07150b;
-      background: #00ff40;
+      background: #f1f5f9;
       font-size: 0.95rem;
       font-weight: 950;
       box-shadow: 0 0.55rem 1.2rem rgba(0, 255, 64, 0.18);
@@ -3444,7 +3608,7 @@
       padding: 0;
       border: 0;
       border-radius: 999px;
-      background: #00ff40;
+      background: #f1f5f9;
       color: #06120a;
       font-size: 0;
       line-height: 1.1rem;
@@ -3539,7 +3703,7 @@
       margin-top: 20px;
       border-radius: 999px;
       color: #06120a;
-      background: #00ff40;
+      background: #f1f5f9;
       font-size: 0.82rem;
       font-weight: 950;
       box-shadow: 0 0.55rem 1rem rgba(0, 255, 64, 0.18);
@@ -3696,11 +3860,11 @@
       justify-content: center;
       gap: 0.12rem;
       padding: 0.3rem;
-      border: 1px solid rgba(18, 18, 24, 0.12);
+      border: 1px solid #00ff40;
       border-radius: 50%;
-      color: #111;
+      color: #07150b;
       background: #00ff40;
-      box-shadow: 0 0.6rem 1.2rem rgba(18, 18, 24, 0.18);
+      box-shadow: 0 0.6rem 1.2rem rgba(0, 216, 56, 0.26);
       font-size: 0.62rem;
       font-weight: 950;
       line-height: 1.1;
@@ -3795,7 +3959,7 @@
       border-radius: 1rem;
       background: var(--surface);
       box-shadow: 0 1rem 2rem rgba(18, 18, 24, 0.16);
-      transform: translateX(-50%);
+      transform: translateX(-50%) rotate(45deg);
     }
 
     .calendar-popover[hidden] {
@@ -3911,13 +4075,13 @@
       height: 0.3rem;
       border-radius: 999px;
       background: #ff3b30;
-      transform: translateX(-50%);
+      transform: translateX(-50%) rotate(45deg);
     }
 
     .calendar-day.is-selected {
       border-color: #00ff40;
       color: #083b18;
-      background: #00ff40;
+      background: #f1f5f9;
     }
 
     .gender-filter-chip {
@@ -4012,7 +4176,7 @@
       align-content: start;
       gap: 0.8rem;
       padding: 1rem 1rem 2.2rem;
-      overflow: hidden;
+      overflow: visible;
       border: 1px solid #eadfe5;
       border-radius: 1rem;
       background: var(--surface);
@@ -4108,7 +4272,7 @@
     .naver-map {
       position: relative;
       min-height: 14rem;
-      overflow: hidden;
+      overflow: visible;
       border: 1px solid var(--line);
       border-radius: 0.9rem;
       background: var(--tint-blue);
@@ -4144,11 +4308,20 @@
       align-items: center;
       justify-content: center;
       border-radius: 999px;
-      color: #111;
-      background: #00ff40;
+      color: var(--ink);
+      background: #00f040;
       font-size: 0.9rem;
       font-weight: 950;
       text-decoration: none;
+    }
+    /* Disabled map open link button */
+    .map-open-link:disabled {
+      background: #e5e7eb !important;
+      border-color: #e5e7eb !important;
+      color: #9ca3af !important;
+      cursor: not-allowed !important;
+      pointer-events: none !important;
+      box-shadow: none !important;
     }
 
     .field {
@@ -4188,7 +4361,7 @@
       min-height: 2.9rem;
       border-radius: 0.55rem;
       color: #07150b;
-      background: #00ff40;
+      background: #f1f5f9;
       font-weight: 950;
     }
 
@@ -4709,7 +4882,7 @@
       justify-content: center;
       gap: 0;
       margin-top: 0.2rem;
-      background: #00ff40;
+      background: #f1f5f9;
       color: #06120a;
     }
 
@@ -4870,7 +5043,7 @@
       border: 1px solid var(--line);
       border-radius: 0.55rem;
       background: #f0f3f7 var(--preview-image, none) center / cover no-repeat;
-      overflow: hidden;
+      overflow: visible;
     }
 
     .mypage-file-preview.is-document .mypage-file-preview-thumb {
@@ -4883,7 +5056,7 @@
     }
 
     .mypage-file-preview span:last-child {
-      overflow: hidden;
+      overflow: visible;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
@@ -5024,7 +5197,7 @@
     #page-mypage .mypage-fold-card {
       padding: 0;
       gap: 0;
-      overflow: hidden;
+      overflow: visible;
       border-radius: 0.95rem;
       box-shadow: 0 0.42rem 1.05rem rgba(15, 23, 42, 0.045);
     }
@@ -5163,7 +5336,7 @@
       height: .9rem;
       margin-right: .28rem;
       border-radius: 50%;
-      background: #00ff40;
+      background: #f1f5f9;
       color: #06120a;
       font-size: .76rem;
       line-height: 1;
@@ -5172,7 +5345,7 @@
     }
     [data-counsel-write-submit],
     .counsel-comment-form .submit-btn {
-      background: #00ff40;
+      background: #f1f5f9;
       color: #06120a;
     }
 
@@ -5204,7 +5377,7 @@
       border: 1px solid var(--line);
       border-radius: 0.8rem;
       background: var(--surface);
-      overflow: hidden;
+      overflow: visible;
       box-shadow: 0 0.35rem 1.1rem rgba(15, 23, 42, 0.04);
     }
 
@@ -5279,14 +5452,16 @@
       --medal-ribbon-right: #1688f8;
       --medal-shadow: rgba(184, 115, 51, .28);
       position: relative;
-      min-width: 1.65rem;
-      height: 2.36rem;
+      width: 1.62rem;
+      min-width: 1.62rem;
+      height: 1.72rem;
       padding: 0;
-      border-color: transparent;
-      border-radius: 999px;
+      border: 0;
+      border-radius: 0;
       background: transparent;
       color: transparent;
       font-size: 0;
+      line-height: 1;
       overflow: visible;
       isolation: isolate;
     }
@@ -5296,27 +5471,28 @@
       content: "";
       position: absolute;
       left: 50%;
-      transform: translateX(-50%);
       pointer-events: none;
     }
 
     .counsel-card-number.is-top3::before {
-      top: .7rem;
+      top: .72rem;
       z-index: 1;
-      width: 1.05rem;
-      height: 1.58rem;
+      width: .92rem;
+      height: .72rem;
+      transform: translateX(-50%) rotate(45deg);
       background:
         linear-gradient(135deg, var(--medal-ribbon-left) 0 48%, transparent 49%),
         linear-gradient(225deg, var(--medal-ribbon-right) 0 48%, transparent 49%);
-      clip-path: polygon(0 0, 100% 0, 78% 100%, 50% 76%, 22% 100%);
+      clip-path: polygon(0 0, 100% 0, 78% 100%, 50% 78%, 22% 100%);
       opacity: .95;
     }
 
     .counsel-card-number.is-top3::after {
-      top: .08rem;
+      top: .06rem;
       z-index: 2;
-      width: 1.1rem;
-      height: 1.1rem;
+      width: 1.08rem;
+      height: 1.08rem;
+      transform: translateX(-50%);
       border: 1px solid var(--medal-rim);
       border-radius: 50%;
       background:
@@ -5357,7 +5533,8 @@
       background: transparent;
       color: transparent;
     }
-.counsel-card-title {
+
+    .counsel-card-title {
       display: block;
       min-width: 0;
       margin: 0;
@@ -5402,153 +5579,23 @@
       white-space: nowrap;
     }
 
-    .counsel-gender-icon {
-      display: inline-grid;
-      place-items: center;
-      width: 0.82rem;
-      height: 0.82rem;
-      border-radius: 50%;
-      color: var(--ink);
-      flex: 0 0 auto;
-      position: relative;
-      top: 1px;
-    }
-
-    .counsel-gender-icon.is-male {
-      background: #1688f8;
-    }
-
-    .counsel-gender-icon.is-female {
-      background: #ff7068;
-    }
-
-    .counsel-gender-icon svg {
-      width: 0.56rem;
-      height: 0.56rem;
-      stroke: #fff;
-    }
-
-    .counsel-card-date {
-      color: var(--muted);
-      font-size: 0.62rem;
-      font-weight: 850;
-      text-align: center;
-      white-space: nowrap;
-    }
-
     .counsel-card-meta {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 0.15rem;
+      justify-content: flex-end;
+      gap: 0.18rem;
       min-width: 0;
-      color: #667085;
-      font-size: 0.56rem;
-      font-weight: 850;
+      color: var(--muted);
+      font-size: 0.64rem;
+      font-weight: 800;
       white-space: nowrap;
       overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .counsel-card-meta span {
-      display: inline;
-      min-height: 0;
-      padding: 0;
-      border: 0;
-      border-radius: 0;
-      background: transparent;
       color: var(--muted);
-      font-size: inherit;
       line-height: 1;
-      font-weight: inherit;
-      white-space: nowrap;
-    }
-
-    @media (max-width: 520px) {
-      .counsel-card {
-        grid-template-columns: 1.35rem minmax(0, 1fr) minmax(2.5rem, auto) 1.8rem minmax(4.9rem, auto);
-        min-height: 1.95rem;
-        gap: 0.34rem;
-        padding: 0.32rem 0.42rem;
-      }
-
-      .counsel-card-number {
-        min-width: 1.12rem;
-        height: auto;
-        border-radius: 0;
-        font-size: 0.58rem;
-      }
-
-      .counsel-author-inline,
-      .counsel-card-date {
-        font-size: 0.58rem;
-      }
-
-      .counsel-gender-icon {
-        width: 0.72rem;
-        height: 0.72rem;
-      }
-
-      .counsel-gender-icon svg {
-        width: 0.48rem;
-        height: 0.48rem;
-      }
-
-      .counsel-card-meta {
-        gap: 0.1rem;
-        font-size: 0.5rem;
-      }
-
-      .counsel-card-title {
-        font-size: 0.76rem;
-      }
-    }
-    #page-counsel .counsel-top3 {
-      margin-top: 0;
-      padding: 0;
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-    }
-
-    #page-counsel .counsel-top3-title,
-    #page-counsel .counsel-live-title {
-      margin: 0 0 .6rem;
-      font-size: 1.35rem;
-      font-weight: 950;
-      gap: .56rem;
-    }
-
-    #page-counsel .counsel-live-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: .75rem;
-      margin: 1.1rem 0 .6rem;
-    }
-
-    #page-counsel .counsel-live-head .counsel-live-title {
-      margin: 0;
-    }
-
-    #page-counsel .counsel-live-section {
-      display: grid;
-      gap: 0;
-      padding: 0;
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-    }
-
-    #page-counsel .counsel-list {
-      gap: .45rem;
-      margin-top: 0;
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      overflow: visible;
-      box-shadow: none;
     }
 
     #page-counsel .counsel-card {
@@ -5556,6 +5603,7 @@
       grid-template-areas:
         "num title title"
         "num author meta";
+      align-items: center;
       gap: .25rem .65rem;
       min-height: 3.35rem;
       padding: .72rem .78rem;
@@ -5572,6 +5620,7 @@
     #page-counsel .counsel-card-number {
       grid-area: num;
       align-self: center;
+      justify-self: center;
       min-width: 1.55rem;
       height: auto;
       border-radius: 0;
@@ -5580,11 +5629,10 @@
     #page-counsel .counsel-card-number.is-top3 {
       align-self: center;
       justify-self: center;
-      width: 1.65rem;
-      min-width: 1.65rem;
-      height: 2.36rem;
+      width: 1.62rem;
+      min-width: 1.62rem;
+      height: 1.72rem;
     }
-
     #page-counsel .counsel-card-title {
       grid-area: title;
       font-size: .9rem;
@@ -5767,7 +5815,7 @@
     .counsel-author-badge {
       padding: 0.1rem 0.4rem;
       border-radius: 999px;
-      background: #00ff40;
+      background: #f1f5f9;
       color: #07150b;
       font-size: 0.64rem;
       font-weight: 950;
@@ -6309,7 +6357,7 @@
       display: grid;
       place-items: center;
       padding: 0;
-      overflow: hidden;
+      overflow: visible;
       border: 1px solid var(--line);
       border-radius: 0.4rem;
       background: var(--surface);
@@ -6320,6 +6368,18 @@
     .drawer-social-link:hover {
       transform: translateY(-1px);
       border-color: var(--ink);
+    }
+    /* Drawer shortcut soft buttons */
+    .drawer-social-link {
+      border: 0 !important;
+      border-radius: 0.72rem !important;
+      background: #eef2f7 !important;
+      box-shadow: 0 0.45rem 0.95rem rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.78) !important;
+    }
+
+    .drawer-social-link:hover {
+      border-color: transparent !important;
+      background: #e8edf4 !important;
     }
 
     .drawer-social-link svg {
@@ -6335,9 +6395,7 @@
     .drawer-social-link.is-anonymous svg {
       width: 1.55rem;
       height: 1.55rem;
-    }
-
-    .theme-toggle {
+    }.theme-toggle {
       position: relative;
       z-index: 1;
       display: grid;
@@ -6405,7 +6463,7 @@
     .drawer-staff-link.is-active {
       transform: translateY(-1px);
       border-color: #121218;
-      background: #00ff40;
+      background: #f1f5f9;
     }
 
     .business-footer {
@@ -6424,6 +6482,7 @@
 
     .footer-partnership-banner {
       position: relative;
+      cursor: pointer;
       min-height: 7.25rem;
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
@@ -6431,8 +6490,8 @@
       gap: .65rem;
       margin: 0 0 .85rem;
       padding: .78rem .85rem;
-      overflow: hidden;
-      border: 1px solid rgba(0, 240, 64, .25);
+      overflow: visible;
+      border: 1px solid #d8dee8;
       border-radius: .85rem;
       background: #fff;
       box-shadow: 0 .35rem 1rem rgba(15, 23, 42, .08);
@@ -6495,8 +6554,8 @@
       padding: .34rem .62rem;
       border: 0;
       border-radius: 999px;
-      background: #00ff40;
-      color: #07150b;
+      background: #00f040;
+      color: var(--ink);
       font-size: .62rem;
       font-weight: 950;
       white-space: nowrap;
@@ -6505,7 +6564,7 @@
     }
 
     :root[data-theme="dark"] .footer-partnership-banner {
-      border-color: rgba(0, 240, 64, .35);
+      border-color: #d8dee8;
       background: #fff;
     }
 
@@ -6905,6 +6964,624 @@
       color: #a0a8b3;
       box-shadow: none;
     }
+
+    /* Drawer neumorphic menu refresh */
+    .drawer {
+      padding: 1.35rem 1.25rem 1.1rem;
+      background: #eef1f5;
+      border-radius: 1.9rem 0 0 1.9rem;
+      box-shadow: -1.2rem 0 2.5rem rgba(15, 23, 42, 0.2), inset 0.65rem 0.65rem 1.2rem rgba(255, 255, 255, 0.68), inset -0.7rem -0.7rem 1.25rem rgba(148, 163, 184, 0.22);
+    }
+
+    .drawer-head {
+      gap: 0.8rem;
+      padding: 0.25rem 0.15rem 1.25rem;
+      border-bottom: 0;
+    }
+
+    .drawer-brand {
+      min-width: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.68rem;
+    }
+
+    .drawer-brand-logo {
+      width: 3.15rem;
+      height: 3.15rem;
+      display: grid;
+      place-items: center;
+      border-radius: 1rem;
+      background: #eef1f5;
+      box-shadow: 0.55rem 0.55rem 1.1rem rgba(148, 163, 184, 0.28), -0.45rem -0.45rem 1rem rgba(255, 255, 255, 0.9);
+    }
+
+    .drawer-brand-logo img {
+      width: 2.1rem;
+      height: 2.1rem;
+      object-fit: contain;
+      filter: brightness(0);
+    }
+
+    .drawer-brand-copy {
+      display: grid;
+      gap: 0.08rem;
+      line-height: 1.05;
+    }
+
+    .drawer-brand-title {
+      color: #121218;
+      font-size: 1.1rem;
+      font-weight: 950;
+      letter-spacing: 0;
+    }
+
+    .drawer-brand-subtitle {
+      color: #667085;
+      font-size: 0.66rem;
+      font-weight: 850;
+      letter-spacing: 0;
+    }
+
+    .drawer .menu-button {
+      width: 2.45rem;
+      height: 2.45rem;
+      border-radius: 0.9rem;
+      color: #121218;
+      background: #eef1f5;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(148, 163, 184, 0.28), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9);
+    }
+
+    .drawer .menu-button:hover {
+      color: #00c934;
+      background: #eef1f5;
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(148, 163, 184, 0.28), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.88);
+    }
+
+    .drawer-links {
+      gap: 0.48rem;
+      padding: 0.8rem 0;
+    }
+
+    .drawer-link {
+      min-height: 3.05rem;
+      gap: 0.75rem;
+      padding: 0 0.95rem;
+      border: 0;
+      border-radius: 1.05rem;
+      color: #667085;
+      background: transparent;
+      text-align: left;
+      transition: background 0.16s ease, color 0.16s ease, box-shadow 0.16s ease, transform 0.12s ease;
+    }
+
+    .drawer-link svg {
+      width: 1.05rem;
+      height: 1.05rem;
+      color: currentColor;
+      stroke: currentColor;
+      flex: 0 0 auto;
+    }
+
+    .drawer-link:hover {
+      color: #121218;
+      background: #eef1f5;
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(148, 163, 184, 0.28), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.88);
+    }
+
+    .drawer-link:active,
+    .drawer-link.is-active {
+      transform: none;
+      color: #07150b;
+      background: #00ff40;
+      box-shadow: 0 0.55rem 1rem rgba(0, 216, 56, 0.22);
+    }
+
+    .schedule-status-card .schedule-status-category {
+      min-width: 3.15rem;
+      width: 3.15rem;
+      height: 3.15rem;
+      padding: 0.28rem 0 0.24rem;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.1rem;
+      border-radius: 1rem;
+      background: #eef1f5;
+      color: #121218;
+      overflow: visible;
+      box-shadow: 0.55rem 0.55rem 1.1rem rgba(148, 163, 184, 0.28), -0.45rem -0.45rem 1rem rgba(255, 255, 255, 0.9);
+      position: relative;
+      font-size: 0.58rem;
+      line-height: 1;
+    }
+
+    .schedule-status-card .schedule-status-category::before {
+      content: "";
+      width: 1.82rem;
+      height: 1.82rem;
+      display: block;
+      background: url("assets/clover-logo-v2.png") center / contain no-repeat;
+      filter: brightness(0);
+      flex: 0 0 auto;
+    }
+
+    .home-schedule-layer.is-home-compact .schedule-status-category,
+    .home-schedule-simple-card .schedule-status-category {
+      min-width: 3.15rem;
+      width: 3.15rem;
+      height: 3.15rem;
+      padding: 0.28rem 0 0.24rem;
+      font-size: 0.58rem;
+    }
+    .schedule-info-layer-wrap .home-schedule-layer {
+      gap: 0.78rem;
+      min-height: calc((4.65rem * 3) + (0.78rem * 2));
+      align-content: start;
+    }
+
+    .schedule-info-layer-wrap .home-schedule-layer.is-single {
+      min-height: calc((4.65rem * 3) + (0.78rem * 2));
+    }
+
+    .schedule-info-layer-wrap .home-schedule-layer .schedule-status-card {
+      min-height: 4.65rem;
+      height: 4.65rem;
+      box-sizing: border-box;
+      padding: 0.48rem 0.92rem;
+      align-items: center;
+      overflow: visible;
+    }
+
+    .schedule-info-layer-wrap .home-schedule-layer .schedule-status-shell {
+      height: 100%;
+      align-items: center;
+    }
+
+    .schedule-info-layer-wrap .home-schedule-layer .schedule-status-side {
+      align-self: center;
+      padding-top: 0;
+    }
+  
+    /* Schedule card divider spacing */
+    .schedule-info-layer-wrap .home-schedule-layer .schedule-status-shell {
+      grid-template-columns: auto 1px minmax(0, 1fr) auto !important;
+      column-gap: 0.86rem !important;
+      align-items: center !important;
+    }
+    .schedule-info-layer-wrap .home-schedule-layer .schedule-status-category {
+      margin: 0 !important;
+      flex: 0 0 3.15rem;
+    }
+    .schedule-info-layer-wrap .home-schedule-layer .schedule-status-divider {
+      width: 1px;
+      height: 2.72rem;
+      margin: 0 !important;
+      background: rgba(148, 163, 184, 0.32);
+      align-self: center;
+    }
+    .schedule-info-layer-wrap .home-schedule-layer .schedule-status-main {
+      min-width: 0;
+      margin: 0 !important;
+    }
+    @media(max-width: 30rem) {
+      .schedule-info-layer-wrap .home-schedule-layer .schedule-status-shell {
+        column-gap: 0.86rem !important;
+      }
+    }
+  
+
+    /* Home schedule modal neumorphic shell */
+    .home-schedule-panel {
+      width: min(28rem, 92vw) !important;
+      max-height: 88vh !important;
+      padding: 1.35rem 1.25rem 1.1rem !important;
+      overflow-y: auto !important;
+      border-radius: 1.9rem !important;
+      background: #eef1f5 !important;
+      box-shadow: 0 1.2rem 2.5rem rgba(15, 23, 42, 0.24), inset 0.65rem 0.65rem 1.2rem rgba(255, 255, 255, 0.68), inset -0.7rem -0.7rem 1.25rem rgba(148, 163, 184, 0.22) !important;
+    }
+
+    .home-schedule-panel > .mypage-fold-card {
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    .home-schedule-panel .home-schedule-close-btn {
+      top: 1.35rem !important;
+      right: 1.25rem !important;
+      width: 2.45rem !important;
+      height: 2.45rem !important;
+      border-radius: 0.9rem !important;
+      color: #121218 !important;
+      background: #eef1f5 !important;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(148, 163, 184, 0.28), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9) !important;
+      font-size: 1.5rem !important;
+    }
+
+    .home-schedule-panel .home-schedule-close-btn:hover {
+      color: #00c934 !important;
+      background: #eef1f5 !important;
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(148, 163, 184, 0.28), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.88) !important;
+    }
+
+
+    /* Home schedule modal logo title row */
+    .home-schedule-modal-topline {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 0.86rem;
+      margin: 0 3.15rem 0.75rem 0;
+    }
+
+    .home-schedule-modal-topcopy {
+      display: grid;
+      gap: 0.42rem;
+      min-width: 0;
+    }
+
+    .home-schedule-modal-topcopy .schedule-detail-heading {
+      margin: 0 !important;
+    }
+
+    .home-schedule-modal-topcopy .schedule-modal-detail {
+      margin: 0 !important;
+    }
+
+    .home-schedule-modal-logo {
+      width: 3.15rem;
+      height: 3.15rem;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 1rem;
+      background: #eef1f5;
+      box-shadow: 0.55rem 0.55rem 1.1rem rgba(148, 163, 184, 0.28), -0.45rem -0.45rem 1rem rgba(255, 255, 255, 0.9);
+    }
+
+    .home-schedule-modal-logo img {
+      width: 2.1rem;
+      height: 2.1rem;
+      object-fit: contain;
+      filter: brightness(0);
+    }    .home-schedule-panel .naver-map {
+      border-color: rgba(148, 163, 184, 0.28) !important;
+      border-radius: 1rem !important;
+      background: #e8edf4 !important;
+      box-shadow: inset 0.35rem 0.35rem 0.7rem rgba(148, 163, 184, 0.18), inset -0.3rem -0.3rem 0.7rem rgba(255, 255, 255, 0.78) !important;
+    }
+
+    .home-schedule-panel .naver-map-canvas,
+    .home-schedule-panel .naver-map-fallback {
+      background: #e8edf4 !important;
+    }
+
+    .home-schedule-panel .map-open-link:not(:disabled) {
+      background: #00ff40 !important;
+      box-shadow: 0 .4rem .9rem rgba(0, 240, 64, 0.18) !important;
+    }
+
+    .home-schedule-panel .map-open-link:disabled {
+      background: #dfe4eb !important;
+      border-color: #dfe4eb !important;
+      color: #a0a8b3 !important;
+      box-shadow: inset 0.22rem 0.22rem 0.5rem rgba(148, 163, 184, 0.2), inset -0.22rem -0.22rem 0.5rem rgba(255, 255, 255, 0.75) !important;
+    }    /* Home schedule modal alignment */
+    .home-schedule-modal {
+      justify-items: center !important;
+      align-items: center !important;
+      padding-inline: 1rem !important;
+    }
+    .home-schedule-panel {
+      margin-inline: auto !important;
+      transform: none !important;
+    }
+    .home-schedule-panel .schedule-modal-detail {
+      margin: 0 0 0.75rem;
+      justify-content: flex-start;
+    }
+    /* Home schedule modal large info badges */
+    .home-schedule-panel .schedule-modal-detail {
+      gap: 0.42rem;
+      align-items: center;
+      font-size: 0.86rem;
+      font-weight: 950;
+    }
+
+    .home-schedule-panel .schedule-modal-detail > span:not(.schedule-mode-badges) {
+      min-height: 1.58rem;
+      padding: 0.22rem 0.58rem;
+      font-size: 0.82rem;
+      font-weight: 950;
+    }
+
+    .home-schedule-panel .schedule-modal-detail > .schedule-mode-badges {
+      min-height: 1.58rem;
+    }
+
+    .home-schedule-panel .schedule-modal-detail .composition-choice-badges {
+      height: 1.58rem;
+    }
+
+    .home-schedule-panel .schedule-modal-detail .composition-gender-badge {
+      min-width: 2.28rem;
+      height: 1.58rem;
+      padding: 0 0.42rem;
+      gap: 0.12rem;
+      font-size: 0.8rem;
+      font-weight: 950;
+    }
+
+    .home-schedule-panel .schedule-modal-detail .composition-gender-badge svg {
+      width: 0.78rem;
+      height: 0.78rem;
+    }
+  
+    /* Schedule card click affordance */
+    .home-schedule-layer .schedule-status-card {
+      cursor: pointer;
+    }
+  
+    /* Fixed schedule calendar height */
+    .schedule-info-calendar .application-month {
+      min-height: 22.25rem;
+      height: 22.25rem;
+      box-sizing: border-box;
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      padding: 0.9rem 0.95rem 1rem;
+    }
+    .schedule-info-calendar .application-month h4 {
+      margin: 0 0 0.85rem;
+      font-size: 1.05rem;
+      line-height: 1.28;
+      font-weight: 850;
+    }
+    .schedule-info-calendar .application-week {
+      margin-bottom: 0.55rem;
+    }
+    .schedule-info-calendar .application-days {
+      grid-template-rows: repeat(6, minmax(0, 1fr));
+      align-items: center;
+      row-gap: 0.28rem;
+    }
+    .schedule-info-calendar .application-day {
+      height: 2.55rem;
+      align-self: center;
+    }
+    .schedule-info-calendar .application-day.is-available {
+      width: 2.32rem;
+      height: 2.32rem;
+      min-height: 0;
+      aspect-ratio: 1 / 1;
+    }
+  
+    /* Drawer link text repair */
+    .drawer-link {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      height: auto !important;
+      overflow: visible !important;
+      font-size: 0.95rem !important;
+      white-space: nowrap !important;
+    }
+    .drawer-link span {
+      display: inline !important;
+      min-width: 0 !important;
+      overflow: visible !important;
+      opacity: 1 !important;
+    }
+
+    /* Restore original bright green CTA buttons */
+    .join-btn,
+    .map-open-link,
+    .footer-partnership-btn {
+      background-color: #00ff40 !important;
+      background: #00ff40 !important;
+      color: #07150b !important;
+      border-color: #00ff40 !important;
+    }
+
+
+    .event-card.is-theme-disabled .event-thumb {
+      cursor: default;
+    }
+
+    .join-btn.is-disabled,
+    .join-btn:disabled {
+      background: #eef2f7 !important;
+      background-color: #eef2f7 !important;
+      border-color: #e5eaf1 !important;
+      color: #94a3b8 !important;
+      cursor: not-allowed !important;
+      box-shadow: none !important;
+      opacity: 1 !important;
+      pointer-events: none !important;
+    }
+    /* Disabled map open link final override */
+    .map-open-link:disabled {
+      background-color: #e5e7eb !important;
+      background: #e5e7eb !important;
+      border-color: #e5e7eb !important;
+      color: #9ca3af !important;
+      cursor: not-allowed !important;
+      pointer-events: none !important;
+      box-shadow: none !important;
+      opacity: 1 !important;
+    }    .naver-map-small-link {
+      position: absolute;
+      right: 0.7rem;
+      bottom: 0.7rem;
+      z-index: 2;
+      min-height: 1.72rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 0.62rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #f8fafc;
+      color: #334155;
+      font-size: 0.72rem;
+      font-weight: 950;
+      line-height: 1;
+      text-decoration: none;
+      box-shadow: 0 0.24rem 0.62rem rgba(15, 23, 42, 0.08);
+    }
+
+    .naver-map-small-link:hover {
+      border-color: #cbd5e1;
+      background: #eef2f7;
+    }
+    /* Match result badge repair */
+    .match-result-card {
+      grid-template-columns: auto minmax(0, 1fr) max-content !important;
+    }
+
+    .match-result-badge {
+      width: auto !important;
+      min-width: 4.35rem !important;
+      max-width: none !important;
+      height: 1.7rem !important;
+      min-height: 1.7rem !important;
+      padding: 0 0.65rem !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      border-radius: 999px !important;
+      white-space: nowrap !important;
+      line-height: 1 !important;
+      flex: 0 0 auto !important;
+      justify-self: end !important;
+      align-self: center !important;
+    }
+    /* Match result page layout repair */
+    #page-reviews .match-result-list {
+      width: 100% !important;
+      overflow: visible !important;
+    }
+
+    #page-reviews .match-result-card {
+      width: 100% !important;
+      min-height: 4.35rem !important;
+      display: grid !important;
+      grid-template-columns: 3.35rem minmax(0, 1fr) 4.5rem !important;
+      align-items: center !important;
+      gap: 0.7rem !important;
+      padding: 0.78rem 0.82rem !important;
+      overflow: hidden !important;
+    }
+
+    #page-reviews .match-result-card .match-result-badge {
+      box-sizing: border-box !important;
+      width: 4.5rem !important;
+      min-width: 4.5rem !important;
+      max-width: 4.5rem !important;
+      height: 1.7rem !important;
+      min-height: 1.7rem !important;
+      padding: 0 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      border: 0 !important;
+      border-radius: 999px !important;
+      background: var(--tint-blue) !important;
+      color: var(--tint-blue-text) !important;
+      font-size: 0.74rem !important;
+      font-weight: 950 !important;
+      line-height: 1 !important;
+      white-space: nowrap !important;
+      writing-mode: horizontal-tb !important;
+      text-align: center !important;
+      justify-self: end !important;
+      align-self: center !important;
+      flex: none !important;
+      box-shadow: none !important;
+    }
+    /* Remove redundant page top bars */
+    #page-reviews > .section-tabs,
+    #page-match-result-detail > .section-tabs,
+    #page-counsel > .section-tabs,
+    #page-schedule > .section-tabs {
+      display: none !important;
+    }
+    /* Match menu close button surface for small action buttons */
+    .schedule-info-calendar-btn,
+    .home-schedule-headlines .schedule-more-btn,
+    .event-guide-tab {
+      border: 0 !important;
+      background: #f8fafc !important;
+      color: #121218 !important;
+      box-shadow: 0.42rem 0.42rem 0.9rem rgba(148, 163, 184, 0.22), -0.32rem -0.32rem 0.82rem rgba(255, 255, 255, 0.96) !important;
+    }
+
+    .schedule-info-calendar-btn:hover,
+    .home-schedule-headlines .schedule-more-btn:hover,
+    .event-guide-tab:hover,
+    .event-guide-tab.is-active {
+      background: #f8fafc !important;
+      color: #00f040 !important;
+      box-shadow: inset 0.28rem 0.28rem 0.62rem rgba(148, 163, 184, 0.22), inset -0.28rem -0.28rem 0.62rem rgba(255, 255, 255, 0.92) !important;
+    }
+
+    .schedule-info-calendar-btn[disabled],
+    .schedule-info-calendar-btn[aria-disabled="true"],
+    .schedule-info-calendar-btn[disabled]:hover,
+    .schedule-info-calendar-btn[aria-disabled="true"]:hover {
+      background: #f8fafc !important;
+      color: #9ca3af !important;
+      box-shadow: 0.42rem 0.42rem 0.9rem rgba(148, 163, 184, 0.16), -0.32rem -0.32rem 0.82rem rgba(255, 255, 255, 0.9) !important;
+    }
+  
+    /* Center calendar nav arrow glyphs */
+    .schedule-info-calendar-btn {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      line-height: 1 !important;
+      padding: 0 0 0.06rem !important;
+      text-align: center !important;
+    }
+  
+    /* Remove green accent from event guide panel edge */
+    .event-guide-panel {
+      box-shadow: 0 0.85rem 1.85rem rgba(15, 23, 42, 0.13) !important;
+    }
+
+    .event-guide-panel::before {
+      box-shadow: none !important;
+    }
+
+    /* Restore rounded composition badges */
+    .schedule-status-detail .composition-choice-badges {
+      display: inline-flex !important;
+      align-items: stretch !important;
+      gap: 0 !important;
+      overflow: hidden !important;
+      border-radius: 999px !important;
+      line-height: 1 !important;
+    }
+
+    .schedule-status-detail .composition-gender-badge {
+      border-radius: 0 !important;
+    }
+
+    .schedule-status-detail .composition-gender-badge:first-child {
+      border-radius: 999px 0 0 999px !important;
+    }
+
+    .schedule-status-detail .composition-gender-badge:last-child {
+      border-radius: 0 999px 999px 0 !important;
+    }
   </style>
 </head>
 <body>
@@ -6950,7 +7627,7 @@
         </div>
       </div>
       <main class="content">
-        <section class="home-participation-calendar" id="homeParticipationCalendar" data-home-participation-calendar></section>
+        <section class="schedule-info-calendar home-participation-calendar" id="homeParticipationCalendar" data-home-participation-calendar></section>
         <section class="home-schedule-headlines" data-home-schedule-headlines hidden></section>
         <section id="home-events">
           <div class="home-events-head">
@@ -6962,26 +7639,21 @@
             </div>
           </div>
           <div class="event-guide-panel" data-event-guide-panel="process" hidden>
-            <h3>절차 안내</h3>
+            <h3>진행 방식 안내</h3>
             <ul>
-              <li>참여자는 사전 신청 후 안내 문자를 받은 분에 한해 확정됩니다.</li>
-              <li>행사 당일 신분증 확인 후 자리 안내가 진행됩니다.</li>
-              <li>여러 명과 짧고 부담 없는 1:1 로테이션 대화를 진행합니다.</li>
-              <li>행사 종료 후 호감 선택을 제출하면 상호 매칭 결과를 안내합니다.</li>
+              <li>준비 중</li>
             </ul>
           </div>
           <div class="event-guide-panel" data-event-guide-panel="discount" hidden>
             <h3>할인 안내</h3>
             <ul>
-              <li>할인 적용 여부와 최종 금액은 신청 확인 후 개별 안내됩니다.</li>
+              <li>준비 중</li>
             </ul>
           </div>
           <div class="event-guide-panel" data-event-guide-panel="refund" hidden>
             <h3>환불 안내</h3>
             <ul>
-              <li>입금 전 취소는 마이 클로버 신청 내역에서 직접 취소할 수 있습니다.</li>
-              <li>입금 후 취소 및 환불은 행사 준비 상황에 따라 별도 안내됩니다.</li>
-              <li>정확한 환불 기준은 참여 확정 전 안내되는 규정을 확인해 주세요.</li>
+              <li>준비 중</li>
             </ul>
           </div>
           <ul class="event-list" data-event-list="home"></ul>
@@ -6996,7 +7668,6 @@
 
     <section class="page" id="page-schedule-notice" data-page="schedule-notice">
       <nav class="section-tabs schedule-info-tabs" aria-label="일정 안내 메뉴">
-        <button class="section-tab" type="button" data-page-link="schedule-info" onclick="window.goPage(event, 'schedule-info')">일정 안내</button>
         <button class="section-tab" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
       </nav>
       <main class="support-page schedule-info-page">
@@ -7004,20 +7675,10 @@
       </main>
     </section>
 
-    <section class="page" id="page-schedule-info" data-page="schedule-info">
-      <nav class="section-tabs schedule-info-tabs" aria-label="일정 안내 메뉴">
-        <button class="section-tab is-active" type="button" data-page-link="schedule-info" onclick="window.goPage(event, 'schedule-info')">일정 안내</button>
-        <button class="section-tab" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
-      </nav>
-      <main class="support-page schedule-info-page">
-        <section class="schedule-info-calendar" data-schedule-info-calendar></section>
-      </main>
-    </section>
 
         <section class="page" id="page-schedule" data-page="schedule">
-      <nav class="section-tabs guide-tabs" aria-label="웅성웅성 메뉴">
+      <nav class="section-tabs guide-tabs" aria-label="클로버 소식 메뉴">
         <button class="section-tab is-active" type="button" data-page-link="schedule" onclick="window.goPage(event, 'schedule')">클로버 소식</button>
-        <button class="section-tab" type="button" data-page-link="counsel" onclick="window.goPage(event, 'counsel')">익명 연애 상담</button>
       </nav>
       <main class="support-page">
 <section class="schedule-feed" data-schedule-feed><div class="schedule-feed-loading">일정 소식을 불러오는 중입니다.</div></section>
@@ -7038,7 +7699,6 @@
     </section>
     <section class="page" id="page-process" data-page="process">
       <nav class="section-tabs schedule-info-tabs" aria-label="일정 안내 메뉴">
-        <button class="section-tab" type="button" data-page-link="schedule-info" onclick="window.goPage(event, 'schedule-info')">일정 안내</button>
         <button class="section-tab" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
       </nav>
       <main class="process-page">
@@ -7094,19 +7754,19 @@
             <section class="detail-section">
               <h2>할인 · 환불 안내</h2>
               <ul class="detail-list">
-                <li>할인 적용 여부와 최종 금액은 신청 확인 후 개별 안내됩니다.</li>
-                <li>입금 전 취소는 마이 클로버 신청 내역에서 직접 취소할 수 있습니다.</li>
-                <li>입금 후 취소 및 환불은 행사 준비 상황에 따라 별도 안내됩니다.</li>
-                <li>정확한 환불 기준은 참여 확정 전 안내되는 규정을 확인해 주세요.</li>
+                <li>준비 중</li>
+                
+                
+                
               </ul>
             </section>
             <section class="detail-section">
               <h2>진행 안내</h2>
               <ul class="detail-list">
-                <li>참여자는 사전 신청 후 안내 문자를 받은 분에 한해 확정됩니다.</li>
-                <li>행사 당일 신분증 확인 후 자리 안내가 진행됩니다.</li>
-                <li>여러 명과 짧고 부담 없는 1:1 로테이션 대화를 진행합니다.</li>
-                <li>행사 종료 후 호감 선택을 제출하면 상호 매칭 결과를 안내합니다.</li>
+                <li>준비 중</li>
+                
+                
+                
               </ul>
             </section>
             <section class="detail-section">
@@ -7154,43 +7814,40 @@
 
     <section class="page" id="page-reviews" data-page="reviews">
       <nav class="section-tabs schedule-info-tabs" aria-label="일정 안내 메뉴">
-        <button class="section-tab" type="button" data-page-link="schedule-info" onclick="window.goPage(event, 'schedule-info')">일정 안내</button>
         <button class="section-tab is-active" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
       </nav>
       <main class="location-page match-result-page">
         <h1 class="page-title"><span class="section-title-dot" aria-hidden="true"></span>매칭 결과</h1>
         <p class="match-result-intro">서로 호감 선택이 맞으면 연락을 주고받을 수 있는 매칭 결과로 안내됩니다.</p>
         <div class="match-result-list" aria-label="매칭 결과 아이콘 샘플">
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '서로 선택 완료', '두 사람이 서로 호감을 선택해 연락이 열린 상태입니다.')"><span class="match-result-number" aria-hidden="true">10화</span><span class="match-result-copy"><strong>서로 선택 완료</strong><span class="match-result-tags"><span>1:1</span><span>27 - 36세</span><span>운동형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '호감 방향 일치', '서로의 마음이 같은 방향으로 맞아 연락을 시작할 수 있습니다.')"><span class="match-result-number" aria-hidden="true">9화</span><span class="match-result-copy"><strong>호감 방향 일치</strong><span class="match-result-tags"><span>6:6</span><span>24 - 29세</span><span>운명형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '매칭 확정', '양쪽 선택이 확인되어 매칭 결과가 확정되었습니다.')"><span class="match-result-number" aria-hidden="true">8화</span><span class="match-result-copy"><strong>매칭 확정</strong><span class="match-result-tags"><span>1:1</span><span>30 - 37세</span><span>활동형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '대화 오픈', '서로 호감이 맞아 자연스럽게 연락을 주고받는 단계입니다.')"><span class="match-result-number" aria-hidden="true">7화</span><span class="match-result-copy"><strong>대화 오픈</strong><span class="match-result-tags"><span>6:6</span><span>20 - 27세</span><span>여행형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '좋은 신호', '서로에게 긍정적인 호감이 확인된 결과입니다.')"><span class="match-result-number" aria-hidden="true">6화</span><span class="match-result-copy"><strong>좋은 신호</strong><span class="match-result-tags"><span>1:1</span><span>34 - 39세</span><span>집콕형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '마음 연결', '두 사람의 선택이 이어져 연락 가능한 사이가 되었습니다.')"><span class="match-result-number" aria-hidden="true">5화</span><span class="match-result-copy"><strong>마음 연결</strong><span class="match-result-tags"><span>6:6</span><span>27 - 36세</span><span>직장인</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '첫 연락 가능', '매칭이 성사되어 첫 연락을 이어갈 수 있습니다.')"><span class="match-result-number" aria-hidden="true">4화</span><span class="match-result-copy"><strong>첫 연락 가능</strong><span class="match-result-tags"><span>1:1</span><span>37 - 46세</span><span>교대 근무</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '서로 끌림', '두 사람 모두 다시 대화를 이어가고 싶은 마음이 확인되었습니다.')"><span class="match-result-number" aria-hidden="true">3화</span><span class="match-result-copy"><strong>서로 끌림</strong><span class="match-result-tags"><span>6:6</span><span>24 - 29세</span><span>기독교</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '새로운 연결', '서로 선택이 맞아 새로운 인연으로 이어질 수 있습니다.')"><span class="match-result-number" aria-hidden="true">2화</span><span class="match-result-copy"><strong>새로운 연결</strong><span class="match-result-tags"><span>1:1</span><span>30 - 37세</span><span>전문직 남성</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '호감 매칭', '두 사람의 호감 표시가 서로 맞아 매칭되었습니다.')"><span class="match-result-number" aria-hidden="true">1화</span><span class="match-result-copy"><strong>호감 매칭</strong><span class="match-result-tags"><span>6:6</span><span>34 - 39세</span><span>돌싱</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '두 사람이 서로 호감을 선택해 연락이 열린 상태입니다.')"><span class="match-result-number" aria-hidden="true">10화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span>1:1</span><span>27 - 36세</span><span>운동형</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '서로의 마음이 같은 방향으로 맞아 연락을 시작할 수 있습니다.')"><span class="match-result-number" aria-hidden="true">9화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span>6:6</span><span>24 - 29세</span><span>운명형</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '양쪽 선택이 확인되어 매칭 결과가 확정되었습니다.')"><span class="match-result-number" aria-hidden="true">8화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span>1:1</span><span>30 - 37세</span><span>활동형</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '서로 호감이 맞아 자연스럽게 연락을 주고받는 단계입니다.')"><span class="match-result-number" aria-hidden="true">7화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span>6:6</span><span>20 - 27세</span><span>여행형</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '서로에게 긍정적인 호감이 확인된 결과입니다.')"><span class="match-result-number" aria-hidden="true">6화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span>1:1</span><span>34 - 39세</span><span>집콕형</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '두 사람의 선택이 이어져 연락 가능한 사이가 되었습니다.')"><span class="match-result-number" aria-hidden="true">5화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span>6:6</span><span>27 - 36세</span><span>직장인</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '매칭이 성사되어 첫 연락을 이어갈 수 있습니다.')"><span class="match-result-number" aria-hidden="true">4화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span>1:1</span><span>37 - 46세</span><span>교대 근무</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '두 사람 모두 다시 대화를 이어가고 싶은 마음이 확인되었습니다.')"><span class="match-result-number" aria-hidden="true">3화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span>6:6</span><span>24 - 29세</span><span>기독교</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '서로 선택이 맞아 새로운 인연으로 이어질 수 있습니다.')"><span class="match-result-number" aria-hidden="true">2화</span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span>1:1</span><span>30 - 37세</span><span>전문직 남성</span></span></span><span class="match-result-badge">결과 확인</span></button>
+          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '두 사람의 호감 표시가 서로 맞아 매칭되었습니다.')"><span class="match-result-number" aria-hidden="true">1화</span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span>6:6</span><span>34 - 39세</span><span>돌싱</span></span></span><span class="match-result-badge">결과 확인</span></button>
         </div>
       </main>
     </section>
 
     <section class="page" id="page-match-result-detail" data-page="match-result-detail">
       <nav class="section-tabs schedule-info-tabs" aria-label="일정 안내 메뉴">
-        <button class="section-tab" type="button" data-page-link="schedule-info" onclick="window.goPage(event, 'schedule-info')">일정 안내</button>
         <button class="section-tab is-active" type="button" data-page-link="match-result-detail" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
       </nav>
       <main class="location-page match-result-page">
         <h1 class="page-title"><span class="section-title-dot" aria-hidden="true"></span>매칭 결과 상세</h1>
         <section class="match-result-detail-card">
-          <h2 class="schedule-section-title" data-match-detail-title><span class="section-title-dot" aria-hidden="true"></span>서로 선택 완료</h2>
+          <h2 class="schedule-section-title" data-match-detail-title><span class="section-title-dot" aria-hidden="true"></span>0썸 탄생</h2>
           <div class="match-result-detail-flow" aria-hidden="true">
             <span class="match-result-person">남성 선택</span>
             <span class="match-result-heart">♥</span>
             <span class="match-result-person">여성 선택</span>
           </div>
           <p class="match-result-detail-summary" data-match-detail-summary>두 사람이 서로 호감을 선택해 연락이 열린 상태입니다.</p>
-          <button class="match-result-back-btn" type="button" onclick="window.goPage(event, 'reviews')">목록으로</button>
         </section>
       </main>
     </section>
@@ -7201,12 +7858,12 @@
           <summary class="mypage-layer-title">[클로버 1기] 위치</summary>
           <div class="mypage-layer-content">
             <div class="naver-map">
-              <div class="naver-map-canvas" id="cloverNaverMap" role="img" aria-label="서면역 12번 출구 지도"></div>
+              <div class="naver-map-canvas" id="cloverNaverMap" role="img" aria-label="부산 부산진구 서전로68번길 27 지도"></div>
               <div class="naver-map-fallback">지도를 불러오는 중입니다.</div>
             </div>
-            <p>장소: 서면역 12번 출구</p>
+            <p>부산 부산진구 서전로68번길 27</p>
             <p>방문 전 운영자 안내를 확인해 주세요.</p>
-            <a class="map-open-link" href="https://map.naver.com/p/search/%EC%84%9C%EB%A9%B4%EC%97%AD%2012%EB%B2%88%20%EC%B6%9C%EA%B5%AC" target="_blank" rel="noopener">네이버 지도에서 보기</a>
+            <a class="map-open-link" href="https://map.naver.com/p/search/%EB%B6%80%EC%82%B0%20%EB%B6%80%EC%82%B0%EC%A7%84%EA%B5%AC%20%EC%84%9C%EC%A0%84%EB%A1%9C68%EB%B2%88%EA%B8%B8%2027" target="_blank" rel="noopener">지도 크게 보기</a>
           </div>
         </details>
       </main>
@@ -7275,9 +7932,8 @@
     </section>
 
     <section class="page" id="page-counsel" data-page="counsel">
-      <nav class="section-tabs guide-tabs" aria-label="웅성웅성 메뉴">
-        <button class="section-tab" type="button" data-page-link="schedule" onclick="window.goPage(event, 'schedule')">클로버 소식</button>
-        <button class="section-tab is-active" type="button" data-page-link="counsel" onclick="window.goPage(event, 'counsel')">익명 연애 상담</button>
+      <nav class="section-tabs guide-tabs" aria-label="연애 상담 메뉴">
+        <button class="section-tab is-active" type="button" data-page-link="counsel" onclick="window.goPage(event, 'counsel')">연애 상담</button>
       </nav>
       <main class="location-page counsel-page-main">
         <section class="counsel-top3" data-counsel-top3 hidden></section>
@@ -7405,13 +8061,13 @@
 
     <div class="bottom-space"></div>
     <footer class="business-footer">
-      <section class="footer-partnership-banner" aria-label="제휴 문의 광고">
+      <section class="footer-partnership-banner" aria-label="제휴 문의 광고" role="button" tabindex="0" onclick="window.goPage(event, 'support')" onkeydown="if(event.key === 'Enter' || event.key === ' ') window.goPage(event, 'support')">
         <img class="footer-partnership-image" src="assets/partnership-cafe-entrance.png" alt="" loading="lazy">
         <div class="footer-partnership-copy">
           <p class="footer-partnership-title">분위기 있는 공간 찾습니다.</p>
-          <p class="footer-partnership-text">소개팅, 모임에 어울리는 프라이빗 공간 제휴를 기다립니다.</p>
+          <p class="footer-partnership-text">프라빗한 공간 제휴 기다립니다.</p>
         </div>
-        <button class="footer-partnership-btn" type="button" onclick="window.goPage(event, 'support')">문의 하기</button>
+        <button class="footer-partnership-btn" type="button" onclick="event.stopPropagation(); window.goPage(event, 'support')">문의 하기</button>
       </section>
       <p class="footer-notice">대표 000 · 사업자등록번호 000000 · 주소 000</p>
       <p class="footer-notice">본 콘텐츠의 저작권은 클로버에 있으며, 이를 무단으로 이용하는 경우 저작권법 등에 따라 법적 책임을 질 수 있습니다.</p>
@@ -7470,19 +8126,23 @@
   <div class="drawer-scrim" id="drawerScrim" onclick="window.closeDrawer(event)"></div>
   <aside class="drawer" id="drawer" aria-hidden="true">
     <div class="drawer-head">
-      <span>메뉴</span>
+      <div class="drawer-brand" aria-label="CLOVER 로테이션 소개팅">
+        <span class="drawer-brand-logo" aria-hidden="true"><img src="assets/clover-logo-v2.png" alt=""></span>
+        <span class="drawer-brand-copy"><span class="drawer-brand-title">CLOVER</span><span class="drawer-brand-subtitle">로테이션 소개팅</span></span>
+      </div>
       <button class="menu-button" id="closeMenu" type="button" aria-label="메뉴 닫기" onclick="window.closeDrawer(event)">
-        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round">
+        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
           <path d="M18 6 6 18M6 6l12 12"/>
         </svg>
       </button>
     </div>
     <nav class="drawer-links" aria-label="메뉴">
-      <button class="drawer-link" type="button" data-page-link="home" onclick="window.goPage(event, 'home')">홈</button>
-      <button class="drawer-link" type="button" data-page-link="schedule-info" onclick="window.goPage(event, 'schedule-info')">안내</button>
-      <button class="drawer-link" type="button" data-page-link="schedule" onclick="window.goPage(event, 'schedule')">웅성웅성</button>
+      <button class="drawer-link" type="button" data-page-link="home" onclick="window.goPage(event, 'home')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.8 12 3l9 7.8"/><path d="M5.5 9.5V21h13V9.5"/><path d="M9.5 21v-6h5v6"/></svg><span>홈</span></button>
+      <button class="drawer-link" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4 4L19 6.5"/><path d="M4 5.5h9"/><path d="M4 9h6"/><path d="M4 18.5h14"/></svg><span>매칭 결과</span></button>
+      <button class="drawer-link" type="button" data-page-link="counsel" onclick="window.goPage(event, 'counsel')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 9h8M8 13h5"/></svg><span>연애 상담</span></button>
+      <button class="drawer-link" type="button" data-page-link="schedule" onclick="window.goPage(event, 'schedule')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16"/><path d="M4 12h16"/><path d="M4 18.5h11"/><path d="M7 3v4"/><path d="M17 3v4"/></svg><span>클로버 소식</span></button>
       <div class="drawer-divider" role="separator"></div>
-      <button class="drawer-link" type="button" data-page-link="mypage" onclick="window.goPage(event, 'mypage')">마이 클로버</button>
+      <button class="drawer-link" type="button" data-page-link="mypage" onclick="window.goPage(event, 'mypage')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg><span>마이 클로버</span></button>
     </nav>
     <div class="drawer-shortcuts">
       <p class="drawer-shortcut-label">바로가기</p>
@@ -7529,12 +8189,12 @@
   <script>
     const romanticFacelessEventImage = "assets/event-romance-faceless.png";
     const eventCardPresets = Object.freeze([
-      { station: "랜덤", title: "운명형", target: "우연처럼 시작되는 설렘", image: "assets/event-random-destiny.png" },
+      { station: "랜덤", title: "운명형", target: "우연처럼 시작되는 설렘", image: "assets/event-random-destiny-new.png" },
       { station: "취향", title: "운동형", target: "같이 땀 흘리고 건강하게 가까워지는 만남", image: "assets/event-taste-workout.png" },
       { station: "취향", title: "활동형", target: "새로운 경험을 좋아하는 에너지 있는 만남", image: "assets/event-taste-active.png" },
       { station: "취향", title: "여행형", target: "낯선 길과 작은 순간을 함께 즐기는 만남", image: "assets/event-taste-travel.png" },
       { station: "취향", title: "집콕형", target: "편안한 공간에서 천천히 가까워지는 만남", image: "assets/event-taste-homebody.png" },
-      { station: "라이브", title: "직장인", target: "퇴근 후 일상에 설렘을 더하는 만남", image: "assets/event-live-office-worker.png" },
+      { station: "라이브", title: "직장인", target: "퇴근 후 일상에 설렘을 더하는 만남", image: "assets/event-live-office-worker-new.png" },
       { station: "라이브", title: "교대 근무", target: "서로의 리듬을 이해하는 현실적인 만남", image: "assets/event-live-shift-worker.png" },
       { station: "라이브", title: "기독교", target: "가치관과 따뜻한 대화가 통하는 만남", image: "assets/event-live-christian.png" },
       { station: "테마", title: "훈훈 남/여", target: "첫인상부터 편안한 분위기의 만남", image: "assets/event-theme-warm.png" },
@@ -7615,12 +8275,17 @@
       const locationName = "부산";
       const thumbImage = eventImageStack(event);
       const thumbVideo = eventVideoMarkup(event, "event-media");
-      const badgeHtml = event.station === "테마" ? `${iconStamp}<b>인증</b>` : "";
+      const isThemeEvent = event.station === "테마";
+      const badgeHtml = isThemeEvent ? `${iconStamp}<b>인증</b>` : "";
+      const thumbActionAttrs = isThemeEvent ? `aria-label="${event.title}"` : `role="button" tabindex="0" data-join-index="${index}" aria-label="${event.title} 참여 선택"`;
+      const joinButtonHtml = isThemeEvent
+        ? `<button class="join-btn is-disabled" type="button" disabled aria-disabled="true">참여</button>`
+        : `<button class="join-btn" type="button" data-join-index="${index}">참여</button>`;
 
       return `
         <li>
-          <article class="event-card">
-            <div class="event-thumb" style="--thumb-image: ${thumbImage}" role="button" tabindex="0" data-join-index="${index}" aria-label="${event.title} 참여 선택">
+          <article class="event-card${isThemeEvent ? " is-theme-disabled" : ""}">
+            <div class="event-thumb" style="--thumb-image: ${thumbImage}" ${thumbActionAttrs}>
               ${thumbVideo}
               ${badgeHtml ? `<span class="event-location-badge">${badgeHtml}</span>` : ""}
             </div>
@@ -7635,7 +8300,7 @@
               </div>
               <div class="event-foot">
                 <div class="event-action">
-                  <button class="join-btn" type="button" data-join-index="${index}">참여</button>
+                  ${joinButtonHtml}
                 </div>
               </div>
             </div>
@@ -7647,6 +8312,20 @@
     const homeEventList = document.querySelector('[data-event-list="home"]');
 
 
+    function positionEventGuidePanel(button, panel) {
+      const section = document.getElementById("home-events");
+      if (!section || !button || !panel) return;
+      const sectionRect = section.getBoundingClientRect();
+      const buttonRect = button.getBoundingClientRect();
+      const inlineGap = 7;
+      const preferredWidth = Math.min(368, Math.max(230, sectionRect.width - inlineGap * 2));
+      const left = Math.min(Math.max(buttonRect.left - sectionRect.left, inlineGap), Math.max(inlineGap, sectionRect.width - preferredWidth - inlineGap));
+      panel.style.setProperty("--event-guide-left", `${left}px`);
+      panel.style.setProperty("--event-guide-top", `${buttonRect.bottom - sectionRect.top + 17}px`);
+      panel.style.setProperty("--event-guide-width", `${preferredWidth}px`);
+      panel.style.setProperty("--event-guide-pointer-left", `${buttonRect.left - sectionRect.left - left + buttonRect.width / 2}px`);
+    }
+
     function setEventGuidePanel(type) {
       const current = document.querySelector(`[data-event-guide-tab="${type}"]`);
       const shouldOpen = !current?.classList.contains("is-active");
@@ -7656,9 +8335,16 @@
         button.setAttribute("aria-selected", active ? "true" : "false");
       });
       document.querySelectorAll("[data-event-guide-panel]").forEach((panel) => {
-        panel.hidden = !(shouldOpen && panel.dataset.eventGuidePanel === type);
+        const active = shouldOpen && panel.dataset.eventGuidePanel === type;
+        panel.hidden = !active;
+        if (active) positionEventGuidePanel(current, panel);
       });
     }
+
+    window.addEventListener("resize", () => {
+      const active = document.querySelector("[data-event-guide-tab].is-active");
+      if (active) positionEventGuidePanel(active, document.querySelector(`[data-event-guide-panel="${active.dataset.eventGuideTab}"]`));
+    });
 
     document.querySelectorAll("[data-event-guide-tab]").forEach((button) => {
       button.setAttribute("aria-selected", "false");
@@ -8258,10 +8944,10 @@
         <section class="detail-section is-spaced">
           <h2>진행 안내</h2>
           <ul class="detail-list">
-            <li>참여자는 사전 신청 후 안내 문자를 받은 분에 한해 확정됩니다.</li>
-            <li>행사 당일 신분증 확인 후 자리 안내가 진행됩니다.</li>
-            <li>여러 명과 짧고 부담 없는 1:1 로테이션 대화를 진행합니다.</li>
-            <li>행사 종료 후 호감 선택을 제출하면 상호 매칭 결과를 안내합니다.</li>
+            <li>준비 중</li>
+            
+            
+            
           </ul>
         </section>
 
@@ -8304,9 +8990,9 @@
     const validPageNames = new Set([...pages].map((page) => page.dataset.page));
     const naverMapClientId = "evk9pbogap";
     const cloverLocation = {
-      title: "서면역 12번 출구",
-      lat: 35.157878,
-      lng: 129.059168
+      title: "부산 부산진구 서전로68번길 27",
+      lat: 35.1565494,
+      lng: 129.0672914
     };
     let cloverMapLoaded = false;
     let cloverMapLoading = false;
@@ -10540,15 +11226,15 @@
     const SCHEDULE_VIEWED_KEY = "clover-schedule-viewed:v1";
     const SCHEDULE_CACHE_KEY = "clover-schedule-posts-cache:v3";
     const SCHEDULE_FIELD_IMAGES = [
+      "assets/field-venue-07.png",
+      "assets/field-venue-09.png",
       "assets/field-venue-01.png",
       "assets/field-venue-02.png",
       "assets/field-venue-03.png",
       "assets/field-venue-04.png",
       "assets/field-venue-05.png",
       "assets/field-venue-06.png",
-      "assets/field-venue-07.png",
       "assets/field-venue-08.png",
-      "assets/field-venue-09.png",
       "assets/field-venue-10.png"
     ];
     function normalizeSchedulePostImages(posts) {
@@ -10670,19 +11356,35 @@
     function renderHomeScheduleModal(post) {
       const modal = document.querySelector("[data-home-schedule-modal]");
       if (!modal || !post) return;
+      const hour = SCHEDULE_TIME_HOUR[post.scheduleTime];
+      const timeText = hour !== undefined ? `${String(hour).padStart(2, "0")}:00` : String(post.scheduleTime || "").trim();
+      const titleTime = hour !== undefined ? scheduleTimeLabelHtml(hour, timeText).replace(/<[^>]*>/g, "") : timeText;
+      const modalTitle = titleTime ? `[${titleTime}] 소개팅 안내` : (post.title || "소개팅 안내");
+      const episodeInfo = scheduleEpisodeInfo(scheduleEpisodeNumber(post), post);
+      const modeBadgeMarkup = /^\d+\s*:\s*\d+$/.test(episodeInfo.mode) ? `<span class="schedule-mode-badges">${compositionOptionLabel(episodeInfo.mode.replace(/\s+/g, ""))}</span>` : `<span>${htmlAttr(episodeInfo.mode)}</span>`;
+      const modalDetailMarkup = `<div class="schedule-status-detail schedule-modal-detail">${modeBadgeMarkup}<span>${htmlAttr(episodeInfo.age)}</span><span>${htmlAttr(episodeInfo.type)}</span></div>`;
+      const resultUnlockTs = scheduleResultUnlockTimestamp(post.scheduleDate)
+      const isResultButtonEnabled = !Number.isNaN(resultUnlockTs) && Date.now() >= resultUnlockTs;
+      const resultButtonAttrs = isResultButtonEnabled ? `onclick="window.closeHomeScheduleModal(); window.goPage(event, 'reviews')"` : "disabled aria-disabled=\"true\"";
       modal.innerHTML = `
         <div class="home-schedule-panel">
           <button class="home-schedule-close-btn" type="button" data-home-schedule-close aria-label="닫기">×</button>
           <section class="support-card mypage-fold-card" style="margin:0; padding:.9rem;" data-schedule-post-id="${htmlAttr(post.id)}">
-            <h2 class="schedule-detail-heading" style="margin:0 0 .4rem;">${htmlAttr(post.title)}</h2>
-            ${post.content ? `<p class="schedule-detail-content" style="margin:0 0 .75rem;">${htmlAttr(post.content)}</p>` : ""}
+            <div class="home-schedule-modal-topline">
+              <span class="home-schedule-modal-logo" aria-hidden="true"><img src="assets/clover-logo-v2.png" alt=""></span>
+              <div class="home-schedule-modal-topcopy">
+                <h2 class="schedule-detail-heading">${htmlAttr(modalTitle)}</h2>
+                ${modalDetailMarkup}
+              </div>
+            </div>
             <div class="naver-map">
               <div class="naver-map-canvas" id="homeScheduleNaverMap" role="img" aria-label="${htmlAttr(cloverLocation.title)} 지도"></div>
               <div class="naver-map-fallback">지도를 불러오는 중입니다.</div>
+              <a class="naver-map-small-link" href="https://map.naver.com/p/search/${encodeURIComponent(cloverLocation.title)}" target="_blank" rel="noopener">크게 보기</a>
             </div>
-            <p style="margin:.65rem 0 0; font-weight:850;">장소: ${htmlAttr(cloverLocation.title)}</p>
+            <p style="margin:.65rem 0 0; font-weight:850;">${htmlAttr(cloverLocation.title)}</p>
             <p style="margin:.2rem 0 .65rem; color:var(--muted); font-size:.82rem;">방문 전 운영자 안내를 확인해 주세요.</p>
-            <a class="map-open-link" href="https://map.naver.com/p/search/${encodeURIComponent(cloverLocation.title)}" target="_blank" rel="noopener">네이버 지도에서 보기</a>
+            <button class="map-open-link" type="button" data-page-link="reviews" ${resultButtonAttrs}>매칭 결과</button>
           </section>
         </div>
       `;
@@ -10858,7 +11560,7 @@
         return;
       }
       homeScheduleHeadlines.hidden = false;
-      homeScheduleHeadlines.innerHTML = `<section class="schedule-headline-strip"><div class="schedule-headline-head"><h2 class="schedule-section-title"><span class="section-title-dot" aria-hidden="true"></span>클로버 근황</h2><button class="schedule-more-btn" type="button" onclick="window.goPage(event, 'schedule')">자세히</button></div><div class="schedule-headline-scroller"><div class="schedule-headline-row" data-schedule-headline-row>${headlines.map((post) => schedulePostCard(post, true)).join("")}</div></div></section>`;
+      homeScheduleHeadlines.innerHTML = `<section class="schedule-headline-strip"><div class="schedule-headline-head"><h2 class="schedule-section-title"><span class="section-title-dot" aria-hidden="true"></span>클로버 근황</h2><button class="schedule-more-btn" type="button" onclick="window.goPage(event, 'schedule')" aria-label="클로버 근황 더보기">+</button></div><div class="schedule-headline-scroller"><div class="schedule-headline-row" data-schedule-headline-row>${headlines.map((post) => schedulePostCard(post, true)).join("")}</div></div></section>`;
       requestAnimationFrame(refreshScheduleHeadlineControls);
     }
     let selectedHomeCalendarDate = "";
@@ -10893,7 +11595,7 @@
       if (!iso) return NaN;
       const [y, m, d] = String(iso).split("-").map(Number);
       if (!y || !m || !d) return NaN;
-      return Date.UTC(y, m - 1, d + 1, 12 - 9, 0, 0);
+      return Date.UTC(y, m - 1, d + 1, -9, 0, 0);
     }
 
     const SCHEDULE_EPISODE_BASE_ISO = "2026-08-01";
@@ -10944,6 +11646,12 @@
       };
     }
 
+    function scheduleTimeLabelHtml(hour, fallback) {
+      if (hour === undefined) return htmlAttr(fallback || "");
+      const period = hour < 12 ? "오전" : "오후";
+      const displayHour = hour % 12 || 12;
+      return `<span class="schedule-time-period">${period}</span> ${displayHour}:00`;
+    }
     function homeScheduleStatusCard(post, variant = "info") {
       const matchResult = String(post.matchResult || "").trim();
       const eventTs = scheduleEventTimestamp(post.scheduleDate, post.scheduleTime);
@@ -10958,8 +11666,11 @@
       const timeText = hour !== undefined ? `${String(hour).padStart(2, "0")}:00` : String(post.scheduleTime || "").trim();
       const titleText = hour !== undefined ? "소개팅 안내" : String(post.title || "소개팅 안내");
       const episodeInfo = scheduleEpisodeInfo(episode, post);
-      const detailMarkup = `<div class="schedule-status-detail"><span>${htmlAttr(episodeInfo.mode)}</span><span>${htmlAttr(episodeInfo.age)}</span><span>${htmlAttr(episodeInfo.type)}</span></div>`;
-      const timeMarkup = timeText ? `<span class="schedule-status-time"><strong>${htmlAttr(timeText)}</strong><small>시작</small></span>` : "";
+      const modeBadgeMarkup = /^\d+\s*:\s*\d+$/.test(episodeInfo.mode) ? `<span class="schedule-mode-badges">${compositionOptionLabel(episodeInfo.mode.replace(/\s+/g, ""))}</span>` : `<span>${htmlAttr(episodeInfo.mode)}</span>`;
+      const detailMarkup = `<div class="schedule-status-detail">${modeBadgeMarkup}<span>${htmlAttr(episodeInfo.age)}</span><span>${htmlAttr(episodeInfo.type)}</span></div>`;
+      const timeHtml = scheduleTimeLabelHtml(hour, timeText);
+      const timeMarkup = timeText ? `<span class="schedule-status-time"><strong>${timeHtml}</strong><small>시작</small></span>` : "";
+      const detailTitleText = hour !== undefined ? `[${timeHtml.replace(/<[^>]*>/g, "")}] 소개팅 안내` : titleText;
       if (variant === "home") {
         const simpleParts = [timeText ? `${timeText} 시작` : "", titleText, episodeInfo.mode, episodeInfo.age, episodeInfo.type].filter(Boolean);
         return `<article class="schedule-post-card schedule-status-card home-schedule-simple-card is-${phase}" data-schedule-post-id="${htmlAttr(post.id)}">
@@ -10974,10 +11685,10 @@
       return `<article class="schedule-post-card schedule-status-card is-${phase}" data-schedule-post-id="${htmlAttr(post.id)}">
         <div class="schedule-status-shell">
           <span class="schedule-status-category">${htmlAttr(categoryLabel)}</span>
+          <span class="schedule-status-divider" aria-hidden="true"></span>
           <div class="schedule-status-main">
-            ${timeMarkup}
             <div class="schedule-status-copy">
-              <p class="schedule-status-title">${htmlAttr(titleText)}</p>
+              <p class="schedule-status-title">${htmlAttr(detailTitleText)}</p>
               ${detailMarkup}
             </div>
           </div>
@@ -11101,7 +11812,8 @@
       }
       const dateLabel = variant === "home" ? homeCalendarSelectedDateLabel(selectedHomeCalendarDate) : "";
       const dateHeading = dateLabel ? `<div class="home-schedule-selected-date">${htmlAttr(dateLabel)}</div>` : "";
-      return `<div class="home-schedule-layer${variantClass}">${dateHeading}${posts.map((post) => homeScheduleStatusCard(post, variant)).join("")}</div>`;
+      const singleClass = posts.length === 1 ? " is-single" : "";
+      return `<div class="home-schedule-layer${variantClass}${singleClass}">${dateHeading}${posts.map((post) => homeScheduleStatusCard(post, variant)).join("")}</div>`;
     }
 
     function scheduleInfoAvailableMap(months) {
@@ -11121,8 +11833,8 @@
       return mergedMap;
     }
 
-    function renderScheduleInfoCalendar() {
-      const container = document.querySelector("[data-schedule-info-calendar]");
+    function renderScheduleInfoCalendar(target = "[data-schedule-info-calendar]") {
+      const container = typeof target === "string" ? document.querySelector(target) : target;
       if (!container) return;
       const months = getApplicationCalendarMonths();
       scheduleInfoVisibleMonthIndex = Math.min(Math.max(scheduleInfoVisibleMonthIndex, 0), months.length - 1);
@@ -11134,8 +11846,8 @@
           <div class="schedule-info-calendar-head">
             <h1 class="page-title"><span class="section-title-dot" aria-hidden="true"></span>일정 안내</h1>
             <div class="schedule-info-calendar-nav" aria-label="달력 월 이동">
-              <button class="schedule-info-calendar-btn" type="button" data-home-calendar-nav="prev" aria-label="이전 달" ${scheduleInfoVisibleMonthIndex <= 0 ? "hidden" : ""}>‹</button>
-              <button class="schedule-info-calendar-btn" type="button" data-home-calendar-nav="next" aria-label="다음 달" ${scheduleInfoVisibleMonthIndex >= months.length - 1 ? "hidden" : ""}>›</button>
+              <button class="schedule-info-calendar-btn" type="button" data-home-calendar-nav="prev" aria-label="이전 달" ${scheduleInfoVisibleMonthIndex <= 0 ? "disabled aria-disabled=\"true\"" : ""}>‹</button>
+              <button class="schedule-info-calendar-btn" type="button" data-home-calendar-nav="next" aria-label="다음 달" ${scheduleInfoVisibleMonthIndex >= months.length - 1 ? "disabled aria-disabled=\"true\"" : ""}>›</button>
             </div>
           </div>
           <div class="schedule-info-months">
@@ -11149,38 +11861,7 @@
       requestAnimationFrame(refreshScheduleHeadlineControls);
     }
     function renderHomeParticipationCalendar() {
-      const container = document.querySelector("[data-home-participation-calendar]");
-      if (!container) return;
-      const { year, month } = getApplicationCalendarMonths()[0];
-      const realMap = homeCalendarAvailableMap();
-      const hasRealSchedule = Object.keys(realMap).length > 0;
-      const availableMap = hasRealSchedule ? realMap : homeCalendarPlaceholderMap(year, month);
-      resolveHomeCalendarSelection(availableMap);
-      container.innerHTML = `
-        <div class="schedule-headline-head">
-          <h2 class="schedule-section-title">${scheduleSectionTitleHtml("일정 안내", hasRealSchedule)}</h2>
-          <button class="schedule-more-btn" type="button" onclick="window.goPage(event, 'schedule-info')">자세히</button>
-        </div>
-        <div class="application-calendar home-participation-grid">
-          ${homeCalendarDayTemplate(year, month, availableMap)}
-          ${homeCalendarLayerMarkup(availableMap, "home")}
-        </div>
-      `;
-      requestAnimationFrame(() => {
-        const monthEl = container.querySelector(".application-month");
-        const layerEl = container.querySelector(".home-schedule-layer");
-        if (!monthEl || !layerEl) return;
-        const syncHeight = () => {
-          const isStacked = layerEl.getBoundingClientRect().left === monthEl.getBoundingClientRect().left;
-          layerEl.style.height = isStacked ? "" : `${monthEl.getBoundingClientRect().height}px`;
-        };
-        syncHeight();
-        if (window.ResizeObserver) {
-          if (homeCalendarHeightObserver) homeCalendarHeightObserver.disconnect();
-          homeCalendarHeightObserver = new ResizeObserver(syncHeight);
-          homeCalendarHeightObserver.observe(monthEl);
-        }
-      });
+      renderScheduleInfoCalendar("[data-home-participation-calendar]");
     }
     let homeCalendarHeightObserver = null;
     setInterval(() => {
@@ -11265,15 +11946,15 @@ const groups = [
           "[공지] 시스템 점검 안내 (8/20 새벽)"
         ] },
         { category: "현장", headline: false, titles: [
+          "호텔 라운지 현장",
+          "바 테이블 현장",
           "라운지 소개팅 현장",
           "가든 카페 현장",
           "루프탑 야경 현장",
           "오션뷰 선셋 현장",
           "프라이빗룸 현장",
           "빈티지 카페 현장",
-          "호텔 라운지 현장",
           "갤러리 공간 현장",
-          "바 테이블 현장",
           "스튜디오 살롱 현장"
         ] },
 
@@ -11470,11 +12151,25 @@ const groups = [
       const homeCalendarNavTarget = event.target.closest("[data-home-calendar-nav]");
       if (homeCalendarNavTarget) {
         event.preventDefault();
+        event.stopPropagation();
+        if (homeCalendarNavTarget.disabled || homeCalendarNavTarget.getAttribute("aria-disabled") === "true") return;
         const months = getApplicationCalendarMonths();
         const direction = homeCalendarNavTarget.dataset.homeCalendarNav === "prev" ? -1 : 1;
         scheduleInfoVisibleMonthIndex = Math.min(Math.max(scheduleInfoVisibleMonthIndex + direction, 0), months.length - 1);
+        const visibleMonth = months[scheduleInfoVisibleMonthIndex];
+        const availableMap = scheduleInfoAvailableMap(months);
+        const visiblePrefix = `${visibleMonth.year}-${String(visibleMonth.month).padStart(2, "0")}-`;
+        const visibleDates = Object.keys(availableMap)
+          .filter((iso) => iso.startsWith(visiblePrefix) && availableMap[iso]?.length)
+          .sort();
+        selectedHomeCalendarDate = visibleDates.find((iso) => iso >= homeCalendarTodayIso()) || visibleDates[0] || "";
+        selectedHomeCalendarTime = selectedHomeCalendarDate ? availableMap[selectedHomeCalendarDate]?.[0]?.scheduleTime || "" : "";
         homeCalendarSelectionCleared = false;
-        renderScheduleInfoCalendar();
+        if (homeCalendarNavTarget.closest("[data-home-participation-calendar]")) {
+          renderHomeParticipationCalendar();
+        } else {
+          renderScheduleInfoCalendar();
+        }
         return;
       }
       const homeCalendarDateTarget = event.target.closest("[data-home-calendar-date]");
@@ -12376,12 +13071,12 @@ const groups = [
     };
 
     function setPage(pageName, updateHash = true) {
-      const normalizedPageName = pageName === "episodes" ? "reviews" : pageName;
+      const normalizedPageName = pageName === "episodes" || pageName === "schedule-info" ? "reviews" : pageName;
       const safePageName = validPageNames.has(normalizedPageName) ? normalizedPageName : "home";
       pages.forEach((page) => page.classList.toggle("is-active", page.dataset.page === safePageName));
       const pageGroups = {
-        "schedule-info": ["schedule-info", "reviews", "match-result-detail"],
-        "schedule": ["schedule", "schedule-detail", "counsel"]
+        "schedule-info": ["reviews", "match-result-detail"],
+        "schedule": ["schedule", "schedule-detail"]
       };
       document.querySelectorAll("[data-page-link]").forEach((link) => {
         const linkPage = link.dataset.pageLink;
@@ -12410,7 +13105,7 @@ const groups = [
 
     function pageFromHash() {
       const hashPage = location.hash.replace("#", "");
-      if (hashPage === "episodes") return "reviews";
+      if (hashPage === "episodes" || hashPage === "schedule-info") return "reviews";
       return validPageNames.has(hashPage) ? hashPage : "home";
     }
 
@@ -13575,6 +14270,123 @@ const groups = [
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
