@@ -2441,18 +2441,17 @@
       display: none;
     }
 
-    .home-counsel-panel,
     .home-schedule-panel {
       position: relative;
       width: min(28rem, 96vw);
       max-height: 86vh;
       overflow-y: auto;
-      border-radius: 1rem;
+      border-radius: 1.9rem;
       background: var(--surface);
       box-shadow: 0 1rem 2.4rem rgba(18, 24, 35, 0.2);
     }
 
-    .home-counsel-panel .counsel-detail-card {
+    .home-schedule-panel .counsel-detail-card {
       border: 0;
       border-radius: 0;
       box-shadow: none;
@@ -2507,10 +2506,6 @@
       justify-content: flex-end;
     }
 
-    .home-counsel-panel .counsel-detail-content {
-      max-height: 34vh;
-      overflow-y: auto;
-    }
 
     .home-schedule-panel .schedule-detail-card {
       border: 0;
@@ -8831,7 +8826,7 @@
   <div class="home-schedule-modal" data-home-schedule-modal role="dialog" aria-modal="true" hidden></div>
   <div class="home-schedule-modal" data-match-result-modal role="dialog" aria-modal="true" hidden></div>
   <div class="home-schedule-modal" data-schedule-post-modal role="dialog" aria-modal="true" hidden></div>
-  <div class="home-counsel-modal" data-home-counsel-modal role="dialog" aria-modal="true" hidden></div>
+  <div class="home-schedule-modal" data-home-counsel-modal role="dialog" aria-modal="true" hidden></div>
 
   <div class="gender-modal" data-submit-success-modal role="dialog" aria-modal="true" aria-labelledby="submitSuccessTitle" hidden>
     <div class="gender-modal-panel">
@@ -11557,11 +11552,21 @@
         const modal = document.querySelector(selector);
         if (modal && !modal.hidden) { modal.hidden = true; modal.innerHTML = ""; }
       });
+      unlockBodyScrollForPopup();
+    }
+    function lockBodyScrollForPopup() {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    }
+    function unlockBodyScrollForPopup() {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
     }
     async function openHomeCounselModal(id) {
       closeAllPopupModals();
       const post = counselPosts.find((item) => String(item.id) === String(id));
       if (!post) return;
+      lockBodyScrollForPopup();
       openHomeCounselPostId = String(id);
       counselCurrentId = String(id);
       setCounselReplyTarget(null);
@@ -11586,6 +11591,7 @@
       setCounselReplyTarget(null);
       const modal = document.querySelector("[data-home-counsel-modal]");
       if (modal) { modal.hidden = true; modal.innerHTML = ""; }
+      unlockBodyScrollForPopup();
     }
 
     async function openCounselDetail(id) {
@@ -12179,6 +12185,7 @@
       selectedSchedulePostId = String(id);
       renderSchedulePostModal(post);
       document.querySelector("[data-schedule-post-modal]").hidden = false;
+      lockBodyScrollForPopup();
       if (!isPlaceholder && !scheduleViewedPosts.has(selectedSchedulePostId)) {
         scheduleViewedPosts.add(selectedSchedulePostId);
         writeScheduleSet(SCHEDULE_VIEWED_KEY, scheduleViewedPosts);
@@ -12188,6 +12195,7 @@
     function closeSchedulePostModal() {
       const modal = document.querySelector("[data-schedule-post-modal]");
       if (modal) { modal.hidden = true; modal.innerHTML = ""; }
+      unlockBodyScrollForPopup();
     }
     window.closeSchedulePostModal = closeSchedulePostModal;
     function openSchedulePostDetail(id) {
@@ -12261,6 +12269,7 @@
       openHomeSchedulePostId = String(id);
       renderHomeScheduleModal(post);
       document.querySelector("[data-home-schedule-modal]").hidden = false;
+      lockBodyScrollForPopup();
       if (!isPlaceholder && !scheduleViewedPosts.has(openHomeSchedulePostId)) {
         scheduleViewedPosts.add(openHomeSchedulePostId);
         writeScheduleSet(SCHEDULE_VIEWED_KEY, scheduleViewedPosts);
@@ -12271,6 +12280,7 @@
       openHomeSchedulePostId = "";
       const modal = document.querySelector("[data-home-schedule-modal]");
       if (modal) { modal.hidden = true; modal.innerHTML = ""; }
+      unlockBodyScrollForPopup();
     }
     function updateScheduleHeadlineControls(row) {
       const scroller = row?.closest(".schedule-headline-scroller");
@@ -13967,11 +13977,13 @@ const groups = [
       if (!item) return;
       renderMatchResultModal(item);
       document.querySelector("[data-match-result-modal]").hidden = false;
+      lockBodyScrollForPopup();
     };
 
     function closeMatchResultModal() {
       const modal = document.querySelector("[data-match-result-modal]");
       if (modal) { modal.hidden = true; modal.innerHTML = ""; }
+      unlockBodyScrollForPopup();
     }
     window.closeMatchResultModal = closeMatchResultModal;
 
