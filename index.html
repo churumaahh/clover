@@ -2587,6 +2587,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.75rem;
+      flex-wrap: wrap;
     }
 
     .app-edit-head h3 {
@@ -2679,6 +2680,10 @@
       font-weight: 900;
     }
 
+    [data-info-modal] .gender-modal-panel {
+      border: 0;
+    }
+
     .info-modal-message {
       display: grid;
       gap: .54rem;
@@ -2738,10 +2743,49 @@
       min-height: 2.6rem;
       border: 0;
       border-radius: 999px;
-      background: var(--accent);
-      color: var(--ink);
+      background: #f1f3f6;
+      color: #1f2937;
+      box-shadow: 0.36rem 0.36rem 0.8rem rgba(148, 163, 184, 0.28), -0.28rem -0.28rem 0.68rem rgba(255, 255, 255, 0.92);
+      cursor: pointer;
       font-size: 0.95rem;
       font-weight: 900;
+      transition: color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+    }
+
+    .modal-confirm-btn:hover,
+    .modal-confirm-btn:focus-visible {
+      background: #f1f3f6;
+      color: var(--accent);
+      box-shadow: inset 0.34rem 0.34rem 0.72rem rgba(148, 163, 184, 0.28), inset -0.28rem -0.28rem 0.68rem rgba(255, 255, 255, 0.9);
+      outline: 0;
+      transform: translateY(1px);
+    }
+
+    .modal-confirm-btn:active {
+      background: #f6f7f9;
+      color: var(--accent);
+      box-shadow: 0.36rem 0.36rem 0.78rem rgba(148, 163, 184, 0.26), -0.24rem -0.24rem 0.62rem rgba(255, 255, 255, 0.88);
+      transform: translateY(-1px);
+    }
+
+    :root[data-theme="dark"] .modal-confirm-btn {
+      border: 0;
+      background: #202020;
+      color: #f1f1f1;
+      box-shadow: 0.4rem 0.4rem 0.85rem rgba(0, 0, 0, 0.45), -0.3rem -0.3rem 0.75rem rgba(255, 255, 255, 0.04);
+    }
+
+    :root[data-theme="dark"] .modal-confirm-btn:hover,
+    :root[data-theme="dark"] .modal-confirm-btn:focus-visible {
+      background: #202020;
+      color: var(--accent);
+      box-shadow: inset 0.34rem 0.34rem 0.72rem rgba(0, 0, 0, 0.5), inset -0.28rem -0.28rem 0.68rem rgba(255, 255, 255, 0.055);
+    }
+
+    :root[data-theme="dark"] .modal-confirm-btn:active {
+      background: #242424;
+      color: var(--accent);
+      box-shadow: 0.4rem 0.4rem 0.85rem rgba(0, 0, 0, 0.42), -0.24rem -0.24rem 0.66rem rgba(255, 255, 255, 0.055);
     }
 
     .gender-select-btn.female {
@@ -2975,6 +3019,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.75rem;
+      flex-wrap: wrap;
     }
 
     .form-intro h2 {
@@ -3002,8 +3047,8 @@
       max-width: max-content;
       flex: 0 0 auto;
       min-height: 2.1rem;
-      margin: 0.5rem 0 0;
-      padding: 0 .72rem 0 .58rem;
+      margin: 0;
+      padding: 0 .72rem;
       border: 0;
       border-radius: .9rem;
       background: #eef1f5;
@@ -3017,29 +3062,11 @@
       user-select: none;
     }
 
-    .apply-same-as-profile-btn::before {
-      content: "";
-      width: .48rem;
-      height: .48rem;
-      border: 1px solid #111827;
-      border-radius: 999px;
-      background: #111827;
-      box-shadow: none;
-      box-sizing: border-box;
-      flex: 0 0 auto;
-    }
-
     .apply-same-as-profile-btn:hover,
     .apply-same-as-profile-btn.is-applied {
       color: #00c934;
       background: #eef1f5;
       box-shadow: inset 0.32rem 0.32rem 0.68rem rgba(148, 163, 184, 0.28), inset -0.32rem -0.32rem 0.68rem rgba(255, 255, 255, 0.88);
-    }
-
-    .apply-same-as-profile-btn.is-applied::before {
-      border-color: #00f040;
-      background: #00f040;
-      box-shadow: 0 0 0 .22rem rgba(0, 240, 64, .16);
     }
 
     .apply-same-as-profile-btn:active {
@@ -3631,17 +3658,36 @@
     }
 
     .age-option-check {
-      width: 1.05rem;
-      height: 1.05rem;
-      border: 2px solid var(--line);
+      position: relative;
+      width: 1.08rem;
+      height: 1.08rem;
+      border: 1.5px solid #c8d0dc;
       border-radius: 999px;
-      background: var(--surface);
-      box-shadow: inset 0 0 0 0.22rem #fff;
+      background: transparent;
+      box-shadow: none;
+      flex: 0 0 auto;
+    }
+
+    .age-option-check::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 48%;
+      width: 0.32rem;
+      height: 0.58rem;
+      border: solid #020703;
+      border-width: 0 2.6px 2.6px 0;
+      opacity: 0;
+      transform: translate(calc(-50% + 0.5px), calc(-50% - 1px)) rotate(42deg) scale(0.82);
     }
 
     .age-option-card.is-selected .age-option-check {
-      border-color: #00d838;
-      background: #00d838;
+      border-color: #00ff40;
+      background: #00ff40;
+    }
+
+    .age-option-card.is-selected .age-option-check::after {
+      opacity: 1;
     }
 
     .age-option-main {
@@ -3746,8 +3792,21 @@
       margin: 0;
       padding-bottom: 0.7rem;
       border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 0.42rem;
       font-size: 0.92rem;
       font-weight: 950;
+    }
+
+    .form-section h3::before {
+      content: "";
+      width: 0.48rem;
+      height: 0.48rem;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 0.18rem rgba(0, 216, 56, 0.12);
+      flex: 0 0 auto;
     }
 
     .form-grid {
@@ -4707,6 +4766,16 @@
       font-size: 0.82rem;
       font-weight: 900;
       color: var(--ink);
+    }
+
+    :root[data-theme="dark"] .field label,
+    :root[data-theme="dark"] .field-label-text,
+    :root[data-theme="dark"] .form-field label {
+      color: #f4f7fb;
+    }
+
+    :root[data-theme="dark"] .req {
+      color: #ff5f5f;
     }
 
     .support-field-row {
@@ -8483,11 +8552,11 @@
 
     .event-body {
       grid-template-columns: minmax(0, 1fr) auto;
-      align-items: end;
+      align-items: center;
     }
 
     .event-foot {
-      align-self: end;
+      align-self: center;
       justify-content: flex-end;
     }
 
@@ -9519,6 +9588,7 @@
       { station: "라이브", title: "9 to 6 직장인", target: "퇴근 후 일상에 설렘을 더하는 만남", image: "assets/event-live-office-worker-new.png" },
       { station: "라이브", title: "교대 근무자를 하는 사람", target: "서로의 리듬을 이해하는 현실적인 만남", image: "assets/event-live-shift-worker.png" },
       { station: "라이브", title: "기독교 종교를 가진 사람", target: "가치관과 따뜻한 대화가 통하는 만남", image: "assets/event-live-christian.png" },
+      { station: "테마", title: "40 - 50대 더 편한 만남", target: "편안한 분위기에서 천천히 알아가는 성숙한 만남", image: "assets/event-theme-comfort-40s.png" },
       { station: "테마", title: "호감형 외모를 가진 사람", target: "첫인상부터 편안한 분위기의 만남", image: "assets/event-theme-warm.png" },
       { station: "테마", title: "드레스 코드를 맞춰 만나는 소개팅", target: "정해진 콘셉트로 맞춰 입고 즐기는 특별한 만남", image: "assets/event-theme-dress-code.png" },
       { station: "테마", title: "한국어 가능한 일본인 여성 선호", target: "다른 문화의 매력을 자연스럽게 만나는 시간", image: "assets/event-theme-japanese-woman.png" },
@@ -9599,7 +9669,7 @@
       const thumbImage = eventImageStack(event);
       const thumbVideo = eventVideoMarkup(event, "event-media");
       // isThemeEvent가 true면 "잠금 레이어" 적용(흑백 사진 + 반투명 오버레이 + 자물쇠 아이콘 + "준비 중" + 참여 버튼 비활성화).
-      const isThemeEvent = event.station === "테마";
+      const isThemeEvent = event.station === "테마" && event.title !== "40 - 50대 더 편한 만남";
       const badgeHtml = isThemeEvent ? `${iconStamp}<b>인증</b>` : "";
       const thumbActionAttrs = isThemeEvent ? `aria-label="${event.title}"` : `role="button" tabindex="0" data-join-index="${index}" aria-label="${event.title} 참여 선택"`;
       const joinButtonHtml = isThemeEvent
@@ -9911,6 +9981,7 @@
       selectedExistingDocumentUrl = "";
       selectedExistingPhotoUrls = [];
       selectedFileSequence = 0;
+      clearApplicationFlowState();
     }
 
     function isApplicationSelectionReady() {
@@ -9960,7 +10031,7 @@
       return `
         <section class="selection-section age-selection-block${ageEnabled ? "" : " is-disabled"}" aria-disabled="${ageEnabled ? "false" : "true"}">
           <div class="selection-heading">연령대 선택${ageEnabled ? ` <span class="req">*</span>` : ""}</div>
-          <p class="schedule-description">'남자 6명/여자 6명' 정원이 다 차면 마감되어 이후 스케줄이 공유됩니다.</p>
+          <p class="schedule-description">해당 연령대 남·여 인원이 전부 마감되면 순차적으로 스케줄이 진행됩니다.</p>
           <div class="age-option-list">${ageCards}</div>
         </section>
       `;
@@ -10001,6 +10072,44 @@
       button.disabled = !isApplicationSelectionReady();
     }
 
+    function applicationFlowPayload(phase = "selection") {
+      return {
+        phase,
+        selectedWeekdays: [...selectedWeekdays],
+        selectedApplicationRegions: [...selectedApplicationRegions],
+        selectedAgeOptionId: selectedAgeOption?.id || "",
+        selectedComposition: selectedComposition || "",
+        selectedScheduleDate: selectedScheduleDate || ""
+      };
+    }
+
+    function saveApplicationFlowState(phase = "selection") {
+      try {
+        sessionStorage.setItem(applicationFlowStateKey, JSON.stringify(applicationFlowPayload(phase)));
+      } catch {
+        // The current render still works if session storage is unavailable.
+      }
+    }
+
+    function clearApplicationFlowState() {
+      try { sessionStorage.removeItem(applicationFlowStateKey); } catch {}
+    }
+
+    function restoreApplicationFlowState() {
+      try {
+        const saved = JSON.parse(sessionStorage.getItem(applicationFlowStateKey) || "null");
+        if (!saved) return "selection";
+        selectedWeekdays = Array.isArray(saved.selectedWeekdays) ? saved.selectedWeekdays : [];
+        selectedApplicationRegions = Array.isArray(saved.selectedApplicationRegions) ? saved.selectedApplicationRegions : [];
+        selectedAgeOption = applicationAgeOptions.find((option) => option.id === saved.selectedAgeOptionId) || null;
+        selectedComposition = saved.selectedComposition || "";
+        selectedScheduleDate = saved.selectedScheduleDate || "";
+        return saved.phase === "detail" ? "detail" : "selection";
+      } catch {
+        return "selection";
+      }
+    }
+
     function renderApplicationSelection(event) {
       const preservedScrollY = window.scrollY;
       selectedEvent = event;
@@ -10029,6 +10138,7 @@
       `;
 
       updateSelectionCompleteButton();
+      saveApplicationFlowState("selection");
       window.scrollTo({ top: preservedScrollY, left: 0, behavior: "instant" });
     }
 
@@ -10070,10 +10180,10 @@
           <div class="form-intro">
             <div class="form-intro-title-row">
               <h2>${applicationGender ? `${applicationGender} 신청서 양식` : "신청서 양식"}</h2>
+              <button class="apply-same-as-profile-btn" type="button" data-apply-same-as-profile>내 정보와 동일</button>
             </div>
             <p>현재 기준으로 아래 양식을 작성해 주시길 바랍니다.</p>
           </div>
-          <button class="apply-same-as-profile-btn" type="button" data-apply-same-as-profile>내 정보와 동일</button>
 
           <section class="form-section">
             <h3>기본 정보</h3>
@@ -10244,7 +10354,7 @@
             <h3>제출 서류</h3>
             <div class="form-field">
               <label>본인 사진 (3-5장) <span class="req">*</span></label>
-              <p class="form-help">얼굴과 전신 사진이 포함되도록 자유롭게 등록해 주세요.</p>
+              <p class="form-help">얼굴 사진, 전신 사진 포함되도록 등록해 주세요.</p>
               <div class="file-drop">
                 <div class="photo-row" data-photo-row>
                   <label class="photo-add">
@@ -10289,26 +10399,9 @@
           </div>
         </form>
 
-        <section class="detail-section is-spaced">
-          <h2>진행 안내</h2>
-          <ul class="detail-list">
-            <li>준비 중</li>
-            
-            
-            
-          </ul>
-        </section>
-
-        <section class="detail-section">
-          <h2>참여 전 확인</h2>
-          <ul class="detail-list">
-            <li>원활한 진행을 위해 시작 10분 전 도착을 권장합니다.</li>
-            <li>정확한 장소는 승인자에게만 개별 안내됩니다.</li>
-            <li>성비와 참석 상황에 따라 회차가 조정될 수 있습니다.</li>
-          </ul>
-        </section>
       `;
       updateFormSubmitButton();
+      saveApplicationFlowState("detail");
     }
 
     const pages = document.querySelectorAll("[data-page]");
@@ -10319,6 +10412,7 @@
     const calendarPopover = document.querySelector("[data-calendar-popover]");
     const genderModal = document.querySelector("[data-gender-modal]");
     const detailStateKey = "cloverDetailState";
+    const applicationFlowStateKey = "cloverApplicationFlowState";
     let pendingEventIndex = 0;
     let selectedEventIndex = 0;
     let selectedApplyGender = "";
@@ -10351,10 +10445,7 @@
       { id: "age-24-29", range: "24세 - 29세", remaining: 6 },
       { id: "age-27-36", range: "27세 - 36세", remaining: 6 },
       { id: "age-30-37", range: "30세 - 37세", remaining: 6 },
-      { id: "age-34-39", range: "34세 - 39세", remaining: 6 },
-      { id: "age-37-46", range: "37세 - 46세", remaining: 6 },
-      { id: "age-40-46", range: "40세 - 46세", remaining: 6 },
-      { id: "age-44-49", range: "44세 - 49세", remaining: 6 }
+      { id: "age-34-39", range: "34세 - 39세", remaining: 6 }
     ];
     let selectedFileSequence = 0;
     let mypageDocumentFile = null;
@@ -11324,7 +11415,7 @@
           <h3>제출 서류</h3>
           <div class="form-field">
             <label>본인 사진 (3-5장) <span class="req">*</span></label>
-            <p class="form-help">얼굴과 전신 사진이 포함되도록 자유롭게 등록해 주세요.</p>
+            <p class="form-help">얼굴 사진, 전신 사진 포함되도록 등록해 주세요.</p>
             <div class="file-drop">
               <div class="photo-row" data-mypage-photo-row>
                 ${photoThumbs}
@@ -12321,10 +12412,10 @@
     }
 
     async function applySameAsProfile() {
-      let profile = readProfileInfoCache();
-      if (!profile || !profile.registered) profile = await refreshProfileInfoCache();
+      const profile = readProfileInfoCache();
       if (!profile || !profile.registered) {
         showInfoModal("저장된 정보가 없습니다.", "신청 후 자동으로 저장됩니다.");
+        refreshProfileInfoCache();
         return false;
       }
       const setValue = (selector, value) => {
@@ -12658,7 +12749,12 @@
         selectedApplyGender = saved.gender;
         selectedApplyPrice = selectedApplyGender === "남성" ? "50,000원" : "30,000원";
         selectedEvent = events[selectedEventIndex] || events[0];
-        renderApplicationSelection(selectedEvent);
+        const restoredPhase = restoreApplicationFlowState();
+        if (restoredPhase === "detail") {
+          renderDetail(selectedEvent);
+        } else {
+          renderApplicationSelection(selectedEvent);
+        }
         return true;
       } catch {
         return false;
@@ -14509,6 +14605,9 @@ const groups = [
     }
 
     function showInfoModal(message, subMessage = "") {
+      if (document.activeElement && document.activeElement !== document.body) {
+        document.activeElement.blur();
+      }
       const modal = document.querySelector("[data-info-modal]");
       if (!modal) return;
       const titleEl = modal.querySelector("[data-info-modal-title]");
@@ -16092,6 +16191,9 @@ const groups = [
   </script>
 </body>
 </html>
+
+
+
 
 
 
