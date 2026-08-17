@@ -7842,6 +7842,46 @@
     .schedule-image-card img { display: block; height: 100%; width: 100%; object-fit: cover; }
     .schedule-image-card::after { content: ""; position: absolute; inset: auto 0 0 0; height: 55%; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.62) 100%); pointer-events: none; }
     .schedule-image-card-title { position: absolute; left: .55rem; bottom: .4rem; right: .55rem; z-index: 1; color: #fff; font-size: .78rem; font-weight: 950; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 3px rgba(0,0,0,.4); }
+
+    .schedule-dashboard { display: grid; gap: .95rem; }
+    .schedule-dashboard-hero { position: relative; display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(12rem, .78fr); gap: .75rem; min-height: 17.5rem; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: #111; box-shadow: 0 .75rem 2rem rgba(15,23,42,.16); }
+    .schedule-dashboard-hero-media { position: relative; min-height: 17.5rem; border: 0; padding: 0; overflow: hidden; background: #111; cursor: pointer; text-align: left; }
+    .schedule-dashboard-hero-media img { width: 100%; height: 100%; min-height: 17.5rem; display: block; object-fit: cover; object-position: center center; transform: scale(1.01); }
+    .schedule-dashboard-hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.78) 0%, rgba(0,0,0,.42) 45%, rgba(0,0,0,.05) 100%); pointer-events: none; }
+    .schedule-dashboard-hero-copy { position: absolute; left: 1.05rem; right: 1.05rem; bottom: 1rem; z-index: 1; color: #fff; }
+    .schedule-dashboard-kicker { display: inline-flex; align-items: center; gap: .34rem; margin-bottom: .42rem; color: #00ff40; font-size: .72rem; font-weight: 950; }
+    .schedule-dashboard-kicker::before { content: ""; width: .45rem; height: .45rem; border-radius: 999px; background: #00ff40; box-shadow: 0 0 0 .22rem rgba(0,255,64,.14); }
+    .schedule-dashboard-hero-copy h2 { margin: 0; font-size: 1.55rem; line-height: 1.18; letter-spacing: -.05em; text-shadow: 0 2px 8px rgba(0,0,0,.42); }
+    .schedule-dashboard-hero-copy p { max-width: 29rem; margin: .48rem 0 0; color: rgba(255,255,255,.82); font-size: .82rem; line-height: 1.45; display: -webkit-box; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+    .schedule-dashboard-side { display: grid; align-content: stretch; gap: .55rem; padding: .75rem; background: linear-gradient(180deg, rgba(0,255,64,.08), rgba(255,255,255,.03)); }
+    .schedule-dashboard-stat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem; }
+    .schedule-dashboard-stat { min-width: 0; padding: .72rem .58rem; border: 1px solid rgba(255,255,255,.1); border-radius: 12px; background: rgba(255,255,255,.07); color: #fff; }
+    .schedule-dashboard-stat b { display: block; font-size: 1.2rem; line-height: 1; }
+    .schedule-dashboard-stat span { display: block; margin-top: .3rem; color: rgba(255,255,255,.62); font-size: .62rem; font-weight: 850; white-space: nowrap; }
+    .schedule-dashboard-mini { display: grid; gap: .45rem; align-content: start; }
+    .schedule-dashboard-mini-card { min-height: 4.55rem; display: grid; grid-template-columns: 4.7rem minmax(0,1fr); gap: .55rem; align-items: center; padding: .45rem; border: 1px solid rgba(255,255,255,.1); border-radius: 12px; background: rgba(255,255,255,.06); color: #fff; text-align: left; cursor: pointer; }
+    .schedule-dashboard-mini-card img { width: 100%; aspect-ratio: 4/3; display: block; object-fit: cover; border-radius: 8px; }
+    .schedule-dashboard-mini-card strong { display: -webkit-box; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; color: #fff; font-size: .78rem; line-height: 1.25; letter-spacing: -.03em; }
+    .schedule-dashboard-mini-card span { display: block; margin-top: .25rem; color: rgba(255,255,255,.62); font-size: .62rem; font-weight: 850; }
+    .schedule-dashboard-section { display: grid; gap: .58rem; }
+    .schedule-dashboard-section-head { display: flex; align-items: center; justify-content: space-between; gap: .7rem; margin-top: .15rem; }
+    .schedule-dashboard-section-head p { margin: 0; color: var(--muted); font-size: .72rem; font-weight: 800; }
+    .schedule-dashboard-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .72rem; }
+    .schedule-dashboard-grid.is-compact { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .schedule-dashboard-grid .schedule-post-card { min-width: 0; }
+    .schedule-dashboard-field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .72rem; }
+    .schedule-dashboard-field-grid .schedule-image-card { width: 100%; min-height: 10.2rem; }
+    :root[data-theme="dark"] .schedule-dashboard-hero { border-color: rgba(255,255,255,.08); box-shadow: 0 .75rem 2rem rgba(0,0,0,.35); }
+    @media(max-width: 52rem) {
+      .schedule-dashboard-hero { grid-template-columns: 1fr; min-height: 0; }
+      .schedule-dashboard-hero-media,
+      .schedule-dashboard-hero-media img { min-height: 14.5rem; }
+      .schedule-dashboard-side { grid-template-columns: 1fr; }
+      .schedule-dashboard-grid,
+      .schedule-dashboard-grid.is-compact,
+      .schedule-dashboard-field-grid { grid-template-columns: 1fr; }
+      .schedule-dashboard-field-grid .schedule-image-card { min-height: 12rem; }
+    }
     .schedule-post-card:not(.is-headline) .schedule-post-content { min-height: 0; }
     .schedule-post-card:not(.is-headline) .schedule-post-meta span,
     .schedule-post-card:not(.is-headline) .schedule-post-meta button { min-height: 1.22rem; padding: .08rem .28rem; font-size: .55rem; font-weight: 850; }
@@ -8632,52 +8672,6 @@
 
     .event-action {
       justify-items: end;
-    }
-
-    .event-card.is-theme-disabled {
-      overflow: hidden;
-    }
-
-    .event-card.is-theme-disabled .event-thumb {
-      border-radius: 10px 10px 0 0;
-      overflow: hidden;
-      background-position: center center;
-    }
-
-    /* "잠금 레이어": 흑백 필터 + 반투명 오버레이 + 자물쇠 아이콘 + "준비 중" 문구 + 참여 버튼 비활성화.
-       "잠금 레이어 풀어"라고 하면: is-theme-disabled 클래스 제거(흑백/오버레이 해제) + join-btn의 is-disabled/disabled 속성 제거(참여 버튼 활성화). */
-    .event-card.is-theme-disabled .event-thumb {
-      cursor: default;
-      position: relative;
-      filter: grayscale(1);
-    }
-
-    .event-thumb-lock-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      overflow: hidden;
-      border-radius: inherit;
-      background: rgba(60, 62, 68, 0.55);
-      color: #fff;
-      pointer-events: none;
-    }
-
-    .event-thumb-lock-overlay svg {
-      width: 1.8rem;
-      height: 1.8rem;
-      stroke: #fff;
-    }
-
-    .event-thumb-lock-overlay span {
-      font-size: 0.82rem;
-      font-weight: 900;
-      letter-spacing: -0.01em;
     }
 
     .join-btn.is-disabled,
@@ -9766,21 +9760,14 @@
       const locationName = "부산";
       const thumbImage = eventImageStack(event);
       const thumbVideo = eventVideoMarkup(event, "event-media");
-      // isThemeEvent가 true면 "잠금 레이어" 적용(흑백 사진 + 반투명 오버레이 + 자물쇠 아이콘 + "준비 중" + 참여 버튼 비활성화).
-      const isThemeEvent = event.station === "테마" && event.title !== "40 - 50대 더 편한 만남";
-      const badgeHtml = isThemeEvent ? `${iconStamp}<b>인증</b>` : "";
-      const thumbActionAttrs = isThemeEvent ? `aria-label="${event.title}"` : `role="button" tabindex="0" data-join-index="${index}" aria-label="${event.title} 참여 선택"`;
-      const joinButtonHtml = isThemeEvent
-        ? `<button class="join-btn is-disabled" type="button" disabled aria-disabled="true">참여</button>`
-        : `<button class="join-btn" type="button" data-join-index="${index}">참여</button>`;
+      const thumbActionAttrs = `role="button" tabindex="0" data-join-index="${index}" aria-label="${event.title} 참여 선택"`;
+      const joinButtonHtml = `<button class="join-btn" type="button" data-join-index="${index}">참여</button>`;
 
       return `
         <li>
-          <article class="event-card${isThemeEvent ? " is-theme-disabled" : ""}">
+          <article class="event-card">
             <div class="event-thumb" style="--thumb-image: ${thumbImage}" ${thumbActionAttrs}>
               ${thumbVideo}
-              ${badgeHtml ? `<span class="event-location-badge">${badgeHtml}</span>` : ""}
-              ${isThemeEvent ? `<div class="event-thumb-lock-overlay"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>준비 중</span></div>` : ""}
             </div>
             <div class="event-body">
               <div>
@@ -12923,6 +12910,10 @@
         ? comments.slice().reverse().map((comment) => `<div class="schedule-comment"><strong>${htmlAttr(comment.author || "익명")} · ${htmlAttr(scheduleDate(comment.createdAt))}</strong><p>${htmlAttr(comment.content || "")}</p></div>`).join("")
         : '';
     }
+    function scheduleFallbackImage(post) {
+      const seed = String(post?.id || post?.title || "").split("").reduce((sum, char) => sum + char.charCodeAt(0), 0);
+      return SCHEDULE_FIELD_IMAGES[seed % SCHEDULE_FIELD_IMAGES.length] || "";
+    }
     function schedulePostCard(post, headline = false) {
       const comments = Array.isArray(post.comments) ? post.comments : [];
       const liked = scheduleLikedPosts.has(String(post.id));
@@ -12931,7 +12922,7 @@
       const categoryBadge = hideCategoryBadge ? "" : `<span class="schedule-post-badge">${htmlAttr(category)}</span>`;
       const cloverProofClass = category === "클로버 근황" ? " is-clover-proof" : "";
       return `<article class="schedule-post-card${headline ? " is-headline" : ""}${cloverProofClass}" data-schedule-post-id="${htmlAttr(post.id)}">
-        <button class="schedule-post-cover" type="button" data-schedule-open="${htmlAttr(post.id)}" aria-label="${htmlAttr(post.title)} 자세히 보기"><img src="${htmlAttr(optimizedAssetUrl(post.imageUrl))}" alt="${htmlAttr(post.title)}" loading="${headline ? "eager" : "lazy"}" fetchpriority="${headline ? "high" : "auto"}" decoding="async">${categoryBadge}</button>
+        <button class="schedule-post-cover" type="button" data-schedule-open="${htmlAttr(post.id)}" aria-label="${htmlAttr(post.title)} 자세히 보기"><img src="${htmlAttr(optimizedAssetUrl(post.imageUrl))}" alt="${htmlAttr(post.title)}" loading="eager" fetchpriority="${headline ? "high" : "auto"}" decoding="async" onerror="this.onerror=null;this.src='${htmlAttr(scheduleFallbackImage(post))}'">${categoryBadge}</button>
         <div class="schedule-post-body">
           ${headline ? `<h2>${htmlAttr(post.title)}</h2>` : `<h3>${htmlAttr(post.title)}</h3>`}
           <p class="schedule-post-content">${htmlAttr(post.content)}</p>
@@ -12941,9 +12932,32 @@
     }
     function scheduleImageCardHtml(post) {
       return `<button class="schedule-image-card" type="button" data-schedule-open="${htmlAttr(post.id)}" aria-label="${htmlAttr(post.title)} 자세히 보기">
-        <img src="${htmlAttr(optimizedAssetUrl(post.imageUrl))}" alt="${htmlAttr(post.title)}" loading="lazy" decoding="async">
+        <img src="${htmlAttr(optimizedAssetUrl(post.imageUrl))}" alt="${htmlAttr(post.title)}" loading="eager" decoding="async" onerror="this.onerror=null;this.src='${htmlAttr(scheduleFallbackImage(post))}'">
         <span class="schedule-image-card-title">${htmlAttr(post.title)}</span>
       </button>`;
+    }
+
+    function scheduleDashboardHeroHtml(featured, miniPosts, stats) {
+      if (!featured) return "";
+      const miniHtml = miniPosts.slice(0, 3).map((post) => `<button class="schedule-dashboard-mini-card" type="button" data-schedule-open="${htmlAttr(post.id)}" aria-label="${htmlAttr(post.title)} 자세히 보기"><img src="${htmlAttr(optimizedAssetUrl(post.imageUrl))}" alt="${htmlAttr(post.title)}" loading="eager" decoding="async" onerror="this.onerror=null;this.src='${htmlAttr(scheduleFallbackImage(post))}'"><span><strong>${htmlAttr(post.title)}</strong><span>${htmlAttr(post.category || "소식")}</span></span></button>`).join("");
+      return `<section class="schedule-dashboard-hero">
+        <button class="schedule-dashboard-hero-media" type="button" data-schedule-open="${htmlAttr(featured.id)}" aria-label="${htmlAttr(featured.title)} 자세히 보기">
+          <img src="${htmlAttr(optimizedAssetUrl(featured.imageUrl))}" alt="${htmlAttr(featured.title)}" loading="eager" fetchpriority="high" decoding="async" onerror="this.onerror=null;this.src='${htmlAttr(scheduleFallbackImage(featured))}'">
+          <div class="schedule-dashboard-hero-copy"><span class="schedule-dashboard-kicker">CLOVER NOW</span><h2>${htmlAttr(featured.title)}</h2><p>${htmlAttr(featured.content || "")}</p></div>
+        </button>
+        <aside class="schedule-dashboard-side">
+          <div class="schedule-dashboard-stat-grid">
+            <div class="schedule-dashboard-stat"><b>${stats.field}</b><span>현장</span></div>
+            <div class="schedule-dashboard-stat"><b>${stats.proof}</b><span>근황</span></div>
+            <div class="schedule-dashboard-stat"><b>${stats.column}</b><span>칼럼</span></div>
+          </div>
+          <div class="schedule-dashboard-mini">${miniHtml}</div>
+        </aside>
+      </section>`;
+    }
+
+    function scheduleDashboardSectionHtml(title, description, posts, bodyHtml, compact = false) {
+      return `<section class="schedule-dashboard-section"><div class="schedule-dashboard-section-head"><h2 class="schedule-section-title">${scheduleSectionTitleHtml(title, true)}</h2><p>${htmlAttr(description)}</p></div><div class="${compact ? "schedule-dashboard-grid is-compact" : "schedule-dashboard-grid"}">${bodyHtml || posts.map((post) => schedulePostCard(post)).join("")}</div></section>`;
     }
     function renderScheduleDetail(post) {
       const target = document.querySelector("[data-schedule-detail]");
@@ -13819,7 +13833,14 @@ const groups = [
         return realExtra[i].length ? realExtra[i] : placeholderExtra[i];
       });
 
-      scheduleFeed.innerHTML = `<section class="schedule-post-strip"><h2 class="schedule-section-title">${scheduleSectionTitleHtml("현장", !!realRegular.length)}</h2><div class="schedule-image-row" data-schedule-headline-row="regular">${regular.length ? regular.map((post) => scheduleImageCardHtml(post)).join("") : `<div class="schedule-feed-empty">등록된 일반 일정 소식이 없습니다.</div>`}</div></section>${extraStripCategories.map((category, i) => scheduleHeadlineStripHtml(category, extraStripPosts[i], `extra-${i}`, category === "칼럼" ? true : !!realExtra[i].length)).join("")}`;
+      const fieldPosts = regular.length ? regular : placeholderRegular;
+      const proofPosts = extraStripPosts[0] || [];
+      const columnPosts = extraStripPosts[1] || [];
+      const featured = fieldPosts[0] || proofPosts[0] || columnPosts[0];
+      const miniPosts = [...fieldPosts.slice(1, 3), ...proofPosts.slice(0, 1), ...columnPosts.slice(0, 1)].filter(Boolean);
+      const stats = { field: fieldPosts.length, proof: proofPosts.length, column: columnPosts.length };
+      const fieldGrid = fieldPosts.length ? fieldPosts.slice(0, 6).map((post) => scheduleImageCardHtml(post)).join("") : `<div class="schedule-feed-empty">등록된 현장 소식이 없습니다.</div>`;
+      scheduleFeed.innerHTML = `<div class="schedule-dashboard">${scheduleDashboardHeroHtml(featured, miniPosts, stats)}<section class="schedule-dashboard-section"><div class="schedule-dashboard-section-head"><h2 class="schedule-section-title">${scheduleSectionTitleHtml("현장", !!realRegular.length)}</h2><p>장소 분위기를 한눈에 볼 수 있게 크게 정리했습니다.</p></div><div class="schedule-dashboard-field-grid">${fieldGrid}</div></section>${scheduleDashboardSectionHtml("클로버 근황", "실제 후기는 카드로 차분하게 확인합니다.", proofPosts.slice(0, 6), "", true)}${scheduleDashboardSectionHtml("칼럼", "소개팅 전 읽기 좋은 짧은 글을 모았습니다.", columnPosts.slice(0, 6), "", false)}</div>`;
       requestAnimationFrame(refreshScheduleHeadlineControls);
     }
     function readScheduleCache() {
