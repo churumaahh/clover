@@ -3674,6 +3674,11 @@
       font-weight: 950;
     }
 
+    :root[data-theme="dark"] .age-option-seat {
+      color: #00f040;
+      background: rgba(0, 240, 64, 0.14);
+    }
+
     .capacity-info-block.is-muted .confirmed-schedule-list {
       color: var(--muted);
     }
@@ -5052,6 +5057,7 @@
     :root[data-theme="dark"] .board-post-category {
       border-color: rgba(255, 255, 255, 0.14);
       color: #e6e6e6;
+      background: #3a3a3a;
     }
 
     .board-post-time {
@@ -8466,8 +8472,39 @@
     }
 
 
+    /* "잠금 레이어": 흑백 필터 + 반투명 오버레이 + 자물쇠 아이콘 + "준비 중" 문구 + 참여 버튼 비활성화.
+       "잠금 레이어 풀어"라고 하면: is-theme-disabled 클래스 제거(흑백/오버레이 해제) + join-btn의 is-disabled/disabled 속성 제거(참여 버튼 활성화). */
     .event-card.is-theme-disabled .event-thumb {
       cursor: default;
+      position: relative;
+      filter: grayscale(1);
+    }
+
+    .event-thumb-lock-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      background: rgba(60, 62, 68, 0.55);
+      backdrop-filter: blur(1px);
+      color: #fff;
+      pointer-events: none;
+    }
+
+    .event-thumb-lock-overlay svg {
+      width: 1.8rem;
+      height: 1.8rem;
+      stroke: #fff;
+    }
+
+    .event-thumb-lock-overlay span {
+      font-size: 0.82rem;
+      font-weight: 900;
+      letter-spacing: -0.01em;
     }
 
     .join-btn.is-disabled,
@@ -9528,6 +9565,7 @@
       const locationName = "부산";
       const thumbImage = eventImageStack(event);
       const thumbVideo = eventVideoMarkup(event, "event-media");
+      // isThemeEvent가 true면 "잠금 레이어" 적용(흑백 사진 + 반투명 오버레이 + 자물쇠 아이콘 + "준비 중" + 참여 버튼 비활성화).
       const isThemeEvent = event.station === "테마";
       const badgeHtml = isThemeEvent ? `${iconStamp}<b>인증</b>` : "";
       const thumbActionAttrs = isThemeEvent ? `aria-label="${event.title}"` : `role="button" tabindex="0" data-join-index="${index}" aria-label="${event.title} 참여 선택"`;
@@ -9541,6 +9579,7 @@
             <div class="event-thumb" style="--thumb-image: ${thumbImage}" ${thumbActionAttrs}>
               ${thumbVideo}
               ${badgeHtml ? `<span class="event-location-badge">${badgeHtml}</span>` : ""}
+              ${isThemeEvent ? `<div class="event-thumb-lock-overlay"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>준비 중</span></div>` : ""}
             </div>
             <div class="event-body">
               <div>
