@@ -2881,11 +2881,11 @@
       min-height: 2.1rem;
       margin: 0.5rem 0 0;
       padding: 0 .72rem 0 .58rem;
-      border: 1px solid rgba(0, 240, 64, .52);
-      border-radius: .72rem;
-      background: linear-gradient(135deg, #ffffff 0%, #eef3f1 100%);
-      color: #111827;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 .45rem 1rem rgba(15, 23, 42, .12);
+      border: 0;
+      border-radius: .9rem;
+      background: #eef1f5;
+      color: #121218;
+      box-shadow: 0.4rem 0.4rem 0.85rem rgba(148, 163, 184, 0.28), -0.3rem -0.3rem 0.75rem rgba(255, 255, 255, 0.9);
       font-size: .8rem;
       font-weight: 950;
       line-height: 1;
@@ -2906,12 +2906,11 @@
       flex: 0 0 auto;
     }
 
-
-    .apply-same-as-profile-btn:hover {
-      border-color: rgba(0, 240, 64, .72);
-      background: linear-gradient(135deg, #ffffff 0%, #f4faf7 100%);
-      color: #111827;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .95), 0 .5rem 1.05rem rgba(15, 23, 42, .14);
+    .apply-same-as-profile-btn:hover,
+    .apply-same-as-profile-btn.is-applied {
+      color: #00c934;
+      background: #eef1f5;
+      box-shadow: inset 0.32rem 0.32rem 0.68rem rgba(148, 163, 184, 0.28), inset -0.32rem -0.32rem 0.68rem rgba(255, 255, 255, 0.88);
     }
 
     .apply-same-as-profile-btn.is-applied::before {
@@ -2925,10 +2924,16 @@
     }
 
     :root[data-theme="dark"] .apply-same-as-profile-btn {
-      border-color: rgba(0, 240, 64, .34);
-      background: linear-gradient(135deg, #111827 0%, #020617 100%);
-      color: var(--ink);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 .45rem 1rem rgba(0, 0, 0, .24);
+      color: #f1f1f1;
+      background: #232323;
+      box-shadow: 0.4rem 0.4rem 0.85rem rgba(0, 0, 0, 0.45), -0.3rem -0.3rem 0.75rem rgba(255, 255, 255, 0.04);
+    }
+
+    :root[data-theme="dark"] .apply-same-as-profile-btn:hover,
+    :root[data-theme="dark"] .apply-same-as-profile-btn.is-applied {
+      color: #00c934;
+      background: #232323;
+      box-shadow: inset 0.32rem 0.32rem 0.68rem rgba(0, 0, 0, 0.45), inset -0.32rem -0.32rem 0.68rem rgba(255, 255, 255, 0.05);
     }
 
     .schedule-section {
@@ -3563,9 +3568,16 @@
     }
 
     .selection-complete-btn:not([disabled]) {
-      color: #07150b;
-      background: #0f2;
-      box-shadow: 0 0.55rem 1.2rem rgba(0, 255, 34, 0.18);
+      color: #121218;
+      background: #eef1f5;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(148, 163, 184, 0.28), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9);
+    }
+
+    .selection-complete-btn:not([disabled]):hover,
+    .selection-complete-btn:not([disabled]):active {
+      color: #00c934;
+      background: #eef1f5;
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(148, 163, 184, 0.28), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.88);
     }
 
     .selection-complete-btn[disabled] {
@@ -3575,14 +3587,23 @@
       box-shadow: none;
     }
 
-    :root[data-theme="dark"] .selection-complete-btn {
-      color: #6b6b6b;
-      background: #232323;
-    }
-
     :root[data-theme="dark"] .selection-complete-btn[disabled] {
       color: #6b6b6b;
       background: #232323;
+      box-shadow: none;
+    }
+
+    :root[data-theme="dark"] .selection-complete-btn:not([disabled]) {
+      color: #f1f1f1;
+      background: #232323;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(0, 0, 0, 0.45), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.04);
+    }
+
+    :root[data-theme="dark"] .selection-complete-btn:not([disabled]):hover,
+    :root[data-theme="dark"] .selection-complete-btn:not([disabled]):active {
+      color: #00c934;
+      background: #232323;
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(0, 0, 0, 0.45), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.05);
     }
     .form-section {
       display: grid;
@@ -3862,17 +3883,44 @@
       justify-content: center;
       margin-top: 20px;
       border-radius: 999px;
-      color: #06120a;
-      background: #f1f5f9;
+      color: #121218;
+      background: #eef1f5;
       font-size: 0.82rem;
       font-weight: 950;
-      box-shadow: 0 0.55rem 1rem rgba(0, 255, 64, 0.18);
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(148, 163, 184, 0.28), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9);
+    }
+
+    .form-submit-btn:not([disabled]):hover,
+    .form-submit-btn:not([disabled]):active {
+      color: #00c934;
+      background: #eef1f5;
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(148, 163, 184, 0.28), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.88);
+    }
+
+    .form-submit-btn[disabled] {
+      cursor: not-allowed;
+      color: #9ca3af;
+      background: #eef2f7;
+      box-shadow: none;
     }
 
     :root[data-theme="dark"] .form-submit-btn {
       color: #f1f1f1;
       background: #232323;
-      box-shadow: 0 0.55rem 1rem rgba(0, 240, 64, 0.22);
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(0, 0, 0, 0.45), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.04);
+    }
+
+    :root[data-theme="dark"] .form-submit-btn:not([disabled]):hover,
+    :root[data-theme="dark"] .form-submit-btn:not([disabled]):active {
+      color: #00c934;
+      background: #232323;
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(0, 0, 0, 0.45), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.05);
+    }
+
+    :root[data-theme="dark"] .form-submit-btn[disabled] {
+      color: #6b6b6b;
+      background: #232323;
+      box-shadow: none;
     }
 
     :root[data-theme="dark"] .form-submit-btn.is-loading::before {
@@ -4460,7 +4508,7 @@
     .naver-map {
       position: relative;
       min-height: 14rem;
-      overflow: visible;
+      overflow: hidden;
       border: 1px solid var(--line);
       border-radius: 0.9rem;
       background: var(--tint-blue);
@@ -4470,6 +4518,7 @@
       width: 100%;
       height: 14rem;
       display: block;
+      border-radius: inherit;
       background: var(--tint-blue);
     }
 
@@ -4483,6 +4532,7 @@
       font-size: 0.85rem;
       font-weight: 850;
       text-align: center;
+      border-radius: inherit;
       background: var(--tint-blue);
     }
 
@@ -5502,17 +5552,53 @@
       line-height: 1.45;
     }
 
+    .counsel-page-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      padding: 0 0.25rem;
+      margin: 0 0 1rem;
+    }
+
+    .counsel-page-head .page-title {
+      margin: 0;
+      padding: 0;
+    }
+
     .counsel-write-btn {
       flex: 0 0 auto;
-      min-height: 2.15rem;
-      padding: 0.42rem 0.78rem;
-      border: 1px solid rgba(0, 216, 56, .45);
-      border-radius: 999px;
-      background: #ffffff;
-      color: #00a832;
-      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      position: relative;
+      top: 5px;
+      min-height: 2.4rem;
+      padding: 0.5rem 1.05rem;
+      border: 0;
+      border-radius: 0.9rem;
+      background: #eef1f5;
+      color: #121218;
+      font-size: 0.88rem;
       font-weight: 950;
-      box-shadow: 0 .18rem .55rem rgba(15, 23, 42, .08);
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(148, 163, 184, 0.28), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9);
+    }
+
+    .counsel-write-btn:hover {
+      color: #00c934;
+      background: #eef1f5;
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(148, 163, 184, 0.28), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.88);
+    }
+
+    :root[data-theme="dark"] .counsel-write-btn {
+      background: #232323;
+      color: #f1f1f1;
+      box-shadow: 0.42rem 0.42rem 0.9rem rgba(0, 0, 0, 0.45), -0.32rem -0.32rem 0.82rem rgba(255, 255, 255, 0.04);
+    }
+
+    :root[data-theme="dark"] .counsel-write-btn:hover {
+      background: #232323;
+      color: #00f040;
+      box-shadow: inset 0.28rem 0.28rem 0.62rem rgba(0, 0, 0, 0.45), inset -0.28rem -0.28rem 0.62rem rgba(255, 255, 255, 0.05);
     }
 
     .counsel-write-btn::before {
@@ -5520,13 +5606,13 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: .9rem;
-      height: .9rem;
-      margin-right: .28rem;
+      width: 1.05rem;
+      height: 1.05rem;
+      margin-right: .32rem;
       border-radius: 50%;
-      background: #f1f5f9;
-      color: #06120a;
-      font-size: .76rem;
+      background: rgba(148, 163, 184, .18);
+      color: inherit;
+      font-size: .82rem;
       line-height: 1;
       font-weight: 950;
       vertical-align: middle;
@@ -5616,7 +5702,7 @@
     }
 
     .counsel-top3 {
-      margin-top: 0.9rem;
+      margin-top: 0;
     }
 
     .counsel-top3-title {
@@ -5624,7 +5710,7 @@
     }
 
     .counsel-live-title {
-      margin: 1.1rem 0 0.55rem;
+      margin: 0 0 0.55rem;
     }
 
     .counsel-top3-list {
@@ -6238,6 +6324,47 @@
       color: #b9bec8;
       background: var(--tint-neutral);
       cursor: default;
+    }
+
+    #page-counsel .board-page-button {
+      border: 0;
+      border-radius: 0.9rem;
+      color: #121218;
+      background: #eef1f5;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(148, 163, 184, 0.28), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9);
+    }
+
+    #page-counsel .board-page-button:hover {
+      color: #00c934;
+      background: #eef1f5;
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(148, 163, 184, 0.28), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.88);
+    }
+
+    #page-counsel .board-page-button:disabled,
+    #page-counsel .board-page-button:disabled:hover {
+      color: #9ca3af;
+      background: #eef1f5;
+      box-shadow: 0.28rem 0.28rem 0.65rem rgba(148, 163, 184, 0.16), -0.22rem -0.22rem 0.6rem rgba(255, 255, 255, 0.82);
+    }
+
+    :root[data-theme="dark"] #page-counsel .board-page-button {
+      background: #232323;
+      color: #f1f1f1;
+      box-shadow: 0.42rem 0.42rem 0.9rem rgba(0, 0, 0, 0.45), -0.32rem -0.32rem 0.82rem rgba(255, 255, 255, 0.04);
+    }
+
+    :root[data-theme="dark"] #page-counsel .board-page-button:hover {
+      background: #232323;
+      color: #00f040;
+      box-shadow: inset 0.28rem 0.28rem 0.62rem rgba(0, 0, 0, 0.45), inset -0.28rem -0.28rem 0.62rem rgba(255, 255, 255, 0.05);
+    }
+
+    :root[data-theme="dark"] #page-counsel .board-page-button:disabled,
+    :root[data-theme="dark"] #page-counsel .board-page-button:disabled:hover {
+      background: #232323;
+      color: #5a5a5a;
+      box-shadow: 0.42rem 0.42rem 0.9rem rgba(0, 0, 0, 0.45), -0.32rem -0.32rem 0.82rem rgba(255, 255, 255, 0.04);
+      opacity: 0.55;
     }
 
     .board-page-status {
@@ -7908,8 +8035,21 @@
       background: #f8fafc !important;
       color: #9ca3af !important;
       box-shadow: 0.42rem 0.42rem 0.9rem rgba(148, 163, 184, 0.16), -0.32rem -0.32rem 0.82rem rgba(255, 255, 255, 0.9) !important;
+      opacity: 0.55 !important;
+      pointer-events: none !important;
     }
-  
+
+    :root[data-theme="dark"] .schedule-info-calendar-btn[disabled],
+    :root[data-theme="dark"] .schedule-info-calendar-btn[aria-disabled="true"],
+    :root[data-theme="dark"] .schedule-info-calendar-btn[disabled]:hover,
+    :root[data-theme="dark"] .schedule-info-calendar-btn[aria-disabled="true"]:hover {
+      background: #232323 !important;
+      color: #5a5a5a !important;
+      box-shadow: 0.42rem 0.42rem 0.9rem rgba(0, 0, 0, 0.45), -0.32rem -0.32rem 0.82rem rgba(255, 255, 255, 0.04) !important;
+      opacity: 0.55 !important;
+      pointer-events: none !important;
+    }
+
     /* Center calendar nav arrow glyphs */
     .schedule-info-calendar-btn {
       display: inline-flex !important;
@@ -8371,12 +8511,14 @@
         <button class="section-tab is-active" type="button" data-page-link="counsel" onclick="window.goPage(event, 'counsel')">연애 상담</button>
       </nav>
       <main class="location-page counsel-page-main">
-        <h1 class="page-title"><svg class="page-title-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 9h8M8 13h5"/></svg>연애 상담</h1>
+        <div class="counsel-page-head">
+          <h1 class="page-title"><svg class="page-title-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 9h8M8 13h5"/></svg>연애 상담</h1>
+          <button class="counsel-write-btn" type="button" data-counsel-write>글쓰기</button>
+        </div>
         <section class="counsel-top3" data-counsel-top3 hidden></section>
         <section class="counsel-live-section">
           <div class="counsel-live-head">
             <h2 class="schedule-section-title counsel-live-title"><span class="section-title-dot" aria-hidden="true"></span>실시간 연애 상담</h2>
-            <button class="counsel-write-btn" type="button" data-counsel-write>글쓰기</button>
           </div>
           <div class="counsel-list" data-counsel-list></div>
           <nav class="board-pagination" data-counsel-pagination aria-label="연애 상담 페이지 이동" hidden></nav>
@@ -9394,7 +9536,7 @@
             </div>
           </section>
 
-          <button class="form-submit-btn" type="button">신청하기</button>
+          <button class="form-submit-btn" type="button" disabled>신청하기</button>
 
           <div class="agree-row">
             <label onclick="return false"><input type="checkbox" checked tabindex="-1" aria-disabled="true"> [필수] 환불 및 취소 규정 확인 및 동의</label>
@@ -9421,6 +9563,7 @@
           </ul>
         </section>
       `;
+      updateFormSubmitButton();
     }
 
     const pages = document.querySelectorAll("[data-page]");
@@ -9738,10 +9881,12 @@
         if (sameAsProfileBtn.classList.contains("is-applied")) {
           clearSameAsProfile();
           sameAsProfileBtn.classList.remove("is-applied");
+          updateFormSubmitButton();
           return;
         }
         applySameAsProfile().then((applied) => {
           if (applied) sameAsProfileBtn.classList.add("is-applied");
+          updateFormSubmitButton();
         });
         return;
       }
@@ -13918,6 +14063,25 @@ const groups = [
       };
     }
 
+    function isApplicationFormReady() {
+      const required = ["#applyName", "#applyPhone", "#applyBirth", "#applyHeight", "#applyWeight", "#applyArea"];
+      if (required.some((selector) => !inputValue(selector))) return false;
+      const phoneInput = document.querySelector("#applyPhone");
+      const birthInput = document.querySelector("#applyBirth");
+      if (!phoneInput || !birthInput) return false;
+      if (phoneInput.value.length !== 13) return false;
+      if (birthInput.value.length !== 10) return false;
+      const totalPhotoCount = selectedExistingPhotoUrls.length + selectedPhotoFiles.length;
+      if (totalPhotoCount < 3 || totalPhotoCount > 5) return false;
+      return true;
+    }
+
+    function updateFormSubmitButton() {
+      const button = document.querySelector(".application-form .form-submit-btn");
+      if (!button || button.classList.contains("is-loading")) return;
+      button.disabled = !isApplicationFormReady();
+    }
+
     async function submitApplication(button) {
       if (!selectedScheduleDate) {
         alert("참여 일정은 이전 단계에서 선택해 주세요.");
@@ -14365,6 +14529,7 @@ const groups = [
         selectedPhotoFiles = selectedPhotoFiles.filter(({ id }) => id !== fileId);
         if (profilePhotoUrl) selectedExistingPhotoUrls = selectedExistingPhotoUrls.filter((url) => url !== profilePhotoUrl);
         thumb?.remove();
+        updateFormSubmitButton();
         return;
       }
 
@@ -14406,18 +14571,22 @@ const groups = [
       if (target.id === "applyPhone" || target.id === "infoPhone") {
         target.value = formatPhone(target.value);
         target.classList.remove("is-invalid");
+        if (target.closest(".application-form")) updateFormSubmitButton();
         return;
       }
 
       if (target.id === "applyBirth" || target.id === "infoBirth") {
         target.value = formatBirth(target.value);
         target.classList.remove("is-invalid");
+        if (target.closest(".application-form")) updateFormSubmitButton();
         return;
       }
 
       if (["applyHeight", "applyWeight", "infoHeight", "infoWeight"].includes(target.id)) {
         target.value = onlyDigits(target.value, 3);
       }
+
+      if (target.closest(".application-form")) updateFormSubmitButton();
     });
 
     document.addEventListener("change", (event) => {
@@ -14428,6 +14597,7 @@ const groups = [
       }
       if (target instanceof HTMLInputElement && target.matches("[data-file-input]")) {
         renderSelectedFiles(target);
+        updateFormSubmitButton();
       }
     });
 
