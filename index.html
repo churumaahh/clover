@@ -4211,7 +4211,7 @@
       border-radius: 50%;
       color: #07150b;
       background: #00ff40;
-      box-shadow: 0 0.6rem 1.2rem rgba(0, 216, 56, 0.26);
+      box-shadow: 0 0 0.7rem 0.12rem rgba(0, 255, 64, 0.18), 0 0.6rem 1.2rem rgba(0, 216, 56, 0.26);
       font-size: 0.62rem;
       font-weight: 950;
       line-height: 1.1;
@@ -5956,6 +5956,13 @@
       border-color: #dbe2ea;
       background: #fff;
       box-shadow: 0 0.25rem 0.65rem rgba(15, 23, 42, 0.06);
+    }
+
+    :root[data-theme="dark"] #page-mypage .mypage-edit-btn {
+      border-color: rgba(255, 255, 255, 0.14);
+      background: #2f2f2f;
+      color: #f1f1f1;
+      box-shadow: none;
     }
 
     #page-mypage .mypage-profile-fields {
@@ -8919,6 +8926,10 @@
         </section>
 
       </main>
+      <button class="home-contact-fab" type="button" onclick="window.goPage(event, 'board')" aria-label="1:1 문의하기">
+        <img src="assets/clover-logo-v2.png" alt="">
+        <span>1:1 채팅</span>
+      </button>
     </section>
 
     <section class="page" id="page-schedule-notice" data-page="schedule-notice">
