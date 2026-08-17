@@ -243,7 +243,7 @@
       display: flex;
       align-items: stretch;
       gap: 0.1rem;
-      padding: 0 1rem;
+      padding: 1.35rem 1rem;
       border-bottom: 1px solid var(--line);
       background: var(--paper);
     }
@@ -429,10 +429,43 @@
       transform: translateY(5px);
     }
 
+    .hero-fixed-copy {
+      position: absolute;
+      left: 1.25rem;
+      right: 1.25rem;
+      bottom: 1.25rem;
+      width: min(23rem, calc(100% - 2.5rem));
+      pointer-events: none;
+    }
+
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.34rem;
+      margin: 0 0 0.36rem;
+      color: #00ff40;
+      font-size: 0.72rem;
+      line-height: 1;
+      font-weight: 950;
+      letter-spacing: 0;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.42);
+    }
+
+    .hero-kicker::before {
+      content: "";
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 999px;
+      background: #00ff40;
+      box-shadow: 0 0 0 0.22rem rgba(0, 255, 64, 0.14);
+      flex: 0 0 auto;
+    }
+
     .hero h1 {
       margin: 0;
       color: #ffffff;
-      font-size: clamp(1.7rem, 6.2vw, 2rem);
+      font-size: clamp(1.34rem, 5vw, 1.58rem);
       line-height: 1.18;
       letter-spacing: 0;
       word-break: keep-all;
@@ -440,12 +473,12 @@
     }
 
     .hero p {
-      margin: 0.7rem 0 0;
+      margin: 0.56rem 0 0;
       color: rgba(255, 255, 255, 0.88);
-      font-size: 0.9rem;
-      line-height: 1.65;
+      font-size: 0.78rem;
+      line-height: 1.5;
       word-break: keep-all;
-      transform: translateY(-8px);
+      transform: translateY(-6px);
     }
 
     .hero-cta {
@@ -459,7 +492,7 @@
       color: var(--ink);
       background: var(--surface);
       font-weight: 900;
-      font-size: 0.92rem;
+      font-size: 1.02rem;
       box-shadow: 0 0.75rem 1.6rem rgba(0, 0, 0, 0.25);
     }
 
@@ -893,7 +926,7 @@
     }
 
     .match-result-tags .composition-gender-badge.is-female {
-      transform: translateY(0.1px);
+      transform: translateY(0.4px);
     }
 
     .match-result-tags .composition-gender-badge.is-male {
@@ -2428,6 +2461,87 @@
       white-space: nowrap;
     }
 
+    .join-btn-close-style {
+      min-width: 5.6rem;
+      min-height: 2.2rem;
+      width: auto;
+      height: auto;
+      padding: 0 1rem;
+      border-radius: 0.7rem;
+      color: #121218;
+      background: #eef1f5;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(148, 163, 184, 0.28), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9);
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .join-btn-close-style:active {
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(148, 163, 184, 0.28), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.88);
+    }
+
+    :root[data-theme="dark"] .join-btn-close-style {
+      color: #f1f1f1;
+      background: #232323;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(0, 0, 0, 0.45), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.04);
+    }
+
+    :root[data-theme="dark"] .join-btn-close-style:active {
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(0, 0, 0, 0.45), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.05);
+    }
+
+    .join-btn-banner-style {
+      min-width: 5.6rem;
+      min-height: 2.2rem;
+      padding: 0 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.24);
+      border-radius: 12px;
+      color: #07150b;
+      background: linear-gradient(180deg, #ffffff 0%, #eef1f5 100%);
+      box-shadow: 0 0.45rem 0.8rem rgba(15, 23, 42, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(148, 163, 184, 0.18);
+      font-weight: 950;
+    }
+
+    .join-btn-banner-style:active {
+      transform: translateY(1px);
+      box-shadow: inset 0.42rem 0.42rem 0.9rem rgba(15, 23, 42, 0.16), inset -1px -1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    :root[data-theme="dark"] .join-btn-banner-style:active {
+      box-shadow: inset 0.42rem 0.42rem 0.9rem rgba(0, 0, 0, 0.45), inset -1px -1px 0 rgba(255, 255, 255, 0.035);
+    }
+
+    :root[data-theme="dark"] .join-btn-banner-style {
+      border-color: rgba(255, 255, 255, 0.035);
+      color: #ffffff;
+      background: linear-gradient(180deg, #282828 0%, #1e1e1e 100%);
+      box-shadow: 0 0.45rem 0.8rem rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(0, 0, 0, 0.36);
+    }
+
+    .event-body-menu-black,
+    .event-body-pure-black {
+      border-radius: 0 0 10px 10px;
+    }
+
+    .event-body-menu-black {
+      background: #1e1e1e;
+      color: #f1f1f1;
+    }
+
+    .event-body-menu-black .event-meta,
+    .event-body-menu-black .event-foot {
+      color: #b7bcc4;
+    }
+
+    .event-body-pure-black {
+      background: #1e1e1e;
+      color: #ffffff;
+    }
+
+    .event-body-pure-black .event-meta,
+    .event-body-pure-black .event-foot {
+      color: #b7bcc4;
+    }
+
     .gender-modal {
       position: fixed;
       inset: 0;
@@ -2922,7 +3036,7 @@
     }
 
     .gender-ticket-cutout {
-      width: min(100%, 28rem);
+      width: 100%;
       height: auto;
       display: block;
       margin: 0 auto 0.55rem;
@@ -5930,8 +6044,8 @@
       gap: 0.28rem;
       min-width: 0;
       color: var(--muted);
-      font-size: 0.82rem;
-      font-weight: 850;
+      font-size: 1.02rem;
+      font-weight: 950;
       text-decoration: none;
     }
 
@@ -7693,6 +7807,41 @@
       }
     }
 
+    .footer-login-banner {
+      width: 100%;
+      min-height: 6.8rem;
+      display: grid;
+      place-items: center;
+      margin: 0 0 0.9rem;
+      padding: 1.35rem 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.24);
+      border-radius: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #eef1f5 100%);
+      color: #07150b;
+      font-size: 1.02rem;
+      font-weight: 950;
+      letter-spacing: 0;
+      text-align: center;
+      box-shadow: 0 0.72rem 1.25rem rgba(15, 23, 42, 0.12), 0 0.22rem 0.35rem rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(148, 163, 184, 0.18);
+      cursor: pointer;
+    }
+
+    :root[data-theme="dark"] .footer-login-banner {
+      border-color: rgba(255, 255, 255, 0.035);
+      background: linear-gradient(180deg, #282828 0%, #1e1e1e 100%);
+      color: #ffffff;
+      box-shadow: 0 0.72rem 1.25rem rgba(0, 0, 0, 0.34), 0 0.22rem 0.35rem rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(0, 0, 0, 0.36);
+    }
+
+    .footer-login-banner:active {
+      transform: translateY(1px);
+      box-shadow: inset 0 0.42rem 0.9rem rgba(15, 23, 42, 0.16), inset 0 -1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    :root[data-theme="dark"] .footer-login-banner:active {
+      box-shadow: inset 0 0.42rem 0.9rem rgba(0, 0, 0, 0.45), inset 0 -1px 0 rgba(255, 255, 255, 0.035);
+    }
+
     .footer-notice {
       margin: 0 0 0.35rem;
       color: var(--muted);
@@ -8620,6 +8769,33 @@
       border-color: #00ff40 !important;
     }
 
+    .join-btn.join-btn-close-style {
+      background-color: #eef1f5 !important;
+      background: #eef1f5 !important;
+      color: #121218 !important;
+      border-color: transparent !important;
+    }
+
+    :root[data-theme="dark"] .join-btn.join-btn-close-style {
+      background-color: #232323 !important;
+      background: #232323 !important;
+      color: #f1f1f1 !important;
+    }
+
+    .join-btn.join-btn-banner-style {
+      background-color: #eef1f5 !important;
+      background: linear-gradient(180deg, #ffffff 0%, #eef1f5 100%) !important;
+      color: #07150b !important;
+      border-color: rgba(148, 163, 184, 0.24) !important;
+    }
+
+    :root[data-theme="dark"] .join-btn.join-btn-banner-style {
+      background-color: #1e1e1e !important;
+      background: linear-gradient(180deg, #282828 0%, #1e1e1e 100%) !important;
+      color: #ffffff !important;
+      border-color: rgba(255, 255, 255, 0.035) !important;
+    }
+
 
     .event-body {
       grid-template-columns: minmax(0, 1fr) auto;
@@ -8991,24 +9167,14 @@
 
     <section class="page is-active" id="page-home" data-page="home">
       <div class="hero" id="heroBanner" aria-label="주요 배너">
-        <article class="hero-slide is-active" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg')">
-          <div class="hero-content">
-            <h1>가입 X, 로그인 X</h1>
-            <p>로그인 없이 이용 가능합니다.</p>
-          </div>
-        </article>
-        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1784446244/kb6ybdlactigqtheezvm.jpg')">
-          <div class="hero-content">
-            <h1>너와 나</h1>
-            <p>6:6 로테이션 소개팅</p>
-          </div>
-        </article>
-        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg')">
-          <div class="hero-content">
-            <h1>사랑은 거창하지 않습니다</h1>
-            <p>하나의 연애 세포면 충분</p>
-          </div>
-        </article>
+        <article class="hero-slide is-active" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg')"></article>
+        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1784446244/kb6ybdlactigqtheezvm.jpg')"></article>
+        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg')"></article>
+        <div class="hero-content hero-fixed-copy">
+          <span class="hero-kicker">CLOVER NOW</span>
+          <h1>어느 날, 우연히, 슬며시</h1>
+          <p>반복되는 일상에 새로운 사람</p>
+        </div>
         <div class="hero-dots">
           <button class="hero-dot is-active" type="button" aria-label="1번째 배너 보기"></button>
           <button class="hero-dot" type="button" aria-label="2번째 배너 보기"></button>
@@ -9404,9 +9570,7 @@
 
     <div class="bottom-space"></div>
     <footer class="business-footer">
-      <section class="footer-partnership-banner" aria-label="제휴 문의 광고" role="button" tabindex="0" onclick="window.goPage(event, 'board')" onkeydown="if(event.key === 'Enter' || event.key === ' ') window.goPage(event, 'board')">
-        <img class="footer-partnership-image" src="assets/partnership-jazz-lounge-banner.png" alt="분위기 있는 공간 찾습니다. 프라이빗한 공간 제휴 기다립니다. 문의 하기" loading="lazy">
-      </section>
+      <button class="footer-login-banner" type="button" onclick="window.goPage(event, 'board')" aria-label="대관 문의 페이지로 이동">대관 문의</button>
       <p class="footer-notice">대표 000 · 사업자등록번호 000000 · 주소 000</p>
       <p class="footer-notice">본 콘텐츠의 저작권은 클로버에 있으며, 이를 무단으로 이용하는 경우 저작권법 등에 따라 법적 책임을 질 수 있습니다.</p>
       <p class="footer-copy"><strong>CLOVER</strong> Copyright © 2026 CLOVER. All Rights Reserved.</p>
@@ -9572,7 +9736,7 @@
       <button class="drawer-link" type="button" data-page-link="login" onclick="window.goPage(event, 'login')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg><span>로그인</span></button>
     </nav>
     <div class="drawer-shortcuts">
-      <button class="drawer-shortcut-label" type="button" onclick="window.goPage(event, 'board')">문의하기</button>
+      <button class="drawer-shortcut-label" type="button" onclick="window.goPage(event, 'board')">제휴·문의하기</button>
       <div class="drawer-social-links">
         <a class="drawer-social-link is-youtube" href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="유튜브 바로가기" title="유튜브">
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -9688,16 +9852,16 @@
       {
         id: "24a52166-2ce4-4107-992e-09bcf51b7a62",
         order: 1,
-        title: "가입 X, 로그인 X",
-        description: "로그인 없이 이용 가능합니다.",
+        title: "어느 날, 우연히, 슬며시",
+        description: "반복되는 일상에 새로운 사람",
         imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg",
         active: true
       },
       {
         id: "a05a3045-169a-4c71-9e37-b34fa045c7cb",
         order: 2,
-        title: "너와 나",
-        description: "6:6 로테이션 소개팅",
+        title: "어느 날, 우연히, 슬며시",
+        description: "반복되는 일상에 새로운 사람",
         imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/v1784446244/kb6ybdlactigqtheezvm.jpg",
         active: true
       },
@@ -9722,7 +9886,19 @@
       const thumbImage = eventImageStack(event);
       const thumbVideo = eventVideoMarkup(event, "event-media");
       const thumbActionAttrs = `role="button" tabindex="0" data-join-index="${index}" aria-label="${event.title} 참여 선택"`;
-      const joinButtonHtml = `<button class="join-btn" type="button" data-join-index="${index}">참여</button>`;
+      const isPublicServantWomanCard = event.title === "공무원 여성 선호";
+      const isStudyGroupCard = event.title === "함께 공부하는 모임";
+      const joinBtnClass = isPublicServantWomanCard
+        ? "join-btn join-btn-close-style"
+        : isStudyGroupCard
+        ? "join-btn join-btn-banner-style"
+        : "join-btn";
+      const joinButtonHtml = `<button class="${joinBtnClass}" type="button" data-join-index="${index}">참여</button>`;
+      const eventBodyClass = isPublicServantWomanCard
+        ? "event-body event-body-menu-black"
+        : isStudyGroupCard
+        ? "event-body event-body-pure-black"
+        : "event-body";
 
       return `
         <li>
@@ -9730,7 +9906,7 @@
             <div class="event-thumb" style="--thumb-image: ${thumbImage}" ${thumbActionAttrs}>
               ${thumbVideo}
             </div>
-            <div class="event-body">
+            <div class="${eventBodyClass}">
               <div>
                 <div class="event-title-row">
                   <h3 class="event-title"><span>[${dashboardText(event.station)}]</span> ${dashboardText(event.title)}</h3>
@@ -16013,8 +16189,8 @@ const groups = [
       const imageUrl = browserImageUrl(item.imageUrl || item.image || item.sourceImageUrl || item.originalImageUrl || item.imageSourceUrl);
       return {
         ...item,
-        title: dashboardText(String(item.title || "").replace(/가입\s*x,\s*로그인\s*x/i, "가입 X, 로그인 X").replace("가입, 로그인 X", "가입 X, 로그인 X")),
-        description: dashboardText(item.description || ""),
+        title: dashboardText(String(item.title || "").replace(/가입\s*x,\s*로그인\s*x/i, "어느 날, 우연히, 슬며시").replace("가입, 로그인 X", "어느 날, 우연히, 슬며시").replace("너와 나", "어느 날, 우연히, 슬며시")),
+        description: dashboardText(String(item.description || "").replace("로그인 없이 이용 가능합니다.", "").replace("6:6 로테이션 소개팅", "")),
         imageUrl: imageUrl,
         videoUrl: item.videoUrl || item.heroVideoUrl || item.video || ""
       };
@@ -16108,23 +16284,20 @@ const groups = [
           attachedVideo.preload = "metadata";
           slide.append(attachedVideo);
         }
-        if (item.title || item.description) {
-          const content = document.createElement("div");
-          content.className = "hero-content";
-          if (item.title) {
-            const title = document.createElement("h1");
-            title.textContent = dashboardText(String(item.title).replace(/가입\s*x,\s*로그인\s*x/i, "가입 X, 로그인 X").replace("가입, 로그인 X", "가입 X, 로그인 X"));
-            content.append(title);
-          }
-          if (item.description) {
-            const description = document.createElement("p");
-            description.textContent = dashboardText(item.description);
-            content.append(description);
-          }
-          slide.append(content);
-        }
         hero.append(slide);
       });
+
+      const fixedCopy = document.createElement("div");
+      fixedCopy.className = "hero-content hero-fixed-copy";
+      const fixedKicker = document.createElement("span");
+      fixedKicker.className = "hero-kicker";
+      fixedKicker.textContent = "CLOVER NOW";
+      const fixedTitle = document.createElement("h1");
+      fixedTitle.textContent = "어느 날, 우연히, 슬며시";
+      const fixedDescription = document.createElement("p");
+      fixedDescription.textContent = "반복되는 일상에 새로운 사람";
+      fixedCopy.append(fixedKicker, fixedTitle, fixedDescription);
+      hero.append(fixedCopy);
 
       const dots = document.createElement("div");
       dots.className = "hero-dots";
@@ -16247,6 +16420,16 @@ const groups = [
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
 
 
 
