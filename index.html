@@ -183,7 +183,7 @@
       place-items: center;
       border-radius: 0;
       color: var(--ink);
-      background: var(--accent);
+      background: #00ff40;
       clip-path: polygon(50% 3%, 95% 36%, 78% 91%, 22% 91%, 5% 36%);
       box-shadow: 0 0 0 0.125rem var(--accent);
       flex: 0 0 auto;
@@ -272,7 +272,7 @@
       bottom: 0;
       height: 0.2rem;
       border-radius: 999px 999px 0 0;
-      background: var(--accent);
+      background: #00ff40;
     }
 
     .page {
@@ -1212,7 +1212,7 @@
     }
 
     .schedule-status-card.is-result .schedule-status-category {
-      background: var(--accent);
+      background: #00ff40;
       color: #07150b;
     }
 
@@ -1622,6 +1622,7 @@
 
     .home-participation-calendar,
     .home-schedule-headlines,
+    .home-counsel-layer,
     #home-events {
       --home-title-inline-offset: .45rem;
       --home-title-layer-gap: .75rem;
@@ -1635,6 +1636,7 @@
 
     .home-participation-calendar .schedule-headline-head,
     .home-schedule-headlines .schedule-headline-head,
+    .home-counsel-layer .schedule-headline-head,
     #home-events .home-section-title {
       margin: 0 var(--home-title-inline-offset);
     }
@@ -1644,7 +1646,7 @@
       align-items: center;
       justify-content: space-between;
       gap: .75rem;
-      margin: 0 var(--home-title-inline-offset);
+      margin: 0 .05rem;
     }
 
     .home-events-head .home-section-title {
@@ -1878,6 +1880,7 @@
     .home-counsel-row {
       display: grid;
       overflow: visible;
+      margin: 0 var(--home-title-inline-offset);
       border: 1px solid var(--line);
       border-radius: .65rem;
       background: var(--surface);
@@ -2600,6 +2603,7 @@
       margin: 0;
       color: var(--muted);
       font-size: 0.82rem;
+      line-height: 1.2;
       font-weight: 700;
     }
 
@@ -2692,8 +2696,8 @@
     }
 
     .info-modal-main {
-      font-size: 0.82rem;
-      font-weight: 900;
+      font-size: 1rem;
+      font-weight: 950;
       line-height: 1.35;
     }
 
@@ -2835,6 +2839,25 @@
       padding: 0.9rem 1rem 0.7rem;
     }
 
+    .detail-main-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 0.75rem;
+      align-items: end;
+    }
+
+    .detail-main-copy {
+      min-width: 0;
+    }
+
+    .detail-apply-price {
+      color: #00d838;
+      font-size: 1rem;
+      font-weight: 950;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
     .detail-main .event-meta {
       margin-top: 0;
       margin-bottom: 0;
@@ -2885,45 +2908,82 @@
     }
 
     .gender-application-card {
+      position: relative;
       display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 0.35rem 0.8rem;
+      grid-template-columns: 1fr;
+      gap: 0.08rem;
       align-items: center;
+      min-height: 5.1rem;
       padding: 1rem;
-      border: 1px solid #8cff9f;
+      padding-right: 9rem;
+      border: 0;
       border-radius: var(--radius);
-      background: var(--surface);
+      background: #00ff40;
+    }
+
+    .gender-ticket-cutout {
+      width: min(100%, 28rem);
+      height: auto;
+      display: block;
+      margin: 0 auto 0.55rem;
+      object-fit: contain;
+      filter: drop-shadow(0 0.22rem 0.38rem rgba(0, 0, 0, 0.2));
+      pointer-events: none;
     }
 
     .gender-application-card .gender-label {
-      color: #00d838;
-      font-size: 1.05rem;
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      color: #06140a;
+      font-size: 1.2rem;
+      line-height: 1.05;
       font-weight: 950;
     }
 
     .gender-application-card strong {
-      grid-column: 2;
-      grid-row: 2;
-      align-self: end;
-      color: #00d838;
+      position: absolute;
+      right: 1rem;
+      bottom: 1rem;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.28rem;
+      color: #06140a;
       font-size: 1.2rem;
       font-weight: 950;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .gender-application-card .fee-label {
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0;
+      opacity: 0.78;
     }
 
     .gender-application-card p {
-      grid-column: 1;
-      grid-row: 2;
+      position: absolute;
+      left: 1rem;
+      bottom: calc(1rem - 1px);
       margin: 0;
-      color: var(--muted);
-      font-size: 0.82rem;
+      color: #06140a;
+      font-size: 0.68rem;
+      line-height: 1.2;
+      font-weight: 900;
+      letter-spacing: 0;
+      opacity: 0.78;
     }
 
     [data-detail-root][data-gender="여성"] .gender-application-card {
-      border-color: #8cff9f;
+      background: #00ff40;
     }
 
     [data-detail-root][data-gender="여성"] .gender-application-card .gender-label,
-    [data-detail-root][data-gender="여성"] .gender-application-card strong,
+    [data-detail-root][data-gender="여성"] .gender-application-card strong {
+      color: #06140a;
+    }
+
     [data-detail-root][data-gender="여성"] .detail-title span {
       color: #00d838;
     }
@@ -3804,7 +3864,7 @@
       width: 0.48rem;
       height: 0.48rem;
       border-radius: 999px;
-      background: var(--accent);
+      background: #00ff40;
       box-shadow: 0 0 0 0.18rem rgba(0, 216, 56, 0.12);
       flex: 0 0 auto;
     }
@@ -4249,7 +4309,7 @@
 
     .primary-apply-btn {
       color: var(--ink);
-      background: var(--accent);
+      background: #00ff40;
       box-shadow: 0 0.55rem 1rem rgba(29, 140, 255, 0.28);
     }
 
@@ -6907,6 +6967,7 @@
       margin: 0;
       color: var(--muted);
       font-size: 0.82rem;
+      line-height: 1.2;
       font-weight: 700;
     }
 
@@ -7704,15 +7765,15 @@
         justify-content: center;
       }
     }
-    .schedule-feed { display: grid; gap: 1.85rem; }
+    .schedule-feed { display: grid; gap: 1.35rem; }
     .schedule-feed > .schedule-headline-strip,
     .schedule-feed > .schedule-post-strip { padding-top: .15rem; }
     .schedule-feed > .schedule-headline-strip + .schedule-headline-strip,
     .schedule-feed > .schedule-post-strip + .schedule-headline-strip,
-    .schedule-feed > .schedule-headline-strip + .schedule-post-strip { padding-top: .85rem; }
+    .schedule-feed > .schedule-headline-strip + .schedule-post-strip { padding-top: .25rem; }
     .schedule-feed-empty, .schedule-feed-loading { padding: 2rem 1rem; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: #667085; text-align: center; font-weight: 700; }
-    .schedule-headline-strip { display: grid; gap: .65rem; }
-    .schedule-post-strip { display: grid; gap: .65rem; }
+    .schedule-headline-strip { display: grid; gap: .58rem; }
+    .schedule-post-strip { display: grid; gap: .58rem; }
     .schedule-section-title { margin: 0; font-size: 1.05rem; font-weight: 950; letter-spacing: -.03em; display: inline-flex; align-items: center; gap: .56rem; }
     .schedule-feed .schedule-section-title { font-size: 1.2rem; gap: .56rem; margin-left: .05rem; }
     .home-section-title { display: inline-flex; align-items: center; gap: .56rem; }
@@ -7727,7 +7788,7 @@
       box-shadow: 0 0 0 0.22rem rgba(0, 240, 64, 0.12);
       flex: 0 0 auto;
       vertical-align: middle;
-      margin-right: 0.5rem;
+      margin-right: 0;
     }
     .schedule-headline-scroller { position: relative; overflow: hidden; }
     .schedule-headline-row { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(15rem, 78%); gap: .75rem; overflow-x: auto; padding: .1rem .05rem .12rem; scrollbar-width: none; scroll-behavior: smooth; cursor: grab; touch-action: pan-y; overscroll-behavior-inline: contain; -webkit-overflow-scrolling: touch; }
@@ -7773,7 +7834,7 @@
     .schedule-post-meta button.is-liked { border-color: var(--line); color: var(--ink); background: var(--surface); }
     .schedule-post-card:not(.is-headline) .schedule-post-meta { gap: .18rem; margin-top: .44rem; font-size: .55rem; }
     .schedule-post-card:not(.is-headline) .schedule-post-body { min-height: 0; }
-    .schedule-image-row { display: flex; align-items: start; gap: .6rem; overflow-x: auto; scrollbar-width: none; padding: .1rem .05rem .12rem; cursor: grab; touch-action: pan-y; overscroll-behavior-inline: contain; -webkit-overflow-scrolling: touch; }
+    .schedule-image-row { display: flex; align-items: start; gap: .75rem; overflow-x: auto; scrollbar-width: none; padding: .1rem .05rem .12rem; cursor: grab; touch-action: pan-y; overscroll-behavior-inline: contain; -webkit-overflow-scrolling: touch; }
     .schedule-image-row::-webkit-scrollbar { display: none; }
     .schedule-image-row.is-dragging { cursor: grabbing; scroll-behavior: auto; }
     .schedule-image-row.is-dragging * { user-select: none; }
@@ -7910,6 +7971,15 @@
       height: auto !important;
       min-height: 0 !important;
       padding: 0.75rem 1rem 0.85rem !important;
+    }
+
+    .detail-main-head {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+    }
+
+    .detail-apply-price {
+      font-size: 0.95rem;
     }
 
     .application-selection-page {
@@ -8916,7 +8986,7 @@
         align-items: center !important;
         column-gap: 0.45rem !important;
         row-gap: 0 !important;
-        margin: 0 var(--home-title-inline-offset) !important;
+        margin: 0 .05rem !important;
       }
 
       #home-events .home-events-head .home-section-title {
@@ -8944,6 +9014,8 @@
         border-radius: 0.62rem !important;
       }
     }
+
+
   </style>
 </head>
 <body>
@@ -9579,6 +9651,7 @@
 
   <script>
     const romanticFacelessEventImage = "assets/event-romance-faceless.png";
+    const EVENT_ACTIVE_OVERRIDE_KEY = "cloverAdminEventActiveOverrides:v1";
     const eventCardPresets = Object.freeze([
       { station: "랜덤", title: "순차적으로 무작위 선정", target: "우연처럼 시작되는 설렘", image: "assets/event-random-destiny-new.png" },
       { station: "취향", title: "운동을 좋아하는 사람", target: "같이 땀 흘리고 건강하게 가까워지는 만남", image: "assets/event-taste-workout.png" },
@@ -9601,8 +9674,29 @@
       { station: "모임", title: "함께 공부하는 모임", target: "가벼운 스터디로 자연스럽게 가까워지는 모임", image: "assets/event-group-study-cafe.png" }
     ]);
 
-    function createEventFromPreset(preset) {
+    function eventPresetId(index) {
+      return `clover-default-event-${String(index + 1).padStart(2, "0")}`;
+    }
+
+    function readEventActiveOverrides() {
+      try { return JSON.parse(localStorage.getItem(EVENT_ACTIVE_OVERRIDE_KEY) || "{}"); } catch { return {}; }
+    }
+
+    function eventOverrideKeys(event) {
+      const keys = [];
+      if (event?.id) keys.push(String(event.id));
+      if (event?.station && event?.title) keys.push(`${event.station}::${event.title}`);
+      return keys;
+    }
+
+    function eventIsVisible(event) {
+      const overrides = readEventActiveOverrides();
+      return eventOverrideKeys(event).every((key) => overrides[key] !== false) && event.active !== false;
+    }
+
+    function createEventFromPreset(preset, index = 0) {
       return {
+        id: preset.id || eventPresetId(index),
         station: preset.station,
         title: preset.title,
         date: "상시 모집",
@@ -9622,7 +9716,7 @@
     }
 
     let eventsAreReal = true;
-    let events = eventCardPresets.map(createEventFromPreset);
+    let events = eventCardPresets.map(createEventFromPreset).filter(eventIsVisible);
     const DEFAULT_EVENT_IMAGES = Object.freeze(events.reduce((images, event) => {
       images[String(event.station || "")] = event.image || "";
       return images;
@@ -9633,7 +9727,7 @@
     const iconStamp = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="m8.5 12.2 2.2 2.2 4.8-5"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbwOkUM3C0qOLvEyoexGzahBWpHdEMHIyxWLnW4bLTzQROBV7N_tFtD3Ys2mzp6EO2la/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbw9EUZwk3sDWs-AXNQ-NOgG4tawn4O66ocM7cGVoe836nss02n_Ssib1ShMXFOXtnYe/exec";
     const HERO_CACHE_KEY = "clover-managed-hero-slides-v5";
     const HERO_FALLBACK_SLIDES = [
       {
@@ -9663,6 +9757,10 @@
     ];
     let selectedEvent = events[0];
 
+    function dashboardText(value) {
+      return String(value || "");
+    }
+
     function eventTemplate(event) {
       const index = events.indexOf(event);
       const locationName = "부산";
@@ -9687,10 +9785,10 @@
             <div class="event-body">
               <div>
                 <div class="event-title-row">
-                  <h3 class="event-title"><span>[${event.station}]</span> ${event.title}</h3>
+                  <h3 class="event-title"><span>[${dashboardText(event.station)}]</span> ${dashboardText(event.title)}</h3>
                 </div>
                 <div class="event-meta">
-                  <div class="meta-line">${iconPin}<span>${event.place}</span></div>
+                  <div class="meta-line">${iconPin}<span>${dashboardText(event.place)}</span></div>
                 </div>
               </div>
               <div class="event-foot">
@@ -10150,7 +10248,7 @@
       selectedExistingPhotoUrls = [];
       const applicationGender = selectedApplyGender || "";
       const applicationPrice = selectedApplyPrice || event.price;
-      const applicationAgeRange = selectedComposition === "6:6" ? (selectedAgeOption?.range || event.station) : "";
+      const applicationAgeRange = selectedAgeOption?.range || "";
       const applicationComposition = selectedComposition || "";
       const applicationTitleMeta = [applicationComposition && `[${applicationComposition}]`, applicationAgeRange && `[${applicationAgeRange}]`].filter(Boolean).join(" ");
       detailRoot.dataset.gender = applicationGender;
@@ -10171,7 +10269,7 @@
         ${applicationGender ? `
           <section class="gender-application-card">
             <span class="gender-label">${applicationGender} 신청</span>
-            <strong>${applicationPrice}</strong>
+            <strong><span class="fee-label">참가비</span>${applicationPrice}</strong>
             <p>${applicationGender} 참가자 전용 신청 페이지입니다.</p>
           </section>
         ` : ""}
@@ -11924,7 +12022,7 @@
       container.innerHTML = `
         <section class="home-counsel-strip">
           <div class="schedule-headline-head">
-            <h2 class="schedule-section-title"><img class="section-title-icon" src="assets/favicon.png" alt="" aria-hidden="true">익명 연애 상담</h2>
+            <h2 class="schedule-section-title"><span class="section-title-dot" aria-hidden="true"></span>연애 상담</h2>
             <button class="schedule-more-btn" type="button" onclick="window.goPage(event, 'counsel')">더보기</button>
           </div>
           ${latestPosts.length ? `<div class="home-counsel-row">${latestPosts.map((post, index) => homeCounselCardHtml(post, sortedPosts.length - index)).join("")}</div>` : `<p class="home-counsel-empty">등록된 상담 글이 없습니다.</p>`}
@@ -12414,7 +12512,7 @@
     async function applySameAsProfile() {
       const profile = readProfileInfoCache();
       if (!profile || !profile.registered) {
-        showInfoModal("저장된 정보가 없습니다.", "신청 후 자동으로 저장됩니다.");
+        showInfoModal("저장된 정보가 없습니다.", "로그인 이후 이용 가능합니다.");
         refreshProfileInfoCache();
         return false;
       }
@@ -13741,6 +13839,7 @@ const groups = [
 
     async function loadSchedulePosts() {
       if (!scheduleFeed) return;
+      if (!schedulePosts.length) renderSchedulePosts();
       const cachedPosts = readScheduleCache();
       if (cachedPosts.length && !schedulePosts.length) {
         schedulePosts = cachedPosts;
@@ -15966,7 +16065,8 @@ const groups = [
       const imageUrl = browserImageUrl(item.imageUrl || item.image || item.sourceImageUrl || item.originalImageUrl || item.imageSourceUrl);
       return {
         ...item,
-        title: String(item.title || "").replace(/가입\s*x,\s*로그인\s*x/i, "가입 X, 로그인 X").replace("가입, 로그인 X", "가입 X, 로그인 X"),
+        title: dashboardText(String(item.title || "").replace(/가입\s*x,\s*로그인\s*x/i, "가입 X, 로그인 X").replace("가입, 로그인 X", "가입 X, 로그인 X")),
+        description: dashboardText(item.description || ""),
         imageUrl: imageUrl,
         videoUrl: item.videoUrl || item.heroVideoUrl || item.video || ""
       };
@@ -16065,12 +16165,12 @@ const groups = [
           content.className = "hero-content";
           if (item.title) {
             const title = document.createElement("h1");
-            title.textContent = String(item.title).replace(/가입\s*x,\s*로그인\s*x/i, "가입 X, 로그인 X").replace("가입, 로그인 X", "가입 X, 로그인 X");
+            title.textContent = dashboardText(String(item.title).replace(/가입\s*x,\s*로그인\s*x/i, "가입 X, 로그인 X").replace("가입, 로그인 X", "가입 X, 로그인 X"));
             content.append(title);
           }
           if (item.description) {
             const description = document.createElement("p");
-            description.textContent = item.description;
+            description.textContent = dashboardText(item.description);
             content.append(description);
           }
           slide.append(content);
@@ -16107,7 +16207,7 @@ const groups = [
     }
     async function loadManagedEvents() {
       eventsAreReal = true;
-      events = eventCardPresets.map(createEventFromPreset);
+      events = eventCardPresets.map(createEventFromPreset).filter(eventIsVisible);
       selectedEvent = events[selectedEventIndex] || events[0];
       renderEventList();
       if (document.querySelector('[data-page="event-detail"]')?.classList.contains("is-active")) {
@@ -16184,13 +16284,41 @@ const groups = [
     }
 
     seedHeroSlides();
-    loadManagedHeroSlides();
     loadManagedEvents();
-    loadSchedulePosts();
-    if (currentPageName !== "counsel") loadCounselPosts();
+    renderSchedulePosts();
+    const runDeferredStartup = () => {
+      loadManagedHeroSlides();
+      loadSchedulePosts();
+      if (currentPageName !== "counsel") loadCounselPosts();
+    };
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(runDeferredStartup, { timeout: 1200 });
+    } else {
+      requestAnimationFrame(() => window.setTimeout(runDeferredStartup, 0));
+    }
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
