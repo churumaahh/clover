@@ -2433,7 +2433,18 @@
       display: grid;
       place-items: center;
       padding: 1rem;
-      background: rgba(18, 24, 35, 0.42);
+      background: rgba(8, 10, 14, 0.92);
+    }
+
+    html.popup-lock,
+    body.popup-lock {
+      overflow: hidden !important;
+      scrollbar-width: none;
+    }
+
+    body.popup-lock::-webkit-scrollbar,
+    html.popup-lock::-webkit-scrollbar {
+      display: none;
     }
 
     .home-counsel-modal[hidden],
@@ -5250,6 +5261,203 @@
       color: var(--muted);
     }
 
+    .auth-page {
+      display: grid;
+      place-items: center;
+      min-height: calc(100svh - 3.5rem);
+      padding: 2rem 1.25rem 4rem;
+      background: var(--tint-neutral);
+    }
+
+    .auth-card {
+      width: min(24rem, 100%);
+      padding: 2.4rem 1.9rem;
+      border-radius: 2rem;
+      background: #eef1f5;
+      box-shadow: 0.9rem 0.9rem 1.8rem rgba(148, 163, 184, 0.4), -0.9rem -0.9rem 1.8rem rgba(255, 255, 255, 0.85);
+      text-align: center;
+    }
+
+    :root[data-theme="dark"] .auth-card {
+      background: #232323;
+      box-shadow: 0.9rem 0.9rem 1.8rem rgba(0, 0, 0, 0.5), -0.9rem -0.9rem 1.8rem rgba(255, 255, 255, 0.04);
+    }
+
+    .auth-title {
+      margin: 0 0 0.3rem;
+      font-size: 1.5rem;
+      font-weight: 950;
+      color: var(--ink);
+    }
+
+    .auth-subtitle {
+      margin: 0 0 1.6rem;
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .auth-form {
+      display: grid;
+      gap: 0.9rem;
+      text-align: left;
+    }
+
+    .auth-field {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .auth-field-icon {
+      position: absolute;
+      left: 1rem;
+      display: inline-flex;
+      width: 1.05rem;
+      height: 1.05rem;
+      color: var(--muted);
+    }
+
+    .auth-field-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+    }
+
+    .auth-field input {
+      width: 100%;
+      min-height: 3rem;
+      padding: 0 1rem 0 2.7rem;
+      border: 0;
+      border-radius: 1rem;
+      background: #eef1f5;
+      color: var(--ink);
+      font-size: 0.88rem;
+      font-weight: 750;
+      box-shadow: inset 0.32rem 0.32rem 0.7rem rgba(148, 163, 184, 0.32), inset -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.85);
+    }
+
+    :root[data-theme="dark"] .auth-field input {
+      background: #232323;
+      box-shadow: inset 0.32rem 0.32rem 0.7rem rgba(0, 0, 0, 0.5), inset -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.04);
+    }
+
+    .auth-field input::placeholder {
+      color: var(--muted);
+    }
+
+    .auth-field input:focus {
+      outline: 0;
+      box-shadow: inset 0.32rem 0.32rem 0.7rem rgba(148, 163, 184, 0.32), inset -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.85), 0 0 0 2px #00c934;
+    }
+
+
+    .auth-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      font-size: 0.74rem;
+    }
+
+    .auth-remember {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--muted);
+      font-weight: 750;
+    }
+
+    .auth-remember input {
+      display: none;
+    }
+
+    .auth-toggle {
+      position: relative;
+      width: 1.9rem;
+      height: 1.05rem;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.4);
+      transition: background 0.15s ease;
+    }
+
+    .auth-toggle::after {
+      content: "";
+      position: absolute;
+      top: 0.14rem;
+      left: 0.14rem;
+      width: 0.78rem;
+      height: 0.78rem;
+      border-radius: 50%;
+      background: #fff;
+      transition: transform 0.15s ease;
+    }
+
+    .auth-remember input:checked + .auth-toggle {
+      background: #00c934;
+    }
+
+    .auth-remember input:checked + .auth-toggle::after {
+      transform: translateX(0.85rem);
+    }
+
+    .auth-link {
+      color: #00a832;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    :root[data-theme="dark"] .auth-link {
+      color: #00f040;
+    }
+
+    .auth-submit {
+      min-height: 3rem;
+      margin-top: 0.4rem;
+      border: 0;
+      border-radius: 1rem;
+      background: #eef1f5;
+      color: var(--ink);
+      font-size: 0.95rem;
+      font-weight: 950;
+      box-shadow: 0.32rem 0.32rem 0.7rem rgba(148, 163, 184, 0.32), -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.85);
+      transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    :root[data-theme="dark"] .auth-submit {
+      background: #232323;
+      color: var(--ink);
+      box-shadow: 0.32rem 0.32rem 0.7rem rgba(0, 0, 0, 0.5), -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.04);
+    }
+
+    .auth-submit.is-ready {
+      background: #00ff40;
+      color: #07150b;
+      box-shadow: 0.32rem 0.32rem 0.7rem rgba(0, 240, 64, 0.28), -0.22rem -0.22rem 0.55rem rgba(255, 255, 255, 0.5);
+    }
+
+    :root[data-theme="dark"] .auth-submit.is-ready {
+      box-shadow: 0.32rem 0.32rem 0.7rem rgba(0, 0, 0, 0.4), -0.22rem -0.22rem 0.55rem rgba(0, 240, 64, 0.15);
+    }
+
+    .auth-switch {
+      margin: 0.9rem 0 0;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .auth-switch a {
+      color: #00a832;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    :root[data-theme="dark"] .auth-switch a {
+      color: #00f040;
+    }
+
     .mypage-data-delete-btn.is-loading::before {
       content: "";
       width: 0.9rem;
@@ -7959,6 +8167,9 @@
       font-size: 0.95rem !important;
       white-space: nowrap !important;
     }
+    .drawer-link[hidden] {
+      display: none !important;
+    }
     .drawer-link span {
       display: inline !important;
       min-width: 0 !important;
@@ -8736,16 +8947,8 @@
       <main class="location-page">
         <section class="mypage-hero"><div class="mypage-title-row">
           <h1 class="page-title">마이 클로버</h1>
-          <span class="mypage-unique-number" data-mypage-unique-number>고유번호: -</span>
         </div>
         <p class="page-description">내가 신청한 내역과 진행 상태를 확인할 수 있습니다.</p></section>
-        <section class="support-card mypage-profile-card">
-          <div class="mypage-profile-header">
-            <h2 class="mypage-section-title">클로버 프로필</h2>
-            <span class="mypage-profile-actions" data-mypage-profile-actions></span>
-          </div>
-          <div data-mypage-profile></div>
-        </section>
         <details class="support-card mypage-fold-card">
           <summary class="mypage-layer-title">
             <span class="mypage-layer-row mypage-layer-row-compact is-empty" data-mypage-layer-row="profile">
@@ -8794,6 +8997,60 @@
       </main>
     </section>
 
+    <section class="page" id="page-login" data-page="login">
+      <main class="auth-page">
+        <div class="auth-card">
+          <h1 class="auth-title">Login</h1>
+          <p class="auth-subtitle">계정에 로그인하세요</p>
+          <form class="auth-form" data-auth-login-form>
+            <label class="auth-field">
+              <span class="auth-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3h3l1.5 4.5-2 1.5a11 11 0 0 0 5.5 5.5l1.5-2 4.5 1.5v3a2 2 0 0 1-2 2C10 19 5 14 5 5a2 2 0 0 1 1.5-2z"/></svg></span>
+              <input type="tel" name="phone" inputmode="numeric" maxlength="13" placeholder="연락처" autocomplete="tel" required>
+            </label>
+            <label class="auth-field">
+              <span class="auth-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+              <input type="password" name="password" placeholder="비밀번호" autocomplete="current-password" required>
+            </label>
+            <div class="auth-row">
+              <label class="auth-remember">
+                <input type="checkbox" name="remember">
+                <span class="auth-toggle" aria-hidden="true"></span>
+                로그인 상태 유지
+              </label>
+              <a class="auth-link" href="#" data-auth-forgot>비밀번호를 잊으셨나요?</a>
+            </div>
+            <button class="auth-submit" type="submit">로그인</button>
+            <p class="auth-switch">계정이 없으신가요? <a href="#" onclick="window.goPage(event, 'signup')">회원가입</a></p>
+          </form>
+        </div>
+      </main>
+    </section>
+
+    <section class="page" id="page-signup" data-page="signup">
+      <main class="auth-page">
+        <div class="auth-card">
+          <h1 class="auth-title">Sign Up</h1>
+          <p class="auth-subtitle">계정을 만드세요</p>
+          <form class="auth-form" data-auth-signup-form>
+            <label class="auth-field">
+              <span class="auth-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3h3l1.5 4.5-2 1.5a11 11 0 0 0 5.5 5.5l1.5-2 4.5 1.5v3a2 2 0 0 1-2 2C10 19 5 14 5 5a2 2 0 0 1 1.5-2z"/></svg></span>
+              <input type="tel" name="phone" inputmode="numeric" maxlength="13" placeholder="연락처" autocomplete="tel" required>
+            </label>
+            <label class="auth-field">
+              <span class="auth-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+              <input type="password" name="password" placeholder="비밀번호" autocomplete="new-password" required>
+            </label>
+            <label class="auth-field">
+              <span class="auth-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="m10 15 1.5 1.5L15 13"/></svg></span>
+              <input type="password" name="passwordConfirm" placeholder="비밀번호 확인" autocomplete="new-password" required>
+            </label>
+            <button class="auth-submit" type="submit">계정 만들기</button>
+            <p class="auth-switch">이미 계정이 있으신가요? <a href="#" onclick="window.goPage(event, 'login')">로그인</a></p>
+          </form>
+        </div>
+      </main>
+    </section>
+
     <div class="bottom-space"></div>
     <footer class="business-footer">
       <section class="footer-partnership-banner" aria-label="제휴 문의 광고" role="button" tabindex="0" onclick="window.goPage(event, 'support')" onkeydown="if(event.key === 'Enter' || event.key === ' ') window.goPage(event, 'support')">
@@ -8827,6 +9084,23 @@
   <div class="home-schedule-modal" data-match-result-modal role="dialog" aria-modal="true" hidden></div>
   <div class="home-schedule-modal" data-schedule-post-modal role="dialog" aria-modal="true" hidden></div>
   <div class="home-schedule-modal" data-home-counsel-modal role="dialog" aria-modal="true" hidden></div>
+
+  <div class="home-schedule-modal" data-auth-forgot-modal role="dialog" aria-modal="true" hidden>
+    <div class="home-schedule-panel">
+      <button class="home-schedule-close-btn" type="button" data-auth-forgot-close aria-label="닫기">×</button>
+      <div class="auth-card" style="width:100%; box-shadow:none; padding:0.4rem 0.2rem;">
+        <h2 class="auth-title" style="justify-content:flex-start; text-align:left;">비밀번호 찾기</h2>
+        <p class="auth-subtitle" style="text-align:left;">가입한 연락처로 재설정 링크를 보내드려요</p>
+        <form class="auth-form" data-auth-forgot-form>
+          <label class="auth-field">
+            <span class="auth-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3h3l1.5 4.5-2 1.5a11 11 0 0 0 5.5 5.5l1.5-2 4.5 1.5v3a2 2 0 0 1-2 2C10 19 5 14 5 5a2 2 0 0 1 1.5-2z"/></svg></span>
+            <input type="tel" name="phone" inputmode="numeric" maxlength="13" placeholder="연락처" autocomplete="tel" required>
+          </label>
+          <button class="auth-submit" type="submit">재설정 링크 보내기</button>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <div class="gender-modal" data-submit-success-modal role="dialog" aria-modal="true" aria-labelledby="submitSuccessTitle" hidden>
     <div class="gender-modal-panel">
@@ -8881,6 +9155,7 @@
       <button class="drawer-link" type="button" data-page-link="schedule" onclick="window.goPage(event, 'schedule')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16"/><path d="M4 12h16"/><path d="M4 18.5h11"/><path d="M7 3v4"/><path d="M17 3v4"/></svg><span>클로버 소식</span></button>
       <div class="drawer-divider" role="separator"></div>
       <button class="drawer-link" type="button" data-page-link="mypage" onclick="window.goPage(event, 'mypage')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg><span>마이 클로버</span></button>
+      <button class="drawer-link" type="button" data-page-link="login" onclick="window.goPage(event, 'login')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg><span>로그인</span></button>
     </nav>
     <div class="drawer-shortcuts">
       <p class="drawer-shortcut-label">바로가기</p>
@@ -10228,6 +10503,32 @@
     });
 
     document.addEventListener("submit", async (event) => {
+      const loginForm = closestFrom(event.target, "[data-auth-login-form]");
+      if (loginForm) {
+        event.preventDefault();
+        alert("로그인 기능은 준비 중입니다. Firebase 연동 후 사용할 수 있어요.");
+        return;
+      }
+      const signupForm = closestFrom(event.target, "[data-auth-signup-form]");
+      if (signupForm) {
+        event.preventDefault();
+        const password = signupForm.querySelector('[name="password"]')?.value || "";
+        const passwordConfirm = signupForm.querySelector('[name="passwordConfirm"]')?.value || "";
+        if (password !== passwordConfirm) {
+          alert("비밀번호가 일치하지 않습니다.");
+          return;
+        }
+        alert("회원가입 기능은 준비 중입니다. Firebase 연동 후 사용할 수 있어요.");
+        return;
+      }
+      const forgotForm = closestFrom(event.target, "[data-auth-forgot-form]");
+      if (forgotForm) {
+        event.preventDefault();
+        alert("비밀번호 재설정 기능은 준비 중입니다. Firebase 연동 후 사용할 수 있어요.");
+        const modal = document.querySelector("[data-auth-forgot-modal]");
+        if (modal) { modal.hidden = true; unlockBodyScrollForPopup(); }
+        return;
+      }
       const writeForm = closestFrom(event.target, "[data-counsel-write-form]");
       if (writeForm) {
         event.preventDefault();
@@ -11555,12 +11856,12 @@
       unlockBodyScrollForPopup();
     }
     function lockBodyScrollForPopup() {
-      document.documentElement.style.overflow = "hidden";
-      document.body.style.overflow = "hidden";
+      document.documentElement.classList.add("popup-lock");
+      document.body.classList.add("popup-lock");
     }
     function unlockBodyScrollForPopup() {
-      document.documentElement.style.overflow = "";
-      document.body.style.overflow = "";
+      document.documentElement.classList.remove("popup-lock");
+      document.body.classList.remove("popup-lock");
     }
     async function openHomeCounselModal(id) {
       closeAllPopupModals();
@@ -13128,6 +13429,25 @@ const groups = [
         closeHomeScheduleModal();
         return;
       }
+      const authForgotOpenTarget = event.target.closest("[data-auth-forgot]");
+      if (authForgotOpenTarget) {
+        event.preventDefault();
+        const modal = document.querySelector("[data-auth-forgot-modal]");
+        if (modal) { modal.hidden = false; lockBodyScrollForPopup(); }
+        return;
+      }
+      const authForgotCloseTarget = event.target.closest("[data-auth-forgot-close]");
+      if (authForgotCloseTarget) {
+        event.preventDefault();
+        const modal = document.querySelector("[data-auth-forgot-modal]");
+        if (modal) { modal.hidden = true; unlockBodyScrollForPopup(); }
+        return;
+      }
+      if (event.target === document.querySelector("[data-auth-forgot-modal]")) {
+        event.target.hidden = true;
+        unlockBodyScrollForPopup();
+        return;
+      }
       const matchResultCloseTarget = event.target.closest("[data-match-result-close]");
       if (matchResultCloseTarget) {
         event.preventDefault();
@@ -13876,7 +14196,19 @@ const groups = [
       loadMyBoardPosts();
     }
 
+    const AUTH_USER_KEY = "cloverAuthUser";
+    function isLoggedIn() {
+      try { return !!localStorage.getItem(AUTH_USER_KEY); } catch { return false; }
+    }
+    function updateAuthDrawerLinks() {
+      const loggedIn = isLoggedIn();
+      const myCloverLink = document.querySelector('.drawer-link[data-page-link="mypage"]');
+      const loginLink = document.querySelector('.drawer-link[data-page-link="login"]');
+      if (myCloverLink) myCloverLink.hidden = !loggedIn;
+      if (loginLink) loginLink.hidden = loggedIn;
+    }
     function setDrawer(open) {
+      if (open) updateAuthDrawerLinks();
       document.body.classList.toggle("menu-open", open);
       drawer.classList.toggle("is-open", open);
       scrim.classList.toggle("is-open", open);
@@ -14968,7 +15300,7 @@ const groups = [
       const target = event.target;
       if (!(target instanceof HTMLInputElement)) return;
 
-      if (target.id === "applyPhone" || target.id === "infoPhone") {
+      if (target.id === "applyPhone" || target.id === "infoPhone" || (target.name === "phone" && target.closest(".auth-form"))) {
         target.value = formatPhone(target.value);
         target.classList.remove("is-invalid");
         if (target.closest(".application-form")) updateFormSubmitButton();
@@ -15023,9 +15355,24 @@ const groups = [
         if (matchResultModal && !matchResultModal.hidden) closeMatchResultModal();
         const schedulePostModal = document.querySelector("[data-schedule-post-modal]");
         if (schedulePostModal && !schedulePostModal.hidden) closeSchedulePostModal();
+        const authForgotModal = document.querySelector("[data-auth-forgot-modal]");
+        if (authForgotModal && !authForgotModal.hidden) { authForgotModal.hidden = true; unlockBodyScrollForPopup(); }
       }
     });
 
+    function updateAuthSubmitReady(form) {
+      const submitBtn = form.querySelector(".auth-submit");
+      if (!submitBtn) return;
+      const inputs = [...form.querySelectorAll("input[required]")];
+      const ready = inputs.every((input) => input.value.trim() !== "");
+      submitBtn.classList.toggle("is-ready", ready);
+    }
+    document.querySelectorAll("[data-auth-login-form], [data-auth-signup-form]").forEach((form) => {
+      updateAuthSubmitReady(form);
+      form.addEventListener("input", () => updateAuthSubmitReady(form));
+    });
+
+    updateAuthDrawerLinks();
     renderPageFromHistory();
     window.addEventListener("popstate", renderPageFromHistory);
 
