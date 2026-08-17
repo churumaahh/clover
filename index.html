@@ -678,13 +678,31 @@
     }
     .match-result-page {
       display: grid;
-      gap: 0.75rem;
+      gap: 1rem;
     }
 
     .match-result-page .page-title {
       display: inline-flex;
       align-items: center;
       gap: .56rem;
+    }
+
+    .page-intro-head {
+      display: grid;
+      gap: 0;
+    }
+
+    .page-intro-head .page-title {
+      margin: 0 0 0.35rem;
+    }
+
+    .page-intro-head .page-description {
+      margin: 0;
+      padding: 0 0.25rem;
+    }
+
+    .support-page > .page-intro-head {
+      margin: 0 0 1rem;
     }
 
     .match-result-intro {
@@ -784,7 +802,7 @@
       min-width: 0;
       display: block;
       color: var(--ink);
-      font-size: 1.05rem;
+      font-size: 0.88rem;
       line-height: 1.28;
       font-weight: 850;
       white-space: nowrap;
@@ -822,11 +840,31 @@
     }
 
     .match-result-tags .composition-gender-badge {
-      min-height: 1.16rem;
+      height: 1.1rem;
+      min-height: 1.1rem;
       min-width: 0;
-      padding: 0 0.3rem;
+      padding: 0 0.26rem;
       border: 0;
       font-size: .64rem;
+    }
+
+    .match-result-tags .composition-gender-badge svg {
+      display: block;
+    }
+
+    .match-result-tags .composition-gender-badge b {
+      display: inline-block;
+      min-width: 0.62em;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .match-result-tags .composition-gender-badge.is-female b {
+      transform: translateX(-1px);
+    }
+
+    .match-result-tags .composition-gender-badge.is-female {
+      transform: translateY(0.1px);
     }
 
     .match-result-tags .composition-gender-badge.is-male {
@@ -1798,7 +1836,9 @@
     }
 
     :root[data-theme="dark"] .home-schedule-headlines .schedule-post-card {
-      background: #121212;
+      background: #262626;
+      border-color: rgba(255,255,255,.08);
+      box-shadow: 0 .35rem 1.2rem rgba(0,0,0,.35);
     }
 
     .home-counsel-strip {
@@ -2036,7 +2076,9 @@
     }
 
     :root[data-theme="dark"] .event-card {
-      background: #121212;
+      background: #262626;
+      border-color: rgba(255,255,255,.08);
+      box-shadow: 0 .35rem 1.2rem rgba(0,0,0,.35);
     }
 
     .event-thumb {
@@ -2414,6 +2456,55 @@
       border: 0;
       border-radius: 0;
       box-shadow: none;
+    }
+
+    .schedule-post-modal-card {
+      border: 0;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    .schedule-post-modal-media {
+      border-radius: 0.9rem;
+    }
+
+    .schedule-post-modal-media .schedule-detail-image {
+      border-radius: inherit;
+    }
+
+    .home-schedule-panel {
+      --modal-block-gap: 0.9rem;
+    }
+
+    .schedule-post-modal-card .schedule-detail-body {
+      padding: var(--modal-block-gap, 0.9rem) 0;
+    }
+
+    .schedule-post-modal-date {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 750;
+    }
+
+    .schedule-post-modal-card .schedule-comment-section {
+      padding: var(--modal-block-gap, 0.9rem) 0 0;
+      margin: 0;
+    }
+
+    .schedule-comment-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+    }
+
+    .schedule-comment-head .schedule-comment-title {
+      flex: 0 0 auto;
+    }
+
+    .schedule-comment-head .schedule-detail-meta {
+      justify-content: flex-end;
     }
 
     .home-counsel-panel .counsel-detail-content {
@@ -5516,7 +5607,7 @@
 
     .counsel-page-main {
       display: grid;
-      gap: 0.95rem;
+      gap: 1rem;
     }
 
     .counsel-hero {
@@ -5552,18 +5643,28 @@
       line-height: 1.45;
     }
 
+    .counsel-page-intro {
+      display: grid;
+      gap: 0;
+    }
+
     .counsel-page-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 0.6rem;
       padding: 0 0.25rem;
-      margin: 0 0 1rem;
+      margin: 0 0 0.35rem;
     }
 
     .counsel-page-head .page-title {
       margin: 0;
       padding: 0;
+    }
+
+    .counsel-page-intro .page-description {
+      margin: 0;
+      padding: 0 0.25rem;
     }
 
     .counsel-write-btn {
@@ -5706,11 +5807,11 @@
     }
 
     .counsel-top3-title {
-      margin: 0 0 0.55rem;
+      margin: 0 0 0.75rem !important;
     }
 
     .counsel-live-title {
-      margin: 0 0 0.55rem;
+      margin: 0 0 0.75rem !important;
     }
 
     .counsel-top3-list {
@@ -5894,6 +5995,12 @@
       box-shadow: 0 .25rem .8rem rgba(15,23,42,.035);
     }
 
+    :root[data-theme="dark"] #page-counsel .counsel-card {
+      background: #262626;
+      border-color: rgba(255,255,255,.08);
+      box-shadow: 0 .35rem 1.2rem rgba(0,0,0,.35);
+    }
+
     #page-counsel .counsel-card:last-child {
       border-bottom: 1px solid var(--line);
     }
@@ -5944,7 +6051,8 @@
       background: var(--paper);
     }
 
-    #page-counsel .board-pagination {
+    #page-counsel .board-pagination,
+    #page-reviews .board-pagination {
       margin-top: .8rem;
     }
 
@@ -5996,6 +6104,12 @@
       border: 1px solid var(--line);
       border-radius: 0.9rem;
       background: var(--surface);
+    }
+
+    :root[data-theme="dark"] .counsel-detail-card {
+      background: #262626;
+      border-color: rgba(255,255,255,.08);
+      box-shadow: 0 .35rem 1.2rem rgba(0,0,0,.35);
     }
 
     .counsel-detail-head {
@@ -6057,9 +6171,21 @@
     }
 
     .counsel-comment-section h3 {
-      margin: 0 0 0.6rem;
+      margin: 0;
       font-size: 0.95rem;
       font-weight: 950;
+    }
+
+    .counsel-comment-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .counsel-comment-toolbar .counsel-detail-actions {
+      margin: 0;
     }
 
     .counsel-comment-list {
@@ -6075,6 +6201,11 @@
       border: 1px solid var(--line);
       border-radius: 0.7rem;
       background: var(--tint-neutral);
+    }
+
+    :root[data-theme="dark"] .counsel-comment {
+      background: #262626;
+      border-color: rgba(255,255,255,.08);
     }
 
     .counsel-comment.is-reply {
@@ -6130,8 +6261,27 @@
 
     .counsel-comment-form textarea {
       min-height: 4.5rem;
+      padding: .65rem;
+      border: 1px solid var(--line);
+      border-radius: .6rem;
+      resize: vertical;
+      outline: 0;
       background: var(--surface);
       color: var(--ink);
+    }
+
+    .counsel-comment-form textarea:focus {
+      border-color: #00d638;
+      box-shadow: 0 0 0 3px rgba(0,255,64,.12);
+    }
+
+    .counsel-comment-form .submit-btn {
+      min-height: 2.45rem;
+      border: 0;
+      border-radius: .6rem;
+      color: #07150b !important;
+      background: #00ff40 !important;
+      font-weight: 950;
     }
 
     .counsel-reply-target {
@@ -6326,7 +6476,8 @@
       cursor: default;
     }
 
-    #page-counsel .board-page-button {
+    #page-counsel .board-page-button,
+    #page-reviews .board-page-button {
       border: 0;
       border-radius: 0.9rem;
       color: #121218;
@@ -6334,33 +6485,40 @@
       box-shadow: 0.45rem 0.45rem 0.9rem rgba(148, 163, 184, 0.28), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9);
     }
 
-    #page-counsel .board-page-button:hover {
+    #page-counsel .board-page-button:hover,
+    #page-reviews .board-page-button:hover {
       color: #00c934;
       background: #eef1f5;
       box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(148, 163, 184, 0.28), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.88);
     }
 
     #page-counsel .board-page-button:disabled,
-    #page-counsel .board-page-button:disabled:hover {
+    #page-counsel .board-page-button:disabled:hover,
+    #page-reviews .board-page-button:disabled,
+    #page-reviews .board-page-button:disabled:hover {
       color: #9ca3af;
       background: #eef1f5;
       box-shadow: 0.28rem 0.28rem 0.65rem rgba(148, 163, 184, 0.16), -0.22rem -0.22rem 0.6rem rgba(255, 255, 255, 0.82);
     }
 
-    :root[data-theme="dark"] #page-counsel .board-page-button {
+    :root[data-theme="dark"] #page-counsel .board-page-button,
+    :root[data-theme="dark"] #page-reviews .board-page-button {
       background: #232323;
       color: #f1f1f1;
       box-shadow: 0.42rem 0.42rem 0.9rem rgba(0, 0, 0, 0.45), -0.32rem -0.32rem 0.82rem rgba(255, 255, 255, 0.04);
     }
 
-    :root[data-theme="dark"] #page-counsel .board-page-button:hover {
+    :root[data-theme="dark"] #page-counsel .board-page-button:hover,
+    :root[data-theme="dark"] #page-reviews .board-page-button:hover {
       background: #232323;
       color: #00f040;
       box-shadow: inset 0.28rem 0.28rem 0.62rem rgba(0, 0, 0, 0.45), inset -0.28rem -0.28rem 0.62rem rgba(255, 255, 255, 0.05);
     }
 
     :root[data-theme="dark"] #page-counsel .board-page-button:disabled,
-    :root[data-theme="dark"] #page-counsel .board-page-button:disabled:hover {
+    :root[data-theme="dark"] #page-counsel .board-page-button:disabled:hover,
+    :root[data-theme="dark"] #page-reviews .board-page-button:disabled,
+    :root[data-theme="dark"] #page-reviews .board-page-button:disabled:hover {
       background: #232323;
       color: #5a5a5a;
       box-shadow: 0.42rem 0.42rem 0.9rem rgba(0, 0, 0, 0.45), -0.32rem -0.32rem 0.82rem rgba(255, 255, 255, 0.04);
@@ -7018,6 +7176,7 @@
     .schedule-scroll-btn[hidden] { display: none; }
     .schedule-post-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .72rem; }
     .schedule-post-card { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); box-shadow: 0 .35rem 1.2rem rgba(15,23,42,.06); cursor: pointer; }
+    :root[data-theme="dark"] .schedule-post-card { background: #262626; border-color: rgba(255,255,255,.08); box-shadow: 0 .35rem 1.2rem rgba(0,0,0,.35); }
     .schedule-post-card.is-headline { min-height: 100%; }
     .schedule-post-cover { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border: 0; padding: 0; margin: 0; display: block; appearance: none; -webkit-appearance: none; background: var(--tint-neutral); cursor: pointer; }
     .schedule-post-cover img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center center; }
@@ -7985,6 +8144,11 @@
       flex: none !important;
       box-shadow: none !important;
     }
+
+    :root[data-theme="dark"] #page-reviews .match-result-card .match-result-badge {
+      background: rgba(110, 168, 254, .16) !important;
+      color: #6ea8fe !important;
+    }
     /* Remove redundant page top bars */
     #page-reviews > .section-tabs,
     #page-match-result-detail > .section-tabs,
@@ -8255,7 +8419,10 @@
         <button class="section-tab is-active" type="button" data-page-link="schedule" onclick="window.goPage(event, 'schedule')">클로버 소식</button>
       </nav>
       <main class="support-page">
-<h1 class="page-title"><svg class="page-title-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16"/><path d="M4 12h16"/><path d="M4 18.5h11"/><path d="M7 3v4"/><path d="M17 3v4"/></svg>클로버 소식</h1>
+<div class="page-intro-head">
+  <h1 class="page-title"><svg class="page-title-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16"/><path d="M4 12h16"/><path d="M4 18.5h11"/><path d="M7 3v4"/><path d="M17 3v4"/></svg>클로버 소식</h1>
+  <p class="page-description">클로버의 현장 소식과 공지사항을 모아서 안내합니다.</p>
+</div>
 <section class="schedule-feed" data-schedule-feed><div class="schedule-feed-loading">일정 소식을 불러오는 중입니다.</div></section>
       </main>
     </section>
@@ -8392,20 +8559,12 @@
         <button class="section-tab is-active" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')">매칭 결과</button>
       </nav>
       <main class="location-page match-result-page">
-        <h1 class="page-title"><svg class="page-title-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4 4L19 6.5"/><path d="M4 5.5h9"/><path d="M4 9h6"/><path d="M4 18.5h14"/></svg>매칭 결과</h1>
-        <p class="match-result-intro">서로 호감 선택이 맞으면 연락을 주고받을 수 있는 매칭 결과로 안내됩니다.</p>
-        <div class="match-result-list" aria-label="매칭 결과 아이콘 샘플">
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '두 사람이 서로 호감을 선택해 연락이 열린 상태입니다.')"><span class="match-result-number" aria-hidden="true">10화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>27 - 36세</span><span>운동형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '서로의 마음이 같은 방향으로 맞아 연락을 시작할 수 있습니다.')"><span class="match-result-number" aria-hidden="true">9화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>24 - 29세</span><span>운명형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '양쪽 선택이 확인되어 매칭 결과가 확정되었습니다.')"><span class="match-result-number" aria-hidden="true">8화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>30 - 37세</span><span>활동형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '서로 호감이 맞아 자연스럽게 연락을 주고받는 단계입니다.')"><span class="match-result-number" aria-hidden="true">7화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>20 - 27세</span><span>여행형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '서로에게 긍정적인 호감이 확인된 결과입니다.')"><span class="match-result-number" aria-hidden="true">6화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>34 - 39세</span><span>집콕형</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '두 사람의 선택이 이어져 연락 가능한 사이가 되었습니다.')"><span class="match-result-number" aria-hidden="true">5화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>27 - 36세</span><span>직장인</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '매칭이 성사되어 첫 연락을 이어갈 수 있습니다.')"><span class="match-result-number" aria-hidden="true">4화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>37 - 46세</span><span>교대 근무</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '두 사람 모두 다시 대화를 이어가고 싶은 마음이 확인되었습니다.')"><span class="match-result-number" aria-hidden="true">3화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>24 - 29세</span><span>기독교</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '0썸 탄생', '서로 선택이 맞아 새로운 인연으로 이어질 수 있습니다.')"><span class="match-result-number" aria-hidden="true">2화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>0썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>1</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>1</b></span></span><span>30 - 37세</span><span>전문직 남성</span></span></span><span class="match-result-badge">결과 확인</span></button>
-          <button class="match-result-card" type="button" onclick="window.openMatchResultDetail(event, '2썸 탄생', '두 사람의 호감 표시가 서로 맞아 매칭되었습니다.')"><span class="match-result-number" aria-hidden="true">1화</span><span class="match-result-divider" aria-hidden="true"></span><span class="match-result-copy"><strong>2썸 탄생</strong><span class="match-result-tags"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg><b>6</b></span><span class="composition-gender-badge is-female"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg><b>6</b></span></span><span>34 - 39세</span><span>돌싱</span></span></span><span class="match-result-badge">결과 확인</span></button>
+        <div class="match-result-page-head page-intro-head">
+          <h1 class="page-title"><svg class="page-title-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4 4L19 6.5"/><path d="M4 5.5h9"/><path d="M4 9h6"/><path d="M4 18.5h14"/></svg>매칭 결과</h1>
+          <p class="match-result-intro">서로 호감 선택이 맞으면 연락을 주고받을 수 있는 매칭 결과로 안내됩니다.</p>
         </div>
+        <div class="match-result-list" data-match-result-list aria-label="매칭 결과 목록"></div>
+        <nav class="board-pagination" data-match-result-pagination aria-label="매칭 결과 페이지 이동" hidden></nav>
       </main>
     </section>
 
@@ -8511,9 +8670,12 @@
         <button class="section-tab is-active" type="button" data-page-link="counsel" onclick="window.goPage(event, 'counsel')">연애 상담</button>
       </nav>
       <main class="location-page counsel-page-main">
-        <div class="counsel-page-head">
-          <h1 class="page-title"><svg class="page-title-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 9h8M8 13h5"/></svg>연애 상담</h1>
-          <button class="counsel-write-btn" type="button" data-counsel-write>글쓰기</button>
+        <div class="counsel-page-intro page-intro-head">
+          <div class="counsel-page-head">
+            <h1 class="page-title"><svg class="page-title-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 9h8M8 13h5"/></svg>연애 상담</h1>
+            <button class="counsel-write-btn" type="button" data-counsel-write>글쓰기</button>
+          </div>
+          <p class="page-description">익명으로 편하게 연애 고민을 나누고 서로 상담해 주세요.</p>
         </div>
         <section class="counsel-top3" data-counsel-top3 hidden></section>
         <section class="counsel-live-section">
@@ -8667,6 +8829,8 @@
   <div class="app-edit-modal" data-app-edit-modal role="dialog" aria-modal="true" hidden></div>
 
   <div class="home-schedule-modal" data-home-schedule-modal role="dialog" aria-modal="true" hidden></div>
+  <div class="home-schedule-modal" data-match-result-modal role="dialog" aria-modal="true" hidden></div>
+  <div class="home-schedule-modal" data-schedule-post-modal role="dialog" aria-modal="true" hidden></div>
   <div class="home-counsel-modal" data-home-counsel-modal role="dialog" aria-modal="true" hidden></div>
 
   <div class="gender-modal" data-submit-success-modal role="dialog" aria-modal="true" aria-labelledby="submitSuccessTitle" hidden>
@@ -9952,11 +10116,7 @@
       const counselOpenBtn = closestFrom(event.target, "[data-counsel-open]");
       if (counselOpenBtn) {
         event.preventDefault();
-        if (counselOpenBtn.closest("[data-home-counsel-layer]")) {
-          openHomeCounselModal(counselOpenBtn.dataset.counselOpen);
-        } else {
-          openCounselDetail(counselOpenBtn.dataset.counselOpen);
-        }
+        openHomeCounselModal(counselOpenBtn.dataset.counselOpen);
         return;
       }
       const counselLikeBtn = closestFrom(event.target, "[data-counsel-like]");
@@ -10020,6 +10180,22 @@
         if (counselNext.disabled) return;
         counselCurrentPage += 1;
         renderCounselList();
+        return;
+      }
+      const matchResultPrev = closestFrom(event.target, "[data-match-result-prev]");
+      if (matchResultPrev) {
+        event.preventDefault();
+        if (matchResultPrev.disabled) return;
+        matchResultCurrentPage -= 1;
+        renderMatchResultList();
+        return;
+      }
+      const matchResultNext = closestFrom(event.target, "[data-match-result-next]");
+      if (matchResultNext) {
+        event.preventDefault();
+        if (matchResultNext.disabled) return;
+        matchResultCurrentPage += 1;
+        renderMatchResultList();
         return;
       }
       const myCounselPrev = closestFrom(event.target, "[data-mypage-counsel-prev]");
@@ -11059,7 +11235,7 @@
       }
       top3Container.hidden = false;
       top3Container.innerHTML = `
-        <h2 class="schedule-section-title counsel-top3-title"><span class="section-title-dot" aria-hidden="true"></span>인기글 TOP3</h2>
+        <h2 class="schedule-section-title counsel-top3-title"><span class="section-title-dot" aria-hidden="true"></span>인기글</h2>
         <div class="counsel-list counsel-top3-list">
           ${ranked.map((post, index) => counselCardHtml(post, index + 1, true)).join("")}
         </div>
@@ -11315,21 +11491,24 @@
       if (!post) return `<p class="mypage-empty">게시글을 찾을 수 없습니다.</p>`;
       const comments = Array.isArray(post.comments) ? post.comments : [];
       return `
-        <article class="counsel-detail-card" data-counsel-post-id="${htmlAttr(post.id)}">
-          <div class="counsel-detail-head">
-            ${counselAuthorHtml(post)}
-            <time>${counselDate(post.createdAt)}</time>
+        <article class="counsel-detail-card schedule-post-modal-card" data-counsel-post-id="${htmlAttr(post.id)}">
+          <div class="home-schedule-modal-topline">
+            <span class="home-schedule-modal-logo" aria-hidden="true"><img src="assets/clover-logo-v2.png" alt=""></span>
+            <div class="home-schedule-modal-topcopy">
+              <h2 class="schedule-detail-heading">${counselTitleHtml(post)}</h2>
+              <p class="schedule-post-modal-date">${htmlAttr(schedulePostModalDate(post.createdAt))}</p>
+            </div>
           </div>
-          <h2 class="counsel-detail-title">${counselTitleHtml(post)}</h2>
           <p class="counsel-detail-content">${htmlAttr(post.content)}</p>
-          <div class="counsel-detail-actions">
-            <span>조회 ${Number(post.views) || 0}</span>
-            <button type="button" class="${post.liked ? "is-liked" : ""}" data-counsel-like="${htmlAttr(post.id)}">공감 ${Number(post.likeCount) || 0}</button>
-            <button type="button" class="${post.saved ? "is-saved" : ""}" data-counsel-save="${htmlAttr(post.id)}">${post.saved ? "저장됨" : "저장"}</button>
-            ${counselCanEditPost(post) ? `<button type="button" data-counsel-edit="${htmlAttr(post.id)}">수정</button>` : ""}
-          </div>
           <section class="counsel-comment-section">
-            <h3>댓글 ${comments.length}</h3>
+            <div class="counsel-comment-toolbar">
+              <h3>댓글 ${comments.length}</h3>
+              <div class="counsel-detail-actions">
+                <span>조회 ${Number(post.views) || 0}</span>
+                <button type="button" class="${post.liked ? "is-liked" : ""}" data-counsel-like="${htmlAttr(post.id)}">공감 ${Number(post.likeCount) || 0}</button>
+                ${counselCanEditPost(post) ? `<button type="button" data-counsel-edit="${htmlAttr(post.id)}">수정</button>` : ""}
+              </div>
+            </div>
             <div class="counsel-comment-list">${counselCommentHtml(comments, post.visitorId)}</div>
             <div class="counsel-reply-target" data-counsel-reply-target><span data-counsel-reply-label></span><button type="button" data-counsel-reply-cancel>취소</button></div>
             <form class="counsel-comment-form" data-counsel-comment-form="${htmlAttr(post.id)}">
@@ -11366,14 +11545,21 @@
       const modal = document.querySelector("[data-home-counsel-modal]");
       if (!modal || !post) return;
       modal.innerHTML = `
-        <div class="home-counsel-panel">
-          <button class="home-counsel-close-btn" type="button" data-home-counsel-close aria-label="닫기">×</button>
+        <div class="home-schedule-panel">
+          <button class="home-schedule-close-btn" type="button" data-home-counsel-close aria-label="닫기">×</button>
           ${counselDetailHtml(post)}
         </div>
       `;
     }
 
+    function closeAllPopupModals() {
+      ["[data-home-counsel-modal]", "[data-schedule-post-modal]", "[data-home-schedule-modal]", "[data-match-result-modal]"].forEach((selector) => {
+        const modal = document.querySelector(selector);
+        if (modal && !modal.hidden) { modal.hidden = true; modal.innerHTML = ""; }
+      });
+    }
     async function openHomeCounselModal(id) {
+      closeAllPopupModals();
       const post = counselPosts.find((item) => String(item.id) === String(id));
       if (!post) return;
       openHomeCounselPostId = String(id);
@@ -11887,7 +12073,7 @@
     function scheduleCommentHtml(comments) {
       return comments.length
         ? comments.slice().reverse().map((comment) => `<div class="schedule-comment"><strong>${htmlAttr(comment.author || "익명")} · ${htmlAttr(scheduleDate(comment.createdAt))}</strong><p>${htmlAttr(comment.content || "")}</p></div>`).join("")
-        : '<p class="schedule-comment-empty">아직 댓글이 없습니다.</p>';
+        : '';
     }
     function schedulePostCard(post, headline = false) {
       const comments = Array.isArray(post.comments) ? post.comments : [];
@@ -11939,12 +12125,81 @@
     }
     let scheduleDetailOrigin = "schedule";
     const scheduleDetailOriginTitles = { "schedule-notice": "공지", "schedule-info": "일정 안내", "schedule": "클로버 소식" };
+    const SCHEDULE_MODAL_CATEGORIES = ["칼럼", "클로버 근황"];
+    function schedulePostModalDate(value) {
+      const date = new Date(Number(value) || value);
+      if (Number.isNaN(date.getTime())) return "-";
+      const yyyy = date.getFullYear();
+      const mm = String(date.getMonth() + 1).padStart(2, "0");
+      const dd = String(date.getDate()).padStart(2, "0");
+      const period = date.getHours() < 12 ? "오전" : "오후";
+      const hour = String(date.getHours() % 12 || 12).padStart(2, "0");
+      const minute = String(date.getMinutes()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd} ${period} ${hour}:${minute}`;
+    }
+    function renderSchedulePostModal(post) {
+      const modal = document.querySelector("[data-schedule-post-modal]");
+      if (!modal || !post) return;
+      const comments = Array.isArray(post.comments) ? post.comments : [];
+      const liked = scheduleLikedPosts.has(String(post.id));
+      modal.innerHTML = `
+        <div class="home-schedule-panel">
+          <button class="home-schedule-close-btn" type="button" data-schedule-post-modal-close aria-label="닫기">×</button>
+          <article class="schedule-post-modal-card" data-schedule-post-id="${htmlAttr(post.id)}">
+            <div class="home-schedule-modal-topline">
+              <span class="home-schedule-modal-logo" aria-hidden="true"><img src="assets/clover-logo-v2.png" alt=""></span>
+              <div class="home-schedule-modal-topcopy">
+                <h2 class="schedule-detail-heading">${htmlAttr(post.title)}</h2>
+                <p class="schedule-post-modal-date">${htmlAttr(schedulePostModalDate(post.createdAt || post.updatedAt))}</p>
+              </div>
+            </div>
+            <div class="schedule-detail-media schedule-post-modal-media"><img class="schedule-detail-image" src="${htmlAttr(post.imageUrl)}" alt="${htmlAttr(post.title)}" loading="eager" decoding="async"></div>
+            <div class="schedule-detail-body">
+              <p class="schedule-detail-content">${htmlAttr(post.content || "")}</p>
+            </div>
+            <section class="schedule-comment-section">
+              <div class="schedule-comment-head">
+                <h3 class="schedule-comment-title">댓글 ${comments.length}</h3>
+                <div class="schedule-detail-meta"><span>조회 ${Number(post.views) || 0}</span><button type="button" class="${liked ? "is-liked" : ""}" data-schedule-like="${htmlAttr(post.id)}">공감 ${Number(post.likes) || 0}</button></div>
+              </div>
+              <div class="schedule-comment-list">${scheduleCommentHtml(comments)}</div>
+              <form class="schedule-comment-form" data-schedule-comment-form="${htmlAttr(post.id)}"><textarea maxlength="500" placeholder="익명 댓글을 작성해 주세요."></textarea><button type="submit">댓글 등록</button></form>
+            </section>
+          </article>
+        </div>
+      `;
+    }
+    function openSchedulePostModal(id) {
+      closeAllPopupModals();
+      const isPlaceholder = String(id).startsWith("placeholder-");
+      const post = isPlaceholder
+        ? scheduleFeedPlaceholderPosts().find((item) => String(item.id) === String(id))
+        : schedulePosts.find((item) => String(item.id) === String(id));
+      if (!post) return;
+      selectedSchedulePostId = String(id);
+      renderSchedulePostModal(post);
+      document.querySelector("[data-schedule-post-modal]").hidden = false;
+      if (!isPlaceholder && !scheduleViewedPosts.has(selectedSchedulePostId)) {
+        scheduleViewedPosts.add(selectedSchedulePostId);
+        writeScheduleSet(SCHEDULE_VIEWED_KEY, scheduleViewedPosts);
+        schedulePostApi({ type: "schedulePostView", id: selectedSchedulePostId }).then((result) => updateSchedulePost(result.post)).catch(() => {});
+      }
+    }
+    function closeSchedulePostModal() {
+      const modal = document.querySelector("[data-schedule-post-modal]");
+      if (modal) { modal.hidden = true; modal.innerHTML = ""; }
+    }
+    window.closeSchedulePostModal = closeSchedulePostModal;
     function openSchedulePostDetail(id) {
       const isPlaceholder = String(id).startsWith("placeholder-");
       const post = isPlaceholder
         ? scheduleFeedPlaceholderPosts().find((item) => String(item.id) === String(id))
         : schedulePosts.find((item) => String(item.id) === String(id));
       if (!post) return;
+      if (SCHEDULE_MODAL_CATEGORIES.includes(String(post.category || "").trim())) {
+        openSchedulePostModal(id);
+        return;
+      }
       selectedSchedulePostId = String(id);
       try { sessionStorage.setItem("cloverSchedulePostId", selectedSchedulePostId); } catch {}
       scheduleDetailOrigin = ["schedule-notice", "schedule-info"].includes(currentPageName) ? currentPageName : "schedule";
@@ -11997,6 +12252,7 @@
       initHomeScheduleMap();
     }
     function openHomeScheduleModal(id) {
+      closeAllPopupModals();
       const isPlaceholder = String(id).startsWith("placeholder-");
       const post = isPlaceholder
         ? homeCalendarPlaceholderPosts.find((item) => String(item.id) === String(id))
@@ -12255,7 +12511,7 @@
     function scheduleTimeLabelHtml(hour, fallback) {
       if (hour === undefined) return htmlAttr(fallback || "");
       const period = hour < 12 ? "오전" : "오후";
-      const displayHour = hour % 12 || 12;
+      const displayHour = String(hour % 12 || 12).padStart(2, "0");
       return `<span class="schedule-time-period">${period}</span> ${displayHour}:00`;
     }
     function homeScheduleStatusCard(post, variant = "info") {
@@ -12860,6 +13116,26 @@ const groups = [
       }
       if (event.target === document.querySelector("[data-home-schedule-modal]")) {
         closeHomeScheduleModal();
+        return;
+      }
+      const matchResultCloseTarget = event.target.closest("[data-match-result-close]");
+      if (matchResultCloseTarget) {
+        event.preventDefault();
+        closeMatchResultModal();
+        return;
+      }
+      if (event.target === document.querySelector("[data-match-result-modal]")) {
+        closeMatchResultModal();
+        return;
+      }
+      const schedulePostModalCloseTarget = event.target.closest("[data-schedule-post-modal-close]");
+      if (schedulePostModalCloseTarget) {
+        event.preventDefault();
+        closeSchedulePostModal();
+        return;
+      }
+      if (event.target === document.querySelector("[data-schedule-post-modal]")) {
+        closeSchedulePostModal();
         return;
       }
       const likeButton = event.target.closest("[data-schedule-like]");
@@ -13606,6 +13882,117 @@ const groups = [
       setDrawer(false);
     };
 
+    const matchResultSampleItems = [
+      { episode: 16, date: "2026-08-09", hour: 19, title: "0썸 탄생", summary: "서로의 선택이 확인되어 연락이 시작되었습니다.", age: "26 - 33세", type: "훈남·훈여", male: 1, female: 1 },
+      { episode: 15, date: "2026-08-02", hour: 18, title: "2썸 탄생", summary: "관심사가 잘 맞아 자연스럽게 이어진 매칭입니다.", age: "29 - 35세", type: "일본인 여성", male: 6, female: 6 },
+      { episode: 14, date: "2026-07-26", hour: 20, title: "0썸 탄생", summary: "서로 좋은 인상을 받아 연락이 열린 결과입니다.", age: "25 - 32세", type: "180cm 이상 남성", male: 1, female: 1 },
+      { episode: 13, date: "2026-07-19", hour: 17, title: "2썸 탄생", summary: "취향이 통해 편하게 대화를 이어가는 사이입니다.", age: "28 - 34세", type: "커리어 남성", male: 6, female: 6 },
+      { episode: 12, date: "2026-07-12", hour: 14, title: "0썸 탄생", summary: "서로의 호감이 맞아 첫 만남을 준비 중입니다.", age: "31 - 38세", type: "재력가 남성", male: 1, female: 1 },
+      { episode: 11, date: "2026-07-05", hour: 19, title: "2썸 탄생", summary: "마음이 통해 다음 만남을 기대하는 사이입니다.", age: "23 - 30세", type: "공무원 여성", male: 6, female: 6 },
+      { episode: 10, date: "2026-06-28", hour: 18, title: "0썸 탄생", summary: "두 사람이 서로 호감을 선택해 연락이 열린 상태입니다.", age: "27 - 36세", type: "운동형", male: 1, female: 1 },
+      { episode: 9, date: "2026-06-21", hour: 20, title: "2썸 탄생", summary: "서로의 마음이 같은 방향으로 맞아 연락을 시작할 수 있습니다.", age: "24 - 29세", type: "운명형", male: 6, female: 6 },
+      { episode: 8, date: "2026-06-14", hour: 15, title: "0썸 탄생", summary: "양쪽 선택이 확인되어 매칭 결과가 확정되었습니다.", age: "30 - 37세", type: "활동형", male: 1, female: 1 },
+      { episode: 7, date: "2026-06-07", hour: 19, title: "2썸 탄생", summary: "서로 호감이 맞아 자연스럽게 연락을 주고받는 단계입니다.", age: "20 - 27세", type: "여행형", male: 6, female: 6 },
+      { episode: 6, date: "2026-05-31", hour: 17, title: "0썸 탄생", summary: "서로에게 긍정적인 호감이 확인된 결과입니다.", age: "34 - 39세", type: "집콕형", male: 1, female: 1 },
+      { episode: 5, date: "2026-05-24", hour: 18, title: "2썸 탄생", summary: "두 사람의 선택이 이어져 연락 가능한 사이가 되었습니다.", age: "27 - 36세", type: "직장인", male: 6, female: 6 },
+      { episode: 4, date: "2026-05-17", hour: 20, title: "0썸 탄생", summary: "매칭이 성사되어 첫 연락을 이어갈 수 있습니다.", age: "37 - 46세", type: "교대 근무", male: 1, female: 1 },
+      { episode: 3, date: "2026-05-10", hour: 14, title: "2썸 탄생", summary: "두 사람 모두 다시 대화를 이어가고 싶은 마음이 확인되었습니다.", age: "24 - 29세", type: "기독교", male: 6, female: 6 },
+      { episode: 2, date: "2026-05-03", hour: 19, title: "0썸 탄생", summary: "서로 선택이 맞아 새로운 인연으로 이어질 수 있습니다.", age: "30 - 37세", type: "전문직 남성", male: 1, female: 1 },
+      { episode: 1, date: "2026-04-26", hour: 18, title: "2썸 탄생", summary: "두 사람의 호감 표시가 서로 맞아 매칭되었습니다.", age: "34 - 39세", type: "돌싱", male: 6, female: 6 }
+    ];
+
+    function matchResultCardTitle(item) {
+      const d = new Date(`${item.date}T00:00:00`);
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      const weekday = ["일", "월", "화", "수", "목", "금", "토"][d.getDay()];
+      const period = item.hour < 12 ? "오전" : "오후";
+      const displayHour = String(item.hour % 12 || 12).padStart(2, "0");
+      return `[${mm}-${dd}(${weekday}) ${period} ${displayHour}:00] 소개팅 종료`;
+    }
+    const matchResultPageSize = 10;
+    let matchResultCurrentPage = 1;
+
+    function matchResultCardHtml(item) {
+      return `
+        <button class="match-result-card" type="button" onclick="window.openMatchResultModal(${item.episode})">
+          <span class="match-result-number" aria-hidden="true">${item.episode}화</span>
+          <span class="match-result-divider" aria-hidden="true"></span>
+          <span class="match-result-copy">
+            <strong>${htmlAttr(matchResultCardTitle(item))}</strong>
+            <span class="match-result-tags">
+              <span class="composition-choice-badges" aria-hidden="true">
+                <span class="composition-gender-badge is-male">${iconMale}<b>${item.male}</b></span>
+                <span class="composition-gender-badge is-female">${iconFemale}<b>${item.female}</b></span>
+              </span>
+              <span>${htmlAttr(item.age)}</span>
+              <span>${htmlAttr(item.type)}</span>
+            </span>
+          </span>
+          <span class="match-result-badge">결과 확인</span>
+        </button>
+      `;
+    }
+
+    function renderMatchResultModal(item) {
+      const modal = document.querySelector("[data-match-result-modal]");
+      if (!modal || !item) return;
+      const modeBadgeMarkup = `<span class="schedule-mode-badges"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male">${iconMale}<b>${item.male}</b></span><span class="composition-gender-badge is-female">${iconFemale}<b>${item.female}</b></span></span></span>`;
+      const modalDetailMarkup = `<div class="schedule-status-detail schedule-modal-detail">${modeBadgeMarkup}<span>${htmlAttr(item.age)}</span><span>${htmlAttr(item.type)}</span></div>`;
+      modal.innerHTML = `
+        <div class="home-schedule-panel">
+          <button class="home-schedule-close-btn" type="button" data-match-result-close aria-label="닫기">×</button>
+          <section class="support-card mypage-fold-card" style="margin:0; padding:.9rem;">
+            <div class="home-schedule-modal-topline">
+              <span class="home-schedule-modal-logo" aria-hidden="true"><img src="assets/clover-logo-v2.png" alt=""></span>
+              <div class="home-schedule-modal-topcopy">
+                <h2 class="schedule-detail-heading">${htmlAttr(matchResultCardTitle(item))}</h2>
+                ${modalDetailMarkup}
+              </div>
+            </div>
+            <div class="match-result-detail-flow" style="margin:0 0 .65rem;" aria-hidden="true">
+              <span class="match-result-person">남성 선택</span>
+              <span class="match-result-heart">♥</span>
+              <span class="match-result-person">여성 선택</span>
+            </div>
+            <p class="match-result-detail-summary" style="margin:0;">${htmlAttr(item.summary)}</p>
+          </section>
+        </div>
+      `;
+    }
+
+    window.openMatchResultModal = function openMatchResultModal(episode) {
+      closeAllPopupModals();
+      const item = matchResultSampleItems.find((entry) => entry.episode === episode);
+      if (!item) return;
+      renderMatchResultModal(item);
+      document.querySelector("[data-match-result-modal]").hidden = false;
+    };
+
+    function closeMatchResultModal() {
+      const modal = document.querySelector("[data-match-result-modal]");
+      if (modal) { modal.hidden = true; modal.innerHTML = ""; }
+    }
+    window.closeMatchResultModal = closeMatchResultModal;
+
+    function renderMatchResultList() {
+      const container = document.querySelector("[data-match-result-list]");
+      const pagination = document.querySelector("[data-match-result-pagination]");
+      if (!container) return;
+      const totalPages = Math.ceil(matchResultSampleItems.length / matchResultPageSize);
+      matchResultCurrentPage = Math.min(Math.max(matchResultCurrentPage, 1), totalPages);
+      const start = (matchResultCurrentPage - 1) * matchResultPageSize;
+      const pageItems = matchResultSampleItems.slice(start, start + matchResultPageSize);
+      container.innerHTML = pageItems.map(matchResultCardHtml).join("");
+      if (!pagination) return;
+      pagination.hidden = totalPages <= 1;
+      pagination.innerHTML = totalPages > 1 ? `
+        <button class="board-page-button" type="button" data-match-result-prev ${matchResultCurrentPage === 1 ? "disabled" : ""} aria-label="이전 페이지" title="이전 페이지"><span>‹</span></button>
+        <span class="board-page-status">${matchResultCurrentPage} / ${totalPages}</span>
+        <button class="board-page-button" type="button" data-match-result-next ${matchResultCurrentPage === totalPages ? "disabled" : ""} aria-label="다음 페이지" title="다음 페이지"><span>›</span></button>
+      ` : "";
+    }
+
     window.openMatchResultDetail = function openMatchResultDetail(event, title, summary) {
       if (event) {
         event.preventDefault();
@@ -13693,6 +14080,7 @@ const groups = [
       if (safePageName === "location") bindLocationMapLayer();
       if (safePageName === "mypage") { loadMyApplications(); loadMyProfileInfo(); loadMyCounsel(); loadMyBoardPosts(); }
       if (safePageName === "counsel") loadCounselPosts();
+      if (safePageName === "reviews") renderMatchResultList();
       const homeUrl = `${location.pathname}${location.search}`;
       if (updateHash) {
         const nextUrl = safePageName === "home" ? homeUrl : `#${safePageName}`;
@@ -14619,11 +15007,14 @@ const groups = [
       }
       if (event.key === "Escape") {
         setDrawer(false);
+        const matchResultModal = document.querySelector("[data-match-result-modal]");
+        if (matchResultModal && !matchResultModal.hidden) closeMatchResultModal();
+        const schedulePostModal = document.querySelector("[data-schedule-post-modal]");
+        if (schedulePostModal && !schedulePostModal.hidden) closeSchedulePostModal();
       }
     });
 
-    setPage("home", false);
-    history.replaceState({ pageName: "home" }, "", `${location.pathname}${location.search}`);
+    renderPageFromHistory();
     window.addEventListener("popstate", renderPageFromHistory);
 
     let heroRotationTimer = null;
