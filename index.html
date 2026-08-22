@@ -986,14 +986,6 @@
       font-variant-numeric: tabular-nums;
     }
 
-    .match-result-tags .composition-gender-badge.is-female b {
-      transform: translateX(-1px);
-    }
-
-    .match-result-tags .composition-gender-badge.is-female {
-      transform: translateY(0.4px);
-    }
-
     .match-result-tags .composition-gender-badge.is-male {
       background: #1688f8;
       color: #fff;
@@ -1871,7 +1863,7 @@
     }
 
     .schedule-status-detail .composition-choice-badges {
-      height: calc(1.18rem - 2px);
+      height: 17px;
       gap: 0;
       overflow: visible;
       border-radius: 999px;
@@ -1879,27 +1871,20 @@
     }
 
     .schedule-status-detail .composition-gender-badge {
-      min-width: calc(1.72rem - 3px);
-      height: calc(1.18rem - 2px);
+      min-width: 25px;
+      height: 17px;
       gap: .05rem;
-      padding: 0 calc(.3rem - 1.5px);
+      padding: 0 3px;
       border-radius: 0;
       font-size: .64rem;
       box-shadow: none;
     }
     .schedule-status-detail .composition-gender-badge svg {
-      width: calc(.58rem - 1px);
-      height: calc(.58rem - 1px);
-      transform: translateY(0.7px);
+      width: 8px;
+      height: 8px;
+      transform: translateY(1px);
     }
 
-    .schedule-status-detail .composition-gender-badge.is-female > svg {
-      transform: translate(-2px, 0.7px);
-    }
-
-    .schedule-status-detail .composition-gender-badge.is-female > b {
-      transform: translateX(-2px);
-    }
     @media(max-width: 30rem) {
       .schedule-status-shell {
         grid-template-columns: auto 1px minmax(0, 1fr) auto;
@@ -2793,6 +2778,17 @@
       width: 1rem;
       height: 1rem;
       flex-basis: 1rem;
+      transform-origin: center;
+      animation: event-badge-icon-pulse 1.8s ease-in-out infinite;
+    }
+
+    .event-location-badge.is-certified > svg {
+      animation: none;
+    }
+
+    @keyframes event-badge-icon-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.22); }
     }
 
     .event-location-badge > span {
@@ -2813,16 +2809,17 @@
       transform: translateY(-0.5px);
     }
 
-    .event-location-badge.is-popular svg,
-    .event-location-badge.is-certified svg {
+    .event-location-badge.is-popular svg {
       width: 1rem;
       height: 1rem;
     }
 
-    .event-location-badge.is-popular svg {
-      transform: scale(1.1875);
-      transform-origin: center;
+    .event-location-badge.is-certified svg {
+      width: calc(1rem + 2px);
+      height: calc(1rem + 2px);
+      flex-basis: calc(1rem + 2px);
     }
+
 
     .event-cert-badge {
       position: absolute;
@@ -3698,7 +3695,7 @@
 
     .detail-title {
       margin: 0;
-      font-size: 0.82rem;
+      font-size: 1.05rem;
       line-height: 1.32;
       font-weight: 950;
       word-break: keep-all;
@@ -3916,7 +3913,7 @@
 
     .form-intro h2 {
       margin: 0;
-      font-size: .92rem;
+      font-size: 1.18rem;
       font-weight: 950;
     }
 
@@ -4019,6 +4016,75 @@
 
     :root[data-theme="dark"] .application-fee-amount {
       color: #00f040;
+    }
+
+    .application-fee-section,
+    :root[data-theme="dark"] #page-event-detail .application-fee-section {
+      padding: 0 !important;
+      border: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    .fee-ticket {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      gap: 0.9rem;
+      padding: 1.35rem 1.2rem;
+      border-radius: 16px;
+      background: #00f040;
+      border: 0;
+      overflow: hidden;
+    }
+
+    .fee-ticket-label {
+      flex: 1;
+      display: grid;
+      align-content: end;
+      justify-items: start;
+      text-align: left;
+      gap: 0.2rem;
+      min-width: 0;
+    }
+
+    .fee-ticket-kicker {
+      font-size: 1.05rem;
+      font-weight: 950;
+      color: #07150b;
+    }
+
+    .fee-ticket-note {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: rgba(7, 21, 11, 0.65);
+      word-break: keep-all;
+    }
+
+    .fee-ticket-divider {
+      align-self: stretch;
+      width: 0;
+      margin: -1.35rem 0.7rem -1.35rem 0;
+      border-left: 1px dashed rgba(7, 21, 11, 0.4);
+    }
+
+    .fee-ticket-amount {
+      align-self: flex-end;
+      margin: 0;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.32rem;
+      color: #07150b;
+      font-size: 1.5rem;
+      font-weight: 950;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .fee-ticket-amount-tag {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: rgba(7, 21, 11, 0.65);
     }
 
     .application-calendar {
@@ -4438,6 +4504,10 @@
       font-weight: 950;
     }
 
+    .selection-heading.children-condition-heading {
+      font-size: 1.05rem;
+    }
+
     .region-choice-row {
       display: flex;
       flex-wrap: wrap;
@@ -4474,6 +4544,28 @@
       color: var(--tint-green-text);
       background: var(--tint-green);
       box-shadow: inset 0 0 0 1px rgba(0, 240, 64, 0.18);
+    }
+
+    .region-choice.children-choice.is-selected {
+      color: var(--ink);
+      background: var(--surface);
+      border-color: rgba(0, 240, 64, 0.48);
+      box-shadow: 0 0 0 0.16rem rgba(0, 240, 64, 0.12);
+    }
+
+    .form-section.children-section {
+      gap: 1.1rem;
+    }
+
+    .children-question label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 900;
+    }
+
+    .children-question + .children-question {
+      padding-top: 1.1rem;
+      border-top: 1px solid var(--line);
     }
 
     .composition-choice-row {
@@ -4656,6 +4748,13 @@
       color: #00ff40;
       background: rgba(0, 255, 64, 0.1);
       box-shadow: inset 0.42rem 0.42rem 0.9rem rgba(0, 0, 0, 0.36), inset -1px -1px 0 rgba(255, 255, 255, 0.035);
+    }
+
+    :root[data-theme="dark"] .region-choice.children-choice.is-selected {
+      color: #f1f1f1;
+      background: linear-gradient(145deg, #232323 0%, #181818 100%);
+      border-color: rgba(0, 240, 64, 0.5);
+      box-shadow: 0 0 0 0.16rem rgba(0, 240, 64, 0.13);
     }
 
     :root[data-theme="dark"] .weekday-chip.is-sunday {
@@ -4846,7 +4945,7 @@
       border-bottom: 1px solid var(--line);
       display: flex;
       align-items: center;
-      gap: 0.42rem;
+      gap: 0;
       font-size: 0.92rem;
       font-weight: 950;
     }
@@ -4887,7 +4986,7 @@
 
     .req {
       display: inline-block;
-      margin-left: 0.22rem;
+      margin-left: 0;
       color: #e53935;
       font-weight: 950;
     }
@@ -4905,9 +5004,10 @@
       font-size: 0.9rem;
     }
 
-    .form-field input.is-invalid {
-      border-color: #e53935;
-      box-shadow: 0 0 0 0.12rem rgba(229, 57, 53, 0.12);
+    .form-field input.is-invalid,
+    .form-field input.is-invalid:focus {
+      border-color: #e53935 !important;
+      box-shadow: 0 0 0 0.12rem rgba(229, 57, 53, 0.12) !important;
     }
 
     .form-field textarea {
@@ -5003,6 +5103,11 @@
       border: 1px dashed var(--line);
       border-radius: 0.9rem;
       background: var(--surface);
+    }
+
+    .file-drop.is-invalid {
+      border-color: #e53935;
+      box-shadow: 0 0 0 0.12rem rgba(229, 57, 53, 0.12);
     }
 
     .photo-row {
@@ -5130,6 +5235,20 @@
       font-weight: 900;
     }
 
+    :root[data-theme="dark"] .document-preview {
+      border-color: #303030;
+      background: #1f1f1f;
+    }
+
+    :root[data-theme="dark"] .document-thumb {
+      border-color: #303030;
+      background-color: #2a2a2a;
+    }
+
+    :root[data-theme="dark"] .document-title {
+      color: #f7f9fb;
+    }
+
     .remove-file-btn {
       margin-left: auto;
       border: 0;
@@ -5190,6 +5309,11 @@
       border-radius: 50%;
       animation: submit-spin 0.7s linear infinite;
       flex: 0 0 auto;
+    }
+
+    :root[data-theme="dark"] .form-submit-btn.is-loading::before {
+      border-color: rgba(255, 255, 255, 0.25);
+      border-top-color: #ffffff;
     }
 
     .form-submit-btn.is-loading {
@@ -10264,6 +10388,13 @@
       box-shadow: 0 0 0 2px rgba(0, 255, 64, .13), 0 0 18px rgba(0, 255, 64, .2);
     }
 
+    :root[data-theme="dark"] #page-event-detail .region-choice.children-choice.is-selected {
+      color: #f7f9fb;
+      background: linear-gradient(145deg, #232323 0%, #181818 100%);
+      border-color: rgba(0, 240, 64, 0.5);
+      box-shadow: 0 0 0 0.16rem rgba(0, 240, 64, 0.13);
+    }
+
     :root[data-theme="dark"] #page-event-detail .detail-hero {
       overflow: hidden;
       padding: 0;
@@ -11357,7 +11488,7 @@
     /* 濡쒓렇???뚯썝媛???섏씠吏 移대뱶 40px ?곷떒 ?대룞 */
     #page-login .auth-card,
     #page-signup .auth-card {
-      transform: translateY(-40px) !important;
+      transform: translateY(-80px) !important;
     }
 
     /* ?좎껌 2?섏씠吏 ?꾨떖 ?ы빆 ?낅젰移?*/
@@ -11526,6 +11657,11 @@
         0 1px 0 rgba(255, 255, 255, 0.035) !important;
     }
 
+    :root[data-theme="dark"] #page-event-detail .application-form .form-field input.is-invalid {
+      border-color: #e53935 !important;
+      box-shadow: 0 0 0 0.12rem rgba(229, 57, 53, 0.16) !important;
+    }
+
     :root[data-theme="dark"] #page-event-detail .application-form .form-field input::placeholder,
     :root[data-theme="dark"] #page-event-detail .application-form .form-field textarea::placeholder,
     :root[data-theme="dark"] .application-selection-page .application-note-input::placeholder {
@@ -11541,6 +11677,14 @@
         inset 0.42rem 0.42rem 0.78rem rgba(0, 0, 0, 0.48),
         inset -0.22rem -0.22rem 0.58rem rgba(255, 255, 255, 0.04),
         0 0 0 2px rgba(0, 240, 64, 0.12) !important;
+    }
+
+    #page-event-detail .application-form .form-field input:focus,
+    #page-event-detail .application-form .form-field textarea:focus,
+    #page-event-detail .application-form .form-field select:focus,
+    .application-selection-page .application-note-input:focus {
+      border-color: #00c934 !important;
+      box-shadow: 0 0 0 2px rgba(0, 201, 52, 0.16) !important;
     }
 </style>
 </head>
@@ -12137,7 +12281,7 @@
     <div class="gender-modal-panel">
       <button class="gender-modal-close" type="button" aria-label="닫기" data-submit-success-close>×</button>
       <p class="gender-modal-title" id="submitSuccessTitle">신청이 접수되었습니다.</p>
-      <p class="submit-success-hint">마이 클로버에서 확인 가능합니다.</p>
+      <p class="submit-success-hint">확인 후 안내 드리겠습니다.</p>
       <div class="gender-modal-actions">
         <button class="modal-confirm-btn" type="button" data-submit-success-close>확인</button>
       </div>
@@ -12382,7 +12526,7 @@
     const iconCalendar = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01" stroke-width="3" stroke-linecap="round"/></svg>';
     const iconPin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
     const iconStamp = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="#22c55e"/><path d="m7.8 12.2 2.7 2.7 5.9-6.1" fill="none" stroke="#fff" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    const iconPopular = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.4 3.2c.4 2.5-.7 4-2 5.5-1.1 1.2-2.2 2.5-2.2 4.6 0 2.7 1.8 4.9 4.3 4.9 2.3 0 4.2-1.8 4.2-4.4 0-1.8-.9-3.1-2.2-4.5-.2 1.4-.9 2.5-2.1 3.1.1-2.2.7-4.7 0-9.2Z" fill="#ff6b00"/><path d="M11.8 13.2c-.9 1.1-1.5 1.9-1.5 3.1 0 1.3.9 2.4 2.2 2.4 1.2 0 2.1-.9 2.1-2.3 0-1.1-.5-1.9-1.4-2.9-.3.8-.8 1.4-1.4 1.7v-2Z" fill="#ffd43b"/></svg>';
+    const iconPopular = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z" fill="#ff4d6d"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
     const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbw9EUZwk3sDWs-AXNQ-NOgG4tawn4O66ocM7cGVoe836nss02n_Ssib1ShMXFOXtnYe/exec";
@@ -12771,6 +12915,10 @@
       selectedAgeOption = null;
       selectedComposition = "";
       selectedApplicationNote = "";
+      selectedChildrenCondition = "";
+      selectedMyChildrenHas = "";
+      selectedMyChildrenCount = "";
+      selectedMyChildrenLiving = "";
       selectedDocumentFile = null;
       selectedPhotoFiles = [];
       selectedBodyPhotoFiles = [];
@@ -12809,7 +12957,7 @@
       `).join("");
       return `
         <section class="selection-section composition-selection-block">
-          <div class="selection-heading">인원 선택 <span class="req">*</span></div>
+          <div class="selection-heading">인원 선택<span class="req">*</span></div>
           <div class="composition-choice-row">${buttons}</div>
         </section>
       `;
@@ -12817,7 +12965,7 @@
 
     function renderAgeSelectionMarkup() {
       const ageEnabled = isAgeSelectionEnabled();
-      const ageCards = applicationAgeOptions.map((option) => `
+      const ageCards = currentApplicationAgeOptions().map((option) => `
         <button class="age-option-card${ageEnabled && selectedAgeOption?.id === option.id ? " is-selected" : ""}" type="button" data-age-option="${option.id}" ${ageEnabled ? "" : "disabled"}>
           <span class="age-option-check" aria-hidden="true"></span>
           <span class="age-option-main"><strong>${option.range}</strong></span>
@@ -12826,7 +12974,7 @@
       `).join("");
       return `
         <section class="selection-section age-selection-block${ageEnabled ? "" : " is-disabled"}" aria-disabled="${ageEnabled ? "false" : "true"}">
-          <div class="selection-heading">연령대 선택${ageEnabled ? ` <span class="req">*</span>` : ""}</div>
+          <div class="selection-heading">연령대 선택${ageEnabled ? `<span class="req">*</span>` : ""}</div>
           <p class="schedule-description">해당 연령대 남·여 인원이 전부 마감되면 순차적으로 스케줄이 진행됩니다.</p>
           <div class="age-option-list">${ageCards}</div>
         </section>
@@ -12834,18 +12982,18 @@
     }
 
 
-    function renderApplicationNoteMarkup(price) {
+    function renderApplicationNoteMarkup(price, event) {
+      const isDivorced = event?.title === "이혼 경험이 있는 남·여";
+      const placeholder = isDivorced
+        ? "일정 조율 시 참고할 사항을 남겨주세요."
+        : "예시&#10;'토요일에 1:1로 3회 진행하고 싶어요'&#10;'근무 시간이 일정하지 않아요.'";
       return `
         <section class="form-section application-note-section">
           <div class="schedule-heading">전달 사항</div>
           <p class="schedule-description">원하는 진행 방식이나 참고할 내용을 자유롭게 적어주세요.</p>
           <label class="application-note-field">
-            <textarea class="application-note-input" data-application-note maxlength="500" placeholder="예시&#10;*'토요일에 1:1로 3회 진행하고 싶어요'&#10;*'교대근무라 근무시간이 일정하지 않아요.'">${htmlAttr(selectedApplicationNote)}</textarea>
+            <textarea class="application-note-input" data-application-note maxlength="500" placeholder="${placeholder}">${htmlAttr(selectedApplicationNote)}</textarea>
           </label>
-        </section>
-        <section class="form-section application-fee-section">
-          <div class="schedule-heading">참가비</div>
-          <p class="application-fee-amount">${htmlAttr(price || "")}</p>
         </section>
       `;
     }
@@ -12871,7 +13019,7 @@
       `).join("");
       return `
         <section class="form-section schedule-section">
-          <div class="schedule-heading">요일 선택 <span class="req">*</span></div>
+          <div class="schedule-heading">요일 선택<span class="req">*</span></div>
           <p class="schedule-description">참여 가능한 요일을 선택해주세요.</p>
           <div class="weekday-select">${weekdayChips}</div>
         </section>
@@ -12916,7 +13064,7 @@
           ? saved.selectedWeekdays.filter((day) => weekdayOptions.includes(day))
           : [];
         selectedApplicationRegions = Array.isArray(saved.selectedApplicationRegions) ? saved.selectedApplicationRegions : [];
-        selectedAgeOption = applicationAgeOptions.find((option) => option.id === saved.selectedAgeOptionId) || null;
+        selectedAgeOption = currentApplicationAgeOptions().find((option) => option.id === saved.selectedAgeOptionId) || null;
         selectedComposition = saved.selectedComposition || "";
         selectedApplicationNote = saved.selectedApplicationNote || "";
         selectedScheduleDate = saved.selectedScheduleDate || "";
@@ -12924,6 +13072,12 @@
       } catch {
         return "selection";
       }
+    }
+
+    function eventSkipsIntroPage(event) {
+      const title = String(event?.title || "");
+      const station = String(event?.station || "");
+      return station === "랜덤" || station === "외모" || station === "40-50대" || title === "기독교 종교를 가진 사람";
     }
 
     function eventIntroContent(event) {
@@ -12951,12 +13105,35 @@
       };
     }
 
+    const childrenConditionOptions = [
+      { id: "none", label: "자녀 없는 분을 선호해요." },
+      { id: "one", label: "자녀 1명까지 괜찮아요." },
+      { id: "two", label: "자녀 2명까지 괜찮아요." }
+    ];
+
+    function childrenConditionMarkup() {
+      const cards = childrenConditionOptions.map((option) => `
+        <button class="age-option-card${selectedChildrenCondition === option.id ? " is-selected" : ""}" type="button" data-children-condition="${option.id}">
+          <span class="age-option-check" aria-hidden="true"></span>
+          <span class="age-option-main"><strong>${option.label}</strong></span>
+        </button>
+      `).join("");
+      return `
+        <section class="selection-section age-selection-block">
+          <div class="selection-heading children-condition-heading">상대방의 자녀 조건을 선택해주세요.<span class="req">*</span></div>
+          <p class="schedule-description">*자녀와 함께 거주하지 않는 경우, '자녀 없음' 기준으로 매칭됩니다.</p>
+          <div class="age-option-list">${cards}</div>
+        </section>
+      `;
+    }
+
     function renderEventIntroPage(event) {
       selectedEvent = event;
       detailRoot.dataset.gender = selectedApplyGender || "";
       const detailImage = eventImageStack(event);
       const detailVideo = eventVideoMarkup(event, "detail-media");
       const intro = eventIntroContent(event);
+      const isDivorced = event.title === "이혼 경험이 있는 남·여";
 
       detailRoot.innerHTML = `
         <article class="detail-hero selection-detail-hero">
@@ -12969,6 +13146,7 @@
           </div>
         </article>
         <div class="application-intro-page">
+          ${isDivorced ? childrenConditionMarkup() : `
           <section class="application-intro-card">
             <p class="application-intro-kicker">1페이지 안내</p>
             <h2 class="application-intro-title">${htmlAttr(event.title)}</h2>
@@ -12977,7 +13155,8 @@
               ${intro.points.map((point) => `<li>${htmlAttr(point)}</li>`).join("")}
             </ul>
           </section>
-          <button class="selection-complete-btn" type="button" data-intro-next>다음</button>
+          `}
+          <button class="selection-complete-btn" type="button" data-intro-next ${isDivorced && !selectedChildrenCondition ? "disabled" : ""}>다음</button>
         </div>
       `;
 
@@ -13008,7 +13187,7 @@
           ${renderCompositionSelectionMarkup()}
           ${renderAgeSelectionMarkup()}
           ${selectionScheduleMarkup()}
-          ${renderApplicationNoteMarkup(selectionPrice)}
+          ${event.station === "40-50대" ? "" : renderApplicationNoteMarkup(selectionPrice, event)}
           <button class="selection-complete-btn" type="button" data-selection-complete ${selectionReady ? "" : "disabled"}>선택 완료</button>
         </div>
       `;
@@ -13016,6 +13195,61 @@
       updateSelectionCompleteButton();
       saveApplicationFlowState("selection");
       window.scrollTo({ top: preservedScrollY, left: 0, behavior: "instant" });
+    }
+
+    const myChildrenHasOptions = [
+      { id: "no", label: "자녀 없음" },
+      { id: "yes", label: "자녀 있음" }
+    ];
+    const myChildrenCountOptions = [
+      { id: "1", label: "1명" },
+      { id: "2", label: "2명" },
+      { id: "3plus", label: "3명 이상" }
+    ];
+    const myChildrenLivingOptions = [
+      { id: "together", label: "함께 살아요" },
+      { id: "apart", label: "함께 살지 않아요" }
+    ];
+
+    function myChildrenReady() {
+      if (selectedMyChildrenHas === "no") return true;
+      if (selectedMyChildrenHas === "yes") return Boolean(selectedMyChildrenCount) && Boolean(selectedMyChildrenLiving);
+      return false;
+    }
+
+    function myChildrenSectionMarkup() {
+      const hasButtons = myChildrenHasOptions.map((option) => `
+        <button class="region-choice children-choice${selectedMyChildrenHas === option.id ? " is-selected" : ""}" type="button" data-my-children-has="${option.id}">${option.label}</button>
+      `).join("");
+      const showCount = selectedMyChildrenHas === "yes";
+      const showLiving = showCount && Boolean(selectedMyChildrenCount);
+      const countButtons = myChildrenCountOptions.map((option) => `
+        <button class="region-choice children-choice${selectedMyChildrenCount === option.id ? " is-selected" : ""}" type="button" data-my-children-count="${option.id}">${option.label}</button>
+      `).join("");
+      const livingButtons = myChildrenLivingOptions.map((option) => `
+        <button class="region-choice children-choice${selectedMyChildrenLiving === option.id ? " is-selected" : ""}" type="button" data-my-children-living="${option.id}">${option.label}</button>
+      `).join("");
+      return `
+        <section class="form-section children-section">
+          <h3>나의 자녀<span class="req">*</span></h3>
+          <div class="form-field children-question">
+            <label>자녀가 있나요?</label>
+            <div class="region-choice-row">${hasButtons}</div>
+          </div>
+          ${showCount ? `
+          <div class="form-field children-question">
+            <label>자녀는 몇 명인가요?</label>
+            <div class="region-choice-row">${countButtons}</div>
+          </div>
+          ` : ""}
+          ${showLiving ? `
+          <div class="form-field children-question">
+            <label>현재 자녀와 함께 살고 있나요?</label>
+            <div class="region-choice-row">${livingButtons}</div>
+          </div>
+          ` : ""}
+        </section>
+      `;
     }
 
     function renderDetail(event) {
@@ -13048,42 +13282,42 @@
           <div class="form-intro">
             <div class="form-intro-title-row">
               <h2>${applicationGender ? `${applicationGender} 신청서 양식` : "신청서 양식"}</h2>
-              <button class="apply-same-as-profile-btn" type="button" data-apply-same-as-profile>내 정보와 동일</button>
+              <button class="apply-same-as-profile-btn" type="button" data-apply-same-as-profile>데이터 불러오기</button>
             </div>
             <p>현재 기준으로 아래 양식을 작성해 주시길 바랍니다.</p>
           </div>
 
           <section class="form-section">
-            <h3>기본 정보 <span class="req">*</span></h3>
+            <h3>기본 정보<span class="req">*</span></h3>
             <div class="form-grid">
               <div class="form-field">
-                <label for="applyName">성함 <span class="req">*</span></label>
+                <label for="applyName">성함<span class="req">*</span></label>
                 <input id="applyName" name="name" placeholder="이름">
               </div>
               <div class="form-field">
-                <label for="applyPhone">연락처 <span class="req">*</span></label>
+                <label for="applyPhone">연락처<span class="req">*</span></label>
                 <input id="applyPhone" name="phone" inputmode="numeric" maxlength="13" placeholder="010-0000-0000">
               </div>
               <div class="form-field full">
-                <label for="applyBirth">생년월일 <span class="req">*</span></label>
+                <label for="applyBirth">생년월일<span class="req">*</span></label>
                 <input id="applyBirth" name="birth" inputmode="numeric" maxlength="10" placeholder="1990-00-00">
               </div>
             </div>
           </section>
 
           <section class="form-section">
-            <h3>신체 및 거주 정보 <span class="req">*</span></h3>
+            <h3>신체 및 거주 정보<span class="req">*</span></h3>
             <div class="form-grid">
               <div class="form-field">
-                <label for="applyHeight">키 <span class="req">*</span></label>
+                <label for="applyHeight">키<span class="req">*</span></label>
                 <input id="applyHeight" name="height" inputmode="numeric" placeholder="cm">
               </div>
               <div class="form-field">
-                <label for="applyWeight">체중 <span class="req">*</span></label>
+                <label for="applyWeight">체중<span class="req">*</span></label>
                 <input id="applyWeight" name="weight" inputmode="numeric" placeholder="kg">
               </div>
               <div class="form-field full">
-                <label for="applyArea">거주지 <span class="req">*</span></label>
+                <label for="applyArea">거주지<span class="req">*</span></label>
                 <input id="applyArea" name="area" placeholder="현재 사는 곳">
               </div>
             </div>
@@ -13093,26 +13327,28 @@
             <h3>직업</h3>
             <div class="form-grid application-job-grid">
               <div class="form-field apply-company-field">
-                <label for="applyCompany">회사명</label>
+                <label for="applyCompany">회사명<span class="req">*</span></label>
                 <input id="applyCompany" name="company" placeholder="회사명">
               </div>
               <div class="form-field">
-                <label for="applyDepartment">부서</label>
+                <label for="applyDepartment">부서<span class="req">*</span></label>
                 <input id="applyDepartment" name="department" placeholder="부서">
               </div>
               <div class="form-field">
-                <label for="applyPosition">직무</label>
+                <label for="applyPosition">직무<span class="req">*</span></label>
                 <input id="applyPosition" name="position" placeholder="직무">
               </div>
             </div>
           </section>
 
+          ${event.title === "이혼 경험이 있는 남·여" ? myChildrenSectionMarkup() : ""}
+
           <section class="form-section">
             <h3>제출 서류</h3>
             <div class="form-field">
-              <label>얼굴 사진 (3-5장) <span class="req">*</span></label>
+              <label>얼굴 사진 (3-5장)<span class="req">*</span></label>
               <p class="form-help">얼굴이 잘 보이는 사진을 등록해 주세요.</p>
-              <div class="file-drop">
+              <div class="file-drop" data-photo-file-drop="photos">
                 <div class="photo-row" data-photo-row>
                   <label class="photo-add">
                     + 추가
@@ -13122,9 +13358,9 @@
               </div>
             </div>
             <div class="form-field">
-              <label>전신 사진 (1-3장) <span class="req">*</span></label>
+              <label>전신 사진 (1-3장)<span class="req">*</span></label>
               <p class="form-help">전신이 잘 보이는 사진을 등록해 주세요.</p>
-              <div class="file-drop">
+              <div class="file-drop" data-photo-file-drop="bodyPhotos">
                 <div class="photo-row" data-body-photo-row>
                   <label class="photo-add">
                     + 추가
@@ -13157,6 +13393,17 @@
             <h3>전달 사항</h3>
             <div class="form-field">
               <textarea id="applyMessage" name="message" aria-label="전달 사항" placeholder="참여 일정, 진행 방식, 참고할 내용을 자유롭게 적어주세요.">${htmlAttr(selectedApplicationNote)}</textarea>
+            </div>
+          </section>
+
+          <section class="form-section application-fee-section">
+            <div class="fee-ticket">
+              <div class="fee-ticket-label">
+                <span class="fee-ticket-kicker">${htmlAttr(applicationGender)} 지원자</span>
+                <span class="fee-ticket-note">입금 이후 확정됩니다.</span>
+              </div>
+              <div class="fee-ticket-divider"></div>
+              <p class="fee-ticket-amount"><span class="fee-ticket-amount-tag">참가비</span>${htmlAttr(selectedApplyPrice || "")}</p>
             </div>
           </section>
 
@@ -13200,6 +13447,10 @@
     let selectedAgeOption = null;
     let selectedComposition = "";
     let selectedApplicationNote = "";
+    let selectedChildrenCondition = "";
+    let selectedMyChildrenHas = "";
+    let selectedMyChildrenCount = "";
+    let selectedMyChildrenLiving = "";
     let currentPageName = document.querySelector(".page.is-active")?.dataset.page || "home";
     const validPageNames = new Set([...pages].map((page) => page.dataset.page));
     const naverMapClientId = "evk9pbogap";
@@ -13218,6 +13469,15 @@
       { id: "age-30-37", range: "30세 - 37세", remaining: 6 },
       { id: "age-34-39", range: "34세 - 39세", remaining: 6 }
     ];
+    const applicationAgeOptions4050 = [
+      { id: "age-40-47", range: "40세 - 47세", remaining: 6 },
+      { id: "age-44-49", range: "44세 - 49세", remaining: 6 },
+      { id: "age-47-56", range: "47세 - 56세", remaining: 6 },
+      { id: "age-50-57", range: "50세 - 57세", remaining: 6 }
+    ];
+    function currentApplicationAgeOptions() {
+      return selectedEvent?.station === "40-50대" ? applicationAgeOptions4050 : applicationAgeOptions;
+    }
     let selectedFileSequence = 0;
     let mypageDocumentFile = null;
     let mypagePhotoFiles = [];
@@ -14196,7 +14456,7 @@
         <section class="form-section mypage-file-section">
           <h3>제출 서류</h3>
           <div class="form-field">
-            <label>얼굴 사진 (3-5장) <span class="req">*</span></label>
+            <label>얼굴 사진 (3-5장)<span class="req">*</span></label>
             <p class="form-help">얼굴이 잘 보이는 사진을 등록해 주세요.</p>
             <div class="file-drop">
               <div class="photo-row" data-mypage-photo-row>
@@ -14209,7 +14469,7 @@
             </div>
           </div>
           <div class="form-field">
-            <label>전신 사진 (1-3장) <span class="req">*</span></label>
+            <label>전신 사진 (1-3장)<span class="req">*</span></label>
             <p class="form-help">전신이 잘 보이는 사진을 등록해 주세요.</p>
             <div class="file-drop">
               <div class="photo-row" data-mypage-body-photo-row>
@@ -14321,36 +14581,36 @@
       container.innerHTML = `
         <div class="mypage-info-form">
           <section class="form-section">
-            <h3>기본 정보</h3>
+            <h3>기본 정보<span class="req">*</span></h3>
             <div class="form-grid">
               <div class="form-field">
-                <label for="infoName">이름</label>
+                <label for="infoName">이름<span class="req">*</span></label>
                 <input id="infoName" type="text" value="${htmlAttr(p.name || "")}" placeholder="이름">
               </div>
               <div class="form-field">
-                <label for="infoPhone">연락처</label>
+                <label for="infoPhone">연락처<span class="req">*</span></label>
                 <input id="infoPhone" type="text" inputmode="numeric" maxlength="13" value="${htmlAttr(p.phone || "")}" placeholder="010-0000-0000">
               </div>
               <div class="form-field full">
-                <label for="infoArea">거주지</label>
+                <label for="infoArea">거주지<span class="req">*</span></label>
                 <input id="infoArea" type="text" value="${htmlAttr(p.area || "")}" placeholder="현재 사는 곳">
               </div>
             </div>
           </section>
 
           <section class="form-section">
-            <h3>신체 및 거주 정보</h3>
+            <h3>신체 및 거주 정보<span class="req">*</span></h3>
             <div class="form-grid">
               <div class="form-field full">
-                <label for="infoBirth">생년월일</label>
+                <label for="infoBirth">생년월일<span class="req">*</span></label>
                 <input id="infoBirth" type="text" inputmode="numeric" maxlength="10" value="${htmlAttr(p.birth || "")}" placeholder="1990-00-00">
               </div>
               <div class="form-field">
-                <label for="infoHeight">키</label>
+                <label for="infoHeight">키<span class="req">*</span></label>
                 <input id="infoHeight" type="text" inputmode="numeric" value="${htmlAttr(p.height || "")}" placeholder="cm">
               </div>
               <div class="form-field">
-                <label for="infoWeight">체중</label>
+                <label for="infoWeight">체중<span class="req">*</span></label>
                 <input id="infoWeight" type="text" inputmode="numeric" value="${htmlAttr(p.weight || "")}" placeholder="kg">
               </div>
             </div>
@@ -14359,7 +14619,7 @@
           <section class="form-section">
             <h3>직업</h3>
             <div class="form-field">
-              <label for="infoJob">회사명/부서/직무</label>
+              <label for="infoJob">회사명/부서/직무<span class="req">*</span></label>
               <textarea id="infoJob" placeholder="내용을 작성해 주세요.">${htmlAttr(p.job || "")}</textarea>
             </div>
           </section>
@@ -15147,7 +15407,7 @@
     async function applySameAsProfile() {
       const profile = readProfileInfoCache();
       if (!profile || !profile.registered) {
-        showInfoModal("저장된 내 정보가 없습니다.", "마이 클로버에서 내 정보를 먼저 저장해 주세요.");
+        showInfoModal("과거 정보가 없습니다.", "로그인 이후 이용 가능합니다.");
         refreshProfileInfoCache();
         return false;
       }
@@ -15316,12 +15576,12 @@
           </div>
           <p class="app-edit-title">${editingApplication.baseTitle}</p>
           <section class="form-section schedule-section">
-            <div class="schedule-heading">가능한 요일 선택 <span class="req">*</span></div>
+            <div class="schedule-heading">가능한 요일 선택<span class="req">*</span></div>
             <p class="schedule-description">${editDateKey ? `선택한 일정: ${formatSelectedSchedule(editDateKey)}` : "참여 가능한 요일을 선택해주세요."}</p>
             <div class="weekday-select">${weekdayChips}</div>
           </section>
           <section class="selection-section age-selection-block">
-            <div class="selection-heading">연령대 선택 <span class="req">*</span></div>
+            <div class="selection-heading">연령대 선택<span class="req">*</span></div>
             <div class="age-option-list">${ageCards}</div>
           </section>
           <div class="app-edit-actions">
@@ -15487,7 +15747,7 @@
         selectedEvent = events[selectedEventIndex] || events[0];
         const restoredPhase = phaseOverride || restoreApplicationFlowState();
         restoreApplicationFlowState();
-        if (restoredPhase === "intro") {
+        if (restoredPhase === "intro" && !eventSkipsIntroPage(selectedEvent)) {
           renderEventIntroPage(selectedEvent);
         } else if (restoredPhase === "detail") {
           renderDetail(selectedEvent);
@@ -18643,6 +18903,7 @@
           row?.insertBefore(thumb, addButton);
         });
         input.value = "";
+        updatePhotoDropValidity();
       }
 
       if (input.dataset.fileInput === "bodyPhotos") {
@@ -18667,8 +18928,18 @@
           row?.insertBefore(thumb, addButton);
         });
         input.value = "";
+        updatePhotoDropValidity();
         updateFormSubmitButton();
       }
+    }
+
+    function updatePhotoDropValidity() {
+      const photoCount = selectedExistingPhotoUrls.length + selectedPhotoFiles.length;
+      const photoDrop = document.querySelector('[data-photo-file-drop="photos"]');
+      photoDrop?.classList.toggle("is-invalid", photoCount > 0 && (photoCount < 3 || photoCount > 5));
+      const bodyCount = selectedBodyPhotoFiles.length;
+      const bodyDrop = document.querySelector('[data-photo-file-drop="bodyPhotos"]');
+      bodyDrop?.classList.toggle("is-invalid", bodyCount > 0 && bodyCount > 3);
     }
 
     function readAsDataUrl(file) {
@@ -18729,15 +19000,14 @@
     function isApplicationFormReady() {
       const required = ["#applyName", "#applyPhone", "#applyBirth", "#applyHeight", "#applyWeight", "#applyArea"];
       if (required.some((selector) => !inputValue(selector))) return false;
-      const phoneInput = document.querySelector("#applyPhone");
       const birthInput = document.querySelector("#applyBirth");
-      if (!phoneInput || !birthInput) return false;
-      if (phoneInput.value.length !== 13) return false;
+      if (!birthInput) return false;
       if (birthInput.value.length !== 10) return false;
       const totalPhotoCount = selectedExistingPhotoUrls.length + selectedPhotoFiles.length;
       if (totalPhotoCount < 3 || totalPhotoCount > 5) return false;
       const totalBodyPhotoCount = selectedBodyPhotoFiles.length;
       if (totalBodyPhotoCount < 1 || totalBodyPhotoCount > 3) return false;
+      if (selectedEvent?.title === "이혼 경험이 있는 남·여" && !myChildrenReady()) return false;
       return true;
     }
 
@@ -18776,26 +19046,26 @@
       const phoneInput = document.querySelector("#applyPhone");
       const birthInput = document.querySelector("#applyBirth");
       if (!validateFormattedInput(phoneInput)) {
-        alert("연락처를 010-0000-0000 형식으로 입력해 주세요.");
+        phoneInput.scrollIntoView({ behavior: "smooth", block: "center" });
         phoneInput.focus();
         return;
       }
       if (!validateFormattedInput(birthInput)) {
-        alert("생년월일을 1990-00-00 형식으로 입력해 주세요.");
+        birthInput.scrollIntoView({ behavior: "smooth", block: "center" });
         birthInput.focus();
         return;
       }
 
       const totalPhotoCount = selectedExistingPhotoUrls.length + selectedPhotoFiles.length;
       if (totalPhotoCount < 3 || totalPhotoCount > 5) {
-        alert("얼굴 사진을 3장 이상 5장 이하로 등록해 주세요.");
-        document.querySelector('[data-file-input="photos"]')?.focus();
+        document.querySelector('[data-photo-file-drop="photos"]')?.classList.add("is-invalid");
+        document.querySelector('[data-photo-file-drop="photos"]')?.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
       }
       const totalBodyPhotoCount = selectedBodyPhotoFiles.length;
       if (totalBodyPhotoCount < 1 || totalBodyPhotoCount > 3) {
-        alert("전신 사진을 1장 이상 3장 이하로 등록해 주세요.");
-        document.querySelector('[data-file-input="bodyPhotos"]')?.focus();
+        document.querySelector('[data-photo-file-drop="bodyPhotos"]')?.classList.add("is-invalid");
+        document.querySelector('[data-photo-file-drop="bodyPhotos"]')?.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
       }
 
@@ -18921,7 +19191,11 @@
         saveDetailState(pendingEventIndex, nextGender, nextPrice);
         resetApplicationSelection();
         setGenderModal(false);
-        renderEventIntroPage(eventData);
+        if (eventSkipsIntroPage(eventData)) {
+          renderApplicationSelection(eventData);
+        } else {
+          renderEventIntroPage(eventData);
+        }
         setPage("event-detail");
         return;
       }
@@ -18931,6 +19205,16 @@
         event.preventDefault();
         event.stopPropagation();
         setGenderModal(false);
+        return;
+      }
+
+      const childrenConditionTarget = closestFrom(event.target, "[data-children-condition]");
+      if (childrenConditionTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        const clickedChildrenCondition = childrenConditionTarget.dataset.childrenCondition;
+        selectedChildrenCondition = selectedChildrenCondition === clickedChildrenCondition ? "" : clickedChildrenCondition;
+        renderEventIntroPage(selectedEvent);
         return;
       }
 
@@ -18990,6 +19274,40 @@
         if (region !== "부산" || regionChoiceTarget.disabled || regionChoiceTarget.classList.contains("is-disabled")) return;
         selectedApplicationRegions = selectedApplicationRegions.includes(region) ? [] : [region];
         renderApplicationSelection(selectedEvent);
+        return;
+      }
+
+      const myChildrenHasTarget = closestFrom(event.target, "[data-my-children-has]");
+      if (myChildrenHasTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        const clickedHas = myChildrenHasTarget.dataset.myChildrenHas;
+        selectedMyChildrenHas = selectedMyChildrenHas === clickedHas ? "" : clickedHas;
+        if (selectedMyChildrenHas !== "yes") {
+          selectedMyChildrenCount = "";
+          selectedMyChildrenLiving = "";
+        }
+        renderDetail(selectedEvent);
+        return;
+      }
+
+      const myChildrenCountTarget = closestFrom(event.target, "[data-my-children-count]");
+      if (myChildrenCountTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        const clickedCount = myChildrenCountTarget.dataset.myChildrenCount;
+        selectedMyChildrenCount = selectedMyChildrenCount === clickedCount ? "" : clickedCount;
+        renderDetail(selectedEvent);
+        return;
+      }
+
+      const myChildrenLivingTarget = closestFrom(event.target, "[data-my-children-living]");
+      if (myChildrenLivingTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        const clickedLiving = myChildrenLivingTarget.dataset.myChildrenLiving;
+        selectedMyChildrenLiving = selectedMyChildrenLiving === clickedLiving ? "" : clickedLiving;
+        renderDetail(selectedEvent);
         return;
       }
 
@@ -19056,7 +19374,7 @@
         const ageOptionId = ageOptionTarget.dataset.ageOption;
         selectedAgeOption = selectedAgeOption?.id === ageOptionId
           ? null
-          : applicationAgeOptions.find((option) => option.id === ageOptionId) || null;
+          : currentApplicationAgeOptions().find((option) => option.id === ageOptionId) || null;
         renderApplicationSelection(selectedEvent);
         return;
       }
@@ -19216,6 +19534,7 @@
           if (profilePhotoUrl) selectedExistingPhotoUrls = selectedExistingPhotoUrls.filter((url) => url !== profilePhotoUrl);
         }
         thumb?.remove();
+        updatePhotoDropValidity();
         updateFormSubmitButton();
         return;
       }
@@ -19262,20 +19581,24 @@
 
       if (target.id === "applyPhone" || target.id === "infoPhone" || (target.name === "phone" && target.closest(".auth-form"))) {
         target.value = formatPhone(target.value);
-        target.classList.remove("is-invalid");
+        if (target.value.length === 13) target.classList.remove("is-invalid");
         if (target.closest(".application-form")) updateFormSubmitButton();
         return;
       }
 
       if (target.id === "applyBirth" || target.id === "infoBirth") {
         target.value = formatBirth(target.value);
-        target.classList.remove("is-invalid");
+        if (target.value.length === 10) target.classList.remove("is-invalid");
         if (target.closest(".application-form")) updateFormSubmitButton();
         return;
       }
 
       if (["applyHeight", "applyWeight", "infoHeight", "infoWeight"].includes(target.id)) {
         target.value = onlyDigits(target.value, 3);
+      }
+
+      if (["applyName", "applyHeight", "applyWeight", "applyArea"].includes(target.id) && target.value.trim()) {
+        target.classList.remove("is-invalid");
       }
 
       if (target.closest(".application-form")) updateFormSubmitButton();
@@ -19295,10 +19618,17 @@
 
     document.addEventListener("blur", (event) => {
       const target = event.target;
-      if (!(target instanceof HTMLInputElement)) return;
-
-      if (target.id === "applyPhone" || target.id === "applyBirth") {
-        validateFormattedInput(target);
+      if (!(target instanceof HTMLInputElement) || !target.closest(".application-form")) return;
+      if (target.id === "applyPhone") {
+        target.classList.toggle("is-invalid", target.value.length !== 13);
+        return;
+      }
+      if (target.id === "applyBirth") {
+        target.classList.toggle("is-invalid", target.value.length !== 10);
+        return;
+      }
+      if (["applyName", "applyHeight", "applyWeight", "applyArea"].includes(target.id)) {
+        target.classList.toggle("is-invalid", !target.value.trim());
       }
     }, true);
 
