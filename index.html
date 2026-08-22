@@ -16196,7 +16196,7 @@
       const phase = matchResult ? "result" : (isEnded ? "ended" : (isPast ? "checking" : "countdown"));
       const episode = post.displayEpisodeNumber || scheduleEpisodeNumber(post);
       const categoryLabel = post.displayEpisode || `${episode}화`;
-      const statusBadge = phase === "countdown" ? formatScheduleCountdown(eventTs) : phase === "checking" ? "진행 중" : "결과 확인";
+      const statusBadge = phase === "countdown" ? formatScheduleCountdown(eventTs) : phase === "checking" ? "진행 중" : "종료";
       const hour = scheduleTimeHour(post.scheduleTime);
       const hasHour = !Number.isNaN(hour);
       const timeText = hasHour ? `${String(hour).padStart(2, "0")}:00` : String(post.scheduleTime || "").trim();
