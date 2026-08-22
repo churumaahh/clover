@@ -2765,8 +2765,12 @@
       left: 0.9rem;
       display: inline-flex;
       align-items: center;
-      gap: 0;
-      padding: 0.3rem 0.45rem;
+      justify-content: center;
+      gap: 0.12rem;
+      width: 3.28rem;
+      min-height: 1.62rem;
+      padding: 0.3rem 0.3rem;
+      box-sizing: border-box;
       border: 1px solid rgba(18, 18, 24, 0.12);
       border-radius: 0.35rem;
       color: #121218;
@@ -2781,6 +2785,37 @@
       width: 0.78rem;
       height: 0.78rem;
       flex: 0 0 auto;
+    }
+
+    .event-location-badge > svg {
+      width: 1rem;
+      height: 1rem;
+      flex-basis: 1rem;
+    }
+
+    .event-location-badge > span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.45rem;
+      line-height: 1;
+      text-align: center;
+      transform: translateY(-1px);
+    }
+
+    .event-location-badge.is-popular > span {
+      transform: translateY(-0.5px);
+    }
+
+    .event-location-badge.is-popular svg,
+    .event-location-badge.is-certified svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .event-location-badge.is-popular svg {
+      transform: scale(1.1875);
+      transform-origin: center;
     }
 
     .event-cert-badge {
@@ -9431,9 +9466,14 @@
     .drawer-link svg {
       width: 1.05rem;
       height: 1.05rem;
+      display: block;
       color: currentColor;
       stroke: currentColor;
       flex: 0 0 auto;
+    }
+
+    .drawer-link[data-page-link="counsel"] svg {
+      transform: translateY(0.04rem);
     }
 
     .drawer-link:hover {
@@ -9864,6 +9904,7 @@
       min-width: 0 !important;
       overflow: visible !important;
       opacity: 1 !important;
+      line-height: 1 !important;
     }
 
     .join-btn {
@@ -12281,6 +12322,7 @@
         place: preset.place || "부산 클로버 라운지 (승인 후 안내)",
         confirmed: preset.confirmed || "0/6명",
         showCardStatus: preset.showCardStatus || false,
+        badgeType: preset.badgeType || "",
         capacity: preset.capacity || "12명",
         target: preset.target || "",
         price: preset.price || "50,000원",
@@ -12333,7 +12375,8 @@
 
     const iconCalendar = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01" stroke-width="3" stroke-linecap="round"/></svg>';
     const iconPin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
-    const iconStamp = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="m8.5 12.2 2.2 2.2 4.8-5"/></svg>';
+    const iconStamp = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="#22c55e"/><path d="m7.8 12.2 2.7 2.7 5.9-6.1" fill="none" stroke="#fff" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    const iconPopular = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.4 3.2c.4 2.5-.7 4-2 5.5-1.1 1.2-2.2 2.5-2.2 4.6 0 2.7 1.8 4.9 4.3 4.9 2.3 0 4.2-1.8 4.2-4.4 0-1.8-.9-3.1-2.2-4.5-.2 1.4-.9 2.5-2.1 3.1.1-2.2.7-4.7 0-9.2Z" fill="#ff6b00"/><path d="M11.8 13.2c-.9 1.1-1.5 1.9-1.5 3.1 0 1.3.9 2.4 2.2 2.4 1.2 0 2.1-.9 2.1-2.3 0-1.1-.5-1.9-1.4-2.9-.3.8-.8 1.4-1.4 1.7v-2Z" fill="#ffd43b"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
     const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbw9EUZwk3sDWs-AXNQ-NOgG4tawn4O66ocM7cGVoe836nss02n_Ssib1ShMXFOXtnYe/exec";
@@ -12370,9 +12413,23 @@
       return String(value || "");
     }
 
+    function eventBadgeInfo(event) {
+      const badgeType = String(event?.badgeType || "").trim();
+      if (badgeType === "popular") return { icon: iconPopular, label: "인기" };
+      if (badgeType === "certified") return { icon: iconStamp, label: "승인" };
+      if (badgeType === "none") return null;
+      const station = String(event?.station || "").trim();
+      if (station === "랜덤" || station === "외모") return { icon: iconPopular, label: "인기" };
+      if (station === "맞춤") return { icon: iconStamp, label: "승인" };
+      return null;
+    }
+
     function eventTemplate(event) {
       const index = events.indexOf(event);
-      const locationName = "부산";
+      const badgeInfo = eventBadgeInfo(event);
+      const badgeMarkup = badgeInfo
+        ? `<span class="event-location-badge${badgeInfo.label === "인기" ? " is-popular" : " is-certified"}" aria-hidden="true">${badgeInfo.icon}<span>${badgeInfo.label}</span></span>`
+        : "";
       const thumbImage = eventImageStack(event);
       const thumbVideo = eventVideoMarkup(event, "event-media");
       const thumbActionAttrs = `role="button" tabindex="0" data-join-index="${index}" aria-label="${event.title} 참여 선택"`;
@@ -12395,7 +12452,7 @@
           <article class="event-card">
             <div class="event-thumb" style="--thumb-image: ${thumbImage}" ${thumbActionAttrs}>
               ${thumbVideo}
-              <span class="event-location-badge" aria-hidden="true">${iconPin}<span>${locationName}</span></span>
+              ${badgeMarkup}
             </div>
             <div class="${eventBodyClass}">
               <div>
@@ -15482,6 +15539,11 @@
         return new Set();
       }
     }
+    function scheduleSlotKey(post) {
+      const hour = scheduleTimeHour(post?.scheduleTime);
+      const time = Number.isNaN(hour) ? String(post?.scheduleTime || "") : `${hour}시`;
+      return `${post?.scheduleDate || ""}-${time}`;
+    }
     function mergedSchedulePostsForCalendar() {
       const adminPosts = readAdminSchedulePosts();
       if (!adminPosts.length) return schedulePosts;
@@ -15713,11 +15775,12 @@
     function renderHomeScheduleModal(post) {
       const modal = document.querySelector("[data-home-schedule-modal]");
       if (!modal || !post) return;
-      const hour = SCHEDULE_TIME_HOUR[post.scheduleTime];
-      const timeText = hour !== undefined ? `${String(hour).padStart(2, "0")}:00` : String(post.scheduleTime || "").trim();
-      const titleTime = hour !== undefined ? scheduleTimeLabelHtml(hour, timeText).replace(/<[^>]*>/g, "") : timeText;
+      const hour = scheduleTimeHour(post.scheduleTime);
+      const hasHour = !Number.isNaN(hour);
+      const timeText = hasHour ? `${String(hour).padStart(2, "0")}:00` : String(post.scheduleTime || "").trim();
+      const titleTime = hasHour ? scheduleTimeLabelHtml(hour, timeText).replace(/<[^>]*>/g, "") : timeText;
       const modalTitle = titleTime ? `[${titleTime}] 소개팅 안내` : (post.title || "소개팅 안내");
-      const episodeInfo = scheduleEpisodeInfo(scheduleEpisodeNumber(post), post);
+      const episodeInfo = scheduleEpisodeInfo(post.displayEpisodeNumber || scheduleEpisodeNumber(post), post);
       const modeBadgeMarkup = /^\d+\s*:\s*\d+$/.test(episodeInfo.mode) ? `<span class="schedule-mode-badges">${compositionOptionLabel(episodeInfo.mode.replace(/\s+/g, ""))}</span>` : `<span>${htmlAttr(episodeInfo.mode)}</span>`;
       const modalDetailMarkup = `<div class="schedule-status-detail schedule-modal-detail">${modeBadgeMarkup}<span>${htmlAttr(episodeInfo.age)}</span></div>`;
       const resultUnlockTs = scheduleResultUnlockTimestamp(post.scheduleDate)
@@ -16028,12 +16091,17 @@
     let selectedHomeCalendarTime = "";
     let homeCalendarSelectionCleared = false;
     let scheduleInfoVisibleMonthIndex = 0;
-    const HOME_CALENDAR_TIME_ORDER = { "13시": 0, "16시": 1, "19시": 2 };
-    const SCHEDULE_TIME_HOUR = { "13시": 13, "16시": 16, "19시": 19 };
+
+    function scheduleTimeHour(time) {
+      const match = String(time || "").match(/(\d{1,2})/);
+      if (!match) return NaN;
+      const hour = Number(match[1]);
+      return hour >= 0 && hour <= 23 ? hour : NaN;
+    }
 
     function scheduleEventTimestamp(iso, time) {
-      const hour = SCHEDULE_TIME_HOUR[time];
-      if (!iso || hour === undefined) return NaN;
+      const hour = scheduleTimeHour(time);
+      if (!iso || Number.isNaN(hour)) return NaN;
       const [y, m, d] = String(iso).split("-").map(Number);
       if (!y || !m || !d) return NaN;
       return Date.UTC(y, m - 1, d, hour - 9, 0, 0);
@@ -16061,8 +16129,6 @@
     }
 
     const SCHEDULE_EPISODE_BASE_ISO = "2026-08-01";
-    const SCHEDULE_EPISODE_SLOT_ORDER = { "13시": 0, "16시": 1, "19시": 2 };
-
     function scheduleSlotsForDayOfWeek(dayOfWeek) {
       if (dayOfWeek === 5) return ["19시"];
       if (dayOfWeek === 6 || dayOfWeek === 0) return ["13시", "16시", "19시"];
@@ -16071,7 +16137,8 @@
 
     function scheduleEpisodeNumber(post) {
       const iso = String(post.scheduleDate || "").trim();
-      if (!iso || SCHEDULE_EPISODE_SLOT_ORDER[post.scheduleTime] === undefined) return 1;
+      const postHour = scheduleTimeHour(post.scheduleTime);
+      if (!iso || Number.isNaN(postHour)) return 1;
       const [by, bm, bd] = SCHEDULE_EPISODE_BASE_ISO.split("-").map(Number);
       const [y, m, d] = iso.split("-").map(Number);
       if (!y || !m || !d) return 1;
@@ -16084,7 +16151,7 @@
         episode += scheduleSlotsForDayOfWeek(dow).length;
       }
       const todaySlots = scheduleSlotsForDayOfWeek(new Date(targetUtc).getUTCDay());
-      const slotIdx = todaySlots.indexOf(post.scheduleTime);
+      const slotIdx = todaySlots.findIndex((time) => scheduleTimeHour(time) === postHour);
       if (slotIdx === -1) return episode + 1;
       return episode + slotIdx + 1;
     }
@@ -16109,7 +16176,7 @@
     }
 
     function scheduleTimeLabelHtml(hour, fallback) {
-      if (hour === undefined) return htmlAttr(fallback || "");
+      if (hour === undefined || Number.isNaN(hour)) return htmlAttr(fallback || "");
       const period = hour < 12 ? "오전" : "오후";
       const displayHour = String(hour % 12 || 12).padStart(2, "0");
       return `<span class="schedule-time-period">${period}</span> ${displayHour}:00`;
@@ -16121,18 +16188,19 @@
       const isPast = !Number.isNaN(eventTs) && nowTs >= eventTs;
       const isEnded = isPast && nowTs >= eventTs + (3 * 60 * 60 * 1000);
       const phase = matchResult ? "result" : (isEnded ? "ended" : (isPast ? "checking" : "countdown"));
-      const episode = scheduleEpisodeNumber(post);
-      const categoryLabel = `${episode}화`;
+      const episode = post.displayEpisodeNumber || scheduleEpisodeNumber(post);
+      const categoryLabel = post.displayEpisode || `${episode}화`;
       const statusBadge = phase === "countdown" ? formatScheduleCountdown(eventTs) : phase === "checking" ? "진행 중" : "결과 확인";
-      const hour = SCHEDULE_TIME_HOUR[post.scheduleTime];
-      const timeText = hour !== undefined ? `${String(hour).padStart(2, "0")}:00` : String(post.scheduleTime || "").trim();
-      const titleText = hour !== undefined ? "소개팅 종료" : String(post.title || "소개팅 종료");
+      const hour = scheduleTimeHour(post.scheduleTime);
+      const hasHour = !Number.isNaN(hour);
+      const timeText = hasHour ? `${String(hour).padStart(2, "0")}:00` : String(post.scheduleTime || "").trim();
+      const titleText = hasHour ? "소개팅 종료" : String(post.title || "소개팅 종료");
       const episodeInfo = scheduleEpisodeInfo(episode, post);
       const modeBadgeMarkup = /^\d+\s*:\s*\d+$/.test(episodeInfo.mode) ? `<span class="schedule-mode-badges">${compositionOptionLabel(episodeInfo.mode.replace(/\s+/g, ""))}</span>` : `<span>${htmlAttr(episodeInfo.mode)}</span>`;
       const detailMarkup = `<div class="schedule-status-detail">${modeBadgeMarkup}<span>${htmlAttr(episodeInfo.age)}</span></div>`;
       const timeHtml = scheduleTimeLabelHtml(hour, timeText);
       const timeMarkup = timeText ? `<span class="schedule-status-time"><strong>${timeHtml}</strong><small>진행</small></span>` : "";
-      const detailTitleText = hour !== undefined ? `[${timeHtml.replace(/<[^>]*>/g, "")}] 소개팅 안내` : titleText;
+      const detailTitleText = hasHour ? `[${timeHtml.replace(/<[^>]*>/g, "")}] 소개팅 안내` : titleText;
       if (variant === "home") {
         const simpleParts = [timeText ? `${timeText} ?쒖옉` : "", titleText, episodeInfo.mode, episodeInfo.age].filter(Boolean);
         return `<article class="schedule-post-card schedule-status-card home-schedule-simple-card is-${phase}" data-schedule-post-id="${htmlAttr(post.id)}">
@@ -16168,7 +16236,7 @@
         (map[iso] = map[iso] || []).push(post);
       });
       Object.keys(map).forEach((iso) => {
-        map[iso].sort((a, b) => (HOME_CALENDAR_TIME_ORDER[a.scheduleTime] ?? 9) - (HOME_CALENDAR_TIME_ORDER[b.scheduleTime] ?? 9));
+        map[iso].sort((a, b) => (scheduleTimeHour(a.scheduleTime) || 0) - (scheduleTimeHour(b.scheduleTime) || 0));
       });
       return map;
     }
@@ -16192,7 +16260,7 @@
         let times = [];
         if (dayOfWeek === 5) times = ["19시"];
         else if (dayOfWeek === 6 || dayOfWeek === 0) times = ["13시", "16시", "19시"];
-        times = times.filter((time) => !deletedSlots.has(`${iso}-${time}`));
+        times = times.filter((time) => !deletedSlots.has(scheduleSlotKey({ scheduleDate: iso, scheduleTime: time })));
         if (!times.length) continue;
         const weekdayLabel = ["일", "월", "화", "수", "목", "금", "토"][dayOfWeek];
         map[iso] = times.map((time) => ({
@@ -16280,10 +16348,23 @@
       return `<div class="home-schedule-layer${variantClass}${singleClass}">${dateHeading}${posts.map((post) => homeScheduleStatusCard(post, variant)).join("")}</div>`;
     }
 
+    function assignScheduleEpisodesToMap(map) {
+      const timeline = Object.values(map).flat().sort((a, b) => {
+        const dateCompare = String(a.scheduleDate || "").localeCompare(String(b.scheduleDate || ""));
+        if (dateCompare) return dateCompare;
+        return (scheduleTimeHour(a.scheduleTime) || 0) - (scheduleTimeHour(b.scheduleTime) || 0);
+      });
+      timeline.forEach((post, index) => {
+        post.displayEpisodeNumber = index + 1;
+        post.displayEpisode = `${index + 1}화`;
+      });
+      return map;
+    }
+
     function scheduleInfoAvailableMap(months) {
       const realMap = homeCalendarAvailableMap();
       const hasPublishedSchedules = schedulePosts.some((post) => String(post.scheduleDate || "").trim());
-      if (hasPublishedSchedules) return realMap;
+      if (hasPublishedSchedules) return assignScheduleEpisodesToMap(realMap);
       const previousPlaceholders = [...homeCalendarPlaceholderPosts];
       const mergedMap = {};
       const mergedPosts = [];
@@ -16294,13 +16375,13 @@
         });
       });
       Object.entries(realMap).forEach(([iso, posts]) => {
-        const scheduleTimes = new Set(posts.map((post) => String(post.scheduleTime || "")));
-        const placeholders = (mergedMap[iso] || []).filter((post) => !scheduleTimes.has(String(post.scheduleTime || "")));
-        mergedMap[iso] = [...placeholders, ...posts].sort((a, b) => (HOME_CALENDAR_TIME_ORDER[a.scheduleTime] ?? 9) - (HOME_CALENDAR_TIME_ORDER[b.scheduleTime] ?? 9));
+        const scheduleTimes = new Set(posts.map(scheduleSlotKey));
+        const placeholders = (mergedMap[iso] || []).filter((post) => !scheduleTimes.has(scheduleSlotKey(post)));
+        mergedMap[iso] = [...placeholders, ...posts].sort((a, b) => (scheduleTimeHour(a.scheduleTime) || 0) - (scheduleTimeHour(b.scheduleTime) || 0));
       });
       Object.values(mergedMap).forEach((posts) => mergedPosts.push(...posts));
       homeCalendarPlaceholderPosts = mergedPosts.length ? mergedPosts : previousPlaceholders;
-      return mergedMap;
+      return assignScheduleEpisodesToMap(mergedMap);
     }
 
     function renderScheduleInfoCalendar(target = "[data-schedule-info-calendar]") {
@@ -17991,13 +18072,26 @@
       const displayHour = String(item.hour % 12 || 12).padStart(2, "0");
       return `[${mm}-${dd} ${period} ${displayHour}:00] 소개팅 종료`;
     }
+
+    function matchResultEpisodeNumber(item) {
+      const hour = Number(item?.hour);
+      if (!item?.date || Number.isNaN(hour)) return item?.episode || 1;
+      const availableMap = scheduleInfoAvailableMap(getApplicationCalendarMonths());
+      const matchedPost = Object.values(availableMap).flat().find((post) => (
+        String(post.scheduleDate || "") === String(item.date)
+        && scheduleTimeHour(post.scheduleTime) === hour
+      ));
+      return matchedPost?.displayEpisodeNumber || item.episode || 1;
+    }
+
     const matchResultPageSize = 10;
     let matchResultCurrentPage = 1;
 
     function matchResultCardHtml(item) {
+      const displayEpisode = matchResultEpisodeNumber(item);
       return `
         <button class="match-result-card" type="button" onclick="window.openMatchResultModal(${item.episode})">
-          <span class="match-result-number" aria-hidden="true">${item.episode}화</span>
+          <span class="match-result-number" aria-hidden="true">${displayEpisode}화</span>
           <span class="match-result-divider" aria-hidden="true"></span>
           <span class="match-result-copy">
             <strong>${htmlAttr(matchResultCardTitle(item))}</strong>
