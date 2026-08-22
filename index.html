@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <link rel="icon" type="image/png" href="assets/favicon.png?v=20260710-unified-4">
-  <link rel="shortcut icon" type="image/png" href="assets/favicon.png?v=20260710-unified-4">
+  <link rel="icon" type="image/png" href="assets/favicon.png?v=20260822-clover-plain">
+  <link rel="shortcut icon" type="image/png" href="assets/favicon.png?v=20260822-clover-plain">
   <link rel="preconnect" href="https://res.cloudinary.com">
   <link rel="dns-prefetch" href="//res.cloudinary.com">
   <link rel="preload" as="image" href="https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg" fetchpriority="high">
@@ -2746,8 +2746,8 @@
 
     .event-location-badge {
       position: absolute;
-      top: 0.55rem;
-      left: 0.55rem;
+      top: 0.9rem;
+      left: 0.9rem;
       display: inline-flex;
       align-items: center;
       gap: 0;
@@ -10254,9 +10254,15 @@
       grid-template-rows: minmax(0, 1fr) auto !important;
       align-content: stretch !important;
       box-sizing: border-box !important;
-      height: 56rem !important;
-      min-height: 56rem !important;
-      max-height: 56rem !important;
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+    }
+
+    #page-reviews .match-result-list-panel.has-locked-height {
+      height: var(--locked-panel-height, auto) !important;
+      min-height: var(--locked-panel-height, auto) !important;
+      max-height: var(--locked-panel-height, auto) !important;
     }
 
     #page-reviews .match-result-list {
@@ -10583,9 +10589,15 @@
     :root[data-theme="dark"] #page-reviews .match-result-list-panel {
       margin-top: 0.15rem;
       grid-template-rows: minmax(0, 1fr) auto !important;
-      height: 56rem !important;
-      min-height: 56rem !important;
-      max-height: 56rem !important;
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+    }
+
+    :root[data-theme="dark"] #page-reviews .match-result-list-panel.has-locked-height {
+      height: var(--locked-panel-height, auto) !important;
+      min-height: var(--locked-panel-height, auto) !important;
+      max-height: var(--locked-panel-height, auto) !important;
     }
 
     :root[data-theme="dark"] #page-counsel .counsel-top3[hidden] {
@@ -10994,9 +11006,15 @@
       grid-template-rows: auto minmax(0, 1fr) auto !important;
       align-content: stretch !important;
       box-sizing: border-box !important;
-      height: 52rem !important;
-      min-height: 52rem !important;
-      max-height: 52rem !important;
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+    }
+
+    #page-counsel .counsel-live-section.has-locked-height {
+      height: var(--locked-panel-height, auto) !important;
+      min-height: var(--locked-panel-height, auto) !important;
+      max-height: var(--locked-panel-height, auto) !important;
     }
 
     #page-counsel .counsel-live-section .counsel-list {
@@ -11053,9 +11071,15 @@
 
     :root[data-theme="dark"] #page-counsel .counsel-live-section {
       grid-template-rows: auto minmax(0, 1fr) auto !important;
-      height: 52rem !important;
-      min-height: 52rem !important;
-      max-height: 52rem !important;
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+    }
+
+    :root[data-theme="dark"] #page-counsel .counsel-live-section.has-locked-height {
+      height: var(--locked-panel-height, auto) !important;
+      min-height: var(--locked-panel-height, auto) !important;
+      max-height: var(--locked-panel-height, auto) !important;
     }
 
     /* ?곷떞 ?덉씠???ㅻ챸 ??以?異붽? */
@@ -11823,7 +11847,7 @@
     <div class="bottom-space"></div>
     <footer class="business-footer">
       <button class="footer-lobby-banner" type="button" onclick="window.goPage(event, 'board')" aria-label="문의 페이지로 이동">
-        <img src="assets/footer-lobby-banner-clean.png" alt="">
+        <img src="assets/optimized/footer-lobby-banner-clean.webp" onerror="this.onerror=null;this.src='assets/footer-lobby-banner-clean.png'" alt="">
         <span class="footer-lobby-copy">
           <span class="footer-lobby-title">분위기 있는 공간 찾습니다.</span>
           <span class="footer-lobby-text">프라이빗한 공간 제휴 기다리고 있습니다.</span>
@@ -14446,14 +14470,37 @@
       `;
     }
 
+    const panelLockedHeights = {};
+    function applyLockedPanelHeight(panel, key) {
+      if (!panel) return;
+      panel.classList.remove("has-locked-height");
+      panel.style.removeProperty("--locked-panel-height");
+      const naturalHeight = panel.getBoundingClientRect().height;
+      const prev = panelLockedHeights[key] || 0;
+      const next = Math.max(prev, naturalHeight);
+      panelLockedHeights[key] = next;
+      panel.style.setProperty("--locked-panel-height", `${next}px`);
+      panel.classList.add("has-locked-height");
+    }
+    window.addEventListener("resize", () => {
+      clearTimeout(window.__panelHeightResizeTimer);
+      window.__panelHeightResizeTimer = setTimeout(() => {
+        Object.keys(panelLockedHeights).forEach((key) => { panelLockedHeights[key] = 0; });
+        renderMatchResultList();
+        renderCounselList();
+      }, 200);
+    });
+
     function renderCounselList() {
       const container = document.querySelector("[data-counsel-list]");
       const pagination = document.querySelector("[data-counsel-pagination]");
+      const panel = document.querySelector("#page-counsel .counsel-live-section");
       renderCounselTop3();
       if (!container) return;
       if (!counselPosts.length) {
         container.innerHTML = `<p class="mypage-empty">등록된 글이 없습니다.</p>`;
         if (pagination) pagination.hidden = true;
+        applyLockedPanelHeight(panel, "counsel");
         return;
       }
       const sortedPosts = [...counselPosts].sort((a, b) => b.createdAt - a.createdAt);
@@ -14465,13 +14512,17 @@
         const postNumber = sortedPosts.length - (start + index);
         return counselCardHtml(post, postNumber);
       }).join("");
-      if (!pagination) return;
+      if (!pagination) {
+        applyLockedPanelHeight(panel, "counsel");
+        return;
+      }
       pagination.hidden = totalPages <= 1;
       pagination.innerHTML = totalPages > 1 ? `
         <button class="board-page-button" type="button" data-counsel-prev ${counselCurrentPage === 1 ? "disabled" : ""} aria-label="이전 페이지" title="이전 페이지"><span>‹</span></button>
         <span class="board-page-status">${counselCurrentPage} / ${totalPages}</span>
         <button class="board-page-button" type="button" data-counsel-next ${counselCurrentPage === totalPages ? "disabled" : ""} aria-label="다음 페이지" title="다음 페이지"><span>›</span></button>
       ` : "";
+      applyLockedPanelHeight(panel, "counsel");
     }
 
     async function loadCounselPosts() {
@@ -17795,19 +17846,24 @@
     function renderMatchResultList() {
       const container = document.querySelector("[data-match-result-list]");
       const pagination = document.querySelector("[data-match-result-pagination]");
+      const panel = document.querySelector(".match-result-list-panel");
       if (!container) return;
       const totalPages = Math.ceil(matchResultSampleItems.length / matchResultPageSize);
       matchResultCurrentPage = Math.min(Math.max(matchResultCurrentPage, 1), totalPages);
       const start = (matchResultCurrentPage - 1) * matchResultPageSize;
       const pageItems = matchResultSampleItems.slice(start, start + matchResultPageSize);
       container.innerHTML = pageItems.map(matchResultCardHtml).join("");
-      if (!pagination) return;
+      if (!pagination) {
+        applyLockedPanelHeight(panel, "matchResult");
+        return;
+      }
       pagination.hidden = totalPages <= 1;
       pagination.innerHTML = totalPages > 1 ? `
         <button class="board-page-button" type="button" data-match-result-prev ${matchResultCurrentPage === 1 ? "disabled" : ""} aria-label="이전 페이지" title="이전 페이지"><span>‹</span></button>
         <span class="board-page-status">${matchResultCurrentPage} / ${totalPages}</span>
         <button class="board-page-button" type="button" data-match-result-next ${matchResultCurrentPage === totalPages ? "disabled" : ""} aria-label="다음 페이지" title="다음 페이지"><span>›</span></button>
       ` : "";
+      applyLockedPanelHeight(panel, "matchResult");
     }
 
     window.openMatchResultDetail = function openMatchResultDetail(event, title, summary) {
@@ -19283,7 +19339,7 @@
     function eventImageStack(event) {
       const fallback = defaultEventImage(event.station);
       const image = isVideoMedia(event.image, event.mediaType) ? fallback : (event.image === "" ? "" : event.image || fallback);
-      return cssUrl(image);
+      return cssUrl(optimizedAssetUrl(image));
     }
 
     function eventVideoMarkup(event, className) {
