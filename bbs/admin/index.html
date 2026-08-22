@@ -30,7 +30,7 @@
       font-family: "Pretendard", "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-weight: 800;
     }
-    button, input { font: inherit; }
+    button, input, select, textarea { font: inherit; }
     button { cursor: pointer; border: 0; }
     .remote-top {
       display: grid;
@@ -226,6 +226,7 @@
       box-shadow: inset 2px 2px 6px rgba(0, 0, 0, .28);
     }
     .panel { padding: 14px; }
+    .admin-panel[hidden] { display: none !important; }
     .event-list { display: grid; gap: 12px; }
     .create-layer-wrap {
       margin-top: 14px;
@@ -474,8 +475,186 @@
     }
     .edit-field textarea { min-height: 82px; resize: vertical; }
     .edit-actions { justify-content: flex-end; }
+    .schedule-maker {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 14px;
+      padding: 16px;
+      border: 1px solid rgba(0, 255, 64, .22);
+      border-radius: 16px;
+      background: #181818;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.03), 0 16px 32px rgba(0,0,0,.22);
+    }
+    .schedule-maker-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .schedule-maker-head h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+    .schedule-maker-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .schedule-date-field {
+      display: grid;
+      gap: 8px;
+    }
+    .schedule-date-calendar {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      border: 1px solid #343434;
+      border-radius: 14px;
+      background: #121212;
+    }
+    .schedule-date-calendar-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .schedule-date-calendar-title {
+      font-size: 15px;
+      font-weight: 950;
+      color: var(--ink);
+    }
+    .schedule-date-calendar-nav {
+      display: inline-flex;
+      gap: 6px;
+    }
+    .schedule-date-calendar-nav button {
+      width: 32px;
+      height: 32px;
+      border: 1px solid #343434;
+      border-radius: 10px;
+      background: #1f1f1f;
+      color: var(--ink);
+      font-weight: 950;
+    }
+    .schedule-date-week,
+    .schedule-date-days {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 5px;
+    }
+    .schedule-date-week span {
+      min-height: 22px;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 950;
+    }
+    .schedule-date-day {
+      min-height: 34px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      background: transparent;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 950;
+    }
+    .schedule-date-day.is-selected {
+      border-color: #00ff40;
+      background: rgba(0, 255, 64, .14);
+      color: #7bff9b;
+    }
+    .schedule-date-day.is-muted {
+      color: #505862;
+    }
+    .schedule-date-day.is-today {
+      border-color: rgba(255,255,255,.22);
+    }
+    .schedule-layer-list {
+      display: grid;
+      gap: 10px;
+    }
+    .schedule-layer-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 96px;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+    .schedule-layer-card strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 17px;
+      line-height: 1.25;
+    }
+    .schedule-layer-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    .schedule-layer-meta span {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #252525;
+      color: #dfe5ec;
+    }
+    .schedule-layer-meta .is-source {
+      background: rgba(0, 255, 64, .12);
+      color: #7bff9b;
+    }
+    .schedule-layer-card.is-default {
+      border-color: rgba(255,255,255,.08);
+      opacity: .78;
+    }
+    .schedule-layer-card.is-closed {
+      border-color: rgba(255,255,255,.06);
+      background: #151515;
+      box-shadow: none;
+      opacity: .48;
+      filter: grayscale(.45);
+    }
+    .schedule-layer-card.is-closed .schedule-layer-meta span {
+      background: #202020;
+      color: #8f98a3;
+    }
+    .schedule-layer-episode {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2.25rem;
+      min-height: 1.45rem;
+      margin-right: .35rem;
+      padding: .1rem .45rem;
+      border-radius: 999px;
+      background: rgba(0, 255, 64, .14);
+      color: #7bff9b;
+      font-size: .78rem;
+      font-weight: 950;
+      vertical-align: .08rem;
+    }
+    .schedule-layer-card button:disabled {
+      cursor: default;
+      opacity: .6;
+    }
+    .schedule-card-actions {
+      display: inline-flex;
+      justify-content: flex-end;
+      gap: 6px;
+    }
     @media (max-width: 620px) {
       .edit-grid { grid-template-columns: 1fr; }
+      .schedule-maker-head { align-items: stretch; flex-direction: column; }
+      .schedule-maker-grid { grid-template-columns: 1fr; }
+      .schedule-layer-card { grid-template-columns: 1fr; }
+      .schedule-card-actions { justify-content: flex-start; }
     }
     .link-btn, .soft-btn, .nav-btn, .small-btn { border-color: #343434; }
     .search { background: #1f1f1f; }
@@ -496,12 +675,68 @@
 <body>
   <div class="layout">
     <main>
-      <section class="panel">
+      <section class="panel admin-panel" data-admin-panel="events">
         <div class="event-list" data-list></div>
         <div class="empty" data-empty>검색 결과가 없습니다.</div>
         <div class="create-layer-wrap">
           <button class="create-btn" type="button" data-create-event>생성</button>
         </div>
+      </section>
+      <section class="panel admin-panel" data-admin-panel="schedule" hidden>
+        <form class="schedule-maker" data-schedule-maker>
+          <div class="schedule-maker-head">
+            <div class="page-head">
+              <h1>일정 안내 생성</h1>
+              <p class="sub">날짜와 시간을 선택하면 메인 일정 안내 달력 아래 카드 레이어로 표시됩니다.</p>
+            </div>
+          </div>
+          <div class="schedule-maker-grid">
+            <div class="edit-field schedule-date-field is-wide">날짜
+              <input name="scheduleDate" type="hidden" required>
+              <div class="schedule-date-calendar" data-schedule-date-calendar></div>
+            </div>
+            <label class="edit-field">인원 구성
+              <select name="meetingMode">
+                <option value="1:1">1:1</option>
+                <option value="6:6">6:6</option>
+              </select>
+            </label>
+            <label class="edit-field">연령대
+              <input name="ageRange" autocomplete="off" value="27-36세">
+            </label>
+            <label class="edit-field">상태
+              <select name="active">
+                <option value="true">노출</option>
+                <option value="false">비노출</option>
+              </select>
+            </label>
+            <label class="edit-field">시간
+              <select name="scheduleTime" required>
+                <option value="">시간 선택</option>
+                <option value="10시">오전 10:00</option>
+                <option value="11시">오전 11:00</option>
+                <option value="12시">오후 12:00</option>
+                <option value="13시">오후 01:00</option>
+                <option value="14시">오후 02:00</option>
+                <option value="15시">오후 03:00</option>
+                <option value="16시">오후 04:00</option>
+                <option value="17시">오후 05:00</option>
+                <option value="18시">오후 06:00</option>
+                <option value="19시">오후 07:00</option>
+                <option value="20시">오후 08:00</option>
+                <option value="21시">오후 09:00</option>
+              </select>
+            </label>
+            <label class="edit-field is-wide">안내 문구
+              <textarea name="content">선택한 시간에 소개팅이 진행됩니다.</textarea>
+            </label>
+          </div>
+          <div class="edit-actions">
+            <button class="toggle-btn is-on" type="submit">생성</button>
+          </div>
+        </form>
+        <div class="schedule-layer-list" data-schedule-layer-list></div>
+        <div class="empty" data-schedule-empty>등록된 일정 안내 레이어가 없습니다.</div>
       </section>
     </main>
 
@@ -542,7 +777,7 @@
             </section>
           </div>
         </div>
-        <button class="nav-btn" type="button" data-nav="schedule">일정 관리 <span class="count-pill">-</span></button>
+        <button class="nav-btn" type="button" data-nav="schedule">일정 관리 <span class="count-pill" data-schedule-menu-count>0</span></button>
       </nav>
     </aside>
   </div>
@@ -554,6 +789,10 @@
     const EVENT_ORDER_OVERRIDE_KEY = "cloverAdminEventOrder:v1";
     const EVENT_CUSTOM_OVERRIDE_KEY = "cloverAdminCustomEvents:v1";
     const EVENT_DELETED_OVERRIDE_KEY = "cloverAdminDeletedEvents:v1";
+    const ADMIN_ACTIVE_PANEL_KEY = "clover-admin-active-panel:v1";
+    const ADMIN_SCHEDULE_POSTS_KEY = "clover-admin-schedule-posts:v1";
+    const ADMIN_SCHEDULE_BACKUP_KEY = "clover-admin-schedule-posts-backup:v1";
+    const ADMIN_SCHEDULE_DELETED_KEY = "clover-admin-schedule-deleted-slots:v1";
     const eventCardPresets = Object.freeze([
       { station: "랜덤", title: "순차적으로 무작위 선정", target: "우연처럼 시작되는 설렘", image: "assets/event-random-destiny-new.png" },
       { station: "취향", title: "운동을 좋아하는 사람", target: "같이 땀 흘리고 건강하게 가까워지는 만남", image: "assets/event-taste-workout.png" },
@@ -580,6 +819,11 @@
     const listEl = $("[data-list]");
     const searchEl = $("[data-search]");
     const createEventBtn = $("[data-create-event]");
+    const scheduleMaker = $("[data-schedule-maker]");
+    const scheduleLayerList = $("[data-schedule-layer-list]");
+    const scheduleEmpty = $("[data-schedule-empty]");
+    const scheduleMenuCount = $("[data-schedule-menu-count]");
+    const scheduleDateCalendar = $("[data-schedule-date-calendar]");
     const toastEl = $("[data-toast]");
     let toastTimer = 0;
     let editingEventId = "";
@@ -588,6 +832,9 @@
     let fallbackCustomEvents = [];
     let fallbackDeletedEvents = [];
     let fallbackOrder = [];
+    let editingScheduleId = "";
+    let scheduleCalendarYear = 0;
+    let scheduleCalendarMonth = 0;
     let pressTimer = 0;
     let pressingCardEl = null;
     let draggingEventId = "";
@@ -711,6 +958,7 @@
         price: event.price,
         image: event.image,
         imageUrl: event.imageUrl,
+        badgeType: event.badgeType || "",
         active: isActive(event)
       };
     }
@@ -785,6 +1033,17 @@
       return `${event.station}::${event.title}`;
     }
 
+    function eventBadgeAdminLabel(event) {
+      const badgeType = String(event?.badgeType || "").trim();
+      if (badgeType === "popular") return "인기";
+      if (badgeType === "certified") return "인증";
+      if (badgeType === "none") return "없음";
+      const station = String(event?.station || "").trim();
+      if (station === "랜덤" || station === "외모") return "자동 인기";
+      if (station === "맞춤") return "자동 인증";
+      return "자동 없음";
+    }
+
     function optimizedAssetPath(raw) {
       const match = raw.match(/^assets\/([^?#\/]+)\.(png|jpe?g)([?#].*)?$/i);
       if (!match) return raw;
@@ -814,6 +1073,7 @@
         female: preset.female || "6",
         capacity: preset.capacity || "12명",
         price: preset.price || "50,000원",
+        badgeType: preset.badgeType || "",
         image,
         imageUrl: adminImageUrl(image)
       };
@@ -846,6 +1106,7 @@
         station: "신규",
         title: "새 선택창",
         target: "대상 설명을 입력하세요",
+        badgeType: "",
         image: "assets/event-theme-warm.png"
       }, events.length);
     }
@@ -926,9 +1187,369 @@
       return String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
     }
 
+    function readAdminSchedulePosts() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(ADMIN_SCHEDULE_POSTS_KEY) || "[]");
+        return Array.isArray(parsed) ? parsed.filter((item) => item && typeof item === "object") : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function writeAdminSchedulePosts(posts) {
+      try { localStorage.setItem(ADMIN_SCHEDULE_POSTS_KEY, JSON.stringify(posts)); } catch {}
+    }
+
+    function readDeletedScheduleSlots() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(ADMIN_SCHEDULE_DELETED_KEY) || "[]");
+        return new Set(Array.isArray(parsed) ? parsed.map(String) : []);
+      } catch {
+        return new Set();
+      }
+    }
+
+    function writeDeletedScheduleSlots(slots) {
+      try { localStorage.setItem(ADMIN_SCHEDULE_DELETED_KEY, JSON.stringify([...slots])); } catch {}
+    }
+
+    function readAdminScheduleBackups() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(ADMIN_SCHEDULE_BACKUP_KEY) || "[]");
+        return Array.isArray(parsed) ? parsed.filter((item) => item && Array.isArray(item.posts)) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function backupAdminSchedulePosts(reason, posts = readAdminSchedulePosts()) {
+      try {
+        const nextHistory = readAdminScheduleBackups();
+        nextHistory.unshift({
+          backedUpAt: new Date().toISOString(),
+          reason,
+          posts
+        });
+        localStorage.setItem(ADMIN_SCHEDULE_BACKUP_KEY, JSON.stringify(nextHistory.slice(0, 20)));
+      } catch {}
+    }
+
+    function restoreLatestAdminScheduleBackup() {
+      const [latest] = readAdminScheduleBackups();
+      if (!latest) {
+        showToast("복원할 일정 백업이 없습니다.");
+        return;
+      }
+      const current = readAdminSchedulePosts();
+      backupAdminSchedulePosts("before-restore", current);
+      writeAdminSchedulePosts(latest.posts);
+      renderScheduleAdmin();
+      showToast("최근 일정 안내 백업을 복원했습니다.");
+    }
+
+    function syncScheduleFromBackupIfEmpty() {
+      const current = readAdminSchedulePosts();
+      if (current.length) return false;
+      const [latest] = readAdminScheduleBackups();
+      if (!latest || !latest.posts.length) return false;
+      writeAdminSchedulePosts(latest.posts);
+      return true;
+    }
+
+    function scheduleTimeHour(time) {
+      const match = String(time || "").match(/(\d{1,2})/);
+      if (!match) return NaN;
+      const hour = Number(match[1]);
+      return hour >= 0 && hour <= 23 ? hour : NaN;
+    }
+
+    function scheduleTimeText(time) {
+      const hour = scheduleTimeHour(time);
+      if (Number.isNaN(hour)) return time || "";
+      const period = hour < 12 ? "오전" : "오후";
+      const displayHour = String(hour % 12 || 12).padStart(2, "0");
+      return `${period} ${displayHour}:00`;
+    }
+
+    function scheduleEventTimestamp(iso, time) {
+      const hour = scheduleTimeHour(time);
+      if (!iso || Number.isNaN(hour)) return NaN;
+      const [year, month, day] = String(iso).split("-").map(Number);
+      if (!year || !month || !day) return NaN;
+      return Date.UTC(year, month - 1, day, hour - 9, 0, 0);
+    }
+
+    function isScheduleClosed(post) {
+      const eventTs = scheduleEventTimestamp(post.scheduleDate, post.scheduleTime);
+      return !Number.isNaN(eventTs) && Date.now() >= eventTs;
+    }
+
+    function scheduleDateText(iso) {
+      const [year, month, day] = String(iso || "").split("-").map(Number);
+      if (!year || !month || !day) return iso || "";
+      const weekday = ["일", "월", "화", "수", "목", "금", "토"][new Date(`${iso}T00:00:00`).getDay()];
+      return `${year}년 ${month}월 ${day}일(${weekday})`;
+    }
+
+    function schedulePostId(date, time) {
+      return `admin-schedule-${date}-${time}`;
+    }
+
+    function adminScheduleSlotsForDayOfWeek(dayOfWeek) {
+      if (dayOfWeek === 5) return ["19시"];
+      if (dayOfWeek === 6 || dayOfWeek === 0) return ["13시", "16시", "19시"];
+      return [];
+    }
+
+    function adminCalendarMonths() {
+      const [year, month] = seoulTodayIso().split("-").map(Number);
+      const first = new Date(year, month - 1, 1);
+      return [0, 1, 2].map((offset) => {
+        const date = new Date(first.getFullYear(), first.getMonth() + offset, 1);
+        return { year: date.getFullYear(), month: date.getMonth() + 1 };
+      });
+    }
+
+    function defaultAdminSchedulePosts() {
+      const posts = [];
+      const deletedSlots = readDeletedScheduleSlots();
+      adminCalendarMonths().forEach(({ year, month }) => {
+        const lastDate = new Date(year, month, 0).getDate();
+        for (let day = 1; day <= lastDate; day += 1) {
+          const iso = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+          const dayOfWeek = new Date(`${iso}T00:00:00`).getDay();
+          adminScheduleSlotsForDayOfWeek(dayOfWeek).forEach((time) => {
+            if (deletedSlots.has(scheduleSlotKey({ scheduleDate: iso, scheduleTime: time }))) return;
+            posts.push({
+              id: `placeholder-${iso}-${time}`,
+              scheduleDate: iso,
+              scheduleTime: time,
+              meetingMode: "1:1",
+              ageRange: "27-36세",
+              active: true,
+              source: "기본"
+            });
+          });
+        }
+      });
+      return posts;
+    }
+
+    function scheduleSlotKey(post) {
+      const hour = scheduleTimeHour(post.scheduleTime);
+      const time = Number.isNaN(hour) ? String(post.scheduleTime || "") : `${hour}시`;
+      return `${post.scheduleDate || ""}-${time}`;
+    }
+
+    function dashboardSchedulePosts() {
+      syncScheduleFromBackupIfEmpty();
+      const defaultPosts = defaultAdminSchedulePosts();
+      const adminPosts = readAdminSchedulePosts().map((post) => ({ ...post, source: "관리자" }));
+      const adminSlotKeys = new Set(adminPosts.map(scheduleSlotKey));
+      return [
+        ...defaultPosts.filter((post) => !adminSlotKeys.has(scheduleSlotKey(post))),
+        ...adminPosts
+      ].sort((a, b) => {
+        const dateCompare = String(a.scheduleDate || "").localeCompare(String(b.scheduleDate || ""));
+        if (dateCompare) return dateCompare;
+        return (scheduleTimeHour(a.scheduleTime) || 0) - (scheduleTimeHour(b.scheduleTime) || 0);
+      }).map((post, index) => ({
+        ...post,
+        displayEpisodeNumber: index + 1,
+        displayEpisode: `${index + 1}화`,
+        closed: isScheduleClosed(post)
+      }));
+    }
+
+    function setScheduleTimeChecks(times) {
+      const input = scheduleMaker?.querySelector('[name="scheduleTime"]');
+      if (!input) return;
+      const hour = scheduleTimeHour(times[0]);
+      input.value = Number.isNaN(hour) ? "" : `${hour}시`;
+    }
+
+    function seoulTodayIso() {
+      try {
+        return new Date().toLocaleDateString("sv-SE", { timeZone: "Asia/Seoul" });
+      } catch {
+        return new Date().toISOString().slice(0, 10);
+      }
+    }
+
+    function scheduleDateInput() {
+      return scheduleMaker?.querySelector('[name="scheduleDate"]');
+    }
+
+    function setScheduleDateValue(iso) {
+      const input = scheduleDateInput();
+      if (input) input.value = iso;
+      const [year, month] = String(iso || seoulTodayIso()).split("-").map(Number);
+      scheduleCalendarYear = year || scheduleCalendarYear;
+      scheduleCalendarMonth = month || scheduleCalendarMonth;
+      renderScheduleDateCalendar();
+    }
+
+    function renderScheduleDateCalendar() {
+      if (!scheduleDateCalendar) return;
+      const selectedIso = scheduleDateInput()?.value || seoulTodayIso();
+      const [selectedYear, selectedMonth] = selectedIso.split("-").map(Number);
+      if (!scheduleCalendarYear || !scheduleCalendarMonth) {
+        scheduleCalendarYear = selectedYear;
+        scheduleCalendarMonth = selectedMonth;
+      }
+      const firstDay = new Date(scheduleCalendarYear, scheduleCalendarMonth - 1, 1).getDay();
+      const lastDate = new Date(scheduleCalendarYear, scheduleCalendarMonth, 0).getDate();
+      const todayIso = seoulTodayIso();
+      const cells = Array.from({ length: firstDay }, () => '<span aria-hidden="true"></span>');
+      for (let day = 1; day <= lastDate; day += 1) {
+        const iso = `${scheduleCalendarYear}-${String(scheduleCalendarMonth).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+        const classes = [
+          "schedule-date-day",
+          iso === selectedIso ? "is-selected" : "",
+          iso === todayIso ? "is-today" : "",
+          iso < todayIso ? "is-muted" : ""
+        ].filter(Boolean).join(" ");
+        cells.push(`<button class="${classes}" type="button" data-schedule-date="${iso}">${day}</button>`);
+      }
+      scheduleDateCalendar.innerHTML = `
+        <div class="schedule-date-calendar-head">
+          <strong class="schedule-date-calendar-title">${scheduleCalendarYear}년 ${scheduleCalendarMonth}월</strong>
+          <span class="schedule-date-calendar-nav">
+            <button type="button" data-schedule-date-nav="-1" aria-label="이전 달">‹</button>
+            <button type="button" data-schedule-date-nav="1" aria-label="다음 달">›</button>
+          </span>
+        </div>
+        <div class="schedule-date-week" aria-hidden="true"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div>
+        <div class="schedule-date-days">${cells.join("")}</div>
+      `;
+    }
+
+    function initScheduleMaker() {
+      if (!scheduleMaker) return;
+      const dateInput = scheduleMaker.querySelector('[name="scheduleDate"]');
+      if (dateInput) {
+        if (!dateInput.value) setScheduleDateValue(seoulTodayIso());
+        else renderScheduleDateCalendar();
+      }
+      setScheduleTimeChecks([]);
+    }
+
+    function scheduleFormSubmitButtonText(text) {
+      const button = scheduleMaker?.querySelector('button[type="submit"]');
+      if (button) button.textContent = text;
+    }
+
+    function resetScheduleMaker() {
+      editingScheduleId = "";
+      if (!scheduleMaker) return;
+      const contentEl = scheduleMaker.querySelector('[name="content"]');
+      const modeEl = scheduleMaker.querySelector('[name="meetingMode"]');
+      const ageEl = scheduleMaker.querySelector('[name="ageRange"]');
+      const activeEl = scheduleMaker.querySelector('[name="active"]');
+      if (modeEl) modeEl.value = "1:1";
+      if (ageEl) ageEl.value = "27-36세";
+      if (activeEl) activeEl.value = "true";
+      if (contentEl) contentEl.value = "선택한 시간에 소개팅이 진행됩니다.";
+      initScheduleMaker();
+      scheduleFormSubmitButtonText("생성");
+    }
+
+    function fillScheduleMaker(post) {
+      if (!scheduleMaker || !post) return;
+      editingScheduleId = String(post.id || schedulePostId(post.scheduleDate, post.scheduleTime));
+      const dateEl = scheduleMaker.querySelector('[name="scheduleDate"]');
+      const modeEl = scheduleMaker.querySelector('[name="meetingMode"]');
+      const ageEl = scheduleMaker.querySelector('[name="ageRange"]');
+      const activeEl = scheduleMaker.querySelector('[name="active"]');
+      const contentEl = scheduleMaker.querySelector('[name="content"]');
+      if (dateEl) setScheduleDateValue(post.scheduleDate || seoulTodayIso());
+      if (modeEl) modeEl.value = post.meetingMode || "1:1";
+      if (ageEl) ageEl.value = post.ageRange || "27-36세";
+      if (activeEl) activeEl.value = post.active === false ? "false" : "true";
+      if (contentEl) contentEl.value = post.content || "선택한 시간에 소개팅이 진행됩니다.";
+      setScheduleTimeChecks([post.scheduleTime || "19시"]);
+      scheduleFormSubmitButtonText("수정");
+      scheduleMaker.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function renderScheduleAdmin() {
+      if (!scheduleLayerList) return;
+      const posts = dashboardSchedulePosts();
+      if (scheduleMenuCount) scheduleMenuCount.textContent = posts.length;
+      if (scheduleEmpty) scheduleEmpty.classList.toggle("is-visible", posts.length === 0);
+      scheduleLayerList.innerHTML = posts.map((post) => `
+        <article class="schedule-layer-card${post.source === "기본" ? " is-default" : ""}${post.closed ? " is-closed" : ""}" data-admin-schedule-id="${htmlAttr(post.id)}">
+          <div>
+            <strong><span class="schedule-layer-episode">${htmlAttr(post.displayEpisode || "")}</span>[${htmlAttr(scheduleTimeText(post.scheduleTime))}] 소개팅 안내</strong>
+            <div class="schedule-layer-meta">
+              <span>${htmlAttr(scheduleDateText(post.scheduleDate))}</span>
+              <span class="is-source">${htmlAttr(post.source || "관리자")}</span>
+              <span>${htmlAttr(post.meetingMode || "1:1")}</span>
+              <span>${htmlAttr(post.ageRange || "27-36세")}</span>
+              <span>${post.active === false ? "비노출" : "노출"}</span>
+            </div>
+          </div>
+          <span class="schedule-card-actions">
+            <button class="small-btn" type="button" data-schedule-edit="${htmlAttr(post.id)}">수정</button>
+            <button class="small-btn danger-btn" type="button" data-schedule-delete="${htmlAttr(post.id)}">삭제</button>
+          </span>
+        </article>
+      `).join("");
+    }
+
+    function createScheduleLayers(formEl) {
+      const form = new FormData(formEl);
+      const date = String(form.get("scheduleDate") || "").trim();
+      const times = form.getAll("scheduleTime").map(String).filter(Boolean);
+      if (!date) {
+        showToast("일정 날짜를 선택해 주세요.");
+        return;
+      }
+      if (!times.length) {
+        showToast("일정 시간을 하나 이상 선택해 주세요.");
+        return;
+      }
+      const meetingMode = String(form.get("meetingMode") || "1:1").trim() || "1:1";
+      const ageRange = String(form.get("ageRange") || "27-36세").trim() || "27-36세";
+      const content = String(form.get("content") || "").trim() || "선택한 시간에 소개팅이 진행됩니다.";
+      const active = form.get("active") !== "false";
+      const existing = readAdminSchedulePosts();
+      backupAdminSchedulePosts("before-create", existing);
+      const byId = new Map(existing.map((post) => [String(post.id), post]));
+      const wasEditing = !!editingScheduleId;
+      if (editingScheduleId) byId.delete(editingScheduleId);
+      const deletedSlots = readDeletedScheduleSlots();
+      times.forEach((time) => {
+        const id = schedulePostId(date, time);
+        deletedSlots.delete(scheduleSlotKey({ scheduleDate: date, scheduleTime: time }));
+        byId.set(id, {
+          id,
+          category: "일정 안내",
+          title: `${date} ${time} 소개팅 안내`,
+          content,
+          imageUrl: "assets/field-venue-07.png",
+          views: 0,
+          likes: 0,
+          comments: [],
+          scheduleDate: date,
+          scheduleTime: time,
+          meetingMode,
+          ageRange,
+          active
+        });
+      });
+      writeDeletedScheduleSlots(deletedSlots);
+      writeAdminSchedulePosts([...byId.values()]);
+      editingScheduleId = "";
+      scheduleFormSubmitButtonText("생성");
+      renderScheduleAdmin();
+      showToast(`${date} 일정 안내 ${times.length}개 ${wasEditing ? "수정" : "저장"}됨`);
+    }
+
     function editFormMarkup(item) {
       const active = isActive(item);
       const image = item.image || String(item.imageUrl || "").replace(/^\.\.\/\.\.\//, "");
+      const badgeType = String(item.badgeType || "");
       return `
         <section class="edit-layer" data-edit-layer="${htmlAttr(item.id)}">
           <form class="edit-form" data-edit-form data-edit-id="${htmlAttr(item.id)}">
@@ -971,6 +1592,14 @@
                 <select name="active">
                   <option value="true"${active ? " selected" : ""}>ON</option>
                   <option value="false"${active ? "" : " selected"}>OFF</option>
+                </select>
+              </label>
+              <label class="edit-field">상단 아이콘
+                <select name="badgeType">
+                  <option value=""${badgeType === "" ? " selected" : ""}>자동</option>
+                  <option value="none"${badgeType === "none" ? " selected" : ""}>없음</option>
+                  <option value="certified"${badgeType === "certified" ? " selected" : ""}>인증</option>
+                  <option value="popular"${badgeType === "popular" ? " selected" : ""}>인기</option>
                 </select>
               </label>
             </div>
@@ -1019,7 +1648,7 @@
               <div class="station">[${event.station}]</div>
               <div class="title">${event.title}</div>
               <div class="desc">${event.target}</div>
-              <div class="mini">순서 ${event.order} · 남 ${event.male} / 여 ${event.female} · ${event.price || ""} · ${active ? "노출 중" : "비활성"}</div>
+              <div class="mini">순서 ${event.order} · 남 ${event.male} / 여 ${event.female} · ${event.price || ""} · 아이콘 ${eventBadgeAdminLabel(event)} · ${active ? "노출 중" : "비활성"}</div>
             </div>
             <div class="event-actions">
               <button class="small-btn danger-btn" type="button" data-delete="${event.id}">삭제</button>
@@ -1134,17 +1763,82 @@
       render();
       showToast("전체 선택창을 비노출 OFF로 저장했습니다.");
     });
+    function setAdminPanel(name) {
+      const panelName = name === "schedule" ? "schedule" : "events";
+      document.querySelectorAll("[data-admin-panel]").forEach((panel) => {
+        panel.hidden = panel.dataset.adminPanel !== panelName;
+      });
+      document.querySelectorAll("[data-nav]").forEach((item) => {
+        item.classList.toggle("is-active", item.dataset.nav === panelName);
+      });
+      try { localStorage.setItem(ADMIN_ACTIVE_PANEL_KEY, panelName); } catch {}
+      if (panelName === "schedule") renderScheduleAdmin();
+    }
+
+    function readAdminActivePanel() {
+      try {
+        const saved = localStorage.getItem(ADMIN_ACTIVE_PANEL_KEY);
+        return saved === "schedule" ? "schedule" : "events";
+      } catch {
+        return "events";
+      }
+    }
+
     document.querySelectorAll("[data-nav]").forEach((button) => {
       button.addEventListener("click", () => {
-        document.querySelectorAll("[data-nav]").forEach((item) => item.classList.remove("is-active"));
-        button.classList.add("is-active");
         const label = button.childNodes[0]?.textContent?.trim() || "메뉴";
-        if (button.dataset.nav === "events") {
-          showToast("선택창 관리 화면입니다.");
+        if (button.dataset.nav === "events" || button.dataset.nav === "schedule") {
+          setAdminPanel(button.dataset.nav);
+          showToast(`${label} 화면입니다.`);
           return;
         }
         showToast(`${label} 화면은 아직 연결 전입니다.`);
       });
+    });
+
+    scheduleMaker?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      createScheduleLayers(scheduleMaker);
+    });
+
+    scheduleDateCalendar?.addEventListener("click", (event) => {
+      const navButton = event.target.closest("[data-schedule-date-nav]");
+      if (navButton) {
+        const offset = Number(navButton.dataset.scheduleDateNav) || 0;
+        const next = new Date(scheduleCalendarYear, scheduleCalendarMonth - 1 + offset, 1);
+        scheduleCalendarYear = next.getFullYear();
+        scheduleCalendarMonth = next.getMonth() + 1;
+        renderScheduleDateCalendar();
+        return;
+      }
+      const dateButton = event.target.closest("[data-schedule-date]");
+      if (dateButton) setScheduleDateValue(dateButton.dataset.scheduleDate);
+    });
+
+    scheduleLayerList?.addEventListener("click", (event) => {
+      const editButton = event.target.closest("[data-schedule-edit]");
+      if (editButton) {
+        const post = dashboardSchedulePosts().find((item) => String(item.id) === editButton.dataset.scheduleEdit);
+        if (!post) return;
+        fillScheduleMaker(post);
+        showToast("일정 안내 레이어를 수정 모드로 불러왔습니다.");
+        return;
+      }
+      const deleteButton = event.target.closest("[data-schedule-delete]");
+      if (!deleteButton) return;
+      const targetPost = dashboardSchedulePosts().find((item) => String(item.id) === deleteButton.dataset.scheduleDelete);
+      const posts = readAdminSchedulePosts();
+      backupAdminSchedulePosts("before-delete", posts);
+      const nextPosts = posts.filter((post) => String(post.id) !== deleteButton.dataset.scheduleDelete);
+      const deletedSlots = readDeletedScheduleSlots();
+      if (targetPost?.scheduleDate && targetPost?.scheduleTime) {
+        deletedSlots.add(scheduleSlotKey(targetPost));
+      }
+      writeDeletedScheduleSlots(deletedSlots);
+      writeAdminSchedulePosts(nextPosts);
+      if (editingScheduleId === deleteButton.dataset.scheduleDelete) resetScheduleMaker();
+      renderScheduleAdmin();
+      showToast("일정 안내 레이어를 삭제했습니다.");
     });
     listEl.addEventListener("submit", (event) => {
       const formEl = event.target.closest("[data-edit-form]");
@@ -1164,6 +1858,7 @@
       item.price = String(form.get("price") || "").trim() || "50,000원";
       item.image = String(form.get("image") || item.image || "").trim();
       item.imageUrl = adminImageUrl(item.image);
+      item.badgeType = String(form.get("badgeType") || "").trim();
       const active = form.get("active") !== "false";
       const overrides = readOverrides();
       overrides[item.id] = active;
@@ -1181,7 +1876,8 @@
         capacity: item.capacity,
         price: item.price,
         image: item.image,
-        imageUrl: item.imageUrl
+        imageUrl: item.imageUrl,
+        badgeType: item.badgeType
       };
       writeEdits(edits);
       if (isCustomEvent(item)) persistCustomEvents();
@@ -1206,9 +1902,13 @@
         return;
       }
       if (event.key === EVENT_ACTIVE_OVERRIDE_KEY) render();
+      if (event.key === ADMIN_SCHEDULE_POSTS_KEY || event.key === ADMIN_SCHEDULE_BACKUP_KEY || event.key === ADMIN_SCHEDULE_DELETED_KEY) renderScheduleAdmin();
     });
 
+    initScheduleMaker();
+    setAdminPanel(readAdminActivePanel());
     render();
+    renderScheduleAdmin();
   </script>
 </body>
 </html>
