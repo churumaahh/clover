@@ -785,11 +785,21 @@
       return `${event.station}::${event.title}`;
     }
 
+    function optimizedAssetPath(raw) {
+      const match = raw.match(/^assets\/([^?#\/]+)\.(png|jpe?g)([?#].*)?$/i);
+      if (!match) return raw;
+      const name = match[1];
+      if (/^(favicon|clover-logo)/i.test(name)) return raw;
+      return `assets/optimized/${name}.webp${match[3] || ""}`;
+    }
+
     function adminImageUrl(value) {
       const raw = String(value || "").trim();
       if (!raw) return "";
-      if (/^(https?:)?\/\//i.test(raw) || raw.startsWith("../../")) return raw;
-      return `../../${raw.replace(/^\/+/, "")}`;
+      if (/^(https?:)?\/\//i.test(raw)) return raw;
+      if (raw.startsWith("../../")) return raw;
+      const optimized = optimizedAssetPath(raw.replace(/^\/+/, ""));
+      return `../../${optimized}`;
     }
 
     function createEvent(preset, index) {
@@ -811,7 +821,10 @@
 
     function applySavedEdit(event) {
       const edit = readEdits()[event.id];
-      return edit ? { ...event, ...edit } : event;
+      if (!edit) return event;
+      const merged = { ...event, ...edit };
+      merged.imageUrl = adminImageUrl(merged.image);
+      return merged;
     }
 
     function managedEvents() {
