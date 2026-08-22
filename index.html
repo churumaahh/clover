@@ -540,6 +540,7 @@
     }
 
     #page-home .content {
+      padding-top: 0.95rem;
       padding-bottom: 2.15rem;
     }
     .home-schedule-headlines {
@@ -556,7 +557,7 @@
     .home-participation-calendar {
       display: grid;
       gap: .75rem;
-      margin: calc(-.35rem + 6px) 0 .35rem;
+      margin: 0.15rem 0 .35rem;
     }
 
 
@@ -2246,6 +2247,10 @@
     #home-events {
       position: relative;
       display: grid;
+    }
+
+    .home-participation-calendar {
+      --home-title-layer-gap: .75rem;
     }
 
     .home-participation-calendar .schedule-headline-head,
@@ -5965,6 +5970,28 @@
       color: #07150b !important;
     }
 
+    .board-form .board-submit-btn.form-submit-btn,
+    .board-form .board-submit-btn.form-submit-btn.is-ready {
+      width: 100%;
+      min-height: 3.75rem !important;
+      padding: 0.72rem 1rem !important;
+      border: 1px solid rgba(148, 163, 184, 0.24) !important;
+      border-radius: 12px !important;
+      background-color: #eef1f5 !important;
+      background: linear-gradient(180deg, #ffffff 0%, #eef1f5 100%) !important;
+      color: #07150b !important;
+      box-shadow: 0 0.45rem 0.8rem rgba(15, 23, 42, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(148, 163, 184, 0.18) !important;
+    }
+
+    :root[data-theme="dark"] .board-form .board-submit-btn.form-submit-btn,
+    :root[data-theme="dark"] .board-form .board-submit-btn.form-submit-btn.is-ready {
+      background-color: #1e1e1e !important;
+      background: linear-gradient(180deg, #282828 0%, #1e1e1e 100%) !important;
+      color: #ffffff !important;
+      border-color: rgba(255, 255, 255, 0.035) !important;
+      box-shadow: 0 0.45rem 0.8rem rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(0, 0, 0, 0.36) !important;
+    }
+
     .board-submit-btn.is-loading::before {
       content: "";
       width: 0.9rem;
@@ -8844,6 +8871,37 @@
       word-break: keep-all;
     }
 
+    .footer-policy-links {
+      display: inline-flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.32rem;
+      margin: 0 0 0.48rem;
+      color: var(--muted);
+      font-size: 0.64rem;
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    .footer-policy-link {
+      appearance: none;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .footer-policy-link:active {
+      transform: translateY(1px);
+    }
+
+    .footer-policy-modal-body {
+      min-height: 9rem;
+    }
+
     .footer-copy {
       margin: 0;
       color: var(--muted);
@@ -8953,6 +9011,26 @@
     .schedule-scroll-btn.next { right: .35rem; }
     .schedule-scroll-btn:active { transform: translateY(-50%) scale(.96); }
     .schedule-scroll-btn[hidden] { display: none; }
+    .schedule-clover-proof-section { display: grid; gap: .58rem; }
+    .schedule-clover-proof-more-wrap { display: flex; justify-content: center; padding: .25rem 0 0; }
+    .schedule-clover-proof-more {
+      min-height: 2.45rem;
+      min-width: 8rem;
+      padding: 0 .95rem;
+      border: 1px solid var(--line);
+      border-radius: .75rem;
+      background: var(--surface);
+      color: var(--ink);
+      font-size: .82rem;
+      font-weight: 950;
+      box-shadow: 0 .32rem .9rem rgba(15, 23, 42, .07);
+    }
+    .schedule-clover-proof-more:active { transform: translateY(1px); }
+    :root[data-theme="dark"] .schedule-clover-proof-more {
+      background: #202020;
+      border-color: rgba(255,255,255,.08);
+      box-shadow: none;
+    }
     .schedule-post-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .72rem; }
     .schedule-post-card { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); box-shadow: 0 .35rem 1.2rem rgba(15,23,42,.06); cursor: pointer; }
     :root[data-theme="dark"] .schedule-post-card { background: #262626; border-color: rgba(255,255,255,.08); box-shadow: 0 .35rem 1.2rem rgba(0,0,0,.35); }
@@ -9734,29 +9812,29 @@
   
     /* Fixed schedule calendar height */
     .schedule-info-calendar .application-month {
-      min-height: 22.25rem;
-      height: 22.25rem;
+      min-height: 23.5rem;
+      height: auto;
       box-sizing: border-box;
       display: grid;
-      grid-template-rows: auto auto 1fr;
-      padding: 0.9rem 0.95rem 1rem;
+      grid-template-rows: auto auto auto;
+      padding: 1.1rem 0.95rem 1.05rem;
     }
     .schedule-info-calendar .application-month h4 {
-      margin: 0 0 0.85rem;
+      margin: 0 0 1.1rem;
       font-size: 1.05rem;
       line-height: 1.28;
       font-weight: 850;
     }
     .schedule-info-calendar .application-week {
-      margin-bottom: 0.55rem;
+      margin-bottom: 0.95rem;
     }
     .schedule-info-calendar .application-days {
       grid-template-rows: repeat(6, minmax(0, 1fr));
       align-items: center;
-      row-gap: 0.28rem;
+      row-gap: 0.24rem;
     }
     .schedule-info-calendar .application-day {
-      height: 2.55rem;
+      height: 2.38rem;
       align-self: center;
     }
     .schedule-info-calendar .application-day.is-available {
@@ -11661,7 +11739,7 @@
       <main class="location-page match-result-page">
         <h1 class="page-title"><svg class="page-title-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4 4L19 6.5"/><path d="M4 5.5h9"/><path d="M4 9h6"/><path d="M4 18.5h14"/></svg>매칭 결과 상세</h1>
         <section class="match-result-detail-card">
-          <h2 class="schedule-section-title" data-match-detail-title><span class="section-title-icon" aria-hidden="true"></span>0회차</h2>
+          <h2 class="schedule-section-title" data-match-detail-title><span class="section-title-icon" aria-hidden="true"></span>0화</h2>
           <div class="match-result-detail-flow" aria-hidden="true">
             <span class="match-result-person">남성 선택</span>
             <span class="match-result-heart">♥</span>
@@ -11707,7 +11785,7 @@
       <main class="location-page board-page">
         <div class="board-page-intro page-intro-head">
           <div class="board-list-head">
-            <h1 class="page-title"><svg class="page-title-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>제휴 · 문의</h1>
+            <h1 class="page-title"><svg class="page-title-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>문의 게시판</h1>
             <button class="board-write-open-btn" type="button" data-board-write-open>문의 하기</button>
           </div>
           <p class="page-description">본 내용은 어디에도 공개되지 않으며 익명으로 운영됩니다.</p>
@@ -11877,6 +11955,13 @@
         </span>
         <span class="footer-lobby-cta">문의 하기</span>
       </button>
+      <nav class="footer-policy-links" aria-label="푸터 링크">
+        <button class="footer-policy-link" type="button" data-footer-policy="이용약관">이용약관</button>
+        <span aria-hidden="true">·</span>
+        <button class="footer-policy-link" type="button" data-footer-policy="개인정보처리방침">개인정보처리방침</button>
+        <span aria-hidden="true">·</span>
+        <button class="footer-policy-link" type="button" onclick="window.goPage(event, 'board')">비즈니스 제안</button>
+      </nav>
       <p class="footer-notice">대표 000 · 사업자등록번호 000000 · 주소 000</p>
       <p class="footer-notice">본 콘텐츠의 저작권은 클로버에 있으며 무단 이용 시 법적 책임이 있을 수 있습니다.</p>
       <p class="footer-copy"><strong>CLOVER</strong> Copyright © 2026 CLOVER. All Rights Reserved.</p>
@@ -11900,12 +11985,26 @@
   <div class="home-schedule-modal" data-match-result-modal role="dialog" aria-modal="true" hidden></div>
   <div class="home-schedule-modal" data-schedule-post-modal role="dialog" aria-modal="true" hidden></div>
   <div class="home-schedule-modal" data-home-counsel-modal role="dialog" aria-modal="true" hidden></div>
+  <div class="home-schedule-modal" data-footer-policy-modal role="dialog" aria-modal="true" hidden>
+    <div class="home-schedule-panel">
+      <button class="home-schedule-close-btn" type="button" data-footer-policy-close aria-label="닫기">×</button>
+      <section class="support-card mypage-fold-card" style="margin:0; padding:.9rem;">
+        <h2 class="schedule-section-title" data-footer-policy-title><span class="section-title-icon" aria-hidden="true"></span></h2>
+        <div class="footer-policy-modal-body"></div>
+      </section>
+    </div>
+  </div>
 
   <div class="home-schedule-modal" data-board-write-modal role="dialog" aria-modal="true" hidden>
     <div class="home-schedule-panel">
       <button class="home-schedule-close-btn" type="button" data-board-write-close aria-label="닫기">×</button>
       <section class="support-card" style="margin:0; border:0; box-shadow:none; background:transparent; padding:0;">
-        <h2 class="schedule-section-title"><span class="section-title-icon" aria-hidden="true"></span>문의 하기</h2>
+        <div class="home-schedule-modal-topline">
+          <span class="home-schedule-modal-logo" aria-hidden="true"><img src="assets/clover-logo-v2.png" alt=""></span>
+          <div class="home-schedule-modal-topcopy">
+            <h2 class="schedule-detail-heading">문의 하기</h2>
+          </div>
+        </div>
         <form class="board-form" id="boardForm" novalidate>
           <div class="board-form-row">
             <div class="field">
@@ -11918,6 +12017,7 @@
                 <option value="일반 문의">일반 문의</option>
                 <option value="제휴 문의">제휴 문의</option>
                 <option value="협업 문의">협업 문의</option>
+                <option value="대관 문의">대관 문의</option>
                 <option value="계정 문의">계정 문의</option>
                 <option value="기타">기타</option>
               </select>
@@ -11939,7 +12039,7 @@
               <input id="boardAttachment" name="attachment" type="file" accept="image/*,.pdf" hidden>
             </label>
           </div>
-          <button class="submit-btn board-submit-btn" type="submit">접수하기</button>
+          <button class="form-submit-btn board-submit-btn" type="submit">접수하기</button>
         </form>
       </section>
     </div>
@@ -12034,16 +12134,15 @@
     <nav class="drawer-links" aria-label="메뉴">
       <button class="drawer-link" type="button" data-page-link="home" onclick="window.goPage(event, 'home')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.8 12 3l9 7.8"/><path d="M5.5 9.5V21h13V9.5"/><path d="M9.5 21v-6h5v6"/></svg><span>홈</span></button>
       <div class="drawer-divider is-after-home" role="separator"></div>
+      <button class="drawer-link" type="button" data-page-link="schedule" onclick="window.goPage(event, 'schedule')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16"/><path d="M4 12h16"/><path d="M4 18.5h11"/><path d="M7 3v4"/><path d="M17 3v4"/></svg><span>클로버 소식</span></button>
       <button class="drawer-link" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4 4L19 6.5"/><path d="M4 5.5h9"/><path d="M4 9h6"/><path d="M4 18.5h14"/></svg><span>매칭 결과</span></button>
       <button class="drawer-link" type="button" data-page-link="counsel" onclick="window.goPage(event, 'counsel')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 9h8M8 13h5"/></svg><span>연애 상담</span></button>
-      <button class="drawer-link" type="button" data-page-link="schedule" onclick="window.goPage(event, 'schedule')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16"/><path d="M4 12h16"/><path d="M4 18.5h11"/><path d="M7 3v4"/><path d="M17 3v4"/></svg><span>클로버 소식</span></button>
       <button class="drawer-link" type="button" data-page-link="mbti" onclick="window.goPage(event, 'mbti')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/></svg><span>MBTI 궁합</span></button>
       <div class="drawer-divider" role="separator"></div>
-      <button class="drawer-link" type="button" data-page-link="mypage" onclick="window.goPage(event, 'mypage')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg><span>마이 클로버</span></button>
       <button class="drawer-link" type="button" data-page-link="login" onclick="window.goPage(event, 'login')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg><span>로그인</span></button>
     </nav>
     <div class="drawer-shortcuts">
-      <button class="drawer-shortcut-label" type="button" onclick="window.goPage(event, 'board')">문의하기</button>
+      <span class="drawer-shortcut-label">바로가기</span>
       <div class="drawer-social-links">
         <a class="drawer-social-link is-youtube" href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="유튜브 바로가기" title="유튜브">
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -15344,6 +15443,8 @@
     const SCHEDULE_LIKED_KEY = "clover-schedule-liked:v1";
     const SCHEDULE_VIEWED_KEY = "clover-schedule-viewed:v1";
     const SCHEDULE_CACHE_KEY = "clover-schedule-posts-cache:v3";
+    const ADMIN_SCHEDULE_POSTS_KEY = "clover-admin-schedule-posts:v1";
+    const ADMIN_SCHEDULE_DELETED_KEY = "clover-admin-schedule-deleted-slots:v1";
     const SCHEDULE_FIELD_IMAGES = [
       "assets/field-venue-07.png",
       "assets/field-venue-09.png",
@@ -15364,6 +15465,29 @@
         fieldIndex += 1;
         return { ...post, imageUrl };
       });
+    }
+    function readAdminSchedulePosts() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(ADMIN_SCHEDULE_POSTS_KEY) || "[]");
+        return Array.isArray(parsed) ? parsed.filter((item) => item && typeof item === "object" && item.active !== false) : [];
+      } catch {
+        return [];
+      }
+    }
+    function readDeletedScheduleSlots() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(ADMIN_SCHEDULE_DELETED_KEY) || "[]");
+        return new Set(Array.isArray(parsed) ? parsed.map(String) : []);
+      } catch {
+        return new Set();
+      }
+    }
+    function mergedSchedulePostsForCalendar() {
+      const adminPosts = readAdminSchedulePosts();
+      if (!adminPosts.length) return schedulePosts;
+      const byId = new Map(schedulePosts.map((post) => [String(post.id), post]));
+      adminPosts.forEach((post) => byId.set(String(post.id), post));
+      return [...byId.values()];
     }
     function readScheduleSet(key) { try { return new Set(JSON.parse(localStorage.getItem(key) || "[]")); } catch { return new Set(); } }
     function writeScheduleSet(key, set) { try { localStorage.setItem(key, JSON.stringify([...set])); } catch {} }
@@ -15459,7 +15583,7 @@
     }
     let scheduleDetailOrigin = "schedule";
     const scheduleDetailOriginTitles = { "schedule-notice": "공지", "schedule-info": "일정 안내", "schedule": "클로버 소식" };
-    const SCHEDULE_MODAL_CATEGORIES = ["현장", "칼럼", "클로버 근황"];
+    const SCHEDULE_MODAL_CATEGORIES = ["현장", "클로버 근황"];
     function isSchedulePlaceholderId(id) {
       const value = String(id || "");
       return value.startsWith("placeholder-") || value.startsWith("schedule-placeholder-");
@@ -15538,10 +15662,30 @@
       closeMatchResultModal();
       closeCounselWriteModal();
       closeHomeCounselModal();
+      closeFooterPolicyModal();
       const boardWriteModal = document.querySelector("[data-board-write-modal]");
       if (boardWriteModal) boardWriteModal.hidden = true;
       unlockBodyScrollForPopup();
     }
+
+    function openFooterPolicyModal(title) {
+      closeAllPopupModals();
+      const modal = document.querySelector("[data-footer-policy-modal]");
+      const titleEl = document.querySelector("[data-footer-policy-title]");
+      if (!modal) return;
+      if (titleEl) {
+        titleEl.innerHTML = `<span class="section-title-icon" aria-hidden="true"></span>${htmlAttr(title)}`;
+      }
+      modal.hidden = false;
+      lockBodyScrollForPopup();
+    }
+
+    function closeFooterPolicyModal() {
+      const modal = document.querySelector("[data-footer-policy-modal]");
+      if (modal) modal.hidden = true;
+      unlockBodyScrollForPopup();
+    }
+
     function openSchedulePostDetail(id) {
       const isPlaceholder = isSchedulePlaceholderId(id);
       const post = isPlaceholder
@@ -15575,7 +15719,7 @@
       const modalTitle = titleTime ? `[${titleTime}] 소개팅 안내` : (post.title || "소개팅 안내");
       const episodeInfo = scheduleEpisodeInfo(scheduleEpisodeNumber(post), post);
       const modeBadgeMarkup = /^\d+\s*:\s*\d+$/.test(episodeInfo.mode) ? `<span class="schedule-mode-badges">${compositionOptionLabel(episodeInfo.mode.replace(/\s+/g, ""))}</span>` : `<span>${htmlAttr(episodeInfo.mode)}</span>`;
-      const modalDetailMarkup = `<div class="schedule-status-detail schedule-modal-detail">${modeBadgeMarkup}<span>${htmlAttr(episodeInfo.age)}</span><span>${htmlAttr(episodeInfo.type)}</span></div>`;
+      const modalDetailMarkup = `<div class="schedule-status-detail schedule-modal-detail">${modeBadgeMarkup}<span>${htmlAttr(episodeInfo.age)}</span></div>`;
       const resultUnlockTs = scheduleResultUnlockTimestamp(post.scheduleDate)
       const isResultButtonEnabled = !Number.isNaN(resultUnlockTs) && Date.now() >= resultUnlockTs;
       const resultButtonAttrs = isResultButtonEnabled ? `onclick="window.closeHomeScheduleModal(); window.goPage(event, 'reviews')"` : "disabled aria-disabled=\"true\"";
@@ -15608,7 +15752,7 @@
       const isPlaceholder = String(id).startsWith("placeholder-");
       const post = isPlaceholder
         ? homeCalendarPlaceholderPosts.find((item) => String(item.id) === String(id))
-        : schedulePosts.find((item) => String(item.id) === String(id));
+        : mergedSchedulePostsForCalendar().find((item) => String(item.id) === String(id));
       if (!post) return;
       openHomeSchedulePostId = String(id);
       renderHomeScheduleModal(post);
@@ -15898,12 +16042,13 @@
     function formatScheduleCountdown(eventTs) {
       const diffMs = eventTs - Date.now();
       if (diffMs <= 0) return "시작됨";
+      const oneHourMs = 60 * 60 * 1000;
       const totalMinutes = Math.floor(diffMs / 60000);
       const days = Math.floor(totalMinutes / 1440);
       const hours = Math.floor((totalMinutes % 1440) / 60);
       const minutes = totalMinutes % 60;
       if (days >= 1) return `D-${days}`;
-      if (totalMinutes <= 60) return "곧 시작";
+      if (diffMs <= oneHourMs) return "곧 시작";
       if (hours >= 1) return `${hours}시간 후`;
       return `${minutes}분 후`;
     }
@@ -15977,19 +16122,19 @@
       const isEnded = isPast && nowTs >= eventTs + (3 * 60 * 60 * 1000);
       const phase = matchResult ? "result" : (isEnded ? "ended" : (isPast ? "checking" : "countdown"));
       const episode = scheduleEpisodeNumber(post);
-      const categoryLabel = `${episode}회`;
+      const categoryLabel = `${episode}화`;
       const statusBadge = phase === "countdown" ? formatScheduleCountdown(eventTs) : phase === "checking" ? "진행 중" : "결과 확인";
       const hour = SCHEDULE_TIME_HOUR[post.scheduleTime];
       const timeText = hour !== undefined ? `${String(hour).padStart(2, "0")}:00` : String(post.scheduleTime || "").trim();
       const titleText = hour !== undefined ? "소개팅 종료" : String(post.title || "소개팅 종료");
       const episodeInfo = scheduleEpisodeInfo(episode, post);
       const modeBadgeMarkup = /^\d+\s*:\s*\d+$/.test(episodeInfo.mode) ? `<span class="schedule-mode-badges">${compositionOptionLabel(episodeInfo.mode.replace(/\s+/g, ""))}</span>` : `<span>${htmlAttr(episodeInfo.mode)}</span>`;
-      const detailMarkup = `<div class="schedule-status-detail">${modeBadgeMarkup}<span>${htmlAttr(episodeInfo.age)}</span><span>${htmlAttr(episodeInfo.type)}</span></div>`;
+      const detailMarkup = `<div class="schedule-status-detail">${modeBadgeMarkup}<span>${htmlAttr(episodeInfo.age)}</span></div>`;
       const timeHtml = scheduleTimeLabelHtml(hour, timeText);
       const timeMarkup = timeText ? `<span class="schedule-status-time"><strong>${timeHtml}</strong><small>진행</small></span>` : "";
       const detailTitleText = hour !== undefined ? `[${timeHtml.replace(/<[^>]*>/g, "")}] 소개팅 안내` : titleText;
       if (variant === "home") {
-        const simpleParts = [timeText ? `${timeText} ?쒖옉` : "", titleText, episodeInfo.mode, episodeInfo.age, episodeInfo.type].filter(Boolean);
+        const simpleParts = [timeText ? `${timeText} ?쒖옉` : "", titleText, episodeInfo.mode, episodeInfo.age].filter(Boolean);
         return `<article class="schedule-post-card schedule-status-card home-schedule-simple-card is-${phase}" data-schedule-post-id="${htmlAttr(post.id)}">
           <div class="home-schedule-simple-line">
             <span class="schedule-status-category">${htmlAttr(categoryLabel)}</span>
@@ -16017,7 +16162,7 @@
 
     function homeCalendarAvailableMap() {
       const map = {};
-      schedulePosts.forEach((post) => {
+      mergedSchedulePostsForCalendar().forEach((post) => {
         const iso = String(post.scheduleDate || "").trim();
         if (!iso) return;
         (map[iso] = map[iso] || []).push(post);
@@ -16034,6 +16179,7 @@
 
     function homeCalendarPlaceholderMap(year, month) {
       const map = {};
+      const deletedSlots = readDeletedScheduleSlots();
       const lastDate = new Date(year, month, 0).getDate();
       const progressPost = schedulePosts.find((post) => post.category === "진행 과정");
       const fallbackImage = (progressPost && progressPost.imageUrl)
@@ -16046,6 +16192,7 @@
         let times = [];
         if (dayOfWeek === 5) times = ["19시"];
         else if (dayOfWeek === 6 || dayOfWeek === 0) times = ["13시", "16시", "19시"];
+        times = times.filter((time) => !deletedSlots.has(`${iso}-${time}`));
         if (!times.length) continue;
         const weekdayLabel = ["일", "월", "화", "수", "목", "금", "토"][dayOfWeek];
         map[iso] = times.map((time) => ({
@@ -16135,17 +16282,23 @@
 
     function scheduleInfoAvailableMap(months) {
       const realMap = homeCalendarAvailableMap();
-      if (Object.keys(realMap).length) return realMap;
+      const hasPublishedSchedules = schedulePosts.some((post) => String(post.scheduleDate || "").trim());
+      if (hasPublishedSchedules) return realMap;
       const previousPlaceholders = [...homeCalendarPlaceholderPosts];
       const mergedMap = {};
       const mergedPosts = [];
       months.forEach(({ year, month }) => {
         const monthMap = homeCalendarPlaceholderMap(year, month);
         Object.entries(monthMap).forEach(([iso, posts]) => {
-          mergedMap[iso] = posts;
-          mergedPosts.push(...posts);
+          mergedMap[iso] = [...posts];
         });
       });
+      Object.entries(realMap).forEach(([iso, posts]) => {
+        const scheduleTimes = new Set(posts.map((post) => String(post.scheduleTime || "")));
+        const placeholders = (mergedMap[iso] || []).filter((post) => !scheduleTimes.has(String(post.scheduleTime || "")));
+        mergedMap[iso] = [...placeholders, ...posts].sort((a, b) => (HOME_CALENDAR_TIME_ORDER[a.scheduleTime] ?? 9) - (HOME_CALENDAR_TIME_ORDER[b.scheduleTime] ?? 9));
+      });
+      Object.values(mergedMap).forEach((posts) => mergedPosts.push(...posts));
       homeCalendarPlaceholderPosts = mergedPosts.length ? mergedPosts : previousPlaceholders;
       return mergedMap;
     }
@@ -16281,7 +16434,6 @@
         { category: "현장", headline: false, title: "호텔 라운지 현장", content: "차분한 조명과 넓은 좌석으로 첫 대화가 편안하게 이어지는 공간입니다.", imageUrl: SCHEDULE_FIELD_IMAGES[1] },
         { category: "현장", headline: false, title: "바 테이블 현장", content: "짧은 대화도 자연스럽게 이어질 수 있도록 동선을 정리해 두었습니다.", imageUrl: SCHEDULE_FIELD_IMAGES[2] },
         ...cloverProofPosts(),
-        ...loveColumnPosts(),
         { category: "모집", headline: false, title: "[모집] 이번 주 참여 안내", content: "가능한 일정을 확인하고 신청해 주세요.", imageUrl: SCHEDULE_FIELD_IMAGES[3] }
       ];
       scheduleFeedPlaceholderCache = posts.map((post, index) => ({
@@ -16640,6 +16792,16 @@
         : "";
     }
 
+    function cloverProofGridHtml(posts, hasData = true) {
+      if (!posts.length) return "";
+      cloverProofVisibleCount = Math.min(Math.max(cloverProofVisibleCount, 9), posts.length);
+      const visiblePosts = posts.slice(0, cloverProofVisibleCount);
+      const moreButton = cloverProofVisibleCount < posts.length
+        ? `<div class="schedule-clover-proof-more-wrap"><button class="schedule-clover-proof-more" type="button" data-clover-proof-more>더 보기</button></div>`
+        : "";
+      return `<section class="schedule-clover-proof-section"><h2 class="schedule-section-title">${scheduleSectionTitleHtml("클로버 근황", hasData)}</h2><div class="schedule-post-grid schedule-clover-proof-grid">${visiblePosts.map((post) => schedulePostCard(post, false)).join("")}</div>${moreButton}</section>`;
+    }
+
     function scheduleHasRealNotices() {
       return schedulePosts.some((post) => post.headline);
     }
@@ -16652,6 +16814,7 @@
 
     let noticeCurrentPage = 1;
     const noticePageSize = 5;
+    let cloverProofVisibleCount = 9;
 
     function noticeBoardRowHtml(post, number) {
       const dateText = post.createdAt
@@ -16705,22 +16868,18 @@
       renderMbtiCompatibility();
       if (!scheduleFeed) return;
       const placeholders = scheduleFeedPlaceholderPosts();
-      const extraStripCategories = ["클로버 근황", "칼럼"];
-      const placeholderExtra = extraStripCategories.map((category) => placeholders.filter((post) => post.category === category));
       const placeholderRegular = placeholders.filter((post) => !post.headline && post.category === "현장");
+      const placeholderProofs = placeholders.filter((post) => post.category === "클로버 근황");
 
-      const realExtra = extraStripCategories.map((category) => schedulePosts.filter((post) => !post.headline && post.category === category));
-      const realExtraIds = new Set(realExtra.flat().map((post) => post.id));
-      const realRegular = schedulePosts.filter((post) => !post.headline && !realExtraIds.has(post.id));
+      const realProofs = schedulePosts.filter((post) => !post.headline && post.category === "클로버 근황");
+      const realProofIds = new Set(realProofs.map((post) => post.id));
+      const realRegular = schedulePosts.filter((post) => !post.headline && post.category !== "칼럼" && post.category !== "클로버 근황" && !realProofIds.has(post.id));
 
       const regularSource = realRegular.length ? realRegular : placeholderRegular;
       const regular = regularSource.map((post, i) => ({ ...post, imageUrl: post.imageUrl || SCHEDULE_FIELD_IMAGES[i % SCHEDULE_FIELD_IMAGES.length] }));
-      const extraStripPosts = extraStripCategories.map((category, i) => {
-        if (["클로버 근황", "칼럼"].includes(category)) return placeholderExtra[i];
-        return realExtra[i].length ? realExtra[i] : placeholderExtra[i];
-      });
+      const proofPosts = placeholderProofs.length ? placeholderProofs : realProofs;
 
-      scheduleFeed.innerHTML = `<section class="schedule-post-strip"><h2 class="schedule-section-title">${scheduleSectionTitleHtml("현장", !!regular.length)}</h2><div class="schedule-image-row" data-schedule-headline-row="regular">${regular.length ? regular.map((post) => scheduleImageCardHtml(post)).join("") : `<div class="schedule-feed-empty">등록된 일반 일정 소식이 없습니다.</div>`}</div></section>${extraStripCategories.map((category, i) => scheduleHeadlineStripHtml(category, extraStripPosts[i], `extra-${i}`, !!extraStripPosts[i].length)).join("")}`;
+      scheduleFeed.innerHTML = `<section class="schedule-post-strip"><h2 class="schedule-section-title">${scheduleSectionTitleHtml("현장", !!regular.length)}</h2><div class="schedule-image-row" data-schedule-headline-row="regular">${regular.length ? regular.map((post) => scheduleImageCardHtml(post)).join("") : `<div class="schedule-feed-empty">등록된 일반 일정 소식이 없습니다.</div>`}</div></section>${cloverProofGridHtml(proofPosts, !!proofPosts.length)}`;
       requestAnimationFrame(refreshScheduleHeadlineControls);
     }
     function readScheduleCache() {
@@ -16838,6 +16997,13 @@
         }
         return;
       }
+      const cloverProofMoreButton = event.target.closest("[data-clover-proof-more]");
+      if (cloverProofMoreButton) {
+        event.preventDefault();
+        cloverProofVisibleCount += 9;
+        renderSchedulePosts();
+        return;
+      }
       const scrollButton = event.target.closest("[data-schedule-scroll]");
       if (scrollButton) {
         event.preventDefault();
@@ -16950,6 +17116,22 @@
       }
       if (event.target === document.querySelector("[data-schedule-post-modal]")) {
         closeSchedulePostModal();
+        return;
+      }
+      const footerPolicyTarget = event.target.closest("[data-footer-policy]");
+      if (footerPolicyTarget) {
+        event.preventDefault();
+        openFooterPolicyModal(footerPolicyTarget.dataset.footerPolicy || "");
+        return;
+      }
+      const footerPolicyCloseTarget = event.target.closest("[data-footer-policy-close]");
+      if (footerPolicyCloseTarget) {
+        event.preventDefault();
+        closeFooterPolicyModal();
+        return;
+      }
+      if (event.target === document.querySelector("[data-footer-policy-modal]")) {
+        closeFooterPolicyModal();
         return;
       }
       const boardWriteOpenTarget = event.target.closest("[data-board-write-open]");
@@ -17805,10 +17987,9 @@
       const d = new Date(`${item.date}T00:00:00`);
       const mm = String(d.getMonth() + 1).padStart(2, "0");
       const dd = String(d.getDate()).padStart(2, "0");
-      const weekday = ["일", "월", "화", "수", "목", "금", "토"][d.getDay()];
       const period = item.hour < 12 ? "오전" : "오후";
       const displayHour = String(item.hour % 12 || 12).padStart(2, "0");
-      return `[${mm}-${dd}(${weekday}) ${period} ${displayHour}:00] 소개팅 종료`;
+      return `[${mm}-${dd} ${period} ${displayHour}:00] 소개팅 종료`;
     }
     const matchResultPageSize = 10;
     let matchResultCurrentPage = 1;
@@ -17816,7 +17997,7 @@
     function matchResultCardHtml(item) {
       return `
         <button class="match-result-card" type="button" onclick="window.openMatchResultModal(${item.episode})">
-          <span class="match-result-number" aria-hidden="true">${item.episode}회차</span>
+          <span class="match-result-number" aria-hidden="true">${item.episode}화</span>
           <span class="match-result-divider" aria-hidden="true"></span>
           <span class="match-result-copy">
             <strong>${htmlAttr(matchResultCardTitle(item))}</strong>
@@ -17826,7 +18007,6 @@
                 <span class="composition-gender-badge is-female">${iconFemale}<b>${item.female}</b></span>
               </span>
               <span>${htmlAttr(item.age)}</span>
-              <span>${htmlAttr(item.type)}</span>
             </span>
           </span>
           <span class="match-result-badge">결과 확인</span>
@@ -17838,7 +18018,7 @@
       const modal = document.querySelector("[data-match-result-modal]");
       if (!modal || !item) return;
       const modeBadgeMarkup = `<span class="schedule-mode-badges"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male">${iconMale}<b>${item.male}</b></span><span class="composition-gender-badge is-female">${iconFemale}<b>${item.female}</b></span></span></span>`;
-      const modalDetailMarkup = `<div class="schedule-status-detail schedule-modal-detail">${modeBadgeMarkup}<span>${htmlAttr(item.age)}</span><span>${htmlAttr(item.type)}</span></div>`;
+      const modalDetailMarkup = `<div class="schedule-status-detail schedule-modal-detail">${modeBadgeMarkup}<span>${htmlAttr(item.age)}</span></div>`;
       modal.innerHTML = `
         <div class="home-schedule-panel">
           <button class="home-schedule-close-btn" type="button" data-match-result-close aria-label="닫기">×</button>
@@ -19387,6 +19567,10 @@
     window.addEventListener("storage", (event) => {
       if ([EVENT_ACTIVE_OVERRIDE_KEY, EVENT_EDIT_OVERRIDE_KEY, EVENT_ORDER_OVERRIDE_KEY, EVENT_CUSTOM_OVERRIDE_KEY, EVENT_DELETED_OVERRIDE_KEY].includes(event.key)) {
         loadManagedEvents();
+      }
+      if (event.key === ADMIN_SCHEDULE_POSTS_KEY || event.key === ADMIN_SCHEDULE_DELETED_KEY) {
+        renderHomeParticipationCalendar();
+        renderScheduleInfoCalendar();
       }
     });
 
