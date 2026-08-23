@@ -1236,6 +1236,19 @@
       color: #fff;
     }
 
+    :root[data-theme="dark"] .mbti-gender-pair {
+      border-color: #303030;
+      background: #1b1b1b;
+    }
+
+    :root[data-theme="dark"] .mbti-gender-thumb {
+      background: #f7f9fb;
+    }
+
+    :root[data-theme="dark"] .mbti-gender-btn.is-active {
+      color: #121218;
+    }
+
     .mbti-auto-gender {
       color: var(--muted);
       font-size: .78rem;
@@ -1290,20 +1303,12 @@
       overflow: hidden;
     }
 
-    .mbti-board.is-male .mbti-letter {
-      color: #2f9bff;
-    }
-
-    .mbti-board.is-female .mbti-letter {
-      color: #ff6b6b;
-    }
-
-    .mbti-board.is-male .mbti-letter.is-placeholder {
+    .mbti-letter.is-placeholder {
       color: #1f1f1f;
     }
 
-    .mbti-board.is-female .mbti-letter.is-placeholder {
-      color: #1f1f1f;
+    .mbti-letter:not(.is-placeholder) {
+      box-shadow: 0 0 0 1.5px #00ff40, 0 0 10px 2px rgba(0,240,64,.4), .5rem .62rem 1.05rem rgba(15,23,42,.12), -.28rem -.28rem .72rem rgba(255,255,255,.82), inset .08rem .08rem .16rem rgba(255,255,255,.9), inset -.08rem -.08rem .18rem rgba(15,23,42,.08);
     }
 
     button.mbti-letter {
@@ -1317,6 +1322,21 @@
       outline: none;
       transform: translateY(-1px);
       box-shadow: .58rem .72rem 1.15rem rgba(15,23,42,.14), -.32rem -.32rem .78rem rgba(255,255,255,.86), inset .08rem .08rem .16rem rgba(255,255,255,.9), inset -.08rem -.08rem .18rem rgba(15,23,42,.08);
+    }
+
+    button.mbti-letter:not(.is-placeholder):hover,
+    button.mbti-letter:not(.is-placeholder):focus-visible {
+      box-shadow: 0 0 0 1.5px #00ff40, 0 0 10px 2px rgba(0,240,64,.4), .58rem .72rem 1.15rem rgba(15,23,42,.14), -.32rem -.32rem .78rem rgba(255,255,255,.86), inset .08rem .08rem .16rem rgba(255,255,255,.9), inset -.08rem -.08rem .18rem rgba(15,23,42,.08);
+    }
+
+    @keyframes mbti-letter-blink {
+      0% { box-shadow: 0 0 0 2px #059236, 0 0 0 4px rgba(0,110,45,.5), 0 0 12px 4px rgba(0,180,64,.4), .5rem .62rem 1.05rem rgba(15,23,42,.12), -.28rem -.28rem .72rem rgba(255,255,255,.82), inset .08rem .08rem .16rem rgba(255,255,255,.9), inset -.08rem -.08rem .18rem rgba(15,23,42,.08); }
+      45% { box-shadow: 0 0 0 0 rgba(0,240,64,0), .5rem .62rem 1.05rem rgba(15,23,42,.12), -.28rem -.28rem .72rem rgba(255,255,255,.82), inset .08rem .08rem .16rem rgba(255,255,255,.9), inset -.08rem -.08rem .18rem rgba(15,23,42,.08); }
+      100% { box-shadow: 0 0 0 2px #059236, 0 0 0 4px rgba(0,110,45,.5), 0 0 12px 4px rgba(0,180,64,.4), .5rem .62rem 1.05rem rgba(15,23,42,.12), -.28rem -.28rem .72rem rgba(255,255,255,.82), inset .08rem .08rem .16rem rgba(255,255,255,.9), inset -.08rem -.08rem .18rem rgba(15,23,42,.08); }
+    }
+
+    .mbti-letter.is-blinking {
+      animation: mbti-letter-blink .35s ease;
     }
 
     button.mbti-letter:active {
@@ -1703,12 +1723,8 @@
       box-shadow: .42rem .52rem .92rem rgba(0,0,0,.48), -.2rem -.2rem .58rem rgba(255,255,255,.045), inset 1px 1px 0 rgba(255,255,255,.055), inset -1px -1px 0 rgba(0,0,0,.42);
     }
 
-    :root[data-theme="dark"] .mbti-board.is-male .mbti-letter {
-      color: #2f9bff !important;
-    }
-
-    :root[data-theme="dark"] .mbti-board.is-female .mbti-letter {
-      color: #ff6b6b !important;
+    :root[data-theme="dark"] .mbti-letter:not(.is-placeholder) {
+      box-shadow: 0 0 0 2px #059236, 0 0 0 4px rgba(0,110,45,.5), 0 0 12px 4px rgba(0,180,64,.4), .42rem .52rem .92rem rgba(0,0,0,.48), -.2rem -.2rem .58rem rgba(255,255,255,.045), inset 1px 1px 0 rgba(255,255,255,.055), inset -1px -1px 0 rgba(0,0,0,.42);
     }
 
     :root[data-theme="dark"] .mbti-board .mbti-letter.is-placeholder {
@@ -1718,6 +1734,11 @@
     :root[data-theme="dark"] button.mbti-letter:hover,
     :root[data-theme="dark"] button.mbti-letter:focus-visible {
       box-shadow: .5rem .62rem 1rem rgba(0,0,0,.54), -.24rem -.24rem .62rem rgba(255,255,255,.055), inset 1px 1px 0 rgba(255,255,255,.07), inset -1px -1px 0 rgba(0,0,0,.45);
+    }
+
+    :root[data-theme="dark"] button.mbti-letter:not(.is-placeholder):hover,
+    :root[data-theme="dark"] button.mbti-letter:not(.is-placeholder):focus-visible {
+      box-shadow: 0 0 0 2px #059236, 0 0 0 4px rgba(0,110,45,.5), 0 0 12px 4px rgba(0,180,64,.4), .5rem .62rem 1rem rgba(0,0,0,.54), -.24rem -.24rem .62rem rgba(255,255,255,.055), inset 1px 1px 0 rgba(255,255,255,.07), inset -1px -1px 0 rgba(0,0,0,.45);
     }
 
     :root[data-theme="dark"] .mbti-slot-btn,
@@ -8089,6 +8110,13 @@
       margin-top: 0.1rem;
     }
 
+    .counsel-detail-stats {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-left: auto;
+    }
+
     .counsel-detail-actions span,
     .counsel-detail-actions button {
       min-height: 1.9rem;
@@ -8112,6 +8140,17 @@
       margin-top: 0.4rem;
       padding-top: 0.65rem;
       border-top: 1px solid var(--line);
+    }
+
+    .counsel-comment-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+    }
+
+    .counsel-comment-head .counsel-detail-stats {
+      margin-left: 0;
     }
 
     .counsel-comment-section h3 {
@@ -12859,7 +12898,7 @@
     const iconPopular = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z" fill="#ff4d6d"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbw9EUZwk3sDWs-AXNQ-NOgG4tawn4O66ocM7cGVoe836nss02n_Ssib1ShMXFOXtnYe/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbzisHBwJQnwdZitxI0KaP4j4EnVmeys9BsQGK6czXaTX6HT-UOmKYpUYPhL2t1laYyb/exec";
     const HERO_CACHE_KEY = "clover-managed-hero-slides-v5";
     const HERO_FALLBACK_SLIDES = [
       {
@@ -14181,6 +14220,27 @@
             updateCounselPostInState(result.post);
           } catch (error) {
             alert(error?.message || "泥섎━?섏? 紐삵뻽?듬땲??");
+          }
+        })();
+        return;
+      }
+      const counselDeleteBtn = closestFrom(event.target, "[data-counsel-delete]");
+      if (counselDeleteBtn) {
+        event.preventDefault();
+        if (!confirm("이 글을 삭제하시겠습니까?")) return;
+        (async () => {
+          try {
+            const { id: visitorId } = getVisitorIdentity();
+            const id = counselDeleteBtn.dataset.counselDelete;
+            await visitorApi({ type: "counselDelete", id, visitorId });
+            counselPosts = counselPosts.filter((post) => String(post.id) !== String(id));
+            writeCounselCache(counselPosts);
+            renderCounselList();
+            renderHomeCounselLayer();
+            if (counselCurrentId === String(id)) closeHomeCounselModal();
+            if (openHomeCounselPostId === String(id)) closeHomeCounselModal();
+          } catch (error) {
+            alert(error?.message || "삭제하지 못했습니다.");
           }
         })();
         return;
@@ -15554,10 +15614,8 @@
           <h2 class="counsel-detail-title">${counselTitleHtml(post)}</h2>
           <p class="counsel-detail-content">${htmlAttr(post.content)}</p>
           <div class="counsel-detail-actions">
-            <span>조회 ${Number(post.views) || 0}</span>
-            <button type="button" class="${post.liked ? "is-liked" : ""}" data-counsel-like="${htmlAttr(post.id)}">공감 ${Number(post.likeCount) || 0}</button>
-            <button type="button" class="${post.saved ? "is-saved" : ""}" data-counsel-save="${htmlAttr(post.id)}">${post.saved ? "저장됨" : "저장"}</button>
-            ${counselCanEditPost(post) ? `<button type="button" data-counsel-edit="${htmlAttr(post.id)}">수정</button>` : ""}
+            ${counselCanEditPost(post) ? `<button type="button" data-counsel-edit="${htmlAttr(post.id)}">수정</button><button type="button" data-counsel-delete="${htmlAttr(post.id)}">삭제</button>` : ""}
+            <div class="counsel-detail-stats"><span>조회 ${Number(post.views) || 0}</span><button type="button" class="${post.liked ? "is-liked" : ""}" data-counsel-like="${htmlAttr(post.id)}">공감 ${Number(post.likeCount) || 0}</button></div>
           </div>
           <section class="counsel-comment-section">
             <h3>댓글 ${comments.length}</h3>
@@ -18224,6 +18282,10 @@
         const index = Number(mbtiStepButton.dataset.mbtiIndex);
         const direction = Number(mbtiStepButton.dataset.mbtiDir);
         if (Number.isInteger(index)) updateMbtiLetter(owner, index, direction);
+        mbtiStepButton.classList.remove("is-blinking");
+        void mbtiStepButton.offsetWidth;
+        mbtiStepButton.classList.add("is-blinking");
+        window.setTimeout(() => mbtiStepButton.classList.remove("is-blinking"), 350);
         return;
       }
       const mbtiRefreshButton = event.target.closest("[data-mbti-refresh]");

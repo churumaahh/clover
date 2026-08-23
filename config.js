@@ -1,5 +1,5 @@
 ﻿window.CLOVER_CONFIG = Object.freeze({
-  appsScriptUrl: "https://script.google.com/macros/s/AKfycbw9EUZwk3sDWs-AXNQ-NOgG4tawn4O66ocM7cGVoe836nss02n_Ssib1ShMXFOXtnYe/exec"
+  appsScriptUrl: "https://script.google.com/macros/s/AKfycbzisHBwJQnwdZitxI0KaP4j4EnVmeys9BsQGK6czXaTX6HT-UOmKYpUYPhL2t1laYyb/exec"
 });
 
 

@@ -844,6 +844,25 @@
   <div class="toast" role="status" aria-live="polite" data-toast></div>
 
   <script>
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "";
+    const ADMIN_PASSWORD = "1111";
+    async function apiPost(payload) {
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ ...payload, adminPassword: ADMIN_PASSWORD })
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) throw new Error(result.error || "저장 요청이 실패했습니다.");
+      return result;
+    }
+    async function apiGet(action, params = {}) {
+      const query = new URLSearchParams({ action, t: String(Date.now()), ...params });
+      const response = await fetch(`${GOOGLE_SCRIPT_URL}?${query.toString()}`, { cache: "no-store" });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) throw new Error(result.error || "불러오기 요청이 실패했습니다.");
+      return result;
+    }
     const EVENT_ACTIVE_OVERRIDE_KEY = "cloverAdminEventActiveOverrides:v1";
     const EVENT_EDIT_OVERRIDE_KEY = "cloverAdminEventEdits:v1";
     const EVENT_ORDER_OVERRIDE_KEY = "cloverAdminEventOrder:v1";
@@ -994,9 +1013,14 @@
       });
     }
 
-    function persistEventOrder() {
+    async function persistEventOrder() {
       updateEventOrders();
       writeOrder(events.map((event) => event.id));
+      try {
+        await Promise.all(events.map((event) => apiPost(eventSavePayload(event))));
+      } catch (error) {
+        showToast(`순서 저장 실패: ${error.message}`);
+      }
     }
 
     function isCustomEvent(event) {
@@ -1174,20 +1198,13 @@
     function createEventLayer() {
       const item = createBlankEvent();
       events.push(item);
-      const deleted = readDeletedEvents().filter((id) => id !== item.id);
-      writeDeletedEvents(deleted);
-      const overrides = readOverrides();
-      overrides[item.id] = true;
-      overrides[eventKey(item)] = true;
-      writeOverrides(overrides);
       persistEventOrder();
-      persistCustomEvents();
       if (searchEl.value) searchEl.value = "";
       openEditModal(item);
       showToast("새 레이어를 맨 아래에 생성했습니다.");
     }
 
-    function deleteEventLayer(item) {
+    async function deleteEventLayer(item) {
       if (!item) return;
       const ok = window.confirm(`'${item.title}' 레이어를 삭제할까요? 삭제하면 대시보드와 사이트에서 사라집니다.`);
       if (!ok) return;
@@ -1195,43 +1212,96 @@
       if (index < 0) return;
       events.splice(index, 1);
       if (editingEventId === item.id) editingEventId = "";
-
-      const deleted = readDeletedEvents();
-      if (!deleted.includes(item.id)) deleted.push(item.id);
-      writeDeletedEvents(deleted);
-
-      const edits = readEdits();
-      delete edits[item.id];
-      writeEdits(edits);
-
-      const overrides = readOverrides();
-      delete overrides[item.id];
-      delete overrides[eventKey(item)];
-      writeOverrides(overrides);
-
-      persistEventOrder();
-      persistCustomEvents();
       render();
-      showToast(`${item.title} 레이어를 삭제했습니다.`);
+      try {
+        await apiPost({ type: "eventDelete", id: item.id });
+        showToast(`${item.title} 레이어를 삭제했습니다.`);
+      } catch (error) {
+        events.splice(index, 0, item);
+        render();
+        showToast(`삭제 실패: ${error.message}`);
+      }
     }
 
-    const events = applySavedOrder(managedEvents());
+    let events = applySavedOrder(managedEvents());
     updateEventOrders();
+    let eventsLoadedFromServer = false;
+
+    function backendEventToAdmin(be) {
+      return {
+        id: be.id,
+        order: Number(be.order) || 0,
+        station: be.station || "",
+        title: be.title || "",
+        target: be.target || "",
+        date: be.date || "상시 모집",
+        place: be.place || "부산 클로버 라운지 (승인 후 안내)",
+        male: be.male || "6",
+        female: be.female || "6",
+        capacity: be.capacity || "12명",
+        price: be.price || "50,000원",
+        oldPrice: be.oldPrice || "",
+        image: be.image || "",
+        imageUrl: adminImageUrl(be.image || ""),
+        badgeType: "",
+        active: be.active !== false
+      };
+    }
+
+    function eventSavePayload(event, overrides = {}) {
+      const merged = { ...event, ...overrides };
+      return {
+        type: "eventSave",
+        id: merged.id,
+        order: merged.order,
+        station: merged.station,
+        title: merged.title,
+        date: merged.date,
+        place: merged.place,
+        imageUrl: merged.image,
+        sourceImageUrl: merged.image,
+        male: merged.male,
+        female: merged.female,
+        capacity: merged.capacity,
+        target: merged.target,
+        price: merged.price,
+        oldPrice: merged.oldPrice || "",
+        active: merged.active !== false
+      };
+    }
+
+    async function loadEvents() {
+      if (!GOOGLE_SCRIPT_URL) return;
+      try {
+        const result = await apiGet("eventList", { includeInactive: "1" });
+        const list = Array.isArray(result.events) ? result.events : [];
+        if (list.length) {
+          events = list.map(backendEventToAdmin).sort((a, b) => a.order - b.order);
+          eventsLoadedFromServer = true;
+        }
+      } catch (error) {
+        showToast(`서버에서 목록을 불러오지 못해 임시 목록을 표시합니다: ${error.message}`);
+      }
+      updateEventOrders();
+      render();
+    }
 
     function isActive(event) {
-      const overrides = readOverrides();
-      if (typeof overrides[event.id] === "boolean") return overrides[event.id];
-      if (typeof overrides[eventKey(event)] === "boolean") return overrides[eventKey(event)];
-      return true;
+      return event?.active !== false;
     }
 
-    function setActive(event, active) {
-      const overrides = readOverrides();
-      overrides[event.id] = active;
-      overrides[eventKey(event)] = active;
-      writeOverrides(overrides);
+    async function setActive(event, active) {
+      const previous = event.active;
+      event.active = active;
       render();
-      showToast(`${event.title} ${active ? "노출 ON" : "비노출 OFF"} 저장됨`);
+      try {
+        await apiPost(eventSavePayload(event, { active }));
+        showToast(`${event.title} ${active ? "노출 ON" : "비노출 OFF"} 저장됨`);
+      } catch (error) {
+        event.active = previous;
+        render();
+        showToast(`저장 실패: ${error.message}`);
+      }
     }
 
     function renderMetrics(filtered) {
@@ -1247,17 +1317,41 @@
       return String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
     }
 
-    function readAdminSchedulePosts() {
-      try {
-        const parsed = JSON.parse(localStorage.getItem(ADMIN_SCHEDULE_POSTS_KEY) || "[]");
-        return Array.isArray(parsed) ? parsed.filter((item) => item && typeof item === "object") : [];
-      } catch {
-        return [];
-      }
+    let adminSchedulePosts = [];
+
+    function backendSchedulePostToAdmin(bp) {
+      return {
+        id: bp.id,
+        category: bp.category || "일정 안내",
+        title: bp.title || "",
+        content: bp.content || "",
+        imageUrl: bp.imageUrl || "assets/field-venue-07.png",
+        views: bp.views || 0,
+        likes: bp.likes || 0,
+        comments: bp.comments || [],
+        scheduleDate: bp.scheduleDate || "",
+        scheduleTime: bp.scheduleTime || "",
+        meetingMode: bp.meetingMode || "1:1",
+        ageRange: bp.ageRange || "27-36세",
+        address: bp.address || "부산 부산진구 서전로 8번길 27",
+        active: bp.active !== false
+      };
     }
 
-    function writeAdminSchedulePosts(posts) {
-      try { localStorage.setItem(ADMIN_SCHEDULE_POSTS_KEY, JSON.stringify(posts)); } catch {}
+    async function loadAdminSchedulePosts() {
+      if (!GOOGLE_SCRIPT_URL) return;
+      try {
+        const result = await apiGet("schedulePostList", { includeInactive: "1" });
+        const list = Array.isArray(result.posts) ? result.posts : [];
+        adminSchedulePosts = list.filter((post) => String(post.id || "").startsWith("admin-schedule-")).map(backendSchedulePostToAdmin);
+      } catch (error) {
+        showToast(`일정 안내 목록을 불러오지 못했습니다: ${error.message}`);
+      }
+      renderScheduleAdmin();
+    }
+
+    function readAdminSchedulePosts() {
+      return adminSchedulePosts;
     }
 
     function readDeletedScheduleSlots() {
@@ -1271,49 +1365,6 @@
 
     function writeDeletedScheduleSlots(slots) {
       try { localStorage.setItem(ADMIN_SCHEDULE_DELETED_KEY, JSON.stringify([...slots])); } catch {}
-    }
-
-    function readAdminScheduleBackups() {
-      try {
-        const parsed = JSON.parse(localStorage.getItem(ADMIN_SCHEDULE_BACKUP_KEY) || "[]");
-        return Array.isArray(parsed) ? parsed.filter((item) => item && Array.isArray(item.posts)) : [];
-      } catch {
-        return [];
-      }
-    }
-
-    function backupAdminSchedulePosts(reason, posts = readAdminSchedulePosts()) {
-      try {
-        const nextHistory = readAdminScheduleBackups();
-        nextHistory.unshift({
-          backedUpAt: new Date().toISOString(),
-          reason,
-          posts
-        });
-        localStorage.setItem(ADMIN_SCHEDULE_BACKUP_KEY, JSON.stringify(nextHistory.slice(0, 20)));
-      } catch {}
-    }
-
-    function restoreLatestAdminScheduleBackup() {
-      const [latest] = readAdminScheduleBackups();
-      if (!latest) {
-        showToast("복원할 일정 백업이 없습니다.");
-        return;
-      }
-      const current = readAdminSchedulePosts();
-      backupAdminSchedulePosts("before-restore", current);
-      writeAdminSchedulePosts(latest.posts);
-      renderScheduleAdmin();
-      showToast("최근 일정 안내 백업을 복원했습니다.");
-    }
-
-    function syncScheduleFromBackupIfEmpty() {
-      const current = readAdminSchedulePosts();
-      if (current.length) return false;
-      const [latest] = readAdminScheduleBackups();
-      if (!latest || !latest.posts.length) return false;
-      writeAdminSchedulePosts(latest.posts);
-      return true;
     }
 
     function scheduleTimeHour(time) {
@@ -1402,7 +1453,6 @@
     }
 
     function dashboardSchedulePosts() {
-      syncScheduleFromBackupIfEmpty();
       const defaultPosts = defaultAdminSchedulePosts();
       const adminPosts = readAdminSchedulePosts().map((post) => ({ ...post, source: "관리자" }));
       const adminSlotKeys = new Set(adminPosts.map(scheduleSlotKey));
@@ -1658,7 +1708,7 @@
       `).join("");
     }
 
-    function createScheduleLayers(formEl) {
+    async function createScheduleLayers(formEl) {
       const form = new FormData(formEl);
       const date = String(form.get("scheduleDate") || "").trim();
       const times = form.getAll("scheduleTime").map(String).filter(Boolean);
@@ -1675,38 +1725,35 @@
       const address = String(form.get("address") || "").trim() || "부산 부산진구 서전로 8번길 27";
       const content = String(form.get("content") || "").trim() || "선택한 시간에 소개팅이 진행됩니다.";
       const active = form.get("active") !== "false";
-      const existing = readAdminSchedulePosts();
-      backupAdminSchedulePosts("before-create", existing);
-      const byId = new Map(existing.map((post) => [String(post.id), post]));
       const wasEditing = !!editingScheduleId;
-      if (editingScheduleId) byId.delete(editingScheduleId);
       const deletedSlots = readDeletedScheduleSlots();
-      times.forEach((time) => {
-        const id = schedulePostId(date, time);
-        deletedSlots.delete(scheduleSlotKey({ scheduleDate: date, scheduleTime: time }));
-        byId.set(id, {
-          id,
-          category: "일정 안내",
-          title: `${date} ${time} 소개팅 안내`,
-          content,
-          imageUrl: "assets/field-venue-07.png",
-          views: 0,
-          likes: 0,
-          comments: [],
-          scheduleDate: date,
-          scheduleTime: time,
-          meetingMode,
-          ageRange,
-          address,
-          active
-        });
-      });
-      writeDeletedScheduleSlots(deletedSlots);
-      writeAdminSchedulePosts([...byId.values()]);
-      editingScheduleId = "";
-      scheduleFormSubmitButtonText("생성");
-      renderScheduleAdmin();
-      showToast(`${date} 일정 안내 ${times.length}개 ${wasEditing ? "수정" : "저장"}됨`);
+      try {
+        await Promise.all(times.map((time) => {
+          const id = schedulePostId(date, time);
+          deletedSlots.delete(scheduleSlotKey({ scheduleDate: date, scheduleTime: time }));
+          return apiPost({
+            type: "schedulePostSave",
+            id,
+            category: "일정 안내",
+            title: `${date} ${time} 소개팅 안내`,
+            content,
+            imageUrl: "assets/field-venue-07.png",
+            scheduleDate: date,
+            scheduleTime: time,
+            meetingMode,
+            ageRange,
+            address,
+            active
+          });
+        }));
+        writeDeletedScheduleSlots(deletedSlots);
+        editingScheduleId = "";
+        scheduleFormSubmitButtonText("생성");
+        await loadAdminSchedulePosts();
+        showToast(`${date} 일정 안내 ${times.length}개 ${wasEditing ? "수정" : "저장"}됨`);
+      } catch (error) {
+        showToast(`저장 실패: ${error.message}`);
+      }
     }
 
     function editFormMarkup(item) {
@@ -1903,28 +1950,28 @@
     searchEl.addEventListener("input", render);
     createEventBtn?.addEventListener("click", createEventLayer);
     $("[data-refresh]").addEventListener("click", () => {
-      render();
+      loadEvents();
       showToast("대시보드를 새로고침했습니다.");
     });
-    $("[data-all-on]").addEventListener("click", () => {
-      const overrides = readOverrides();
-      events.forEach((event) => {
-        overrides[event.id] = true;
-        overrides[eventKey(event)] = true;
-      });
-      writeOverrides(overrides);
+    $("[data-all-on]").addEventListener("click", async () => {
+      events.forEach((event) => { event.active = true; });
       render();
-      showToast("전체 선택창을 노출 ON으로 저장했습니다.");
+      try {
+        await Promise.all(events.map((event) => apiPost(eventSavePayload(event))));
+        showToast("전체 선택창을 노출 ON으로 저장했습니다.");
+      } catch (error) {
+        showToast(`저장 실패: ${error.message}`);
+      }
     });
-    $("[data-all-off]").addEventListener("click", () => {
-      const overrides = readOverrides();
-      events.forEach((event) => {
-        overrides[event.id] = false;
-        overrides[eventKey(event)] = false;
-      });
-      writeOverrides(overrides);
+    $("[data-all-off]").addEventListener("click", async () => {
+      events.forEach((event) => { event.active = false; });
       render();
-      showToast("전체 선택창을 비노출 OFF로 저장했습니다.");
+      try {
+        await Promise.all(events.map((event) => apiPost(eventSavePayload(event))));
+        showToast("전체 선택창을 비노출 OFF로 저장했습니다.");
+      } catch (error) {
+        showToast(`저장 실패: ${error.message}`);
+      }
     });
     function setAdminPanel(name) {
       const panelName = name === "schedule" ? "schedule" : "events";
@@ -1981,7 +2028,7 @@
       if (dateButton) setScheduleDateValue(dateButton.dataset.scheduleDate);
     });
 
-    scheduleLayerList?.addEventListener("click", (event) => {
+    scheduleLayerList?.addEventListener("click", async (event) => {
       const deleteButton = event.target.closest("[data-schedule-delete]");
       if (!deleteButton) {
         const card = event.target.closest("[data-admin-schedule-id]");
@@ -1992,27 +2039,34 @@
         showToast("일정 안내 레이어를 수정 모드로 불러왔습니다.");
         return;
       }
-      const targetPost = dashboardSchedulePosts().find((item) => String(item.id) === deleteButton.dataset.scheduleDelete);
-      const posts = readAdminSchedulePosts();
-      backupAdminSchedulePosts("before-delete", posts);
-      const nextPosts = posts.filter((post) => String(post.id) !== deleteButton.dataset.scheduleDelete);
-      const deletedSlots = readDeletedScheduleSlots();
-      if (targetPost?.scheduleDate && targetPost?.scheduleTime) {
-        deletedSlots.add(scheduleSlotKey(targetPost));
+      const id = deleteButton.dataset.scheduleDelete;
+      const targetPost = dashboardSchedulePosts().find((item) => String(item.id) === id);
+      if (targetPost?.source === "기본" || id.startsWith("placeholder-")) {
+        const deletedSlots = readDeletedScheduleSlots();
+        if (targetPost?.scheduleDate && targetPost?.scheduleTime) deletedSlots.add(scheduleSlotKey(targetPost));
+        writeDeletedScheduleSlots(deletedSlots);
+        renderScheduleAdmin();
+        showToast("기본 슬롯을 목록에서 숨겼습니다.");
+        return;
       }
-      writeDeletedScheduleSlots(deletedSlots);
-      writeAdminSchedulePosts(nextPosts);
-      if (editingScheduleId === deleteButton.dataset.scheduleDelete) resetScheduleMaker();
-      renderScheduleAdmin();
-      showToast("일정 안내 레이어를 삭제했습니다.");
+      try {
+        await apiPost({ type: "schedulePostDelete", id });
+        adminSchedulePosts = adminSchedulePosts.filter((post) => String(post.id) !== id);
+        if (editingScheduleId === id) resetScheduleMaker();
+        renderScheduleAdmin();
+        showToast("일정 안내 레이어를 삭제했습니다.");
+      } catch (error) {
+        showToast(`삭제 실패: ${error.message}`);
+      }
     });
-    listEl.addEventListener("submit", (event) => {
+    listEl.addEventListener("submit", async (event) => {
       const formEl = event.target.closest("[data-edit-form]");
       if (!formEl) return;
       event.preventDefault();
       const item = events.find((entry) => entry.id === formEl.dataset.editId);
       if (!item) return;
       const form = new FormData(formEl);
+      const snapshot = { ...item };
       item.station = String(form.get("station") || item.station).trim() || item.station;
       item.title = String(form.get("title") || item.title).trim() || item.title;
       item.target = String(form.get("target") || item.target).trim() || item.target;
@@ -2025,31 +2079,17 @@
       item.image = String(form.get("image") || item.image || "").trim();
       item.imageUrl = adminImageUrl(item.image);
       item.badgeType = String(form.get("badgeType") || "").trim();
-      const active = form.get("active") !== "false";
-      const overrides = readOverrides();
-      overrides[item.id] = active;
-      overrides[eventKey(item)] = active;
-      writeOverrides(overrides);
-      const edits = readEdits();
-      edits[item.id] = {
-        station: item.station,
-        title: item.title,
-        target: item.target,
-        date: item.date,
-        place: item.place,
-        male: item.male,
-        female: item.female,
-        capacity: item.capacity,
-        price: item.price,
-        image: item.image,
-        imageUrl: item.imageUrl,
-        badgeType: item.badgeType
-      };
-      writeEdits(edits);
-      if (isCustomEvent(item)) persistCustomEvents();
+      item.active = form.get("active") !== "false";
       editingEventId = "";
       render();
-      showToast(`${item.title} 전체 수정 저장됨`);
+      try {
+        await apiPost(eventSavePayload(item));
+        showToast(`${item.title} 전체 수정 저장됨`);
+      } catch (error) {
+        Object.assign(item, snapshot);
+        render();
+        showToast(`저장 실패: ${error.message}`);
+      }
     });
 
     window.addEventListener("keydown", (event) => {
@@ -2075,6 +2115,8 @@
     setAdminPanel(readAdminActivePanel());
     render();
     renderScheduleAdmin();
+    loadEvents();
+    loadAdminSchedulePosts();
   </script>
 </body>
 </html>
