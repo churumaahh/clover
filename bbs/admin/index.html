@@ -156,6 +156,9 @@
       gap: 8px;
       min-width: 0;
     }
+    .nav-group:not(.is-open) .nav-submenu {
+      display: none;
+    }
     .nav-submenu {
       display: grid;
       gap: 10px;
@@ -498,13 +501,36 @@
     }
     .schedule-maker-grid {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
     }
     .schedule-date-field {
       display: grid;
       gap: 8px;
     }
+    .schedule-address-preview {
+      display: grid;
+      gap: 6px;
+    }
+    .schedule-address-preview-label {
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .schedule-address-preview-map {
+      position: relative;
+      height: 160px;
+      border: 1px solid #343434;
+      border-radius: 14px;
+      background: #121212;
+      overflow: hidden;
+    }
+    .schedule-address-preview-status {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .schedule-address-preview-status.is-ok { color: #00ff40; }
+    .schedule-address-preview-status.is-error { color: #ff5b5b; }
     .schedule-date-calendar {
       display: grid;
       gap: 8px;
@@ -585,6 +611,28 @@
       border-radius: 16px;
       background: var(--panel);
       box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    .schedule-layer-card:hover {
+      border-color: rgba(0, 255, 64, .4);
+    }
+    .schedule-layer-card.is-selected {
+      border-color: #00ff40;
+      background: #1b2b1e;
+      box-shadow: 0 0 0 2px rgba(0, 255, 64, .35), var(--shadow);
+      position: relative;
+    }
+    .schedule-layer-card.is-selected::before {
+      content: "수정 중";
+      position: absolute;
+      top: -9px;
+      left: 14px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #00ff40;
+      color: #07150b;
+      font-size: 11px;
+      font-weight: 950;
     }
     .schedule-layer-card strong {
       display: block;
@@ -683,58 +731,6 @@
         </div>
       </section>
       <section class="panel admin-panel" data-admin-panel="schedule" hidden>
-        <form class="schedule-maker" data-schedule-maker>
-          <div class="schedule-maker-head">
-            <div class="page-head">
-              <h1>일정 안내 생성</h1>
-              <p class="sub">날짜와 시간을 선택하면 메인 일정 안내 달력 아래 카드 레이어로 표시됩니다.</p>
-            </div>
-          </div>
-          <div class="schedule-maker-grid">
-            <div class="edit-field schedule-date-field is-wide">날짜
-              <input name="scheduleDate" type="hidden" required>
-              <div class="schedule-date-calendar" data-schedule-date-calendar></div>
-            </div>
-            <label class="edit-field">인원 구성
-              <select name="meetingMode">
-                <option value="1:1">1:1</option>
-                <option value="6:6">6:6</option>
-              </select>
-            </label>
-            <label class="edit-field">연령대
-              <input name="ageRange" autocomplete="off" value="27-36세">
-            </label>
-            <label class="edit-field">상태
-              <select name="active">
-                <option value="true">노출</option>
-                <option value="false">비노출</option>
-              </select>
-            </label>
-            <label class="edit-field">시간
-              <select name="scheduleTime" required>
-                <option value="">시간 선택</option>
-                <option value="10시">오전 10:00</option>
-                <option value="11시">오전 11:00</option>
-                <option value="12시">오후 12:00</option>
-                <option value="13시">오후 01:00</option>
-                <option value="14시">오후 02:00</option>
-                <option value="15시">오후 03:00</option>
-                <option value="16시">오후 04:00</option>
-                <option value="17시">오후 05:00</option>
-                <option value="18시">오후 06:00</option>
-                <option value="19시">오후 07:00</option>
-                <option value="20시">오후 08:00</option>
-                <option value="21시">오후 09:00</option>
-              </select>
-            </label>
-            <label class="edit-field is-wide">안내 문구
-              <textarea name="content">선택한 시간에 소개팅이 진행됩니다.</textarea>
-            </label>
-          </div>
-          <div class="edit-actions">
-            <button class="toggle-btn is-on" type="submit">생성</button>
-          </div>
-        </form>
         <div class="schedule-layer-list" data-schedule-layer-list></div>
         <div class="empty" data-schedule-empty>등록된 일정 안내 레이어가 없습니다.</div>
       </section>
@@ -777,7 +773,71 @@
             </section>
           </div>
         </div>
-        <button class="nav-btn" type="button" data-nav="schedule">일정 관리 <span class="count-pill" data-schedule-menu-count>0</span></button>
+        <div class="nav-group" data-nav-group="schedule">
+          <button class="nav-btn" type="button" data-nav="schedule">일정 관리 <span class="count-pill" data-schedule-menu-count>0</span></button>
+          <div class="nav-submenu" aria-label="일정 관리 하위 메뉴">
+            <form class="schedule-maker" data-schedule-maker>
+              <div class="schedule-maker-head">
+                <div class="page-head">
+                  <h1>일정 안내 생성</h1>
+                  <p class="sub">날짜와 시간을 선택하면 메인 일정 안내 달력 아래 카드 레이어로 표시됩니다.</p>
+                </div>
+              </div>
+              <div class="schedule-maker-grid">
+                <div class="edit-field schedule-date-field is-wide">날짜
+                  <input name="scheduleDate" type="hidden" required>
+                  <div class="schedule-date-calendar" data-schedule-date-calendar></div>
+                </div>
+                <label class="edit-field">인원 구성
+                  <select name="meetingMode">
+                    <option value="1:1">1:1</option>
+                    <option value="6:6">6:6</option>
+                  </select>
+                </label>
+                <label class="edit-field">연령대
+                  <input name="ageRange" autocomplete="off" value="27-36세">
+                </label>
+                <label class="edit-field">상태
+                  <select name="active">
+                    <option value="true">노출</option>
+                    <option value="false">비노출</option>
+                  </select>
+                </label>
+                <label class="edit-field">시간
+                  <select name="scheduleTime" required>
+                    <option value="">시간 선택</option>
+                    <option value="10시">오전 10:00</option>
+                    <option value="11시">오전 11:00</option>
+                    <option value="12시">오후 12:00</option>
+                    <option value="13시">오후 01:00</option>
+                    <option value="14시">오후 02:00</option>
+                    <option value="15시">오후 03:00</option>
+                    <option value="16시">오후 04:00</option>
+                    <option value="17시">오후 05:00</option>
+                    <option value="18시">오후 06:00</option>
+                    <option value="19시">오후 07:00</option>
+                    <option value="20시">오후 08:00</option>
+                    <option value="21시">오후 09:00</option>
+                  </select>
+                </label>
+                <label class="edit-field is-wide">주소 (지도 반영)
+                  <input name="address" autocomplete="off" placeholder="예: 부산 부산진구 서전로 8번길 27" value="부산 부산진구 서전로 8번길 27">
+                </label>
+                <div class="edit-field is-wide schedule-address-preview">
+                  <span class="schedule-address-preview-label">지도 미리보기</span>
+                  <div class="schedule-address-preview-map" data-address-preview-map></div>
+                  <p class="schedule-address-preview-status" data-address-preview-status>주소를 입력하면 지도에 핀이 표시됩니다.</p>
+                </div>
+                <label class="edit-field is-wide">안내 문구
+                  <textarea name="content">선택한 시간에 소개팅이 진행됩니다.</textarea>
+                </label>
+              </div>
+              <div class="edit-actions">
+                <button class="toggle-btn is-on" type="submit">생성</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </nav>
     </aside>
   </div>
@@ -1424,6 +1484,83 @@
       `;
     }
 
+    const naverMapClientId = "evk9pbogap";
+    let naverMapScriptPromise = null;
+    function loadNaverMapScript() {
+      if (window.naver?.maps?.Service) return Promise.resolve();
+      if (naverMapScriptPromise) return naverMapScriptPromise;
+      naverMapScriptPromise = new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${encodeURIComponent(naverMapClientId)}&submodules=geocoder`;
+        script.async = true;
+        script.onload = () => resolve();
+        script.onerror = () => reject(new Error("네이버 지도를 불러오지 못했습니다."));
+        document.head.appendChild(script);
+      });
+      return naverMapScriptPromise;
+    }
+
+    function geocodeAddress(address) {
+      return new Promise((resolve, reject) => {
+        if (!naver.maps.Service || !naver.maps.Service.geocode) {
+          reject(new Error("geocoder submodule not loaded"));
+          return;
+        }
+        naver.maps.Service.geocode({ query: address }, (status, response) => {
+          if (status !== naver.maps.Service.Status.OK || !response?.v2?.addresses?.length) {
+            reject(new Error("geocode failed"));
+            return;
+          }
+          const item = response.v2.addresses[0];
+          resolve({ lat: Number(item.y), lng: Number(item.x), roadAddress: item.roadAddress || item.jibunAddress || address });
+        });
+      });
+    }
+
+    let addressPreviewMap = null;
+    let addressPreviewMarker = null;
+    let addressPreviewRequestId = 0;
+    async function renderAddressPreview(address) {
+      const mapEl = scheduleMaker?.querySelector("[data-address-preview-map]");
+      const statusEl = scheduleMaker?.querySelector("[data-address-preview-status]");
+      if (!mapEl || !statusEl) return;
+      const trimmed = String(address || "").trim();
+      if (!trimmed) {
+        statusEl.textContent = "주소를 입력하면 지도에 핀이 표시됩니다.";
+        statusEl.className = "schedule-address-preview-status";
+        return;
+      }
+      const requestId = ++addressPreviewRequestId;
+      statusEl.textContent = "지도에서 위치를 확인하는 중...";
+      statusEl.className = "schedule-address-preview-status";
+      try {
+        await loadNaverMapScript();
+        const { lat, lng, roadAddress } = await geocodeAddress(trimmed);
+        if (requestId !== addressPreviewRequestId) return;
+        const position = new naver.maps.LatLng(lat, lng);
+        if (!addressPreviewMap) {
+          addressPreviewMap = new naver.maps.Map(mapEl, { center: position, zoom: 16, minZoom: 10 });
+          addressPreviewMarker = new naver.maps.Marker({ position, map: addressPreviewMap });
+        } else {
+          addressPreviewMap.setCenter(position);
+          addressPreviewMarker.setPosition(position);
+        }
+        window.setTimeout(() => naver.maps.Event.trigger(addressPreviewMap, "resize"), 60);
+        statusEl.textContent = `지도에서 확인됨: ${roadAddress}`;
+        statusEl.className = "schedule-address-preview-status is-ok";
+      } catch {
+        if (requestId !== addressPreviewRequestId) return;
+        statusEl.textContent = "이 주소는 지도에서 찾을 수 없습니다. 정확한 도로명/지번 주소를 입력해 주세요.";
+        statusEl.className = "schedule-address-preview-status is-error";
+      }
+    }
+
+    let addressPreviewDebounce = 0;
+    function scheduleAddressPreview(address) {
+      window.clearTimeout(addressPreviewDebounce);
+      addressPreviewDebounce = window.setTimeout(() => renderAddressPreview(address), 500);
+    }
+
     function initScheduleMaker() {
       if (!scheduleMaker) return;
       const dateInput = scheduleMaker.querySelector('[name="scheduleDate"]');
@@ -1432,6 +1569,12 @@
         else renderScheduleDateCalendar();
       }
       setScheduleTimeChecks([]);
+      const addressEl = scheduleMaker.querySelector('[name="address"]');
+      if (addressEl && !addressEl.dataset.previewBound) {
+        addressEl.dataset.previewBound = "true";
+        addressEl.addEventListener("input", () => scheduleAddressPreview(addressEl.value));
+      }
+      if (addressEl) renderAddressPreview(addressEl.value);
     }
 
     function scheduleFormSubmitButtonText(text) {
@@ -1439,15 +1582,22 @@
       if (button) button.textContent = text;
     }
 
+    function openScheduleNavGroup() {
+      document.querySelector('[data-nav-group="schedule"]')?.classList.add("is-open");
+    }
+
     function resetScheduleMaker() {
       editingScheduleId = "";
+      markScheduleCardSelected("");
       if (!scheduleMaker) return;
       const contentEl = scheduleMaker.querySelector('[name="content"]');
       const modeEl = scheduleMaker.querySelector('[name="meetingMode"]');
       const ageEl = scheduleMaker.querySelector('[name="ageRange"]');
+      const addressEl = scheduleMaker.querySelector('[name="address"]');
       const activeEl = scheduleMaker.querySelector('[name="active"]');
       if (modeEl) modeEl.value = "1:1";
       if (ageEl) ageEl.value = "27-36세";
+      if (addressEl) addressEl.value = "부산 부산진구 서전로 8번길 27";
       if (activeEl) activeEl.value = "true";
       if (contentEl) contentEl.value = "선택한 시간에 소개팅이 진행됩니다.";
       initScheduleMaker();
@@ -1460,16 +1610,28 @@
       const dateEl = scheduleMaker.querySelector('[name="scheduleDate"]');
       const modeEl = scheduleMaker.querySelector('[name="meetingMode"]');
       const ageEl = scheduleMaker.querySelector('[name="ageRange"]');
+      const addressEl = scheduleMaker.querySelector('[name="address"]');
       const activeEl = scheduleMaker.querySelector('[name="active"]');
       const contentEl = scheduleMaker.querySelector('[name="content"]');
       if (dateEl) setScheduleDateValue(post.scheduleDate || seoulTodayIso());
       if (modeEl) modeEl.value = post.meetingMode || "1:1";
       if (ageEl) ageEl.value = post.ageRange || "27-36세";
+      if (addressEl) {
+        addressEl.value = post.address || "부산 부산진구 서전로 8번길 27";
+        renderAddressPreview(addressEl.value);
+      }
       if (activeEl) activeEl.value = post.active === false ? "false" : "true";
       if (contentEl) contentEl.value = post.content || "선택한 시간에 소개팅이 진행됩니다.";
       setScheduleTimeChecks([post.scheduleTime || "19시"]);
       scheduleFormSubmitButtonText("수정");
-      scheduleMaker.scrollIntoView({ behavior: "smooth", block: "start" });
+      openScheduleNavGroup();
+      markScheduleCardSelected(editingScheduleId);
+    }
+
+    function markScheduleCardSelected(id) {
+      scheduleLayerList?.querySelectorAll("[data-admin-schedule-id]").forEach((card) => {
+        card.classList.toggle("is-selected", String(id) === card.dataset.adminScheduleId);
+      });
     }
 
     function renderScheduleAdmin() {
@@ -1478,7 +1640,7 @@
       if (scheduleMenuCount) scheduleMenuCount.textContent = posts.length;
       if (scheduleEmpty) scheduleEmpty.classList.toggle("is-visible", posts.length === 0);
       scheduleLayerList.innerHTML = posts.map((post) => `
-        <article class="schedule-layer-card${post.source === "기본" ? " is-default" : ""}${post.closed ? " is-closed" : ""}" data-admin-schedule-id="${htmlAttr(post.id)}">
+        <article class="schedule-layer-card${post.source === "기본" ? " is-default" : ""}${post.closed ? " is-closed" : ""}${String(post.id) === String(editingScheduleId) ? " is-selected" : ""}" data-admin-schedule-id="${htmlAttr(post.id)}">
           <div>
             <strong><span class="schedule-layer-episode">${htmlAttr(post.displayEpisode || "")}</span>[${htmlAttr(scheduleTimeText(post.scheduleTime))}] 소개팅 안내</strong>
             <div class="schedule-layer-meta">
@@ -1490,7 +1652,6 @@
             </div>
           </div>
           <span class="schedule-card-actions">
-            <button class="small-btn" type="button" data-schedule-edit="${htmlAttr(post.id)}">수정</button>
             <button class="small-btn danger-btn" type="button" data-schedule-delete="${htmlAttr(post.id)}">삭제</button>
           </span>
         </article>
@@ -1511,6 +1672,7 @@
       }
       const meetingMode = String(form.get("meetingMode") || "1:1").trim() || "1:1";
       const ageRange = String(form.get("ageRange") || "27-36세").trim() || "27-36세";
+      const address = String(form.get("address") || "").trim() || "부산 부산진구 서전로 8번길 27";
       const content = String(form.get("content") || "").trim() || "선택한 시간에 소개팅이 진행됩니다.";
       const active = form.get("active") !== "false";
       const existing = readAdminSchedulePosts();
@@ -1535,6 +1697,7 @@
           scheduleTime: time,
           meetingMode,
           ageRange,
+          address,
           active
         });
       });
@@ -1771,6 +1934,9 @@
       document.querySelectorAll("[data-nav]").forEach((item) => {
         item.classList.toggle("is-active", item.dataset.nav === panelName);
       });
+      document.querySelectorAll("[data-nav-group]").forEach((group) => {
+        group.classList.toggle("is-open", group.dataset.navGroup === panelName);
+      });
       try { localStorage.setItem(ADMIN_ACTIVE_PANEL_KEY, panelName); } catch {}
       if (panelName === "schedule") renderScheduleAdmin();
     }
@@ -1816,16 +1982,16 @@
     });
 
     scheduleLayerList?.addEventListener("click", (event) => {
-      const editButton = event.target.closest("[data-schedule-edit]");
-      if (editButton) {
-        const post = dashboardSchedulePosts().find((item) => String(item.id) === editButton.dataset.scheduleEdit);
+      const deleteButton = event.target.closest("[data-schedule-delete]");
+      if (!deleteButton) {
+        const card = event.target.closest("[data-admin-schedule-id]");
+        if (!card) return;
+        const post = dashboardSchedulePosts().find((item) => String(item.id) === card.dataset.adminScheduleId);
         if (!post) return;
         fillScheduleMaker(post);
         showToast("일정 안내 레이어를 수정 모드로 불러왔습니다.");
         return;
       }
-      const deleteButton = event.target.closest("[data-schedule-delete]");
-      if (!deleteButton) return;
       const targetPost = dashboardSchedulePosts().find((item) => String(item.id) === deleteButton.dataset.scheduleDelete);
       const posts = readAdminSchedulePosts();
       backupAdminSchedulePosts("before-delete", posts);
