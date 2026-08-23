@@ -1013,11 +1013,17 @@
       });
     }
 
+    async function saveEventsSequentially(list) {
+      for (const event of list) {
+        await apiPost(eventSavePayload(event));
+      }
+    }
+
     async function persistEventOrder() {
       updateEventOrders();
       writeOrder(events.map((event) => event.id));
       try {
-        await Promise.all(events.map((event) => apiPost(eventSavePayload(event))));
+        await saveEventsSequentially(events);
       } catch (error) {
         showToast(`순서 저장 실패: ${error.message}`);
       }
@@ -1728,10 +1734,10 @@
       const wasEditing = !!editingScheduleId;
       const deletedSlots = readDeletedScheduleSlots();
       try {
-        await Promise.all(times.map((time) => {
+        for (const time of times) {
           const id = schedulePostId(date, time);
           deletedSlots.delete(scheduleSlotKey({ scheduleDate: date, scheduleTime: time }));
-          return apiPost({
+          await apiPost({
             type: "schedulePostSave",
             id,
             category: "일정 안내",
@@ -1745,7 +1751,7 @@
             address,
             active
           });
-        }));
+        }
         writeDeletedScheduleSlots(deletedSlots);
         editingScheduleId = "";
         scheduleFormSubmitButtonText("생성");
@@ -1957,7 +1963,7 @@
       events.forEach((event) => { event.active = true; });
       render();
       try {
-        await Promise.all(events.map((event) => apiPost(eventSavePayload(event))));
+        await saveEventsSequentially(events);
         showToast("전체 선택창을 노출 ON으로 저장했습니다.");
       } catch (error) {
         showToast(`저장 실패: ${error.message}`);
@@ -1967,7 +1973,7 @@
       events.forEach((event) => { event.active = false; });
       render();
       try {
-        await Promise.all(events.map((event) => apiPost(eventSavePayload(event))));
+        await saveEventsSequentially(events);
         showToast("전체 선택창을 비노출 OFF로 저장했습니다.");
       } catch (error) {
         showToast(`저장 실패: ${error.message}`);
