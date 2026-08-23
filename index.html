@@ -20849,9 +20849,42 @@
       } catch {}
       startHeroRotation();
     }
+    function backendEventToPublic(be, index) {
+      return createEventFromPreset({
+        id: be.id,
+        order: be.order,
+        station: be.station,
+        title: be.title,
+        date: be.date,
+        place: be.place,
+        confirmed: be.confirmed,
+        showCardStatus: be.showCardStatus,
+        capacity: be.capacity,
+        target: be.target,
+        price: be.price,
+        oldPrice: be.oldPrice,
+        image: be.image,
+        dday: be.dday,
+        male: be.male,
+        female: be.female,
+        showGenderCount: be.showGenderCount,
+        active: be.active
+      }, index);
+    }
+
     async function loadManagedEvents() {
       eventsAreReal = true;
-      events = buildManagedEvents();
+      try {
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=eventList&t=${Date.now()}`, { cache: "no-store" });
+        const result = await response.json();
+        if (response.ok && result.ok && Array.isArray(result.events) && result.events.length) {
+          events = result.events.map(backendEventToPublic).sort((a, b) => Number(a.order || 0) - Number(b.order || 0));
+        } else {
+          events = buildManagedEvents();
+        }
+      } catch {
+        events = buildManagedEvents();
+      }
       selectedEvent = events[selectedEventIndex] || events[0];
       renderEventList();
       if (document.querySelector('[data-page="event-detail"]')?.classList.contains("is-active")) {
