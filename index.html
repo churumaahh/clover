@@ -13097,6 +13097,7 @@
 
     markTodayInCalendar();
     renderEventList();
+    loadManagedEvents();
     const detailRoot = document.querySelector("[data-detail-root]");
 
     const applicationScheduleDates = new Set([
@@ -20983,7 +20984,6 @@
     });
 
     seedHeroSlides();
-    loadManagedEvents();
     renderSchedulePosts();
     const runDeferredStartup = () => {
       loadManagedHeroSlides();
