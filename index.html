@@ -24,6 +24,14 @@
   <meta name="twitter:description" content="?대뒓 ?? ?곗뿰?? ?щŉ??>
   <meta name="twitter:image" content="https://clover-love.vercel.app/assets/link-preview.jpg?v=20260710-link">
   <script src="config.js?v=20260722-schedule-api"></script>
+  <script>
+    (function () {
+      var scriptUrl = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbzOZZO6WhvvD4dtOPxeUTrr4KzuWK28MqV1OkRT49U32NbOJimhzU0dtFLOc6PGVUId/exec";
+      window.__earlyEventListPromise = fetch(scriptUrl + "?action=eventList&t=" + Date.now(), { cache: "no-store" })
+        .then(function (r) { return r.json().then(function (json) { return { ok: r.ok, json: json }; }); })
+        .catch(function (error) { return { ok: false, error: error }; });
+    })();
+  </script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <style>
@@ -2888,14 +2896,48 @@
       box-shadow: 0 .35rem 1.2rem rgba(0,0,0,.35);
     }
 
+    .event-list-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.4rem 0;
+    }
+
+    .event-list-loading-spinner {
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: 50%;
+      border: 2.5px solid rgba(120, 128, 140, 0.25);
+      border-top-color: #22c55e;
+      animation: event-list-loading-spin 0.7s linear infinite;
+    }
+
+    @keyframes event-list-loading-spin {
+      to { transform: rotate(360deg); }
+    }
+
     .event-thumb {
       position: relative;
       width: 100%;
       aspect-ratio: 1920 / 1080;
       overflow: visible;
       border-radius: 10px 10px 0 0;
-      background: var(--thumb-image) center / cover no-repeat, #d8dce3;
+      background: #d8dce3;
       cursor: pointer;
+    }
+
+    .event-thumb::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: var(--thumb-image) center / cover no-repeat;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .event-thumb.is-loaded::before {
+      opacity: 1;
     }
 
     .event-thumb:focus-visible {
@@ -12112,7 +12154,9 @@
               <li>일정 당일: 환불 불가</li>
             </ul>
           </div>
-          <ul class="event-list" data-event-list="home"></ul>
+          <ul class="event-list" data-event-list="home">
+            <li class="event-list-loading" aria-hidden="true"><span class="event-list-loading-spinner"></span></li>
+          </ul>
         </section>
 
       </main>
@@ -12898,7 +12942,8 @@
     const iconPopular = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z" fill="#ff4d6d"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbzBogL9UqEXPVrc7mJothJlSj9RJIQJdg8JzYKYEcqwRZuZUXuD_DNnGQBop3_d0GE/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbzOZZO6WhvvD4dtOPxeUTrr4KzuWK28MqV1OkRT49U32NbOJimhzU0dtFLOc6PGVUId/exec";
+    const CLOUDINARY_ASSET_MAP = {"assets/optimized/event-taste-homebody.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572124/clover/optimized/event-taste-homebody.webp","assets/optimized/clover-proof-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572106/clover/optimized/clover-proof-08.webp","assets/columns/webtoon-column-01.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572080/clover/columns/webtoon-column-01.png","assets/link-preview.jpg":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572079/clover/link-preview.jpg","assets/optimized/field-venue-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-01.webp","assets/optimized/event-taste-workout.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572126/clover/optimized/event-taste-workout.webp","assets/optimized/clover-proof-12.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572110/clover/optimized/clover-proof-12.webp","assets/columns/webtoon-column-03.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572082/clover/columns/webtoon-column-03.png","assets/optimized/field-venue-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572139/clover/optimized/field-venue-05.webp","assets/optimized/clover-proof-19.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-19.webp","assets/columns/webtoon-column-05.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572084/clover/columns/webtoon-column-05.png","assets/optimized/field-venue-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572143/clover/optimized/field-venue-10.webp","assets/optimized/event-group-study-cafe.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572118/clover/optimized/event-group-study-cafe.webp","assets/optimized/clover-proof-17.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572115/clover/optimized/clover-proof-17.webp","assets/columns/webtoon-column-18.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572097/clover/columns/webtoon-column-18.png","assets/optimized/clover-proof-15.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572113/clover/optimized/clover-proof-15.webp","assets/optimized/clover-proof-14.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572112/clover/optimized/clover-proof-14.webp","assets/optimized/field-venue-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-02.webp","assets/favicon.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572078/clover/favicon.png","assets/optimized/clover-proof-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572105/clover/optimized/clover-proof-07.webp","assets/optimized/event-theme-warm.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572134/clover/optimized/event-theme-warm.webp","assets/optimized/event-theme-dress-code.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572129/clover/optimized/event-theme-dress-code.webp","assets/optimized/clover-proof-11.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572109/clover/optimized/clover-proof-11.webp","assets/optimized/event-theme-divorced.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572128/clover/optimized/event-theme-divorced.webp","assets/optimized/event-theme-professional-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572131/clover/optimized/event-theme-professional-man.webp","assets/optimized/event-theme-japanese-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572130/clover/optimized/event-theme-japanese-woman.webp","assets/optimized/event-theme-wealthy-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572135/clover/optimized/event-theme-wealthy-man.webp","assets/columns/webtoon-column-07.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572086/clover/columns/webtoon-column-07.png","assets/optimized/clover-proof-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-06.webp","assets/clover-logo-v2.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572076/clover/clover-logo-v2.png","assets/columns/webtoon-column-12.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572091/clover/columns/webtoon-column-12.png","assets/optimized/clover-proof-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572102/clover/optimized/clover-proof-03.webp","assets/optimized/event-taste-travel.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572125/clover/optimized/event-taste-travel.webp","assets/optimized/event-theme-tall-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572133/clover/optimized/event-theme-tall-man.webp","assets/columns/webtoon-column-11.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572090/clover/columns/webtoon-column-11.png","assets/optimized/clover-proof-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572108/clover/optimized/clover-proof-10.webp","assets/optimized/event-theme-career-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-career-man.webp","assets/columns/webtoon-column-09.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572088/clover/columns/webtoon-column-09.png","assets/optimized/event-random-destiny-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-random-destiny-new.webp","assets/optimized/event-live-office-worker-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572120/clover/optimized/event-live-office-worker-new.webp","assets/optimized/field-venue-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-08.webp","assets/columns/webtoon-column-04.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572083/clover/columns/webtoon-column-04.png","assets/columns/webtoon-column-16.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572095/clover/columns/webtoon-column-16.png","assets/optimized/clover-proof-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-05.webp","assets/optimized/clover-proof-20.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572117/clover/optimized/clover-proof-20.webp","assets/columns/webtoon-column-17.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572096/clover/columns/webtoon-column-17.png","assets/optimized/event-theme-comfort-40s.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-comfort-40s.webp","assets/optimized/field-venue-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-04.webp","assets/optimized/clover-proof-16.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572114/clover/optimized/clover-proof-16.webp","assets/columns/webtoon-column-14.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572093/clover/columns/webtoon-column-14.png","assets/columns/webtoon-column-19.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572098/clover/columns/webtoon-column-19.png","assets/optimized/event-live-christian.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572119/clover/optimized/event-live-christian.webp","assets/optimized/event-romance-faceless.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572122/clover/optimized/event-romance-faceless.webp","assets/optimized/event-theme-public-servant-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572132/clover/optimized/event-theme-public-servant-woman.webp","assets/optimized/field-venue-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-03.webp","assets/optimized/field-venue-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572140/clover/optimized/field-venue-06.webp","assets/columns/webtoon-column-08.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572087/clover/columns/webtoon-column-08.png","assets/optimized/clover-proof-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572101/clover/optimized/clover-proof-02.webp","assets/optimized/field-venue-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572141/clover/optimized/field-venue-07.webp","assets/optimized/clover-proof-13.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572111/clover/optimized/clover-proof-13.webp","assets/columns/webtoon-column-20.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572099/clover/columns/webtoon-column-20.png","assets/optimized/clover-proof-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572107/clover/optimized/clover-proof-09.webp","assets/optimized/event-taste-active.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572123/clover/optimized/event-taste-active.webp","assets/columns/webtoon-column-06.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572085/clover/columns/webtoon-column-06.png","assets/optimized/event-live-shift-worker.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-live-shift-worker.webp","assets/columns/webtoon-column-15.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572094/clover/columns/webtoon-column-15.png","assets/optimized/footer-lobby-banner-clean.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572144/clover/optimized/footer-lobby-banner-clean.webp","assets/optimized/field-venue-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-09.webp","assets/columns/webtoon-column-13.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572092/clover/columns/webtoon-column-13.png","assets/optimized/clover-proof-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572103/clover/optimized/clover-proof-04.webp","assets/columns/webtoon-column-10.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572089/clover/columns/webtoon-column-10.png","assets/columns/webtoon-column-02.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572081/clover/columns/webtoon-column-02.png","assets/optimized/clover-proof-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572100/clover/optimized/clover-proof-01.webp","assets/optimized/clover-proof-18.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-18.webp"};
     const HERO_CACHE_KEY = "clover-managed-hero-slides-v5";
     const HERO_FALLBACK_SLIDES = [
       {
@@ -13053,7 +13098,19 @@
       button.addEventListener("click", () => setEventGuidePanel(button.dataset.eventGuideTab || "process"));
     });
 
+    let lastRenderedEventListKey = "";
+
     function renderEventList(items = events) {
+      const key = items.map((item) => item.id).join(",");
+      const isFirstRender = !lastRenderedEventListKey;
+      const changed = key !== lastRenderedEventListKey;
+      lastRenderedEventListKey = key;
+      if (!changed) return;
+      if (!isFirstRender && homeEventList) {
+        homeEventList.style.transition = "opacity 0.15s ease";
+        homeEventList.style.opacity = "0";
+        requestAnimationFrame(() => { homeEventList.style.opacity = "1"; });
+      }
       if (!items.length) {
         homeEventList.innerHTML = '<div class="event-empty">?좏깮李쎌쓣 遺덈윭?ㅻ뒗 以묒엯?덈떎.</div>';
       } else {
@@ -13078,6 +13135,24 @@
       }
       const icon = document.querySelector(".home-section-title .section-title-icon");
       if (icon) icon.classList.toggle("is-empty", !eventsAreReal);
+      fadeInEventThumbs();
+    }
+
+    function fadeInEventThumbs() {
+      homeEventList?.querySelectorAll(".event-thumb").forEach((thumb) => {
+        const raw = thumb.style.getPropertyValue("--thumb-image");
+        const match = raw.match(/^url\((['"]?)(.*)\1\)$/);
+        const url = match ? match[2] : "";
+        if (!url) {
+          thumb.classList.add("is-loaded");
+          return;
+        }
+        const preload = new Image();
+        preload.onload = () => thumb.classList.add("is-loaded");
+        preload.onerror = () => thumb.classList.add("is-loaded");
+        preload.src = url;
+        if (preload.complete) thumb.classList.add("is-loaded");
+      });
     }
 
     function markTodayInCalendar() {
@@ -13096,7 +13171,10 @@
     }
 
     markTodayInCalendar();
-    renderEventList();
+    {
+      const cachedForFirstPaint = readCachedEventList();
+      if (cachedForFirstPaint) renderEventList(cachedForFirstPaint);
+    }
     loadManagedEvents();
     const detailRoot = document.querySelector("[data-detail-root]");
 
@@ -20873,8 +20951,6 @@
       }, index);
     }
 
-    const EVENT_LIST_CACHE_KEY = "clover-managed-event-list-v1";
-
     function applyManagedEvents(nextEvents) {
       events = nextEvents;
       selectedEvent = events[selectedEventIndex] || events[0];
@@ -20888,31 +20964,62 @@
       }
     }
 
+    const EVENT_LIST_CACHE_KEY = "clover-managed-event-list-v2";
+
+    function readCachedEventList() {
+      try {
+        const raw = localStorage.getItem(EVENT_LIST_CACHE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) && parsed.length ? parsed : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function writeCachedEventList(list) {
+      try { localStorage.setItem(EVENT_LIST_CACHE_KEY, JSON.stringify(list)); } catch {}
+    }
+
     async function loadManagedEvents() {
       eventsAreReal = true;
-      let cachedRaw = "";
+      const cached = readCachedEventList();
+      if (cached) applyManagedEvents(cached);
+
+      let settled = false;
+      // Apps Script cold starts typically resolve within ~3s; this only fires as a last resort
+      // so we don't flash unfiltered local defaults right before the real response lands.
+      const fallbackTimer = setTimeout(() => {
+        if (!settled && !cached) applyManagedEvents(buildManagedEvents());
+      }, 5000);
+
       try {
-        cachedRaw = sessionStorage.getItem(EVENT_LIST_CACHE_KEY) || "";
-        if (cachedRaw) {
-          const cached = JSON.parse(cachedRaw);
-          if (Array.isArray(cached) && cached.length) applyManagedEvents(cached);
+        let ok, result;
+        if (window.__earlyEventListPromise) {
+          const early = await window.__earlyEventListPromise;
+          ok = early.ok;
+          result = early.json;
+        } else {
+          const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=eventList&t=${Date.now()}`, { cache: "no-store" });
+          ok = response.ok;
+          result = await response.json();
         }
-      } catch {}
-      try {
-        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=eventList&t=${Date.now()}`, { cache: "no-store" });
-        const result = await response.json();
-        if (response.ok && result.ok && Array.isArray(result.events) && result.events.length) {
-          const nextEvents = result.events.map(backendEventToPublic).sort((a, b) => Number(a.order || 0) - Number(b.order || 0));
-          const nextRaw = JSON.stringify(nextEvents);
-          if (nextRaw !== cachedRaw) {
-            applyManagedEvents(nextEvents);
-            try { sessionStorage.setItem(EVENT_LIST_CACHE_KEY, nextRaw); } catch {}
-          }
-        } else if (!cachedRaw) {
+        settled = true;
+        clearTimeout(fallbackTimer);
+        if (ok && result && result.ok && Array.isArray(result.events) && result.events.length) {
+          const nextEvents = result.events
+            .map(backendEventToPublic)
+            .filter((event) => eventIsVisible(event))
+            .sort((a, b) => Number(a.order || 0) - Number(b.order || 0));
+          applyManagedEvents(nextEvents);
+          writeCachedEventList(nextEvents);
+        } else if (!cached) {
           applyManagedEvents(buildManagedEvents());
         }
       } catch {
-        if (!cachedRaw) applyManagedEvents(buildManagedEvents());
+        settled = true;
+        clearTimeout(fallbackTimer);
+        if (!cached) applyManagedEvents(buildManagedEvents());
       }
     }
 
@@ -20955,11 +21062,15 @@
 
     function optimizedAssetUrl(value) {
       const url = String(value || "").trim();
+      const bare = url.split(/[?#]/)[0];
+      if (CLOUDINARY_ASSET_MAP[bare]) return CLOUDINARY_ASSET_MAP[bare];
       const match = url.match(/^assets\/([^?#\/]+)\.(png|jpe?g)([?#].*)?$/i);
       if (!match) return url;
       const name = match[1];
       if (/^(favicon|clover-logo)/i.test(name)) return url;
-      return `assets/optimized/${name}.webp${match[3] || ""}`;
+      const optimizedPath = `assets/optimized/${name}.webp`;
+      if (CLOUDINARY_ASSET_MAP[optimizedPath]) return CLOUDINARY_ASSET_MAP[optimizedPath];
+      return `${optimizedPath}${match[3] || ""}`;
     }
 
     function assetImageUrls(value) {
