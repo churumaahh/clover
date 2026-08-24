@@ -2736,21 +2736,6 @@
       box-shadow: 0.35rem 0.35rem 0.72rem rgba(148, 163, 184, 0.26), -0.28rem -0.28rem 0.68rem rgba(255, 255, 255, 0.9) !important;
     }
 
-    .event-guide-tab-icon {
-      display: block;
-      width: 1rem;
-      height: 1rem;
-      flex: 0 0 auto;
-      color: currentColor;
-    }
-
-    #home-events .event-guide-tab[data-event-guide-tab="discount"] {
-      width: 2.2rem !important;
-      min-width: 2.2rem !important;
-      padding: 0 !important;
-      justify-content: center;
-    }
-
     .event-guide-tab:hover,
     .event-guide-tab.is-active {
       color: #121218 !important;
@@ -12208,13 +12193,6 @@
       color: #ffffff !important;
     }
 
-    :root[data-theme="dark"] #page-home #home-events .event-guide-tab[data-event-guide-tab="discount"] {
-      width: 2.2rem !important;
-      min-width: 2.2rem !important;
-      padding: 0 !important;
-      justify-content: center;
-    }
-
     :root[data-theme="dark"] #page-home .schedule-info-calendar-btn:not([disabled]):not([aria-disabled="true"]) {
       border-color: #303030 !important;
       background: linear-gradient(145deg, #232323 0%, #181818 100%) !important;
@@ -12757,15 +12735,7 @@
             <h2 class="home-section-title"><span class="section-title-icon" aria-hidden="true"></span>소개팅 신청하기</h2>
             <div class="event-guide-tabs" role="tablist" aria-label="로테이션 소개팅 안내">
               <button class="event-guide-tab" type="button" data-event-guide-tab="process">절차</button>
-              <button class="event-guide-tab" type="button" data-event-guide-tab="discount" aria-label="혜택" title="혜택">
-                <svg class="event-guide-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M20 12v9H4v-9"/>
-                  <path d="M2 7h20v5H2z"/>
-                  <path d="M12 22V7"/>
-                  <path d="M12 7H7.5a2.5 2.5 0 1 1 2.12-3.82C10.45 4.52 12 7 12 7Z"/>
-                  <path d="M12 7h4.5a2.5 2.5 0 1 0-2.12-3.82C13.55 4.52 12 7 12 7Z"/>
-                </svg>
-              </button>
+              <button class="event-guide-tab" type="button" data-event-guide-tab="discount">이벤트</button>
             </div>
           </div>
           <div class="event-guide-panel" data-event-guide-panel="process" hidden>
@@ -12779,7 +12749,7 @@
           <div class="event-guide-panel" data-event-guide-panel="discount" hidden>
             <h3>가을 시즌 특별 제안 (9월 - 10월)</h3>
             <ul>
-              <li>커플 성사 인증 시 10만원 지원</li>
+              <li>커플 성사 인증 시 10만원 증정</li>
             </ul>
           </div>
           <ul class="event-list" data-event-list="home">
@@ -12909,7 +12879,7 @@
             <section class="detail-section">
               <h2>할인 · 환불 안내</h2>
               <ul class="detail-list">
-                <li>커플 성사 인증 시 10만원 지원</li>
+                <li>커플 성사 인증 시 10만원 증정</li>
                 <li>결혼 성사 인증 시 100만원 지원</li>
                 <li>결제 당일: 결제 금액의 100% 환불</li>
                 <li>결제 다음 날 ~ 일정 4일 전: 결제 금액의 80% 환불</li>
@@ -22152,11 +22122,6 @@
   </script>
 </body>
 </html>
-
-
-
-
-
 
 
 
