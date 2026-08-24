@@ -1068,10 +1068,10 @@
       grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
       align-items: center;
       gap: 0.5rem;
-      padding: 0.8rem;
+      padding: 0;
       border: 0;
       border-radius: 0.9rem;
-      background: linear-gradient(180deg, var(--surface) 0%, var(--paper) 100%);
+      background: transparent;
     }
 
     .match-result-person,
@@ -1084,11 +1084,18 @@
     }
 
     .match-result-person {
-      border: 1px solid var(--line);
-      border-radius: 0.82rem;
-      background: var(--tint-neutral);
-      color: var(--ink);
+      border: 0;
+      border-radius: 1.05rem;
+      background: #eef1f5;
+      color: #121218;
       font-size: 0.88rem;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(148, 163, 184, 0.28), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9);
+    }
+
+    :root[data-theme="dark"] .match-result-person {
+      background: #232323;
+      color: #f1f1f1;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(0, 0, 0, 0.45), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.04);
     }
 
     .match-result-heart {
@@ -10286,6 +10293,24 @@
       transform: translateY(-0.35rem);
     }
 
+    [data-schedule-post-id] .home-schedule-modal-logo-group .home-schedule-modal-logo {
+      background: #eef1f5;
+      box-shadow: 0.55rem 0.55rem 1.1rem rgba(148, 163, 184, 0.28), -0.45rem -0.45rem 1rem rgba(255, 255, 255, 0.9);
+    }
+
+    [data-schedule-post-id] .home-schedule-modal-logo-group .home-schedule-modal-logo img {
+      filter: brightness(0);
+    }
+
+    .match-result-modal-logo-group .home-schedule-modal-logo {
+      background: #eef1f5;
+      box-shadow: 0.55rem 0.55rem 1.1rem rgba(148, 163, 184, 0.28), -0.45rem -0.45rem 1rem rgba(255, 255, 255, 0.9);
+    }
+
+    .match-result-modal-logo-group .home-schedule-modal-logo img {
+      filter: brightness(0);
+    }
+
     .home-schedule-modal-episode {
       position: absolute;
       left: 0.35rem;
@@ -10304,6 +10329,16 @@
       text-align: center;
       text-shadow: 0 0.08rem 0.18rem rgba(0, 0, 0, 0.6);
       white-space: nowrap;
+    }
+
+    [data-schedule-post-id] .home-schedule-modal-episode {
+      color: #121218;
+      text-shadow: none;
+    }
+
+    .match-result-modal-logo-group .home-schedule-modal-episode {
+      color: #121218;
+      text-shadow: none;
     }
     .home-schedule-panel .naver-map {
       border-color: rgba(148, 163, 184, 0.28) !important;
@@ -10342,6 +10377,20 @@
     :root[data-theme="dark"] .home-schedule-modal-episode {
       background: transparent;
       color: #fff;
+    }
+
+    :root[data-theme="dark"] [data-schedule-post-id] .home-schedule-modal-logo-group .home-schedule-modal-logo {
+      background: #232323 !important;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(0, 0, 0, 0.45), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.04) !important;
+    }
+
+    :root[data-theme="dark"] [data-schedule-post-id] .home-schedule-modal-logo-group .home-schedule-modal-logo img {
+      filter: brightness(0) invert(1);
+    }
+
+    :root[data-theme="dark"] [data-schedule-post-id] .home-schedule-modal-episode {
+      color: #fff;
+      text-shadow: 0 0.08rem 0.18rem rgba(0, 0, 0, 0.6);
     }
 
     :root[data-theme="dark"] .home-schedule-panel .schedule-detail-heading,
@@ -19405,7 +19454,7 @@
           <button class="home-schedule-close-btn" type="button" data-match-result-close aria-label="닫기">×</button>
           <section class="support-card mypage-fold-card" style="margin:0; padding:.9rem;">
             <div class="home-schedule-modal-topline">
-              <span class="home-schedule-modal-logo-group" aria-hidden="true">
+              <span class="home-schedule-modal-logo-group match-result-modal-logo-group" aria-hidden="true">
                 <span class="home-schedule-modal-logo"><img src="assets/clover-logo-v2.png" alt=""><span class="home-schedule-modal-episode">${htmlAttr(matchResultEpisodeNumber(item))}화</span></span>
               </span>
               <div class="home-schedule-modal-topcopy">
@@ -21156,12 +21205,6 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
 
 
 
