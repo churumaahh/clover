@@ -13096,6 +13096,7 @@
     }
 
     markTodayInCalendar();
+    renderEventList();
     loadManagedEvents();
     const detailRoot = document.querySelector("[data-detail-root]");
 
@@ -20872,19 +20873,10 @@
       }, index);
     }
 
-    async function loadManagedEvents() {
-      eventsAreReal = true;
-      try {
-        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=eventList&t=${Date.now()}`, { cache: "no-store" });
-        const result = await response.json();
-        if (response.ok && result.ok && Array.isArray(result.events) && result.events.length) {
-          events = result.events.map(backendEventToPublic).sort((a, b) => Number(a.order || 0) - Number(b.order || 0));
-        } else {
-          events = buildManagedEvents();
-        }
-      } catch {
-        events = buildManagedEvents();
-      }
+    const EVENT_LIST_CACHE_KEY = "clover-managed-event-list-v1";
+
+    function applyManagedEvents(nextEvents) {
+      events = nextEvents;
       selectedEvent = events[selectedEventIndex] || events[0];
       renderEventList();
       if (document.querySelector('[data-page="event-detail"]')?.classList.contains("is-active")) {
@@ -20893,6 +20885,34 @@
         } else {
           renderDetail(selectedEvent);
         }
+      }
+    }
+
+    async function loadManagedEvents() {
+      eventsAreReal = true;
+      let cachedRaw = "";
+      try {
+        cachedRaw = sessionStorage.getItem(EVENT_LIST_CACHE_KEY) || "";
+        if (cachedRaw) {
+          const cached = JSON.parse(cachedRaw);
+          if (Array.isArray(cached) && cached.length) applyManagedEvents(cached);
+        }
+      } catch {}
+      try {
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=eventList&t=${Date.now()}`, { cache: "no-store" });
+        const result = await response.json();
+        if (response.ok && result.ok && Array.isArray(result.events) && result.events.length) {
+          const nextEvents = result.events.map(backendEventToPublic).sort((a, b) => Number(a.order || 0) - Number(b.order || 0));
+          const nextRaw = JSON.stringify(nextEvents);
+          if (nextRaw !== cachedRaw) {
+            applyManagedEvents(nextEvents);
+            try { sessionStorage.setItem(EVENT_LIST_CACHE_KEY, nextRaw); } catch {}
+          }
+        } else if (!cachedRaw) {
+          applyManagedEvents(buildManagedEvents());
+        }
+      } catch {
+        if (!cachedRaw) applyManagedEvents(buildManagedEvents());
       }
     }
 
