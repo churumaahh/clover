@@ -419,6 +419,23 @@
       color: var(--muted);
     }
     .empty.is-visible { display: block; }
+    .list-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.4rem 0;
+    }
+    .list-loading-spinner {
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: 50%;
+      border: 2.5px solid rgba(120, 128, 140, 0.25);
+      border-top-color: #22c55e;
+      animation: list-loading-spin 0.7s linear infinite;
+    }
+    @keyframes list-loading-spin {
+      to { transform: rotate(360deg); }
+    }
     .toast {
       position: fixed;
       left: 50%;
@@ -1277,6 +1294,7 @@
 
     async function loadEvents() {
       if (!GOOGLE_SCRIPT_URL) return;
+      listEl.innerHTML = '<div class="list-loading" aria-hidden="true"><span class="list-loading-spinner"></span></div>';
       try {
         const result = await apiGet("eventList", { includeInactive: "1" });
         const list = Array.isArray(result.events) ? result.events : [];

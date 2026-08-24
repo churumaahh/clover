@@ -26,7 +26,7 @@
   <script src="config.js?v=20260722-schedule-api"></script>
   <script>
     (function () {
-      var scriptUrl = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbzOZZO6WhvvD4dtOPxeUTrr4KzuWK28MqV1OkRT49U32NbOJimhzU0dtFLOc6PGVUId/exec";
+      var scriptUrl = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbydw47kJZtRedgcmoTYWmhqHTvX6y_O60BPcIN-paY53ZG5tI4tt-_4YAWqMVksF9Lh/exec";
       window.__earlyEventListPromise = fetch(scriptUrl + "?action=eventList&t=" + Date.now(), { cache: "no-store" })
         .then(function (r) { return r.json().then(function (json) { return { ok: r.ok, json: json }; }); })
         .catch(function (error) { return { ok: false, error: error }; });
@@ -1104,15 +1104,16 @@
     }
 
     .match-result-heart::before {
-      content: "\2665";
+      content: "";
       position: absolute;
       inset: 0;
+      margin: auto;
       z-index: 2;
-      display: grid;
-      place-items: center;
-      color: #07150b;
-      font-size: 1.25rem;
-      line-height: 1;
+      width: 1.22rem;
+      height: 1.22rem;
+      background: #07150b;
+      -webkit-mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z'/%3E%3C/svg%3E") center / contain no-repeat;
+      mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z'/%3E%3C/svg%3E") center / contain no-repeat;
       transform-origin: center;
       animation: match-heartbeat 1.05s ease-in-out infinite;
     }
@@ -1591,11 +1592,13 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: .58rem;
-      align-items: start;
+      align-items: stretch;
     }
 
     .mbti-match-group {
       min-width: 0;
+      display: grid;
+      grid-template-rows: auto 1fr;
     }
 
     .mbti-match-panel-head {
@@ -1642,14 +1645,17 @@
 
     .mbti-match-list {
       display: grid;
+      grid-template-rows: repeat(3, minmax(4.35rem, 1fr));
       gap: .5rem;
+      height: 100%;
     }
 
     .mbti-match-row {
       display: grid;
       justify-items: center;
-      align-content: start;
+      align-content: center;
       gap: .3rem;
+      min-height: 4.35rem;
       padding: .6rem .7rem;
       border: 1px solid var(--line);
       border-radius: .7rem;
@@ -3666,8 +3672,8 @@
 
     .gender-modal-panel {
       position: relative;
-      width: min(18rem, calc(100vw - 2rem));
-      padding: 1.15rem;
+      width: min(16.5rem, calc(100vw - 2rem));
+      padding: 1.55rem 1.15rem;
       border: 1px solid var(--line);
       border-radius: 0.75rem;
       background: var(--surface);
@@ -10222,6 +10228,10 @@
       margin: 0 2.75rem 0.48rem 0;
     }
 
+    .home-schedule-modal-topline.is-plain {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
     .home-schedule-modal-topcopy {
       display: grid;
       gap: 0.42rem;
@@ -10237,6 +10247,7 @@
     }
 
     .home-schedule-modal-logo {
+      position: relative;
       width: 3.15rem;
       height: 3.15rem;
       display: grid;
@@ -10244,6 +10255,7 @@
       flex: 0 0 auto;
       border-radius: 1rem;
       background: #eef1f5;
+      overflow: hidden;
       box-shadow: 0.55rem 0.55rem 1.1rem rgba(148, 163, 184, 0.28), -0.45rem -0.45rem 1rem rgba(255, 255, 255, 0.9);
     }
 
@@ -10252,7 +10264,48 @@
       height: 2.1rem;
       object-fit: contain;
       filter: brightness(0);
-    }    .home-schedule-panel .naver-map {
+    }
+
+    .home-schedule-modal-logo-group {
+      display: block;
+      flex: 0 0 auto;
+    }
+
+    .home-schedule-modal-logo-group .home-schedule-modal-logo {
+      width: 4.15rem;
+      height: 4.15rem;
+      border-radius: 1.28rem;
+      background: #1f1f1f;
+      box-shadow: 0.45rem 0.55rem 1rem rgba(0, 0, 0, 0.28), inset 0.08rem 0.08rem 0.16rem rgba(255, 255, 255, 0.04);
+    }
+
+    .home-schedule-modal-logo-group .home-schedule-modal-logo img {
+      width: 2.35rem;
+      height: 2.35rem;
+      filter: brightness(0) invert(1);
+      transform: translateY(-0.35rem);
+    }
+
+    .home-schedule-modal-episode {
+      position: absolute;
+      left: 0.35rem;
+      right: 0.35rem;
+      bottom: 0.55rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 950;
+      line-height: 1;
+      text-align: center;
+      text-shadow: 0 0.08rem 0.18rem rgba(0, 0, 0, 0.6);
+      white-space: nowrap;
+    }
+    .home-schedule-panel .naver-map {
       border-color: rgba(148, 163, 184, 0.28) !important;
       border-radius: 1rem !important;
       background: #e8edf4 !important;
@@ -10284,6 +10337,11 @@
 
     :root[data-theme="dark"] .home-schedule-modal-logo img {
       filter: brightness(0) invert(1);
+    }
+
+    :root[data-theme="dark"] .home-schedule-modal-episode {
+      background: transparent;
+      color: #fff;
     }
 
     :root[data-theme="dark"] .home-schedule-panel .schedule-detail-heading,
@@ -11883,10 +11941,10 @@
       width: 100% !important;
     }
 
-    /* 濡쒓렇???뚯썝媛???섏씠吏 移대뱶 40px ?곷떒 ?대룞 */
+    /* 濡쒓렇???뚯썝媛???섏씠吏 移대뱶 30px ?꾨옒 ?대룞 */
     #page-login .auth-card,
     #page-signup .auth-card {
-      transform: translateY(-80px) !important;
+      transform: translateY(-50px) !important;
     }
 
     /* ?좎껌 2?섏씠吏 ?꾨떖 ?ы빆 ?낅젰移?*/
@@ -12942,7 +13000,7 @@
     const iconPopular = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z" fill="#ff4d6d"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbzOZZO6WhvvD4dtOPxeUTrr4KzuWK28MqV1OkRT49U32NbOJimhzU0dtFLOc6PGVUId/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbydw47kJZtRedgcmoTYWmhqHTvX6y_O60BPcIN-paY53ZG5tI4tt-_4YAWqMVksF9Lh/exec";
     const CLOUDINARY_ASSET_MAP = {"assets/optimized/event-taste-homebody.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572124/clover/optimized/event-taste-homebody.webp","assets/optimized/clover-proof-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572106/clover/optimized/clover-proof-08.webp","assets/columns/webtoon-column-01.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572080/clover/columns/webtoon-column-01.png","assets/link-preview.jpg":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572079/clover/link-preview.jpg","assets/optimized/field-venue-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-01.webp","assets/optimized/event-taste-workout.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572126/clover/optimized/event-taste-workout.webp","assets/optimized/clover-proof-12.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572110/clover/optimized/clover-proof-12.webp","assets/columns/webtoon-column-03.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572082/clover/columns/webtoon-column-03.png","assets/optimized/field-venue-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572139/clover/optimized/field-venue-05.webp","assets/optimized/clover-proof-19.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-19.webp","assets/columns/webtoon-column-05.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572084/clover/columns/webtoon-column-05.png","assets/optimized/field-venue-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572143/clover/optimized/field-venue-10.webp","assets/optimized/event-group-study-cafe.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572118/clover/optimized/event-group-study-cafe.webp","assets/optimized/clover-proof-17.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572115/clover/optimized/clover-proof-17.webp","assets/columns/webtoon-column-18.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572097/clover/columns/webtoon-column-18.png","assets/optimized/clover-proof-15.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572113/clover/optimized/clover-proof-15.webp","assets/optimized/clover-proof-14.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572112/clover/optimized/clover-proof-14.webp","assets/optimized/field-venue-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-02.webp","assets/favicon.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572078/clover/favicon.png","assets/optimized/clover-proof-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572105/clover/optimized/clover-proof-07.webp","assets/optimized/event-theme-warm.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572134/clover/optimized/event-theme-warm.webp","assets/optimized/event-theme-dress-code.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572129/clover/optimized/event-theme-dress-code.webp","assets/optimized/clover-proof-11.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572109/clover/optimized/clover-proof-11.webp","assets/optimized/event-theme-divorced.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572128/clover/optimized/event-theme-divorced.webp","assets/optimized/event-theme-professional-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572131/clover/optimized/event-theme-professional-man.webp","assets/optimized/event-theme-japanese-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572130/clover/optimized/event-theme-japanese-woman.webp","assets/optimized/event-theme-wealthy-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572135/clover/optimized/event-theme-wealthy-man.webp","assets/columns/webtoon-column-07.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572086/clover/columns/webtoon-column-07.png","assets/optimized/clover-proof-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-06.webp","assets/clover-logo-v2.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572076/clover/clover-logo-v2.png","assets/columns/webtoon-column-12.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572091/clover/columns/webtoon-column-12.png","assets/optimized/clover-proof-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572102/clover/optimized/clover-proof-03.webp","assets/optimized/event-taste-travel.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572125/clover/optimized/event-taste-travel.webp","assets/optimized/event-theme-tall-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572133/clover/optimized/event-theme-tall-man.webp","assets/columns/webtoon-column-11.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572090/clover/columns/webtoon-column-11.png","assets/optimized/clover-proof-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572108/clover/optimized/clover-proof-10.webp","assets/optimized/event-theme-career-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-career-man.webp","assets/columns/webtoon-column-09.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572088/clover/columns/webtoon-column-09.png","assets/optimized/event-random-destiny-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-random-destiny-new.webp","assets/optimized/event-live-office-worker-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572120/clover/optimized/event-live-office-worker-new.webp","assets/optimized/field-venue-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-08.webp","assets/columns/webtoon-column-04.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572083/clover/columns/webtoon-column-04.png","assets/columns/webtoon-column-16.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572095/clover/columns/webtoon-column-16.png","assets/optimized/clover-proof-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-05.webp","assets/optimized/clover-proof-20.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572117/clover/optimized/clover-proof-20.webp","assets/columns/webtoon-column-17.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572096/clover/columns/webtoon-column-17.png","assets/optimized/event-theme-comfort-40s.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-comfort-40s.webp","assets/optimized/field-venue-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-04.webp","assets/optimized/clover-proof-16.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572114/clover/optimized/clover-proof-16.webp","assets/columns/webtoon-column-14.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572093/clover/columns/webtoon-column-14.png","assets/columns/webtoon-column-19.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572098/clover/columns/webtoon-column-19.png","assets/optimized/event-live-christian.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572119/clover/optimized/event-live-christian.webp","assets/optimized/event-romance-faceless.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572122/clover/optimized/event-romance-faceless.webp","assets/optimized/event-theme-public-servant-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572132/clover/optimized/event-theme-public-servant-woman.webp","assets/optimized/field-venue-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-03.webp","assets/optimized/field-venue-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572140/clover/optimized/field-venue-06.webp","assets/columns/webtoon-column-08.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572087/clover/columns/webtoon-column-08.png","assets/optimized/clover-proof-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572101/clover/optimized/clover-proof-02.webp","assets/optimized/field-venue-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572141/clover/optimized/field-venue-07.webp","assets/optimized/clover-proof-13.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572111/clover/optimized/clover-proof-13.webp","assets/columns/webtoon-column-20.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572099/clover/columns/webtoon-column-20.png","assets/optimized/clover-proof-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572107/clover/optimized/clover-proof-09.webp","assets/optimized/event-taste-active.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572123/clover/optimized/event-taste-active.webp","assets/columns/webtoon-column-06.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572085/clover/columns/webtoon-column-06.png","assets/optimized/event-live-shift-worker.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-live-shift-worker.webp","assets/columns/webtoon-column-15.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572094/clover/columns/webtoon-column-15.png","assets/optimized/footer-lobby-banner-clean.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572144/clover/optimized/footer-lobby-banner-clean.webp","assets/optimized/field-venue-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-09.webp","assets/columns/webtoon-column-13.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572092/clover/columns/webtoon-column-13.png","assets/optimized/clover-proof-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572103/clover/optimized/clover-proof-04.webp","assets/columns/webtoon-column-10.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572089/clover/columns/webtoon-column-10.png","assets/columns/webtoon-column-02.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572081/clover/columns/webtoon-column-02.png","assets/optimized/clover-proof-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572100/clover/optimized/clover-proof-01.webp","assets/optimized/clover-proof-18.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-18.webp"};
     const HERO_CACHE_KEY = "clover-managed-hero-slides-v5";
     const HERO_FALLBACK_SLIDES = [
@@ -16405,8 +16463,7 @@
         <div class="home-schedule-panel">
           <button class="home-schedule-close-btn" type="button" data-schedule-post-modal-close aria-label="닫기">×</button>
           <article class="schedule-post-modal-card" data-schedule-post-id="${htmlAttr(post.id)}">
-            <div class="home-schedule-modal-topline">
-              <span class="home-schedule-modal-logo" aria-hidden="true"><img src="assets/clover-logo-v2.png" alt=""></span>
+            <div class="home-schedule-modal-topline is-plain">
               <div class="home-schedule-modal-topcopy">
                 <h2 class="schedule-detail-heading">${htmlAttr(post.title)}</h2>
                 <div class="schedule-status-detail schedule-modal-detail"><span>${htmlAttr(schedulePostModalDate(post.createdAt || post.updatedAt))}</span></div>
@@ -16936,7 +16993,9 @@
           <button class="home-schedule-close-btn" type="button" data-home-schedule-close aria-label="닫기">×</button>
           <section class="support-card mypage-fold-card" style="margin:0; padding:.9rem;" data-schedule-post-id="${htmlAttr(post.id)}">
             <div class="home-schedule-modal-topline">
-              <span class="home-schedule-modal-logo" aria-hidden="true"><img src="assets/clover-logo-v2.png" alt=""></span>
+              <span class="home-schedule-modal-logo-group" aria-hidden="true">
+                <span class="home-schedule-modal-logo"><img src="assets/clover-logo-v2.png" alt=""><span class="home-schedule-modal-episode">${htmlAttr(post.displayEpisode || `${post.displayEpisodeNumber || scheduleEpisodeNumber(post)}화`)}</span></span>
+              </span>
               <div class="home-schedule-modal-topcopy">
                 <h2 class="schedule-detail-heading">${htmlAttr(modalTitle)}</h2>
                 ${modalDetailMarkup}
@@ -17686,23 +17745,15 @@
     const MBTI_STORAGE_KEY = "cloverMbtiCompatibilityState";
     const MBTI_LETTERS = Object.freeze([["E", "I"], ["N", "S"], ["F", "T"], ["J", "P"]]);
     const ALL_MBTI_TYPES = Object.freeze(["ISTJ", "ISFJ", "INFJ", "INTJ", "ISTP", "ISFP", "INFP", "INTP", "ESTP", "ESFP", "ENFP", "ENTP", "ESTJ", "ESFJ", "ENFJ", "ENTJ"]);
-    const MBTI_DIFF_REASONS = Object.freeze([
-      "먼저 다가서는 쪽과 편하게 받아주는 쪽",
-      "새로운 아이디어와 꼼꼼한 실행",
-      "따뜻한 위로와 냉철한 조언",
-      "즉흥적인 재미와 안정적인 계획"
+    const MBTI_GOOD_REASONS = Object.freeze([
+      "눈치 빠른 케미",
+      "말 안 해도 척척",
+      "웃음 버튼 잘 맞음"
     ]);
-    const MBTI_CLASH_REASONS = Object.freeze([
-      "서로 어긋나는 대화 타이밍",
-      "결이 다른 관심 화제",
-      "위로가 필요할 때와 해결책이 필요할 때",
-      "즉흥적인 계획 변경을 둘러싼 온도차"
-    ]);
-    const MBTI_SAME_REASONS = Object.freeze([
-      "에너지 방향이 같아 관계의 리듬을 맞추기 쉽습니다",
-      "정보를 받아들이는 방식이 비슷해 대화가 자연스럽습니다",
-      "판단 기준이 비슷해 갈등이 적은 편입니다",
-      "생활 방식이 비슷해 함께 있는 시간이 편합니다"
+    const MBTI_BAD_REASONS = Object.freeze([
+      "관심사 딴 행성",
+      "티키타카 삐걱",
+      "약속 전쟁각"
     ]);
     const MBTI_PLACEHOLDER = "MBTI";
     const MBTI_CATEGORIES = Object.freeze(["썸 궁합", "대화 궁합", "연애 궁합", "성격 궁합", "서로 잘 맞는점", "안 맞는점"]);
@@ -17800,30 +17851,12 @@
       return Math.max(50, Math.min(100, score));
     }
 
-    function mbtiCompatReason(self, other) {
-      const normalizedSelf = normalizeMbtiValue(self);
-      const normalizedOther = normalizeMbtiValue(other);
-      const diffIndexes = [];
-      const sameIndexes = [];
-      for (let i = 0; i < 4; i += 1) {
-        if (normalizedSelf[i] === normalizedOther[i]) sameIndexes.push(i);
-        else diffIndexes.push(i);
-      }
-      if (!diffIndexes.length) return "비슷한 생각의 결";
-      const pickIndex = diffIndexes[0];
-      return MBTI_DIFF_REASONS[pickIndex];
+    function mbtiCompatReason(self, other, index = 0) {
+      return MBTI_GOOD_REASONS[index % MBTI_GOOD_REASONS.length];
     }
 
-    function mbtiClashReason(self, other) {
-      const normalizedSelf = normalizeMbtiValue(self);
-      const normalizedOther = normalizeMbtiValue(other);
-      const diffIndexes = [];
-      for (let i = 0; i < 4; i += 1) {
-        if (normalizedSelf[i] !== normalizedOther[i]) diffIndexes.push(i);
-      }
-      if (!diffIndexes.length) return "자극이 부족한 익숙함";
-      const pick = diffIndexes[mbtiHash(`${normalizedSelf}|${normalizedOther}`) % diffIndexes.length];
-      return MBTI_CLASH_REASONS[pick];
+    function mbtiClashReason(self, other, index = 0) {
+      return MBTI_BAD_REASONS[index % MBTI_BAD_REASONS.length];
     }
 
     function mbtiTopMatches(self, count = 3) {
@@ -17852,7 +17885,7 @@
             <span class="mbti-match-rank">${index + 1}위</span>
             <span class="mbti-match-type">${htmlAttr(match.type)}</span>
           </div>
-          <p class="mbti-match-reason">${htmlAttr(mbtiCompatReason(normalizedSelf, match.type))}</p>
+          <p class="mbti-match-reason">${htmlAttr(mbtiCompatReason(normalizedSelf, match.type, index))}</p>
         </div>
       `).join("");
       const bottomRows = mbtiBottomMatches(normalizedSelf, 3).map((match, index) => `
@@ -17861,7 +17894,7 @@
             <span class="mbti-match-rank">${index + 1}위</span>
             <span class="mbti-match-type">${htmlAttr(match.type)}</span>
           </div>
-          <p class="mbti-match-reason">${htmlAttr(mbtiClashReason(normalizedSelf, match.type))}</p>
+          <p class="mbti-match-reason">${htmlAttr(mbtiClashReason(normalizedSelf, match.type, index))}</p>
         </div>
       `).join("");
       return `
@@ -19335,14 +19368,7 @@
     }
 
     function matchResultEpisodeNumber(item) {
-      const hour = Number(item?.hour);
-      if (!item?.date || Number.isNaN(hour)) return item?.episode || 1;
-      const availableMap = scheduleInfoAvailableMap(getApplicationCalendarMonths());
-      const matchedPost = Object.values(availableMap).flat().find((post) => (
-        String(post.scheduleDate || "") === String(item.date)
-        && scheduleTimeHour(post.scheduleTime) === hour
-      ));
-      return matchedPost?.displayEpisodeNumber || item.episode || 1;
+      return item?.episode || 1;
     }
 
     const matchResultPageSize = 10;
@@ -19379,7 +19405,9 @@
           <button class="home-schedule-close-btn" type="button" data-match-result-close aria-label="닫기">×</button>
           <section class="support-card mypage-fold-card" style="margin:0; padding:.9rem;">
             <div class="home-schedule-modal-topline">
-              <span class="home-schedule-modal-logo" aria-hidden="true"><img src="assets/clover-logo-v2.png" alt=""></span>
+              <span class="home-schedule-modal-logo-group" aria-hidden="true">
+                <span class="home-schedule-modal-logo"><img src="assets/clover-logo-v2.png" alt=""><span class="home-schedule-modal-episode">${htmlAttr(matchResultEpisodeNumber(item))}화</span></span>
+              </span>
               <div class="home-schedule-modal-topcopy">
                 <h2 class="schedule-detail-heading">${htmlAttr(matchResultCardTitle(item))}</h2>
                 ${modalDetailMarkup}
@@ -21128,31 +21156,6 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
