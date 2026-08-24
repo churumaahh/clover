@@ -1065,13 +1065,26 @@
     .match-result-detail-flow {
       position: relative;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1fr) 8.2rem minmax(0, 1fr) auto minmax(0, 1fr) 8.2rem minmax(0, 1fr);
       align-items: center;
-      gap: 0.5rem;
+      gap: 0;
       padding: 0;
       border: 0;
       border-radius: 0.9rem;
       background: transparent;
+      margin: 30px 0 50px !important;
+    }
+
+    .match-result-detail-flow .match-result-person:first-child {
+      grid-column: 2;
+    }
+
+    .match-result-detail-flow .match-result-heart {
+      grid-column: 4;
+    }
+
+    .match-result-detail-flow .match-result-person:last-child {
+      grid-column: 6;
     }
 
     .match-result-person,
@@ -1089,6 +1102,8 @@
       background: #eef1f5;
       color: #121218;
       font-size: 0.88rem;
+      width: 100%;
+      padding: 20px 0;
       box-shadow: 0.45rem 0.45rem 0.9rem rgba(148, 163, 184, 0.28), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9);
     }
 
@@ -1108,6 +1123,121 @@
       font-size: 0;
       overflow: visible;
       box-shadow: 0 .28rem .75rem rgba(0, 240, 64, .18), 0 0 1.15rem rgba(0, 240, 64, .26);
+    }
+
+    .match-result-sparkles {
+      position: absolute;
+      inset: -0.74rem;
+      z-index: 3;
+      border-radius: inherit;
+      opacity: 0;
+      background:
+        radial-gradient(circle at 14% 42%, #00f040 0 0.11rem, transparent 0.12rem),
+        radial-gradient(circle at 30% 14%, #78ff9a 0 0.1rem, transparent 0.11rem),
+        radial-gradient(circle at 70% 14%, #00f040 0 0.12rem, transparent 0.13rem),
+        radial-gradient(circle at 86% 42%, #78ff9a 0 0.1rem, transparent 0.11rem),
+        radial-gradient(circle at 50% 92%, #00f040 0 0.11rem, transparent 0.12rem);
+      transform: scale(0.72);
+      pointer-events: none;
+    }
+
+    .match-result-heart-number {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      color: #07150b;
+      font-size: 1.18rem;
+      font-weight: 950;
+      line-height: 0;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(-1.9px) scale(0.56);
+      transform-origin: center;
+      pointer-events: none;
+    }
+
+    .match-result-detail-flow.is-select-animated .match-result-person {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .match-result-detail-flow.is-select-animated .match-result-person::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(110deg, transparent 12%, rgba(255, 255, 255, 0.88) 46%, transparent 70%);
+      opacity: 0;
+      transform: translateX(-120%);
+      pointer-events: none;
+    }
+
+    .match-result-detail-flow.is-select-animated .match-result-person:first-child {
+      animation: match-result-select-male 1.82s ease-out 1 both;
+    }
+
+    .match-result-detail-flow.is-select-animated .match-result-person:first-child::after {
+      animation: match-result-select-shine 0.56s ease-out 0.1s 1 both;
+    }
+
+    .match-result-detail-flow.is-select-animated .match-result-person:last-child {
+      animation: match-result-select-female 1.82s ease-out 1 both;
+    }
+
+    .match-result-detail-flow.is-select-animated .match-result-person:last-child::after {
+      animation: match-result-select-shine 0.56s ease-out 0.5s 1 both;
+    }
+
+    :root[data-theme="dark"] .match-result-detail-flow.is-select-animated .match-result-person:first-child {
+      animation: match-result-select-male-dark 1.82s ease-out 1 both;
+    }
+
+    :root[data-theme="dark"] .match-result-detail-flow.is-select-animated .match-result-person:last-child {
+      animation: match-result-select-female-dark 1.82s ease-out 1 both;
+    }
+
+    :root[data-theme="dark"] .match-result-detail-flow.is-select-animated .match-result-person:first-child::after {
+      background: linear-gradient(105deg, transparent 12%, rgba(14, 165, 233, 0.34) 48%, transparent 72%);
+      animation: match-result-select-dark-sweep 0.66s ease-out 0.08s 1 both;
+    }
+
+    :root[data-theme="dark"] .match-result-detail-flow.is-select-animated .match-result-person:last-child::after {
+      background: linear-gradient(105deg, transparent 12%, rgba(255, 77, 121, 0.34) 48%, transparent 72%);
+      animation: match-result-select-dark-sweep 0.66s ease-out 0.5s 1 both;
+    }
+
+    .match-result-detail-flow.is-select-animated .match-result-heart {
+      animation: match-result-select-heart 1.82s ease-out 1 both;
+    }
+
+    .match-result-detail-flow.is-select-animated .match-result-heart::before {
+      animation: match-result-select-heart-icon 1.82s ease-out 1 both;
+    }
+
+    .match-result-detail-flow.is-select-animated .match-result-heart::after {
+      animation: match-result-select-ring 1.82s ease-out 1 both;
+    }
+
+    .match-result-detail-flow.is-select-animated .match-result-sparkles {
+      animation: match-result-select-sparkles 1.82s ease-out 1 both;
+    }
+
+    .match-result-detail-flow.is-select-animated .match-result-heart-number {
+      animation: match-result-select-number 1.82s ease-out 1 both;
+    }
+
+    @media (max-width: 24rem) {
+      .match-result-detail-flow {
+        grid-template-columns: minmax(0, 1fr) 6.6rem minmax(0, 1fr) auto minmax(0, 1fr) 6.6rem minmax(0, 1fr);
+      }
+
+      .match-result-person {
+        font-size: 0.82rem;
+      }
     }
 
     .match-result-heart::before {
@@ -1147,6 +1277,94 @@
     @keyframes match-heart-pulse {
       0% { transform: scale(.72); opacity: .86; }
       72%, 100% { transform: scale(1.25); opacity: 0; }
+    }
+
+    @keyframes match-result-select-shine {
+      0% { opacity: 0; transform: translateX(-120%); }
+      24% { opacity: 1; }
+      100% { opacity: 0; transform: translateX(120%); }
+    }
+
+    @keyframes match-result-select-male {
+      0%, 8%, 100% { transform: translateY(0) scale(1); }
+      18% {
+        transform: translateY(-0.08rem) scale(1.025);
+        box-shadow: 0 0 0 0.12rem rgba(33, 150, 243, 0.12), 0.45rem 0.45rem 0.9rem rgba(33, 150, 243, 0.2), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9);
+      }
+      30% { transform: translateY(0) scale(1); }
+    }
+
+    @keyframes match-result-select-female {
+      0%, 28%, 100% { transform: translateY(0) scale(1); }
+      40% {
+        transform: translateY(-0.08rem) scale(1.025);
+        box-shadow: 0 0 0 0.12rem rgba(255, 77, 121, 0.13), 0.45rem 0.45rem 0.9rem rgba(255, 77, 121, 0.2), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9);
+      }
+      52% { transform: translateY(0) scale(1); }
+    }
+
+    @keyframes match-result-select-male-dark {
+      0%, 8%, 100% { transform: translateY(0) scale(1); }
+      16% {
+        transform: translateY(0.02rem) scale(0.988);
+        box-shadow: inset 0 0 0 1px rgba(14, 165, 233, 0.35), 0 0 0.7rem rgba(14, 165, 233, 0.22), 0.45rem 0.45rem 0.9rem rgba(0, 0, 0, 0.52), -0.25rem -0.25rem 0.55rem rgba(255, 255, 255, 0.04);
+      }
+      26% {
+        transform: translateY(-0.04rem) scale(1.018);
+        box-shadow: inset 0 0 0 1px rgba(14, 165, 233, 0.5), 0 0 1.2rem rgba(14, 165, 233, 0.34), 0 0.45rem 1.1rem rgba(14, 165, 233, 0.16);
+      }
+      38% { transform: translateY(0) scale(1); }
+    }
+
+    @keyframes match-result-select-female-dark {
+      0%, 28%, 100% { transform: translateY(0) scale(1); }
+      36% {
+        transform: translateY(0.02rem) scale(0.988);
+        box-shadow: inset 0 0 0 1px rgba(255, 77, 121, 0.36), 0 0 0.7rem rgba(255, 77, 121, 0.22), 0.45rem 0.45rem 0.9rem rgba(0, 0, 0, 0.52), -0.25rem -0.25rem 0.55rem rgba(255, 255, 255, 0.04);
+      }
+      46% {
+        transform: translateY(-0.04rem) scale(1.018);
+        box-shadow: inset 0 0 0 1px rgba(255, 77, 121, 0.52), 0 0 1.2rem rgba(255, 77, 121, 0.34), 0 0.45rem 1.1rem rgba(255, 77, 121, 0.16);
+      }
+      58% { transform: translateY(0) scale(1); }
+    }
+
+    @keyframes match-result-select-dark-sweep {
+      0% { opacity: 0; transform: translateX(-125%) scaleX(0.72); }
+      34% { opacity: 0.9; }
+      100% { opacity: 0; transform: translateX(125%) scaleX(0.9); }
+    }
+
+    @keyframes match-result-select-heart {
+      0%, 48% { transform: scale(1); }
+      58% { transform: scale(0.92); }
+      72% { transform: scale(1.18); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes match-result-select-heart-icon {
+      0%, 48% { opacity: 1; transform: scale(1); }
+      60% { opacity: 1; transform: scale(0.86); }
+      72% { opacity: 0; transform: scale(0.52); }
+      100% { opacity: 0; transform: scale(0.52); }
+    }
+
+    @keyframes match-result-select-ring {
+      0%, 48% { opacity: 0; transform: scale(0.72); }
+      62% { opacity: 0.82; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.42); }
+    }
+
+    @keyframes match-result-select-sparkles {
+      0%, 48% { opacity: 0; transform: scale(0.72) rotate(0deg); }
+      66% { opacity: 1; transform: scale(1.08) rotate(10deg); }
+      100% { opacity: 0; transform: scale(1.34) rotate(18deg); }
+    }
+
+    @keyframes match-result-select-number {
+      0%, 66% { opacity: 0; transform: translateY(-1.9px) scale(0.56); }
+      80% { opacity: 1; transform: translateY(-1.9px) scale(1.18); }
+      100% { opacity: 1; transform: translateY(-1.9px) scale(1); }
     }
 
     .mbti-compatibility {
@@ -10303,12 +10521,18 @@
     }
 
     .match-result-modal-logo-group .home-schedule-modal-logo {
+      width: 3.45rem;
+      height: 3.45rem;
+      border-radius: 1rem;
       background: #eef1f5;
-      box-shadow: 0.55rem 0.55rem 1.1rem rgba(148, 163, 184, 0.28), -0.45rem -0.45rem 1rem rgba(255, 255, 255, 0.9);
+      box-shadow: 0.42rem 0.48rem 0.9rem rgba(148, 163, 184, 0.24), -0.32rem -0.32rem 0.72rem rgba(255, 255, 255, 0.88);
     }
 
     .match-result-modal-logo-group .home-schedule-modal-logo img {
+      width: 1.95rem;
+      height: 1.95rem;
       filter: brightness(0);
+      transform: translateY(-0.28rem);
     }
 
     .home-schedule-modal-episode {
@@ -10338,6 +10562,8 @@
 
     .match-result-modal-logo-group .home-schedule-modal-episode {
       color: #121218;
+      bottom: 0.43rem;
+      font-size: 0.66rem;
       text-shadow: none;
     }
     .home-schedule-panel .naver-map {
@@ -10398,6 +10624,16 @@
       color: #f1f1f1;
     }
 
+    [data-match-result-modal] .match-result-detail-summary {
+      color: #7a8391 !important;
+      font-size: 0.88rem !important;
+      font-weight: 720;
+    }
+
+    :root[data-theme="dark"] [data-match-result-modal] .match-result-detail-summary {
+      color: rgba(241, 241, 241, 0.72) !important;
+    }
+
     :root[data-theme="dark"] .home-schedule-panel .naver-map,
     :root[data-theme="dark"] .home-schedule-panel .naver-map-canvas,
     :root[data-theme="dark"] .home-schedule-panel .naver-map-fallback {
@@ -10434,6 +10670,19 @@
       justify-items: center !important;
       align-items: center !important;
       padding-inline: 1rem !important;
+    }
+    [data-match-result-modal] {
+      padding: 0.56rem !important;
+    }
+    [data-match-result-modal] .home-schedule-panel {
+      width: min(29.55rem, calc(100vw - 1.2rem)) !important;
+      max-width: calc(100vw - 1.2rem) !important;
+      padding: 0.68rem 0.56rem 0.64rem !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+    [data-match-result-modal] .support-card.mypage-fold-card {
+      padding: 0.68rem !important;
     }
     .home-schedule-panel {
       margin-inline: auto !important;
@@ -17797,12 +18046,44 @@
     const MBTI_GOOD_REASONS = Object.freeze([
       "눈치 빠른 케미",
       "말 안 해도 척척",
-      "웃음 버튼 잘 맞음"
+      "웃음 버튼 잘 맞음",
+      "침묵도 안 어색함",
+      "농담 코드 찰떡",
+      "답장 템포 합격",
+      "리액션 맛집 조합",
+      "대화 길 안 잃음",
+      "취향 공유 속도전",
+      "잔소리도 순한맛",
+      "계획 없어도 편함",
+      "눈빛 번역 가능",
+      "서로 웃참 실패",
+      "티키타카 자동문",
+      "첫 만남 긴장 해제",
+      "작은 배려 캐치",
+      "분위기 살리는 조합",
+      "호감 신호 잘 읽음",
+      "말맛 살아나는 조합"
     ]);
     const MBTI_BAD_REASONS = Object.freeze([
       "관심사 딴 행성",
       "티키타카 삐걱",
-      "약속 전쟁각"
+      "약속 전쟁각",
+      "답장 해석 과열",
+      "서로 리듬 급커브",
+      "대화 주제 미아",
+      "취향 합의 난항",
+      "계획표 충돌주의",
+      "말투 번역 필요",
+      "눈치 게임 장기전",
+      "농담 코드 오작동",
+      "침묵이 길어짐",
+      "서로 버튼 헛클릭",
+      "고집 배틀 예고",
+      "속도 차이 큼",
+      "관심사 평행선",
+      "약속 잡기 퍼즐",
+      "감정선 엇박자",
+      "티키타카 점검필요"
     ]);
     const MBTI_PLACEHOLDER = "MBTI";
     const MBTI_CATEGORIES = Object.freeze(["썸 궁합", "대화 궁합", "연애 궁합", "성격 궁합", "서로 잘 맞는점", "안 맞는점"]);
@@ -17900,12 +18181,18 @@
       return Math.max(50, Math.min(100, score));
     }
 
-    function mbtiCompatReason(self, other, index = 0) {
-      return MBTI_GOOD_REASONS[index % MBTI_GOOD_REASONS.length];
+    function mbtiReasonFromPool(pool, self, other, index = 0, salt = "") {
+      const reasons = pool.length ? pool : [""];
+      const seed = mbtiHash(`${salt}|${self}|${other}|${index}|${reasons.length}`);
+      return reasons[(seed + index * 7) % reasons.length];
     }
 
-    function mbtiClashReason(self, other, index = 0) {
-      return MBTI_BAD_REASONS[index % MBTI_BAD_REASONS.length];
+    function mbtiCompatReason(self, other, index = 0, salt = "") {
+      return mbtiReasonFromPool(MBTI_GOOD_REASONS, self, other, index, `good|${salt}`);
+    }
+
+    function mbtiClashReason(self, other, index = 0, salt = "") {
+      return mbtiReasonFromPool(MBTI_BAD_REASONS, self, other, index, `bad|${salt}`);
     }
 
     function mbtiTopMatches(self, count = 3) {
@@ -17926,7 +18213,7 @@
         .slice(0, count);
     }
 
-    function mbtiMatchLayerHtml(self) {
+    function mbtiMatchLayerHtml(self, salt = "") {
       const normalizedSelf = normalizeMbtiValue(self);
       const topRows = mbtiTopMatches(normalizedSelf, 3).map((match, index) => `
         <div class="mbti-match-row is-good">
@@ -17934,7 +18221,7 @@
             <span class="mbti-match-rank">${index + 1}위</span>
             <span class="mbti-match-type">${htmlAttr(match.type)}</span>
           </div>
-          <p class="mbti-match-reason">${htmlAttr(mbtiCompatReason(normalizedSelf, match.type, index))}</p>
+          <p class="mbti-match-reason">${htmlAttr(mbtiCompatReason(normalizedSelf, match.type, index, salt))}</p>
         </div>
       `).join("");
       const bottomRows = mbtiBottomMatches(normalizedSelf, 3).map((match, index) => `
@@ -17943,7 +18230,7 @@
             <span class="mbti-match-rank">${index + 1}위</span>
             <span class="mbti-match-type">${htmlAttr(match.type)}</span>
           </div>
-          <p class="mbti-match-reason">${htmlAttr(mbtiClashReason(normalizedSelf, match.type, index))}</p>
+          <p class="mbti-match-reason">${htmlAttr(mbtiClashReason(normalizedSelf, match.type, index, salt))}</p>
         </div>
       `).join("");
       return `
@@ -18101,7 +18388,7 @@
     function renderMbtiCompatibility() {
       const containers = document.querySelectorAll("[data-mbti-compatibility]");
       if (!containers.length) return;
-      const { self, partner, selfGender, hasResult, spinning } = mbtiCompatibilityState;
+      const { self, partner, selfGender, hasResult, spinning, scoreNonce } = mbtiCompatibilityState;
       const partnerGender = mbtiPartnerGender();
       const ready = mbtiSelectionReady();
       const html = `
@@ -18146,7 +18433,7 @@
       });
       resultLayers.forEach((layer) => {
         layer.hidden = !shouldShowResult;
-        layer.innerHTML = shouldShowResult ? mbtiMatchLayerHtml(self) : "";
+        layer.innerHTML = shouldShowResult ? mbtiMatchLayerHtml(self, scoreNonce || "") : "";
       });
     }
 
@@ -19389,19 +19676,19 @@
     };
 
     const matchResultSampleItems = [
-      { episode: 16, date: "2026-08-09", hour: 19, title: "소개팅 종료", summary: "서로의 선택을 확인하여 연락이 시작되었습니다.", age: "26 - 33세", type: "활남·훈여", male: 1, female: 1 },
+      { episode: 16, date: "2026-08-09", hour: 19, title: "소개팅 종료", summary: "*서로의 선택을 확인하여 연락이 시작되었습니다.", age: "26 - 33세", type: "활남·훈여", male: 1, female: 1 },
       { episode: 15, date: "2026-08-02", hour: 18, title: "소개팅 종료", summary: "관심사가 잘 맞아 자연스럽게 이어진 매칭입니다.", age: "29 - 35세", type: "일본인 여성", male: 6, female: 6 },
       { episode: 14, date: "2026-07-26", hour: 20, title: "소개팅 종료", summary: "서로 좋은 인상을 받아 연락이 이어진 결과입니다.", age: "25 - 32세", type: "180cm 이상 남성", male: 1, female: 1 },
       { episode: 13, date: "2026-07-19", hour: 17, title: "소개팅 종료", summary: "취향을 통해 편하게 대화를 이어가는 사이입니다.", age: "28 - 34세", type: "커리어 남성", male: 6, female: 6 },
-      { episode: 12, date: "2026-07-12", hour: 14, title: "소개팅 종료", summary: "서로의 감각이 맞아 첫 만남을 준비 중입니다.", age: "31 - 38세", type: "재력가 남성", male: 1, female: 1 },
+      { episode: 12, date: "2026-07-12", hour: 14, title: "소개팅 종료", summary: "*서로의 감각이 맞아 첫 만남을 준비 중입니다.", age: "31 - 38세", type: "재력가 남성", male: 1, female: 1 },
       { episode: 11, date: "2026-07-05", hour: 19, title: "소개팅 종료", summary: "마음이 통해 다음 만남을 기대하는 사이입니다.", age: "23 - 30세", type: "공무원 여성", male: 6, female: 6 },
       { episode: 10, date: "2026-06-28", hour: 18, title: "소개팅 종료", summary: "두 사람의 선택이 맞아 연락 가능한 사이가 되었습니다.", age: "27 - 36세", type: "이동형", male: 1, female: 1 },
-      { episode: 9, date: "2026-06-21", hour: 20, title: "소개팅 종료", summary: "서로의 마음이 같은 방향으로 맞아 연락이 시작되었습니다.", age: "24 - 29세", type: "운명형", male: 6, female: 6 },
+      { episode: 9, date: "2026-06-21", hour: 20, title: "소개팅 종료", summary: "*서로의 마음이 같은 방향으로 맞아 연락이 시작되었습니다.", age: "24 - 29세", type: "운명형", male: 6, female: 6 },
       { episode: 8, date: "2026-06-14", hour: 15, title: "소개팅 종료", summary: "양쪽 선택을 확인하여 매칭 결과가 확정되었습니다.", age: "30 - 37세", type: "활동형", male: 1, female: 1 },
       { episode: 7, date: "2026-06-07", hour: 19, title: "소개팅 종료", summary: "서로 감각이 맞아 자연스럽게 연락을 주고받는 단계입니다.", age: "20 - 27세", type: "여행형", male: 6, female: 6 },
-      { episode: 6, date: "2026-05-31", hour: 18, title: "소개팅 종료", summary: "차분한 대화가 이어져 서로의 호감을 확인했습니다.", age: "27 - 34세", type: "감성형", male: 1, female: 1 },
+      { episode: 6, date: "2026-05-31", hour: 18, title: "소개팅 종료", summary: "차분한 대화가 이어져 *서로의 호감을 확인했습니다.", age: "27 - 34세", type: "감성형", male: 1, female: 1 },
       { episode: 5, date: "2026-05-24", hour: 16, title: "소개팅 종료", summary: "취미와 일상 대화가 잘 맞아 연락을 시작했습니다.", age: "29 - 36세", type: "취향형", male: 6, female: 6 },
-      { episode: 4, date: "2026-05-17", hour: 19, title: "소개팅 종료", summary: "서로의 선택이 맞아 다음 만남을 준비하고 있습니다.", age: "24 - 31세", type: "직장인", male: 1, female: 1 },
+      { episode: 4, date: "2026-05-17", hour: 19, title: "소개팅 종료", summary: "*서로의 선택이 맞아 다음 만남을 준비하고 있습니다.", age: "24 - 31세", type: "직장인", male: 1, female: 1 },
       { episode: 3, date: "2026-05-10", hour: 15, title: "소개팅 종료", summary: "편안한 분위기 속에서 자연스럽게 호감이 이어졌습니다.", age: "31 - 39세", type: "성숙형", male: 6, female: 6 },
       { episode: 2, date: "2026-05-03", hour: 18, title: "소개팅 종료", summary: "첫 대화의 결이 잘 맞아 연락 가능한 사이가 되었습니다.", age: "25 - 33세", type: "대화형", male: 1, female: 1 },
       { episode: 1, date: "2026-04-26", hour: 14, title: "소개팅 종료", summary: "서로 좋은 인상을 남겨 매칭 결과가 확정되었습니다.", age: "28 - 35세", type: "기본형", male: 6, female: 6 }
@@ -19418,6 +19705,57 @@
 
     function matchResultEpisodeNumber(item) {
       return item?.episode || 1;
+    }
+
+    function matchResultSuccessCount(item) {
+      const maleCount = Number(item?.male) || 0;
+      const femaleCount = Number(item?.female) || 0;
+      const possibleCount = Math.min(maleCount, femaleCount);
+      if (maleCount === 1 && femaleCount === 1) {
+        const seededPercent = ((Number(item?.episode) || 0) * 19) % 100;
+        return seededPercent < 70 ? 0 : 1;
+      }
+      return Math.max(0, Math.min(3, possibleCount));
+    }
+
+    const matchResultFunMessagesByCount = {
+      0: [
+        "*오늘의 하트는 예열만 완료.",
+        "*호감 신호는 왔고, 연결은 다음 기회로.",
+        "*이번엔 타이밍이 살짝 비껴갔습니다.",
+        "*매칭은 쉬어가고 분위기만 저장.",
+        "*선택은 진지했고, 결과는 잠시 보류."
+      ],
+      1: [
+        "*1커플 성사. 조용히 박수 준비.",
+        "*서로의 선택이 딱 맞았습니다.",
+        "*1팀 연결 완료. 대화는 이제 본편.",
+        "*호감 신호가 한 번에 착지했습니다.",
+        "*오늘 하트 하나는 제대로 일했습니다."
+      ],
+      2: [
+        "*2커플 성사. 분위기 꽤 좋았습니다.",
+        "*선택 두 쌍이 깔끔하게 맞았습니다.",
+        "*오늘은 하트가 두 번 일했습니다.",
+        "*2팀 연결 완료. 다음 대화가 기대됩니다.",
+        "*호감 레이더가 두 번 반응했습니다."
+      ],
+      3: [
+        "*3커플 성사. 하트가 야근했습니다.",
+        "*오늘 매칭판이 꽤 바빴습니다.",
+        "*3팀 연결 완료. 분위기 제대로 탔습니다.",
+        "*하트 세 번 성공. 꽤 알찬 회차입니다.",
+        "*선택 결과가 아주 부지런했습니다."
+      ]
+    };
+    let lastMatchResultFunMessage = "";
+
+    function matchResultFunSummary(item, successCount) {
+      const pool = matchResultFunMessagesByCount[successCount] || [item?.summary || "*서로의 선택을 확인했습니다."];
+      const candidates = pool.length > 1 ? pool.filter((message) => message !== lastMatchResultFunMessage) : pool;
+      const selected = candidates[Math.floor(Math.random() * candidates.length)] || pool[0] || item?.summary || "";
+      lastMatchResultFunMessage = selected;
+      return selected;
     }
 
     const matchResultPageSize = 10;
@@ -19449,6 +19787,8 @@
       if (!modal || !item) return;
       const modeBadgeMarkup = `<span class="schedule-mode-badges"><span class="composition-choice-badges" aria-hidden="true"><span class="composition-gender-badge is-male">${iconMale}<b>${item.male}</b></span><span class="composition-gender-badge is-female">${iconFemale}<b>${item.female}</b></span></span></span>`;
       const modalDetailMarkup = `<div class="schedule-status-detail schedule-modal-detail">${modeBadgeMarkup}<span>${htmlAttr(item.age)}</span></div>`;
+      const matchCount = matchResultSuccessCount(item);
+      const funSummary = matchResultFunSummary(item, matchCount);
       modal.innerHTML = `
         <div class="home-schedule-panel">
           <button class="home-schedule-close-btn" type="button" data-match-result-close aria-label="닫기">×</button>
@@ -19462,12 +19802,12 @@
                 ${modalDetailMarkup}
               </div>
             </div>
-            <div class="match-result-detail-flow" style="margin:0 0 .65rem;" aria-hidden="true">
+            <div class="match-result-detail-flow is-select-animated" style="margin:0 0 .65rem;" aria-hidden="true">
               <span class="match-result-person">남성 선택</span>
-              <span class="match-result-heart">♥</span>
+              <span class="match-result-heart">♥<span class="match-result-heart-number">${matchCount}</span><span class="match-result-sparkles"></span></span>
               <span class="match-result-person">여성 선택</span>
             </div>
-            <p class="match-result-detail-summary" style="margin:0;">${htmlAttr(item.summary)}</p>
+            <p class="match-result-detail-summary" style="margin:0;">${htmlAttr(funSummary)}</p>
           </section>
         </div>
       `;
@@ -21205,56 +21545,6 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
