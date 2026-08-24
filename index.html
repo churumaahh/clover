@@ -5460,6 +5460,27 @@
       grid-column: 1 / -1;
     }
 
+    .application-contact-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.45rem;
+    }
+
+    .application-contact-grid .form-field input {
+      min-height: 2.75rem;
+      padding-right: 0.55rem;
+      font-size: 0.78rem;
+    }
+
+    .application-contact-section.is-invalid .application-contact-grid input {
+      border-color: #e53935 !important;
+      box-shadow: 0 0 0 0.12rem rgba(229, 57, 53, 0.12) !important;
+    }
+
+    .application-contact-grid input:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+    }
+
     .form-field {
       min-width: 0;
       display: grid;
@@ -12600,6 +12621,7 @@
     }
 
     .form-field:has(#applyPhone),
+    .form-field:has(#applyContactPhone),
     .form-field:has(#infoPhone) {
       --field-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.5 3h3l1.5 4.5-2 1.5a11 11 0 0 0 5.5 5.5l1.5-2 4.5 1.5v3a2 2 0 0 1-2 2C10 19 5 14 5 5a2 2 0 0 1 1.5-2z'/%3E%3C/svg%3E");
     }
@@ -12634,6 +12656,11 @@
 
     .form-field:has(#applyPosition) {
       --field-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='7' width='20' height='14' rx='2'/%3E%3Cpath d='M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2M2 13h20'/%3E%3C/svg%3E");
+    }
+
+    .form-field:has(#applyKakaoId),
+    .form-field:has(#applyInstagramId) {
+      --field-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 8a6 6 0 0 1 0 8'/%3E%3Cpath d='M19 5a10 10 0 0 1 0 14'/%3E%3Cpath d='M5 19a10 10 0 0 1 0-14'/%3E%3Cpath d='M8 16a6 6 0 0 1 0-8'/%3E%3Ccircle cx='12' cy='12' r='2'/%3E%3C/svg%3E");
     }
 
     .form-field:has(#infoJob),
@@ -14493,6 +14520,24 @@
             </div>
           </section>
 
+          <section class="form-section application-contact-section" data-contact-method-section>
+            <h3>연락 수단<span class="req">*</span></h3>
+            <div class="form-grid application-contact-grid">
+              <div class="form-field">
+                <label for="applyContactPhone">연락처</label>
+                <input id="applyContactPhone" name="contactPhone" inputmode="numeric" maxlength="13" placeholder="010-0000-0000" data-contact-method-input aria-required="true">
+              </div>
+              <div class="form-field">
+                <label for="applyKakaoId">카톡ID</label>
+                <input id="applyKakaoId" name="kakaoId" placeholder="카톡ID" data-contact-method-input aria-required="true">
+              </div>
+              <div class="form-field">
+                <label for="applyInstagramId">인스타ID</label>
+                <input id="applyInstagramId" name="instagramId" placeholder="인스타ID" data-contact-method-input aria-required="true">
+              </div>
+            </div>
+          </section>
+
           <section class="form-section">
             <h3>전달 사항</h3>
             <div class="form-field">
@@ -14514,8 +14559,10 @@
           <button class="form-submit-btn" type="button" disabled>신청하기</button>
 
           <div class="agree-row">
-            <label onclick="return false"><input type="checkbox" checked tabindex="-1" aria-disabled="true"> [필수] 환불 및 취소 규정 확인 및 동의</label>
-            <label onclick="return false"><input type="checkbox" checked tabindex="-1" aria-disabled="true"> [필수] 마케팅 활용 및 촬영 동의</label>
+            <label onclick="return false"><input type="checkbox" checked tabindex="-1" aria-disabled="true" data-agree-terms> [필수] 이용약관 동의</label>
+            <label onclick="return false"><input type="checkbox" checked tabindex="-1" aria-disabled="true" data-agree-privacy> [필수] 개인정보 수집·이용 동의</label>
+            <label onclick="return false"><input type="checkbox" checked tabindex="-1" aria-disabled="true" data-agree-refund> [필수] 취소·환불 규정 동의</label>
+            <label onclick="return false"><input type="checkbox" checked tabindex="-1" aria-disabled="true" data-agree-marketing> [필수] 마케팅 정보 수신 동의 및 촬영 동의</label>
           </div>
         </form>
 
@@ -16546,11 +16593,13 @@
       };
       setValue("#applyName", profile.name);
       setValue("#applyPhone", profile.phone);
+      setValue("#applyContactPhone", profile.phone);
       setValue("#applyBirth", profile.birth);
       setValue("#applyHeight", profile.height);
       setValue("#applyWeight", profile.weight);
       setValue("#applyArea", profile.area);
       setApplicationJobFromText(profile.job);
+      updateContactMethodAvailability(document.querySelector("#applyContactPhone"));
       selectedDocumentFile = null;
       selectedPhotoFiles = [];
       selectedBodyPhotoFiles = [];
@@ -16580,6 +16629,9 @@
       [
         "#applyName",
         "#applyPhone",
+        "#applyContactPhone",
+        "#applyKakaoId",
+        "#applyInstagramId",
         "#applyBirth",
         "#applyHeight",
         "#applyWeight",
@@ -16593,6 +16645,7 @@
         const el = document.querySelector(selector);
         if (el) el.value = "";
       });
+      updateContactMethodAvailability();
       selectedExistingDocumentUrl = "";
       selectedExistingPhotoUrls = [];
       clearAppliedProfileFiles();
@@ -21014,9 +21067,48 @@
       };
     }
 
+    const contactMethodSelectors = ["#applyContactPhone", "#applyKakaoId", "#applyInstagramId"];
+
+    function applicationContactMethodCount() {
+      return contactMethodSelectors.filter((selector) => inputValue(selector)).length;
+    }
+
+    function hasApplicationContactMethod() {
+      return applicationContactMethodCount() === 1;
+    }
+
+    function updateContactMethodAvailability(activeInput = null) {
+      const inputs = [...document.querySelectorAll("[data-contact-method-input]")];
+      if (!inputs.length) return;
+      const active = activeInput?.value.trim() ? activeInput : inputs.find((input) => input.value.trim());
+      inputs.forEach((input) => {
+        const shouldDisable = Boolean(active) && input !== active;
+        if (shouldDisable) input.value = "";
+        input.disabled = shouldDisable;
+        input.setAttribute("aria-disabled", shouldDisable ? "true" : "false");
+        if (shouldDisable) {
+          input.classList.remove("is-invalid");
+          input.setAttribute("aria-invalid", "false");
+        }
+      });
+      if (active) setContactMethodInvalid(false);
+    }
+
+    function setContactMethodInvalid(isInvalid) {
+      const section = document.querySelector("[data-contact-method-section]");
+      section?.classList.toggle("is-invalid", Boolean(isInvalid));
+      section?.querySelectorAll("[data-contact-method-input]").forEach((input) => {
+        input.classList.toggle("is-invalid", Boolean(isInvalid));
+        input.setAttribute("aria-invalid", isInvalid ? "true" : "false");
+      });
+    }
+
     function isApplicationFormReady() {
       const required = ["#applyName", "#applyPhone", "#applyBirth", "#applyHeight", "#applyWeight", "#applyArea"];
       if (required.some((selector) => !inputValue(selector))) return false;
+      if (!hasApplicationContactMethod()) return false;
+      const contactPhoneInput = document.querySelector("#applyContactPhone");
+      if (contactPhoneInput?.value && contactPhoneInput.value.length !== 13) return false;
       const birthInput = document.querySelector("#applyBirth");
       if (!birthInput) return false;
       if (birthInput.value.length !== 10) return false;
@@ -21060,11 +21152,26 @@
         return;
       }
 
+      if (!hasApplicationContactMethod()) {
+        setContactMethodInvalid(true);
+        alert("연락 수단은 3개 중 1개만 입력해 주세요.");
+        document.querySelector("[data-contact-method-section]")?.scrollIntoView({ behavior: "smooth", block: "center" });
+        document.querySelector("#applyContactPhone")?.focus();
+        return;
+      }
+      setContactMethodInvalid(false);
+
       const phoneInput = document.querySelector("#applyPhone");
+      const contactPhoneInput = document.querySelector("#applyContactPhone");
       const birthInput = document.querySelector("#applyBirth");
       if (!validateFormattedInput(phoneInput)) {
         phoneInput.scrollIntoView({ behavior: "smooth", block: "center" });
         phoneInput.focus();
+        return;
+      }
+      if (contactPhoneInput?.value && !validateFormattedInput(contactPhoneInput)) {
+        contactPhoneInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        contactPhoneInput.focus();
         return;
       }
       if (!validateFormattedInput(birthInput)) {
@@ -21126,6 +21233,14 @@
           smoking: "",
           drinking: "",
           religion: "",
+          contactPhone: inputValue("#applyContactPhone"),
+          kakaoId: inputValue("#applyKakaoId"),
+          instagramId: inputValue("#applyInstagramId"),
+          contactInfo: [
+            inputValue("#applyContactPhone") && `연락처: ${inputValue("#applyContactPhone")}`,
+            inputValue("#applyKakaoId") && `카톡ID: ${inputValue("#applyKakaoId")}`,
+            inputValue("#applyInstagramId") && `인스타ID: ${inputValue("#applyInstagramId")}`
+          ].filter(Boolean).join(" / "),
           message: inputValue("#applyMessage"),
           documentFile,
           photoFiles,
@@ -21135,8 +21250,12 @@
           documentFileName: documentFile?.name || (selectedExistingDocumentUrl ? "내 정보 재직 증명" : ""),
           photoFileNames: [...selectedExistingPhotoUrls.map((_, index) => `내 정보 얼굴 사진 ${index + 1}`), ...photoFiles.map((file) => file.name)].join(", "),
           bodyPhotoFileNames: bodyPhotoFiles.map((file) => file.name).join(", "),
-          refundAgree: agreeInputs[0]?.checked || false,
-          marketingAgree: agreeInputs[1]?.checked || false
+          termsAgree: document.querySelector("[data-agree-terms]")?.checked || false,
+          privacyAgree: document.querySelector("[data-agree-privacy]")?.checked || false,
+          refundAgree: document.querySelector("[data-agree-refund]")?.checked || false,
+          marketingAgree: document.querySelector("[data-agree-marketing]")?.checked || false,
+          cancellationRefundAgree: document.querySelector("[data-agree-refund]")?.checked || false,
+          marketingPhotoAgree: document.querySelector("[data-agree-marketing]")?.checked || false
         };
 
         button.textContent = "전송 중";
@@ -21596,9 +21715,10 @@
       }
       if (!(target instanceof HTMLInputElement)) return;
 
-      if (target.id === "applyPhone" || target.id === "infoPhone" || (target.name === "phone" && target.closest(".auth-form"))) {
+      if (target.id === "applyPhone" || target.id === "applyContactPhone" || target.id === "infoPhone" || (target.name === "phone" && target.closest(".auth-form"))) {
         target.value = formatPhone(target.value);
         if (target.value.length === 13) target.classList.remove("is-invalid");
+        if (target.matches("[data-contact-method-input]")) updateContactMethodAvailability(target);
         if (target.closest(".application-form")) updateFormSubmitButton();
         return;
       }
@@ -21616,6 +21736,10 @@
 
       if (["applyName", "applyHeight", "applyWeight", "applyArea"].includes(target.id) && target.value.trim()) {
         target.classList.remove("is-invalid");
+      }
+
+      if (target.matches("[data-contact-method-input]")) {
+        updateContactMethodAvailability(target);
       }
 
       if (target.closest(".application-form")) updateFormSubmitButton();
@@ -21636,8 +21760,8 @@
     document.addEventListener("blur", (event) => {
       const target = event.target;
       if (!(target instanceof HTMLInputElement) || !target.closest(".application-form")) return;
-      if (target.id === "applyPhone") {
-        target.classList.toggle("is-invalid", target.value.length !== 13);
+      if (target.id === "applyPhone" || target.id === "applyContactPhone") {
+        target.classList.toggle("is-invalid", target.id === "applyPhone" ? target.value.length !== 13 : Boolean(target.value && target.value.length !== 13));
         return;
       }
       if (target.id === "applyBirth") {
@@ -22122,28 +22246,6 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
