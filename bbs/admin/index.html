@@ -232,6 +232,8 @@
     .admin-panel[hidden] { display: none !important; }
     .event-list { display: grid; gap: 12px; }
     .create-layer-wrap {
+      display: grid;
+      gap: 10px;
       margin-top: 14px;
       padding-top: 14px;
       border-top: 1px solid var(--line);
@@ -251,13 +253,19 @@
       transform: translateY(1px);
       box-shadow: inset 4px 4px 10px rgba(0,0,0,.18), inset -3px -3px 8px rgba(255,255,255,.22);
     }
+    .create-btn.is-party {
+      background: #1f1f1f;
+      color: var(--accent);
+      border: 1px solid rgba(0, 255, 64, .45);
+      box-shadow: 5px 7px 16px rgba(0, 0, 0, .22), inset 1px 1px 0 rgba(255,255,255,.055);
+    }
     .event-list.is-reordering { cursor: grabbing; }
     .event-list.is-reordering .event-card:not(.is-dragging) { cursor: grabbing; }
     .event-card {
       position: relative;
       display: grid;
-      grid-template-columns: 168px minmax(0, 1fr) 154px;
-      gap: 14px;
+      grid-template-columns: 168px minmax(0, 1fr) 126px;
+      gap: 12px;
       padding: 12px;
       align-items: center;
       overflow: hidden;
@@ -348,16 +356,26 @@
       overflow: hidden;
       border-radius: 10px;
       background: #252a31;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
     }
     .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .meta { min-width: 0; }
+    .event-main {
+      min-width: 0;
+      display: contents;
+    }
+    .meta {
+      min-width: 0;
+      display: grid;
+      gap: 5px;
+    }
     .station {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       color: #62f28f;
       font-size: 13px;
-      margin-bottom: 5px;
+      margin-bottom: 0;
+      font-weight: 950;
     }
     .station::before {
       content: "";
@@ -367,10 +385,35 @@
       background: var(--accent);
       box-shadow: 0 0 10px rgba(0,255,64,.7);
     }
-    .title { font-size: 18px; line-height: 1.22; margin-bottom: 7px; word-break: keep-all; }
-    .desc { color: var(--muted); font-size: 13px; font-weight: 700; line-height: 1.45; }
-    .mini { margin-top: 7px; color: #62f28f; font-size: 12px; line-height: 1.4; }
-    .event-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; justify-items: stretch; }
+    .title {
+      font-size: 19px;
+      line-height: 1.24;
+      margin-bottom: 0;
+      word-break: keep-all;
+      color: #f5f7fb;
+    }
+    .desc {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+    .mini {
+      margin-top: 1px;
+      color: #62f28f;
+      font-size: 12px;
+      line-height: 1.45;
+      word-break: keep-all;
+    }
+    .event-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      justify-items: stretch;
+      align-self: center;
+      justify-self: end;
+      width: 126px;
+    }
     .toggle-btn {
       min-height: 48px;
       border-radius: 10px;
@@ -381,10 +424,10 @@
     .toggle-btn.is-off { color: #9aa4b2; background: #252525; border: 1px solid #343434; }
     .event-actions .toggle-btn,
     .event-actions .small-btn {
-      min-height: 40px;
-      border-radius: 9px;
+      min-height: 30px;
+      border-radius: 8px;
       padding: 0;
-      font-size: 14px;
+      font-size: 12px;
       box-shadow: 2px 3px 9px rgba(0, 0, 0, .24);
     }
     .event-actions .toggle-btn.is-on {
@@ -727,13 +770,15 @@
       .layout { grid-template-columns: 1fr; }
       .side { position: static; grid-row: 1; max-height: none; }
       .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .event-card { grid-template-columns: 120px minmax(0, 1fr); }
-      .event-actions { grid-column: 1 / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .event-card { grid-template-columns: 140px minmax(0, 1fr) 126px; }
+      .event-actions { grid-column: auto; grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 560px) {
       .cards { grid-template-columns: 1fr; }
       .toolbar { grid-template-columns: 1fr; }
       .toolbar .search { grid-column: auto; }
+      .event-card { grid-template-columns: 120px minmax(0, 1fr); }
+      .event-actions { grid-column: 1 / -1; width: 100%; grid-template-columns: repeat(4, minmax(0, 1fr)); }
     }
   </style>
 </head>
@@ -744,7 +789,8 @@
         <div class="event-list" data-list></div>
         <div class="empty" data-empty>검색 결과가 없습니다.</div>
         <div class="create-layer-wrap">
-          <button class="create-btn" type="button" data-create-event>생성</button>
+          <button class="create-btn" type="button" data-create-event="rotation">로테이션 소개팅 생성</button>
+          <button class="create-btn is-party" type="button" data-create-event="party">소모임 · 파티 생성</button>
         </div>
       </section>
       <section class="panel admin-panel" data-admin-panel="schedule" hidden>
@@ -907,13 +953,13 @@
       { station: "테마", title: "연봉 7천 이상 남성 선호", target: "일과 삶을 균형 있게 바라보는 만남", image: "assets/event-theme-career-man.png" },
       { station: "테마", title: "자산 5억 이상 남성 선호", target: "여유와 책임감을 중요하게 보는 만남", image: "assets/event-theme-wealthy-man.png" },
       { station: "테마", title: "이혼 경험이 있는 남·여", target: "조금 더 성숙하고 솔직한 두 번째 설렘", image: "assets/event-theme-divorced.png" },
-      { station: "모임", title: "함께 공부하는 모임", target: "가벼운 스터디로 자연스럽게 가까워지는 모임", image: "assets/event-group-study-cafe.png" }
+      { station: "모임", title: "함께 공부하는 모임", target: "가벼운 스터디로 자연스럽게 가까워지는 모임", image: "https://res.cloudinary.com/lkkfechj/image/upload/v1787668092/clover/event-party-izakaya-3x3.png" }
     ]);
 
     const $ = (selector) => document.querySelector(selector);
     const listEl = $("[data-list]");
     const searchEl = $("[data-search]");
-    const createEventBtn = $("[data-create-event]");
+    const createEventButtons = [...document.querySelectorAll("[data-create-event]")];
     const scheduleMaker = $("[data-schedule-maker]");
     const scheduleLayerList = $("[data-schedule-layer-list]");
     const scheduleEmpty = $("[data-schedule-empty]");
@@ -1054,6 +1100,7 @@
         id: event.id,
         order: event.order,
         station: event.station,
+        layerType: eventLayerType(event),
         title: event.title,
         target: event.target,
         date: event.date,
@@ -1062,6 +1109,9 @@
         female: event.female,
         capacity: event.capacity,
         price: event.price,
+        malePrice: event.malePrice || event.price,
+        femalePrice: event.femalePrice || "30,000원",
+        oldPrice: event.oldPrice || "",
         image: event.image,
         imageUrl: event.imageUrl,
         badgeType: event.badgeType || "",
@@ -1145,7 +1195,7 @@
       if (badgeType === "certified") return "인증";
       if (badgeType === "none") return "없음";
       const station = String(event?.station || "").trim();
-      if (station === "랜덤" || station === "외모") return "자동 인기";
+      if (station === "랜덤") return "자동 인기";
       if (station === "맞춤") return "자동 인증";
       return "자동 없음";
     }
@@ -1178,7 +1228,10 @@
         male: preset.male || "6",
         female: preset.female || "6",
         capacity: preset.capacity || "12명",
-        price: preset.price || "50,000원",
+        price: preset.price || preset.malePrice || "50,000원",
+        malePrice: preset.malePrice || preset.price || "50,000원",
+        femalePrice: preset.femalePrice || "30,000원",
+        layerType: preset.layerType || (["모임", "파티", "소모임 파티"].includes(String(preset.station || "").trim()) ? "party" : "rotation"),
         badgeType: preset.badgeType || "",
         image,
         imageUrl: adminImageUrl(image)
@@ -1206,24 +1259,26 @@
       return id;
     }
 
-    function createBlankEvent() {
+    function createBlankEvent(layerType = "rotation") {
+      const isPartyLayer = layerType === "party";
       return createEvent({
         id: newCustomEventId(),
-        station: "신규",
-        title: "새 선택창",
-        target: "대상 설명을 입력하세요",
-        badgeType: "",
-        image: "assets/event-theme-warm.png"
+        station: isPartyLayer ? "모임" : "신규",
+        layerType: isPartyLayer ? "party" : "rotation",
+        title: isPartyLayer ? "새 소모임 파티" : "새 로테이션 소개팅",
+        target: isPartyLayer ? "소모임 · 파티 설명을 입력하세요" : "대상 설명을 입력하세요",
+        badgeType: be.badgeType || "",
+        image: isPartyLayer ? "assets/optimized/event-group-study-cafe.webp" : "assets/event-theme-warm.png"
       }, events.length);
     }
 
-    function createEventLayer() {
-      const item = createBlankEvent();
+    function createEventLayer(layerType = "rotation") {
+      const item = createBlankEvent(layerType);
       events.push(item);
       persistEventOrder();
       if (searchEl.value) searchEl.value = "";
       openEditModal(item);
-      showToast("새 레이어를 맨 아래에 생성했습니다.");
+      showToast(`${layerType === "party" ? "소모임 · 파티" : "로테이션 소개팅"} 레이어를 맨 아래에 생성했습니다.`);
     }
 
     async function deleteEventLayer(item) {
@@ -1249,11 +1304,22 @@
     updateEventOrders();
     let eventsLoadedFromServer = false;
 
+    function eventLayerType(event) {
+      const station = String(event?.station || "").trim();
+      const text = `${event?.title || ""} ${event?.target || ""}`;
+      return String(event?.layerType || "") === "party"
+        || ["모임", "파티", "소모임 파티"].includes(station)
+        || /소모임|소소한\s*파티|솔로\s*파티/.test(text)
+        ? "party"
+        : "rotation";
+    }
+
     function backendEventToAdmin(be) {
       return {
         id: be.id,
         order: Number(be.order) || 0,
         station: be.station || "",
+        layerType: eventLayerType(be),
         title: be.title || "",
         target: be.target || "",
         date: be.date || "상시 모집",
@@ -1261,7 +1327,9 @@
         male: be.male || "6",
         female: be.female || "6",
         capacity: be.capacity || "12명",
-        price: be.price || "50,000원",
+        price: be.price || be.malePrice || "50,000원",
+        malePrice: be.malePrice || be.price || "50,000원",
+        femalePrice: be.femalePrice || "30,000원",
         oldPrice: be.oldPrice || "",
         image: be.image || "",
         imageUrl: adminImageUrl(be.image || ""),
@@ -1276,7 +1344,8 @@
         type: "eventSave",
         id: merged.id,
         order: merged.order,
-        station: merged.station,
+        station: String(merged.station || "").trim(),
+        layerType: String(merged.layerType || eventLayerType(merged)) === "party" ? "party" : "rotation",
         title: merged.title,
         date: merged.date,
         place: merged.place,
@@ -1286,8 +1355,11 @@
         female: merged.female,
         capacity: merged.capacity,
         target: merged.target,
-        price: merged.price,
+        price: merged.malePrice || merged.price,
+        malePrice: merged.malePrice || merged.price,
+        femalePrice: merged.femalePrice || "",
         oldPrice: merged.oldPrice || "",
+        badgeType: String(merged.badgeType || "").trim(),
         active: merged.active !== false
       };
     }
@@ -1318,7 +1390,10 @@
       event.active = active;
       render();
       try {
-        await apiPost(eventSavePayload(event, { active }));
+        const result = await apiPost(eventSavePayload(event, { active }));
+        if (result.event) Object.assign(event, backendEventToAdmin(result.event));
+        else event.active = active;
+        render();
         showToast(`${event.title} ${active ? "노출 ON" : "비노출 OFF"} 저장됨`);
       } catch (error) {
         event.active = previous;
@@ -1791,6 +1866,12 @@
               <button class="small-btn" type="button" data-edit-close>닫기</button>
             </div>
             <div class="edit-grid">
+              <label class="edit-field">레이어 구분
+                <select name="layerType">
+                  <option value="rotation"${eventLayerType(item) === "rotation" ? " selected" : ""}>로테이션 소개팅</option>
+                  <option value="party"${eventLayerType(item) === "party" ? " selected" : ""}>소모임 파티</option>
+                </select>
+              </label>
               <label class="edit-field">분류
                 <input name="station" autocomplete="off" value="${htmlAttr(item.station)}">
               </label>
@@ -1815,8 +1896,11 @@
               <label class="edit-field">모집 인원
                 <input name="capacity" autocomplete="off" value="${htmlAttr(item.capacity)}">
               </label>
-              <label class="edit-field">금액
-                <input name="price" autocomplete="off" value="${htmlAttr(item.price)}">
+              <label class="edit-field">남자 금액
+                <input name="malePrice" autocomplete="off" value="${htmlAttr(item.malePrice || item.price)}">
+              </label>
+              <label class="edit-field">여자 금액
+                <input name="femalePrice" autocomplete="off" value="${htmlAttr(item.femalePrice || "30,000원")}">
               </label>
               <label class="edit-field is-wide">이미지 경로
                 <input name="image" autocomplete="off" value="${htmlAttr(image)}">
@@ -1874,14 +1958,16 @@
         const active = isActive(event);
         return `
           <article class="event-card${active ? "" : " is-off"}${draggingEventId === event.id ? " is-dragging" : ""}" data-event-id="${event.id}">
-            <div class="thumb">
-              <img src="${event.imageUrl}" alt="" loading="lazy">
-            </div>
-            <div class="meta">
-              <div class="station">[${event.station}]</div>
-              <div class="title">${event.title}</div>
-              <div class="desc">${event.target}</div>
-              <div class="mini">순서 ${event.order} · 남 ${event.male} / 여 ${event.female} · ${event.price || ""} · 아이콘 ${eventBadgeAdminLabel(event)} · ${active ? "노출 중" : "비활성"}</div>
+            <div class="event-main">
+              <div class="thumb">
+                <img src="${event.imageUrl}" alt="" loading="lazy">
+              </div>
+              <div class="meta">
+                <div class="station">[${event.station}]</div>
+                <div class="title">${event.title}</div>
+                <div class="desc">${event.target}</div>
+                <div class="mini">순서 ${event.order} · 남 ${event.male} / 여 ${event.female} · 남 ${event.malePrice || event.price || ""} / 여 ${event.femalePrice || "30,000원"} · 아이콘 ${eventBadgeAdminLabel(event)} · ${active ? "노출 중" : "비활성"}</div>
+              </div>
             </div>
             <div class="event-actions">
               <button class="small-btn danger-btn" type="button" data-delete="${event.id}">삭제</button>
@@ -1971,7 +2057,9 @@
     window.addEventListener("scroll", clearPressTimer, true);
 
     searchEl.addEventListener("input", render);
-    createEventBtn?.addEventListener("click", createEventLayer);
+    createEventButtons.forEach((button) => {
+      button.addEventListener("click", () => createEventLayer(button.dataset.createEvent || "rotation"));
+    });
     $("[data-refresh]").addEventListener("click", () => {
       loadEvents();
       showToast("대시보드를 새로고침했습니다.");
@@ -1981,6 +2069,7 @@
       render();
       try {
         await saveEventsSequentially(events);
+        await loadEvents();
         showToast("전체 선택창을 노출 ON으로 저장했습니다.");
       } catch (error) {
         showToast(`저장 실패: ${error.message}`);
@@ -1991,6 +2080,7 @@
       render();
       try {
         await saveEventsSequentially(events);
+        await loadEvents();
         showToast("전체 선택창을 비노출 OFF로 저장했습니다.");
       } catch (error) {
         showToast(`저장 실패: ${error.message}`);
@@ -2090,15 +2180,18 @@
       if (!item) return;
       const form = new FormData(formEl);
       const snapshot = { ...item };
-      item.station = String(form.get("station") || item.station).trim() || item.station;
       item.title = String(form.get("title") || item.title).trim() || item.title;
+      item.layerType = form.get("layerType") === "party" ? "party" : "rotation";
+      item.station = String(form.get("station") || "").trim() || (item.layerType === "party" ? "모임" : "신규");
       item.target = String(form.get("target") || item.target).trim() || item.target;
       item.date = String(form.get("date") || "").trim() || "상시 모집";
       item.place = String(form.get("place") || "").trim() || "부산 클로버 라운지 (승인 후 안내)";
       item.male = String(form.get("male") || "").trim() || "6";
       item.female = String(form.get("female") || "").trim() || "6";
       item.capacity = String(form.get("capacity") || "").trim() || "12명";
-      item.price = String(form.get("price") || "").trim() || "50,000원";
+      item.malePrice = String(form.get("malePrice") || "").trim() || "50,000원";
+      item.femalePrice = String(form.get("femalePrice") || "").trim() || "30,000원";
+      item.price = item.malePrice;
       item.image = String(form.get("image") || item.image || "").trim();
       item.imageUrl = adminImageUrl(item.image);
       item.badgeType = String(form.get("badgeType") || "").trim();
