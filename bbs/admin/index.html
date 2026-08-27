@@ -790,6 +790,12 @@
         <div class="empty" data-empty>검색 결과가 없습니다.</div>
         <div class="create-layer-wrap">
           <button class="create-btn" type="button" data-create-event="rotation">로테이션 소개팅 생성</button>
+        </div>
+      </section>
+      <section class="panel admin-panel" data-admin-panel="events2" hidden>
+        <div class="event-list" data-party-list></div>
+        <div class="empty" data-party-empty>검색 결과가 없습니다.</div>
+        <div class="create-layer-wrap">
           <button class="create-btn is-party" type="button" data-create-event="party">소모임 · 파티 생성</button>
         </div>
       </section>
@@ -832,6 +838,22 @@
               <input class="search" type="search" placeholder="이름, 분류, 대상 검색" data-search>
               <button class="soft-btn" type="button" data-all-on>전체 ON</button>
               <button class="soft-btn" type="button" data-all-off>전체 OFF</button>
+            </section>
+          </div>
+        </div>
+        <div class="nav-group" data-nav-group="events2">
+          <button class="nav-btn" type="button" data-nav="events2">선택창 관리2 <span class="count-pill" data-party-menu-count>0</span></button>
+          <div class="nav-submenu" aria-label="선택창 관리2 하위 메뉴">
+            <section class="cards" aria-label="선택창 관리2 요약">
+              <article class="metric"><span>전체 레이어</span><strong data-party-total>0</strong></article>
+              <article class="metric"><span>노출 ON</span><strong data-party-on>0</strong></article>
+              <article class="metric"><span>비노출 OFF</span><strong data-party-off>0</strong></article>
+            </section>
+
+            <section class="toolbar">
+              <input class="search" type="search" placeholder="소모임, 파티, 지역 검색" data-party-search>
+              <button class="soft-btn" type="button" data-party-all-on>전체 ON</button>
+              <button class="soft-btn" type="button" data-party-all-off>전체 OFF</button>
             </section>
           </div>
         </div>
@@ -959,6 +981,8 @@
     const $ = (selector) => document.querySelector(selector);
     const listEl = $("[data-list]");
     const searchEl = $("[data-search]");
+    const partyListEl = $("[data-party-list]");
+    const partySearchEl = $("[data-party-search]");
     const createEventButtons = [...document.querySelectorAll("[data-create-event]")];
     const scheduleMaker = $("[data-schedule-maker]");
     const scheduleLayerList = $("[data-schedule-layer-list]");
@@ -1161,7 +1185,7 @@
       clearPressTimer();
       draggingEventId = eventId;
       didReorderDrag = false;
-      listEl.classList.add("is-reordering");
+      eventListElementForEvent(events.find((event) => event.id === eventId))?.classList.add("is-reordering");
       render();
       showToast("길게 누른 상태로 이동해 순서를 바꾸세요.");
     }
@@ -1173,6 +1197,7 @@
       draggingEventId = "";
       didReorderDrag = false;
       listEl.classList.remove("is-reordering");
+      partyListEl?.classList.remove("is-reordering");
       render();
       if (shouldToast) showToast("레이어 순서 저장됨");
     }
@@ -1267,7 +1292,7 @@
         layerType: isPartyLayer ? "party" : "rotation",
         title: isPartyLayer ? "새 소모임 파티" : "새 로테이션 소개팅",
         target: isPartyLayer ? "소모임 · 파티 설명을 입력하세요" : "대상 설명을 입력하세요",
-        badgeType: be.badgeType || "",
+        badgeType: "",
         image: isPartyLayer ? "assets/optimized/event-group-study-cafe.webp" : "assets/event-theme-warm.png"
       }, events.length);
     }
@@ -1276,7 +1301,13 @@
       const item = createBlankEvent(layerType);
       events.push(item);
       persistEventOrder();
-      if (searchEl.value) searchEl.value = "";
+      if (layerType === "party") {
+        if (partySearchEl?.value) partySearchEl.value = "";
+        setAdminPanel("events2");
+      } else {
+        if (searchEl.value) searchEl.value = "";
+        setAdminPanel("events");
+      }
       openEditModal(item);
       showToast(`${layerType === "party" ? "소모임 · 파티" : "로테이션 소개팅"} 레이어를 맨 아래에 생성했습니다.`);
     }
@@ -1309,9 +1340,22 @@
       const text = `${event?.title || ""} ${event?.target || ""}`;
       return String(event?.layerType || "") === "party"
         || ["모임", "파티", "소모임 파티"].includes(station)
-        || /소모임|소소한\s*파티|솔로\s*파티/.test(text)
+        || /소모임|소소한|솔로\s*파티|만남\s*목적이\s*아닌/.test(text)
         ? "party"
         : "rotation";
+    }
+
+    function eventsForLayer(layerType) {
+      return events.filter((event) => eventLayerType(event) === layerType);
+    }
+
+    function eventMatchesSearch(event, query) {
+      const text = `${event.station} ${event.title} ${event.target} ${event.place}`.toLowerCase();
+      return !query || text.includes(query);
+    }
+
+    function eventListElementForEvent(event) {
+      return eventLayerType(event) === "party" ? partyListEl : listEl;
     }
 
     function backendEventToAdmin(be) {
@@ -1367,6 +1411,7 @@
     async function loadEvents() {
       if (!GOOGLE_SCRIPT_URL) return;
       listEl.innerHTML = '<div class="list-loading" aria-hidden="true"><span class="list-loading-spinner"></span></div>';
+      if (partyListEl) partyListEl.innerHTML = '<div class="list-loading" aria-hidden="true"><span class="list-loading-spinner"></span></div>';
       try {
         const result = await apiGet("eventList", { includeInactive: "1" });
         const list = Array.isArray(result.events) ? result.events : [];
@@ -1402,13 +1447,21 @@
       }
     }
 
-    function renderMetrics(filtered) {
-      const activeCount = events.filter(isActive).length;
-      $("[data-total]").textContent = events.length;
-      $("[data-on]").textContent = activeCount;
-      $("[data-off]").textContent = events.length - activeCount;
-      $("[data-menu-count]").textContent = events.length;
-      $("[data-empty]").classList.toggle("is-visible", filtered.length === 0);
+    function renderMetrics(rotationFiltered, partyFiltered) {
+      const rotationEvents = eventsForLayer("rotation");
+      const partyEvents = eventsForLayer("party");
+      const rotationActiveCount = rotationEvents.filter(isActive).length;
+      const partyActiveCount = partyEvents.filter(isActive).length;
+      $("[data-total]").textContent = rotationEvents.length;
+      $("[data-on]").textContent = rotationActiveCount;
+      $("[data-off]").textContent = rotationEvents.length - rotationActiveCount;
+      $("[data-menu-count]").textContent = rotationEvents.length;
+      $("[data-empty]").classList.toggle("is-visible", rotationFiltered.length === 0);
+      $("[data-party-total]").textContent = partyEvents.length;
+      $("[data-party-on]").textContent = partyActiveCount;
+      $("[data-party-off]").textContent = partyEvents.length - partyActiveCount;
+      $("[data-party-menu-count]").textContent = partyEvents.length;
+      $("[data-party-empty]").classList.toggle("is-visible", partyFiltered.length === 0);
     }
 
     function htmlAttr(value) {
@@ -1932,9 +1985,10 @@
     function openEditModal(item) {
       if (!item) return;
       editingEventId = item.id;
+      setAdminPanel(eventLayerType(item) === "party" ? "events2" : "events");
       render();
       window.setTimeout(() => {
-        const layer = listEl.querySelector("[data-edit-form]");
+        const layer = eventListElementForEvent(item)?.querySelector("[data-edit-form]");
         layer?.querySelector('[name="title"]')?.focus();
         layer?.scrollIntoView({ block: "nearest", behavior: "smooth" });
       }, 0);
@@ -1946,42 +2000,44 @@
       render();
     }
 
+    function eventCardMarkup(event) {
+      const active = isActive(event);
+      return `
+        <article class="event-card${active ? "" : " is-off"}${draggingEventId === event.id ? " is-dragging" : ""}" data-event-id="${event.id}">
+          <div class="event-main">
+            <div class="thumb">
+              <img src="${event.imageUrl}" alt="" loading="lazy">
+            </div>
+            <div class="meta">
+              <div class="station">[${event.station}]</div>
+              <div class="title">${event.title}</div>
+              <div class="desc">${event.target}</div>
+              <div class="mini">순서 ${event.order} · 남 ${event.male} / 여 ${event.female} · 남 ${event.malePrice || event.price || ""} / 여 ${event.femalePrice || "30,000원"} · 아이콘 ${eventBadgeAdminLabel(event)} · ${active ? "노출 중" : "비활성"}</div>
+            </div>
+          </div>
+          <div class="event-actions">
+            <button class="small-btn danger-btn" type="button" data-delete="${event.id}">삭제</button>
+            <button class="toggle-btn ${active ? "is-on" : "is-off"}" type="button" data-toggle="${event.id}">${active ? "ON" : "OFF"}</button>
+            <button class="small-btn" type="button" data-up="${event.id}">수정</button>
+            <button class="small-btn" type="button" data-preview="${event.id}">보기</button>
+          </div>
+        </article>
+        ${editingEventId === event.id ? editFormMarkup(event) : ""}
+      `;
+    }
+
     function render() {
       updateEventOrders();
       const q = (searchEl.value || "").trim().toLowerCase();
-      const filtered = events.filter((event) => {
-        const text = `${event.station} ${event.title} ${event.target} ${event.place}`.toLowerCase();
-        return !q || text.includes(q);
-      });
-      renderMetrics(filtered);
-      listEl.innerHTML = filtered.map((event) => {
-        const active = isActive(event);
-        return `
-          <article class="event-card${active ? "" : " is-off"}${draggingEventId === event.id ? " is-dragging" : ""}" data-event-id="${event.id}">
-            <div class="event-main">
-              <div class="thumb">
-                <img src="${event.imageUrl}" alt="" loading="lazy">
-              </div>
-              <div class="meta">
-                <div class="station">[${event.station}]</div>
-                <div class="title">${event.title}</div>
-                <div class="desc">${event.target}</div>
-                <div class="mini">순서 ${event.order} · 남 ${event.male} / 여 ${event.female} · 남 ${event.malePrice || event.price || ""} / 여 ${event.femalePrice || "30,000원"} · 아이콘 ${eventBadgeAdminLabel(event)} · ${active ? "노출 중" : "비활성"}</div>
-              </div>
-            </div>
-            <div class="event-actions">
-              <button class="small-btn danger-btn" type="button" data-delete="${event.id}">삭제</button>
-              <button class="toggle-btn ${active ? "is-on" : "is-off"}" type="button" data-toggle="${event.id}">${active ? "ON" : "OFF"}</button>
-              <button class="small-btn" type="button" data-up="${event.id}">수정</button>
-              <button class="small-btn" type="button" data-preview="${event.id}">보기</button>
-            </div>
-          </article>
-          ${editingEventId === event.id ? editFormMarkup(event) : ""}
-        `;
-      }).join("");
+      const partyQ = (partySearchEl?.value || "").trim().toLowerCase();
+      const rotationFiltered = eventsForLayer("rotation").filter((event) => eventMatchesSearch(event, q));
+      const partyFiltered = eventsForLayer("party").filter((event) => eventMatchesSearch(event, partyQ));
+      renderMetrics(rotationFiltered, partyFiltered);
+      listEl.innerHTML = rotationFiltered.map(eventCardMarkup).join("");
+      if (partyListEl) partyListEl.innerHTML = partyFiltered.map(eventCardMarkup).join("");
     }
 
-    listEl.addEventListener("click", (event) => {
+    function handleEventListClick(event) {
       const closeEdit = event.target.closest("[data-edit-close]");
       if (closeEdit) {
         closeEditModal();
@@ -2010,9 +2066,12 @@
         openEditModal(item);
         return;
       }
-    });
+    }
 
-    listEl.addEventListener("pointerdown", (event) => {
+    listEl.addEventListener("click", handleEventListClick);
+    partyListEl?.addEventListener("click", handleEventListClick);
+
+    function handleEventListPointerDown(event) {
       const card = event.target.closest(".event-card[data-event-id]");
       if (!card || isInteractiveReorderTarget(event.target)) return;
       clearPressTimer();
@@ -2036,7 +2095,10 @@
       window.addEventListener("pointermove", cancelIfMoved, { passive: true });
       window.addEventListener("pointerup", () => window.removeEventListener("pointermove", cancelIfMoved), { once: true });
       window.addEventListener("pointercancel", () => window.removeEventListener("pointermove", cancelIfMoved), { once: true });
-    });
+    }
+
+    listEl.addEventListener("pointerdown", handleEventListPointerDown);
+    partyListEl?.addEventListener("pointerdown", handleEventListPointerDown);
 
     window.addEventListener("pointermove", (event) => {
       if (!draggingEventId) return;
@@ -2057,6 +2119,7 @@
     window.addEventListener("scroll", clearPressTimer, true);
 
     searchEl.addEventListener("input", render);
+    partySearchEl?.addEventListener("input", render);
     createEventButtons.forEach((button) => {
       button.addEventListener("click", () => createEventLayer(button.dataset.createEvent || "rotation"));
     });
@@ -2065,10 +2128,11 @@
       showToast("대시보드를 새로고침했습니다.");
     });
     $("[data-all-on]").addEventListener("click", async () => {
-      events.forEach((event) => { event.active = true; });
+      const targetEvents = eventsForLayer("rotation");
+      targetEvents.forEach((event) => { event.active = true; });
       render();
       try {
-        await saveEventsSequentially(events);
+        await saveEventsSequentially(targetEvents);
         await loadEvents();
         showToast("전체 선택창을 노출 ON으로 저장했습니다.");
       } catch (error) {
@@ -2076,18 +2140,43 @@
       }
     });
     $("[data-all-off]").addEventListener("click", async () => {
-      events.forEach((event) => { event.active = false; });
+      const targetEvents = eventsForLayer("rotation");
+      targetEvents.forEach((event) => { event.active = false; });
       render();
       try {
-        await saveEventsSequentially(events);
+        await saveEventsSequentially(targetEvents);
         await loadEvents();
         showToast("전체 선택창을 비노출 OFF로 저장했습니다.");
       } catch (error) {
         showToast(`저장 실패: ${error.message}`);
       }
     });
+    $("[data-party-all-on]")?.addEventListener("click", async () => {
+      const targetEvents = eventsForLayer("party");
+      targetEvents.forEach((event) => { event.active = true; });
+      render();
+      try {
+        await saveEventsSequentially(targetEvents);
+        await loadEvents();
+        showToast("선택창 관리2 전체 레이어를 노출 ON으로 저장했습니다.");
+      } catch (error) {
+        showToast(`저장 실패: ${error.message}`);
+      }
+    });
+    $("[data-party-all-off]")?.addEventListener("click", async () => {
+      const targetEvents = eventsForLayer("party");
+      targetEvents.forEach((event) => { event.active = false; });
+      render();
+      try {
+        await saveEventsSequentially(targetEvents);
+        await loadEvents();
+        showToast("선택창 관리2 전체 레이어를 비노출 OFF로 저장했습니다.");
+      } catch (error) {
+        showToast(`저장 실패: ${error.message}`);
+      }
+    });
     function setAdminPanel(name) {
-      const panelName = name === "schedule" ? "schedule" : "events";
+      const panelName = ["events", "events2", "schedule"].includes(name) ? name : "events";
       document.querySelectorAll("[data-admin-panel]").forEach((panel) => {
         panel.hidden = panel.dataset.adminPanel !== panelName;
       });
@@ -2099,12 +2188,13 @@
       });
       try { localStorage.setItem(ADMIN_ACTIVE_PANEL_KEY, panelName); } catch {}
       if (panelName === "schedule") renderScheduleAdmin();
+      else render();
     }
 
     function readAdminActivePanel() {
       try {
         const saved = localStorage.getItem(ADMIN_ACTIVE_PANEL_KEY);
-        return saved === "schedule" ? "schedule" : "events";
+        return ["events", "events2", "schedule"].includes(saved) ? saved : "events";
       } catch {
         return "events";
       }

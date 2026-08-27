@@ -3106,7 +3106,10 @@
     }
 
     .event-list-heading {
-      margin-top: 0.4rem;
+      display: block;
+      margin: 1.8rem 0 0.45rem;
+      padding-top: 1.1rem;
+      border-top: 1px solid var(--line);
     }
 
     .event-card {
@@ -13556,7 +13559,7 @@
       { station: "테마", title: "공무원 여성 선호", target: "안정적이고 편안한 일상을 함께 나누는 만남", image: "assets/event-theme-public-servant-woman.png" },
       { station: "테마", title: "연봉 7천 이상 남성 선호", target: "일과 삶을 균형 있게 바라보는 만남", image: "assets/event-theme-career-man.png" },
       { station: "테마", title: "자산 5억 이상 남성 선호", target: "여유와 책임감을 중요하게 보는 만남", image: "assets/event-theme-wealthy-man.png" },
-      { station: "테마", title: "이혼 경험이 있는 남·여", target: "조금 더 성숙하고 솔직한 두 번째 설렘", image: "assets/event-theme-divorced.png" },
+      { station: "돌싱", title: "새로운 시작, 새로운 만남", target: "조금 더 성숙하고 솔직한 두 번째 설렘", image: "assets/event-theme-divorced.png" },
       { station: "모임", title: "함께 공부하는 모임", target: "가벼운 스터디로 자연스럽게 가까워지는 모임", image: "https://res.cloudinary.com/lkkfechj/image/upload/v1787668092/clover/event-party-izakaya-3x3.png" }
     ]);
 
@@ -13858,7 +13861,7 @@
       const text = `${item?.title || ""} ${item?.target || ""}`;
       return item.layerType === "party"
         || ["모임", "파티", "소모임 파티"].includes(station)
-        || /소모임|소소한\s*파티|솔로\s*파티/.test(text);
+        || /소모임|소소한|솔로\s*파티|만남\s*목적이\s*아닌/.test(text);
     }
 
     function renderEventList(items = events) {
@@ -14187,7 +14190,7 @@
 
 
     function renderApplicationNoteMarkup(price, event) {
-      const isDivorced = event?.title === "이혼 경험이 있는 남·여";
+      const isDivorced = isDivorcedEvent(event);
       const placeholder = isDivorced
         ? "일정 조율 시 참고할 사항을 남겨주세요."
         : "예시&#10;'토요일에 1:1로 3회 진행하고 싶어요'&#10;'근무 시간이 일정하지 않아요'";
@@ -14244,6 +14247,7 @@
         selectedAgeOptionId: selectedAgeOption?.id || "",
         selectedComposition: selectedComposition || "",
         selectedApplicationNote: selectedApplicationNote || "",
+        selectedChildrenCondition: selectedChildrenCondition || "",
         selectedScheduleDate: selectedScheduleDate || ""
       };
     }
@@ -14271,6 +14275,7 @@
         selectedAgeOption = currentApplicationAgeOptions().find((option) => option.id === saved.selectedAgeOptionId) || null;
         selectedComposition = saved.selectedComposition || "";
         selectedApplicationNote = saved.selectedApplicationNote || "";
+        selectedChildrenCondition = saved.selectedChildrenCondition || "";
         selectedScheduleDate = saved.selectedScheduleDate || "";
         return ["intro", "selection", "detail"].includes(saved.phase) ? saved.phase : "selection";
       } catch {
@@ -14282,6 +14287,12 @@
       const title = String(event?.title || "");
       const station = String(event?.station || "");
       return station === "랜덤" || station === "외모" || station === "40-50대" || title === "기독교 종교를 가진 사람";
+    }
+
+    function isDivorcedEvent(event) {
+      const title = String(event?.title || "");
+      const station = String(event?.station || "");
+      return station === "돌싱" || title === "이혼 경험이 있는 남·여" || title === "새로운 시작, 새로운 만남";
     }
 
     function eventIntroContent(event) {
@@ -14296,6 +14307,14 @@
         "함께 공부하는 모임": {
           copy: "가벼운 스터디 분위기에서 자연스럽게 대화를 시작하는 모임입니다.",
           points: ["공부와 대화가 함께 이어지는 편안한 구성입니다.", "처음 만나는 사람도 부담이 적은 좌석 흐름으로 안내합니다.", "요일과 인원 선택은 다음 공통 양식에서 진행합니다."]
+        },
+        "이혼 경험이 있는 남·여": {
+          copy: "조금 더 성숙하고 솔직한 두 번째 설렘",
+          points: ["돌싱 주제에 맞춰 참여자를 안내합니다.", "선택 양식과 신청서 양식은 모든 카드에서 동일하게 사용합니다.", "카드별 1페이지 내용은 이 영역에서 따로 구성할 수 있습니다."]
+        },
+        "새로운 시작, 새로운 만남": {
+          copy: "조금 더 성숙하고 솔직한 두 번째 설렘",
+          points: ["돌싱 주제에 맞춰 참여자를 안내합니다.", "선택 양식과 신청서 양식은 모든 카드에서 동일하게 사용합니다.", "카드별 1페이지 내용은 이 영역에서 따로 구성할 수 있습니다."]
         }
       };
       const fallbackPoints = [
@@ -14314,6 +14333,10 @@
       { id: "one", label: "자녀 1명까지 괜찮아요." },
       { id: "two", label: "자녀 2명까지 괜찮아요." }
     ];
+
+    function selectedChildrenConditionLabel() {
+      return childrenConditionOptions.find((option) => option.id === selectedChildrenCondition)?.label || "";
+    }
 
     function childrenConditionMarkup() {
       const cards = childrenConditionOptions.map((option) => `
@@ -14337,29 +14360,32 @@
       const detailImage = eventImageStack(event);
       const detailVideo = eventVideoMarkup(event, "detail-media");
       const intro = eventIntroContent(event);
-      const isDivorced = event.title === "이혼 경험이 있는 남·여";
+      const isDivorced = isDivorcedEvent(event);
+      const introStation = isDivorced ? "돌싱" : event.station;
+      const introTitle = isDivorced ? "새로운 시작, 새로운 만남" : event.title;
 
       detailRoot.innerHTML = `
         <article class="detail-hero selection-detail-hero">
           <div class="detail-image" style="--detail-image: ${detailImage}">${detailVideo}</div>
           <div class="detail-main">
-            <h1 class="detail-title"><span>[${htmlAttr(event.station)}]</span> ${htmlAttr(event.title)}</h1>
+            <h1 class="detail-title"><span>[${htmlAttr(introStation)}]</span> ${htmlAttr(introTitle)}</h1>
             <div class="event-meta">
               <div class="meta-line">${iconPin}<span>${htmlAttr(event.place)}</span></div>
             </div>
           </div>
         </article>
         <div class="application-intro-page">
-          ${isDivorced ? childrenConditionMarkup() : `
+          ${isDivorced ? "" : `
           <section class="application-intro-card">
             <p class="application-intro-kicker">1페이지 안내</p>
-            <h2 class="application-intro-title">${htmlAttr(event.title)}</h2>
+            <h2 class="application-intro-title">${htmlAttr(introTitle)}</h2>
             <p class="application-intro-copy">${htmlAttr(intro.copy)}</p>
             <ul class="application-intro-list">
               ${intro.points.map((point) => `<li>${htmlAttr(point)}</li>`).join("")}
             </ul>
           </section>
           `}
+          ${isDivorced ? childrenConditionMarkup() : ""}
           <button class="selection-complete-btn" type="button" data-intro-next ${isDivorced && !selectedChildrenCondition ? "disabled" : ""}>다음</button>
         </div>
       `;
@@ -14600,7 +14626,7 @@
             </div>
           </section>
 
-          ${event.title === "이혼 경험이 있는 남·여" ? myChildrenSectionMarkup() : ""}
+          ${isDivorcedEvent(event) ? myChildrenSectionMarkup() : ""}
 
           ${idealRankSectionMarkup()}
 
@@ -21310,7 +21336,7 @@
       if (totalPhotoCount < 3 || totalPhotoCount > 5) return false;
       const totalBodyPhotoCount = selectedBodyPhotoFiles.length;
       if (totalBodyPhotoCount < 1 || totalBodyPhotoCount > 3) return false;
-      if (selectedEvent?.title === "이혼 경험이 있는 남·여" && !myChildrenReady()) return false;
+      if (isDivorcedEvent(selectedEvent) && !myChildrenReady()) return false;
       return true;
     }
 
@@ -21412,6 +21438,7 @@
           selectedAgeRange: selectedAgeOption?.range || "",
           selectedAgeLabel: selectedAgeOption?.label || "",
           selectedComposition: selectedComposition || "",
+          selectedChildrenCondition: selectedChildrenConditionLabel(),
           applicationNote: selectedApplicationNote || "",
           eventPlace: selectedEvent.place,
           eventPrice: selectedApplyPrice,
@@ -22444,12 +22471,6 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
 
 
 
