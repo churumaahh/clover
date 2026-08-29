@@ -6810,8 +6810,13 @@
     }
 
     .board-form .field select:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 14%, transparent);
+      border-color: var(--line);
+      box-shadow: none;
+    }
+
+    :root[data-theme="dark"] .board-form .field select:focus {
+      border-color: rgba(255, 255, 255, 0.12);
+      box-shadow: none;
     }
 
     .board-form .field input[readonly] {
@@ -6848,8 +6853,8 @@
     .board-form .board-submit-btn.form-submit-btn,
     .board-form .board-submit-btn.form-submit-btn.is-ready {
       width: 100%;
-      min-height: 3.75rem !important;
-      padding: 0.72rem 1rem !important;
+      min-height: 3.15rem !important;
+      padding: 0.48rem 1rem !important;
       border: 1px solid rgba(148, 163, 184, 0.24) !important;
       border-radius: 12px !important;
       background-color: #eef1f5 !important;
@@ -9188,9 +9193,10 @@
       justify-content: center;
       min-height: 2.5rem;
       border-radius: 0.55rem;
-      color: #111;
-      background: #00ff40;
+      color: #ffffff;
+      background: #2563eb;
       font-weight: 900;
+      box-shadow: 0 0.45rem 0.9rem rgba(37, 99, 235, 0.22);
     }
 
     .board-edit-button.is-loading::before {
@@ -9198,8 +9204,8 @@
       width: 0.9rem;
       height: 0.9rem;
       margin-right: 0.5rem;
-      border: 2px solid rgba(0, 0, 0, 0.25);
-      border-top-color: #111;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-top-color: #ffffff;
       border-radius: 50%;
       animation: submit-spin 0.7s linear infinite;
       flex: 0 0 auto;
@@ -9225,6 +9231,86 @@
       line-height: 1.65;
       white-space: pre-wrap;
       word-break: break-word;
+    }
+
+    .board-attachment-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .board-attachment-links a,
+    .board-attachment-links span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 1.85rem;
+      padding: 0 0.65rem;
+      border: 1px solid rgba(37, 99, 235, 0.22);
+      border-radius: 0.5rem;
+      color: #1d4ed8;
+      background: rgba(37, 99, 235, 0.08);
+      font-size: 0.76rem;
+      font-weight: 900;
+      text-decoration: none;
+      word-break: break-word;
+    }
+
+    :root[data-theme="dark"] #page-board .board-private-view {
+      background: transparent !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+
+    :root[data-theme="dark"] #page-board .board-private-section {
+      border-color: rgba(148, 163, 184, 0.22) !important;
+      box-shadow: none !important;
+    }
+
+    :root[data-theme="dark"] #page-board .board-private-section.is-content,
+    :root[data-theme="dark"] #page-board .board-private-section.is-follow-up {
+      background: rgba(96, 165, 250, 0.13) !important;
+    }
+
+    :root[data-theme="dark"] #page-board .board-private-section.is-reply {
+      background: rgba(34, 197, 94, 0.12) !important;
+      border-color: rgba(74, 222, 128, 0.24) !important;
+    }
+
+    :root[data-theme="dark"] #page-board .board-private-label {
+      color: #dbeafe !important;
+    }
+
+    :root[data-theme="dark"] #page-board .board-private-text {
+      color: #d7e3f0 !important;
+    }
+
+    :root[data-theme="dark"] #page-board .board-attachment-links a,
+    :root[data-theme="dark"] #page-board .board-attachment-links span {
+      border-color: rgba(147, 197, 253, 0.28) !important;
+      color: #bfdbfe !important;
+      background: rgba(59, 130, 246, 0.12) !important;
+    }
+
+    :root[data-theme="dark"] #page-board .board-edit-toggle {
+      border-color: rgba(148, 163, 184, 0.35) !important;
+      background: rgba(15, 23, 42, 0.72) !important;
+      color: #f7f9fb !important;
+      box-shadow: 0 0.25rem 0.65rem rgba(0, 0, 0, 0.28) !important;
+    }
+
+    :root[data-theme="dark"] #page-board .board-edit-toggle:hover {
+      border-color: rgba(0, 255, 64, 0.55) !important;
+      background: rgba(0, 255, 64, 0.14) !important;
+      color: #9cffb2 !important;
+    }
+
+    :root[data-theme="dark"] #page-board .board-edit-button {
+      background: #3b82f6 !important;
+      color: #f8fbff !important;
+      box-shadow: 0 0.45rem 0.9rem rgba(59, 130, 246, 0.24) !important;
     }
 
     .board-post-head {
@@ -11002,6 +11088,24 @@
       transform: none;
     }
 
+    [data-home-counsel-modal] {
+      place-items: center !important;
+      justify-items: center !important;
+      align-items: center !important;
+      padding: 1rem !important;
+    }
+
+    [data-home-counsel-modal] .home-counsel-panel {
+      box-sizing: border-box !important;
+      width: min(31rem, calc(100vw - 2rem)) !important;
+      max-width: calc(100vw - 2rem) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      justify-self: center !important;
+      transform: none !important;
+      cursor: default !important;
+    }
+
     .home-schedule-panel .map-open-link:not(:disabled) {
       background: #00ff40 !important;
       box-shadow: 0 .4rem .9rem rgba(0, 240, 64, 0.18) !important;
@@ -11017,6 +11121,22 @@
       justify-items: center !important;
       align-items: center !important;
       padding-inline: 1rem !important;
+    }
+    [data-board-write-modal] {
+      place-items: center !important;
+      justify-items: center !important;
+      align-items: center !important;
+      padding: 1rem !important;
+    }
+    [data-board-write-modal] .home-schedule-panel {
+      box-sizing: border-box !important;
+      width: min(31rem, calc(100vw - 2rem)) !important;
+      max-width: calc(100vw - 2rem) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      justify-self: center !important;
+      transform: none !important;
+      cursor: default !important;
     }
     [data-match-result-modal] {
       padding: 0.56rem !important;
@@ -11531,9 +11651,6 @@
     :root[data-theme="dark"] #page-schedule-notice .notice-board-row,
     :root[data-theme="dark"] #page-board .board-list-section,
     :root[data-theme="dark"] #page-board .board-post,
-    :root[data-theme="dark"] #page-board .board-access-panel,
-    :root[data-theme="dark"] #page-board .board-private-view,
-    :root[data-theme="dark"] #page-board .board-private-section,
     :root[data-theme="dark"] #page-event-detail .detail-hero,
     :root[data-theme="dark"] #page-event-detail .gender-application-card,
     :root[data-theme="dark"] #page-event-detail .selection-section,
@@ -11570,8 +11687,6 @@
     :root[data-theme="dark"] #page-board .board-post-time,
     :root[data-theme="dark"] #page-board .board-post-number,
     :root[data-theme="dark"] #page-board .board-post-meta,
-    :root[data-theme="dark"] #page-board .board-private-label,
-    :root[data-theme="dark"] #page-board .board-private-text,
     :root[data-theme="dark"] #page-event-detail .event-meta,
     :root[data-theme="dark"] #page-event-detail .detail-main-copy,
     :root[data-theme="dark"] #page-event-detail .form-hint,
@@ -12010,9 +12125,6 @@
     :root[data-theme="dark"] #page-schedule-notice .notice-board-row,
     :root[data-theme="dark"] #page-board .board-list-section,
     :root[data-theme="dark"] #page-board .board-post,
-    :root[data-theme="dark"] #page-board .board-access-panel,
-    :root[data-theme="dark"] #page-board .board-private-view,
-    :root[data-theme="dark"] #page-board .board-private-section,
     :root[data-theme="dark"] #page-event-detail .detail-hero,
     :root[data-theme="dark"] #page-event-detail .gender-application-card,
     :root[data-theme="dark"] #page-event-detail .selection-section,
@@ -13258,7 +13370,7 @@
             <h1 class="page-title"><svg class="page-title-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>문의 게시판</h1>
             <button class="board-write-open-btn" type="button" data-board-write-open>문의 하기</button>
           </div>
-          <p class="page-description">본 내용은 어디에도 공개되지 않으며 익명으로 운영됩니다.</p>
+          <p class="page-description">본 내용은 어디에도 공개되지 않으며 작성자 입력값 그대로 표시됩니다.</p>
         </div>
         <section class="board-list-section support-card">
           <div class="board-post-list" id="boardPostList" aria-live="polite"></div>
@@ -13349,12 +13461,12 @@
         <details class="support-card mypage-fold-card">
           <summary class="mypage-layer-title">
             <span class="mypage-layer-row mypage-layer-row-compact is-empty" data-mypage-layer-row="board">
-              <span class="mypage-layer-label">익명 문의 <span class="mypage-layer-count" data-mypage-board-count></span></span>
+              <span class="mypage-layer-label">문의 내역 <span class="mypage-layer-count" data-mypage-board-count></span></span>
             </span>
           </summary>
           <div class="mypage-layer-content">
             <div class="board-post-list" data-mypage-board></div>
-            <nav class="board-pagination" data-mypage-board-pagination aria-label="내 익명 문의 페이지 이동" hidden></nav>
+            <nav class="board-pagination" data-mypage-board-pagination aria-label="내 문의 페이지 이동" hidden></nav>
           </div>
         </details>
         <button class="mypage-data-delete-btn" type="button" data-mypage-delete-data>데이터 삭제</button>
@@ -13488,7 +13600,7 @@
           <div class="board-form-row">
             <div class="field">
               <label for="boardAuthor">작성자</label>
-              <input id="boardAuthor" name="author" type="text" maxlength="8" placeholder="작성해 주세요." required>
+              <input id="boardAuthor" name="author" type="text" maxlength="8" placeholder="작성해 주세요." autocomplete="off">
             </div>
             <div class="field">
               <label for="boardCategory">구분</label>
@@ -13508,7 +13620,7 @@
           </div>
           <div class="field">
             <label for="boardContent">내용</label>
-            <textarea id="boardContent" name="content" maxlength="1000" placeholder="내용을 입력해 주세요." required></textarea>
+            <textarea id="boardContent" name="content" maxlength="1000" placeholder="연락처 또는 이메일 주소로 답변 받기를 원하실 경우 내용에 작성해주세요." required></textarea>
           </div>
           <div class="field">
             <span class="field-label-text">첨부 파일 (최대 3개)</span>
@@ -13541,7 +13653,7 @@
       <button class="home-schedule-close-btn" type="button" data-counsel-write-close aria-label="닫기">×</button>
       <section class="support-card" style="margin:0; border:0; box-shadow:none; background:transparent; padding:0;">
         <h2 class="schedule-section-title" data-counsel-write-title><span class="section-title-icon" aria-hidden="true"></span>글쓰기</h2>
-        <p class="page-description" style="margin:0 0 .8rem;">작성자 미입력 시 '익명'으로 표기됩니다.</p>
+        <p class="page-description" style="margin:0 0 .8rem;">작성자 입력칸에 적은 내용 그대로 게시판에 표시됩니다.</p>
         <form class="board-form" data-counsel-write-form novalidate>
           <div class="support-field-row">
             <div class="field">
@@ -15055,6 +15167,8 @@
     const boardPagination = document.getElementById("boardPagination");
     const boardPageSize = 10;
     const boardCacheKey = "clover-board-posts-v1";
+    const boardStatusOverrideKey = "clover-board-status-overrides-v1";
+    const boardAuthorOverrideKey = "clover-board-author-overrides-v1";
     let boardCurrentPage = 1;
     let boardPosts = [];
 
@@ -15100,6 +15214,26 @@
 
     function setNextBoardAuthor() {
       if (boardAuthor) boardAuthor.value = "";
+    }
+
+    function normalizeBoardAuthor(author) {
+      const cleanAuthor = String(author || "").trim();
+      return cleanAuthor === "익명" ? "" : cleanAuthor;
+    }
+
+    function readBoardAuthorOverrides() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(boardAuthorOverrideKey) || "{}");
+        return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+      } catch (_) {
+        return {};
+      }
+    }
+
+    function writeBoardAuthorOverride(id, author) {
+      if (!id) return;
+      const next = { ...readBoardAuthorOverrides(), [String(id)]: normalizeBoardAuthor(author) };
+      try { localStorage.setItem(boardAuthorOverrideKey, JSON.stringify(next)); } catch (_) {}
     }
 
     function readMypageCache() {
@@ -16665,7 +16799,7 @@
       if (!sortedPosts.length) {
         const empty = document.createElement("p");
         empty.className = "mypage-empty";
-        empty.textContent = "작성한 익명 문의가 없습니다.";
+        empty.textContent = "작성한 문의가 없습니다.";
         container.append(empty);
         if (pagination) pagination.hidden = true;
         return;
@@ -16688,13 +16822,13 @@
         const openButton = document.createElement("button");
         openButton.className = "board-post-open";
         openButton.type = "button";
-        openButton.setAttribute("aria-label", `${post.author} 문의 확인`);
+        openButton.setAttribute("aria-label", `${boardVisibleAuthor(post)} 문의 확인`);
         const authorWrap = document.createElement("span");
         authorWrap.className = "board-post-author-wrap";
         authorWrap.append(createBoardLockIcon());
         const author = document.createElement("span");
         author.className = "board-post-author";
-        author.textContent = post.author;
+        author.textContent = boardVisibleAuthor(post);
         authorWrap.append(author);
         const categoryBadge = document.createElement("span");
         categoryBadge.className = "board-post-category";
@@ -16869,7 +17003,16 @@
       setCounselReplyTarget(null);
       renderHomeCounselModal(post);
       const modal = document.querySelector("[data-home-counsel-modal]");
-      if (modal) modal.hidden = false;
+      if (modal) {
+        const panel = modal.querySelector(".home-counsel-panel");
+        if (panel) {
+          panel.scrollTop = 0;
+          panel.style.left = "";
+          panel.style.right = "";
+          panel.style.transform = "";
+        }
+        modal.hidden = false;
+      }
       lockBodyScrollForPopup();
       rememberPopupHistory();
       let viewedSet;
@@ -17674,6 +17817,21 @@
       if (modal) modal.hidden = true;
       unlockBodyScrollForPopup();
       if (wasOpen) settlePopupHistoryAfterClose(options);
+    }
+
+    function openBoardWriteModal() {
+      const modal = document.querySelector("[data-board-write-modal]");
+      if (!modal) return;
+      const panel = modal.querySelector(".home-schedule-panel");
+      if (panel) {
+        panel.scrollTop = 0;
+        panel.style.left = "";
+        panel.style.right = "";
+        panel.style.transform = "";
+      }
+      modal.hidden = false;
+      lockBodyScrollForPopup();
+      rememberPopupHistory();
     }
 
     const FOOTER_POLICY_EFFECTIVE_DATE_LABEL = "2026년 0월 0일";
@@ -19927,8 +20085,7 @@
         event.preventDefault();
         closeAllPopupModals();
         setNextBoardAuthor();
-        const modal = document.querySelector("[data-board-write-modal]");
-        if (modal) { modal.hidden = false; lockBodyScrollForPopup(); rememberPopupHistory(); }
+        openBoardWriteModal();
         return;
       }
       const boardWriteCloseTarget = event.target.closest("[data-board-write-close]");
@@ -20005,32 +20162,89 @@
       return result;
     }
 
+    async function boardApiWithTimeout(payload, timeoutMs = 7000) {
+      let timer = 0;
+      try {
+        return await Promise.race([
+          boardApi(payload),
+          new Promise((_, reject) => {
+            timer = window.setTimeout(() => reject(new Error("서버 응답이 지연되고 있습니다.")), timeoutMs);
+          })
+        ]);
+      } finally {
+        if (timer) window.clearTimeout(timer);
+      }
+    }
+
     function readBoardCache() {
       try {
         const cached = JSON.parse(localStorage.getItem(boardCacheKey) || "null");
-        return Array.isArray(cached) ? cached : [];
+        return normalizeBoardPostList(cached);
       } catch (_) {
         return [];
       }
     }
 
+    function normalizeBoardStatus(status) {
+      const legacyMap = { "?묒닔": "접수", "?뺤씤": "확인", "?꾨즺": "완료" };
+      const normalized = legacyMap[status] || String(status || "").trim();
+      return ["접수", "확인", "완료"].includes(normalized) ? normalized : "접수";
+    }
+
+    function strongestBoardStatus(...statuses) {
+      const rank = { "접수": 0, "확인": 1, "완료": 2 };
+      return statuses
+        .map(normalizeBoardStatus)
+        .sort((a, b) => rank[b] - rank[a])[0] || "접수";
+    }
+
+    function normalizeBoardPostList(posts) {
+      const statusOverrides = readBoardStatusOverrides();
+      const authorOverrides = readBoardAuthorOverrides();
+      const byKey = new Map();
+      (Array.isArray(posts) ? posts : []).filter(Boolean).forEach((post, index) => {
+        const key = String(post.id || `${post.category || ""}-${post.createdAt || index}`);
+        if (!key || byKey.has(key)) return;
+        const overrideStatus = statusOverrides[key];
+        const author = Object.prototype.hasOwnProperty.call(authorOverrides, key) ? authorOverrides[key] : post.author;
+        const serverStatus = post.status || "접수";
+        byKey.set(key, {
+          ...post,
+          author: normalizeBoardAuthor(author),
+          attachments: normalizeBoardAttachments(post.attachments),
+          status: strongestBoardStatus(serverStatus, overrideStatus)
+        });
+      });
+      return [...byKey.values()].sort((a, b) => (Number(b.createdAt) || 0) - (Number(a.createdAt) || 0));
+    }
+
+    function readBoardStatusOverrides() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(boardStatusOverrideKey) || "{}");
+        return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+      } catch (_) {
+        return {};
+      }
+    }
+
     function writeBoardCache(posts) {
       try {
-        const safePosts = posts.slice(0, 60).map((post) => {
+        const safePosts = normalizeBoardPostList(posts).slice(0, 60).map((post) => {
           const { localPassword, ...safePost } = post;
-          return safePost;
+          return { ...safePost, author: normalizeBoardAuthor(safePost.author) };
         });
         localStorage.setItem(boardCacheKey, JSON.stringify(safePosts));
       } catch (_) {}
     }
 
-    function createOptimisticBoardPost({ author, category, password, content, visitorId }) {
+    function createOptimisticBoardPost({ author, category, password, content, visitorId, attachments = [] }) {
       return {
         id: `local-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
         visitorId,
-        author,
+        author: normalizeBoardAuthor(author),
         category,
         content,
+        attachments: normalizeBoardAttachments(attachments),
         createdAt: Date.now(),
         status: "접수",
         editable: true,
@@ -20042,10 +20256,18 @@
       };
     }
 
+    function boardVisibleAuthor(post) {
+      return normalizeBoardAuthor(post?.author);
+    }
+
     function replaceBoardPost(tempId, nextPost) {
       const index = boardPosts.findIndex((post) => post.id === tempId);
       if (index >= 0) {
-        boardPosts.splice(index, 1, nextPost);
+        boardPosts.splice(index, 1, {
+          ...boardPosts[index],
+          ...nextPost,
+          status: strongestBoardStatus(boardPosts[index].status, nextPost.status)
+        });
       } else {
         boardPosts.unshift(nextPost);
       }
@@ -20071,7 +20293,21 @@
         if (!response.ok || !result.ok || !Array.isArray(result.posts)) {
           throw new Error(result.error || "寃뚯떆湲 紐⑸줉??遺덈윭?ㅼ? 紐삵뻽?듬땲??");
         }
-        boardPosts = result.posts;
+        const localById = new Map(boardPosts.map((post) => [String(post.id), post]));
+        boardPosts = normalizeBoardPostList(result.posts).map((post) => {
+          const localPost = localById.get(String(post.id));
+          if (!localPost) return post;
+          return {
+            ...post,
+            content: post.content || localPost.content || "",
+            replies: post.replies || localPost.replies || [],
+            followUps: post.followUps || localPost.followUps || [],
+            attachments: normalizeBoardAttachments(post.attachments).length ? normalizeBoardAttachments(post.attachments) : normalizeBoardAttachments(localPost.attachments),
+            status: strongestBoardStatus(post.status, localPost.status),
+            localPassword: localPost.localPassword,
+            isMine: post.isMine || localPost.isMine
+          };
+        });
         boardCurrentPage = Math.min(boardCurrentPage, Math.max(1, Math.ceil(boardPosts.length / boardPageSize)));
         writeBoardCache(boardPosts);
         renderBoardPosts();
@@ -20148,9 +20384,7 @@
     function setBoardStatusBadge(article, status) {
       const badge = article.querySelector(".board-status");
       if (!badge) return;
-      const legacyMap = { "?묒닔": "접수", "?뺤씤": "확인", "?꾨즺": "완료" };
-      const normalizedStatus = legacyMap[status] || status;
-      const normalized = ["접수", "확인", "완료"].includes(normalizedStatus) ? normalizedStatus : "접수";
+      const normalized = normalizeBoardStatus(status);
       badge.textContent = normalized;
       badge.className = "board-status";
       badge.classList.add(
@@ -20171,25 +20405,98 @@
       return [{ role: role || "", text: raw, createdAt: 0, updatedAt: 0 }];
     }
 
+    function normalizeBoardAttachments(value) {
+      if (Array.isArray(value)) {
+        return value.map((file) => ({
+          name: String(file?.name || "첨부 파일").trim() || "첨부 파일",
+          url: String(file?.url || "").trim(),
+          mimeType: String(file?.mimeType || "").trim(),
+          size: Number(file?.size) || 0
+        })).filter((file) => file.name || file.url);
+      }
+      const raw = String(value || "").trim();
+      if (!raw) return [];
+      try {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) return normalizeBoardAttachments(parsed);
+      } catch (error) {}
+      return [{ name: "첨부 파일", url: raw, mimeType: "", size: 0 }];
+    }
+
+    function createBoardAttachmentsSection(attachments) {
+      const files = normalizeBoardAttachments(attachments);
+      if (!files.length) return null;
+      const section = document.createElement("section");
+      section.className = "board-private-section is-content";
+      const heading = document.createElement("div");
+      heading.className = "board-private-heading";
+      const label = document.createElement("p");
+      label.className = "board-private-label";
+      label.textContent = "첨부 파일";
+      heading.append(label);
+      const list = document.createElement("ul");
+      list.className = "board-attachment-links";
+      files.forEach((file, index) => {
+        const item = document.createElement("li");
+        const name = file.name || `첨부 파일 ${index + 1}`;
+        if (file.url) {
+          const link = document.createElement("a");
+          link.href = file.url;
+          link.target = "_blank";
+          link.rel = "noopener";
+          link.textContent = name;
+          item.append(link);
+        } else {
+          const pending = document.createElement("span");
+          pending.textContent = `${name} 저장 중`;
+          item.append(pending);
+        }
+        list.append(item);
+      });
+      section.append(heading, list);
+      return section;
+    }
+
+    function boardLocalContent(post) {
+      return String(post?.content || post?.question || post?.message || "").trim();
+    }
+
+    function canOpenBoardFromLocal(post, password) {
+      if (!post?.isMine || !boardLocalContent(post)) return false;
+      return !post.localPassword || password === post.localPassword;
+    }
+
+    function localBoardReadResult(post) {
+      return {
+        status: post.status || "접수",
+        content: boardLocalContent(post),
+        attachments: post.attachments || [],
+        replies: post.replies || [],
+        followUps: post.followUps || [],
+        editable: true
+      };
+    }
+
     function appendPrivatePostView(article, post, result, password) {
-      article.querySelector(".board-access-panel")?.remove();
-      article.querySelector(".board-private-view")?.remove();
-      post.status = result.status;
-      setBoardStatusBadge(article, result.status);
+      article.querySelectorAll(".board-access-panel, .board-private-view").forEach((panel) => panel.remove());
+      const nextStatus = strongestBoardStatus(post.status, result.status);
+      post.status = nextStatus;
+      result.status = nextStatus;
+      post.attachments = normalizeBoardAttachments(result.attachments || post.attachments);
+      setBoardStatusBadge(article, nextStatus);
 
       const view = document.createElement("div");
       view.className = "board-private-view";
       const replyMessages = normalizeBoardMessages(result.replies || result.reply, "admin");
       const followUpMessages = normalizeBoardMessages(result.followUps || result.followUp, "author");
       const authorFollowUpText = () => followUpMessages.length ? followUpMessages[followUpMessages.length - 1].text : "";
-
       const contentSection = document.createElement("section");
       contentSection.className = "board-private-section is-content";
       const contentHeading = document.createElement("div");
       contentHeading.className = "board-private-heading";
       const contentLabel = document.createElement("p");
       contentLabel.className = "board-private-label";
-      contentLabel.textContent = "?묒꽦???댁슜";
+      contentLabel.textContent = "작성자 원문";
       contentHeading.append(contentLabel);
       const content = document.createElement("p");
       content.className = "board-private-text";
@@ -20264,6 +20571,8 @@
       }
 
       view.append(contentSection);
+      const attachmentsSection = createBoardAttachmentsSection(post.attachments);
+      if (attachmentsSection) view.append(attachmentsSection);
 
       const replySection = document.createElement("section");
       replySection.className = "board-private-section is-reply";
@@ -20398,11 +20707,12 @@
       article.append(view);
     }
     function openBoardPost(article, post) {
-      const existingPanel = article.querySelector(".board-access-panel, .board-private-view");
-      if (existingPanel) {
-        existingPanel.remove();
+      const existingPanels = [...article.querySelectorAll(".board-access-panel, .board-private-view")];
+      if (existingPanels.length) {
+        existingPanels.forEach((panel) => panel.remove());
         return;
       }
+      boardPostList?.querySelectorAll(".board-access-panel, .board-private-view").forEach((panel) => panel.remove());
 
       const panel = document.createElement("form");
       panel.className = "board-access-panel";
@@ -20413,7 +20723,7 @@
       const confirmButton = document.createElement("button");
       confirmButton.className = "board-access-button";
       confirmButton.type = "submit";
-      confirmButton.textContent = "확인 중";
+      confirmButton.textContent = "확인";
       const message = document.createElement("p");
       message.className = "board-access-message";
       panel.append(passwordInput, confirmButton, message);
@@ -20436,18 +20746,17 @@
                 if (post.localPassword && password !== post.localPassword) {
                   throw new Error("비밀번호가 일치하지 않습니다.");
                 }
-                return {
-                  status: post.status || "접수",
-                  content: post.content || "",
-                  replies: post.replies || [],
-                  followUps: post.followUps || [],
-                  editable: true
-                };
+                return localBoardReadResult(post);
               })()
-            : await boardApi({ type: "boardRead", id: post.id, password });
+            : await boardApiWithTimeout({ type: "boardRead", id: post.id, password });
           appendPrivatePostView(article, post, result, password);
         } catch (error) {
-          message.textContent = error?.message || "게시글을 확인하지 못했습니다."; 
+          const errorText = String(error?.message || "");
+          if (canOpenBoardFromLocal(post, password)) {
+            appendPrivatePostView(article, post, localBoardReadResult(post), password);
+            return;
+          }
+          message.textContent = errorText || "게시글을 확인하지 못했습니다."; 
           confirmButton.disabled = false;
           confirmButton.textContent = "확인";
         } finally {
@@ -20492,7 +20801,7 @@
         const openButton = document.createElement("button");
         openButton.className = "board-post-open";
         openButton.type = "button";
-        openButton.setAttribute("aria-label", `${post.author} 게시글 확인`);
+        openButton.setAttribute("aria-label", `${boardVisibleAuthor(post)} 게시글 확인`);
         const authorWrap = document.createElement("span");
         authorWrap.className = "board-post-author-wrap";
         const postNumber = document.createElement("span");
@@ -20502,7 +20811,7 @@
         authorWrap.append(createBoardLockIcon());
         const author = document.createElement("span");
         author.className = "board-post-author";
-        author.textContent = post.author;
+        author.textContent = boardVisibleAuthor(post);
         authorWrap.append(author);
         const categoryBadge = document.createElement("span");
         categoryBadge.className = "board-post-category";
@@ -20547,17 +20856,28 @@
       }
 
       const submitButton = boardForm.querySelector(".board-submit-btn");
-      const submittedAuthor = boardAuthor.value;
+      const submittedAuthor = normalizeBoardAuthor(boardAuthor?.value);
       const submittedCategory = category?.value || "일반 문의";
       const submittedPassword = password.value;
       const submittedContent = content.value.trim();
       const submittedVisitorId = getVisitorIdentity().id;
+      const attachmentFiles = [...boardForm.querySelectorAll('input[type="file"][name^="attachment"]')]
+        .map((input) => input.files?.[0])
+        .filter(Boolean)
+        .slice(0, 3);
+      const optimisticAttachments = attachmentFiles.map((file) => ({
+        name: file.name,
+        url: "",
+        mimeType: file.type,
+        size: file.size
+      }));
       const optimisticPost = createOptimisticBoardPost({
         author: submittedAuthor,
         category: submittedCategory,
         password: submittedPassword,
         content: submittedContent,
-        visitorId: submittedVisitorId
+        visitorId: submittedVisitorId,
+        attachments: optimisticAttachments
       });
 
       boardPosts.unshift(optimisticPost);
@@ -20583,30 +20903,39 @@
         submitButton.textContent = "접수하기";
       }, 900);
 
-      boardApi({
-        type: "boardCreate",
-        visitorId: submittedVisitorId,
-        author: submittedAuthor,
-        category: submittedCategory,
-        password: submittedPassword,
-        content: submittedContent
-      })
+      (async () => {
+        const attachments = await Promise.all(attachmentFiles.map((file) => fileToPayload(file, {
+          maxEdge: 900,
+          quality: 0.72,
+          maxSize: 3 * 1024 * 1024
+        })));
+        return boardApi({
+          type: "boardCreate",
+          visitorId: submittedVisitorId,
+          author: submittedAuthor,
+          category: submittedCategory,
+          password: submittedPassword,
+          content: submittedContent,
+          attachments
+        });
+      })()
         .then((result) => {
           const createdPost = {
             ...optimisticPost,
             ...(result.post || {}),
             id: result.post?.id || result.id || optimisticPost.id,
-            author: result.post?.author || result.author || submittedAuthor,
+            author: submittedAuthor,
             category: result.post?.category || result.category || submittedCategory,
             content: result.post?.content || result.content || submittedContent,
+            attachments: normalizeBoardAttachments(result.post?.attachments || result.attachments || optimisticAttachments),
             createdAt: result.post?.createdAt || result.createdAt || optimisticPost.createdAt,
             status: result.post?.status || result.status || "접수",
             visitorId: result.post?.visitorId || submittedVisitorId,
             isMine: result.post?.isMine ?? true,
             isPending: false
           };
-          delete createdPost.localPassword;
           replaceBoardPost(optimisticPost.id, createdPost);
+          writeBoardAuthorOverride(createdPost.id, submittedAuthor);
           loadBoardPosts();
         })
         .catch((error) => {
@@ -22357,7 +22686,7 @@
         return;
       }
 
-      const submitTarget = closestFrom(event.target, ".form-submit-btn");
+      const submitTarget = closestFrom(event.target, ".application-form .form-submit-btn");
       if (submitTarget) {
         event.preventDefault();
         event.stopPropagation();
@@ -22950,59 +23279,6 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
