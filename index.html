@@ -1725,26 +1725,69 @@
 
     .mbti-score-card {
       display: grid;
-      gap: .2rem;
+      gap: .42rem;
       justify-items: center;
       text-align: center;
-      padding: .85rem;
+      padding: .95rem .85rem 1rem;
       border: 1px solid var(--line);
       border-radius: .9rem;
       background: var(--tint-neutral);
     }
 
     .mbti-score-card strong {
+      display: inline-flex;
+      align-items: baseline;
+      gap: .12rem;
       color: #00c934;
-      font-size: 1.55rem;
-      line-height: 1;
+      font-size: 2.42rem;
+      line-height: .95;
       font-weight: 950;
     }
 
-    .mbti-score-card span {
+    .mbti-score-card strong small {
+      color: var(--ink);
+      font-size: .92rem;
+      font-weight: 950;
+    }
+
+    .mbti-score-pair {
       color: var(--ink);
       font-size: .9rem;
       font-weight: 950;
+    }
+
+    .mbti-score-stars {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .12rem;
+      color: #f7c948;
+      font-size: 1.16rem;
+      line-height: 1;
+      letter-spacing: 0;
+      text-shadow: 0 .05rem .08rem rgba(15, 23, 42, .28);
+    }
+
+    .mbti-score-stars span {
+      position: relative;
+      display: inline-block;
+      color: #f7c948;
+    }
+
+    .mbti-score-stars span.is-half,
+    .mbti-score-stars span.is-empty {
+      color: rgba(148, 163, 184, .42);
+      text-shadow: none;
+    }
+
+    .mbti-score-stars span.is-half::before {
+      content: "★";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 50%;
+      overflow: hidden;
+      color: #f7c948;
+      text-shadow: 0 .05rem .08rem rgba(15, 23, 42, .28);
     }
 
     .mbti-result-grid {
@@ -2644,6 +2687,12 @@
       display: grid;
     }
 
+    .home-schedule-headlines,
+    #home-events {
+      margin-top: 1.8rem;
+      padding-top: 1.1rem;
+    }
+
     .home-participation-calendar {
       --home-title-layer-gap: .75rem;
     }
@@ -3109,7 +3158,6 @@
       display: block;
       margin: 1.8rem 0 0.45rem;
       padding-top: 1.1rem;
-      border-top: 1px solid var(--line);
     }
 
     .event-card {
@@ -4343,7 +4391,7 @@
     }
 
     [data-detail-root][data-gender="여성"] .agree-row input {
-      accent-color: #00d838;
+      accent-color: #00ff40;
     }
 
     [data-detail-root][data-gender="여성"] .detail-list li::before {
@@ -4528,7 +4576,7 @@
       gap: 0.9rem;
       padding: 1.35rem 1.2rem;
       border-radius: 16px;
-      background: #00f040;
+      background: #00ff40;
       border: 0;
       overflow: hidden;
     }
@@ -4557,10 +4605,7 @@
     }
 
     .fee-ticket-divider {
-      align-self: stretch;
-      width: 0;
-      margin: -1.35rem 0.7rem -1.35rem 0;
-      border-left: 1px dashed rgba(7, 21, 11, 0.4);
+      display: none;
     }
 
     .fee-ticket-amount {
@@ -5470,8 +5515,34 @@
 
     .application-contact-grid .form-field input {
       min-height: 2.75rem;
+      line-height: 1;
       padding-right: 0.55rem;
       font-size: 0.78rem;
+    }
+
+    .application-contact-grid .form-field:has(> input)::before {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .contact-phone-input {
+      position: relative;
+    }
+
+    .contact-phone-input .contact-phone-icon {
+      position: absolute;
+      left: 0.72rem;
+      top: 50%;
+      z-index: 1;
+      transform: translateY(-50%);
+      width: 0.9rem;
+      height: 0.9rem;
+      color: #7d8794;
+      pointer-events: none;
+    }
+
+    .application-contact-grid .contact-phone-input input {
+      padding-left: 2.15rem;
     }
 
     .application-contact-section.is-invalid .application-contact-grid input {
@@ -5888,22 +5959,80 @@
 
     .agree-row {
       display: grid;
-      gap: 0.5rem;
+      gap: 0.7rem;
       padding: 0 0.25rem;
     }
 
-    .agree-row label {
+    .agree-row label,
+    .agree-item {
       display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.55rem;
       color: var(--ink);
       font-size: 0.82rem;
-      font-weight: 500;
+      font-weight: 850;
+    }
+
+    .agree-row label {
+      min-width: 0;
+    }
+
+    .agree-all {
+      align-items: baseline;
+      font-size: 0.9rem;
+      font-weight: 950;
+    }
+
+    .agree-all input {
+      transform: translateY(0.12rem);
+    }
+
+    .agree-list {
+      display: grid;
+      gap: 0.62rem;
+      padding-left: 1.2rem;
+    }
+
+    .agree-item {
+      justify-content: space-between;
+      min-height: 1.25rem;
+    }
+
+    .agree-detail-btn {
+      flex: 0 0 auto;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #6f7782;
+      font-size: 0.8rem;
+      font-weight: 850;
+      text-decoration: underline;
+      text-underline-offset: 0.14rem;
+    }
+
+    :root[data-theme="dark"] .agree-detail-btn {
+      color: #aeb6c2;
+    }
+
+    :root[data-theme="dark"] .agree-row label,
+    :root[data-theme="dark"] .agree-item {
+      color: #d2d7de;
+    }
+
+    :root[data-theme="dark"] .agree-all {
+      color: #d8dde4;
     }
 
     .agree-row input {
-      pointer-events: none;
-      accent-color: #00d838;
+      width: 1rem;
+      height: 1rem;
+      flex: 0 0 auto;
+      accent-color: #00e83a;
+    }
+
+    :root[data-theme="dark"] .agree-row input {
+      accent-color: #00ff40;
+      color-scheme: dark;
     }
 
     .detail-section {
@@ -6559,12 +6688,13 @@
     }
 
     .support-file-input {
+      position: relative;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       gap: 0.6rem;
       min-height: 2.75rem;
-      padding: 0 0.4rem 0 0.85rem;
+      padding: 0 6.2rem 0 0.85rem;
       border: 1px solid var(--line);
       border-radius: 0.55rem;
       background: var(--surface);
@@ -6578,20 +6708,37 @@
       border-color: rgba(255, 255, 255, 0.12);
     }
 
-    .support-file-input span[data-support-file-name] {
+    .support-file-input span[data-support-file-name],
+    .support-file-input span[data-board-file-name] {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
-    .support-file-input.has-file span[data-support-file-name] {
+    .support-file-input.has-file span[data-support-file-name],
+    .support-file-input.has-file span[data-board-file-name] {
       color: var(--ink);
       font-weight: 700;
     }
 
+    .board-attachment-list {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    #boardForm .support-file-input span[data-board-file-name] {
+      display: block;
+      flex: 1 1 auto;
+      min-width: 0;
+      text-align: left;
+      transform: translateY(11px);
+    }
+
     .support-file-btn {
+      position: absolute;
+      top: 50%;
+      right: 0.4rem;
       flex: 0 0 auto;
-      margin-left: auto;
       min-height: 2.1rem;
       padding: 0 0.75rem;
       display: inline-flex;
@@ -6602,6 +6749,7 @@
       color: #07150b;
       font-size: 0.78rem;
       font-weight: 850;
+      transform: translateY(-50%);
     }
 
     :root[data-theme="dark"] .support-file-btn {
@@ -9754,7 +9902,7 @@
 
     .footer-policy-modal-body p {
       margin: 0 0 0.7rem;
-      color: var(--muted);
+      color: #596171;
     }
 
     .footer-policy-modal-body h3 {
@@ -9776,7 +9924,7 @@
     .footer-policy-modal-body ol {
       margin: 0 0 0.7rem;
       padding-left: 1.3rem;
-      color: var(--muted);
+      color: #596171;
     }
 
     .footer-policy-modal-body ol {
@@ -9852,7 +10000,7 @@
       border: 1px solid var(--line);
       padding: 0.45rem 0.55rem;
       text-align: left;
-      color: var(--muted);
+      color: #596171;
       font-weight: 500;
     }
 
@@ -9860,6 +10008,14 @@
       color: var(--ink);
       font-weight: 800;
       background: var(--surface);
+    }
+
+    :root[data-theme="dark"] .footer-policy-modal-body p,
+    :root[data-theme="dark"] .footer-policy-modal-body ul,
+    :root[data-theme="dark"] .footer-policy-modal-body ol,
+    :root[data-theme="dark"] .footer-policy-modal-body li,
+    :root[data-theme="dark"] .footer-policy-modal-body td {
+      color: #c9ced8;
     }
 
     .footer-copy {
@@ -11928,6 +12084,22 @@
       color: #b8c0ca !important;
     }
 
+    :root[data-theme="dark"] #page-reviews .match-result-tags .composition-choice-badges {
+      background: transparent !important;
+      border: 0 !important;
+      color: inherit !important;
+    }
+
+    :root[data-theme="dark"] #page-reviews .match-result-tags .composition-gender-badge.is-male {
+      background: #1688f8 !important;
+      color: #ffffff !important;
+    }
+
+    :root[data-theme="dark"] #page-reviews .match-result-tags .composition-gender-badge.is-female {
+      background: #ff7068 !important;
+      color: #ffffff !important;
+    }
+
 
     /* 紐⑸줉 ?꾩껜瑜?媛먯떥??諛뷀깢 ?덉씠??*/
     :root[data-theme="dark"] #page-reviews .match-result-list-panel,
@@ -11948,6 +12120,11 @@
       height: auto !important;
       min-height: 0 !important;
       max-height: none !important;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
     }
 
     :root[data-theme="dark"] #page-reviews .match-result-list-panel.has-locked-height {
@@ -12634,11 +12811,12 @@
       content: "";
       position: absolute;
       left: 0.9rem;
-      top: calc(50% - 0.38rem);
+      top: 50%;
       z-index: 1;
       width: 1rem;
       height: 1rem;
       background: #7f8a99;
+      transform: translateY(-50%);
       -webkit-mask: var(--field-icon) center / contain no-repeat;
       mask: var(--field-icon) center / contain no-repeat;
       pointer-events: none;
@@ -12724,6 +12902,18 @@
       background-size: contain;
       -webkit-mask: none;
       mask: none;
+    }
+
+    .application-form .application-contact-grid .form-field:has(> input)::before {
+      left: 0.74rem;
+      top: 50%;
+      width: 0.9rem;
+      height: 0.9rem;
+      transform: translateY(-50%);
+    }
+
+    .application-form .application-contact-grid .form-field:has(> input) input {
+      padding-left: 2.15rem !important;
     }
 
     .form-field:has(#infoJob),
@@ -12826,7 +13016,6 @@
             <h2 class="home-section-title"><span class="section-title-icon" aria-hidden="true"></span>로테이션 소개팅</h2>
             <div class="event-guide-tabs" role="tablist" aria-label="로테이션 소개팅 안내">
               <button class="event-guide-tab" type="button" data-event-guide-tab="process">절차</button>
-              <button class="event-guide-tab" type="button" data-event-guide-tab="discount">이벤트</button>
             </div>
           </div>
           <div class="event-guide-panel" data-event-guide-panel="process" hidden>
@@ -12835,12 +13024,6 @@
               <li>1:1 매칭 구성의 경우 장소 정보만 사전 안내됩니다.</li>
               <li>신청 및 결제 후 관리자 승인 완료 시 최종 참가가 확정됩니다.</li>
               <li>정원 마감 또는 일정 변경 시 등록된 연락처로 안내드립니다.</li>
-            </ul>
-          </div>
-          <div class="event-guide-panel" data-event-guide-panel="discount" hidden>
-            <h3>가을 이벤트 (9월 - 10월)</h3>
-            <ul>
-              <li>커플 성사 인증 시 10만원 증정</li>
             </ul>
           </div>
           <ul class="event-list" data-event-list="home">
@@ -13028,9 +13211,9 @@
         <section class="match-result-detail-card">
           <h2 class="schedule-section-title" data-match-detail-title><span class="section-title-icon" aria-hidden="true"></span>0화</h2>
           <div class="match-result-detail-flow" aria-hidden="true">
-            <span class="match-result-person">남성 선택</span>
+            <span class="match-result-person">남성</span>
             <span class="match-result-heart">♥</span>
-            <span class="match-result-person">여성 선택</span>
+            <span class="match-result-person">여성</span>
           </div>
           <p class="match-result-detail-summary" data-match-detail-summary>두 사람이 서로 호감을 선택해 연락을 안내한 상태입니다.</p>
         </section>
@@ -13251,7 +13434,7 @@
         <span aria-hidden="true">·</span>
         <button class="footer-policy-link" type="button" onclick="window.goPage(event, 'board')">비즈니스 제안</button>
       </nav>
-      <p class="footer-notice">대표 000 · 사업자등록번호 000000 · 주소 000</p>
+      <p class="footer-notice">사업자번호 333-33-33333 · 주소 부산 부산진구 9번길 20 · 이메일 clovercrew333@gmail.com</p>
       <p class="footer-notice">본 콘텐츠의 저작권은 클로버에 있으며 무단 이용 시 법적 책임이 있을 수 있습니다.</p>
       <p class="footer-copy"><strong>CLOVER</strong> Copyright © 2026 CLOVER. All Rights Reserved.</p>
     </footer>
@@ -13305,7 +13488,7 @@
           <div class="board-form-row">
             <div class="field">
               <label for="boardAuthor">작성자</label>
-              <input id="boardAuthor" name="author" type="text" maxlength="8" placeholder="이름을 입력해 주세요." required>
+              <input id="boardAuthor" name="author" type="text" maxlength="8" placeholder="작성해 주세요." required>
             </div>
             <div class="field">
               <label for="boardCategory">구분</label>
@@ -13328,12 +13511,24 @@
             <textarea id="boardContent" name="content" maxlength="1000" placeholder="내용을 입력해 주세요." required></textarea>
           </div>
           <div class="field">
-            <span class="field-label-text">첨부 파일</span>
-            <label class="support-file-input" for="boardAttachment">
-              <span data-board-file-name>파일을 선택해 주세요.</span>
-              <span class="support-file-btn">찾아보기</span>
-              <input id="boardAttachment" name="attachment" type="file" accept="image/*,.pdf" hidden>
-            </label>
+            <span class="field-label-text">첨부 파일 (최대 3개)</span>
+            <div class="board-attachment-list">
+              <label class="support-file-input" for="boardAttachment1">
+                <span data-board-file-name>파일을 선택해 주세요.</span>
+                <span class="support-file-btn">찾아보기</span>
+                <input id="boardAttachment1" name="attachment1" type="file" accept="image/*,.pdf" hidden>
+              </label>
+              <label class="support-file-input" for="boardAttachment2">
+                <span data-board-file-name>파일을 선택해 주세요.</span>
+                <span class="support-file-btn">찾아보기</span>
+                <input id="boardAttachment2" name="attachment2" type="file" accept="image/*,.pdf" hidden>
+              </label>
+              <label class="support-file-input" for="boardAttachment3">
+                <span data-board-file-name>파일을 선택해 주세요.</span>
+                <span class="support-file-btn">찾아보기</span>
+                <input id="boardAttachment3" name="attachment3" type="file" accept="image/*,.pdf" hidden>
+              </label>
+            </div>
           </div>
           <button class="form-submit-btn board-submit-btn" type="submit">접수하기</button>
         </form>
@@ -13620,6 +13815,34 @@
       return raw.replace(/^(\.\.\/)+/, "").replace(/^\/+/, "");
     }
 
+    const defaultLayerForm1Config = Object.freeze({
+      enabled: false,
+      copy: "",
+      points: []
+    });
+
+    const defaultLayerForm2Config = Object.freeze({
+      compositionOptions: ["1:1", "6:6"],
+      ageOptions: ["20세 - 27세", "24세 - 29세", "27세 - 36세", "30세 - 37세", "34세 - 39세"],
+      weekdayOptions: ["월", "화", "수", "목", "금", "토", "일", "상관없음", "유동일정"],
+      noteEnabled: true
+    });
+
+    const defaultLayerForm3Config = Object.freeze({
+      fields: ["basicInfo", "physicalInfo", "job", "idealRank", "documents", "contactMethod", "message", "agreements"]
+    });
+
+    function layerFormConfig(value, fallback) {
+      if (value && typeof value === "object" && !Array.isArray(value)) return { ...fallback, ...value };
+      if (typeof value === "string" && value.trim()) {
+        try {
+          const parsed = JSON.parse(value);
+          if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) return { ...fallback, ...parsed };
+        } catch {}
+      }
+      return { ...fallback };
+    }
+
     function createEventFromPreset(preset, index = 0) {
       const hasImage = Object.prototype.hasOwnProperty.call(preset, "image");
       const image = hasImage ? (preset.image === null ? "" : preset.image) : (preset.imageUrl || romanticFacelessEventImage);
@@ -13645,6 +13868,9 @@
         male: preset.male || "6",
         female: preset.female || "6",
         showGenderCount: preset.showGenderCount !== false,
+        form1Config: layerFormConfig(preset.form1Config, defaultLayerForm1Config),
+        form2Config: layerFormConfig(preset.form2Config, defaultLayerForm2Config),
+        form3Config: layerFormConfig(preset.form3Config, defaultLayerForm3Config),
         active: preset.active !== false
       };
     }
@@ -13693,7 +13919,7 @@
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
     const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbydw47kJZtRedgcmoTYWmhqHTvX6y_O60BPcIN-paY53ZG5tI4tt-_4YAWqMVksF9Lh/exec";
-    const EVENT_LIST_CACHE_KEY = "clover-managed-event-list-v5";
+    const EVENT_LIST_CACHE_KEY = "clover-managed-event-list-v6";
     const CLOUDINARY_ASSET_MAP = {"assets/optimized/event-taste-homebody.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572124/clover/optimized/event-taste-homebody.webp","assets/optimized/clover-proof-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572106/clover/optimized/clover-proof-08.webp","assets/columns/webtoon-column-01.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572080/clover/columns/webtoon-column-01.png","assets/link-preview.jpg":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572079/clover/link-preview.jpg","assets/optimized/field-venue-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-01.webp","assets/optimized/event-taste-workout.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572126/clover/optimized/event-taste-workout.webp","assets/optimized/clover-proof-12.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572110/clover/optimized/clover-proof-12.webp","assets/columns/webtoon-column-03.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572082/clover/columns/webtoon-column-03.png","assets/optimized/field-venue-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572139/clover/optimized/field-venue-05.webp","assets/optimized/clover-proof-19.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-19.webp","assets/columns/webtoon-column-05.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572084/clover/columns/webtoon-column-05.png","assets/optimized/field-venue-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572143/clover/optimized/field-venue-10.webp","assets/optimized/event-group-study-cafe.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572118/clover/optimized/event-group-study-cafe.webp","assets/optimized/clover-proof-17.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572115/clover/optimized/clover-proof-17.webp","assets/columns/webtoon-column-18.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572097/clover/columns/webtoon-column-18.png","assets/optimized/clover-proof-15.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572113/clover/optimized/clover-proof-15.webp","assets/optimized/clover-proof-14.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572112/clover/optimized/clover-proof-14.webp","assets/optimized/field-venue-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-02.webp","assets/favicon.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572078/clover/favicon.png","assets/optimized/clover-proof-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572105/clover/optimized/clover-proof-07.webp","assets/optimized/event-theme-warm.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572134/clover/optimized/event-theme-warm.webp","assets/optimized/event-theme-dress-code.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572129/clover/optimized/event-theme-dress-code.webp","assets/optimized/clover-proof-11.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572109/clover/optimized/clover-proof-11.webp","assets/optimized/event-theme-divorced.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572128/clover/optimized/event-theme-divorced.webp","assets/optimized/event-theme-professional-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572131/clover/optimized/event-theme-professional-man.webp","assets/optimized/event-theme-japanese-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572130/clover/optimized/event-theme-japanese-woman.webp","assets/optimized/event-theme-wealthy-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572135/clover/optimized/event-theme-wealthy-man.webp","assets/columns/webtoon-column-07.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572086/clover/columns/webtoon-column-07.png","assets/optimized/clover-proof-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-06.webp","assets/clover-logo-v2.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572076/clover/clover-logo-v2.png","assets/columns/webtoon-column-12.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572091/clover/columns/webtoon-column-12.png","assets/optimized/clover-proof-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572102/clover/optimized/clover-proof-03.webp","assets/optimized/event-taste-travel.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572125/clover/optimized/event-taste-travel.webp","assets/optimized/event-theme-tall-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572133/clover/optimized/event-theme-tall-man.webp","assets/columns/webtoon-column-11.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572090/clover/columns/webtoon-column-11.png","assets/optimized/clover-proof-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572108/clover/optimized/clover-proof-10.webp","assets/optimized/event-theme-career-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-career-man.webp","assets/columns/webtoon-column-09.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572088/clover/columns/webtoon-column-09.png","assets/optimized/event-random-destiny-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-random-destiny-new.webp","assets/optimized/event-live-office-worker-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572120/clover/optimized/event-live-office-worker-new.webp","assets/optimized/field-venue-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-08.webp","assets/columns/webtoon-column-04.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572083/clover/columns/webtoon-column-04.png","assets/columns/webtoon-column-16.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572095/clover/columns/webtoon-column-16.png","assets/optimized/clover-proof-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-05.webp","assets/optimized/clover-proof-20.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572117/clover/optimized/clover-proof-20.webp","assets/columns/webtoon-column-17.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572096/clover/columns/webtoon-column-17.png","assets/optimized/event-theme-comfort-40s.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-comfort-40s.webp","assets/optimized/field-venue-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-04.webp","assets/optimized/clover-proof-16.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572114/clover/optimized/clover-proof-16.webp","assets/columns/webtoon-column-14.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572093/clover/columns/webtoon-column-14.png","assets/columns/webtoon-column-19.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572098/clover/columns/webtoon-column-19.png","assets/optimized/event-live-christian.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572119/clover/optimized/event-live-christian.webp","assets/optimized/event-romance-faceless.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572122/clover/optimized/event-romance-faceless.webp","assets/optimized/event-theme-public-servant-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572132/clover/optimized/event-theme-public-servant-woman.webp","assets/optimized/field-venue-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-03.webp","assets/optimized/field-venue-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572140/clover/optimized/field-venue-06.webp","assets/columns/webtoon-column-08.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572087/clover/columns/webtoon-column-08.png","assets/optimized/clover-proof-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572101/clover/optimized/clover-proof-02.webp","assets/optimized/field-venue-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572141/clover/optimized/field-venue-07.webp","assets/optimized/clover-proof-13.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572111/clover/optimized/clover-proof-13.webp","assets/columns/webtoon-column-20.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572099/clover/columns/webtoon-column-20.png","assets/optimized/clover-proof-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572107/clover/optimized/clover-proof-09.webp","assets/optimized/event-taste-active.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572123/clover/optimized/event-taste-active.webp","assets/columns/webtoon-column-06.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572085/clover/columns/webtoon-column-06.png","assets/optimized/event-live-shift-worker.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-live-shift-worker.webp","assets/columns/webtoon-column-15.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572094/clover/columns/webtoon-column-15.png","assets/optimized/footer-lobby-banner-clean.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572144/clover/optimized/footer-lobby-banner-clean.webp","assets/optimized/field-venue-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-09.webp","assets/columns/webtoon-column-13.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572092/clover/columns/webtoon-column-13.png","assets/optimized/clover-proof-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572103/clover/optimized/clover-proof-04.webp","assets/columns/webtoon-column-10.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572089/clover/columns/webtoon-column-10.png","assets/columns/webtoon-column-02.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572081/clover/columns/webtoon-column-02.png","assets/optimized/clover-proof-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572100/clover/optimized/clover-proof-01.webp","assets/optimized/clover-proof-18.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-18.webp"};
     const HERO_CACHE_KEY = "clover-managed-hero-slides-v5";
     const HERO_FALLBACK_SLIDES = [
@@ -14136,7 +14362,13 @@
     }
 
     function isApplicationSelectionReady() {
-      return Boolean(selectedComposition && selectedWeekdays.length && selectedAgeOption);
+      const isParty = isPartyEvent(selectedEvent);
+      return Boolean(
+        (isParty || selectedComposition)
+        && selectedWeekdays.length
+        && (isParty || selectedAgeOption)
+        && (!isDivorcedEvent(selectedEvent) || selectedChildrenCondition)
+      );
     }
 
     function isAgeSelectionEnabled() {
@@ -14176,7 +14408,6 @@
         <button class="age-option-card${ageEnabled && selectedAgeOption?.id === option.id ? " is-selected" : ""}" type="button" data-age-option="${option.id}" ${ageEnabled ? "" : "disabled"}>
           <span class="age-option-check" aria-hidden="true"></span>
           <span class="age-option-main"><strong>${option.range}</strong></span>
-          <span class="age-option-seat${selectedComposition === "6:6" ? "" : " is-placeholder"}${option.remaining === 2 ? " is-low" : ""}" aria-hidden="${selectedComposition === "6:6" ? "false" : "true"}">${option.remaining}명 남음</span>
         </button>
       `).join("");
       return `
@@ -14284,9 +14515,7 @@
     }
 
     function eventSkipsIntroPage(event) {
-      const title = String(event?.title || "");
-      const station = String(event?.station || "");
-      return station === "랜덤" || station === "외모" || station === "40-50대" || title === "기독교 종교를 가진 사람";
+      return true;
     }
 
     function isDivorcedEvent(event) {
@@ -14355,6 +14584,8 @@
     }
 
     function renderEventIntroPage(event) {
+      renderApplicationSelection(event);
+      return;
       selectedEvent = event;
       detailRoot.dataset.gender = selectedApplyGender || "";
       const detailImage = eventImageStack(event);
@@ -14401,7 +14632,8 @@
       const detailVideo = eventVideoMarkup(event, "detail-media");
       selectedApplicationRegions = ["부산"];
       const selectionReady = isApplicationSelectionReady();
-      const selectionPrice = selectedApplyPrice || eventPriceForGender(event, selectedApplyGender);
+      const selectionPrice = eventPriceForGender(event, selectedApplyGender);
+      selectedApplyPrice = selectionPrice;
 
       detailRoot.innerHTML = `
         <article class="detail-hero selection-detail-hero">
@@ -14414,10 +14646,11 @@
           </div>
         </article>
         <div class="application-selection-page">
-          ${renderCompositionSelectionMarkup()}
-          ${renderAgeSelectionMarkup()}
+          ${isPartyEvent(event) ? "" : renderCompositionSelectionMarkup()}
+          ${isPartyEvent(event) ? "" : renderAgeSelectionMarkup()}
           ${selectionScheduleMarkup()}
-          ${event.station === "40-50대" ? "" : renderApplicationNoteMarkup(selectionPrice, event)}
+          ${isDivorcedEvent(event) ? childrenConditionMarkup() : ""}
+          ${renderApplicationNoteMarkup(selectionPrice, event)}
           <button class="selection-complete-btn" type="button" data-selection-complete ${selectionReady ? "" : "disabled"}>선택 완료</button>
         </div>
       `;
@@ -14545,9 +14778,14 @@
       selectedExistingDocumentUrl = "";
       selectedExistingPhotoUrls = [];
       const applicationGender = selectedApplyGender || "";
+      const applicationGenderLabel = applicationGender === "남성" ? "남자" : applicationGender;
+      const currentApplyPrice = eventPriceForGender(event, applicationGender);
+      selectedApplyPrice = currentApplyPrice;
       const applicationAgeRange = selectedAgeOption?.range || "";
       const applicationComposition = selectedComposition || "";
-      const applicationTitleMeta = [applicationComposition && `[${applicationComposition}]`, applicationAgeRange && `[${applicationAgeRange}]`].filter(Boolean).join(" ");
+      const applicationTitleMeta = isPartyEvent(event)
+        ? `[${event.station}]`
+        : [applicationComposition && `[${applicationComposition}]`, applicationAgeRange && `[${applicationAgeRange}]`].filter(Boolean).join(" ");
       detailRoot.dataset.gender = applicationGender;
       const detailImage = eventImageStack(event);
       const detailVideo = eventVideoMarkup(event, "detail-media");
@@ -14566,7 +14804,7 @@
         <form class="application-form">
           <div class="form-intro">
             <div class="form-intro-title-row">
-              <h2>${applicationGender === "남성" ? "남자 지원서 양식" : applicationGender === "여성" ? "여자 지원서 양식" : applicationGender ? `${applicationGender} 신청서 양식` : "신청서 양식"}</h2>
+              <h2>${applicationGender === "남성" ? "남성 지원자" : applicationGender === "여성" ? "여성 지원자" : applicationGender ? `${applicationGender} 지원자` : "지원자"}</h2>
               <button class="apply-same-as-profile-btn" type="button" data-apply-same-as-profile>데이터 불러오기</button>
             </div>
             <p>현재 기준으로 아래 양식을 작성해 주시길 바랍니다.</p>
@@ -14681,15 +14919,18 @@
             <div class="form-grid application-contact-grid">
               <div class="form-field">
                 <label for="applyContactPhone">연락처</label>
-                <input id="applyContactPhone" name="contactPhone" inputmode="numeric" maxlength="13" placeholder="010-0000-0000" data-contact-method-input aria-required="true">
+                <div class="contact-phone-input">
+                  <svg class="contact-phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+                  <input id="applyContactPhone" name="contactPhone" inputmode="numeric" maxlength="13" placeholder="010-0000-0000" data-contact-method-input aria-required="true">
+                </div>
               </div>
               <div class="form-field">
-                <label for="applyKakaoId">카톡ID</label>
-                <input id="applyKakaoId" name="kakaoId" placeholder="카톡ID" data-contact-method-input aria-required="true">
+                <label for="applyKakaoId">카톡 ID</label>
+                <input id="applyKakaoId" name="kakaoId" placeholder="카톡 ID" data-contact-method-input aria-required="true">
               </div>
               <div class="form-field">
-                <label for="applyInstagramId">인스타ID</label>
-                <input id="applyInstagramId" name="instagramId" placeholder="인스타ID" data-contact-method-input aria-required="true">
+                <label for="applyInstagramId">인스타 ID</label>
+                <input id="applyInstagramId" name="instagramId" placeholder="인스타 ID" data-contact-method-input aria-required="true">
               </div>
             </div>
           </section>
@@ -14697,29 +14938,40 @@
           <section class="form-section">
             <h3>나의 대해서</h3>
             <div class="form-field">
-              <textarea id="applyMessage" name="message" aria-label="나의 대해서" placeholder="나를 자유롭게 소개해주세요.">${htmlAttr(selectedApplicationNote)}</textarea>
+              <textarea id="applyMessage" name="message" aria-label="나의 대해서" placeholder="자유롭게 소개해주세요.">${htmlAttr(selectedApplicationNote)}</textarea>
             </div>
           </section>
 
           <section class="form-section application-fee-section">
             <div class="fee-ticket">
               <div class="fee-ticket-label">
-                <span class="fee-ticket-kicker">${htmlAttr(applicationGender)} 지원자</span>
+                <span class="fee-ticket-kicker">${htmlAttr(applicationGenderLabel)} 지원자</span>
                 <span class="fee-ticket-note">입금 이후 확정됩니다.</span>
               </div>
               <div class="fee-ticket-divider"></div>
-              <p class="fee-ticket-amount"><span class="fee-ticket-amount-tag">참가비</span>${htmlAttr(selectedApplyPrice || "")}</p>
+              <p class="fee-ticket-amount"><span class="fee-ticket-amount-tag">참가비</span>${htmlAttr(currentApplyPrice || "")}</p>
             </div>
           </section>
 
-          <button class="form-submit-btn" type="button" disabled>신청하기</button>
-
           <div class="agree-row">
-            <label onclick="return false"><input type="checkbox" checked tabindex="-1" aria-disabled="true" data-agree-terms> [필수] 이용약관 동의</label>
-            <label onclick="return false"><input type="checkbox" checked tabindex="-1" aria-disabled="true" data-agree-privacy> [필수] 개인정보 수집·이용 동의</label>
-            <label onclick="return false"><input type="checkbox" checked tabindex="-1" aria-disabled="true" data-agree-refund> [필수] 취소·환불 규정 동의</label>
-            <label onclick="return false"><input type="checkbox" checked tabindex="-1" aria-disabled="true" data-agree-marketing> [필수] 마케팅 정보 수신 동의 및 촬영 동의</label>
+            <label class="agree-all"><input type="checkbox" data-agree-all> [필수] 약관 전체 동의하기</label>
+            <div class="agree-list">
+              <div class="agree-item">
+                <label><input type="checkbox" data-required-agree data-agree-privacy> [필수] 개인정보 수집 및 이용 동의</label>
+                <button class="agree-detail-btn" type="button" data-footer-policy="개인정보처리방침">자세히</button>
+              </div>
+              <div class="agree-item">
+                <label><input type="checkbox" data-required-agree data-agree-info> [필수] 정보 안내 수신 동의</label>
+                <button class="agree-detail-btn" type="button" data-footer-policy="개인정보처리방침">자세히</button>
+              </div>
+              <div class="agree-item">
+                <label><input type="checkbox" data-required-agree data-agree-content> [필수] 콘텐츠 활용 동의</label>
+                <button class="agree-detail-btn" type="button" data-footer-policy="콘텐츠 활용 동의">자세히</button>
+              </div>
+            </div>
           </div>
+
+          <button class="form-submit-btn" type="button" disabled>신청하기</button>
         </form>
 
       `;
@@ -14738,6 +14990,7 @@
     const applicationFlowStateKey = "cloverApplicationFlowState";
     let pendingEventIndex = 0;
     let selectedEventIndex = 0;
+    let selectedEventId = "";
     let selectedApplyGender = "";
     let selectedApplyPrice = "";
     let selectedScheduleDate = "";
@@ -14750,6 +15003,8 @@
     let selectedBodyPhotoFiles = [];
     let selectedExistingDocumentUrl = "";
     let selectedExistingPhotoUrls = [];
+    const RAW_UPLOAD_FILE_MAX_SIZE = 200 * 1024 * 1024;
+    const PAYLOAD_UPLOAD_FILE_MAX_SIZE = 200 * 1024 * 1024;
     let selectedApplicationRegions = [];
     let selectedAgeOption = null;
     let selectedComposition = "";
@@ -17072,11 +17327,17 @@
 
     function saveDetailState(index, gender, price) {
       selectedEventIndex = Number(index) || 0;
+      const event = events[selectedEventIndex] || null;
+      selectedEventId = event?.id || "";
       selectedApplyGender = gender || "";
       selectedApplyPrice = price || "";
       try {
         sessionStorage.setItem(detailStateKey, JSON.stringify({
           index: selectedEventIndex,
+          id: selectedEventId,
+          station: event?.station || "",
+          title: event?.title || "",
+          event,
           gender: selectedApplyGender,
           price: selectedApplyPrice
         }));
@@ -17089,15 +17350,22 @@
       try {
         const saved = JSON.parse(sessionStorage.getItem(detailStateKey) || "null");
         if (!saved || !saved.gender) return false;
-        selectedEventIndex = Number(saved.index) || 0;
+        selectedEventId = saved.id || "";
+        const eventByIdIndex = selectedEventId ? events.findIndex((event) => event.id === selectedEventId) : -1;
+        const eventByTitleIndex = eventByIdIndex < 0 && saved.title
+          ? events.findIndex((event) => event.title === saved.title && (!saved.station || event.station === saved.station))
+          : -1;
+        const savedIndex = Number(saved.index) || 0;
+        selectedEventIndex = eventByIdIndex >= 0 ? eventByIdIndex : (eventByTitleIndex >= 0 ? eventByTitleIndex : savedIndex);
         selectedApplyGender = saved.gender;
-        selectedEvent = events[selectedEventIndex] || events[0];
+        selectedEvent = eventByIdIndex >= 0 || eventByTitleIndex >= 0
+          ? events[selectedEventIndex]
+          : (saved.event && typeof saved.event === "object" ? createEventFromPreset(saved.event, savedIndex) : events[selectedEventIndex] || events[0]);
+        selectedEventId = selectedEventId || selectedEvent?.id || "";
         selectedApplyPrice = eventPriceForGender(selectedEvent, selectedApplyGender);
         const restoredPhase = phaseOverride || restoreApplicationFlowState();
         restoreApplicationFlowState();
-        if (restoredPhase === "intro" && !eventSkipsIntroPage(selectedEvent)) {
-          renderEventIntroPage(selectedEvent);
-        } else if (restoredPhase === "detail") {
+        if (isPartyEvent(selectedEvent) || restoredPhase === "detail") {
           renderDetail(selectedEvent);
         } else {
           renderApplicationSelection(selectedEvent);
@@ -17114,6 +17382,8 @@
     const SCHEDULE_LIKED_KEY = "clover-schedule-liked:v1";
     const SCHEDULE_VIEWED_KEY = "clover-schedule-viewed:v1";
     const SCHEDULE_CACHE_KEY = "clover-schedule-posts-cache:v3";
+    const ADMIN_DASHBOARD_CONTENT_CACHE_KEY = "clover-admin-dashboard-content:v1";
+    const ADMIN_DASHBOARD_DELETED_CACHE_KEY = "clover-admin-dashboard-deleted:v1";
     const ADMIN_SCHEDULE_POSTS_KEY = "clover-admin-schedule-posts:v1";
     const ADMIN_SCHEDULE_DELETED_KEY = "clover-admin-schedule-deleted-slots:v1";
     const SCHEDULE_FIELD_IMAGES = [
@@ -17132,10 +17402,14 @@
       let fieldIndex = 0;
       return (Array.isArray(posts) ? posts : []).map((post) => {
         if (String(post?.category || "").trim() !== "현장") return post;
+        if (String(post?.attachedImageUrl || post?.imageUrl || post?.image || "").trim()) return post;
         const imageUrl = SCHEDULE_FIELD_IMAGES[fieldIndex % SCHEDULE_FIELD_IMAGES.length];
         fieldIndex += 1;
         return { ...post, imageUrl };
       });
+    }
+    function schedulePostImageUrl(post) {
+      return String(post?.attachedImageUrl || post?.imageUrl || post?.image || "").trim();
     }
     function readAdminSchedulePosts() {
       try {
@@ -17214,8 +17488,9 @@
       const modalLayerClass = options.modalLayer ? " is-modal-layer" : "";
       const interactive = options.interactive !== false;
       const showEngagementMeta = category !== "클로버 근황";
-      const postImageSrc = optimizedAssetUrl(post.imageUrl);
-      const postImageFallback = imageFallbackAttribute(post.imageUrl);
+      const postImageUrl = schedulePostImageUrl(post);
+      const postImageSrc = optimizedAssetUrl(postImageUrl);
+      const postImageFallback = imageFallbackAttribute(postImageUrl);
       const coverContent = `<img src="${htmlAttr(postImageSrc)}"${postImageFallback} alt="${htmlAttr(post.title)}" loading="${headline ? "eager" : "lazy"}" fetchpriority="${headline ? "high" : "auto"}" decoding="async">${categoryBadge}`;
       const coverMarkup = interactive
         ? `<button class="schedule-post-cover" type="button" data-schedule-open="${htmlAttr(post.id)}" aria-label="${htmlAttr(post.title)} 자세히 보기">${coverContent}</button>`
@@ -17243,8 +17518,9 @@
       </article>`;
     }
     function scheduleImageCardHtml(post) {
-      const postImageSrc = optimizedAssetUrl(post.imageUrl);
-      const postImageFallback = imageFallbackAttribute(post.imageUrl);
+      const postImageUrl = schedulePostImageUrl(post);
+      const postImageSrc = optimizedAssetUrl(postImageUrl);
+      const postImageFallback = imageFallbackAttribute(postImageUrl);
       return `<button class="schedule-image-card" type="button" data-schedule-open="${htmlAttr(post.id)}" aria-label="${htmlAttr(post.title)} ?먯꽭??蹂닿린">
         <img src="${htmlAttr(postImageSrc)}"${postImageFallback} alt="${htmlAttr(post.title)}" loading="lazy" decoding="async">
         <span class="schedule-image-card-title">${htmlAttr(post.title)}</span>
@@ -17301,8 +17577,9 @@
       if (!modal || !post) return;
       const comments = Array.isArray(post.comments) ? post.comments : [];
       const liked = scheduleLikedPosts.has(String(post.id));
-      const modalImageSrc = optimizedAssetUrl(post.imageUrl);
-      const modalImageFallback = imageFallbackAttribute(post.imageUrl);
+      const modalImageUrl = schedulePostImageUrl(post);
+      const modalImageSrc = optimizedAssetUrl(modalImageUrl);
+      const modalImageFallback = imageFallbackAttribute(modalImageUrl);
       const isCloverProofModal = String(post.category || "").trim() === "클로버 근황";
       if (isCloverProofModal) {
         modal.innerHTML = `
@@ -17547,12 +17824,10 @@
           <li>본 약관에 정하지 않은 사항은 관계 법령 및 일반적인 상관례에 따릅니다.</li>
           <li>서비스 이용과 관련하여 발생한 분쟁은 관련 법령에서 정하는 절차에 따라 해결합니다.</li>
         </ol>
-        <h3>제17조 (문의 및 연락처)</h3>
+        <h3>제17조 (문의)</h3>
         <p>서비스 이용과 관련한 문의, 신고 및 기타 문의사항은 다음의 연락처를 통하여 접수할 수 있습니다.</p>
         <ul>
-          <li>담당자:</li>
-          <li>직책:</li>
-          <li>이메일:</li>
+          <li>이메일: clovercrew333@gmail.com</li>
         </ul>
         <p class="footer-policy-effective">부칙<br>본 약관은 ${FOOTER_POLICY_EFFECTIVE_DATE}</p>
       `,
@@ -17765,9 +18040,7 @@
         <p>클로버는 이용자의 개인정보를 보호하고 개인정보와 관련한 문의 및 권리행사를 처리하기 위하여 다음과 같이 개인정보 보호 담당자를 지정합니다.</p>
         <h4>개인정보 보호 담당자</h4>
         <ul>
-          <li>성명:</li>
-          <li>직책:</li>
-          <li>이메일:</li>
+          <li>이메일: clovercrew333@gmail.com</li>
         </ul>
         <p>이용자는 개인정보 열람, 정정, 삭제, 처리정지, 광고성 정보 수신거부 및 기타 개인정보 보호와 관련한 문의를 위 연락처를 통해 접수할 수 있습니다.</p>
         <h3>제15조 (개인정보 침해에 대한 신고 및 상담)</h3>
@@ -17789,6 +18062,15 @@
           <li>일정 당일: 환불 불가</li>
         </ul>
         <p class="footer-policy-effective">부칙<br>본 취소 및 환불 규정은 ${FOOTER_POLICY_EFFECTIVE_DATE}</p>
+      `,
+      "콘텐츠 활용 동의": `
+        <p class="footer-policy-meta">시행일자: 2026년 0월 0일</p>
+        <h3>콘텐츠 활용 동의</h3>
+        <p>클로버는 현장 분위기와 서비스 운영 기록을 위해 행사 현장에서 사진 및 영상을 촬영할 수 있습니다.</p>
+        <p>촬영된 사진, 영상, 후기 및 현장 기록은 클로버 웹사이트, 소개 페이지, 안내 자료, 홍보 콘텐츠 등에 활용될 수 있습니다.</p>
+        <p>콘텐츠를 활용할 때에는 참여자의 얼굴이 식별되지 않도록 얼굴 노출을 제한하거나 모자이크, 크롭, 뒷모습, 손, 공간 중심 이미지 등 비식별 방식으로 반영합니다.</p>
+        <p>개인의 이름, 연락처 등 직접 식별 가능한 개인정보는 별도 동의 없이 콘텐츠에 공개하지 않습니다.</p>
+        <p>이 동의는 서비스 운영 및 현장 콘텐츠 활용을 위한 필수 동의이며, 세부 운영 방식은 현장 상황과 서비스 정책에 따라 조정될 수 있습니다.</p>
       `
     };
 
@@ -19113,12 +19395,32 @@
       return `<span class="mbti-result-icon">${icons[category] || icons["썸 궁합"]}</span>`;
     }
 
+    function mbtiScoreStarCount(score) {
+      if (score >= 95) return 5;
+      if (score >= 90) return 4.5;
+      if (score >= 85) return 4;
+      if (score >= 80) return 3.5;
+      if (score >= 75) return 3;
+      if (score >= 70) return 2.5;
+      if (score >= 65) return 2;
+      if (score >= 60) return 1.5;
+      return 1;
+    }
+
+    function mbtiScoreStars(score) {
+      const starCount = mbtiScoreStarCount(score);
+      return Array.from({ length: 5 }, (_, index) => (
+        `<span class="${starCount >= index + 1 ? "is-full" : starCount >= index + 0.5 ? "is-half" : "is-empty"}" aria-hidden="true">★</span>`
+      )).join("");
+    }
+
     function mbtiResultParts() {
       const { self, partner, selfGender, scoreNonce } = mbtiCompatibilityState;
       const partnerGender = mbtiPartnerGender();
       const todayKey = mbtiTodayKey();
       const seed = mbtiHash(`${todayKey}|${self}|${partner}|${selfGender}|${scoreNonce || ""}`);
       const score = mbtiScore(self, partner, todayKey, selfGender, scoreNonce);
+      const starCount = mbtiScoreStarCount(score);
       const pools = mbtiSentencePools(self, partner, selfGender, partnerGender, score);
       const used = new Set();
       const cards = MBTI_CATEGORIES.map((category, index) => {
@@ -19133,8 +19435,9 @@
       return {
         scoreHtml: `
         <div class="mbti-score-card">
-          <strong>${score}점</strong>
-          <span>${htmlAttr(self)} X ${htmlAttr(partner)}</span>
+          <span class="mbti-score-pair">${htmlAttr(self)} X ${htmlAttr(partner)}</span>
+          <strong>${score}점 <small>/100점</small></strong>
+          <div class="mbti-score-stars" aria-label="${score}점 별점 ${starCount}개">${mbtiScoreStars(score)}</div>
         </div>`,
         cardsHtml: `<div class="mbti-result-grid">${cards}</div>`
       };
@@ -19344,18 +19647,25 @@
       const placeholders = scheduleFeedPlaceholderPosts();
       const placeholderRegular = placeholders.filter((post) => !post.headline && post.category === "현장");
       const placeholderProofs = placeholders.filter((post) => post.category === "클로버 근황");
+      const dashboardManagedPosts = readAdminDashboardContentPosts()
+        .filter((post) => post?.active !== false && ["현장", "클로버 근황"].includes(String(post?.category || "").trim()));
+      const visibleSchedulePosts = [...dashboardManagedPosts, ...schedulePosts].filter((post, index, list) => {
+        const id = String(post?.id || `${post?.category || ""}-${post?.title || ""}-${index}`);
+        return list.findIndex((entry, entryIndex) => String(entry?.id || `${entry?.category || ""}-${entry?.title || ""}-${entryIndex}`) === id) === index;
+      });
 
-      const realProofs = schedulePosts.filter((post) => !post.headline && post.category === "클로버 근황");
+      const realProofs = visibleSchedulePosts.filter((post) => !post.headline && post.category === "클로버 근황");
       const realProofIds = new Set(realProofs.map((post) => post.id));
-      const realRegular = schedulePosts.filter((post) => !post.headline && post.category !== "칼럼" && post.category !== "클로버 근황" && !realProofIds.has(post.id));
+      const realRegular = visibleSchedulePosts.filter((post) => !post.headline && post.category !== "칼럼" && post.category !== "클로버 근황" && !realProofIds.has(post.id));
 
       const regularSource = realRegular.length ? realRegular : placeholderRegular;
-      const regular = regularSource.map((post, i) => ({ ...post, imageUrl: post.imageUrl || SCHEDULE_FIELD_IMAGES[i % SCHEDULE_FIELD_IMAGES.length] }));
-      const proofPosts = placeholderProofs.length ? placeholderProofs : realProofs;
+      const regular = regularSource.map((post, i) => ({ ...post, imageUrl: schedulePostImageUrl(post) || SCHEDULE_FIELD_IMAGES[i % SCHEDULE_FIELD_IMAGES.length] }));
+      const proofPosts = realProofs.length ? realProofs : placeholderProofs;
 
       scheduleFeed.innerHTML = `<section class="schedule-post-strip"><h2 class="schedule-section-title">${scheduleSectionTitleHtml("현장", !!regular.length)}</h2><div class="schedule-image-row" data-schedule-headline-row="regular">${regular.length ? regular.map((post) => scheduleImageCardHtml(post)).join("") : `<div class="schedule-feed-empty">등록된 일반 일정 소식이 없습니다.</div>`}</div></section>${cloverProofGridHtml(proofPosts, !!proofPosts.length)}`;
       requestAnimationFrame(refreshScheduleHeadlineControls);
     }
+
     function readScheduleCache() {
       try {
         const cached = JSON.parse(localStorage.getItem(SCHEDULE_CACHE_KEY) || "null");
@@ -20256,9 +20566,12 @@
       renderBoardPosts();
       boardForm.reset();
       setNextBoardAuthor();
-      const boardFileNameEl = document.querySelector("[data-board-file-name]");
-      if (boardFileNameEl) boardFileNameEl.textContent = "파일을 선택해 주세요.";
-      document.querySelector("#boardForm .support-file-input")?.classList.remove("has-file");
+      document.querySelectorAll("[data-board-file-name]").forEach((nameEl) => {
+        nameEl.textContent = "파일을 선택해 주세요.";
+      });
+      document.querySelectorAll("#boardForm .support-file-input").forEach((label) => {
+        label.classList.remove("has-file");
+      });
       closeBoardWriteModal();
 
       submitButton.disabled = true;
@@ -20309,6 +20622,7 @@
     function setGenderModal(open, options = {}) {
       if (!genderModal) return;
       const wasOpen = !genderModal.hidden;
+      if (open) closeEventGuidePanel();
       if (open || wasOpen) clearPopupFocus();
       genderModal.hidden = !open;
       if (open && !wasOpen) rememberPopupHistory();
@@ -20463,7 +20777,7 @@
     };
 
     const matchResultSampleItems = [
-      { episode: 16, date: "2026-08-09", hour: 19, title: "소개팅 종료", summary: "*서로의 선택을 확인하여 연락이 시작되었습니다.", age: "26 - 33세", type: "활남·훈여", male: 1, female: 1 },
+      { episode: 16, date: "2026-08-09", hour: 19, title: "소개팅 종료", summary: "*서로의 선택을 확인하여 연락이 시작됩니다.", age: "26 - 33세", type: "활남·훈여", male: 1, female: 1 },
       { episode: 15, date: "2026-08-02", hour: 18, title: "소개팅 종료", summary: "관심사가 잘 맞아 자연스럽게 이어진 매칭입니다.", age: "29 - 35세", type: "일본인 여성", male: 6, female: 6 },
       { episode: 14, date: "2026-07-26", hour: 20, title: "소개팅 종료", summary: "서로 좋은 인상을 받아 연락이 이어진 결과입니다.", age: "25 - 32세", type: "180cm 이상 남성", male: 1, female: 1 },
       { episode: 13, date: "2026-07-19", hour: 17, title: "소개팅 종료", summary: "취향을 통해 편하게 대화를 이어가는 사이입니다.", age: "28 - 34세", type: "커리어 남성", male: 6, female: 6 },
@@ -20495,14 +20809,12 @@
     }
 
     function matchResultSuccessCount(item) {
+      if (item?.matchCount !== undefined && item.matchCount !== "") {
+        return Math.max(0, Number(item.matchCount) || 0);
+      }
       const maleCount = Number(item?.male) || 0;
       const femaleCount = Number(item?.female) || 0;
-      const possibleCount = Math.min(maleCount, femaleCount);
-      if (maleCount === 1 && femaleCount === 1) {
-        const seededPercent = ((Number(item?.episode) || 0) * 19) % 100;
-        return seededPercent < 70 ? 0 : 1;
-      }
-      return Math.max(0, Math.min(3, possibleCount));
+      return Math.max(0, Math.min(maleCount, femaleCount));
     }
 
     const matchResultFunMessagesByCount = {
@@ -20538,15 +20850,102 @@
     let lastMatchResultFunMessage = "";
 
     function matchResultFunSummary(item, successCount) {
-      const pool = matchResultFunMessagesByCount[successCount] || [item?.summary || "*서로의 선택을 확인했습니다."];
-      const candidates = pool.length > 1 ? pool.filter((message) => message !== lastMatchResultFunMessage) : pool;
-      const selected = candidates[Math.floor(Math.random() * candidates.length)] || pool[0] || item?.summary || "";
-      lastMatchResultFunMessage = selected;
-      return selected;
+      return item?.summary || "*서로의 선택을 확인했습니다.";
     }
 
     const matchResultPageSize = 10;
     let matchResultCurrentPage = 1;
+
+    function readAdminDashboardContentPosts() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(ADMIN_DASHBOARD_CONTENT_CACHE_KEY) || "[]");
+        if (!Array.isArray(parsed)) return [];
+        const cleaned = parsed.filter((post) => !isBlockedManagedMatchDuplicate(post) && !isDeletedManagedDashboardPost(post));
+        if (cleaned.length !== parsed.length) {
+          localStorage.setItem(ADMIN_DASHBOARD_CONTENT_CACHE_KEY, JSON.stringify(cleaned.slice(0, 120)));
+        }
+        return cleaned;
+      } catch {
+        return [];
+      }
+    }
+
+    function readAdminDashboardDeletedIds() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(ADMIN_DASHBOARD_DELETED_CACHE_KEY) || "[]");
+        return new Set(Array.isArray(parsed) ? parsed.map(String) : []);
+      } catch {
+        return new Set();
+      }
+    }
+
+    function managedDashboardPostId(post, index = 0) {
+      return String(post?.id || `${post?.category || ""}-${post?.title || ""}-${post?.createdAt || index}`);
+    }
+
+    function isDeletedManagedDashboardPost(post, index = 0) {
+      return readAdminDashboardDeletedIds().has(managedDashboardPostId(post, index));
+    }
+
+    function managedMatchEpisode(post) {
+      const titleMatch = String(post?.title || "").match(/(\d+)\s*화/);
+      const idEpisodeMatch = String(post?.id || "").match(/(?:match|episode)[^\d]*(\d+)/i);
+      return Number(post?.episode) || (titleMatch ? Number(titleMatch[1]) : (idEpisodeMatch ? Number(idEpisodeMatch[1]) : 0));
+    }
+
+    function isBlockedManagedMatchDuplicate(post) {
+      if (String(post?.category || "").trim() !== "매칭결과" || managedMatchEpisode(post) !== 16) return false;
+      const rawDate = String(post?.scheduleDate || post?.date || "").trim();
+      const createdAt = Number(post?.createdAt);
+      const createdDate = Number.isFinite(createdAt) ? new Date(createdAt).toISOString().slice(0, 10) : "";
+      const male = Number(post?.male) || 0;
+      const female = Number(post?.female) || 0;
+      const age = String(post?.ageRange || post?.age || "").trim();
+      return rawDate.includes("2026-08-29") || createdDate === "2026-08-29" || (male === 3 && female === 3) || (!rawDate && !age);
+    }
+
+    function schedulePostToMatchResultItem(post, index) {
+      const title = String(post?.title || "").trim();
+      const content = String(post?.content || "*서로의 선택을 확인했습니다.").trim();
+      const episodeMatch = title.match(/(\d+)\s*화/);
+      const idEpisodeMatch = String(post?.id || "").match(/(?:match|episode)[^\d]*(\d+)/i);
+      const matchCountMatch = content.match(/매칭\s*(\d+)\s*명/);
+      const hour = scheduleTimeHour(post?.scheduleTime);
+      const dateMatch = String(post?.scheduleDate || post?.date || "").match(/(\d{4}-\d{2}-\d{2})/);
+      return {
+        id: String(post?.id || `managed-match-${index}`),
+        episode: Number(post?.episode) || (episodeMatch ? Number(episodeMatch[1]) : (idEpisodeMatch ? Number(idEpisodeMatch[1]) : 1000 + index)),
+        date: dateMatch ? dateMatch[1] : new Date(Number(post?.createdAt) || Date.now()).toISOString().slice(0, 10),
+        hour: Number.isNaN(hour) ? 19 : hour,
+        title: title.replace(/^\d+\s*화\s*/, "") || "소개팅 종료",
+        summary: content,
+        age: String(post?.ageRange || post?.age || "").trim(),
+        type: String(post?.meetingMode || "관리자 등록").trim(),
+        male: Number(post?.male) || 0,
+        female: Number(post?.female) || 0,
+        matchCount: post?.matchCount ?? (matchCountMatch ? Number(matchCountMatch[1]) : "")
+      };
+    }
+
+    function matchResultItems() {
+      const deletedIds = readAdminDashboardDeletedIds();
+      const managedPosts = [
+        ...readAdminDashboardContentPosts(),
+        ...readScheduleCache(),
+        ...schedulePosts
+      ].filter((post, index) => post?.active !== false && String(post?.category || "").trim() === "매칭결과" && !isBlockedManagedMatchDuplicate(post) && !deletedIds.has(managedDashboardPostId(post, index)));
+      const sampleItems = matchResultSampleItems.filter((item) => !deletedIds.has(`dashboard-match-${item.episode}`));
+      const seen = new Set();
+      return [
+        ...managedPosts.map(schedulePostToMatchResultItem),
+        ...sampleItems
+      ].filter((item) => {
+        const key = String(item.id || item.episode || item.title || "");
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    }
 
     function matchResultCardHtml(item) {
       const displayEpisode = matchResultEpisodeNumber(item);
@@ -20590,9 +20989,9 @@
               </div>
             </div>
             <div class="match-result-detail-flow is-select-animated" style="margin:0 0 .65rem;" aria-hidden="true">
-              <span class="match-result-person">남성 선택</span>
+              <span class="match-result-person">남성</span>
               <span class="match-result-heart">♥<span class="match-result-heart-number">${matchCount}</span><span class="match-result-sparkles"></span></span>
-              <span class="match-result-person">여성 선택</span>
+              <span class="match-result-person">여성</span>
             </div>
             <p class="match-result-detail-summary" style="margin:0;">${htmlAttr(funSummary)}</p>
           </section>
@@ -20602,7 +21001,7 @@
 
     window.openMatchResultModal = function openMatchResultModal(episode) {
       closeAllPopupModals();
-      const item = matchResultSampleItems.find((entry) => entry.episode === episode);
+      const item = matchResultItems().find((entry) => entry.episode === episode);
       if (!item) return;
       renderMatchResultModal(item);
       document.querySelector("[data-match-result-modal]").hidden = false;
@@ -20624,10 +21023,11 @@
       const pagination = document.querySelector("[data-match-result-pagination]");
       const panel = document.querySelector(".match-result-list-panel");
       if (!container) return;
-      const totalPages = Math.ceil(matchResultSampleItems.length / matchResultPageSize);
+      const items = matchResultItems();
+      const totalPages = Math.max(1, Math.ceil(items.length / matchResultPageSize));
       matchResultCurrentPage = Math.min(Math.max(matchResultCurrentPage, 1), totalPages);
       const start = (matchResultCurrentPage - 1) * matchResultPageSize;
-      const pageItems = matchResultSampleItems.slice(start, start + matchResultPageSize);
+      const pageItems = items.slice(start, start + matchResultPageSize);
       container.innerHTML = pageItems.map(matchResultCardHtml).join("");
       if (!pagination) {
         applyLockedPanelHeight(panel, "matchResult");
@@ -21081,8 +21481,22 @@
       return valid;
     }
 
+    function formatFileSize(bytes) {
+      if (bytes >= 1024 * 1024) return `${Math.round(bytes / 1024 / 1024)}MB`;
+      return `${Math.ceil(bytes / 1024)}KB`;
+    }
+
+    function validateUploadFileSize(files, input = null) {
+      const oversizedFile = [...files].find((file) => file.size > RAW_UPLOAD_FILE_MAX_SIZE);
+      if (!oversizedFile) return true;
+      alert(`${oversizedFile.name} 파일은 ${formatFileSize(RAW_UPLOAD_FILE_MAX_SIZE)} 이하만 업로드할 수 있습니다.`);
+      if (input) input.value = "";
+      return false;
+    }
+
     function renderMypageSelectedFiles(input) {
       const files = [...input.files];
+      if (!validateUploadFileSize(files, input)) return;
       if (input.dataset.mypageFileInput === "document") {
         const preview = document.querySelector("[data-mypage-document-preview]");
         const thumb = document.querySelector("[data-mypage-document-thumb]");
@@ -21152,6 +21566,7 @@
     }
     function renderSelectedFiles(input) {
       const files = [...input.files];
+      if (!validateUploadFileSize(files, input)) return;
 
       if (input.dataset.fileInput === "document") {
         const preview = document.querySelector("[data-document-preview]");
@@ -21273,10 +21688,10 @@
     }
 
     async function fileToPayload(file, options = {}) {
-      const maxSize = Number(options.maxSize) || 5 * 1024 * 1024;
+      const maxSize = Number(options.maxSize) || PAYLOAD_UPLOAD_FILE_MAX_SIZE;
       const preparedFile = file.type.startsWith("image/") ? await compressImage(file, options) : file;
       if (preparedFile.size > maxSize) {
-        throw new Error(`${file.name} ?뚯씪? ${Math.round(maxSize / 1024 / 1024)}MB ?댄븯濡??깅줉??二쇱꽭??`);
+        throw new Error(`${file.name} 파일은 ${formatFileSize(maxSize)} 이하만 업로드할 수 있습니다.`);
       }
       const dataUrl = await readAsDataUrl(preparedFile);
       return {
@@ -21295,6 +21710,30 @@
 
     function hasApplicationContactMethod() {
       return applicationContactMethodCount() === 1;
+    }
+
+    function requiredAgreementInputs() {
+      return [...document.querySelectorAll(".application-form [data-required-agree]")];
+    }
+
+    function hasRequiredApplicationAgreements() {
+      const inputs = requiredAgreementInputs();
+      return inputs.length > 0 && inputs.every((input) => input.checked);
+    }
+
+    function syncAgreementAllCheckbox() {
+      const allInput = document.querySelector(".application-form [data-agree-all]");
+      if (!allInput) return;
+      const inputs = requiredAgreementInputs();
+      allInput.checked = inputs.length > 0 && inputs.every((input) => input.checked);
+    }
+
+    function setAllRequiredAgreements(checked) {
+      requiredAgreementInputs().forEach((input) => {
+        input.checked = checked;
+      });
+      syncAgreementAllCheckbox();
+      updateFormSubmitButton();
     }
 
     function updateContactMethodAvailability(activeInput = null) {
@@ -21337,6 +21776,7 @@
       const totalBodyPhotoCount = selectedBodyPhotoFiles.length;
       if (totalBodyPhotoCount < 1 || totalBodyPhotoCount > 3) return false;
       if (isDivorcedEvent(selectedEvent) && !myChildrenReady()) return false;
+      if (!hasRequiredApplicationAgreements()) return false;
       return true;
     }
 
@@ -21413,7 +21853,7 @@
         return;
       }
 
-      const agreeInputs = [...document.querySelectorAll(".agree-row input")];
+      const agreeInputs = requiredAgreementInputs();
       if (agreeInputs.some((input) => !input.checked)) {
         alert("필수 동의 항목을 확인해 주세요.");
         return;
@@ -21427,17 +21867,21 @@
         const documentFile = selectedDocumentFile ? await fileToPayload(selectedDocumentFile) : null;
         const photoFiles = await Promise.all(selectedPhotoFiles.map(({ file }) => fileToPayload(file)));
         const bodyPhotoFiles = await Promise.all(selectedBodyPhotoFiles.map(({ file }) => fileToPayload(file)));
+        const isPartyApplication = isPartyEvent(selectedEvent);
+        const eventTitleMeta = isPartyApplication
+          ? ` [${selectedEvent.station}]`
+          : `${selectedComposition ? ` [${selectedComposition}]` : ""}${selectedComposition === "1:1" ? "" : ` [${selectedAgeOption?.range || selectedEvent.station}]`}`;
         const payload = {
           submittedAt: new Date().toISOString(),
           visitorId: getVisitorIdentity().id,
-          eventTitle: `[${selectedApplyGender} 신청]${selectedComposition ? ` [${selectedComposition}]` : ""}${selectedComposition === "1:1" ? "" : ` [${selectedAgeOption?.range || selectedEvent.station}]`} ${selectedEvent.title}`,
+          eventTitle: `[${selectedApplyGender} 신청]${eventTitleMeta} ${selectedEvent.title}`,
           applicationType: `${selectedApplyGender} 신청`,
           gender: selectedApplyGender,
           eventDate: selectedScheduleDate,
           selectedRegions: selectedApplicationRegions.join(", "),
-          selectedAgeRange: selectedAgeOption?.range || "",
-          selectedAgeLabel: selectedAgeOption?.label || "",
-          selectedComposition: selectedComposition || "",
+          selectedAgeRange: isPartyApplication ? "" : (selectedAgeOption?.range || ""),
+          selectedAgeLabel: isPartyApplication ? "" : (selectedAgeOption?.label || ""),
+          selectedComposition: isPartyApplication ? "" : (selectedComposition || ""),
           selectedChildrenCondition: selectedChildrenConditionLabel(),
           applicationNote: selectedApplicationNote || "",
           eventPlace: selectedEvent.place,
@@ -21459,8 +21903,8 @@
           instagramId: inputValue("#applyInstagramId"),
           contactInfo: [
             inputValue("#applyContactPhone") && `연락처: ${inputValue("#applyContactPhone")}`,
-            inputValue("#applyKakaoId") && `카톡ID: ${inputValue("#applyKakaoId")}`,
-            inputValue("#applyInstagramId") && `인스타ID: ${inputValue("#applyInstagramId")}`
+            inputValue("#applyKakaoId") && `카톡 ID: ${inputValue("#applyKakaoId")}`,
+            inputValue("#applyInstagramId") && `인스타 ID: ${inputValue("#applyInstagramId")}`
           ].filter(Boolean).join(" / "),
           message: inputValue("#applyMessage"),
           documentFile,
@@ -21471,12 +21915,14 @@
           documentFileName: documentFile?.name || (selectedExistingDocumentUrl ? "내 정보 재직 증명" : ""),
           photoFileNames: [...selectedExistingPhotoUrls.map((_, index) => `내 정보 얼굴 사진 ${index + 1}`), ...photoFiles.map((file) => file.name)].join(", "),
           bodyPhotoFileNames: bodyPhotoFiles.map((file) => file.name).join(", "),
-          termsAgree: document.querySelector("[data-agree-terms]")?.checked || false,
+          termsAgree: document.querySelector("[data-agree-all]")?.checked || false,
           privacyAgree: document.querySelector("[data-agree-privacy]")?.checked || false,
-          refundAgree: document.querySelector("[data-agree-refund]")?.checked || false,
-          marketingAgree: document.querySelector("[data-agree-marketing]")?.checked || false,
-          cancellationRefundAgree: document.querySelector("[data-agree-refund]")?.checked || false,
-          marketingPhotoAgree: document.querySelector("[data-agree-marketing]")?.checked || false
+          refundAgree: false,
+          marketingAgree: document.querySelector("[data-agree-info]")?.checked || false,
+          cancellationRefundAgree: false,
+          marketingPhotoAgree: document.querySelector("[data-agree-content]")?.checked || false,
+          contentUsageAgree: document.querySelector("[data-agree-content]")?.checked || false,
+          infoNoticeAgree: document.querySelector("[data-agree-info]")?.checked || false
         };
 
         button.textContent = "전송 중";
@@ -21532,6 +21978,7 @@
       if (joinTarget) {
         event.preventDefault();
         event.stopPropagation();
+        closeEventGuidePanel();
         pendingEventIndex = Number(joinTarget.dataset.joinIndex) || 0;
         setGenderModal(true);
         return;
@@ -21548,10 +21995,13 @@
         saveDetailState(pendingEventIndex, nextGender, nextPrice);
         resetApplicationSelection();
         setGenderModal(false, { preserveHistory: true });
-        if (eventSkipsIntroPage(eventData)) {
-          renderApplicationSelection(eventData);
+        if (isPartyEvent(eventData)) {
+          selectedEvent = eventData;
+          selectedScheduleDate = eventData.date || "상시 모집";
+          renderDetail(eventData);
+          pushApplicationDetailHistory();
         } else {
-          renderEventIntroPage(eventData);
+          renderApplicationSelection(eventData);
         }
         setPage("event-detail");
         return;
@@ -21571,7 +22021,7 @@
         event.stopPropagation();
         const clickedChildrenCondition = childrenConditionTarget.dataset.childrenCondition;
         selectedChildrenCondition = selectedChildrenCondition === clickedChildrenCondition ? "" : clickedChildrenCondition;
-        renderEventIntroPage(selectedEvent);
+        renderApplicationSelection(selectedEvent);
         return;
       }
 
@@ -21701,7 +22151,8 @@
         event.preventDefault();
         event.stopPropagation();
         if (selectionCompleteTarget.disabled) return;
-        if (!selectedComposition) {
+        const isPartySelection = isPartyEvent(selectedEvent);
+        if (!isPartySelection && !selectedComposition) {
           alert("?щ쭩 ?몄썝 援ъ꽦???좏깮??二쇱꽭??");
           document.querySelector(".composition-selection-block")?.scrollIntoView({ behavior: "smooth", block: "center" });
           return;
@@ -21711,9 +22162,14 @@
           document.querySelector(".schedule-section")?.scrollIntoView({ behavior: "smooth", block: "center" });
           return;
         }
-        if (isAgeSelectionEnabled() && !selectedAgeOption) {
+        if (!isPartySelection && isAgeSelectionEnabled() && !selectedAgeOption) {
           alert("?곕졊?瑜??좏깮??二쇱꽭??");
           document.querySelector(".age-selection-block")?.scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
+        if (isDivorcedEvent(selectedEvent) && !selectedChildrenCondition) {
+          alert("상대방의 자녀 조건을 선택해 주세요.");
+          document.querySelector(".children-condition-heading")?.scrollIntoView({ behavior: "smooth", block: "center" });
           return;
         }
         selectedApplicationNote = document.querySelector("[data-application-note]")?.value.trim() || "";
@@ -21973,6 +22429,15 @@
 
     document.addEventListener("change", (event) => {
       const target = event.target;
+      if (target instanceof HTMLInputElement && target.matches("[data-agree-all]")) {
+        setAllRequiredAgreements(target.checked);
+        return;
+      }
+      if (target instanceof HTMLInputElement && target.matches("[data-required-agree]")) {
+        syncAgreementAllCheckbox();
+        updateFormSubmitButton();
+        return;
+      }
       if (target instanceof HTMLInputElement && target.matches("[data-mypage-file-input]")) {
         renderMypageSelectedFiles(target);
         return;
@@ -22048,14 +22513,20 @@
       submitBtn.disabled = !ready || submitBtn.classList.contains("is-loading");
     }
     (function initBoardAttachment() {
-      const input = document.querySelector("#boardAttachment");
-      const label = document.querySelector("#boardForm .support-file-input");
-      const nameEl = document.querySelector("[data-board-file-name]");
-      if (!input || !label || !nameEl) return;
-      input.addEventListener("change", () => {
-        const file = input.files?.[0];
-        nameEl.textContent = file ? file.name : "파일을 선택해 주세요.";
-        label.classList.toggle("has-file", !!file);
+      document.querySelectorAll("#boardForm .support-file-input").forEach((label) => {
+        const input = label.querySelector('input[type="file"]');
+        const nameEl = label.querySelector("[data-board-file-name]");
+        if (!input || !nameEl) return;
+        input.addEventListener("change", () => {
+          const file = input.files?.[0];
+          if (file && !validateUploadFileSize([file], input)) {
+            nameEl.textContent = "파일을 선택해 주세요.";
+            label.classList.remove("has-file");
+            return;
+          }
+          nameEl.textContent = file ? file.name : "파일을 선택해 주세요.";
+          label.classList.toggle("has-file", !!file);
+        });
       });
     })();
     bindSubmitReady(document.querySelector(".board-form"), ".board-submit-btn");
@@ -22273,7 +22744,7 @@
       startHeroRotation();
     }
     function backendEventToPublic(be, index) {
-      return createEventFromPreset({
+      return applySavedEventEdit(createEventFromPreset({
         id: be.id,
         order: be.order,
         station: be.station,
@@ -22295,16 +22766,24 @@
         male: be.male,
         female: be.female,
         showGenderCount: be.showGenderCount,
+        form1Config: be.form1Config,
+        form2Config: be.form2Config,
+        form3Config: be.form3Config,
         active: be.active
-      }, index);
+      }, index));
     }
 
     function applyManagedEvents(nextEvents) {
       events = nextEvents;
-      selectedEvent = events[selectedEventIndex] || events[0];
+      const selectedByIdIndex = selectedEventId ? events.findIndex((event) => event.id === selectedEventId) : -1;
+      if (selectedByIdIndex >= 0) selectedEventIndex = selectedByIdIndex;
+      selectedEvent = selectedByIdIndex >= 0 ? events[selectedEventIndex] : (selectedEvent || events[selectedEventIndex] || events[0]);
+      selectedEventId = selectedEventId || selectedEvent?.id || "";
       renderEventList();
       if (document.querySelector('[data-page="event-detail"]')?.classList.contains("is-active")) {
-        if (detailRoot?.querySelector(".application-selection-page")) {
+        if (isPartyEvent(selectedEvent)) {
+          renderDetail(selectedEvent);
+        } else if (detailRoot?.querySelector(".application-selection-page")) {
           renderApplicationSelection(selectedEvent);
         } else {
           renderDetail(selectedEvent);
@@ -22471,144 +22950,6 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

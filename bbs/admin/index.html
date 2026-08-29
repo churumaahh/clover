@@ -110,7 +110,7 @@
       background: var(--panel-2);
       color: var(--ink);
       box-shadow: var(--shadow);
-      min-height: 42px;
+      min-height: 48px;
       padding: 0 16px;
       display: inline-flex;
       align-items: center;
@@ -123,10 +123,10 @@
       box-shadow: var(--inset);
     }
     .layout {
-      width: min(1320px, calc(100% - 28px));
+      width: min(1420px, calc(100% - 28px));
       margin: 14px auto 44px;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(286px, 340px);
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 420px);
       gap: 16px;
       align-items: start;
     }
@@ -144,7 +144,7 @@
       background: var(--panel);
       box-shadow: var(--shadow);
     }
-    .remote-nav { display: grid; gap: 10px; }
+    .remote-nav { display: grid; gap: 12px; }
     .nav-btn {
       justify-content: space-between;
       width: 100%;
@@ -177,6 +177,12 @@
       box-shadow: inset 1px 1px 0 rgba(255,255,255,.035), 3px 4px 10px rgba(0,0,0,.22);
     }
     .nav-submenu .metric strong { font-size: 24px; }
+    .nav-divider {
+      height: 1px;
+      margin: 4px 0;
+      background: var(--line);
+      opacity: .9;
+    }
     .count-pill {
       min-width: 24px;
       height: 24px;
@@ -230,6 +236,242 @@
     }
     .panel { padding: 14px; }
     .admin-panel[hidden] { display: none !important; }
+    .dashboard-panel {
+      display: grid;
+      gap: 12px;
+    }
+    .dashboard-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 4px 2px 2px;
+    }
+    .dashboard-head h1 {
+      font-size: 22px;
+    }
+    .dashboard-head-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex: 0 0 auto;
+    }
+    .dashboard-list {
+      display: grid;
+      gap: 10px;
+    }
+    .dashboard-maker {
+      display: grid;
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid rgba(0, 255, 64, .22);
+      border-radius: 14px;
+      background: #181818;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.03), 0 12px 24px rgba(0,0,0,.2);
+    }
+    .dashboard-maker[hidden] {
+      display: none !important;
+    }
+    .dashboard-maker-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .dashboard-maker .create-btn {
+      width: auto;
+      min-height: 42px;
+      padding: 0 22px;
+      font-size: 15px;
+    }
+    .dashboard-item {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 7px;
+      min-width: 0;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel-2);
+      box-shadow: inset 1px 1px 0 rgba(255,255,255,.035), 4px 5px 12px rgba(0,0,0,.22);
+    }
+    .dashboard-item.has-thumb {
+      grid-template-columns: 132px minmax(0, 1fr);
+    }
+    .dashboard-thumb {
+      grid-row: 1 / span 4;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #151515;
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    .dashboard-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .dashboard-item strong {
+      font-size: 15px;
+      line-height: 1.25;
+    }
+    .dashboard-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+    .dashboard-episode-badge {
+      min-width: 40px;
+      height: 32px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 9px;
+      background: #161616;
+      color: #f4f7fb;
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: inset 1px 1px 0 rgba(255,255,255,.04);
+      font-size: 13px;
+      font-weight: 950;
+      flex: 0 0 auto;
+    }
+    .dashboard-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .dashboard-item .dashboard-board-body {
+      color: #eef5ff;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: pre-wrap;
+    }
+    .dashboard-item .dashboard-board-reply {
+      color: #a7f3d0;
+      font-size: 12px;
+      white-space: pre-wrap;
+    }
+    .dashboard-board-card {
+      gap: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    .dashboard-board-toggle {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      width: 100%;
+      padding: 15px;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+    .dashboard-board-summary {
+      display: grid;
+      gap: 7px;
+      min-width: 0;
+    }
+    .dashboard-board-status {
+      align-self: start;
+      min-width: 52px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #252525;
+      color: #e8eef6;
+      font-size: 12px;
+      font-weight: 950;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .dashboard-board-status.is-complete {
+      background: rgba(0, 255, 64, .14);
+      color: #7bff9b;
+    }
+    .dashboard-board-status.is-checked {
+      background: rgba(80, 150, 255, .16);
+      color: #9fc5ff;
+    }
+    .dashboard-board-details {
+      display: none;
+      gap: 12px;
+      padding: 0 15px 15px;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .dashboard-board-card.is-open .dashboard-board-details {
+      display: grid;
+    }
+    .dashboard-board-message,
+    .dashboard-board-reply-box {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #171717;
+      border: 1px solid rgba(255,255,255,.07);
+    }
+    .dashboard-board-message-head,
+    .dashboard-board-reply-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .dashboard-board-message-title,
+    .dashboard-board-reply-title {
+      color: #f5f8fb;
+      font-size: 13px;
+      font-weight: 950;
+    }
+    .dashboard-board-message-time,
+    .dashboard-board-reply-message {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .dashboard-board-message-text,
+    .dashboard-board-reply-text {
+      margin: 0;
+      color: #dce6ef;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.55;
+      white-space: pre-wrap;
+    }
+    .dashboard-board-message.is-admin .dashboard-board-message-text {
+      color: #b7f7c7;
+    }
+    .dashboard-board-reply-box textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+    .dashboard-board-save {
+      width: auto;
+      min-height: 38px;
+      padding: 0 18px;
+      font-size: 14px;
+    }
+    .dashboard-meta {
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 1.35;
+    }
+    .dashboard-item-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 6px;
+      margin-top: 2px;
+    }
+    .dashboard-item.is-off {
+      opacity: .55;
+      filter: grayscale(.35);
+    }
     .event-list { display: grid; gap: 12px; }
     .create-layer-wrap {
       display: grid;
@@ -475,6 +717,14 @@
       border: 2.5px solid rgba(120, 128, 140, 0.25);
       border-top-color: #22c55e;
       animation: list-loading-spin 0.7s linear infinite;
+    }
+    .dashboard-loading {
+      min-height: 108px;
+      flex-direction: column;
+      gap: 10px;
+      color: #dbeafe;
+      font-size: 14px;
+      font-weight: 800;
     }
     @keyframes list-loading-spin {
       to { transform: rotate(360deg); }
@@ -766,7 +1016,7 @@
     }
     .link-btn, .soft-btn, .nav-btn, .small-btn { border-color: #343434; }
     .search { background: #1f1f1f; }
-    @media (max-width: 820px) {
+    @media (max-width: 640px) {
       .layout { grid-template-columns: 1fr; }
       .side { position: static; grid-row: 1; max-height: none; }
       .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -785,7 +1035,7 @@
 <body>
   <div class="layout">
     <main>
-      <section class="panel admin-panel" data-admin-panel="events">
+      <section class="panel admin-panel" data-admin-panel="events" hidden>
         <div class="event-list" data-list></div>
         <div class="empty" data-empty>검색 결과가 없습니다.</div>
         <div class="create-layer-wrap">
@@ -799,9 +1049,123 @@
           <button class="create-btn is-party" type="button" data-create-event="party">소모임 · 파티 생성</button>
         </div>
       </section>
-      <section class="panel admin-panel" data-admin-panel="schedule" hidden>
+      <section class="panel admin-panel" data-admin-panel="schedule">
         <div class="schedule-layer-list" data-schedule-layer-list></div>
         <div class="empty" data-schedule-empty>등록된 일정 안내 레이어가 없습니다.</div>
+      </section>
+      <section class="panel admin-panel dashboard-panel" data-admin-panel="clover" hidden>
+        <div class="dashboard-head">
+          <h1>클로버 근황</h1>
+          <span class="dashboard-head-actions">
+            <button class="soft-btn" type="button" data-dashboard-create="clover">등록</button>
+            <button class="soft-btn" type="button" data-dashboard-refresh>새로고침</button>
+          </span>
+        </div>
+        <form class="dashboard-maker" data-dashboard-maker="clover" hidden>
+          <input type="hidden" name="id">
+          <div class="dashboard-maker-grid">
+            <label class="edit-field">제목<input name="title" placeholder="제목을 입력해 주세요."></label>
+            <label class="edit-field">노출<select name="active"><option value="true">노출 ON</option><option value="false">비노출 OFF</option></select></label>
+            <label class="edit-field is-wide">이미지 URL<input name="imageUrl" placeholder="assets/clover-proof-01.jpg 또는 Cloudinary URL"></label>
+            <label class="edit-field is-wide">이미지 첨부<input type="file" name="imageFile" accept="image/*"></label>
+            <label class="edit-field is-wide">내용<textarea name="content" placeholder="내용을 작성해 주세요."></textarea></label>
+          </div>
+          <div class="edit-actions">
+            <button class="small-btn" type="button" data-dashboard-cancel>취소</button>
+            <button class="create-btn" type="submit">등록</button>
+          </div>
+        </form>
+        <div class="dashboard-list" data-dashboard-list="clover"></div>
+      </section>
+      <section class="panel admin-panel dashboard-panel" data-admin-panel="field" hidden>
+        <div class="dashboard-head">
+          <h1>현장</h1>
+          <span class="dashboard-head-actions">
+            <button class="soft-btn" type="button" data-dashboard-create="field">등록</button>
+            <button class="soft-btn" type="button" data-dashboard-refresh>새로고침</button>
+          </span>
+        </div>
+        <form class="dashboard-maker" data-dashboard-maker="field" hidden>
+          <input type="hidden" name="id">
+          <div class="dashboard-maker-grid">
+            <label class="edit-field">제목<input name="title" placeholder="제목을 입력해 주세요."></label>
+            <label class="edit-field">노출<select name="active"><option value="true">노출 ON</option><option value="false">비노출 OFF</option></select></label>
+            <label class="edit-field is-wide">이미지 URL<input name="imageUrl" placeholder="assets/field-venue-01.jpg 또는 Cloudinary URL"></label>
+            <label class="edit-field is-wide">이미지 첨부<input type="file" name="imageFile" accept="image/*"></label>
+            <label class="edit-field is-wide">내용<textarea name="content" placeholder="내용을 작성해 주세요."></textarea></label>
+          </div>
+          <div class="edit-actions">
+            <button class="small-btn" type="button" data-dashboard-cancel>취소</button>
+            <button class="create-btn" type="submit">등록</button>
+          </div>
+        </form>
+        <div class="dashboard-list" data-dashboard-list="field"></div>
+      </section>
+      <section class="panel admin-panel dashboard-panel" data-admin-panel="match" hidden>
+        <div class="dashboard-head">
+          <h1>매칭결과</h1>
+          <span class="dashboard-head-actions">
+            <button class="soft-btn" type="button" data-dashboard-create="match">등록</button>
+            <button class="soft-btn" type="button" data-dashboard-refresh>새로고침</button>
+          </span>
+        </div>
+        <form class="dashboard-maker" data-dashboard-maker="match" hidden>
+          <input type="hidden" name="id">
+          <div class="dashboard-maker-grid">
+            <label class="edit-field">회차<input name="episode" type="number" min="1" step="1" placeholder="자동 적용" readonly></label>
+            <label class="edit-field">제목<input name="title" placeholder="예: 17화 소개팅 종료"></label>
+            <label class="edit-field">날짜<input type="date" name="scheduleDate"></label>
+            <label class="edit-field">시간<input name="scheduleTime" placeholder="예: 19시"></label>
+            <label class="edit-field">노출<select name="active"><option value="true">노출 ON</option><option value="false">비노출 OFF</option></select></label>
+            <label class="edit-field">나이<input name="ageRange" list="dashboardAgeOptions" placeholder="양식2 나이 선택 또는 직접 입력"></label>
+            <label class="edit-field">남성 인원<input name="male" type="number" min="0" step="1" placeholder="예: 1"></label>
+            <label class="edit-field">여성 인원<input name="female" type="number" min="0" step="1" placeholder="예: 1"></label>
+            <label class="edit-field">매칭 수<input name="matchCount" type="number" min="0" step="1" placeholder="예: 0"></label>
+            <label class="edit-field is-wide">내용<textarea name="content" placeholder="매칭 결과 내용을 작성해 주세요."></textarea></label>
+          </div>
+          <div class="edit-actions">
+            <button class="small-btn" type="button" data-dashboard-cancel>취소</button>
+            <button class="create-btn" type="submit">등록</button>
+          </div>
+        </form>
+        <datalist id="dashboardAgeOptions"></datalist>
+        <div class="dashboard-list" data-dashboard-list="match"></div>
+      </section>
+      <section class="panel admin-panel dashboard-panel" data-admin-panel="counsel" hidden>
+        <div class="dashboard-head">
+          <h1>연애상담</h1>
+          <span class="dashboard-head-actions">
+            <button class="soft-btn" type="button" data-dashboard-create="counsel">등록</button>
+            <button class="soft-btn" type="button" data-dashboard-refresh>새로고침</button>
+          </span>
+        </div>
+        <form class="dashboard-maker" data-dashboard-maker="counsel" hidden>
+          <input type="hidden" name="id">
+          <div class="dashboard-maker-grid">
+            <label class="edit-field">제목<input name="title" placeholder="제목을 입력해 주세요."></label>
+            <label class="edit-field">노출<select name="active"><option value="true">노출 ON</option><option value="false">비노출 OFF</option></select></label>
+            <label class="edit-field is-wide">내용<textarea name="content" placeholder="상담 내용을 작성해 주세요."></textarea></label>
+          </div>
+          <div class="edit-actions">
+            <button class="small-btn" type="button" data-dashboard-cancel>취소</button>
+            <button class="create-btn" type="submit">등록</button>
+          </div>
+        </form>
+        <div class="dashboard-list" data-dashboard-list="counsel"></div>
+      </section>
+      <section class="panel admin-panel dashboard-panel" data-admin-panel="application" hidden>
+        <div class="dashboard-head">
+          <h1>신청 접수</h1>
+          <button class="soft-btn" type="button" data-dashboard-refresh>새로고침</button>
+        </div>
+        <div class="dashboard-list" data-dashboard-list="application"></div>
+      </section>
+      <section class="panel admin-panel dashboard-panel" data-admin-panel="board" hidden>
+        <div class="dashboard-head">
+          <h1>문의 하기</h1>
+          <button class="soft-btn" type="button" data-dashboard-refresh>새로고침</button>
+        </div>
+        <div class="dashboard-list" data-dashboard-list="board"></div>
       </section>
     </main>
 
@@ -823,42 +1187,8 @@
       </section>
 
       <nav class="remote-nav" aria-label="관리자 메뉴">
-        <button class="nav-btn" type="button" data-nav="application">신청 접수 <span class="count-pill">-</span></button>
-        <button class="nav-btn" type="button" data-nav="board">게시판 접수 <span class="count-pill">-</span></button>
-        <div class="nav-group is-open" data-nav-group="events">
-          <button class="nav-btn is-active" type="button" data-nav="events">선택창 관리 <span class="count-pill" data-menu-count>0</span></button>
-          <div class="nav-submenu" aria-label="선택창 관리 하위 메뉴">
-            <section class="cards" aria-label="선택창 요약">
-              <article class="metric"><span>전체 선택창</span><strong data-total>0</strong></article>
-              <article class="metric"><span>노출 ON</span><strong data-on>0</strong></article>
-              <article class="metric"><span>비노출 OFF</span><strong data-off>0</strong></article>
-            </section>
-
-            <section class="toolbar">
-              <input class="search" type="search" placeholder="이름, 분류, 대상 검색" data-search>
-              <button class="soft-btn" type="button" data-all-on>전체 ON</button>
-              <button class="soft-btn" type="button" data-all-off>전체 OFF</button>
-            </section>
-          </div>
-        </div>
-        <div class="nav-group" data-nav-group="events2">
-          <button class="nav-btn" type="button" data-nav="events2">선택창 관리2 <span class="count-pill" data-party-menu-count>0</span></button>
-          <div class="nav-submenu" aria-label="선택창 관리2 하위 메뉴">
-            <section class="cards" aria-label="선택창 관리2 요약">
-              <article class="metric"><span>전체 레이어</span><strong data-party-total>0</strong></article>
-              <article class="metric"><span>노출 ON</span><strong data-party-on>0</strong></article>
-              <article class="metric"><span>비노출 OFF</span><strong data-party-off>0</strong></article>
-            </section>
-
-            <section class="toolbar">
-              <input class="search" type="search" placeholder="소모임, 파티, 지역 검색" data-party-search>
-              <button class="soft-btn" type="button" data-party-all-on>전체 ON</button>
-              <button class="soft-btn" type="button" data-party-all-off>전체 OFF</button>
-            </section>
-          </div>
-        </div>
-        <div class="nav-group" data-nav-group="schedule">
-          <button class="nav-btn" type="button" data-nav="schedule">일정 관리 <span class="count-pill" data-schedule-menu-count>0</span></button>
+        <div class="nav-group is-open" data-nav-group="schedule">
+          <button class="nav-btn is-active" type="button" data-nav="schedule">일정 관리 <span class="count-pill" data-schedule-menu-count>0</span></button>
           <div class="nav-submenu" aria-label="일정 관리 하위 메뉴">
             <form class="schedule-maker" data-schedule-maker>
               <div class="schedule-maker-head">
@@ -922,6 +1252,46 @@
             </form>
           </div>
         </div>
+        <div class="nav-group" data-nav-group="events">
+          <button class="nav-btn" type="button" data-nav="events">선택창 관리 <span class="count-pill" data-menu-count>0</span></button>
+          <div class="nav-submenu" aria-label="선택창 관리 하위 메뉴">
+            <section class="cards" aria-label="선택창 요약">
+              <article class="metric"><span>전체 선택창</span><strong data-total>0</strong></article>
+              <article class="metric"><span>노출 ON</span><strong data-on>0</strong></article>
+              <article class="metric"><span>비노출 OFF</span><strong data-off>0</strong></article>
+            </section>
+
+            <section class="toolbar">
+              <input class="search" type="search" placeholder="이름, 분류, 대상 검색" data-search>
+              <button class="soft-btn" type="button" data-all-on>전체 ON</button>
+              <button class="soft-btn" type="button" data-all-off>전체 OFF</button>
+            </section>
+          </div>
+        </div>
+        <div class="nav-group" data-nav-group="events2">
+          <button class="nav-btn" type="button" data-nav="events2">선택창 관리2 <span class="count-pill" data-party-menu-count>0</span></button>
+          <div class="nav-submenu" aria-label="선택창 관리2 하위 메뉴">
+            <section class="cards" aria-label="선택창 관리2 요약">
+              <article class="metric"><span>전체 레이어</span><strong data-party-total>0</strong></article>
+              <article class="metric"><span>노출 ON</span><strong data-party-on>0</strong></article>
+              <article class="metric"><span>비노출 OFF</span><strong data-party-off>0</strong></article>
+            </section>
+
+            <section class="toolbar">
+              <input class="search" type="search" placeholder="소모임, 파티, 지역 검색" data-party-search>
+              <button class="soft-btn" type="button" data-party-all-on>전체 ON</button>
+              <button class="soft-btn" type="button" data-party-all-off>전체 OFF</button>
+            </section>
+          </div>
+        </div>
+        <div class="nav-divider" role="separator" aria-hidden="true"></div>
+        <button class="nav-btn" type="button" data-nav="clover">클로버 근황</button>
+        <button class="nav-btn" type="button" data-nav="field">현장</button>
+        <button class="nav-btn" type="button" data-nav="match">매칭결과</button>
+        <button class="nav-btn" type="button" data-nav="counsel">연애상담</button>
+        <div class="nav-divider" role="separator" aria-hidden="true"></div>
+        <button class="nav-btn" type="button" data-nav="application">신청 접수</button>
+        <button class="nav-btn" type="button" data-nav="board">문의 하기</button>
       </nav>
     </aside>
   </div>
@@ -941,7 +1311,7 @@
       return result;
     }
     async function apiGet(action, params = {}) {
-      const query = new URLSearchParams({ action, t: String(Date.now()), ...params });
+      const query = new URLSearchParams({ action, t: String(Date.now()), adminPassword: ADMIN_PASSWORD, ...params });
       const response = await fetch(`${GOOGLE_SCRIPT_URL}?${query.toString()}`, { cache: "no-store" });
       const result = await response.json().catch(() => ({}));
       if (!response.ok || !result.ok) throw new Error(result.error || "불러오기 요청이 실패했습니다.");
@@ -956,6 +1326,9 @@
     const ADMIN_SCHEDULE_POSTS_KEY = "clover-admin-schedule-posts:v1";
     const ADMIN_SCHEDULE_BACKUP_KEY = "clover-admin-schedule-posts-backup:v1";
     const ADMIN_SCHEDULE_DELETED_KEY = "clover-admin-schedule-deleted-slots:v1";
+    const DASHBOARD_CONTENT_CACHE_KEY = "clover-admin-dashboard-content:v1";
+    const DASHBOARD_DELETED_CACHE_KEY = "clover-admin-dashboard-deleted:v1";
+    const DASHBOARD_IMAGE_FILE_MAX_SIZE = 200 * 1024 * 1024;
     const eventCardPresets = Object.freeze([
       { station: "랜덤", title: "순차적으로 무작위 선정", target: "우연처럼 시작되는 설렘", image: "assets/event-random-destiny-new.png" },
       { station: "취향", title: "운동을 좋아하는 사람", target: "같이 땀 흘리고 건강하게 가까워지는 만남", image: "assets/event-taste-workout.png" },
@@ -998,6 +1371,11 @@
     let fallbackDeletedEvents = [];
     let fallbackOrder = [];
     let editingScheduleId = "";
+    let dashboardEditingIds = {};
+    let dashboardLocalPosts = [];
+    let dashboardDeletedIds = [];
+    let dashboardLoading = false;
+    let dashboardLoadSeq = 0;
     let scheduleCalendarYear = 0;
     let scheduleCalendarMonth = 0;
     let pressTimer = 0;
@@ -1139,6 +1517,9 @@
         image: event.image,
         imageUrl: event.imageUrl,
         badgeType: event.badgeType || "",
+        form1Config: event.form1Config,
+        form2Config: event.form2Config,
+        form3Config: event.form3Config,
         active: isActive(event)
       };
     }
@@ -1236,10 +1617,60 @@
     function adminImageUrl(value) {
       const raw = String(value || "").trim();
       if (!raw) return "";
+      if (/^data:image\//i.test(raw)) return raw;
       if (/^(https?:)?\/\//i.test(raw)) return raw;
       if (raw.startsWith("../../")) return raw;
       const optimized = optimizedAssetPath(raw.replace(/^\/+/, ""));
       return `../../${optimized}`;
+    }
+
+    const defaultLayerForm1Config = Object.freeze({
+      enabled: false,
+      copy: "",
+      points: []
+    });
+
+    const defaultLayerForm2Config = Object.freeze({
+      compositionOptions: ["1:1", "6:6"],
+      ageOptions: ["20세 - 27세", "24세 - 29세", "27세 - 36세", "30세 - 37세", "34세 - 39세", "40세 - 47세", "44세 - 49세", "47세 - 56세", "50세 - 57세"],
+      weekdayOptions: ["월", "화", "수", "목", "금", "토", "일", "상관없음", "유동일정"],
+      noteEnabled: true
+    });
+
+    const defaultLayerForm3Config = Object.freeze({
+      fields: ["basicInfo", "physicalInfo", "job", "idealRank", "documents", "contactMethod", "message", "agreements"]
+    });
+
+    function layerFormConfig(value, fallback) {
+      if (value && typeof value === "object" && !Array.isArray(value)) return { ...fallback, ...value };
+      if (typeof value === "string" && value.trim()) {
+        try {
+          const parsed = JSON.parse(value);
+          if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) return { ...fallback, ...parsed };
+        } catch {}
+      }
+      return { ...fallback };
+    }
+
+    function layerFormConfigPayload(value, fallback) {
+      return JSON.stringify(layerFormConfig(value, fallback));
+    }
+
+    function dashboardAgeOptions() {
+      const options = new Set(defaultLayerForm2Config.ageOptions || []);
+      events.forEach((event) => {
+        layerFormConfig(event.form2Config, defaultLayerForm2Config).ageOptions.forEach((option) => {
+          const text = String(option || "").trim();
+          if (text) options.add(text);
+        });
+      });
+      return [...options];
+    }
+
+    function renderDashboardAgeOptions() {
+      const datalist = document.getElementById("dashboardAgeOptions");
+      if (!datalist) return;
+      datalist.innerHTML = dashboardAgeOptions().map((option) => `<option value="${htmlAttr(option)}"></option>`).join("");
     }
 
     function createEvent(preset, index) {
@@ -1258,6 +1689,9 @@
         femalePrice: preset.femalePrice || "30,000원",
         layerType: preset.layerType || (["모임", "파티", "소모임 파티"].includes(String(preset.station || "").trim()) ? "party" : "rotation"),
         badgeType: preset.badgeType || "",
+        form1Config: layerFormConfig(preset.form1Config, defaultLayerForm1Config),
+        form2Config: layerFormConfig(preset.form2Config, defaultLayerForm2Config),
+        form3Config: layerFormConfig(preset.form3Config, defaultLayerForm3Config),
         image,
         imageUrl: adminImageUrl(image)
       };
@@ -1378,6 +1812,9 @@
         image: be.image || "",
         imageUrl: adminImageUrl(be.image || ""),
         badgeType: "",
+        form1Config: layerFormConfig(be.form1Config, defaultLayerForm1Config),
+        form2Config: layerFormConfig(be.form2Config, defaultLayerForm2Config),
+        form3Config: layerFormConfig(be.form3Config, defaultLayerForm3Config),
         active: be.active !== false
       };
     }
@@ -1404,6 +1841,9 @@
         femalePrice: merged.femalePrice || "",
         oldPrice: merged.oldPrice || "",
         badgeType: String(merged.badgeType || "").trim(),
+        form1Config: layerFormConfigPayload(merged.form1Config, defaultLayerForm1Config),
+        form2Config: layerFormConfigPayload(merged.form2Config, defaultLayerForm2Config),
+        form3Config: layerFormConfigPayload(merged.form3Config, defaultLayerForm3Config),
         active: merged.active !== false
       };
     }
@@ -1424,6 +1864,7 @@
       }
       updateEventOrders();
       render();
+      renderDashboardAgeOptions();
     }
 
     function isActive(event) {
@@ -1469,6 +1910,261 @@
     }
 
     let adminSchedulePosts = [];
+    const dashboardData = {
+      clover: [],
+      field: [],
+      match: [],
+      counsel: [],
+      application: [],
+      board: []
+    };
+    const PUBLIC_SCHEDULE_CACHE_KEY = "clover-schedule-posts-cache:v3";
+    const PUBLIC_BOARD_CACHE_KEY = "clover-board-posts-v1";
+    const PUBLIC_COUNSEL_CACHE_KEY = "clover-counsel-posts-v1";
+    const dashboardPanelCategories = Object.freeze({
+      clover: "클로버 근황",
+      field: "현장",
+      match: "매칭결과",
+      counsel: "연애상담"
+    });
+    const DASHBOARD_FIELD_IMAGES = Object.freeze([
+      "assets/field-venue-07.png",
+      "assets/field-venue-09.png",
+      "assets/field-venue-01.png",
+      "assets/field-venue-02.png",
+      "assets/field-venue-03.png",
+      "assets/field-venue-04.png",
+      "assets/field-venue-05.png",
+      "assets/field-venue-06.png",
+      "assets/field-venue-08.png",
+      "assets/field-venue-10.png"
+    ]);
+    const dashboardMatchFallbackItems = Object.freeze([
+      { episode: 16, date: "2026-08-09", hour: 19, title: "소개팅 종료", summary: "*서로의 선택을 확인하여 연락이 시작됩니다.", age: "26 - 33세", type: "활남·훈여", male: 1, female: 1 },
+      { episode: 15, date: "2026-08-02", hour: 18, title: "소개팅 종료", summary: "관심사가 잘 맞아 자연스럽게 이어진 매칭입니다.", age: "29 - 35세", type: "일본인 여성", male: 6, female: 6 },
+      { episode: 14, date: "2026-07-26", hour: 20, title: "소개팅 종료", summary: "서로 좋은 인상을 받아 연락이 이어진 결과입니다.", age: "25 - 32세", type: "180cm 이상 남성", male: 1, female: 1 },
+      { episode: 13, date: "2026-07-19", hour: 17, title: "소개팅 종료", summary: "취향을 통해 편하게 대화를 이어가는 사이입니다.", age: "28 - 34세", type: "커리어 남성", male: 6, female: 6 },
+      { episode: 12, date: "2026-07-12", hour: 14, title: "소개팅 종료", summary: "*서로의 감각이 맞아 첫 만남을 준비 중입니다.", age: "31 - 38세", type: "재력가 남성", male: 1, female: 1 },
+      { episode: 11, date: "2026-07-05", hour: 19, title: "소개팅 종료", summary: "마음이 통해 다음 만남을 기대하는 사이입니다.", age: "23 - 30세", type: "공무원 여성", male: 6, female: 6 },
+      { episode: 10, date: "2026-06-28", hour: 18, title: "소개팅 종료", summary: "두 사람의 선택이 맞아 연락 가능한 사이가 되었습니다.", age: "27 - 36세", type: "이동형", male: 1, female: 1 },
+      { episode: 9, date: "2026-06-21", hour: 20, title: "소개팅 종료", summary: "*서로의 마음이 같은 방향으로 맞아 연락이 시작되었습니다.", age: "24 - 29세", type: "운명형", male: 6, female: 6 },
+      { episode: 8, date: "2026-06-14", hour: 15, title: "소개팅 종료", summary: "양쪽 선택을 확인하여 매칭 결과가 확정되었습니다.", age: "30 - 37세", type: "활동형", male: 1, female: 1 },
+      { episode: 7, date: "2026-06-07", hour: 19, title: "소개팅 종료", summary: "서로 감각이 맞아 자연스럽게 연락을 주고받는 단계입니다.", age: "20 - 27세", type: "여행형", male: 6, female: 6 },
+      { episode: 6, date: "2026-05-31", hour: 18, title: "소개팅 종료", summary: "차분한 대화가 이어져 *서로의 호감을 확인했습니다.", age: "27 - 34세", type: "감성형", male: 1, female: 1 },
+      { episode: 5, date: "2026-05-24", hour: 16, title: "소개팅 종료", summary: "취미와 일상 대화가 잘 맞아 연락을 시작했습니다.", age: "29 - 36세", type: "취향형", male: 6, female: 6 },
+      { episode: 4, date: "2026-05-17", hour: 19, title: "소개팅 종료", summary: "*서로의 선택이 맞아 다음 만남을 준비하고 있습니다.", age: "24 - 31세", type: "직장인", male: 1, female: 1 },
+      { episode: 3, date: "2026-05-10", hour: 15, title: "소개팅 종료", summary: "편안한 분위기 속에서 자연스럽게 호감이 이어졌습니다.", age: "31 - 39세", type: "성숙형", male: 6, female: 6 },
+      { episode: 2, date: "2026-05-03", hour: 18, title: "소개팅 종료", summary: "첫 대화의 결이 잘 맞아 연락 가능한 사이가 되었습니다.", age: "25 - 33세", type: "대화형", male: 1, female: 1 },
+      { episode: 1, date: "2026-04-26", hour: 14, title: "소개팅 종료", summary: "서로 좋은 인상을 남겨 매칭 결과가 확정되었습니다.", age: "28 - 35세", type: "기본형", male: 6, female: 6 }
+    ]);
+
+    function readSharedDashboardCache(key) {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(key) || "null");
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function writeSharedDashboardCache(key, posts) {
+      try {
+        localStorage.setItem(key, JSON.stringify((Array.isArray(posts) ? posts : []).slice(0, 100)));
+      } catch {}
+    }
+
+    function uniqueDashboardItems(items) {
+      const seen = new Set();
+      return items.filter((item, index) => {
+        const key = String(item?.id || `${item?.category || ""}-${item?.title || ""}-${item?.createdAt || index}`);
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    }
+
+    function isProtectedDashboardMatchItem(item, name = "") {
+      const category = String(item?.category || dashboardPanelCategories[name] || "").trim();
+      return category === "매칭결과" && Number(dashboardMatchEpisode(item)) === 16 && dashboardDateInputValue(item?.scheduleDate || item?.date || "") === "2026-08-09";
+    }
+
+    function isBlockedDashboardMatchDuplicate(item) {
+      const category = String(item?.category || "").trim();
+      if (category !== "매칭결과" || Number(dashboardMatchEpisode(item)) !== 16) return false;
+      const date = dashboardDateInputValue(item?.scheduleDate || item?.date || "");
+      const createdAt = Number(item?.createdAt);
+      const createdDate = Number.isFinite(createdAt) ? new Date(createdAt).toISOString().slice(0, 10) : "";
+      const male = Number(item?.male) || 0;
+      const female = Number(item?.female) || 0;
+      const age = String(item?.ageRange || item?.age || "").trim();
+      return date === "2026-08-29" || createdDate === "2026-08-29" || (male === 3 && female === 3) || (!date && !age);
+    }
+
+    function cleanDashboardPosts(posts) {
+      return (Array.isArray(posts) ? posts : []).filter((post) => !isBlockedDashboardMatchDuplicate(post));
+    }
+
+    function mergeDashboardBoardPosts(...groups) {
+      const byKey = new Map();
+      groups.flat().filter(Boolean).forEach((post, index) => {
+        const key = String(post.id || `board-${post.author || ""}-${post.createdAt || index}`);
+        const current = byKey.get(key) || {};
+        byKey.set(key, {
+          ...current,
+          ...post,
+          content: String(post.content || "").trim() || current.content || "",
+          question: String(post.question || "").trim() || current.question || "",
+          message: String(post.message || "").trim() || current.message || "",
+          reply: post.reply || current.reply || "",
+          followUp: post.followUp || current.followUp || "",
+          replies: post.replies || current.replies || [],
+          followUps: post.followUps || current.followUps || []
+        });
+      });
+      return [...byKey.values()].sort((a, b) => (Number(b.createdAt) || 0) - (Number(a.createdAt) || 0));
+    }
+
+    function readDashboardLocalPosts() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(DASHBOARD_CONTENT_CACHE_KEY) || "[]");
+        if (!Array.isArray(parsed)) return [];
+        const cleaned = cleanDashboardPosts(parsed);
+        if (cleaned.length !== parsed.length) {
+          localStorage.setItem(DASHBOARD_CONTENT_CACHE_KEY, JSON.stringify(cleaned.slice(0, 120)));
+        }
+        return cleaned;
+      } catch {
+        return [];
+      }
+    }
+
+    function writeDashboardLocalPosts(posts) {
+      dashboardLocalPosts = cleanDashboardPosts(posts);
+      try { localStorage.setItem(DASHBOARD_CONTENT_CACHE_KEY, JSON.stringify(dashboardLocalPosts.slice(0, 120))); } catch {}
+    }
+
+    function readDashboardDeletedIds() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(DASHBOARD_DELETED_CACHE_KEY) || "[]");
+        return Array.isArray(parsed) ? parsed.map(String) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function writeDashboardDeletedIds(ids) {
+      dashboardDeletedIds = [...new Set((Array.isArray(ids) ? ids : []).map(String).filter(Boolean))];
+      try { localStorage.setItem(DASHBOARD_DELETED_CACHE_KEY, JSON.stringify(dashboardDeletedIds)); } catch {}
+    }
+
+    function withoutDeletedDashboardItems(items) {
+      const deleted = new Set(dashboardDeletedIds);
+      return (Array.isArray(items) ? items : []).filter((item) => !deleted.has(dashboardItemId(item)));
+    }
+
+    function dashboardLocalPostsFor(name) {
+      const category = dashboardPanelCategories[name];
+      return dashboardLocalPosts.filter((post) => String(post.category || "").trim() === category);
+    }
+
+    function upsertDashboardLocalPost(post) {
+      const id = String(post?.id || "");
+      if (id) writeDashboardDeletedIds(dashboardDeletedIds.filter((deletedId) => deletedId !== id));
+      const next = dashboardLocalPosts.filter((item) => String(item.id || "") !== id);
+      next.unshift(post);
+      writeDashboardLocalPosts(next);
+    }
+
+    function deleteDashboardLocalPost(id) {
+      writeDashboardLocalPosts(dashboardLocalPosts.filter((post) => String(post.id || "") !== String(id || "")));
+    }
+
+    function dashboardCloverFallbackPosts() {
+      const proofs = [
+        "동네 카페에서 편하게 마주 앉아 찍은 사진을 보내주셨어요.",
+        "엘리베이터 거울 앞에서 남긴 담백한 인증입니다.",
+        "저녁 식사 자리에서 이어진 대화가 다음 약속으로 자연스럽게 이어졌습니다.",
+        "카페 창가 자리에서 나눈 대화가 편안해서 시간이 빠르게 흘렀다고 전해주셨어요.",
+        "처음엔 조심스러웠지만 공통 관심사를 발견하며 분위기가 자연스럽게 풀렸습니다.",
+        "짧은 만남 뒤에도 서로의 말투와 표정이 오래 기억에 남았다는 후기를 남겨주셨어요.",
+        "주말 산책 약속으로 이어진 두 분의 인증입니다.",
+        "조용한 라운지에서 대화를 나누며 서로의 생활 리듬을 자연스럽게 확인했습니다.",
+        "첫 만남 이후 같은 취향의 장소를 함께 찾아가며 두 번째 만남을 이어갔습니다.",
+        "서로 부담 없는 대화가 좋아 다음 주 일정까지 자연스럽게 맞춰보게 되었다고 합니다."
+      ];
+      return proofs.map((content, index) => ({
+        id: `dashboard-clover-fallback-${index + 1}`,
+        category: "클로버 근황",
+        title: `#${proofs.length - index} 커플 인증`,
+        content,
+        imageUrl: `assets/clover-proof-${String(index + 1).padStart(2, "0")}.jpg`,
+        createdAt: Date.now() - index * 43200000,
+        active: true
+      }));
+    }
+
+    function dashboardFieldFallbackPosts() {
+      return [
+        { id: "dashboard-field-fallback-1", category: "현장", title: "[소식] 클로버 라운지 안내", content: "편안한 만남을 위한 공간을 준비하고 있습니다.", imageUrl: DASHBOARD_FIELD_IMAGES[0], createdAt: Date.now(), active: true },
+        { id: "dashboard-field-fallback-2", category: "현장", title: "호텔 라운지 현장", content: "차분한 조명과 넓은 좌석으로 첫 대화가 편안하게 이어지는 공간입니다.", imageUrl: DASHBOARD_FIELD_IMAGES[1], createdAt: Date.now() - 3600000, active: true },
+        { id: "dashboard-field-fallback-3", category: "현장", title: "바 테이블 현장", content: "짧은 대화도 자연스럽게 이어질 수 있도록 동선을 정리해 두었습니다.", imageUrl: DASHBOARD_FIELD_IMAGES[2], createdAt: Date.now() - 7200000, active: true }
+      ];
+    }
+
+    function normalizeDashboardFieldImages(posts) {
+      let fieldIndex = 0;
+      return (Array.isArray(posts) ? posts : []).map((post) => {
+        if (String(post?.category || "").trim() !== "현장") return post;
+        const rawImage = String(post?.attachedImageUrl || post?.imageUrl || post?.image || "").trim();
+        if (rawImage) return post;
+        const imageUrl = DASHBOARD_FIELD_IMAGES[fieldIndex % DASHBOARD_FIELD_IMAGES.length];
+        fieldIndex += 1;
+        return { ...post, imageUrl };
+      });
+    }
+
+    function dashboardMatchItems() {
+      return dashboardMatchFallbackItems.map((item) => ({
+        id: `dashboard-match-${item.episode}`,
+        category: "매칭결과",
+        title: `${item.episode}화 ${item.title}`,
+        content: item.summary,
+        scheduleDate: item.date,
+        scheduleTime: `${String(item.hour).padStart(2, "0")}:00`,
+        male: item.male,
+        female: item.female,
+        ageRange: item.age,
+        meetingMode: item.type,
+        matchCount: item.matchCount ?? Math.min(Number(item.male) || 0, Number(item.female) || 0)
+      }));
+    }
+
+    function applyDashboardSchedulePosts(posts) {
+      const merged = normalizeDashboardFieldImages(cleanDashboardPosts(uniqueDashboardItems([...(Array.isArray(posts) ? posts : []), ...readSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY)])));
+      const clover = merged.filter((post) => String(post.category || "").trim() === "클로버 근황");
+      const field = merged.filter((post) => String(post.category || "").trim() === "현장");
+      const match = merged.filter((post) => String(post.category || "").trim() === "매칭결과");
+      const counsel = merged.filter((post) => String(post.category || "").trim() === "연애상담");
+      dashboardData.clover = withoutDeletedDashboardItems(uniqueDashboardItems([...dashboardLocalPostsFor("clover"), ...(clover.length ? clover : dashboardCloverFallbackPosts())]));
+      dashboardData.field = withoutDeletedDashboardItems(uniqueDashboardItems([...dashboardLocalPostsFor("field"), ...field, ...dashboardFieldFallbackPosts()]));
+      dashboardData.match = withoutDeletedDashboardItems(uniqueDashboardItems([...dashboardLocalPostsFor("match"), ...match, ...dashboardMatchItems()]));
+      dashboardData.counsel = withoutDeletedDashboardItems(uniqueDashboardItems([...dashboardLocalPostsFor("counsel"), ...counsel, ...dashboardData.counsel]));
+    }
+
+    function applyLocalDashboardFallbacks() {
+      dashboardLocalPosts = readDashboardLocalPosts();
+      dashboardDeletedIds = readDashboardDeletedIds();
+      applyDashboardSchedulePosts([]);
+      dashboardData.clover = uniqueDashboardItems([...dashboardLocalPostsFor("clover"), ...dashboardData.clover]);
+      dashboardData.field = uniqueDashboardItems([...dashboardLocalPostsFor("field"), ...dashboardData.field]);
+      dashboardData.match = uniqueDashboardItems([...dashboardLocalPostsFor("match"), ...dashboardData.match]);
+      dashboardData.counsel = uniqueDashboardItems([...dashboardLocalPostsFor("counsel"), ...dashboardData.counsel]);
+      dashboardData.board = mergeDashboardBoardPosts(dashboardData.board, readSharedDashboardCache(PUBLIC_BOARD_CACHE_KEY));
+      if (!dashboardData.counsel.length) dashboardData.counsel = readSharedDashboardCache(PUBLIC_COUNSEL_CACHE_KEY);
+      ["clover", "field", "match", "counsel"].forEach((name) => {
+        dashboardData[name] = withoutDeletedDashboardItems(dashboardData[name]);
+      });
+    }
 
     function backendSchedulePostToAdmin(bp) {
       return {
@@ -1476,7 +2172,7 @@
         category: bp.category || "일정 안내",
         title: bp.title || "",
         content: bp.content || "",
-        imageUrl: bp.imageUrl || "assets/field-venue-07.png",
+        imageUrl: bp.imageUrl || DASHBOARD_FIELD_IMAGES[0],
         views: bp.views || 0,
         likes: bp.likes || 0,
         comments: bp.comments || [],
@@ -1495,10 +2191,43 @@
         const result = await apiGet("schedulePostList", { includeInactive: "1" });
         const list = Array.isArray(result.posts) ? result.posts : [];
         adminSchedulePosts = list.filter((post) => String(post.id || "").startsWith("admin-schedule-")).map(backendSchedulePostToAdmin);
+        applyDashboardSchedulePosts(list);
       } catch (error) {
         showToast(`일정 안내 목록을 불러오지 못했습니다: ${error.message}`);
       }
       renderScheduleAdmin();
+      renderContentDashboards();
+    }
+
+    async function loadContentDashboards() {
+      const requestId = ++dashboardLoadSeq;
+      dashboardLoading = true;
+      renderContentDashboards();
+      applyLocalDashboardFallbacks();
+      try {
+        if (GOOGLE_SCRIPT_URL) {
+          await Promise.all([
+            apiGet("schedulePostList", { includeInactive: "1" }).then((result) => {
+              const list = Array.isArray(result.posts) ? result.posts : [];
+              applyDashboardSchedulePosts(list);
+            }).catch(() => {}),
+            apiGet("boardList", { includeInactive: "1" }).then((result) => {
+              const posts = Array.isArray(result.posts) ? result.posts : [];
+              dashboardData.board = mergeDashboardBoardPosts(posts, readSharedDashboardCache(PUBLIC_BOARD_CACHE_KEY), dashboardData.board);
+            }).catch(() => {}),
+            apiGet("counselList", { includeInactive: "1" }).then((result) => {
+              const posts = Array.isArray(result.posts) ? result.posts : [];
+              dashboardData.counsel = uniqueDashboardItems([...dashboardLocalPostsFor("counsel"), ...dashboardData.counsel, ...(posts.length ? posts : readSharedDashboardCache(PUBLIC_COUNSEL_CACHE_KEY))]);
+            }).catch(() => {}),
+            apiGet("applicationList", { includeInactive: "1" }).then((result) => {
+              dashboardData.application = Array.isArray(result.applications) ? result.applications : (Array.isArray(result.items) ? result.items : []);
+            }).catch(() => {})
+          ]);
+        }
+      } finally {
+        if (requestId === dashboardLoadSeq) dashboardLoading = false;
+        renderContentDashboards();
+      }
     }
 
     function readAdminSchedulePosts() {
@@ -1531,6 +2260,20 @@
       const period = hour < 12 ? "오전" : "오후";
       const displayHour = String(hour % 12 || 12).padStart(2, "0");
       return `${period} ${displayHour}:00`;
+    }
+
+    function dashboardDateInputValue(value) {
+      const text = String(value || "").trim();
+      const isoMatch = text.match(/(\d{4})-(\d{2})-(\d{2})/);
+      if (isoMatch) return `${isoMatch[1]}-${isoMatch[2]}-${isoMatch[3]}`;
+      return "";
+    }
+
+    function dashboardTimeInputValue(value, fallbackHour = "") {
+      const hour = scheduleTimeHour(value);
+      if (!Number.isNaN(hour)) return `${String(hour).padStart(2, "0")}:00`;
+      if (fallbackHour !== "") return `${String(fallbackHour).padStart(2, "0")}:00`;
+      return "";
     }
 
     function scheduleEventTimestamp(iso, time) {
@@ -1888,7 +2631,7 @@
             category: "일정 안내",
             title: `${date} ${time} 소개팅 안내`,
             content,
-            imageUrl: "assets/field-venue-07.png",
+            imageUrl: DASHBOARD_FIELD_IMAGES[0],
             scheduleDate: date,
             scheduleTime: time,
             meetingMode,
@@ -2037,6 +2780,464 @@
       if (partyListEl) partyListEl.innerHTML = partyFiltered.map(eventCardMarkup).join("");
     }
 
+    function dashboardMatchDisplayTitle(item, fallback) {
+      const rawTitle = String(item?.title || fallback || "소개팅 종료").trim().replace(/^\d+\s*화\s*/, "") || "소개팅 종료";
+      const date = dashboardDateInputValue(item?.scheduleDate || item?.date || "");
+      if (!date) return rawTitle;
+      const [year, month, day] = date.split("-").map(Number);
+      if (!year || !month || !day) return rawTitle;
+      const time = scheduleTimeText(dashboardTimeInputValue(item?.scheduleTime, item?.hour || 19));
+      return `[${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")} ${time}] ${rawTitle}`;
+    }
+
+    function dashboardMatchEpisode(item) {
+      const titleMatch = String(item?.title || "").match(/(\d+)\s*화/);
+      if (titleMatch) return Number(titleMatch[1]);
+      const idMatch = String(item?.id || "").match(/(?:match|episode)[^\d]*(\d+)/i);
+      if (idMatch) return Number(idMatch[1]);
+      return Number(item?.episode) || "";
+    }
+
+    function nextDashboardMatchEpisode() {
+      const episodes = (dashboardData.match || [])
+        .map((item) => Number(dashboardMatchEpisode(item)))
+        .filter((episode) => Number.isFinite(episode) && episode > 0);
+      return episodes.length ? Math.max(...episodes) + 1 : 1;
+    }
+
+    function setDashboardMatchEpisodeField(form, value) {
+      const episodeInput = form?.querySelector('[name="episode"]');
+      if (!episodeInput) return;
+      episodeInput.readOnly = true;
+      episodeInput.value = value || nextDashboardMatchEpisode();
+    }
+
+    function dashboardEditableTitle(item, name) {
+      const title = String(item?.title || item?.headline || item?.eventTitle || item?.name || item?.author || dashboardPanelCategories[name] || "").trim();
+      if (name !== "match") return title;
+      return title.replace(/^\d+\s*화\s*/, "").replace(/^\[[^\]]+\]\s*/, "") || "소개팅 종료";
+    }
+
+    function dashboardItemTitle(item, fallback) {
+      if (String(item?.category || "").trim() === "매칭결과") {
+        return dashboardMatchDisplayTitle(item, fallback);
+      }
+      return item.title || item.headline || item.eventTitle || item.name || item.author || fallback;
+    }
+
+    function dashboardItemBody(item) {
+      let body = item.content || item.summary || item.message || item.target || item.applicationNote || item.question || "";
+      if (String(item?.category || "").trim() !== "매칭결과") return body;
+      body = String(body).replace(/\s*·\s*남\s*\d+\s*\/\s*여\s*\d+/g, "").replace(/\s*·\s*남\s*\d+\s*·\s*여\s*\d+/g, "");
+      const details = [
+        item.ageRange || item.age ? `${item.ageRange || item.age}` : "",
+        item.matchCount !== undefined && item.matchCount !== "" && !/매칭\s*\d+\s*명/.test(String(body)) ? `매칭 ${item.matchCount}명` : "",
+        item.male !== undefined && item.male !== "" ? `남 ${item.male}` : "",
+        item.female !== undefined && item.female !== "" ? `여 ${item.female}` : ""
+      ].filter(Boolean).join(" · ");
+      return details ? `${body} · ${details}` : body;
+    }
+
+    function dashboardBoardMessages(value, role) {
+      if (Array.isArray(value)) {
+        return value.map((item) => ({
+          role: item?.role || role || "",
+          text: String(item?.text || "").trim(),
+          createdAt: Number(item?.createdAt) || 0,
+          updatedAt: Number(item?.updatedAt) || 0
+        })).filter((item) => item.text);
+      }
+      const raw = String(value || "").trim();
+      if (!raw) return [];
+      try {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) return dashboardBoardMessages(parsed, role);
+      } catch {}
+      return [{ role: role || "", text: raw, createdAt: 0, updatedAt: 0 }];
+    }
+
+    function dashboardBoardMessageTime(message) {
+      const time = Number(message?.updatedAt || message?.createdAt || 0);
+      return time ? new Date(time).toLocaleString("ko-KR") : "";
+    }
+
+    function dashboardBoardMessageHtml(kind, title, text, message = {}, extra = "") {
+      const time = dashboardBoardMessageTime(message);
+      return `
+        <div class="dashboard-board-message is-${htmlAttr(kind)}">
+          <div class="dashboard-board-message-head">
+            <span class="dashboard-board-message-title">${htmlAttr(title)}</span>
+            ${time ? `<span class="dashboard-board-message-time">${htmlAttr(time)}</span>` : ""}
+          </div>
+          <p class="dashboard-board-message-text">${htmlAttr(text || "-")}</p>
+          ${extra}
+        </div>
+      `;
+    }
+
+    function dashboardBoardReplyHtml(message, index) {
+      const edit = `<button class="small-btn" type="button" data-dashboard-board-reply-edit="${htmlAttr(index)}">수정</button>`;
+      return dashboardBoardMessageHtml("admin", `관리자 답변 ${index + 1}`, message.text, message, edit);
+    }
+
+    function dashboardBoardStatus(item) {
+      const status = String(item.status || "").trim();
+      return ["접수", "완료", "확인"].includes(status) ? status : (dashboardBoardMessages(item.replies || item.reply, "admin").length ? "완료" : "접수");
+    }
+
+    function dashboardBoardNumberMap() {
+      return new Map([...(dashboardData.board || [])]
+        .sort((a, b) => (Number(a.createdAt) || 0) - (Number(b.createdAt) || 0))
+        .map((item, index) => [String(dashboardItemId(item)), index + 1]));
+    }
+
+    function dashboardBoardCardHtml(item, fallbackTitle) {
+      const id = dashboardItemId(item);
+      const number = dashboardBoardNumberMap().get(String(id)) || "-";
+      const content = String(item.content || item.question || item.message || "").trim();
+      const replies = dashboardBoardMessages(item.replies || item.reply, "admin");
+      const followUps = dashboardBoardMessages(item.followUps || item.followUp, "author");
+      const status = dashboardBoardStatus(item);
+      const statusClass = status === "완료" ? "is-complete" : (status === "확인" ? "is-checked" : "");
+      const author = String(item.author || "익명").trim();
+      const category = String(item.category || fallbackTitle || "문의").trim();
+      const preview = content ? (content.length > 110 ? `${content.slice(0, 110)}...` : content) : "문의 내용이 아직 표시되지 않습니다. 새로고침 후에도 안 보이면 서버 스크립트를 배포해 주세요.";
+      const createdAt = item.createdAt ? new Date(Number(item.createdAt)).toLocaleString("ko-KR") : "";
+      const authorThread = followUps.map((message, index) => dashboardBoardMessageHtml("author", `작성자 추가글 ${index + 1}`, message.text, message)).join("");
+      const adminThread = replies.map((message, index) => dashboardBoardReplyHtml(message, index)).join("");
+      const latestReply = replies.length ? replies[replies.length - 1].text : "";
+      const saveLabel = replies.length ? "답변 수정" : "답변 저장";
+      return `
+        <article class="dashboard-item dashboard-board-card" data-dashboard-item="${htmlAttr(id)}" data-dashboard-board-card="${htmlAttr(id)}">
+          <button class="dashboard-board-toggle" type="button" data-dashboard-board-toggle="${htmlAttr(id)}" aria-expanded="false">
+            <span class="dashboard-board-summary">
+              <span class="dashboard-title-row"><span class="dashboard-episode-badge">${htmlAttr(number)}</span><strong>${htmlAttr(author)}님의 ${htmlAttr(category)}</strong></span>
+              <span class="dashboard-meta">${htmlAttr([category, createdAt].filter(Boolean).join(" · "))}</span>
+              <span class="dashboard-board-body">${htmlAttr(preview)}</span>
+            </span>
+            <span class="dashboard-board-status ${statusClass}">${htmlAttr(status)}</span>
+          </button>
+          <div class="dashboard-board-details">
+            ${dashboardBoardMessageHtml("original", "작성자 원문", content || "문의 내용이 아직 표시되지 않습니다.")}
+            ${authorThread}
+            ${adminThread}
+            <div class="dashboard-board-reply-box" data-dashboard-board-reply-box data-reply-index="${replies.length ? htmlAttr(replies.length - 1) : ""}">
+              <span class="dashboard-board-reply-title">${replies.length ? "관리자 답변 수정" : "관리자 답변 작성"}</span>
+              <textarea placeholder="관리자 답변을 입력해 주세요.">${htmlAttr(latestReply)}</textarea>
+              <div class="dashboard-board-reply-actions">
+                <span class="dashboard-board-reply-message" data-dashboard-board-reply-message>${replies.length ? "기본값은 마지막 답변입니다. 위 답변의 수정 버튼을 누르면 해당 답변을 수정합니다." : ""}</span>
+                <button class="create-btn dashboard-board-save" type="button" data-dashboard-board-reply-save="${htmlAttr(id)}">${saveLabel}</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function dashboardItemRawBody(item) {
+      return item.content || item.summary || item.message || item.target || item.applicationNote || item.question || "";
+    }
+
+    function dashboardItemMeta(item) {
+      return [
+        item.category,
+        item.status,
+        item.scheduleDate && scheduleDateText(item.scheduleDate),
+        item.scheduleTime && scheduleTimeText(item.scheduleTime),
+        item.createdAt && new Date(item.createdAt).toLocaleString("ko-KR")
+      ].filter(Boolean).join(" · ");
+    }
+
+    function dashboardItemId(item) {
+      return String(item?.id || item?.episode || "");
+    }
+
+    function dashboardItemImageUrl(item, name) {
+      if (name === "match") return "";
+      const raw = String(item?.attachedImageUrl || item?.imageUrl || item?.image || "").trim();
+      if (raw) return raw;
+      if (name === "field") return DASHBOARD_FIELD_IMAGES[0];
+      if (name === "clover") return "assets/clover-proof-01.jpg";
+      return "";
+    }
+
+    function dashboardCardHtml(item, fallbackTitle, name) {
+      if (name === "board") return dashboardBoardCardHtml(item, fallbackTitle);
+      const title = dashboardItemTitle(item, fallbackTitle);
+      const body = dashboardItemBody(item);
+      const meta = dashboardItemMeta(item);
+      const id = dashboardItemId(item);
+      const manageable = !!dashboardPanelCategories[name] && !!id;
+      const imageUrl = dashboardItemImageUrl(item, name);
+      const active = item.active !== false;
+      const episode = name === "match" ? dashboardMatchEpisode(item) : "";
+      return `
+        <article class="dashboard-item${imageUrl ? " has-thumb" : ""}${active ? "" : " is-off"}" data-dashboard-item="${htmlAttr(id)}">
+          ${imageUrl ? `<span class="dashboard-thumb"><img src="${htmlAttr(adminImageUrl(imageUrl))}" alt="" loading="lazy"></span>` : ""}
+          <span class="dashboard-title-row">${episode ? `<span class="dashboard-episode-badge">${htmlAttr(episode)}화</span>` : ""}<strong>${htmlAttr(title)}</strong></span>
+          ${meta ? `<span class="dashboard-meta">${htmlAttr(meta)}</span>` : ""}
+          ${name === "board" ? dashboardBoardBodyHtml(item) : (body ? `<p>${htmlAttr(String(body)).slice(0, 180)}</p>` : "")}
+          ${manageable ? `<span class="dashboard-item-actions"><button class="toggle-btn ${active ? "is-on" : "is-off"}" type="button" data-dashboard-toggle="${htmlAttr(id)}" data-dashboard-panel="${htmlAttr(name)}">${active ? "ON" : "OFF"}</button><button class="small-btn" type="button" data-dashboard-edit="${htmlAttr(id)}" data-dashboard-panel="${htmlAttr(name)}">수정</button><button class="small-btn danger-btn" type="button" data-dashboard-delete="${htmlAttr(id)}" data-dashboard-panel="${htmlAttr(name)}">삭제</button></span>` : ""}
+        </article>
+      `;
+    }
+
+    function renderDashboardList(name, fallbackTitle, emptyText) {
+      const container = document.querySelector(`[data-dashboard-list="${name}"]`);
+      if (!container) return;
+      const form = dashboardForm(name);
+      const panel = document.querySelector(`[data-admin-panel="${name}"]`);
+      if (form && panel && form.parentElement === container) panel.insertBefore(form, container);
+      if (dashboardLoading) {
+        container.innerHTML = '<div class="dashboard-loading list-loading" role="status" aria-live="polite"><span class="list-loading-spinner"></span><span>불러오는 중입니다.</span></div>';
+        return;
+      }
+      const list = dashboardData[name] || [];
+      container.innerHTML = list.length
+        ? list.map((item) => dashboardCardHtml(item, fallbackTitle, name)).join("")
+        : `<div class="empty is-visible">${emptyText}</div>`;
+      if (form && dashboardEditingIds[name]) {
+        const card = container.querySelector(`[data-dashboard-item="${CSS.escape(String(dashboardEditingIds[name]))}"]`);
+        if (card) {
+          card.insertAdjacentElement("afterend", form);
+          form.hidden = false;
+        }
+      }
+    }
+
+    function renderContentDashboards() {
+      renderDashboardAgeOptions();
+      renderDashboardList("clover", "클로버 근황", "등록된 클로버 근황이 없습니다.");
+      renderDashboardList("field", "현장", "등록된 현장 게시물이 없습니다.");
+      renderDashboardList("match", "매칭결과", "등록된 매칭결과 데이터가 없습니다.");
+      renderDashboardList("counsel", "연애상담", "등록된 연애상담 글이 없습니다.");
+      renderDashboardList("application", "신청 접수", "신청 접수 목록 API가 아직 연결되지 않았습니다.");
+      renderDashboardList("board", "문의 하기", "등록된 문의가 없습니다.");
+    }
+
+    function dashboardForm(name) {
+      return document.querySelector(`[data-dashboard-maker="${name}"]`);
+    }
+
+    function showDashboardForm(name) {
+      const form = dashboardForm(name);
+      if (form) form.hidden = false;
+    }
+
+    function hideDashboardForm(name) {
+      const form = dashboardForm(name);
+      if (form) form.hidden = true;
+    }
+
+    function resetDashboardForm(name) {
+      const form = dashboardForm(name);
+      if (!form) return;
+      const list = document.querySelector(`[data-dashboard-list="${name}"]`);
+      const panel = document.querySelector(`[data-admin-panel="${name}"]`);
+      if (panel && list && form.parentElement !== panel) panel.insertBefore(form, list);
+      form.reset();
+      const idEl = form.querySelector('[name="id"]');
+      if (idEl) idEl.value = "";
+      const activeEl = form.querySelector('[name="active"]');
+      if (activeEl) activeEl.value = "true";
+      const imageFileInput = form.querySelector('input[type="file"][name="imageFile"]');
+      if (imageFileInput) delete imageFileInput.dataset.imageDataUrl;
+      if (name === "match") setDashboardMatchEpisodeField(form, nextDashboardMatchEpisode());
+      const submit = form.querySelector('button[type="submit"]');
+      if (submit) submit.textContent = "등록";
+      delete dashboardEditingIds[name];
+      hideDashboardForm(name);
+    }
+
+    function fillDashboardForm(name, item, card) {
+      const form = dashboardForm(name);
+      if (!form || !item) return;
+      form.style.visibility = "hidden";
+      if (card) card.insertAdjacentElement("afterend", form);
+      showDashboardForm(name);
+      dashboardEditingIds[name] = dashboardItemId(item);
+      const fields = {
+        id: dashboardItemId(item),
+        episode: dashboardMatchEpisode(item),
+        title: dashboardEditableTitle(item, name),
+        content: dashboardItemRawBody(item),
+        imageUrl: name === "match" ? "" : String(item.imageUrl || item.image || ""),
+        scheduleDate: dashboardDateInputValue(item.scheduleDate || item.date || ""),
+        scheduleTime: dashboardTimeInputValue(item.scheduleTime, item.hour || ""),
+        ageRange: item.ageRange || item.age || "",
+        male: item.male ?? "",
+        female: item.female ?? "",
+        matchCount: item.matchCount ?? "",
+        active: item.active === false ? "false" : "true"
+      };
+      Object.entries(fields).forEach(([key, value]) => {
+        const input = form.querySelector(`[name="${key}"]`);
+        if (input) input.value = value;
+      });
+      if (name === "match") setDashboardMatchEpisodeField(form, fields.episode);
+      const imageFileInput = form.querySelector('input[type="file"][name="imageFile"]');
+      if (imageFileInput) delete imageFileInput.dataset.imageDataUrl;
+      const submit = form.querySelector('button[type="submit"]');
+      if (submit) submit.textContent = "수정";
+      requestAnimationFrame(() => {
+        form.style.visibility = "";
+        if (card) card.scrollIntoView({ block: "nearest" });
+      });
+    }
+
+    function fileToDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result || ""));
+        reader.onerror = () => reject(new Error("이미지를 읽지 못했습니다."));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function handleDashboardImageFile(input) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+      if (!file.type.startsWith("image/")) {
+        showToast("이미지 파일만 첨부할 수 있습니다.");
+        input.value = "";
+        return;
+      }
+      if (file.size > DASHBOARD_IMAGE_FILE_MAX_SIZE) {
+        showToast("이미지는 최대 200MB까지 첨부할 수 있습니다.");
+        input.value = "";
+        return;
+      }
+      try {
+        const form = input.closest("[data-dashboard-maker]");
+        const urlInput = form?.querySelector('[name="imageUrl"]');
+      const dataUrl = await fileToDataUrl(file);
+        input.dataset.imageDataUrl = dataUrl;
+        showToast("첨부 이미지가 적용되었습니다.");
+      } catch (error) {
+        showToast(error.message);
+      }
+    }
+
+    function dashboardPostFromForm(form) {
+      const name = form.dataset.dashboardMaker;
+      const data = new FormData(form);
+      const editingId = String(data.get("id") || dashboardEditingIds[name] || "").trim();
+      const title = String(data.get("title") || "").trim();
+      const content = String(data.get("content") || "").trim();
+      const imageFileInput = form.querySelector('input[type="file"][name="imageFile"]');
+      const attachedImageUrl = name === "match" ? "" : String(imageFileInput?.dataset.imageDataUrl || "").trim();
+      const imageUrl = name === "match" ? "" : (String(data.get("imageUrl") || "").trim() || (name === "clover" ? "assets/clover-proof-01.jpg" : DASHBOARD_FIELD_IMAGES[0]));
+      const ageRange = String(data.get("ageRange") || "").trim();
+      const male = String(data.get("male") || "").trim();
+      const female = String(data.get("female") || "").trim();
+      const matchCount = String(data.get("matchCount") || "").trim();
+      const existingItem = editingId ? (dashboardData[name] || []).find((item) => dashboardItemId(item) === editingId) : null;
+      const episode = name === "match"
+        ? String(existingItem ? dashboardMatchEpisode(existingItem) : nextDashboardMatchEpisode())
+        : String(data.get("episode") || "").trim();
+      const id = name === "match" ? (editingId || `dashboard-match-${episode}`) : (editingId || `dashboard-${name}-${Date.now()}`);
+      if (!title) throw new Error("제목을 입력해 주세요.");
+      if (!content) throw new Error("내용을 입력해 주세요.");
+      return {
+        id,
+        episode,
+        category: dashboardPanelCategories[name],
+        title,
+        content,
+        imageUrl,
+        attachedImageUrl,
+        headline: name === "field" && /^\[소식\]/.test(title),
+        active: data.get("active") !== "false",
+        scheduleDate: dashboardDateInputValue(data.get("scheduleDate") || ""),
+        scheduleTime: dashboardTimeInputValue(data.get("scheduleTime") || ""),
+        ageRange,
+        male,
+        female,
+        matchCount,
+        createdAt: Date.now(),
+        updatedAt: Date.now()
+      };
+    }
+
+    async function saveDashboardPost(form) {
+      const name = form.dataset.dashboardMaker;
+      const post = dashboardPostFromForm(form);
+      upsertDashboardLocalPost(post);
+      resetDashboardForm(name);
+      applyLocalDashboardFallbacks();
+      renderContentDashboards();
+      try {
+        if (GOOGLE_SCRIPT_URL) {
+          if (!String(post.imageUrl || "").startsWith("data:")) {
+            const { attachedImageUrl, ...serverPost } = post;
+            const result = await apiPost({
+              type: "schedulePostSave",
+              ...serverPost,
+              order: 1
+            });
+            if (result.post) upsertDashboardLocalPost({ ...result.post, imageUrl: post.imageUrl, attachedImageUrl: post.attachedImageUrl, ageRange: post.ageRange, male: post.male, female: post.female, matchCount: post.matchCount });
+            await loadContentDashboards();
+          }
+        }
+        showToast(`${dashboardPanelCategories[name]} 레이어를 저장했습니다.`);
+      } catch (error) {
+        showToast(`서버 저장 실패, 로컬에는 반영됨: ${error.message}`);
+      }
+    }
+
+    async function deleteDashboardPost(name, id) {
+      deleteDashboardLocalPost(id);
+      writeDashboardDeletedIds([...dashboardDeletedIds, id]);
+      dashboardData[name] = (dashboardData[name] || []).filter((item) => dashboardItemId(item) !== String(id));
+      renderContentDashboards();
+      try {
+        if (GOOGLE_SCRIPT_URL && !String(id).startsWith("dashboard-match-") && !String(id).includes("fallback")) {
+          await apiPost({ type: "schedulePostDelete", id });
+          await loadContentDashboards();
+        }
+        showToast(`${dashboardPanelCategories[name]} 레이어를 삭제했습니다.`);
+      } catch (error) {
+        showToast(`삭제 반영 중 오류: ${error.message}`);
+      }
+    }
+
+    async function toggleDashboardPost(name, id) {
+      const item = (dashboardData[name] || []).find((entry) => dashboardItemId(entry) === String(id));
+      if (!item) return;
+      const nextPost = {
+        ...item,
+        id: dashboardItemId(item),
+        category: dashboardPanelCategories[name],
+        title: dashboardItemTitle(item, dashboardPanelCategories[name] || ""),
+        content: dashboardItemRawBody(item),
+        imageUrl: name === "match" ? "" : String(item.imageUrl || item.image || ""),
+        attachedImageUrl: name === "match" ? "" : String(item.attachedImageUrl || ""),
+        episode: dashboardMatchEpisode(item),
+        ageRange: item.ageRange || item.age || "",
+        male: item.male ?? "",
+        female: item.female ?? "",
+        matchCount: item.matchCount ?? "",
+        active: item.active === false
+      };
+      upsertDashboardLocalPost(nextPost);
+      applyLocalDashboardFallbacks();
+      renderContentDashboards();
+      try {
+        if (GOOGLE_SCRIPT_URL && !String(nextPost.imageUrl || "").startsWith("data:") && !String(id).startsWith("dashboard-match-") && !String(id).includes("fallback")) {
+          const { attachedImageUrl, ...serverPost } = nextPost;
+          await apiPost({
+            type: "schedulePostSave",
+            ...serverPost,
+            order: 1
+          });
+          await loadContentDashboards();
+        }
+        showToast(`${dashboardPanelCategories[name]} 레이어 ${nextPost.active ? "ON" : "OFF"}`);
+      } catch (error) {
+        showToast(`서버 저장 실패, 로컬에는 반영됨: ${error.message}`);
+      }
+    }
+
     function handleEventListClick(event) {
       const closeEdit = event.target.closest("[data-edit-close]");
       if (closeEdit) {
@@ -2125,7 +3326,57 @@
     });
     $("[data-refresh]").addEventListener("click", () => {
       loadEvents();
+      loadContentDashboards();
       showToast("대시보드를 새로고침했습니다.");
+    });
+    document.querySelectorAll("[data-dashboard-refresh]").forEach((button) => {
+      button.addEventListener("click", () => {
+        loadContentDashboards();
+        showToast("대시보드 데이터를 새로고침했습니다.");
+      });
+    });
+    document.querySelectorAll("[data-dashboard-create]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const name = button.dataset.dashboardCreate;
+        resetDashboardForm(name);
+        showDashboardForm(name);
+        dashboardForm(name)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+    document.querySelectorAll("[data-dashboard-maker]").forEach((form) => {
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        saveDashboardPost(form);
+      });
+    });
+    document.querySelectorAll("[data-dashboard-cancel]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const form = button.closest("[data-dashboard-maker]");
+        if (form) resetDashboardForm(form.dataset.dashboardMaker);
+      });
+    });
+    document.querySelectorAll("[data-dashboard-list]").forEach((list) => {
+      list.addEventListener("click", (event) => {
+        const toggle = event.target.closest("[data-dashboard-toggle]");
+        if (toggle) {
+          toggleDashboardPost(toggle.dataset.dashboardPanel, toggle.dataset.dashboardToggle);
+          return;
+        }
+        const edit = event.target.closest("[data-dashboard-edit]");
+        if (edit) {
+          const name = edit.dataset.dashboardPanel;
+          const item = (dashboardData[name] || []).find((entry) => dashboardItemId(entry) === edit.dataset.dashboardEdit);
+          if (item) {
+            fillDashboardForm(name, item, edit.closest("[data-dashboard-item]"));
+          }
+          return;
+        }
+        const remove = event.target.closest("[data-dashboard-delete]");
+        if (remove) deleteDashboardPost(remove.dataset.dashboardPanel, remove.dataset.dashboardDelete);
+      });
+    });
+    document.querySelectorAll('[data-dashboard-maker] input[type="file"][name="imageFile"]').forEach((input) => {
+      input.addEventListener("change", () => handleDashboardImageFile(input));
     });
     $("[data-all-on]").addEventListener("click", async () => {
       const targetEvents = eventsForLayer("rotation");
@@ -2176,7 +3427,8 @@
       }
     });
     function setAdminPanel(name) {
-      const panelName = ["events", "events2", "schedule"].includes(name) ? name : "events";
+      const panelNames = ["schedule", "events", "events2", "clover", "field", "match", "counsel", "application", "board"];
+      const panelName = panelNames.includes(name) ? name : "schedule";
       document.querySelectorAll("[data-admin-panel]").forEach((panel) => {
         panel.hidden = panel.dataset.adminPanel !== panelName;
       });
@@ -2187,28 +3439,28 @@
         group.classList.toggle("is-open", group.dataset.navGroup === panelName);
       });
       try { localStorage.setItem(ADMIN_ACTIVE_PANEL_KEY, panelName); } catch {}
+      Object.keys(dashboardPanelCategories).forEach((name) => {
+        if (name !== panelName) resetDashboardForm(name);
+      });
       if (panelName === "schedule") renderScheduleAdmin();
-      else render();
+      else if (panelName === "events" || panelName === "events2") render();
+      else loadContentDashboards();
     }
 
     function readAdminActivePanel() {
       try {
         const saved = localStorage.getItem(ADMIN_ACTIVE_PANEL_KEY);
-        return ["events", "events2", "schedule"].includes(saved) ? saved : "events";
+        return ["schedule", "events", "events2", "clover", "field", "match", "counsel", "application", "board"].includes(saved) ? saved : "schedule";
       } catch {
-        return "events";
+        return "schedule";
       }
     }
 
     document.querySelectorAll("[data-nav]").forEach((button) => {
       button.addEventListener("click", () => {
         const label = button.childNodes[0]?.textContent?.trim() || "메뉴";
-        if (button.dataset.nav === "events" || button.dataset.nav === "schedule") {
-          setAdminPanel(button.dataset.nav);
-          showToast(`${label} 화면입니다.`);
-          return;
-        }
-        showToast(`${label} 화면은 아직 연결 전입니다.`);
+        setAdminPanel(button.dataset.nav);
+        showToast(`${label} 화면입니다.`);
       });
     });
 
@@ -2262,7 +3514,7 @@
         showToast(`삭제 실패: ${error.message}`);
       }
     });
-    listEl.addEventListener("submit", async (event) => {
+    async function handleEventFormSubmit(event) {
       const formEl = event.target.closest("[data-edit-form]");
       if (!formEl) return;
       event.preventDefault();
@@ -2286,6 +3538,10 @@
       item.imageUrl = adminImageUrl(item.image);
       item.badgeType = String(form.get("badgeType") || "").trim();
       item.active = form.get("active") !== "false";
+      writeEdits({
+        ...readEdits(),
+        [item.id]: eventStorageData(item)
+      });
       editingEventId = "";
       render();
       try {
@@ -2296,7 +3552,10 @@
         render();
         showToast(`저장 실패: ${error.message}`);
       }
-    });
+    }
+
+    listEl.addEventListener("submit", handleEventFormSubmit);
+    partyListEl?.addEventListener("submit", handleEventFormSubmit);
 
     window.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && editingEventId) closeEditModal();
@@ -2322,6 +3581,7 @@
     renderScheduleAdmin();
     loadEvents();
     loadAdminSchedulePosts();
+    loadContentDashboards();
   </script>
 </body>
 </html>
