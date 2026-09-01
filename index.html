@@ -26,7 +26,7 @@
   <script src="config.js?v=20260722-schedule-api"></script>
   <script>
     (function () {
-      var scriptUrl = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbyqTOvULBCUyeUiZ8sUQy5XeAwPniLkNIFNu9vl_zO6fJcYbh_MvTfLKqMzwptmuRMY/exec";
+      var scriptUrl = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbxvH9_BZkFa1Qxpx5Sq90iHZPn7HlSvtZq0STJVPwbHAQekIkkbpGIUqob7zTmrqwKs/exec";
       window.__earlyEventListPromise = fetch(scriptUrl + "?action=eventList&t=" + Date.now(), { cache: "no-store" })
         .then(function (r) { return r.json().then(function (json) { return { ok: r.ok, json: json }; }); })
         .catch(function (error) { return { ok: false, error: error }; });
@@ -4930,26 +4930,31 @@
 
     .fee-ticket-label {
       flex: 1;
-      display: grid;
-      align-content: end;
-      justify-items: start;
+      display: block;
       text-align: left;
-      gap: 0.2rem;
       min-width: 0;
     }
 
     .fee-ticket-kicker {
+      position: absolute;
+      left: 1.2rem;
+      top: 1.1rem;
       font-size: 1.28rem;
       font-weight: 950;
       color: #07150b;
+      line-height: 1;
     }
 
     .fee-ticket-note {
+      position: absolute;
+      left: 1.2rem;
+      bottom: 1.08rem;
+      max-width: calc(100% - 11rem);
       font-size: 0.62rem;
       font-weight: 700;
       color: rgba(7, 21, 11, 0.65);
       word-break: keep-all;
-      line-height: 1;
+      line-height: 1.15;
     }
 
     .fee-ticket-divider {
@@ -5403,7 +5408,7 @@
 
     .application-flow-step {
       display: block;
-      height: 0.3rem;
+      height: 0.22rem;
       border-radius: 999px;
       background: rgba(148, 163, 184, 0.4);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
@@ -11047,8 +11052,10 @@
     .schedule-image-row.is-dragging * { user-select: none; }
     .schedule-image-card { position: relative; flex: 0 0 auto; width: min(30.75rem, 100%); aspect-ratio: 16 / 9; border: 0; padding: 0; margin: 0; border-radius: 10px; overflow: hidden; background: var(--tint-neutral); cursor: pointer; appearance: none; -webkit-appearance: none; }
     .schedule-image-card img { display: block; height: 100%; width: 100%; object-fit: cover; }
-    .schedule-image-card::after { content: ""; position: absolute; inset: auto 0 0 0; height: 55%; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.62) 100%); pointer-events: none; }
-    .schedule-image-card-title { position: absolute; left: .55rem; bottom: .4rem; right: .55rem; z-index: 1; color: #fff; font-size: .78rem; font-weight: 950; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 3px rgba(0,0,0,.4); }
+    .schedule-image-card::after { content: ""; position: absolute; inset: auto 0 0 0; height: 62%; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.68) 100%); pointer-events: none; }
+    .schedule-image-card-copy { position: absolute; left: .55rem; right: .55rem; bottom: .42rem; z-index: 1; display: grid; gap: .12rem; text-align: left; text-shadow: 0 1px 3px rgba(0,0,0,.42); }
+    .schedule-image-card-title { color: #fff; font-size: .95rem; font-weight: 950; line-height: 1.18; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .schedule-image-card-content { color: rgba(255,255,255,.82); font-size: .78rem; font-weight: 850; line-height: 1.25; display: -webkit-box; overflow: hidden; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
 
     .schedule-post-card:not(.is-headline) .schedule-post-content { min-height: 0; }
     .schedule-post-card:not(.is-headline) .schedule-post-meta span,
@@ -11850,6 +11857,120 @@
       box-shadow: inset 0.35rem 0.35rem 0.7rem rgba(0, 0, 0, 0.4), inset -0.3rem -0.3rem 0.7rem rgba(255, 255, 255, 0.03) !important;
     }
 
+    .home-schedule-map-capture {
+      position: relative;
+      overflow: hidden;
+      min-height: 12.5rem;
+      margin: 0;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      border-radius: 1rem;
+      background: #e8edf4;
+      box-shadow: inset 0.35rem 0.35rem 0.7rem rgba(148, 163, 184, 0.18), inset -0.3rem -0.3rem 0.7rem rgba(255, 255, 255, 0.78);
+    }
+
+    .home-schedule-map-capture img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 12.5rem;
+      object-fit: cover;
+    }
+
+    .home-schedule-map-capture-placeholder {
+      min-height: 12.5rem;
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+      color: #64748b;
+      font-size: 0.82rem;
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .home-schedule-image-nav {
+      position: absolute;
+      top: 50%;
+      z-index: 2;
+      width: 2.25rem;
+      height: 2.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      background: rgba(16, 16, 16, 0.72);
+      color: #fff;
+      font-size: 1.35rem;
+      font-weight: 950;
+      line-height: 1;
+      cursor: pointer;
+      transform: translateY(-50%);
+      box-shadow: 0 0.35rem 0.9rem rgba(0, 0, 0, 0.25);
+    }
+
+    .home-schedule-image-nav.is-prev {
+      left: 0.65rem;
+    }
+
+    .home-schedule-image-nav.is-next {
+      right: 0.65rem;
+    }
+
+    .home-schedule-image-count {
+      position: absolute;
+      right: 0.7rem;
+      bottom: 0.7rem;
+      z-index: 2;
+      padding: 0.32rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(16, 16, 16, 0.72);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .home-schedule-modal-info {
+      display: grid;
+      gap: 0.38rem;
+      margin: 0.7rem 0.9rem 0.85rem !important;
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 780;
+      line-height: 1.45;
+    }
+
+    .home-schedule-modal-info p {
+      display: flex;
+      align-items: center;
+      gap: 0.42rem;
+      margin: 0;
+    }
+
+    .home-schedule-modal-info p::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 0.34rem;
+      height: 0.34rem;
+      border-radius: 999px;
+      background: #00f040;
+      box-shadow: 0 0 0.32rem rgba(0, 240, 64, 0.42);
+      transform: translateY(0.01rem);
+    }
+
+    .home-schedule-modal-info b {
+      color: var(--ink);
+      font-weight: 950;
+    }
+
+    :root[data-theme="dark"] .home-schedule-map-capture {
+      border-color: rgba(255, 255, 255, .1);
+      background: #232323;
+      color: #aaaaaa;
+      box-shadow: inset 0.35rem 0.35rem 0.7rem rgba(0, 0, 0, 0.4), inset -0.3rem -0.3rem 0.7rem rgba(255, 255, 255, 0.03);
+    }
+
+    :root[data-theme="dark"] .home-schedule-map-capture-placeholder {
+      color: rgba(241, 241, 241, 0.58);
+    }
+
     .home-counsel-panel .counsel-detail-card {
       padding: 1.1rem 0.95rem 0.95rem !important;
     }
@@ -11896,6 +12017,16 @@
       justify-items: center !important;
       align-items: center !important;
       padding-inline: 1rem !important;
+    }
+    [data-home-schedule-modal] .home-schedule-panel {
+      box-sizing: border-box !important;
+      width: min(31rem, calc(100vw - 2rem)) !important;
+      max-width: calc(100vw - 2rem) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      justify-self: center !important;
+      transform: none !important;
+      cursor: default !important;
     }
     [data-board-write-modal] {
       place-items: center !important;
@@ -14445,6 +14576,35 @@
           <ul class="event-list" data-event-list="home">
             <li class="event-list-loading" aria-hidden="true"><span class="event-list-loading-spinner"></span></li>
           </ul>
+          <script>
+            (function () {
+              var list = document.querySelector('[data-event-list="home"]');
+              if (!list) return;
+              var items = [
+                { station: "랜덤", title: "순차적으로 무작위 선정", target: "우연처럼 시작되는 설렘", place: "부산 클로버 라운지 (승인 후 안내)", image: "https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-random-destiny-new.webp" },
+                { station: "맞춤", title: "원하는 조건에 맞는 이상형", target: "서로의 리듬을 이해하는 현실적인 만남", place: "부산 클로버 라운지 (승인 후 안내)", image: "https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-live-shift-worker.webp" },
+                { station: "40-50대", title: "좋은 사람을 만날 시간", target: "편안한 분위기에서 천천히 알아가는 성숙한 만남", place: "부산 클로버 라운지 (승인 후 안내)", image: "https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-comfort-40s.webp" },
+                { station: "돌싱", title: "새로운 시작, 새로운 만남", target: "조금 더 성숙하고 솔직한 두 번째 설렘", place: "부산 클로버 라운지 (승인 후 안내)", image: "https://res.cloudinary.com/lkkfechj/image/upload/v1787572128/clover/optimized/event-theme-divorced.webp" }
+              ];
+              var esc = function (value) {
+                return String(value || "").replace(/[&<>"']/g, function (char) {
+                  return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char];
+                });
+              };
+              var cssUrl = function (value) {
+                return "url('" + String(value || "").replace(/['\\]/g, "") + "')";
+              };
+              list.dataset.bootstrapped = "true";
+              list.innerHTML = items.map(function (item, index) {
+                return '<li><article class="event-card">'
+                  + '<div class="event-thumb is-loaded" style="--thumb-image: ' + cssUrl(item.image) + '; background-image: ' + cssUrl(item.image) + '; background-size: cover; background-position: center;" role="button" tabindex="0" data-join-index="' + index + '" aria-label="' + esc(item.title) + ' 참여 선택"></div>'
+                  + '<div class="event-body"><div><div class="event-title-row"><h3 class="event-title"><span>[' + esc(item.station) + ']</span> ' + esc(item.title) + '</h3></div>'
+                  + '<div class="event-meta"><div class="meta-line"><span>' + esc(item.place) + '</span></div></div></div>'
+                  + '<div class="event-foot"><div class="event-action"><button class="join-btn" type="button" data-join-index="' + index + '">참여</button></div></div>'
+                  + '</div></article></li>';
+              }).join("");
+            })();
+          </script>
         </section>
 
       </main>
@@ -14646,7 +14806,7 @@
               <div class="naver-map-fallback">지도를 불러오는 중입니다.</div>
             </div>
             <p>부산 부산진구 서전로 8번길 27</p>
-            <p>방문 전 운영 안내를 확인해 주세요.</p>
+            <p>자세한 사항은 개별적으로 문자 안내드릴 예정입니다.</p>
             <a class="map-open-link" href="https://map.naver.com/p/search/%EB%B6%80%EC%82%B0%20%EB%B6%80%EC%82%B0%EC%A7%84%EA%B5%AC%20%EC%84%9C%EC%A0%84%EB%A1%9C68%EB%B2%88%EA%B8%B8%2027" target="_blank" rel="noopener">지도 크게 보기</a>
           </div>
         </details>
@@ -15268,6 +15428,10 @@
       compositionOptions: ["1:1", "6:6"],
       ageOptions: ["20 - 27세", "24 - 29세", "27 - 36세", "30 - 37세", "34 - 39세", "37 - 46세"],
       weekdayOptions: ["월", "화", "수", "목", "금", "토", "일", "상관없음", "유동일정"],
+      priceByComposition: {
+        "1:1": { malePrice: "99,000원", femalePrice: "30,000원" },
+        "6:6": { malePrice: "99,000원", femalePrice: "30,000원" }
+      },
       noteEnabled: true
     });
 
@@ -15366,8 +15530,9 @@
     const iconPopular = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z" fill="#ff4d6d"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbyqTOvULBCUyeUiZ8sUQy5XeAwPniLkNIFNu9vl_zO6fJcYbh_MvTfLKqMzwptmuRMY/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbxvH9_BZkFa1Qxpx5Sq90iHZPn7HlSvtZq0STJVPwbHAQekIkkbpGIUqob7zTmrqwKs/exec";
     const EVENT_LIST_CACHE_KEY = "clover-managed-event-list-v6";
+    const EVENT_LIST_CACHE_TTL_MS = 10 * 60 * 1000;
     const CLOUDINARY_ASSET_MAP = {"assets/optimized/event-taste-homebody.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572124/clover/optimized/event-taste-homebody.webp","assets/optimized/clover-proof-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572106/clover/optimized/clover-proof-08.webp","assets/columns/webtoon-column-01.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572080/clover/columns/webtoon-column-01.png","assets/link-preview.jpg":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572079/clover/link-preview.jpg","assets/optimized/field-venue-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-01.webp","assets/optimized/event-taste-workout.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572126/clover/optimized/event-taste-workout.webp","assets/optimized/clover-proof-12.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572110/clover/optimized/clover-proof-12.webp","assets/columns/webtoon-column-03.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572082/clover/columns/webtoon-column-03.png","assets/optimized/field-venue-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572139/clover/optimized/field-venue-05.webp","assets/optimized/clover-proof-19.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-19.webp","assets/columns/webtoon-column-05.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572084/clover/columns/webtoon-column-05.png","assets/optimized/field-venue-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572143/clover/optimized/field-venue-10.webp","assets/optimized/event-group-study-cafe.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572118/clover/optimized/event-group-study-cafe.webp","assets/optimized/clover-proof-17.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572115/clover/optimized/clover-proof-17.webp","assets/columns/webtoon-column-18.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572097/clover/columns/webtoon-column-18.png","assets/optimized/clover-proof-15.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572113/clover/optimized/clover-proof-15.webp","assets/optimized/clover-proof-14.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572112/clover/optimized/clover-proof-14.webp","assets/optimized/field-venue-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-02.webp","assets/favicon.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572078/clover/favicon.png","assets/optimized/clover-proof-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572105/clover/optimized/clover-proof-07.webp","assets/optimized/event-theme-warm.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572134/clover/optimized/event-theme-warm.webp","assets/optimized/event-theme-dress-code.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572129/clover/optimized/event-theme-dress-code.webp","assets/optimized/clover-proof-11.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572109/clover/optimized/clover-proof-11.webp","assets/optimized/event-theme-divorced.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572128/clover/optimized/event-theme-divorced.webp","assets/optimized/event-theme-professional-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572131/clover/optimized/event-theme-professional-man.webp","assets/optimized/event-theme-japanese-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572130/clover/optimized/event-theme-japanese-woman.webp","assets/optimized/event-theme-wealthy-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572135/clover/optimized/event-theme-wealthy-man.webp","assets/columns/webtoon-column-07.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572086/clover/columns/webtoon-column-07.png","assets/optimized/clover-proof-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-06.webp","assets/clover-logo-v2.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572076/clover/clover-logo-v2.png","assets/columns/webtoon-column-12.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572091/clover/columns/webtoon-column-12.png","assets/optimized/clover-proof-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572102/clover/optimized/clover-proof-03.webp","assets/optimized/event-taste-travel.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572125/clover/optimized/event-taste-travel.webp","assets/optimized/event-theme-tall-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572133/clover/optimized/event-theme-tall-man.webp","assets/columns/webtoon-column-11.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572090/clover/columns/webtoon-column-11.png","assets/optimized/clover-proof-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572108/clover/optimized/clover-proof-10.webp","assets/optimized/event-theme-career-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-career-man.webp","assets/columns/webtoon-column-09.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572088/clover/columns/webtoon-column-09.png","assets/optimized/event-random-destiny-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-random-destiny-new.webp","assets/optimized/event-live-office-worker-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572120/clover/optimized/event-live-office-worker-new.webp","assets/optimized/field-venue-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-08.webp","assets/columns/webtoon-column-04.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572083/clover/columns/webtoon-column-04.png","assets/columns/webtoon-column-16.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572095/clover/columns/webtoon-column-16.png","assets/optimized/clover-proof-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-05.webp","assets/optimized/clover-proof-20.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572117/clover/optimized/clover-proof-20.webp","assets/columns/webtoon-column-17.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572096/clover/columns/webtoon-column-17.png","assets/optimized/event-theme-comfort-40s.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-comfort-40s.webp","assets/optimized/field-venue-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-04.webp","assets/optimized/clover-proof-16.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572114/clover/optimized/clover-proof-16.webp","assets/columns/webtoon-column-14.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572093/clover/columns/webtoon-column-14.png","assets/columns/webtoon-column-19.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572098/clover/columns/webtoon-column-19.png","assets/optimized/event-live-christian.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572119/clover/optimized/event-live-christian.webp","assets/optimized/event-romance-faceless.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572122/clover/optimized/event-romance-faceless.webp","assets/optimized/event-theme-public-servant-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572132/clover/optimized/event-theme-public-servant-woman.webp","assets/optimized/field-venue-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-03.webp","assets/optimized/field-venue-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572140/clover/optimized/field-venue-06.webp","assets/columns/webtoon-column-08.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572087/clover/columns/webtoon-column-08.png","assets/optimized/clover-proof-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572101/clover/optimized/clover-proof-02.webp","assets/optimized/field-venue-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572141/clover/optimized/field-venue-07.webp","assets/optimized/clover-proof-13.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572111/clover/optimized/clover-proof-13.webp","assets/columns/webtoon-column-20.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572099/clover/columns/webtoon-column-20.png","assets/optimized/clover-proof-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572107/clover/optimized/clover-proof-09.webp","assets/optimized/event-taste-active.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572123/clover/optimized/event-taste-active.webp","assets/columns/webtoon-column-06.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572085/clover/columns/webtoon-column-06.png","assets/optimized/event-live-shift-worker.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-live-shift-worker.webp","assets/columns/webtoon-column-15.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572094/clover/columns/webtoon-column-15.png","assets/optimized/footer-lobby-banner-clean.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572144/clover/optimized/footer-lobby-banner-clean.webp","assets/optimized/field-venue-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-09.webp","assets/columns/webtoon-column-13.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572092/clover/columns/webtoon-column-13.png","assets/optimized/clover-proof-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572103/clover/optimized/clover-proof-04.webp","assets/columns/webtoon-column-10.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572089/clover/columns/webtoon-column-10.png","assets/columns/webtoon-column-02.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572081/clover/columns/webtoon-column-02.png","assets/optimized/clover-proof-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572100/clover/optimized/clover-proof-01.webp","assets/optimized/clover-proof-18.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-18.webp"};
     const HERO_CACHE_KEY = "clover-managed-hero-slides-v5";
     const HERO_FALLBACK_SLIDES = [
@@ -15413,9 +15578,12 @@
       return null;
     }
 
-    function eventPriceForGender(event, gender) {
-      if (gender === "여성") return event?.femalePrice || "30,000원";
-      return event?.malePrice || event?.price || "99,000원";
+    function eventPriceForGender(event, gender, composition = selectedComposition) {
+      const config = layerFormConfig(event?.form2Config, defaultLayerForm2Config);
+      const prices = config.priceByComposition && typeof config.priceByComposition === "object" ? config.priceByComposition : {};
+      const compositionPrices = prices[String(composition || "").trim()] || null;
+      if (gender === "여성") return compositionPrices?.femalePrice || event?.femalePrice || "30,000원";
+      return compositionPrices?.malePrice || event?.malePrice || event?.price || "99,000원";
     }
 
     function eventTemplate(event) {
@@ -15530,6 +15698,19 @@
 
     let lastRenderedEventListKey = "";
 
+    function renderEventListLoading() {
+      if (!homeEventList) return;
+      if (homeEventList.dataset.bootstrapped === "true") return;
+      lastRenderedEventListKey = "__loading__";
+      homeEventList.innerHTML = '<li class="event-list-loading" aria-hidden="true"><span class="event-list-loading-spinner"></span></li>';
+    }
+
+    function renderEventListUnavailable() {
+      if (!homeEventList) return;
+      lastRenderedEventListKey = "__unavailable__";
+      homeEventList.innerHTML = '<li class="event-empty">로테이션 소개팅 정보를 불러오지 못했습니다.</li>';
+    }
+
     function isPartyEvent(item) {
       const station = String(item?.station || "").trim();
       const text = `${item?.title || ""} ${item?.target || ""}`;
@@ -15539,7 +15720,9 @@
     }
 
     function renderEventList(items = events) {
-      const key = items.map((item) => `${item.id}:${item.station}:${item.layerType}:${item.order}`).join(",");
+      if (!homeEventList) return;
+      homeEventList.dataset.bootstrapped = "false";
+      const key = items.map((item) => `${item.id}:${item.station}:${item.layerType}:${item.order}:${item.title}:${item.target}:${item.badgeType}:${item.active}`).join(",");
       const isFirstRender = !lastRenderedEventListKey;
       const changed = key !== lastRenderedEventListKey;
       lastRenderedEventListKey = key;
@@ -15550,7 +15733,7 @@
         requestAnimationFrame(() => { homeEventList.style.opacity = "1"; });
       }
       if (!items.length) {
-        homeEventList.innerHTML = '<div class="event-empty">?좏깮李쎌쓣 遺덈윭?ㅻ뒗 以묒엯?덈떎.</div>';
+        homeEventList.innerHTML = '<li class="event-empty">노출 중인 로테이션 소개팅이 없습니다.</li>';
       } else {
         const orderedItems = [
           ...items.filter((item) => !isPartyEvent(item)),
@@ -15608,6 +15791,7 @@
     }
 
     markTodayInCalendar();
+    renderEventListLoading();
     loadManagedEvents();
     const detailRoot = document.querySelector("[data-detail-root]");
 
@@ -15664,6 +15848,18 @@
       const parts = String(isoDate || "").split("-").map(Number);
       if (parts.length < 3 || parts.some(Number.isNaN)) return "";
       return `${parts[0]}년 ${parts[1]}월 ${parts[2]}일`;
+    }
+
+    function formatScheduleModalDateTime(post) {
+      const iso = String(post?.scheduleDate || "").trim();
+      const [year, month, day] = iso.split("-").map(Number);
+      if (!year || !month || !day) return "";
+      const weekday = ["일", "월", "화", "수", "목", "금", "토"][new Date(`${iso}T00:00:00`).getDay()];
+      const hour = scheduleTimeHour(post?.scheduleTime);
+      if (Number.isNaN(hour)) return `${iso}(${weekday})`;
+      const period = hour < 12 ? "오전" : "오후";
+      const displayHour = String(hour % 12 || 12).padStart(2, "0");
+      return `${iso}(${weekday}) ${period} ${displayHour}:00`;
     }
 
     function selectedScheduleListMarkup() {
@@ -16295,7 +16491,7 @@
           <ul class="process-notice-list">
             <li>작성해 주신 정보는 클로버 관리자 외에는 공개되지 않습니다.</li>
             <li>참여가 확정되면 일정 안내를 작성해 주신 연락처로 발송해 드립니다.</li>
-            <li>시작 30분 전부터 입장하실 수 있습니다.</li>
+            <li>자세한 사항은 개별적으로 문자 안내드릴 예정입니다.</li>
             <li>1:1 매칭은 사전에 장소만 안내해 드립니다.</li>
             <li>6:6 매칭은 한 분과 10분씩 대화를 나누는 방식으로 진행됩니다.</li>
           </ul>
@@ -19290,6 +19486,23 @@
     function schedulePostImageUrl(post) {
       return String(post?.attachedImageUrl || post?.imageUrl || post?.image || "").trim();
     }
+    function schedulePostGalleryImages(post) {
+      const raw = post?.mapImageUrls || post?.mapImageUrl || "";
+      let values = [];
+      if (Array.isArray(raw)) {
+        values = raw;
+      } else {
+        const text = String(raw || "").trim();
+        if (text) {
+          try {
+            const parsed = JSON.parse(text);
+            if (Array.isArray(parsed)) values = parsed;
+          } catch {}
+          if (!values.length) values = text.split(/\r?\n|,/);
+        }
+      }
+      return values.map((url) => String(url || "").trim()).filter(Boolean).slice(0, 5);
+    }
     function readAdminSchedulePosts() {
       try {
         const parsed = JSON.parse(localStorage.getItem(ADMIN_SCHEDULE_POSTS_KEY) || "[]");
@@ -19400,9 +19613,13 @@
       const postImageUrl = schedulePostImageUrl(post);
       const postImageSrc = optimizedAssetUrl(postImageUrl);
       const postImageFallback = imageFallbackAttribute(postImageUrl);
+      const content = String(post.content || "").trim();
       return `<button class="schedule-image-card" type="button" data-schedule-open="${htmlAttr(post.id)}" aria-label="${htmlAttr(post.title)} ?먯꽭??蹂닿린">
         <img src="${htmlAttr(postImageSrc)}"${postImageFallback} alt="${htmlAttr(post.title)}" loading="lazy" decoding="async">
-        <span class="schedule-image-card-title">${htmlAttr(post.title)}</span>
+        <span class="schedule-image-card-copy">
+          <span class="schedule-image-card-title">${htmlAttr(post.title)}</span>
+          ${content ? `<span class="schedule-image-card-content">${htmlAttr(content)}</span>` : ""}
+        </span>
       </button>`;
     }
     function renderScheduleDetail(post) {
@@ -19439,6 +19656,45 @@
     function isSchedulePlaceholderId(id) {
       const value = String(id || "");
       return value.startsWith("placeholder-") || value.startsWith("schedule-placeholder-");
+    }
+    function allScheduleContentPosts() {
+      return [
+        ...readAdminDashboardContentPosts().filter((post) => post?.active !== false),
+        ...schedulePosts,
+        ...scheduleFeedPlaceholderPosts()
+      ];
+    }
+
+    function realScheduleContentPosts() {
+      return [
+        ...readAdminDashboardContentPosts().filter((post) => post?.active !== false),
+        ...schedulePosts
+      ];
+    }
+
+    function schedulePostSortTime(post) {
+      const toTime = (value) => {
+        if (value instanceof Date) return value.getTime();
+        const numeric = Number(value);
+        if (Number.isFinite(numeric) && numeric > 0) return numeric;
+        const parsed = new Date(String(value || "").replace(/\.\s*/g, "-").replace(/오전/g, "AM").replace(/오후/g, "PM")).getTime();
+        return Number.isNaN(parsed) ? 0 : parsed;
+      };
+      return Math.max(toTime(post?.updatedAt), toTime(post?.createdAt));
+    }
+
+    function compareDashboardPostOrder(a, b) {
+      const aOrder = Number(a?.order);
+      const bOrder = Number(b?.order);
+      const aHasOrder = Number.isFinite(aOrder) && aOrder > 0;
+      const bHasOrder = Number.isFinite(bOrder) && bOrder > 0;
+      if (aHasOrder || bHasOrder) return (aHasOrder ? aOrder : Number.MAX_SAFE_INTEGER) - (bHasOrder ? bOrder : Number.MAX_SAFE_INTEGER);
+      return schedulePostSortTime(b) - schedulePostSortTime(a);
+    }
+
+    function scheduleContentPostById(id) {
+      const targetId = String(id || "");
+      return allScheduleContentPosts().find((item) => String(item.id) === targetId);
     }
     function schedulePostModalDate(value) {
       const date = new Date(Number(value) || value);
@@ -19508,9 +19764,7 @@
     function openSchedulePostModal(id) {
       closeAllPopupModals();
       const isPlaceholder = isSchedulePlaceholderId(id);
-      const post = isPlaceholder
-        ? scheduleFeedPlaceholderPosts().find((item) => String(item.id) === String(id))
-        : schedulePosts.find((item) => String(item.id) === String(id));
+      const post = scheduleContentPostById(id);
       if (!post) return;
       selectedSchedulePostId = String(id);
       renderSchedulePostModal(post);
@@ -20048,9 +20302,7 @@
 
     function openSchedulePostDetail(id) {
       const isPlaceholder = isSchedulePlaceholderId(id);
-      const post = isPlaceholder
-        ? scheduleFeedPlaceholderPosts().find((item) => String(item.id) === String(id))
-        : schedulePosts.find((item) => String(item.id) === String(id));
+      const post = scheduleContentPostById(id);
       if (!post) return;
       if (SCHEDULE_MODAL_CATEGORIES.includes(String(post.category || "").trim())) {
         openSchedulePostModal(id);
@@ -20070,9 +20322,22 @@
       }
     }
     let openHomeSchedulePostId = "";
+    const homeScheduleGalleryIndexes = new Map();
     function renderHomeScheduleModal(post) {
       const modal = document.querySelector("[data-home-schedule-modal]");
       if (!modal || !post) return;
+      const scheduleAddress = normalizeScheduleAddress(post.address) || cloverLocation.title;
+      const galleryImages = schedulePostGalleryImages(post);
+      const galleryIndex = Math.min(Math.max(Number(homeScheduleGalleryIndexes.get(String(post.id))) || 0, 0), Math.max(galleryImages.length - 1, 0));
+      const mapImageUrl = galleryImages[galleryIndex] || "";
+      const mapImageSrc = optimizedAssetUrl(mapImageUrl);
+      const mapImageFallback = imageFallbackAttribute(mapImageUrl);
+      const galleryControls = galleryImages.length > 1
+        ? `<button class="home-schedule-image-nav is-prev" type="button" data-home-schedule-image-nav="prev" aria-label="이전 이미지">‹</button><button class="home-schedule-image-nav is-next" type="button" data-home-schedule-image-nav="next" aria-label="다음 이미지">›</button><span class="home-schedule-image-count">${galleryIndex + 1}/${galleryImages.length}</span>`
+        : "";
+      const mapCaptureMarkup = mapImageSrc
+        ? `<img src="${htmlAttr(mapImageSrc)}"${mapImageFallback} alt="${htmlAttr(scheduleAddress)} 이미지" loading="eager" decoding="async">${galleryControls}`
+        : `<div class="home-schedule-map-capture-placeholder">이미지 준비 중</div>`;
       const hour = scheduleTimeHour(post.scheduleTime);
       const hasHour = !Number.isNaN(hour);
       const timeText = hasHour ? `${String(hour).padStart(2, "0")}:00` : String(post.scheduleTime || "").trim();
@@ -20084,6 +20349,7 @@
       const resultUnlockTs = scheduleResultUnlockTimestamp(post.scheduleDate)
       const isResultButtonEnabled = !Number.isNaN(resultUnlockTs) && Date.now() >= resultUnlockTs;
       const resultButtonAttrs = isResultButtonEnabled ? `onclick="window.closeHomeScheduleModal({ preserveHistory: true }); window.goPage(event, 'reviews')"` : "disabled aria-disabled=\"true\"";
+      const scheduleModalDateTime = formatScheduleModalDateTime(post);
       modal.innerHTML = `
         <div class="home-schedule-panel">
           <button class="home-schedule-close-btn" type="button" data-home-schedule-close aria-label="닫기">×</button>
@@ -20097,18 +20363,17 @@
                 ${modalDetailMarkup}
               </div>
             </div>
-            <div class="naver-map">
-              <div class="naver-map-canvas" id="homeScheduleNaverMap" role="img" aria-label="${htmlAttr(post.address || cloverLocation.title)} 지도"></div>
-              <div class="naver-map-fallback">지도를 불러오는 중입니다.</div>
-              <a class="naver-map-small-link" href="https://map.naver.com/p/search/${encodeURIComponent(post.address || cloverLocation.title)}" target="_blank" rel="noopener">크게 보기</a>
+            <figure class="home-schedule-map-capture">
+              ${mapCaptureMarkup}
+            </figure>
+            <div class="home-schedule-modal-info">
+              ${scheduleModalDateTime ? `<p><b>일정:</b> ${htmlAttr(scheduleModalDateTime)}</p>` : ""}
+              <p><b>장소:</b> 자세한 사항은 개별적으로 문자 안내</p>
             </div>
-            <p style="margin:.65rem 0 0; font-weight:850;">${htmlAttr(post.address || cloverLocation.title)}</p>
-            <p style="margin:.2rem 0 .65rem; color:var(--muted); font-size:.82rem;">방문 전 운영 안내를 확인해 주세요.</p>
             <button class="map-open-link" type="button" data-page-link="reviews" ${resultButtonAttrs}>매칭 결과</button>
           </section>
         </div>
       `;
-      initHomeScheduleMap(post.address);
     }
     function openHomeScheduleModal(id) {
       closeAllPopupModals();
@@ -20380,7 +20645,14 @@
     }
     function renderHomeScheduleHeadlines() {
       if (!homeScheduleHeadlines) return;
-      const headlines = scheduleFeedPlaceholderPosts().filter((post) => post.category === "클로버 근황");
+      const realProofs = realScheduleContentPosts()
+        .filter((post) => String(post?.category || "").trim() === "클로버 근황" && post?.active !== false);
+      const placeholderProofs = scheduleFeedPlaceholderPosts()
+        .filter((post) => String(post?.category || "").trim() === "클로버 근황");
+      const managedProofs = realProofs.length ? realProofs : placeholderProofs;
+      const headlines = uniqueByScheduleTitle(managedProofs)
+        .sort(compareDashboardPostOrder)
+        .slice(0, 12);
       if (!headlines.length) {
         homeScheduleHeadlines.hidden = true;
         homeScheduleHeadlines.innerHTML = "";
@@ -20535,6 +20807,7 @@
     function homeCalendarAvailableMap() {
       const map = {};
       mergedSchedulePostsForCalendar().forEach((post) => {
+        if (String(post?.category || "").trim() !== "일정 안내") return;
         const iso = String(post.scheduleDate || "").trim();
         if (!iso) return;
         (map[iso] = map[iso] || []).push(post);
@@ -20668,8 +20941,6 @@
 
     function scheduleInfoAvailableMap(months) {
       const realMap = homeCalendarAvailableMap();
-      const hasPublishedSchedules = schedulePosts.some((post) => String(post.scheduleDate || "").trim());
-      if (hasPublishedSchedules) return assignScheduleEpisodesToMap(realMap);
       const previousPlaceholders = [...homeCalendarPlaceholderPosts];
       const mergedMap = {};
       const mergedPosts = [];
@@ -20689,7 +20960,7 @@
       return assignScheduleEpisodesToMap(mergedMap);
     }
 
-    function renderScheduleInfoCalendar(target = "[data-schedule-info-calendar]") {
+    function renderScheduleInfoCalendar(target = "[data-schedule-info-calendar]", options = {}) {
       const container = typeof target === "string" ? document.querySelector(target) : target;
       if (!container) return;
       const months = getApplicationCalendarMonths();
@@ -20700,7 +20971,7 @@
         const prefix = `${year}-${String(month).padStart(2, "0")}-`;
         return selectedHomeCalendarDate && selectedHomeCalendarDate.startsWith(prefix);
       });
-      if (selectedMonthIndex >= 0) scheduleInfoVisibleMonthIndex = selectedMonthIndex;
+      if (!options.preserveVisibleMonth && selectedMonthIndex >= 0) scheduleInfoVisibleMonthIndex = selectedMonthIndex;
       const visibleMonth = months[scheduleInfoVisibleMonthIndex];
       container.innerHTML = `
         <section class="schedule-info-group-card schedule-info-calendar-card">
@@ -20721,8 +20992,8 @@
       `;
       requestAnimationFrame(refreshScheduleHeadlineControls);
     }
-    function renderHomeParticipationCalendar() {
-      renderScheduleInfoCalendar("[data-home-participation-calendar]");
+    function renderHomeParticipationCalendar(options = {}) {
+      renderScheduleInfoCalendar("[data-home-participation-calendar]", options);
     }
     let homeCalendarHeightObserver = null;
     setInterval(() => {
@@ -21548,6 +21819,21 @@
       });
     }
 
+    function uniqueScheduleContentPosts(posts) {
+      const seen = new Set();
+      return (Array.isArray(posts) ? posts : []).filter((post, index) => {
+        const category = String(post?.category || "").trim();
+        const id = String(post?.id || "").trim();
+        const title = String(post?.title || "").trim();
+        const content = String(post?.content || "").trim();
+        const image = schedulePostImageUrl(post);
+        const key = id || `${category}|${title}|${content}|${image}` || `${category}-${index}`;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    }
+
     function renderSchedulePosts() {
       renderHomeParticipationCalendar();
       renderScheduleNoticePage();
@@ -21560,10 +21846,7 @@
       const placeholderProofs = placeholders.filter((post) => post.category === "클로버 근황");
       const dashboardManagedPosts = readAdminDashboardContentPosts()
         .filter((post) => post?.active !== false && ["현장", "클로버 근황"].includes(String(post?.category || "").trim()));
-      const visibleSchedulePosts = [...dashboardManagedPosts, ...schedulePosts].filter((post, index, list) => {
-        const id = String(post?.id || `${post?.category || ""}-${post?.title || ""}-${index}`);
-        return list.findIndex((entry, entryIndex) => String(entry?.id || `${entry?.category || ""}-${entry?.title || ""}-${entryIndex}`) === id) === index;
-      });
+      const visibleSchedulePosts = uniqueScheduleContentPosts([...dashboardManagedPosts, ...schedulePosts]);
 
       const realProofs = visibleSchedulePosts.filter((post) => !post.headline && post.category === "클로버 근황");
       const realProofIds = new Set(realProofs.map((post) => post.id));
@@ -21571,7 +21854,8 @@
 
       const regularSource = uniqueByScheduleTitle(realRegular.length ? [...realRegular, ...placeholderRegular] : placeholderRegular).slice(0, Math.max(3, realRegular.length));
       const regular = regularSource.map((post, i) => ({ ...post, imageUrl: schedulePostImageUrl(post) || SCHEDULE_FIELD_IMAGES[i % SCHEDULE_FIELD_IMAGES.length] }));
-      const proofPosts = realProofs.length ? realProofs : placeholderProofs;
+      const proofPosts = uniqueByScheduleTitle(realProofs.length ? realProofs : placeholderProofs)
+        .sort(compareDashboardPostOrder);
 
       scheduleFeed.innerHTML = `<section class="schedule-post-strip"><h2 class="schedule-section-title">${scheduleSectionTitleHtml("현장", !!regular.length)}</h2><div class="schedule-image-row" data-schedule-headline-row="regular">${regular.length ? regular.map((post) => scheduleImageCardHtml(post)).join("") : `<div class="schedule-feed-empty">등록된 일반 일정 소식이 없습니다.</div>`}</div></section>${cloverProofGridHtml(proofPosts, !!proofPosts.length)}`;
       requestAnimationFrame(refreshScheduleHeadlineControls);
@@ -21634,9 +21918,9 @@
         selectedHomeCalendarTime = selectedHomeCalendarDate ? availableMap[selectedHomeCalendarDate]?.[0]?.scheduleTime || "" : "";
         homeCalendarSelectionCleared = false;
         if (homeCalendarNavTarget.closest("[data-home-participation-calendar]")) {
-          renderHomeParticipationCalendar();
+          renderHomeParticipationCalendar({ preserveVisibleMonth: true });
         } else {
-          renderScheduleInfoCalendar();
+          renderScheduleInfoCalendar("[data-schedule-info-calendar]", { preserveVisibleMonth: true });
         }
         return;
       }
@@ -21776,6 +22060,19 @@
         } else {
           openSchedulePostDetail(openButton.dataset.scheduleOpen);
         }
+        return;
+      }
+      const homeScheduleImageNav = event.target.closest("[data-home-schedule-image-nav]");
+      if (homeScheduleImageNav) {
+        event.preventDefault();
+        const post = mergedSchedulePostsForCalendar().find((item) => String(item.id) === String(openHomeSchedulePostId));
+        const images = schedulePostGalleryImages(post);
+        if (!post || images.length <= 1) return;
+        const current = Math.min(Math.max(Number(homeScheduleGalleryIndexes.get(String(post.id))) || 0, 0), images.length - 1);
+        const direction = homeScheduleImageNav.dataset.homeScheduleImageNav === "prev" ? -1 : 1;
+        const next = (current + direction + images.length) % images.length;
+        homeScheduleGalleryIndexes.set(String(post.id), next);
+        renderHomeScheduleModal(post);
         return;
       }
       const homeScheduleCloseTarget = event.target.closest("[data-home-schedule-close]");
@@ -23494,12 +23791,20 @@
       });
     }
 
+    function normalizeScheduleAddress(address) {
+      const text = String(address || "").trim().replace(/\s+/g, " ");
+      if (!text) return "";
+      if (/^(부산|서울|대구|인천|광주|대전|울산|세종|경기|강원|충북|충남|전북|전남|경북|경남|제주)/.test(text)) return text;
+      if (/부산진구|서전로|전포|부전/.test(text)) return `부산 부산진구 ${text}`.replace(/\s+/g, " ");
+      return text;
+    }
+
     async function mountNaverMap(mapElement, fallback, mapWrap, location) {
       if (!mapElement) return;
       try {
         await loadNaverMapScript();
         let target = { lat: cloverLocation.lat, lng: cloverLocation.lng, title: cloverLocation.title };
-        const customAddress = location?.address && location.address !== cloverLocation.title ? location.address : "";
+        const customAddress = location?.address && location.address !== cloverLocation.title ? normalizeScheduleAddress(location.address) : "";
         if (customAddress) {
           try {
             const coords = await geocodeAddress(customAddress);
@@ -25076,7 +25381,10 @@
     function browserImageUrl(value) {
       const raw = String(value || "").trim();
       if (!raw || raw === "삭제") return "";
-      return /^https:\/\/res\.cloudinary\.com\//i.test(raw) ? raw : "";
+      if (/^https:\/\/res\.cloudinary\.com\//i.test(raw)) return raw;
+      if (/^https:\/\/drive\.google\.com\/thumbnail\?id=/i.test(raw)) return raw;
+      if (/^assets\/[\w./-]+\.(png|jpe?g|webp|gif)(?:[?#].*)?$/i.test(raw)) return raw;
+      return "";
     }
 
     function normalizeHeroSlide(item) {
@@ -25183,13 +25491,14 @@
 
       const fixedCopy = document.createElement("div");
       fixedCopy.className = "hero-content hero-fixed-copy";
+      const heroCopy = slides.find((item) => item.title || item.description) || {};
       const fixedKicker = document.createElement("span");
       fixedKicker.className = "hero-kicker";
       fixedKicker.textContent = "CLOVER NOW";
       const fixedTitle = document.createElement("h1");
-      fixedTitle.textContent = "너와 나, 자연스러운 설렘";
+      fixedTitle.textContent = heroCopy.title || "너와 나, 자연스러운 설렘";
       const fixedDescription = document.createElement("p");
-      fixedDescription.textContent = "반복되는 일상에 새로운 설렘";
+      fixedDescription.textContent = heroCopy.description || "반복되는 일상에 새로운 설렘";
       fixedCopy.append(fixedKicker, fixedTitle, fixedDescription);
       hero.append(fixedCopy);
 
@@ -25211,7 +25520,7 @@
       startHeroRotation();
     }
     function backendEventToPublic(be, index) {
-      return applySavedEventEdit(createEventFromPreset({
+      return createEventFromPreset({
         id: be.id,
         order: be.order,
         station: be.station,
@@ -25237,11 +25546,11 @@
         form2Config: be.form2Config,
         form3Config: be.form3Config,
         active: be.active
-      }, index));
+      }, index);
     }
 
-    function applyManagedEvents(nextEvents) {
-      events = filterDeletedManagedEvents(nextEvents);
+    function applyManagedEvents(nextEvents, options = {}) {
+      events = options.fromServer ? (Array.isArray(nextEvents) ? nextEvents : []) : filterDeletedManagedEvents(nextEvents);
       const selectedByIdIndex = selectedEventId ? events.findIndex((event) => event.id === selectedEventId) : -1;
       if (selectedByIdIndex >= 0) selectedEventIndex = selectedByIdIndex;
       selectedEvent = selectedByIdIndex >= 0 ? events[selectedEventIndex] : (selectedEvent || events[selectedEventIndex] || events[0]);
@@ -25263,7 +25572,10 @@
         const raw = localStorage.getItem(EVENT_LIST_CACHE_KEY);
         if (!raw) return null;
         const parsed = JSON.parse(raw);
-        const list = filterDeletedManagedEvents(parsed);
+        if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+        const savedAt = Number(parsed.savedAt || 0);
+        if (!savedAt || Date.now() - savedAt > EVENT_LIST_CACHE_TTL_MS) return null;
+        const list = filterDeletedManagedEvents(parsed.items);
         return Array.isArray(list) && list.length ? list : null;
       } catch {
         return null;
@@ -25271,29 +25583,93 @@
     }
 
     function writeCachedEventList(list) {
-      try { localStorage.setItem(EVENT_LIST_CACHE_KEY, JSON.stringify(list)); } catch {}
+      try {
+        localStorage.setItem(EVENT_LIST_CACHE_KEY, JSON.stringify({
+          savedAt: Date.now(),
+          items: list
+        }));
+      } catch {}
+    }
+
+    function serverBootstrapEvents() {
+      const ageOptions = ["20세 - 27세", "24세 - 29세", "27세 - 36세", "30세 - 37세", "34세 - 39세"];
+      const weekdayOptions = ["월", "화", "수", "목", "금", "토", "일", "상관없음", "유동일정"];
+      const form3Config = { fields: ["basicInfo", "physicalInfo", "job", "idealRank", "documents", "contactMethod", "message", "agreements"] };
+      const item = (id, order, station, title, target, image, oneToOne, sixToSix, badgeType = "none") => createEventFromPreset({
+        id,
+        order,
+        station,
+        layerType: "rotation",
+        title,
+        target,
+        image,
+        price: oneToOne,
+        malePrice: oneToOne,
+        femalePrice: oneToOne,
+        badgeType,
+        active: true,
+        form2Config: {
+          compositionOptions: ["1:1", "6:6"],
+          ageOptions,
+          weekdayOptions,
+          priceByComposition: {
+            "1:1": { malePrice: oneToOne, femalePrice: oneToOne },
+            "6:6": { malePrice: sixToSix.male, femalePrice: sixToSix.female }
+          },
+          noteEnabled: true
+        },
+        form3Config
+      }, order - 1);
+      return [
+        item("clover-default-event-01", 1, "랜덤", "순차적으로 무작위 선정", "우연처럼 시작되는 설렘", "assets/event-random-destiny-new.png", "10,000원", { male: "60,000원", female: "40,000원" }),
+        item("clover-default-event-07", 2, "맞춤", "원하는 조건에 맞는 이상형", "서로의 리듬을 이해하는 현실적인 만남", "assets/event-live-shift-worker.png", "20,000원", { male: "90,000원", female: "70,000원" }),
+        item("clover-default-event-09", 3, "40-50대", "좋은 사람을 만날 시간", "편안한 분위기에서 천천히 알아가는 성숙한 만남", "assets/event-theme-comfort-40s.png", "20,000원", { male: "70,000원", female: "50,000원" }),
+        item("clover-default-event-18", 4, "돌싱", "새로운 시작, 새로운 만남", "조금 더 성숙하고 솔직한 두 번째 설렘", "assets/event-theme-divorced.png", "20,000원", { male: "70,000원", female: "50,000원" }, "")
+      ];
+    }
+
+    function eventListTimeout(ms = 4500) {
+      return new Promise((_, reject) => {
+        window.setTimeout(() => reject(new Error("eventList timeout")), ms);
+      });
+    }
+
+    async function requestManagedEventList() {
+      const requestFresh = async () => {
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=eventList&t=${Date.now()}`, { cache: "no-store" });
+        return { ok: response.ok, json: await response.json() };
+      };
+
+      if (window.__earlyEventListPromise) {
+        try {
+          const early = await Promise.race([window.__earlyEventListPromise, eventListTimeout()]);
+          if (early?.ok && early?.json) return early;
+        } catch {}
+      }
+
+      return Promise.race([requestFresh(), eventListTimeout(6500)]);
     }
 
     async function loadManagedEvents() {
       eventsAreReal = true;
       const cached = readCachedEventList();
+      if (cached) {
+        applyManagedEvents(cached);
+      } else {
+        renderEventListLoading();
+      }
 
       let settled = false;
+      let bootstrapped = false;
       const fallbackTimer = setTimeout(() => {
-        if (!settled && !cached) applyManagedEvents(buildManagedEvents());
-      }, 5000);
+        if (!settled && !cached) {
+          bootstrapped = true;
+          applyManagedEvents(serverBootstrapEvents(), { fromServer: true });
+        }
+      }, 1200);
 
       try {
-        let ok, result;
-        if (window.__earlyEventListPromise) {
-          const early = await window.__earlyEventListPromise;
-          ok = early.ok;
-          result = early.json;
-        } else {
-          const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=eventList&t=${Date.now()}`, { cache: "no-store" });
-          ok = response.ok;
-          result = await response.json();
-        }
+        const { ok, json: result } = await requestManagedEventList();
         settled = true;
         clearTimeout(fallbackTimer);
         if (ok && result && result.ok && Array.isArray(result.events) && result.events.length) {
@@ -25301,15 +25677,15 @@
             .map(backendEventToPublic)
             .filter((event) => event.active !== false)
             .sort((a, b) => Number(a.order || 0) - Number(b.order || 0));
-          applyManagedEvents(nextEvents);
+          applyManagedEvents(nextEvents, { fromServer: true });
           writeCachedEventList(nextEvents);
-        } else if (!cached) {
-          applyManagedEvents(buildManagedEvents());
+        } else if (!cached && !bootstrapped) {
+          renderEventListUnavailable();
         }
       } catch {
         settled = true;
         clearTimeout(fallbackTimer);
-        applyManagedEvents(cached || buildManagedEvents());
+        if (!cached && !bootstrapped) renderEventListUnavailable();
       }
     }
 
@@ -25396,6 +25772,10 @@
     window.addEventListener("storage", (event) => {
       if ([EVENT_ACTIVE_OVERRIDE_KEY, EVENT_EDIT_OVERRIDE_KEY, EVENT_ORDER_OVERRIDE_KEY, EVENT_CUSTOM_OVERRIDE_KEY, EVENT_DELETED_OVERRIDE_KEY].includes(event.key)) {
         loadManagedEvents();
+      }
+      if (event.key === ADMIN_DASHBOARD_CONTENT_CACHE_KEY || event.key === SCHEDULE_CACHE_KEY) {
+        renderSchedulePosts();
+        requestAnimationFrame(refreshScheduleHeadlineControls);
       }
       if (event.key === ADMIN_SCHEDULE_POSTS_KEY || event.key === ADMIN_SCHEDULE_DELETED_KEY) {
         renderHomeParticipationCalendar();

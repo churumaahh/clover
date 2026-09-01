@@ -146,10 +146,35 @@
     }
     .remote-nav { display: grid; gap: 12px; }
     .nav-btn {
-      justify-content: space-between;
+      --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='7' fill='none' stroke='black' stroke-width='2'/%3E%3Ccircle cx='12' cy='12' r='2' fill='black'/%3E%3C/svg%3E");
+      justify-content: flex-start;
+      gap: 9px;
       width: 100%;
       box-shadow: inset 1px 1px 0 rgba(255,255,255,.04), 4px 5px 12px rgba(0, 0, 0, .28);
     }
+    .nav-btn::before {
+      content: "";
+      width: 17px;
+      height: 17px;
+      flex: 0 0 17px;
+      background: currentColor;
+      opacity: .9;
+      -webkit-mask: var(--nav-icon) center / contain no-repeat;
+      mask: var(--nav-icon) center / contain no-repeat;
+    }
+    .nav-btn .count-pill {
+      margin-left: auto;
+    }
+    .nav-btn[data-nav="hero"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='3' y='5' width='18' height='14' rx='2' fill='none' stroke='black' stroke-width='2'/%3E%3Ccircle cx='8.5' cy='10' r='1.5' fill='black'/%3E%3Cpath d='m21 15-5-5L5 19' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+    .nav-btn[data-nav="schedule"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='4' y='5' width='16' height='16' rx='2' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M8 3v4M16 3v4M4 10h16' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); }
+    .nav-btn[data-nav="events"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 7h16M7 12h10M10 17h4' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='5' cy='7' r='2' fill='black'/%3E%3Ccircle cx='19' cy='12' r='2' fill='black'/%3E%3Ccircle cx='8' cy='17' r='2' fill='black'/%3E%3C/svg%3E"); }
+    .nav-btn[data-nav="events2"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='4' y='4' width='7' height='7' rx='2' fill='none' stroke='black' stroke-width='2'/%3E%3Crect x='13' y='4' width='7' height='7' rx='2' fill='none' stroke='black' stroke-width='2'/%3E%3Crect x='4' y='13' width='7' height='7' rx='2' fill='none' stroke='black' stroke-width='2'/%3E%3Crect x='13' y='13' width='7' height='7' rx='2' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E"); }
+    .nav-btn[data-nav="clover"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 6h14M5 11h14M5 16h9' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M17 16h2v2h-2z' fill='black'/%3E%3C/svg%3E"); }
+    .nav-btn[data-nav="field"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 21s7-5 7-11a7 7 0 1 0-14 0c0 6 7 11 7 11z' fill='none' stroke='black' stroke-width='2'/%3E%3Ccircle cx='12' cy='10' r='2.5' fill='black'/%3E%3C/svg%3E"); }
+    .nav-btn[data-nav="match"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 4h8v3a4 4 0 0 1-8 0V4z' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M6 4H4v2a4 4 0 0 0 4 4M18 4h2v2a4 4 0 0 1-4 4M12 11v5M9 20h6M10 16h4' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); }
+    .nav-btn[data-nav="counsel"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 5h14v10H8l-3 3V5z' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M8 9h8M8 12h5' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); }
+    .nav-btn[data-nav="application"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='6' y='3' width='12' height='18' rx='2' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M9 8h6M9 12h6M9 16h3' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); }
+    .nav-btn[data-nav="board"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6h16v12H4z' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='m4 7 8 6 8-6' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
     .nav-btn.is-active { outline: 2px solid var(--accent); background: #1f2b22; color: #fff; }
     .nav-group {
       display: grid;
@@ -332,10 +357,58 @@
       border-radius: 14px;
       background: var(--panel);
       box-shadow: var(--shadow);
+      overflow: hidden;
       cursor: grab;
       touch-action: none;
       user-select: none;
       transition: border-color .16s ease, box-shadow .16s ease, opacity .16s ease, transform .16s ease;
+    }
+    .hero-admin-item::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, rgba(0, 255, 64, .08), rgba(0, 255, 64, 1));
+      box-shadow: 0 0 18px rgba(0, 255, 64, .75);
+      opacity: 0;
+      transform: scaleX(0);
+      transform-origin: left center;
+      pointer-events: none;
+    }
+    .hero-admin-item::after {
+      content: "";
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      z-index: 4;
+      min-width: 54px;
+      padding: 5px 9px;
+      border: 1px solid rgba(0, 255, 64, .45);
+      border-radius: 999px;
+      background: rgba(6, 16, 8, .9);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 950;
+      line-height: 1;
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0,0,0,.34), 0 0 16px rgba(0,255,64,.28);
+      opacity: 0;
+      transform: translateY(-4px) scale(.96);
+      pointer-events: none;
+      transition: opacity .14s ease, transform .14s ease;
+    }
+    .hero-admin-item.is-pressing {
+      border-color: rgba(0, 255, 64, .48);
+      box-shadow: 0 0 0 2px rgba(0, 255, 64, .12), 0 14px 26px rgba(0,0,0,.3);
+      transform: scale(.997);
+      cursor: grabbing;
+    }
+    .hero-admin-item.is-pressing::before {
+      opacity: 1;
+      animation: hold-progress .42s linear forwards;
     }
     .hero-admin-item.is-dragging {
       border-color: rgba(0, 255, 64, .9);
@@ -345,6 +418,24 @@
       transform: translateY(-3px) scale(1.01);
       cursor: grabbing;
       z-index: 4;
+    }
+    .hero-admin-item.is-dragging::before {
+      opacity: 1;
+      transform: scaleX(1);
+      animation: none;
+    }
+    .hero-admin-item.is-dragging::after {
+      content: "이동 중";
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .hero-admin-item.is-pressing .hero-admin-rank,
+    .hero-admin-item.is-dragging .hero-admin-rank {
+      opacity: 0;
+    }
+    .hero-admin-item.is-dragging .hero-admin-thumb {
+      box-shadow: inset 0 0 0 2px rgba(0, 255, 64, .52);
+      filter: saturate(1.15) brightness(1.08);
     }
     .hero-admin-rank {
       position: absolute;
@@ -495,6 +586,13 @@
       color: var(--muted);
       font-size: 12px;
       line-height: 1.5;
+    }
+    .dashboard-item .dashboard-item-content {
+      color: #c9d4e3;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.45;
+      white-space: pre-wrap;
     }
     .dashboard-item .dashboard-board-body {
       color: #eef5ff;
@@ -741,6 +839,28 @@
       font-weight: 900;
       line-height: 1.35;
     }
+    .dashboard-pending-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 24px;
+      padding: 0 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 255, 64, .42);
+      background: rgba(0, 255, 64, .12);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 950;
+    }
+    .dashboard-pending-badge::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid rgba(0, 255, 64, .24);
+      border-top-color: var(--accent);
+      animation: list-loading-spin .7s linear infinite;
+    }
     .dashboard-author-meta {
       display: inline-flex;
       flex-wrap: wrap;
@@ -794,6 +914,9 @@
       border-color: rgba(255, 96, 96, .42);
       background: #241818;
     }
+    .dashboard-item.is-saving {
+      border-color: rgba(0, 255, 64, .38);
+    }
     .dashboard-item.is-off {
       opacity: .55;
       filter: grayscale(.35);
@@ -832,7 +955,7 @@
     .event-card {
       position: relative;
       display: grid;
-      grid-template-columns: 168px minmax(0, 1fr) 126px;
+      grid-template-columns: 168px minmax(0, 1fr) 144px;
       gap: 12px;
       padding: 12px;
       align-items: center;
@@ -914,9 +1037,64 @@
       box-shadow: inset 0 0 0 2px rgba(0, 255, 64, .52);
       filter: saturate(1.15) brightness(1.08);
     }
+    .event-card.is-saving {
+      border-color: rgba(0, 255, 64, .86);
+      background: #20251f;
+      box-shadow: 0 0 0 2px rgba(0, 255, 64, .2), 0 18px 34px rgba(0, 0, 0, .38), 0 0 22px rgba(0, 255, 64, .14);
+      opacity: 1;
+    }
+    .event-card.is-saving::before {
+      opacity: 1;
+      animation: saving-progress 1s ease-in-out infinite;
+    }
+    .event-card.is-saving::after {
+      display: none;
+    }
+    .event-card.is-saving .thumb {
+      box-shadow: inset 0 0 0 2px rgba(0, 255, 64, .42);
+      filter: saturate(1.08) brightness(1.04);
+    }
+    .event-card.is-saving .event-actions button {
+      pointer-events: none;
+      opacity: .7;
+    }
+    .event-save-badge {
+      position: absolute;
+      top: 18px;
+      left: 20px;
+      z-index: 4;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-width: 68px;
+      padding: 6px 10px;
+      border: 1px solid rgba(0, 255, 64, .45);
+      border-radius: 999px;
+      background: rgba(6, 16, 8, .9);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 950;
+      line-height: 1;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, .34), 0 0 16px rgba(0, 255, 64, .28);
+      pointer-events: none;
+    }
+    .event-save-badge::before {
+      content: "";
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: 2px solid rgba(0, 255, 64, .25);
+      border-top-color: var(--accent);
+      animation: list-loading-spin .7s linear infinite;
+    }
     @keyframes hold-progress {
       from { transform: scaleX(0); }
       to { transform: scaleX(1); }
+    }
+    @keyframes saving-progress {
+      0% { transform: translateX(-100%) scaleX(.32); }
+      50% { transform: translateX(0) scaleX(.88); }
+      100% { transform: translateX(100%) scaleX(.32); }
     }
     .thumb {
       width: 100%;
@@ -980,7 +1158,7 @@
       justify-items: stretch;
       align-self: center;
       justify-self: end;
-      width: 126px;
+      width: 144px;
     }
     .toggle-btn {
       min-height: 48px;
@@ -992,10 +1170,10 @@
     .toggle-btn.is-off { color: #9aa4b2; background: #252525; border: 1px solid #343434; }
     .event-actions .toggle-btn,
     .event-actions .small-btn {
-      min-height: 30px;
-      border-radius: 8px;
-      padding: 0;
-      font-size: 12px;
+      min-height: 36px;
+      border-radius: 9px;
+      padding: 0 10px;
+      font-size: 13px;
       box-shadow: 2px 3px 9px rgba(0, 0, 0, .24);
     }
     .event-actions .toggle-btn.is-on {
@@ -1057,9 +1235,8 @@
     }
     .toast {
       position: fixed;
-      left: 50%;
-      top: max(14px, env(safe-area-inset-top));
-      bottom: auto;
+      right: max(16px, env(safe-area-inset-right));
+      bottom: max(16px, env(safe-area-inset-bottom));
       z-index: 100;
       min-width: min(360px, calc(100vw - 32px));
       max-width: calc(100vw - 32px);
@@ -1070,14 +1247,14 @@
       color: var(--ink);
       box-shadow: 0 16px 30px rgba(0, 0, 0, .38);
       text-align: center;
-      transform: translate(-50%, -16px);
+      transform: translateY(16px);
       opacity: 0;
       pointer-events: none;
       transition: opacity .16s ease, transform .16s ease;
     }
     .toast.is-visible {
       opacity: 1;
-      transform: translate(-50%, 0);
+      transform: translateY(0);
     }
     .edit-layer {
       margin-top: -2px;
@@ -1243,10 +1420,10 @@
       gap: 12px;
       align-items: center;
       padding: 14px;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(255, 255, 255, .16);
       border-radius: 16px;
-      background: var(--panel);
-      box-shadow: var(--shadow);
+      background: #242424;
+      box-shadow: var(--shadow), inset 1px 1px 0 rgba(255, 255, 255, .045);
       cursor: pointer;
     }
     .schedule-layer-card:hover {
@@ -1295,15 +1472,16 @@
       color: #7bff9b;
     }
     .schedule-layer-card.is-default {
-      border-color: rgba(255,255,255,.08);
-      opacity: .78;
+      border-color: rgba(255,255,255,.16);
+      background: #242424;
+      opacity: 1;
     }
     .schedule-layer-card.is-closed {
-      border-color: rgba(255,255,255,.06);
-      background: #151515;
+      border-color: rgba(255,255,255,.09);
+      background: #1b1b1b;
       box-shadow: none;
-      opacity: .48;
-      filter: grayscale(.45);
+      opacity: .72;
+      filter: grayscale(.16);
     }
     .schedule-layer-card.is-closed .schedule-layer-meta span {
       background: #202020;
@@ -1339,6 +1517,8 @@
       .schedule-maker-grid { grid-template-columns: 1fr; }
       .schedule-layer-card { grid-template-columns: 1fr; }
       .schedule-card-actions { justify-content: flex-start; }
+      .hero-admin-item { grid-template-columns: 1fr; }
+      .hero-admin-actions { justify-items: stretch; }
     }
     .link-btn, .soft-btn, .nav-btn, .small-btn { border-color: #343434; }
     .search { background: #1f1f1f; }
@@ -1346,8 +1526,13 @@
       .layout { grid-template-columns: 1fr; }
       .side { position: static; grid-row: 1; max-height: none; }
       .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .event-card { grid-template-columns: 140px minmax(0, 1fr) 126px; }
+      .event-card { grid-template-columns: 140px minmax(0, 1fr) 144px; }
       .event-actions { grid-column: auto; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .toast {
+        right: 14px;
+        left: 14px;
+        min-width: 0;
+      }
     }
     @media (max-width: 560px) {
       .cards { grid-template-columns: 1fr; }
@@ -1395,9 +1580,9 @@
       </section>
       <section class="panel admin-panel dashboard-panel" data-admin-panel="clover" hidden>
         <div class="dashboard-head">
-          <h1>일정 안내</h1>
+          <h1>클로버 근황</h1>
           <span class="dashboard-head-actions">
-            <button class="soft-btn" type="button" data-dashboard-create="clover">등록</button>
+            <button class="soft-btn" type="button" data-dashboard-create="clover">추가</button>
             <button class="soft-btn" type="button" data-dashboard-sync="clover">현재 상태 업로드</button>
             <button class="soft-btn" type="button" data-dashboard-refresh>새로고침</button>
           </span>
@@ -1422,7 +1607,7 @@
         <div class="dashboard-head">
           <h1>현장</h1>
           <span class="dashboard-head-actions">
-            <button class="soft-btn" type="button" data-dashboard-create="field">등록</button>
+            <button class="soft-btn" type="button" data-dashboard-create="field">추가</button>
             <button class="soft-btn" type="button" data-dashboard-sync="field">현재 상태 업로드</button>
             <button class="soft-btn" type="button" data-dashboard-refresh>새로고침</button>
           </span>
@@ -1447,7 +1632,7 @@
         <div class="dashboard-head">
           <h1>매칭결과</h1>
           <span class="dashboard-head-actions">
-            <button class="soft-btn" type="button" data-dashboard-create="match">등록</button>
+            <button class="soft-btn" type="button" data-dashboard-create="match">추가</button>
             <button class="soft-btn" type="button" data-dashboard-refresh>새로고침</button>
           </span>
         </div>
@@ -1492,7 +1677,7 @@
         <div class="dashboard-head">
           <h1>연애상담</h1>
           <span class="dashboard-head-actions">
-            <button class="soft-btn" type="button" data-dashboard-create="counsel">등록</button>
+            <button class="soft-btn" type="button" data-dashboard-create="counsel">추가</button>
             <button class="soft-btn" type="button" data-dashboard-refresh>새로고침</button>
           </span>
         </div>
@@ -1567,6 +1752,7 @@
                   <h1>일정 안내 생성</h1>
                   <p class="sub">날짜와 시간을 선택하면 메인 일정 안내 달력 아래 카드 레이어로 표시됩니다.</p>
                 </div>
+                <button class="soft-btn" type="button" data-schedule-sync>현재 상태 업로드</button>
               </div>
               <div class="schedule-maker-grid">
                 <div class="edit-field schedule-date-field is-wide">날짜
@@ -1605,16 +1791,15 @@
                     <option value="21시">오후 09:00</option>
                   </select>
                 </label>
-                <label class="edit-field is-wide">주소 (지도 반영)
-                  <input name="address" autocomplete="off" placeholder="예: 부산 부산진구 서전로 8번길 27" value="부산 부산진구 서전로 8번길 27">
+                <input name="address" type="hidden" value="부산 부산진구 서전로 8번길 27">
+                <label class="edit-field is-wide">이미지 URL
+                  <textarea name="mapImageUrl" placeholder="Cloudinary URL 또는 assets/...&#10;여러 장은 줄바꿈으로 입력"></textarea>
                 </label>
-                <div class="edit-field is-wide schedule-address-preview">
-                  <span class="schedule-address-preview-label">지도 미리보기</span>
-                  <div class="schedule-address-preview-map" data-address-preview-map></div>
-                  <p class="schedule-address-preview-status" data-address-preview-status>주소를 입력하면 지도에 핀이 표시됩니다.</p>
-                </div>
+                <label class="edit-field is-wide">이미지 첨부
+                  <input type="file" name="mapImageFile" accept="image/*" multiple>
+                </label>
                 <label class="edit-field is-wide">안내 문구
-                  <textarea name="content">선택한 시간에 소개팅이 진행됩니다.</textarea>
+                  <textarea name="content">자세한 사항은 개별적으로 문자 안내드릴 예정입니다.</textarea>
                 </label>
               </div>
               <div class="edit-actions">
@@ -1656,7 +1841,7 @@
           </div>
         </div>
         <div class="nav-divider" role="separator" aria-hidden="true"></div>
-        <button class="nav-btn" type="button" data-nav="clover">일정 안내 <span class="count-pill" data-dashboard-menu-count="clover">0</span></button>
+        <button class="nav-btn" type="button" data-nav="clover">클로버 근황 <span class="count-pill" data-dashboard-menu-count="clover">0</span></button>
         <button class="nav-btn" type="button" data-nav="field">현장 <span class="count-pill" data-dashboard-menu-count="field">0</span></button>
         <button class="nav-btn" type="button" data-nav="match">매칭결과 <span class="count-pill" data-dashboard-menu-count="match">0</span></button>
         <button class="nav-btn" type="button" data-nav="counsel">연애상담 <span class="count-pill" data-dashboard-menu-count="counsel">0</span></button>
@@ -1700,6 +1885,8 @@
     const DASHBOARD_CONTENT_CACHE_KEY = "clover-admin-dashboard-content:v1";
     const DASHBOARD_DELETED_CACHE_KEY = "clover-admin-dashboard-deleted:v1";
     const DASHBOARD_IMAGE_FILE_MAX_SIZE = 200 * 1024 * 1024;
+    const DASHBOARD_IMAGE_OPTIMIZED_MAX_EDGE = 1600;
+    const DASHBOARD_IMAGE_WEBP_QUALITY = 0.82;
     const ADMIN_HERO_CACHE_KEY = "clover-admin-hero-slides:v1";
     const HERO_DEFAULT_TITLE = "너와 나, 자연스러운 설렘";
     const HERO_DEFAULT_DESCRIPTION = "반복되는 일상에 새로운 설렘";
@@ -1713,6 +1900,7 @@
     let heroPressingCardEl = null;
     let heroDraggingId = "";
     let heroDidReorder = false;
+    const heroImagePayloadById = new Map();
     const eventCardPresets = Object.freeze([
       { station: "랜덤", title: "순차적으로 무작위 선정", target: "우연처럼 시작되는 설렘", image: "assets/event-random-destiny-new.png" },
       { station: "취향", title: "운동을 좋아하는 사람", target: "같이 땀 흘리고 건강하게 가까워지는 만남", image: "assets/event-taste-workout.png" },
@@ -1766,6 +1954,7 @@
     let pressingCardEl = null;
     let draggingEventId = "";
     let didReorderDrag = false;
+    const savingEventIds = new Set();
 
     function eventPresetId(index) {
       return `clover-default-event-${String(index + 1).padStart(2, "0")}`;
@@ -1902,7 +2091,7 @@
         imageUrl: event.imageUrl,
         badgeType: event.badgeType || "",
         form1Config: event.form1Config,
-        form2Config: event.form2Config,
+        form2Config: eventForm2ConfigWithPrices(event, eventPriceConfig(event)),
         form3Config: event.form3Config,
         active: isActive(event)
       };
@@ -2018,6 +2207,10 @@
       compositionOptions: ["1:1", "6:6"],
       ageOptions: ["20 - 27세", "24 - 29세", "27 - 36세", "30 - 37세", "34 - 39세", "37 - 46세", "40 - 47세", "44 - 49세", "47 - 56세", "50 - 57세"],
       weekdayOptions: ["월", "화", "수", "목", "금", "토", "일", "상관없음", "유동일정"],
+      priceByComposition: {
+        "1:1": { malePrice: "99,000원", femalePrice: "30,000원" },
+        "6:6": { malePrice: "99,000원", femalePrice: "30,000원" }
+      },
       noteEnabled: true
     });
 
@@ -2034,6 +2227,30 @@
         } catch {}
       }
       return { ...fallback };
+    }
+
+    function eventPriceConfig(event) {
+      const config = layerFormConfig(event?.form2Config, defaultLayerForm2Config);
+      const prices = config.priceByComposition && typeof config.priceByComposition === "object" ? config.priceByComposition : {};
+      const fallbackMale = event?.malePrice || event?.price || "99,000원";
+      const fallbackFemale = event?.femalePrice || "30,000원";
+      return {
+        "1:1": {
+          malePrice: prices["1:1"]?.malePrice || fallbackMale,
+          femalePrice: prices["1:1"]?.femalePrice || fallbackFemale
+        },
+        "6:6": {
+          malePrice: prices["6:6"]?.malePrice || fallbackMale,
+          femalePrice: prices["6:6"]?.femalePrice || fallbackFemale
+        }
+      };
+    }
+
+    function eventForm2ConfigWithPrices(event, priceByComposition) {
+      return {
+        ...layerFormConfig(event?.form2Config, defaultLayerForm2Config),
+        priceByComposition
+      };
     }
 
     function layerFormConfigPayload(value, fallback) {
@@ -2212,7 +2429,7 @@
         oldPrice: be.oldPrice || "",
         image: be.image || "",
         imageUrl: adminImageUrl(be.image || ""),
-        badgeType: "",
+        badgeType: String(be.badgeType || "").trim(),
         form1Config: layerFormConfig(be.form1Config, defaultLayerForm1Config),
         form2Config: layerFormConfig(be.form2Config, defaultLayerForm2Config),
         form3Config: layerFormConfig(be.form3Config, defaultLayerForm3Config),
@@ -2222,6 +2439,7 @@
 
     function eventSavePayload(event, overrides = {}) {
       const merged = { ...event, ...overrides };
+      const priceByComposition = eventPriceConfig(merged);
       return {
         type: "eventSave",
         id: merged.id,
@@ -2243,8 +2461,9 @@
         oldPrice: merged.oldPrice || "",
         badgeType: String(merged.badgeType || "").trim(),
         form1Config: layerFormConfigPayload(merged.form1Config, defaultLayerForm1Config),
-        form2Config: layerFormConfigPayload(merged.form2Config, defaultLayerForm2Config),
+        form2Config: layerFormConfigPayload(eventForm2ConfigWithPrices(merged, priceByComposition), defaultLayerForm2Config),
         form3Config: layerFormConfigPayload(merged.form3Config, defaultLayerForm3Config),
+        imageFile: merged.imageFile || null,
         active: merged.active !== false
       };
     }
@@ -2327,7 +2546,7 @@
     const PUBLIC_COUNSEL_CACHE_KEY = "clover-counsel-posts-v1";
     const PUBLIC_APPLICATION_CACHE_KEY = "clover-application-list-v1";
     const dashboardPanelCategories = Object.freeze({
-      clover: "일정 안내",
+      clover: "클로버 근황",
       field: "현장",
       match: "매칭결과",
       counsel: "연애상담"
@@ -2394,7 +2613,12 @@
 
     function writeAdminHeroCache(slides) {
       try {
-        localStorage.setItem(ADMIN_HERO_CACHE_KEY, JSON.stringify((slides || []).slice(0, 5)));
+        localStorage.setItem(ADMIN_HERO_CACHE_KEY, JSON.stringify((slides || []).slice(0, 5).map((item) => ({
+          ...item,
+          imageUrl: String(item.imageUrl || "").startsWith("data:image/") ? "" : item.imageUrl,
+          sourceImageUrl: String(item.sourceImageUrl || "").startsWith("data:image/") ? "" : item.sourceImageUrl,
+          imageFile: null
+        }))));
       } catch {}
     }
 
@@ -2402,11 +2626,15 @@
       return heroSlides.find((item) => item.title || item.description) || defaultHeroSlides()[0];
     }
 
-    function syncHeroCopyFields(title = "", description = "") {
+    function syncHeroCopyFields(title = "", description = "", source = null) {
       const nextTitle = String(title || HERO_DEFAULT_TITLE);
       const nextDescription = String(description || HERO_DEFAULT_DESCRIPTION);
-      document.querySelectorAll("[data-hero-title]").forEach((input) => { input.value = nextTitle; });
-      document.querySelectorAll("[data-hero-description]").forEach((input) => { input.value = nextDescription; });
+      document.querySelectorAll("[data-hero-title]").forEach((input) => {
+        if (input !== source && document.activeElement !== input) input.value = nextTitle;
+      });
+      document.querySelectorAll("[data-hero-description]").forEach((input) => {
+        if (input !== source && document.activeElement !== input) input.value = nextDescription;
+      });
     }
 
     function updateHeroMenuCount() {
@@ -2428,6 +2656,9 @@
           <span class="hero-admin-fields">
             <label class="hero-admin-field">이미지 URL
               <input data-hero-image-url value="${htmlAttr(imageUrl)}" placeholder="Cloudinary URL 또는 assets/...">
+            </label>
+            <label class="hero-admin-field">이미지 첨부
+              <input type="file" data-hero-image-file accept="image/*">
             </label>
             <label class="hero-admin-field">동영상 URL
               <input data-hero-video-url value="${htmlAttr(item.videoUrl || "")}" placeholder="선택 입력">
@@ -2464,9 +2695,44 @@
         imageUrl: card.querySelector("[data-hero-image-url]")?.value.trim() || "",
         sourceImageUrl: card.querySelector("[data-hero-image-url]")?.value.trim() || "",
         videoUrl: card.querySelector("[data-hero-video-url]")?.value.trim() || "",
+        imageFile: heroImagePayloadById.get(card.dataset.heroSlide || "") || null,
         active: !!card.querySelector("[data-hero-active]")?.checked,
         updatedAt: Date.now()
-      })).filter((item) => item.imageUrl || item.videoUrl);
+      })).filter((item) => item.imageUrl || item.videoUrl || item.imageFile);
+    }
+
+    async function handleHeroImageFile(input) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+      if (!file.type.startsWith("image/")) {
+        showToast("이미지 파일만 첨부할 수 있습니다.");
+        input.value = "";
+        return;
+      }
+      if (file.size > DASHBOARD_IMAGE_FILE_MAX_SIZE) {
+        showToast("이미지는 최대 200MB까지 첨부할 수 있습니다.");
+        input.value = "";
+        return;
+      }
+      try {
+        const dataUrl = await fileToDataUrl(file);
+        const card = input.closest("[data-hero-slide]");
+        const id = card?.dataset.heroSlide || "";
+        if (!card || !id) return;
+        heroImagePayloadById.set(id, imagePayloadFromDataUrl(file, dataUrl));
+        const urlInput = card.querySelector("[data-hero-image-url]");
+        if (urlInput) urlInput.value = dataUrl;
+        const thumb = card.querySelector(".hero-admin-thumb");
+        if (thumb) {
+          thumb.classList.remove("is-empty");
+          thumb.innerHTML = `<img src="${htmlAttr(dataUrl)}" alt="" loading="lazy">`;
+        }
+        heroSlides = collectHeroSlidesFromDom();
+        writeAdminHeroCache(heroSlides.map((item) => ({ ...item, imageFile: null })));
+        showToast("첨부 이미지가 적용되었습니다.");
+      } catch (error) {
+        showToast(error.message);
+      }
     }
 
     function addHeroSlide() {
@@ -2515,6 +2781,7 @@
     function clearHeroPressTimer() {
       if (heroPressTimer) window.clearTimeout(heroPressTimer);
       heroPressTimer = 0;
+      heroPressingCardEl?.classList.remove("is-pressing");
       heroPressingCardEl?.classList.remove("is-dragging");
       heroPressingCardEl = null;
     }
@@ -2524,6 +2791,7 @@
       heroSlides = collectHeroSlidesFromDom();
       heroDraggingId = card.dataset.heroSlide || "";
       heroDidReorder = false;
+      card.classList.remove("is-pressing");
       card.classList.add("is-dragging");
       showToast("길게 누른 상태로 이동해 순서를 바꾸세요.");
     }
@@ -2568,6 +2836,7 @@
       }
       try {
         const result = await apiPost({ type: "heroSave", slides: heroSlides });
+        heroImagePayloadById.clear();
         heroSlides = normalizeAdminHeroSlides(result.slides || heroSlides);
         writeAdminHeroCache(heroSlides);
         renderHeroAdmin();
@@ -2617,6 +2886,23 @@
       const rest = readSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY)
         .filter((post) => String(post?.category || "").trim() !== cleanCategory);
       writeSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY, uniqueDashboardItems([...nextPosts, ...rest]));
+    }
+
+    function replaceDashboardLocalCategoryCache(category, posts) {
+      const cleanCategory = String(category || "").trim();
+      const nextPosts = Array.isArray(posts) ? posts : [];
+      const rest = readDashboardLocalPosts()
+        .filter((post) => String(post?.category || "").trim() !== cleanCategory);
+      writeDashboardLocalPosts(uniqueDashboardItems([...nextPosts, ...rest]));
+    }
+
+    function publishDashboardCategoryCache(name) {
+      const category = dashboardPanelCategories[name];
+      if (!category || !["clover", "field", "match"].includes(name)) return;
+      const categoryPosts = uniqueDashboardItems(dashboardData[name] || [])
+        .filter((post) => String(post?.category || category).trim() === category);
+      replaceSharedDashboardCategoryCache(category, categoryPosts);
+      replaceDashboardLocalCategoryCache(category, categoryPosts);
     }
 
     function readDashboardBoardStatusOverrides() {
@@ -2779,8 +3065,15 @@
       try {
         const parsed = JSON.parse(localStorage.getItem(DASHBOARD_CONTENT_CACHE_KEY) || "[]");
         if (!Array.isArray(parsed)) return [];
-        const cleaned = cleanDashboardPosts(parsed);
-        if (cleaned.length !== parsed.length) {
+        let changed = false;
+        const cleaned = cleanDashboardPosts(parsed).map((post) => {
+          if (post?.isSaving !== true) return post;
+          const savedAt = Number(post.updatedAt || post.createdAt || 0);
+          if (savedAt && Date.now() - savedAt < 120000) return post;
+          changed = true;
+          return { ...post, isSaving: false, savingLabel: "" };
+        });
+        if (changed || cleaned.length !== parsed.length) {
           localStorage.setItem(DASHBOARD_CONTENT_CACHE_KEY, JSON.stringify(cleaned.slice(0, 120)));
         }
         return cleaned;
@@ -2845,7 +3138,7 @@
       ];
       return proofs.map((content, index) => ({
         id: `dashboard-clover-fallback-${index + 1}`,
-        category: "일정 안내",
+        category: "클로버 근황",
         title: `#${proofs.length - index} 커플 인증`,
         content,
         imageUrl: `assets/clover-proof-${String(index + 1).padStart(2, "0")}.jpg`,
@@ -2895,7 +3188,7 @@
       const clover = merged.filter((post) => ["일정 안내", "클로버 근황"].includes(String(post.category || "").trim()));
       const field = merged.filter((post) => String(post.category || "").trim() === "현장");
       const match = merged.filter((post) => String(post.category || "").trim() === "매칭결과");
-      dashboardData.clover = withoutDeletedDashboardItems(uniqueDashboardItems([...dashboardLocalPostsFor("clover"), ...(clover.length ? clover : dashboardCloverFallbackPosts())]));
+      dashboardData.clover = withoutDeletedDashboardItems(uniqueDashboardItems([...dashboardLocalPostsFor("clover"), ...clover, ...dashboardCloverFallbackPosts()]));
       dashboardData.field = withoutDeletedDashboardItems(uniqueDashboardItems([...dashboardLocalPostsFor("field"), ...field, ...dashboardFieldFallbackPosts()]));
       dashboardData.match = withoutDeletedDashboardItems(uniqueDashboardItems([...dashboardLocalPostsFor("match"), ...match, ...dashboardMatchItems()]));
     }
@@ -2908,6 +3201,7 @@
       dashboardData.field = uniqueDashboardItems([...dashboardLocalPostsFor("field"), ...dashboardData.field]);
       dashboardData.match = uniqueDashboardItems([...dashboardLocalPostsFor("match"), ...dashboardData.match]);
       dashboardData.board = mergeDashboardBoardPosts(dashboardData.board, readSharedDashboardCache(PUBLIC_BOARD_CACHE_KEY));
+      if (!dashboardData.counsel.length) dashboardData.counsel = readSharedDashboardCache(PUBLIC_COUNSEL_CACHE_KEY);
       if (!dashboardData.application.length) dashboardData.application = readSharedDashboardCache(PUBLIC_APPLICATION_CACHE_KEY);
       ["clover", "field", "match"].forEach((name) => {
         dashboardData[name] = withoutDeletedDashboardItems(dashboardData[name]);
@@ -2929,6 +3223,8 @@
         meetingMode: bp.meetingMode || "1:1",
         ageRange: bp.ageRange || "27-36세",
         address: bp.address || "부산 부산진구 서전로 8번길 27",
+        mapImageUrl: bp.mapImageUrl || "",
+        mapImageUrls: Array.isArray(bp.mapImageUrls) ? bp.mapImageUrls : [],
         active: bp.active !== false
       };
     }
@@ -2940,6 +3236,7 @@
         const list = Array.isArray(result.posts) ? result.posts : [];
         adminSchedulePosts = list.filter((post) => String(post.id || "").startsWith("admin-schedule-")).map(backendSchedulePostToAdmin);
         applyDashboardSchedulePosts(list);
+        writeSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY, list);
       } catch (error) {
         showToast(`일정 안내 목록을 불러오지 못했습니다: ${error.message}`);
       }
@@ -2983,15 +3280,17 @@
         return;
       }
       if (targetName === "counsel") {
-        dashboardData.counsel = [];
-        dashboardLoading = true;
+        if (!(dashboardData.counsel || []).length) dashboardData.counsel = readSharedDashboardCache(PUBLIC_COUNSEL_CACHE_KEY);
+        dashboardLoading = !(dashboardData.counsel || []).length;
         renderContentDashboards();
         try {
           if (GOOGLE_SCRIPT_URL) {
             const result = await apiGetWithTimeout("counselList", { includeInactive: "1" });
             const posts = Array.isArray(result?.posts) ? result.posts : [];
-            dashboardData.counsel = posts;
-            writeSharedDashboardCache(PUBLIC_COUNSEL_CACHE_KEY, posts);
+            if (posts.length) {
+              dashboardData.counsel = posts;
+              writeSharedDashboardCache(PUBLIC_COUNSEL_CACHE_KEY, posts);
+            }
           }
         } finally {
           if (requestId === dashboardLoadSeq) dashboardLoading = false;
@@ -3089,7 +3388,8 @@
 
     function scheduleTimeHour(time) {
       const text = String(time || "");
-      const match = text.match(/(\d{1,2})/);
+      const clockMatch = text.match(/(\d{1,2}):(\d{2})/);
+      const match = clockMatch || text.match(/(\d{1,2})/);
       if (!match) return NaN;
       let hour = Number(match[1]);
       if (/오후/.test(text) && hour < 12) hour += 12;
@@ -3109,6 +3409,10 @@
       const text = String(value || "").trim();
       const isoMatch = text.match(/(\d{4})-(\d{2})-(\d{2})/);
       if (isoMatch) return `${isoMatch[1]}-${isoMatch[2]}-${isoMatch[3]}`;
+      const parsed = new Date(text);
+      if (!Number.isNaN(parsed.getTime())) {
+        return `${parsed.getFullYear()}-${String(parsed.getMonth() + 1).padStart(2, "0")}-${String(parsed.getDate()).padStart(2, "0")}`;
+      }
       return "";
     }
 
@@ -3330,48 +3634,12 @@
       });
     }
 
-    let addressPreviewMap = null;
-    let addressPreviewMarker = null;
-    let addressPreviewRequestId = 0;
-    async function renderAddressPreview(address) {
-      const mapEl = scheduleMaker?.querySelector("[data-address-preview-map]");
-      const statusEl = scheduleMaker?.querySelector("[data-address-preview-status]");
-      if (!mapEl || !statusEl) return;
-      const trimmed = String(address || "").trim();
-      if (!trimmed) {
-        statusEl.textContent = "주소를 입력하면 지도에 핀이 표시됩니다.";
-        statusEl.className = "schedule-address-preview-status";
-        return;
-      }
-      const requestId = ++addressPreviewRequestId;
-      statusEl.textContent = "지도에서 위치를 확인하는 중...";
-      statusEl.className = "schedule-address-preview-status";
-      try {
-        await loadNaverMapScript();
-        const { lat, lng, roadAddress } = await geocodeAddress(trimmed);
-        if (requestId !== addressPreviewRequestId) return;
-        const position = new naver.maps.LatLng(lat, lng);
-        if (!addressPreviewMap) {
-          addressPreviewMap = new naver.maps.Map(mapEl, { center: position, zoom: 16, minZoom: 10 });
-          addressPreviewMarker = new naver.maps.Marker({ position, map: addressPreviewMap });
-        } else {
-          addressPreviewMap.setCenter(position);
-          addressPreviewMarker.setPosition(position);
-        }
-        window.setTimeout(() => naver.maps.Event.trigger(addressPreviewMap, "resize"), 60);
-        statusEl.textContent = `지도에서 확인됨: ${roadAddress}`;
-        statusEl.className = "schedule-address-preview-status is-ok";
-      } catch {
-        if (requestId !== addressPreviewRequestId) return;
-        statusEl.textContent = "이 주소는 지도에서 찾을 수 없습니다. 정확한 도로명/지번 주소를 입력해 주세요.";
-        statusEl.className = "schedule-address-preview-status is-error";
-      }
-    }
-
-    let addressPreviewDebounce = 0;
-    function scheduleAddressPreview(address) {
-      window.clearTimeout(addressPreviewDebounce);
-      addressPreviewDebounce = window.setTimeout(() => renderAddressPreview(address), 500);
+    function normalizeScheduleAddress(address) {
+      const text = String(address || "").trim().replace(/\s+/g, " ");
+      if (!text) return "";
+      if (/^(부산|서울|대구|인천|광주|대전|울산|세종|경기|강원|충북|충남|전북|전남|경북|경남|제주)/.test(text)) return text;
+      if (/부산진구|서전로|전포|부전/.test(text)) return `부산 부산진구 ${text}`.replace(/\s+/g, " ");
+      return text;
     }
 
     function initScheduleMaker() {
@@ -3382,12 +3650,6 @@
         else renderScheduleDateCalendar();
       }
       setScheduleTimeChecks([]);
-      const addressEl = scheduleMaker.querySelector('[name="address"]');
-      if (addressEl && !addressEl.dataset.previewBound) {
-        addressEl.dataset.previewBound = "true";
-        addressEl.addEventListener("input", () => scheduleAddressPreview(addressEl.value));
-      }
-      if (addressEl) renderAddressPreview(addressEl.value);
     }
 
     function scheduleFormSubmitButtonText(text) {
@@ -3407,12 +3669,21 @@
       const modeEl = scheduleMaker.querySelector('[name="meetingMode"]');
       const ageEl = scheduleMaker.querySelector('[name="ageRange"]');
       const addressEl = scheduleMaker.querySelector('[name="address"]');
+      const mapImageUrlEl = scheduleMaker.querySelector('[name="mapImageUrl"]');
+      const mapImageFileEl = scheduleMaker.querySelector('[name="mapImageFile"]');
       const activeEl = scheduleMaker.querySelector('[name="active"]');
       if (modeEl) modeEl.value = "1:1";
       if (ageEl) ageEl.value = "27-36세";
       if (addressEl) addressEl.value = "부산 부산진구 서전로 8번길 27";
+      if (mapImageUrlEl) mapImageUrlEl.value = "";
+      if (mapImageFileEl) {
+        mapImageFileEl.value = "";
+        delete mapImageFileEl.dataset.imageDataUrl;
+        delete mapImageFileEl.dataset.imagePayload;
+        delete mapImageFileEl.dataset.imagePayloads;
+      }
       if (activeEl) activeEl.value = "true";
-      if (contentEl) contentEl.value = "선택한 시간에 소개팅이 진행됩니다.";
+      if (contentEl) contentEl.value = "자세한 사항은 개별적으로 문자 안내드릴 예정입니다.";
       initScheduleMaker();
       scheduleFormSubmitButtonText("생성");
     }
@@ -3424,17 +3695,23 @@
       const modeEl = scheduleMaker.querySelector('[name="meetingMode"]');
       const ageEl = scheduleMaker.querySelector('[name="ageRange"]');
       const addressEl = scheduleMaker.querySelector('[name="address"]');
+      const mapImageUrlEl = scheduleMaker.querySelector('[name="mapImageUrl"]');
+      const mapImageFileEl = scheduleMaker.querySelector('[name="mapImageFile"]');
       const activeEl = scheduleMaker.querySelector('[name="active"]');
       const contentEl = scheduleMaker.querySelector('[name="content"]');
       if (dateEl) setScheduleDateValue(post.scheduleDate || seoulTodayIso());
       if (modeEl) modeEl.value = post.meetingMode || "1:1";
       if (ageEl) ageEl.value = post.ageRange || "27-36세";
-      if (addressEl) {
-        addressEl.value = post.address || "부산 부산진구 서전로 8번길 27";
-        renderAddressPreview(addressEl.value);
+      if (addressEl) addressEl.value = post.address || "부산 부산진구 서전로 8번길 27";
+      if (mapImageUrlEl) mapImageUrlEl.value = (Array.isArray(post.mapImageUrls) && post.mapImageUrls.length ? post.mapImageUrls : [post.mapImageUrl]).filter(Boolean).join("\n");
+      if (mapImageFileEl) {
+        mapImageFileEl.value = "";
+        delete mapImageFileEl.dataset.imageDataUrl;
+        delete mapImageFileEl.dataset.imagePayload;
+        delete mapImageFileEl.dataset.imagePayloads;
       }
       if (activeEl) activeEl.value = post.active === false ? "false" : "true";
-      if (contentEl) contentEl.value = post.content || "선택한 시간에 소개팅이 진행됩니다.";
+      if (contentEl) contentEl.value = post.content || "자세한 사항은 개별적으로 문자 안내드릴 예정입니다.";
       setScheduleTimeChecks([post.scheduleTime || "19시"]);
       scheduleFormSubmitButtonText("수정");
       openScheduleNavGroup();
@@ -3461,7 +3738,7 @@
               <span class="is-source">${htmlAttr(post.source || "관리자")}</span>
               <span>${htmlAttr(post.meetingMode || "1:1")}</span>
               <span>${htmlAttr(post.ageRange || "27-36세")}</span>
-              <span>${post.active === false ? "비노출" : "노출"}</span>
+              <span>${post.closed ? "종료" : "진행 예정"}</span>
             </div>
           </div>
           <span class="schedule-card-actions">
@@ -3485,16 +3762,21 @@
       }
       const meetingMode = String(form.get("meetingMode") || "1:1").trim() || "1:1";
       const ageRange = String(form.get("ageRange") || "27-36세").trim() || "27-36세";
-      const address = String(form.get("address") || "").trim() || "부산 부산진구 서전로 8번길 27";
-      const content = String(form.get("content") || "").trim() || "선택한 시간에 소개팅이 진행됩니다.";
+      const address = normalizeScheduleAddress(form.get("address")) || "부산 부산진구 서전로 8번길 27";
+      const mapImageUrl = String(form.get("mapImageUrl") || "").trim();
+      const mapImageFileInput = formEl.querySelector('input[type="file"][name="mapImageFile"]');
+      if (mapImageFileInput?.files?.[0] && !mapImageFileInput.dataset.imagePayloads) await handleScheduleImageFiles(mapImageFileInput);
+      const mapImageFiles = mapImageFileInput?.dataset.imagePayloads ? JSON.parse(mapImageFileInput.dataset.imagePayloads).filter(Boolean).slice(0, 5) : [];
+      const content = String(form.get("content") || "").trim() || "자세한 사항은 개별적으로 문자 안내드릴 예정입니다.";
       const active = form.get("active") !== "false";
       const wasEditing = !!editingScheduleId;
       const deletedSlots = readDeletedScheduleSlots();
       try {
+        const savedPosts = [];
         for (const time of times) {
           const id = schedulePostId(date, time);
           deletedSlots.delete(scheduleSlotKey({ scheduleDate: date, scheduleTime: time }));
-          await apiPost({
+          const result = await apiPost({
             type: "schedulePostSave",
             id,
             category: "일정 안내",
@@ -3506,10 +3788,18 @@
             meetingMode,
             ageRange,
             address,
+            mapImageUrl,
+            mapImageFiles,
             active
           });
+          if (result.post) savedPosts.push(result.post);
         }
         writeDeletedScheduleSlots(deletedSlots);
+        if (savedPosts.length) {
+          const currentCache = readSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY);
+          const savedIds = new Set(savedPosts.map((post) => String(post.id || "")));
+          writeSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY, uniqueDashboardItems([...savedPosts, ...currentCache.filter((post) => !savedIds.has(String(post.id || "")))]));
+        }
         editingScheduleId = "";
         scheduleFormSubmitButtonText("생성");
         await loadAdminSchedulePosts();
@@ -3523,6 +3813,7 @@
       const active = isActive(item);
       const image = item.image || String(item.imageUrl || "").replace(/^\.\.\/\.\.\//, "");
       const badgeType = String(item.badgeType || "");
+      const prices = eventPriceConfig(item);
       return `
         <section class="edit-layer" data-edit-layer="${htmlAttr(item.id)}">
           <form class="edit-form" data-edit-form data-edit-id="${htmlAttr(item.id)}">
@@ -3561,14 +3852,23 @@
               <label class="edit-field">모집 인원
                 <input name="capacity" autocomplete="off" value="${htmlAttr(item.capacity)}">
               </label>
-              <label class="edit-field">남자 금액
-                <input name="malePrice" autocomplete="off" value="${htmlAttr(item.malePrice || item.price)}">
+              <label class="edit-field">1:1 남자 금액
+                <input name="malePrice11" autocomplete="off" value="${htmlAttr(prices["1:1"].malePrice)}">
               </label>
-              <label class="edit-field">여자 금액
-                <input name="femalePrice" autocomplete="off" value="${htmlAttr(item.femalePrice || "30,000원")}">
+              <label class="edit-field">1:1 여자 금액
+                <input name="femalePrice11" autocomplete="off" value="${htmlAttr(prices["1:1"].femalePrice)}">
+              </label>
+              <label class="edit-field">6:6 남자 금액
+                <input name="malePrice66" autocomplete="off" value="${htmlAttr(prices["6:6"].malePrice)}">
+              </label>
+              <label class="edit-field">6:6 여자 금액
+                <input name="femalePrice66" autocomplete="off" value="${htmlAttr(prices["6:6"].femalePrice)}">
               </label>
               <label class="edit-field is-wide">이미지 경로
                 <input name="image" autocomplete="off" value="${htmlAttr(image)}">
+              </label>
+              <label class="edit-field is-wide">이미지 첨부
+                <input type="file" name="imageFile" accept="image/*">
               </label>
               <label class="edit-field">노출 상태
                 <select name="active">
@@ -3614,8 +3914,12 @@
 
     function eventCardMarkup(event) {
       const active = isActive(event);
+      const saving = savingEventIds.has(String(event.id));
+      const prices = eventPriceConfig(event);
+      const priceSummary = `1:1 남 ${prices["1:1"].malePrice} / 여 ${prices["1:1"].femalePrice} · 6:6 남 ${prices["6:6"].malePrice} / 여 ${prices["6:6"].femalePrice}`;
       return `
-        <article class="event-card${active ? "" : " is-off"}${draggingEventId === event.id ? " is-dragging" : ""}" data-event-id="${event.id}">
+        <article class="event-card${active ? "" : " is-off"}${draggingEventId === event.id ? " is-dragging" : ""}${saving ? " is-saving" : ""}" data-event-id="${event.id}">
+          ${saving ? '<span class="event-save-badge">저장 중</span>' : ""}
           <div class="event-main">
             <div class="thumb">
               <img src="${event.imageUrl}" alt="" loading="lazy">
@@ -3624,7 +3928,7 @@
               <div class="station">[${event.station}]</div>
               <div class="title">${event.title}</div>
               <div class="desc">${event.target}</div>
-              <div class="mini">순서 ${event.order} · 남 ${event.male} / 여 ${event.female} · 남 ${event.malePrice || event.price || ""} / 여 ${event.femalePrice || "30,000원"} · 아이콘 ${eventBadgeAdminLabel(event)} · ${active ? "노출 중" : "비활성"}</div>
+              <div class="mini">순서 ${event.order} · 남 ${event.male} / 여 ${event.female} · ${priceSummary} · 아이콘 ${eventBadgeAdminLabel(event)} · ${active ? "노출 중" : "비활성"}</div>
             </div>
           </div>
           <div class="event-actions">
@@ -3855,12 +4159,24 @@
     }
 
     function dashboardItemMeta(item) {
+      const category = String(item.category || "").trim();
+      const scheduleDate = dashboardDateInputValue(item.scheduleDate || item.date || "");
+      const scheduleTime = dashboardTimeInputValue(item.scheduleTime, item.hour || "");
+      const createdAtText = item.createdAt ? new Date(item.createdAt).toLocaleString("ko-KR") : "";
+      if (category === "매칭결과") {
+        return [
+          category,
+          scheduleDate && scheduleDateText(scheduleDate),
+          scheduleTime && scheduleTimeText(scheduleTime),
+          createdAtText
+        ].filter(Boolean).join(" · ");
+      }
       return [
-        item.category,
+        category,
         item.status,
-        item.scheduleDate && scheduleDateText(item.scheduleDate),
-        item.scheduleTime && scheduleTimeText(item.scheduleTime),
-        item.createdAt && new Date(item.createdAt).toLocaleString("ko-KR")
+        scheduleDate && scheduleDateText(scheduleDate),
+        scheduleTime && scheduleTimeText(scheduleTime),
+        createdAtText
       ].filter(Boolean).join(" · ");
     }
 
@@ -3957,18 +4273,20 @@
       const manageable = !!dashboardPanelCategories[name] && !!id;
       const imageUrl = dashboardItemImageUrl(item, name);
       const active = item.active !== false;
+      const saving = item.isSaving === true;
+      const savingLabel = item.savingLabel || "추가 중";
       const episode = name === "match" ? dashboardMatchEpisode(item) : "";
       const authorMeta = name === "counsel" ? dashboardCounselAuthorMeta(item) : "";
       const actions = name === "counsel"
         ? `<span class="dashboard-item-actions"><button class="small-btn danger-btn" type="button" data-dashboard-delete="${htmlAttr(id)}" data-dashboard-panel="${htmlAttr(name)}">삭제</button></span>`
         : `<span class="dashboard-item-actions"><button class="toggle-btn ${active ? "is-on" : "is-off"}" type="button" data-dashboard-toggle="${htmlAttr(id)}" data-dashboard-panel="${htmlAttr(name)}">${active ? "ON" : "OFF"}</button><button class="small-btn" type="button" data-dashboard-edit="${htmlAttr(id)}" data-dashboard-panel="${htmlAttr(name)}">수정</button><button class="small-btn danger-btn" type="button" data-dashboard-delete="${htmlAttr(id)}" data-dashboard-panel="${htmlAttr(name)}">삭제</button></span>`;
       return `
-        <article class="dashboard-item${imageUrl ? " has-thumb" : ""}${active ? "" : " is-off"}" data-dashboard-item="${htmlAttr(id)}">
+        <article class="dashboard-item${imageUrl ? " has-thumb" : ""}${active ? "" : " is-off"}${saving ? " is-saving" : ""}" data-dashboard-item="${htmlAttr(id)}">
           ${imageUrl ? `<span class="dashboard-thumb"><img src="${htmlAttr(adminImageUrl(imageUrl))}" alt="" loading="lazy"></span>` : ""}
-          <span class="dashboard-title-row">${episode ? `<span class="dashboard-episode-badge">${htmlAttr(episode)}화</span>` : ""}<strong>${htmlAttr(title)}</strong></span>
+          <span class="dashboard-title-row">${episode ? `<span class="dashboard-episode-badge">${htmlAttr(episode)}화</span>` : ""}<strong>${htmlAttr(title)}</strong>${saving ? `<span class="dashboard-pending-badge">${htmlAttr(savingLabel)}</span>` : ""}</span>
+          ${body ? `<p class="dashboard-item-content">${htmlAttr(String(body)).slice(0, 180)}</p>` : ""}
           ${meta ? `<span class="dashboard-meta">${htmlAttr(meta)}</span>` : ""}
           ${authorMeta}
-          ${body ? `<p>${htmlAttr(String(body)).slice(0, 180)}</p>` : ""}
           ${manageable ? actions : ""}
         </article>
       `;
@@ -4006,7 +4324,7 @@
 
     function renderContentDashboards() {
       renderDashboardAgeOptions();
-      renderDashboardList("clover", "일정 안내", "등록된 일정 안내가 없습니다.");
+      renderDashboardList("clover", "클로버 근황", "등록된 클로버 근황이 없습니다.");
       renderDashboardList("field", "현장", "등록된 현장 게시물이 없습니다.");
       renderDashboardList("match", "매칭결과", "등록된 매칭결과 데이터가 없습니다.");
       renderDashboardList("counsel", "연애상담", "등록된 연애상담 글이 없습니다.");
@@ -4041,13 +4359,19 @@
       const activeEl = form.querySelector('[name="active"]');
       if (activeEl) activeEl.value = "true";
       const imageFileInput = form.querySelector('input[type="file"][name="imageFile"]');
-      if (imageFileInput) delete imageFileInput.dataset.imageDataUrl;
+      if (imageFileInput) {
+        delete imageFileInput.dataset.imageDataUrl;
+        delete imageFileInput.dataset.imagePayload;
+      }
       if (name === "match") {
         setDashboardMatchEpisodeField(form, nextDashboardMatchEpisode());
         setDashboardMatchDefaults(form);
       }
       const submit = form.querySelector('button[type="submit"]');
-      if (submit) submit.textContent = "등록";
+      if (submit) {
+        submit.disabled = false;
+        submit.textContent = "등록";
+      }
       delete dashboardEditingIds[name];
       hideDashboardForm(name);
     }
@@ -4085,7 +4409,10 @@
         setDashboardMatchDefaults(form);
       }
       const imageFileInput = form.querySelector('input[type="file"][name="imageFile"]');
-      if (imageFileInput) delete imageFileInput.dataset.imageDataUrl;
+      if (imageFileInput) {
+        delete imageFileInput.dataset.imageDataUrl;
+        delete imageFileInput.dataset.imagePayload;
+      }
       const submit = form.querySelector('button[type="submit"]');
       if (submit) submit.textContent = "수정";
       requestAnimationFrame(() => {
@@ -4101,6 +4428,70 @@
         reader.onerror = () => reject(new Error("이미지를 읽지 못했습니다."));
         reader.readAsDataURL(file);
       });
+    }
+
+    function webpFileName(name) {
+      const safeName = String(name || "image").replace(/\.[a-z0-9]+$/i, "") || "image";
+      return `${safeName}.webp`;
+    }
+
+    async function optimizeImageFileToWebp(file) {
+      const sourceUrl = URL.createObjectURL(file);
+      try {
+        const image = new Image();
+        image.decoding = "async";
+        await new Promise((resolve, reject) => {
+          image.onload = resolve;
+          image.onerror = () => reject(new Error("이미지를 최적화하지 못했습니다."));
+          image.src = sourceUrl;
+        });
+        const sourceWidth = image.naturalWidth || image.width;
+        const sourceHeight = image.naturalHeight || image.height;
+        if (!sourceWidth || !sourceHeight) throw new Error("이미지 크기를 확인하지 못했습니다.");
+        const scale = Math.min(1, DASHBOARD_IMAGE_OPTIMIZED_MAX_EDGE / Math.max(sourceWidth, sourceHeight));
+        const width = Math.max(1, Math.round(sourceWidth * scale));
+        const height = Math.max(1, Math.round(sourceHeight * scale));
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const context = canvas.getContext("2d", { alpha: true });
+        if (!context) throw new Error("이미지를 최적화하지 못했습니다.");
+        context.drawImage(image, 0, 0, width, height);
+        const dataUrl = canvas.toDataURL("image/webp", DASHBOARD_IMAGE_WEBP_QUALITY);
+        if (!dataUrl.startsWith("data:image/webp;base64,")) throw new Error("이 브라우저에서 WebP 변환을 지원하지 않습니다.");
+        return dataUrl;
+      } finally {
+        URL.revokeObjectURL(sourceUrl);
+      }
+    }
+
+    async function optimizeImagePayloadToWebp(payload) {
+      if (!payload?.base64) return null;
+      if (String(payload.mimeType || "").toLowerCase() === "image/webp") return payload;
+      const sourceType = String(payload.mimeType || "image/png");
+      const dataUrl = `data:${sourceType};base64,${payload.base64}`;
+      const image = new Image();
+      await new Promise((resolve, reject) => {
+        image.onload = resolve;
+        image.onerror = () => reject(new Error("이미지를 최적화하지 못했습니다."));
+        image.src = dataUrl;
+      });
+      const sourceWidth = image.naturalWidth || image.width;
+      const sourceHeight = image.naturalHeight || image.height;
+      if (!sourceWidth || !sourceHeight) throw new Error("이미지 크기를 확인하지 못했습니다.");
+      const scale = Math.min(1, DASHBOARD_IMAGE_OPTIMIZED_MAX_EDGE / Math.max(sourceWidth, sourceHeight));
+      const width = Math.max(1, Math.round(sourceWidth * scale));
+      const height = Math.max(1, Math.round(sourceHeight * scale));
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const context = canvas.getContext("2d", { alpha: true });
+      if (!context) throw new Error("이미지를 최적화하지 못했습니다.");
+      context.drawImage(image, 0, 0, width, height);
+      return imagePayloadFromDataUrl(
+        { name: webpFileName(payload.name), type: "image/webp" },
+        canvas.toDataURL("image/webp", DASHBOARD_IMAGE_WEBP_QUALITY)
+      );
     }
 
     async function handleDashboardImageFile(input) {
@@ -4119,12 +4510,64 @@
       try {
         const form = input.closest("[data-dashboard-maker]");
         const urlInput = form?.querySelector('[name="imageUrl"]');
-      const dataUrl = await fileToDataUrl(file);
+        const dataUrl = await optimizeImageFileToWebp(file);
         input.dataset.imageDataUrl = dataUrl;
-        showToast("첨부 이미지가 적용되었습니다.");
+        input.dataset.imagePayload = JSON.stringify(imagePayloadFromDataUrl({ name: webpFileName(file.name), type: "image/webp" }, dataUrl));
+        if (urlInput && !String(urlInput.value || "").trim()) urlInput.placeholder = "현재 상태 업로드 시 WebP로 최적화됩니다.";
+        showToast("첨부 이미지가 WebP로 최적화되었습니다.");
       } catch (error) {
         showToast(error.message);
       }
+    }
+
+    async function handleScheduleImageFiles(input) {
+      const files = Array.from(input.files || []).slice(0, 5);
+      if (!files.length) return;
+      if (files.some((file) => !file.type.startsWith("image/"))) {
+        showToast("이미지 파일만 첨부할 수 있습니다.");
+        input.value = "";
+        return;
+      }
+      if (files.some((file) => file.size > DASHBOARD_IMAGE_FILE_MAX_SIZE)) {
+        showToast("이미지는 파일당 최대 200MB까지 첨부할 수 있습니다.");
+        input.value = "";
+        return;
+      }
+      try {
+        const payloads = [];
+        const previews = [];
+        for (const file of files) {
+          const dataUrl = await optimizeImageFileToWebp(file);
+          previews.push(dataUrl);
+          payloads.push(imagePayloadFromDataUrl({ name: webpFileName(file.name), type: "image/webp" }, dataUrl));
+        }
+        input.dataset.imageDataUrl = previews[0] || "";
+        input.dataset.imagePayload = JSON.stringify(payloads[0] || null);
+        input.dataset.imagePayloads = JSON.stringify(payloads);
+        showToast(`이미지 ${payloads.length}장이 WebP로 최적화되었습니다.`);
+      } catch (error) {
+        showToast(error.message);
+      }
+    }
+
+    function imagePayloadFromDataUrl(file, dataUrl) {
+      const text = String(dataUrl || "");
+      const match = text.match(/^data:([^;]+);base64,(.+)$/);
+      return {
+        name: file?.name || "image.png",
+        mimeType: match ? match[1] : (file?.type || "image/png"),
+        base64: match ? match[2] : text
+      };
+    }
+
+    async function handleEventImageFile(input) {
+      await handleDashboardImageFile(input);
+    }
+
+    async function ensureDashboardImageFileReady(form) {
+      const imageFileInput = form?.querySelector('input[type="file"][name="imageFile"]');
+      if (!imageFileInput?.files?.[0] || imageFileInput.dataset.imagePayload) return;
+      await handleDashboardImageFile(imageFileInput);
     }
 
     function dashboardPostFromForm(form) {
@@ -4135,26 +4578,29 @@
       const content = String(data.get("content") || "").trim() || (name === "match" ? "매칭 결과가 등록되었습니다." : "");
       const imageFileInput = form.querySelector('input[type="file"][name="imageFile"]');
       const attachedImageUrl = name === "match" ? "" : String(imageFileInput?.dataset.imageDataUrl || "").trim();
+      const imageFile = name === "match" || !imageFileInput?.dataset.imagePayload ? null : JSON.parse(imageFileInput.dataset.imagePayload);
       const imageUrl = name === "match" ? "" : (String(data.get("imageUrl") || "").trim() || (name === "clover" ? "assets/clover-proof-01.jpg" : DASHBOARD_FIELD_IMAGES[0]));
       const ageRange = String(data.get("ageRange") || "").trim();
       const male = String(data.get("male") || "").trim();
       const female = String(data.get("female") || "").trim();
       const matchCount = String(data.get("matchCount") || "").trim();
       const existingItem = editingId ? (dashboardData[name] || []).find((item) => dashboardItemId(item) === editingId) : null;
+      const previousImageUrl = String(existingItem?.imageUrl || existingItem?.image || "").trim();
+      const rawImageUrl = String(data.get("imageUrl") || "").trim();
       const episode = name === "match"
         ? String(existingItem ? dashboardMatchEpisode(existingItem) : nextDashboardMatchEpisode())
         : String(data.get("episode") || "").trim();
       const id = name === "match" ? (editingId || `dashboard-match-${episode}`) : (editingId || `dashboard-${name}-${Date.now()}`);
       if (!title) throw new Error("제목을 입력해 주세요.");
-      if (name !== "match" && !content) throw new Error("내용을 입력해 주세요.");
       return {
         id,
         episode,
         category: dashboardPanelCategories[name],
         title,
         content,
-        imageUrl,
+        imageUrl: name === "match" ? "" : (rawImageUrl || previousImageUrl || imageUrl),
         attachedImageUrl,
+        imageFile,
         headline: name !== "field" && /^\[소식\]/.test(title),
         active: data.get("active") !== "false",
         stage: String(data.get("stage") || "").trim() || "관심 단계",
@@ -4164,7 +4610,7 @@
         male,
         female,
         matchCount,
-        createdAt: Date.now(),
+        createdAt: existingItem?.createdAt || Date.now(),
         updatedAt: Date.now()
       };
     }
@@ -4177,6 +4623,7 @@
         title: dashboardItemTitle(item, dashboardPanelCategories[name] || ""),
         content: dashboardItemRawBody(item) || (name === "match" ? "매칭 결과가 등록되었습니다." : ""),
         imageUrl: name === "match" ? "" : String(item.imageUrl || item.image || ""),
+        imageFile: item.imageFile || null,
         headline: name !== "field" && /^\[소식\]/.test(String(dashboardItemTitle(item, ""))),
         active: item.active !== false,
         stage: item.stage || "",
@@ -4196,18 +4643,70 @@
       };
     }
 
+    async function dashboardPostPayloadForUpload(item, name, order = 1) {
+      const payload = dashboardPostPayload(item, name, order);
+      if (name !== "match" && payload.imageFile?.base64) {
+        payload.imageFile = await optimizeImagePayloadToWebp(payload.imageFile);
+      }
+      return payload;
+    }
+
+    function schedulePostPayload(post, order = 1) {
+      return {
+        id: post.id || schedulePostId(post.scheduleDate, post.scheduleTime),
+        order,
+        category: "일정 안내",
+        title: post.title || `${post.scheduleDate || ""} ${post.scheduleTime || ""} 소개팅 안내`,
+        content: post.content || "자세한 사항은 개별적으로 문자 안내드릴 예정입니다.",
+        imageUrl: post.imageUrl || DASHBOARD_FIELD_IMAGES[0],
+        headline: false,
+        active: post.active !== false,
+        scheduleDate: dashboardDateInputValue(post.scheduleDate || ""),
+        scheduleTime: dashboardTimeInputValue(post.scheduleTime, post.hour || ""),
+        meetingMode: post.meetingMode || "1:1",
+        ageRange: post.ageRange || "27-36세",
+        address: normalizeScheduleAddress(post.address) || "부산 부산진구 서전로 8번길 27",
+        mapImageUrl: (Array.isArray(post.mapImageUrls) && post.mapImageUrls.length ? post.mapImageUrls : [post.mapImageUrl]).filter(Boolean).join("\n")
+      };
+    }
+
+    async function syncSchedulePostsToSheet() {
+      if (!GOOGLE_SCRIPT_URL) return;
+      const posts = dashboardSchedulePosts().map((post, index) => schedulePostPayload(post, index + 1));
+      try {
+        showToast("일정 안내 현재 상태를 구글 시트에 업로드 중입니다.");
+        const result = await apiPost({
+          type: "schedulePostReplaceCategory",
+          category: "일정 안내",
+          posts
+        });
+        if (Array.isArray(result.posts)) {
+          adminSchedulePosts = result.posts
+            .filter((post) => String(post.id || "").startsWith("admin-schedule-"))
+            .map(backendSchedulePostToAdmin);
+          applyDashboardSchedulePosts(result.posts);
+          replaceSharedDashboardCategoryCache("일정 안내", result.posts);
+        }
+        renderScheduleAdmin();
+        renderContentDashboards();
+        showToast(`일정 안내 ${Number(result.count) || posts.length}개를 구글 시트에 반영했습니다.`);
+      } catch (error) {
+        showToast(`업로드 실패: ${error.message}`);
+      }
+    }
+
     async function syncDashboardPanelToSheet(name) {
       const category = dashboardPanelCategories[name];
       if (!category || !GOOGLE_SCRIPT_URL) return;
-      const posts = uniqueDashboardItems(dashboardData[name] || [])
-        .filter((item) => dashboardItemId(item))
-        .map((item, index) => dashboardPostPayload(item, name, index + 1));
-      const invalid = posts.find((post) => !post.title || !post.content || (name !== "match" && !post.imageUrl) || String(post.imageUrl || "").startsWith("data:"));
-      if (invalid) {
-        showToast("이미지 첨부는 Cloudinary URL 또는 assets 경로로 저장한 뒤 업로드해 주세요.");
-        return;
-      }
       try {
+        const sourcePosts = uniqueDashboardItems(dashboardData[name] || [])
+          .filter((item) => dashboardItemId(item));
+        const posts = await Promise.all(sourcePosts.map((item, index) => dashboardPostPayloadForUpload(item, name, index + 1)));
+        const invalid = posts.find((post) => !post.title || (name !== "match" && !post.imageUrl && !post.imageFile?.base64) || (String(post.imageUrl || "").startsWith("data:") && !post.imageFile?.base64));
+        if (invalid) {
+          showToast("이미지를 첨부하거나 Cloudinary URL 또는 assets 경로를 입력해 주세요.");
+          return;
+        }
         showToast(`${category} 현재 상태를 구글 시트에 업로드 중입니다.`);
         const result = await apiPost({
           type: "schedulePostReplaceCategory",
@@ -4217,6 +4716,7 @@
         if (Array.isArray(result.posts)) {
           applyDashboardSchedulePosts(result.posts);
           replaceSharedDashboardCategoryCache(category, result.posts);
+          replaceDashboardLocalCategoryCache(category, result.posts);
         }
         renderContentDashboards();
         showToast(`${category} ${Number(result.count) || posts.length}개를 구글 시트에 반영했습니다.`);
@@ -4227,7 +4727,25 @@
 
     async function saveDashboardPost(form) {
       const name = form.dataset.dashboardMaker;
-      const post = dashboardPostFromForm(form);
+      const isEditing = Boolean(String(form.querySelector('[name="id"]')?.value || dashboardEditingIds[name] || "").trim());
+      const savingLabel = isEditing ? "수정 중" : "추가 중";
+      const submitButton = form.querySelector('button[type="submit"]');
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = isEditing ? "수정 중" : "등록 중";
+      }
+      let post;
+      try {
+        await ensureDashboardImageFileReady(form);
+        post = dashboardPostFromForm(form);
+      } catch (error) {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = isEditing ? "수정" : "등록";
+        }
+        showToast(error.message || "입력 내용을 확인해 주세요.");
+        return;
+      }
       if (name === "counsel") {
         resetDashboardForm(name);
         dashboardLoading = true;
@@ -4255,24 +4773,42 @@
         }
         return;
       }
+      post.isSaving = true;
+      post.savingLabel = savingLabel;
       upsertDashboardLocalPost(post);
       resetDashboardForm(name);
       applyLocalDashboardFallbacks();
+      publishDashboardCategoryCache(name);
       renderContentDashboards();
       try {
+        let serverSynced = false;
         if (GOOGLE_SCRIPT_URL) {
           if (!String(post.imageUrl || "").startsWith("data:")) {
             const result = await apiPost({
               type: "schedulePostSave",
               ...dashboardPostPayload(post, name, 1),
+              imageFile: post.imageFile || null,
               order: 1
             });
-            if (result.post) upsertDashboardLocalPost({ ...result.post, imageUrl: post.imageUrl, attachedImageUrl: post.attachedImageUrl, ageRange: post.ageRange, male: post.male, female: post.female, matchCount: post.matchCount });
-            await loadContentDashboards();
+            const savedPost = result.post || post;
+            upsertDashboardLocalPost({ ...post, ...savedPost, title: post.title, content: post.content, imageUrl: savedPost.imageUrl || post.imageUrl, attachedImageUrl: "", imageFile: null, isSaving: false, savingLabel: "", ageRange: post.ageRange, male: post.male, female: post.female, matchCount: post.matchCount });
+            serverSynced = true;
+            await loadContentDashboards(name);
+            publishDashboardCategoryCache(name);
           }
+        }
+        if (!serverSynced) {
+          upsertDashboardLocalPost({ ...post, imageFile: null, isSaving: false, savingLabel: "" });
+          applyLocalDashboardFallbacks();
+          publishDashboardCategoryCache(name);
+          renderContentDashboards();
         }
         showToast(`${dashboardPanelCategories[name]} 레이어를 저장했습니다.`);
       } catch (error) {
+        upsertDashboardLocalPost({ ...post, isSaving: false, savingLabel: "" });
+        applyLocalDashboardFallbacks();
+        publishDashboardCategoryCache(name);
+        renderContentDashboards();
         showToast(`서버 저장 실패, 로컬에는 반영됨: ${error.message}`);
       }
     }
@@ -4282,6 +4818,7 @@
       writeDashboardDeletedIds([...dashboardDeletedIds, id]);
       dashboardData[name] = (dashboardData[name] || []).filter((item) => dashboardItemId(item) !== String(id));
       if (name === "counsel") writeSharedDashboardCache(PUBLIC_COUNSEL_CACHE_KEY, dashboardData.counsel);
+      else publishDashboardCategoryCache(name);
       renderContentDashboards();
       try {
         if (name === "counsel") {
@@ -4292,7 +4829,7 @@
           showToast("연애상담 글을 삭제했습니다.");
           return;
         }
-        if (GOOGLE_SCRIPT_URL && !String(id).startsWith("dashboard-match-") && !String(id).includes("fallback")) {
+        if (GOOGLE_SCRIPT_URL && !String(id).includes("fallback")) {
           await apiPost({ type: "schedulePostDelete", id });
           await loadContentDashboards();
         }
@@ -4318,19 +4855,23 @@
         male: item.male ?? "",
         female: item.female ?? "",
         matchCount: item.matchCount ?? "",
-        active: item.active === false
+        active: item.active === false,
+        isSaving: false,
+        savingLabel: ""
       };
       upsertDashboardLocalPost(nextPost);
       applyLocalDashboardFallbacks();
+      publishDashboardCategoryCache(name);
       renderContentDashboards();
       try {
-        if (GOOGLE_SCRIPT_URL && !String(nextPost.imageUrl || "").startsWith("data:") && !String(id).startsWith("dashboard-match-") && !String(id).includes("fallback")) {
+        if (GOOGLE_SCRIPT_URL && !String(nextPost.imageUrl || "").startsWith("data:") && !String(id).includes("fallback")) {
           await apiPost({
             type: "schedulePostSave",
             ...dashboardPostPayload(nextPost, name, 1),
             order: 1
           });
           await loadContentDashboards();
+          publishDashboardCategoryCache(name);
         }
         showToast(`${dashboardPanelCategories[name]} 레이어 ${nextPost.active ? "ON" : "OFF"}`);
       } catch (error) {
@@ -4613,9 +5154,93 @@
     });
     $("[data-refresh]").addEventListener("click", () => {
       loadEvents();
+      loadHeroAdmin();
       loadContentDashboards();
       showToast("대시보드를 새로고침했습니다.");
     });
+    document.querySelectorAll("[data-hero-add]").forEach((button) => {
+      button.addEventListener("click", addHeroSlide);
+    });
+    document.querySelectorAll("[data-hero-save]").forEach((button) => {
+      button.addEventListener("click", saveHeroAdmin);
+    });
+    document.querySelectorAll("[data-hero-refresh]").forEach((button) => {
+      button.addEventListener("click", () => {
+        loadHeroAdmin();
+        showToast("히어로 섹션을 새로고침했습니다.");
+      });
+    });
+    document.querySelectorAll("[data-hero-title], [data-hero-description]").forEach((input) => {
+      input.addEventListener("input", (event) => {
+        if (event.isComposing) return;
+        const title = document.querySelector("[data-hero-title]")?.value || HERO_DEFAULT_TITLE;
+        const description = document.querySelector("[data-hero-description]")?.value || HERO_DEFAULT_DESCRIPTION;
+        syncHeroCopyFields(title, description, event.target);
+      });
+    });
+    document.querySelector("[data-hero-remote-form]")?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      saveHeroAdmin();
+    });
+    document.querySelector("[data-hero-list]")?.addEventListener("click", (event) => {
+      const remove = event.target.closest("[data-hero-remove]");
+      if (remove) removeHeroSlide(remove.dataset.heroRemove);
+    });
+    document.querySelector("[data-hero-list]")?.addEventListener("change", (event) => {
+      if (event.target.closest("[data-hero-image-file]")) {
+        handleHeroImageFile(event.target);
+        return;
+      }
+      if (event.target.closest("[data-hero-image-url], [data-hero-video-url], [data-hero-active]")) {
+        const card = event.target.closest("[data-hero-slide]");
+        if (event.target.closest("[data-hero-image-url]") && card?.dataset.heroSlide) {
+          heroImagePayloadById.delete(card.dataset.heroSlide);
+        }
+        heroSlides = collectHeroSlidesFromDom();
+        writeAdminHeroCache(heroSlides);
+        renderHeroAdmin();
+      }
+    });
+    document.querySelector("[data-hero-list]")?.addEventListener("pointerdown", (event) => {
+      const card = event.target.closest("[data-hero-slide]");
+      if (!card || isInteractiveReorderTarget(event.target)) return;
+      clearHeroPressTimer();
+      heroPressingCardEl = card;
+      heroPressingCardEl.classList.add("is-pressing");
+      const startX = event.clientX;
+      const startY = event.clientY;
+      heroPressTimer = window.setTimeout(() => startHeroReorder(card), 420);
+      const cancelIfMoved = (moveEvent) => {
+        if (!heroPressTimer) {
+          window.removeEventListener("pointermove", cancelIfMoved);
+          return;
+        }
+        if (Math.hypot(moveEvent.clientX - startX, moveEvent.clientY - startY) > 9) {
+          clearHeroPressTimer();
+          window.removeEventListener("pointermove", cancelIfMoved);
+        }
+      };
+      window.addEventListener("pointermove", cancelIfMoved, { passive: true });
+      window.addEventListener("pointerup", () => window.removeEventListener("pointermove", cancelIfMoved), { once: true });
+      window.addEventListener("pointercancel", () => window.removeEventListener("pointermove", cancelIfMoved), { once: true });
+    });
+    window.addEventListener("pointermove", (event) => {
+      if (!heroDraggingId) return;
+      event.preventDefault();
+      const target = document.elementFromPoint(event.clientX, event.clientY);
+      const card = target?.closest?.("[data-hero-slide]");
+      if (!card || card.dataset.heroSlide === heroDraggingId) return;
+      const rect = card.getBoundingClientRect();
+      const afterTarget = event.clientY > rect.top + rect.height / 2;
+      if (moveHeroSlide(heroDraggingId, card.dataset.heroSlide, afterTarget)) {
+        heroDidReorder = true;
+        writeAdminHeroCache(heroSlides);
+        renderHeroAdmin();
+        document.querySelector(`[data-hero-slide="${CSS.escape(heroDraggingId)}"]`)?.classList.add("is-dragging");
+      }
+    }, { passive: false });
+    window.addEventListener("pointerup", finishHeroReorder);
+    window.addEventListener("pointercancel", finishHeroReorder);
     document.querySelectorAll("[data-dashboard-refresh]").forEach((button) => {
       button.addEventListener("click", () => {
         const panelName = button.closest("[data-admin-panel]")?.dataset.adminPanel || "";
@@ -4726,8 +5351,12 @@
     document.querySelectorAll("[data-dashboard-sync]").forEach((button) => {
       button.addEventListener("click", () => syncDashboardPanelToSheet(button.dataset.dashboardSync));
     });
+    $("[data-schedule-sync]")?.addEventListener("click", syncSchedulePostsToSheet);
     document.querySelectorAll('[data-dashboard-maker] input[type="file"][name="imageFile"]').forEach((input) => {
       input.addEventListener("change", () => handleDashboardImageFile(input));
+    });
+    scheduleMaker?.querySelector('input[type="file"][name="mapImageFile"]')?.addEventListener("change", (event) => {
+      handleScheduleImageFiles(event.currentTarget);
     });
     $("[data-all-on]").addEventListener("click", async () => {
       const targetEvents = eventsForLayer("rotation");
@@ -4778,7 +5407,7 @@
       }
     });
     function setAdminPanel(name) {
-      const panelNames = ["schedule", "events", "events2", "clover", "field", "match", "counsel", "application", "board"];
+      const panelNames = ["hero", "schedule", "events", "events2", "clover", "field", "match", "counsel", "application", "board"];
       const panelName = panelNames.includes(name) ? name : "schedule";
       document.querySelectorAll("[data-admin-panel]").forEach((panel) => {
         panel.hidden = panel.dataset.adminPanel !== panelName;
@@ -4793,7 +5422,8 @@
       Object.keys(dashboardPanelCategories).forEach((name) => {
         if (name !== panelName) resetDashboardForm(name);
       });
-      if (panelName === "schedule") renderScheduleAdmin();
+      if (panelName === "hero") renderHeroAdmin();
+      else if (panelName === "schedule") renderScheduleAdmin();
       else if (panelName === "events" || panelName === "events2") render();
       else loadContentDashboards(panelName);
     }
@@ -4814,7 +5444,7 @@
     function readAdminActivePanel() {
       try {
         const saved = localStorage.getItem(ADMIN_ACTIVE_PANEL_KEY);
-        return ["schedule", "events", "events2", "clover", "field", "match", "counsel", "application", "board"].includes(saved) ? saved : "schedule";
+        return ["hero", "schedule", "events", "events2", "clover", "field", "match", "counsel", "application", "board"].includes(saved) ? saved : "schedule";
       } catch {
         return "schedule";
       }
@@ -4900,10 +5530,23 @@
       item.male = String(form.get("male") || "").trim() || "6";
       item.female = String(form.get("female") || "").trim() || "6";
       item.capacity = String(form.get("capacity") || "").trim() || "12명";
-      item.malePrice = String(form.get("malePrice") || "").trim() || "99,000원";
-      item.femalePrice = String(form.get("femalePrice") || "").trim() || "30,000원";
+      const priceByComposition = {
+        "1:1": {
+          malePrice: String(form.get("malePrice11") || "").trim() || "99,000원",
+          femalePrice: String(form.get("femalePrice11") || "").trim() || "30,000원"
+        },
+        "6:6": {
+          malePrice: String(form.get("malePrice66") || "").trim() || "99,000원",
+          femalePrice: String(form.get("femalePrice66") || "").trim() || "30,000원"
+        }
+      };
+      item.malePrice = priceByComposition["1:1"].malePrice;
+      item.femalePrice = priceByComposition["1:1"].femalePrice;
       item.price = item.malePrice;
+      item.form2Config = eventForm2ConfigWithPrices(item, priceByComposition);
       item.image = String(form.get("image") || item.image || "").trim();
+      const imageFileInput = formEl.querySelector('input[type="file"][name="imageFile"]');
+      item.imageFile = imageFileInput?.dataset.imagePayload ? JSON.parse(imageFileInput.dataset.imagePayload) : null;
       item.imageUrl = adminImageUrl(item.image);
       item.badgeType = String(form.get("badgeType") || "").trim();
       item.active = form.get("active") !== "false";
@@ -4912,19 +5555,36 @@
         [item.id]: eventStorageData(item)
       });
       editingEventId = "";
+      savingEventIds.add(String(item.id));
       render();
       try {
-        await apiPost(eventSavePayload(item));
+        const result = await apiPost(eventSavePayload(item));
+        delete item.imageFile;
+        if (result.event) Object.assign(item, backendEventToAdmin(result.event));
+        writeEdits({
+          ...readEdits(),
+          [item.id]: eventStorageData(item)
+        });
         showToast(`${item.title} 전체 수정 저장됨`);
       } catch (error) {
         Object.assign(item, snapshot);
-        render();
         showToast(`저장 실패: ${error.message}`);
+      } finally {
+        savingEventIds.delete(String(item.id));
+        render();
       }
     }
 
     listEl.addEventListener("submit", handleEventFormSubmit);
     partyListEl?.addEventListener("submit", handleEventFormSubmit);
+    listEl.addEventListener("change", (event) => {
+      const input = event.target.closest('input[type="file"][name="imageFile"]');
+      if (input) handleEventImageFile(input);
+    });
+    partyListEl?.addEventListener("change", (event) => {
+      const input = event.target.closest('input[type="file"][name="imageFile"]');
+      if (input) handleEventImageFile(input);
+    });
 
     window.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && editingEventId) closeEditModal();
@@ -4943,13 +5603,19 @@
       }
       if (event.key === EVENT_ACTIVE_OVERRIDE_KEY) render();
       if (event.key === ADMIN_SCHEDULE_POSTS_KEY || event.key === ADMIN_SCHEDULE_BACKUP_KEY || event.key === ADMIN_SCHEDULE_DELETED_KEY) renderScheduleAdmin();
+      if (event.key === ADMIN_HERO_CACHE_KEY) {
+        heroSlides = readAdminHeroCache();
+        renderHeroAdmin();
+      }
     });
 
     const initialAdminPanel = readAdminActivePanel();
     initScheduleMaker();
+    heroSlides = readAdminHeroCache();
     setAdminPanel(initialAdminPanel);
     renderScheduleAdmin();
     loadEvents();
+    loadHeroAdmin();
     loadAdminSchedulePosts();
     if (!["clover", "field", "match", "counsel", "application", "board"].includes(initialAdminPanel)) {
       loadContentDashboards();
