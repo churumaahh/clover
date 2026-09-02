@@ -5403,7 +5403,12 @@
       gap: 0.5rem;
       width: 100%;
       margin: 0;
+      padding: 0.8rem 0.75rem;
       align-items: center;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 0.45rem 1.1rem rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.88);
     }
 
     .application-flow-step {
@@ -5417,6 +5422,12 @@
     .application-flow-step.is-active {
       background: #00f040;
       box-shadow: 0 0 0.45rem rgba(0, 240, 64, 0.18);
+    }
+
+    :root[data-theme="dark"] .application-flow-steps {
+      border-color: rgba(255, 255, 255, 0.08);
+      background: #1f1f1f;
+      box-shadow: 0 0.55rem 1.2rem rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.06);
     }
 
     .application-flow-steps.is-form {
@@ -11238,6 +11249,7 @@
       justify-self: center !important;
       width: calc(100% - 1.5rem) !important;
       gap: 1.25rem !important;
+      padding: 0.8rem 0.75rem !important;
       margin-inline: auto !important;
       margin-block: 0 !important;
     }
@@ -20643,8 +20655,20 @@
         }
       });
     }
+    let homeScheduleHeadlineScrollLeft = 0;
+    function rememberHomeScheduleHeadlineScroll() {
+      const row = homeScheduleHeadlines?.querySelector("[data-schedule-headline-row]");
+      if (row) homeScheduleHeadlineScrollLeft = row.scrollLeft;
+    }
+    function restoreHomeScheduleHeadlineScroll() {
+      const row = homeScheduleHeadlines?.querySelector("[data-schedule-headline-row]");
+      if (!row || !homeScheduleHeadlineScrollLeft) return;
+      row.scrollLeft = Math.min(homeScheduleHeadlineScrollLeft, Math.max(0, row.scrollWidth - row.clientWidth));
+      updateScheduleHeadlineControls(row);
+    }
     function renderHomeScheduleHeadlines() {
       if (!homeScheduleHeadlines) return;
+      rememberHomeScheduleHeadlineScroll();
       const realProofs = realScheduleContentPosts()
         .filter((post) => String(post?.category || "").trim() === "클로버 근황" && post?.active !== false);
       const placeholderProofs = scheduleFeedPlaceholderPosts()
@@ -20660,7 +20684,10 @@
       }
       homeScheduleHeadlines.hidden = false;
       homeScheduleHeadlines.innerHTML = `<section class="schedule-headline-strip"><div class="schedule-headline-head"><h2 class="schedule-section-title"><span class="section-title-icon" aria-hidden="true"></span>클로버 근황</h2><button class="schedule-more-btn" type="button" onclick="window.goPage(event, 'schedule')" aria-label="클로버 근황 더보기">+</button></div><div class="schedule-headline-scroller"><div class="schedule-headline-row" data-schedule-headline-row>${headlines.map((post) => schedulePostCard(post, true)).join("")}</div></div></section>`;
-      requestAnimationFrame(refreshScheduleHeadlineControls);
+      requestAnimationFrame(() => {
+        restoreHomeScheduleHeadlineScroll();
+        refreshScheduleHeadlineControls();
+      });
     }
     let selectedHomeCalendarDate = "";
     let selectedHomeCalendarTime = "";
