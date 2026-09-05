@@ -1937,6 +1937,7 @@
     const toastEl = $("[data-toast]");
     let toastTimer = 0;
     let editingEventId = "";
+    const pendingCreatedEventIds = new Set();
     let fallbackOverrides = {};
     let fallbackEdits = {};
     let fallbackCustomEvents = [];
@@ -2350,8 +2351,9 @@
 
     function createEventLayer(layerType = "rotation") {
       const item = createBlankEvent(layerType);
+      pendingCreatedEventIds.add(String(item.id));
       events.push(item);
-      persistEventOrder();
+      updateEventOrders();
       if (layerType === "party") {
         if (partySearchEl?.value) partySearchEl.value = "";
         setAdminPanel("events2");
@@ -3149,9 +3151,9 @@
 
     function dashboardFieldFallbackPosts() {
       return [
-        { id: "dashboard-field-fallback-1", category: "현장", title: "[소식] 클로버 라운지 안내", content: "편안한 만남을 위한 공간을 준비하고 있습니다.", imageUrl: DASHBOARD_FIELD_IMAGES[0], createdAt: Date.now(), active: true },
-        { id: "dashboard-field-fallback-2", category: "현장", title: "호텔 라운지 현장", content: "차분한 조명과 넓은 좌석으로 첫 대화가 편안하게 이어지는 공간입니다.", imageUrl: DASHBOARD_FIELD_IMAGES[1], createdAt: Date.now() - 3600000, active: true },
-        { id: "dashboard-field-fallback-3", category: "현장", title: "바 테이블 현장", content: "짧은 대화도 자연스럽게 이어질 수 있도록 동선을 정리해 두었습니다.", imageUrl: DASHBOARD_FIELD_IMAGES[2], createdAt: Date.now() - 7200000, active: true }
+        { id: "schedule-placeholder-1", category: "현장", title: "[소식] 클로버 라운지 안내", content: "편안한 만남을 위한 공간을 준비하고 있습니다.", imageUrl: DASHBOARD_FIELD_IMAGES[0], createdAt: Date.now(), active: true },
+        { id: "schedule-placeholder-2", category: "현장", title: "호텔 라운지 현장", content: "차분한 조명과 넓은 좌석으로 첫 대화가 편안하게 이어지는 공간입니다.", imageUrl: DASHBOARD_FIELD_IMAGES[1], createdAt: Date.now() - 3600000, active: true },
+        { id: "schedule-placeholder-3", category: "현장", title: "바 테이블 현장", content: "짧은 대화도 자연스럽게 이어질 수 있도록 동선을 정리해 두었습니다.", imageUrl: DASHBOARD_FIELD_IMAGES[2], createdAt: Date.now() - 7200000, active: true }
       ];
     }
 
@@ -3908,6 +3910,13 @@
 
     function closeEditModal() {
       if (!editingEventId) return;
+      if (pendingCreatedEventIds.has(String(editingEventId))) {
+        const index = events.findIndex((event) => event.id === editingEventId);
+        if (index >= 0) events.splice(index, 1);
+        pendingCreatedEventIds.delete(String(editingEventId));
+        persistEventOrder();
+        showToast("생성을 취소했습니다.");
+      }
       editingEventId = "";
       render();
     }
@@ -4199,6 +4208,11 @@
       return String(item?.id || item?.episode || "");
     }
 
+    function isDashboardFallbackId(id) {
+      const value = String(id || "");
+      return value.includes("fallback") || value.startsWith("placeholder-") || value.startsWith("schedule-placeholder-");
+    }
+
     function dashboardApplicationStatusClass(status) {
       if (status === "승인") return "is-complete";
       if (status === "확인") return "is-checked";
@@ -4435,6 +4449,31 @@
       return `${safeName}.webp`;
     }
 
+    function blobToDataUrl(blob) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result || ""));
+        reader.onerror = () => reject(new Error("이미지를 읽지 못했습니다."));
+        reader.readAsDataURL(blob);
+      });
+    }
+
+    function canvasToWebpDataUrl(canvas) {
+      return new Promise((resolve, reject) => {
+        canvas.toBlob(async (blob) => {
+          if (!blob) {
+            reject(new Error("이 브라우저에서 WebP 변환을 지원하지 않습니다."));
+            return;
+          }
+          try {
+            resolve(await blobToDataUrl(blob));
+          } catch (error) {
+            reject(error);
+          }
+        }, "image/webp", DASHBOARD_IMAGE_WEBP_QUALITY);
+      });
+    }
+
     async function optimizeImageFileToWebp(file) {
       const sourceUrl = URL.createObjectURL(file);
       try {
@@ -4457,7 +4496,7 @@
         const context = canvas.getContext("2d", { alpha: true });
         if (!context) throw new Error("이미지를 최적화하지 못했습니다.");
         context.drawImage(image, 0, 0, width, height);
-        const dataUrl = canvas.toDataURL("image/webp", DASHBOARD_IMAGE_WEBP_QUALITY);
+        const dataUrl = await canvasToWebpDataUrl(canvas);
         if (!dataUrl.startsWith("data:image/webp;base64,")) throw new Error("이 브라우저에서 WebP 변환을 지원하지 않습니다.");
         return dataUrl;
       } finally {
@@ -4488,9 +4527,10 @@
       const context = canvas.getContext("2d", { alpha: true });
       if (!context) throw new Error("이미지를 최적화하지 못했습니다.");
       context.drawImage(image, 0, 0, width, height);
+      const optimizedDataUrl = await canvasToWebpDataUrl(canvas);
       return imagePayloadFromDataUrl(
         { name: webpFileName(payload.name), type: "image/webp" },
-        canvas.toDataURL("image/webp", DASHBOARD_IMAGE_WEBP_QUALITY)
+        optimizedDataUrl
       );
     }
 
@@ -4829,7 +4869,7 @@
           showToast("연애상담 글을 삭제했습니다.");
           return;
         }
-        if (GOOGLE_SCRIPT_URL && !String(id).includes("fallback")) {
+        if (GOOGLE_SCRIPT_URL && !isDashboardFallbackId(id)) {
           await apiPost({ type: "schedulePostDelete", id });
           await loadContentDashboards();
         }
@@ -5521,6 +5561,7 @@
       if (!item) return;
       const form = new FormData(formEl);
       const snapshot = { ...item };
+      const wasPendingCreated = pendingCreatedEventIds.has(String(item.id));
       item.title = String(form.get("title") || item.title).trim() || item.title;
       item.layerType = form.get("layerType") === "party" ? "party" : "rotation";
       item.station = String(form.get("station") || "").trim() || (item.layerType === "party" ? "모임" : "신규");
@@ -5565,9 +5606,16 @@
           ...readEdits(),
           [item.id]: eventStorageData(item)
         });
+        pendingCreatedEventIds.delete(String(item.id));
+        persistEventOrder();
         showToast(`${item.title} 전체 수정 저장됨`);
       } catch (error) {
         Object.assign(item, snapshot);
+        if (wasPendingCreated) {
+          const edits = readEdits();
+          delete edits[item.id];
+          writeEdits(edits);
+        }
         showToast(`저장 실패: ${error.message}`);
       } finally {
         savingEventIds.delete(String(item.id));

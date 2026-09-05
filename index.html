@@ -1606,8 +1606,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: -0.18rem 0 1.05rem;
-      min-height: 3.1rem;
+      margin: 1.9rem 0;
+      min-height: 4.95rem;
     }
 
     .mbti-heart-divider[hidden] {
@@ -4122,7 +4122,7 @@
     }
 
     [data-info-modal] .gender-modal-panel {
-      width: min(19.5rem, calc(100vw - 2rem));
+      width: min(16.5rem, calc(100vw - 2rem));
       padding: 1.75rem 1.35rem 1.45rem;
       border: 0;
     }
@@ -5790,7 +5790,7 @@
       border: solid #020703;
       border-width: 0 2.6px 2.6px 0;
       opacity: 0;
-      transform: translate(calc(-50% + 0px), calc(-50% - 0.5px)) rotate(42deg) scale(0.82);
+      transform: translate(calc(-50% + 0.5px), calc(-50% - 2px)) rotate(42deg) scale(0.82);
     }
 
     .age-option-card.is-selected .age-option-check {
@@ -6486,6 +6486,12 @@
       display: inline-flex;
       align-items: center;
       gap: 0.38rem;
+      min-width: 0;
+    }
+
+    .agree-item label input {
+      flex: 0 0 0.82rem;
+      align-self: center;
     }
 
     .agree-detail-btn {
@@ -6516,6 +6522,10 @@
     .agree-row input {
       width: 0.82rem;
       height: 0.82rem;
+      min-width: 0.82rem;
+      min-height: 0.82rem;
+      inline-size: 0.82rem;
+      block-size: 0.82rem;
       flex: 0 0 auto;
       margin: 0;
       accent-color: #00e83a;
@@ -12534,6 +12544,10 @@
       color: #f7f9fb;
     }
 
+    :root[data-theme="dark"] #page-home .home-schedule-layer.is-empty .schedule-feed-empty {
+      color: #d7dee8;
+    }
+
     :root[data-theme="dark"] #page-home .schedule-status-detail > span,
     :root[data-theme="dark"] #page-home .home-schedule-simple-badge {
       border-color: #303030;
@@ -14019,6 +14033,21 @@
     #page-reviews .match-result-list-panel .board-page-button {
       display: grid !important;
       place-items: center !important;
+      position: relative !important;
+    }
+
+    #page-reviews .match-result-list-panel .board-page-button span {
+      position: absolute !important;
+      left: 50% !important;
+      top: 50% !important;
+      width: 1em !important;
+      height: 1em !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      line-height: 1 !important;
+      text-align: center !important;
+      transform: translate(-50%, calc(-56% - 0.5px)) !important;
     }
 
     #page-counsel .counsel-live-section .board-page-button:hover,
@@ -14663,7 +14692,7 @@
               </svg>
             </button>
           </div>
-          <p class="page-description">오늘 기준으로 두 사람의 궁합을 매일 다르게 확인합니다.</p>
+          <p class="page-description">MBTI는 재미로 참고해 주세요.</p>
         </div>
         <section class="mbti-compatibility" id="mbtiCompatibility" data-mbti-compatibility></section>
         <section class="mbti-heart-divider" data-mbti-heart-divider hidden><span class="match-result-heart">♥</span></section>
@@ -17435,6 +17464,7 @@
     const applicationStatusSteps = ["접수", "확인", "승인"];
     const canceledApplicationStatus = "취소";
     let currentMyApplications = [];
+    let myApplicationsLoadPromise = null;
 
     function applicationGenderValue(application) {
       const source = `${application?.gender || ""} ${application?.applicationType || ""} ${application?.eventTitle || ""}`;
@@ -17527,6 +17557,45 @@
         }
       });
       return sortApplicationsForDisplay(dedupeApplicationsByStableKey([...merged.values()]));
+    }
+
+    function syncMyApplicationsFromAdminCache(rawValue) {
+      let adminApplications = [];
+      try {
+        adminApplications = JSON.parse(rawValue || "[]");
+      } catch {
+        return false;
+      }
+      if (!Array.isArray(adminApplications) || !adminApplications.length) return false;
+      const { id } = getVisitorIdentity();
+      const mine = adminApplications.filter((application) => String(application?.visitorId || "") === String(id || ""));
+      if (!mine.length) return false;
+      const mergedApplications = mergeApplicationsWithLocal(mine, readMypageCache() || currentMyApplications);
+      writeMypageCache(mergedApplications);
+      if (document.querySelector("#page-mypage.is-active")) renderMyApplications(mergedApplications);
+      return true;
+    }
+
+    function readMyApplicationsFromAdminCache() {
+      try {
+        return syncMyApplicationsFromAdminCache(localStorage.getItem(ADMIN_APPLICATION_CACHE_KEY));
+      } catch {
+        return false;
+      }
+    }
+
+    function myApplicationsFetchTimeout(ms = 9000) {
+      return new Promise((_, reject) => {
+        window.setTimeout(() => reject(new Error("myApplications timeout")), ms);
+      });
+    }
+
+    async function requestMyApplications(visitorId) {
+      const response = await Promise.race([
+        fetch(`${GOOGLE_SCRIPT_URL}?action=myApplications&visitorId=${encodeURIComponent(visitorId)}&t=${Date.now()}`, { cache: "no-store" }),
+        myApplicationsFetchTimeout()
+      ]);
+      return response.json();
     }
 
     function updateApplicationLayerCount(applications) {
@@ -17649,21 +17718,28 @@
       const cached = readMypageCache();
       if (cached) {
         renderMyApplications(cached);
+        readMyApplicationsFromAdminCache();
       } else if (list) {
-        list.innerHTML = `<p class="mypage-empty">불러오는 중...</p>`;
+        const usedAdminCache = readMyApplicationsFromAdminCache();
+        if (!usedAdminCache) list.innerHTML = `<p class="mypage-empty">불러오는 중...</p>`;
       }
+      if (myApplicationsLoadPromise) return myApplicationsLoadPromise;
       ensureVisitorRegistered();
-      try {
+      myApplicationsLoadPromise = (async () => {
+        try {
         const { id } = getVisitorIdentity();
-        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=myApplications&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`);
-        const result = await response.json();
-        const applications = response.ok && result.ok && Array.isArray(result.applications) ? result.applications : [];
+        const result = await requestMyApplications(id);
+        const applications = result?.ok && Array.isArray(result.applications) ? result.applications : [];
         const mergedApplications = mergeApplicationsWithLocal(applications, cached || currentMyApplications);
         writeMypageCache(mergedApplications);
         renderMyApplications(mergedApplications);
-      } catch {
-        if (!cached) renderMyApplications([]);
-      }
+        } catch {
+        if (!cached && !currentMyApplications.length) renderMyApplications([]);
+        } finally {
+          myApplicationsLoadPromise = null;
+        }
+      })();
+      return myApplicationsLoadPromise;
     }
 
     function deleteCanceledApplicationLayer(index) {
@@ -19100,13 +19176,13 @@
     async function applySameAsProfile() {
       await waitForAuthReady();
       if (!isLoggedIn()) {
-        showInfoModal("과거 정보가 없습니다.", "로그인 이후 이용 가능합니다.");
+        showInfoModal("정보가 없습니다.", "로그인 이후 이용 가능합니다.");
         return false;
       }
       const cachedProfile = readProfileInfoCache();
       const profile = mergeProfileFileFallbacks(await refreshProfileInfoCache(), cachedProfile) || cachedProfile;
       if (!profile || !profile.registered) {
-        showInfoModal("과거 정보가 없습니다.", "로그인 이후 이용 가능합니다.");
+        showInfoModal("정보가 없습니다.", "로그인 이후 이용 가능합니다.");
         return false;
       }
       const setValue = (selector, value) => {
@@ -19471,6 +19547,7 @@
     const SCHEDULE_CACHE_KEY = "clover-schedule-posts-cache:v3";
     const ADMIN_DASHBOARD_CONTENT_CACHE_KEY = "clover-admin-dashboard-content:v1";
     const ADMIN_DASHBOARD_DELETED_CACHE_KEY = "clover-admin-dashboard-deleted:v1";
+    const ADMIN_APPLICATION_CACHE_KEY = "clover-application-list-v1";
     const ADMIN_SCHEDULE_POSTS_KEY = "clover-admin-schedule-posts:v1";
     const ADMIN_SCHEDULE_DELETED_KEY = "clover-admin-schedule-deleted-slots:v1";
     const SCHEDULE_FIELD_IMAGES = [
@@ -20940,11 +21017,11 @@
     function homeCalendarLayerMarkup(availableMap, variant = "info") {
       const variantClass = variant === "home" ? " is-home-compact" : "";
       if (!selectedHomeCalendarDate) {
-        return `<div class="home-schedule-layer${variantClass} is-empty"><p class="schedule-feed-empty">등록된 참여 일정이 없습니다.</p></div>`;
+        return `<div class="home-schedule-layer${variantClass} is-empty"><p class="schedule-feed-empty">등록된 일정이 없습니다.</p></div>`;
       }
       const posts = availableMap[selectedHomeCalendarDate] || [];
       if (!posts.length) {
-        return `<div class="home-schedule-layer${variantClass} is-empty"><p class="schedule-feed-empty">등록된 참여 일정이 없습니다.</p></div>`;
+        return `<div class="home-schedule-layer${variantClass} is-empty"><p class="schedule-feed-empty">등록된 일정이 없습니다.</p></div>`;
       }
       const dateLabel = variant === "home" ? homeCalendarSelectedDateLabel(selectedHomeCalendarDate) : "";
       const dateHeading = dateLabel ? `<div class="home-schedule-selected-date">${htmlAttr(dateLabel)}</div>` : "";
@@ -23706,7 +23783,7 @@
       });
       setDrawer(false);
       if (safePageName === "location") bindLocationMapLayer();
-      if (safePageName === "mypage") { loadMyApplications(); loadMyProfileInfo(); loadMyCounsel(); loadMyBoardPosts(); }
+      if (safePageName === "mypage") { loadMyApplications(true); loadMyProfileInfo(); loadMyCounsel(); loadMyBoardPosts(); }
       if (safePageName === "counsel") loadCounselPosts();
       if (safePageName === "reviews") renderMatchResultList();
       if (safePageName === "mbti") renderMbtiCompatibility();
@@ -25804,10 +25881,21 @@
         renderSchedulePosts();
         requestAnimationFrame(refreshScheduleHeadlineControls);
       }
+      if (event.key === ADMIN_APPLICATION_CACHE_KEY) {
+        syncMyApplicationsFromAdminCache(event.newValue);
+      }
       if (event.key === ADMIN_SCHEDULE_POSTS_KEY || event.key === ADMIN_SCHEDULE_DELETED_KEY) {
         renderHomeParticipationCalendar();
         renderScheduleInfoCalendar();
       }
+    });
+
+    window.addEventListener("focus", () => {
+      if (currentPageName === "mypage") loadMyApplications(true);
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden && currentPageName === "mypage") loadMyApplications(true);
     });
 
     seedHeroSlides();
