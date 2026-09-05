@@ -17591,11 +17591,11 @@
     }
 
     async function requestMyApplications(visitorId) {
-      const response = await Promise.race([
-        fetch(`${GOOGLE_SCRIPT_URL}?action=myApplications&visitorId=${encodeURIComponent(visitorId)}&t=${Date.now()}`, { cache: "no-store" }),
+      return Promise.race([
+        fetch(`${GOOGLE_SCRIPT_URL}?action=myApplications&visitorId=${encodeURIComponent(visitorId)}&t=${Date.now()}`, { cache: "no-store" })
+          .then((response) => response.json()),
         myApplicationsFetchTimeout()
       ]);
-      return response.json();
     }
 
     function updateApplicationLayerCount(applications) {
