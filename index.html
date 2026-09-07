@@ -26,7 +26,7 @@
   <script src="config.js?v=20260722-schedule-api"></script>
   <script>
     (function () {
-      var scriptUrl = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbxvH9_BZkFa1Qxpx5Sq90iHZPn7HlSvtZq0STJVPwbHAQekIkkbpGIUqob7zTmrqwKs/exec";
+      var scriptUrl = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbyGNEez_HO0AAV51fBxFQtGXi-G2sHT3dQoO33v-3SGXmvbEUQKNE5oeArJGY89z4YJ/exec";
       window.__earlyEventListPromise = fetch(scriptUrl + "?action=eventList&t=" + Date.now(), { cache: "no-store" })
         .then(function (r) { return r.json().then(function (json) { return { ok: r.ok, json: json }; }); })
         .catch(function (error) { return { ok: false, error: error }; });
@@ -2813,7 +2813,7 @@
       overflow: visible;
       top: var(--event-guide-top, 2.1rem);
       left: var(--event-guide-left, var(--home-title-inline-offset));
-      width: min(var(--event-guide-width, 23rem), calc(100% - var(--home-title-inline-offset) * 2));
+      width: min(var(--event-guide-width, 21.25rem), calc(100% - var(--home-title-inline-offset) * 2));
       padding: .78rem .9rem .84rem;
       border: 1px solid #d8dee8;
       border-radius: 1rem;
@@ -2826,7 +2826,7 @@
       position: absolute;
       z-index: 4;
       left: var(--event-guide-pointer-left, 2rem);
-      top: -0.52rem;
+      top: -0.46rem;
       width: 0;
       height: 0;
       border-left: 0.52rem solid transparent;
@@ -2843,7 +2843,7 @@
       position: absolute;
       z-index: 5;
       left: var(--event-guide-pointer-left, 2rem);
-      top: -0.44rem;
+      top: -0.36rem;
       width: 0;
       height: 0;
       border-left: 0.44rem solid transparent;
@@ -4121,24 +4121,67 @@
       font-weight: 900;
     }
 
+    [data-gender-modal] .gender-modal-title {
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+      font-weight: 950;
+      line-height: 1.3;
+    }
+
+    [data-gender-modal] .gender-modal-panel {
+      padding-top: 1.45rem;
+      padding-bottom: 1.45rem;
+    }
+
     [data-info-modal] .gender-modal-panel {
-      width: min(16.5rem, calc(100vw - 2rem));
+      width: min(17.1rem, calc(100vw - 2rem));
       padding: 1.75rem 1.35rem 1.45rem;
       border: 0;
+      border-radius: 1.15rem;
+      background: #eef1f5;
+      box-shadow: 0 1rem 2.4rem rgba(15, 23, 42, 0.2), inset 0.65rem 0.65rem 1.2rem rgba(255, 255, 255, 0.68), inset -0.7rem -0.7rem 1.25rem rgba(148, 163, 184, 0.22);
+    }
+
+    [data-info-modal] .modal-confirm-btn {
+      min-width: 6.2rem;
+      min-height: 2.35rem;
+      font-size: 0.88rem;
+      border: 0 !important;
+      background-color: #eef1f5 !important;
+      background: #eef1f5 !important;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(148, 163, 184, 0.28), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9);
+    }
+
+    [data-info-modal] .modal-confirm-btn:hover,
+    [data-info-modal] .modal-confirm-btn:focus-visible,
+    [data-info-modal] .modal-confirm-btn:active {
+      background: #eef1f5 !important;
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(148, 163, 184, 0.28), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.88);
+      transform: none;
+    }
+
+    :root[data-theme="dark"] [data-info-modal] .gender-modal-panel {
+      background: #1e1e1e;
+      box-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.34), inset 0.45rem 0.45rem 1rem rgba(255, 255, 255, 0.035), inset -0.55rem -0.55rem 1rem rgba(0, 0, 0, 0.28);
     }
 
     .info-modal-message {
       display: grid;
       gap: .54rem;
-      margin: 0 0 1rem;
+      margin: 0 0 1.75rem;
       padding: 0 1.35rem;
       text-align: center;
     }
 
     .info-modal-main {
-      font-size: 1rem;
-      font-weight: 950;
-      line-height: 1.35;
+      color: #2f3540;
+      font-size: 0.96rem;
+      font-weight: 850;
+      line-height: 1.4;
+    }
+
+    :root[data-theme="dark"] .info-modal-main {
+      color: #f1f1f1;
     }
 
     .info-modal-sub {
@@ -4150,6 +4193,7 @@
 
     .gender-modal-actions {
       display: flex;
+      align-items: center;
       justify-content: center;
       gap: 0.65rem;
     }
@@ -4179,6 +4223,12 @@
 
     .board-delete-modal .gender-modal-actions {
       gap: 0.55rem;
+    }
+    .board-delete-modal .gender-modal-actions.is-single-action {
+      justify-content: center;
+    }
+    .board-delete-modal .gender-modal-actions.is-single-action .modal-cancel-btn {
+      display: none;
     }
 
     .board-delete-modal .modal-cancel-btn,
@@ -4239,7 +4289,7 @@
     .submit-success-modal #submitSuccessTitle {
       margin: 0 0 0.3rem;
       color: var(--ink);
-      font-size: 0.94rem;
+      font-size: 0.96rem;
       font-weight: 950;
       line-height: 1.28;
       text-align: center;
@@ -4247,18 +4297,18 @@
     }
 
     .submit-success-modal .submit-success-hint {
-      margin: 0 0 0.78rem;
+      margin: 0 0 1rem;
       color: #7f8792;
-      font-size: 0.66rem;
+      font-size: 0.7rem;
       font-weight: 700;
       line-height: 1.45;
       text-align: center;
     }
 
     .submit-success-modal .home-schedule-panel {
-      width: min(15.8rem, calc(100vw - 2rem)) !important;
-      padding: 1.35rem 1.75rem 0.95rem !important;
-      border-radius: 1.25rem !important;
+      width: min(15.9rem, calc(100vw - 2rem)) !important;
+      padding: 1.55rem 1.75rem 1.18rem !important;
+      border-radius: 1.35rem !important;
       text-align: center;
       cursor: default;
     }
@@ -4266,10 +4316,10 @@
     .submit-success-modal .home-schedule-panel .home-schedule-close-btn {
       top: 0.62rem !important;
       right: 0.62rem !important;
-      width: 1.72rem !important;
-      height: 1.72rem !important;
-      border-radius: 0.62rem !important;
-      font-size: 1rem !important;
+      width: 1.85rem !important;
+      height: 1.85rem !important;
+      border-radius: 0.68rem !important;
+      font-size: 1.08rem !important;
     }
 
     .submit-success-modal .gender-modal-actions {
@@ -4277,11 +4327,11 @@
     }
 
     .submit-success-modal .modal-confirm-btn {
-      min-width: 6.9rem !important;
-      min-height: 2.18rem !important;
-      padding: 0 1rem !important;
-      border-radius: 0.72rem !important;
-      font-size: 0.84rem !important;
+      min-width: 6.7rem !important;
+      min-height: 2.28rem !important;
+      padding: 0 0.95rem !important;
+      border-radius: 0.78rem !important;
+      font-size: 0.86rem !important;
       border: 0 !important;
       background: #eef1f5 !important;
       color: #121218 !important;
@@ -4300,17 +4350,22 @@
     .gender-select-btn,
     .gender-select-btn.male,
     .gender-select-btn.female {
-      min-width: 5.6rem;
-      min-height: 2.85rem;
-      padding: 0 1rem;
+      min-width: 5.25rem;
+      min-height: 2.62rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      padding: 0.62rem 0.9rem;
       border: 1px solid rgba(148, 163, 184, 0.24) !important;
       border-radius: 12px;
       background-color: #eef1f5 !important;
       background: linear-gradient(180deg, #ffffff 0%, #eef1f5 100%) !important;
       color: #07150b !important;
       box-shadow: 0 0.45rem 0.8rem rgba(15, 23, 42, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(148, 163, 184, 0.18);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 950;
+      line-height: 1;
     }
 
     .gender-select-btn.male {
@@ -5077,11 +5132,11 @@
     }
 
     .application-day.is-past-available.is-selected {
-      border-color: #c7d0dd;
-      color: #7f8896;
-      background: #eef2f7;
-      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, .16);
-      opacity: .95;
+      border-color: #00ff40;
+      color: #a4abb7;
+      background: #dff8e7;
+      box-shadow: 0 0 0 2px rgba(0, 255, 64, .13), 0 0 18px rgba(0, 255, 64, .2);
+      opacity: 1;
     }
 
     .application-day.is-available.is-saturday,
@@ -5100,6 +5155,13 @@
     .application-day.is-past-available.is-sunday,
     .application-day.is-past-available.is-holiday {
       color: #a4abb7;
+    }
+    .application-day.is-past-available.is-selected.is-saturday {
+      color: #2563eb;
+    }
+    .application-day.is-past-available.is-selected.is-sunday,
+    .application-day.is-past-available.is-selected.is-holiday {
+      color: #ef4444;
     }
 
     :root[data-theme="dark"] .application-day:disabled:not(.is-available) {
@@ -5514,17 +5576,18 @@
 
     [data-mypage-children-fields] {
       display: grid;
-      gap: 1.05rem;
+      gap: 1.1rem;
     }
 
     [data-mypage-children-fields] > .form-field + .form-field {
-      padding-top: 1.05rem;
+      padding-top: 1.1rem;
       border-top: 1px solid var(--line);
     }
 
     [data-mypage-children-fields] > .form-field > label {
       display: block;
       padding-left: 0.18rem;
+      margin-bottom: 0.5rem;
     }
 
     .composition-choice-row {
@@ -5663,7 +5726,7 @@
     .age-option-card {
       border: 1px solid rgba(148, 163, 184, 0.24);
       background: linear-gradient(180deg, #ffffff 0%, #eef1f5 100%);
-      box-shadow: 0 0.45rem 0.8rem rgba(15, 23, 42, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(148, 163, 184, 0.18);
+      box-shadow: 0 0.28rem 0.55rem rgba(15, 23, 42, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.92), inset 0 -1px 0 rgba(148, 163, 184, 0.12);
     }
 
     .weekday-chip,
@@ -5686,7 +5749,7 @@
       border-color: #00f040;
       color: var(--tint-green-text);
       background: var(--tint-green);
-      box-shadow: inset 0.42rem 0.42rem 0.9rem rgba(0, 240, 64, 0.12), inset -1px -1px 0 rgba(255, 255, 255, 0.68);
+      box-shadow: inset 0.28rem 0.28rem 0.62rem rgba(0, 240, 64, 0.1), inset -1px -1px 0 rgba(255, 255, 255, 0.62);
     }
 
     :root[data-theme="dark"] .weekday-chip,
@@ -6136,14 +6199,16 @@
       box-shadow: inset 0.42rem 0.42rem 0.9rem rgba(0, 0, 0, 0.36), inset -1px -1px 0 rgba(255, 255, 255, 0.035);
     }
 
-    [data-ideal-rank-choice].choice-chip.is-selected {
+    [data-ideal-rank-choice].choice-chip.is-selected,
+    [data-mypage-ideal-rank-choice].choice-chip.is-selected {
       color: var(--ink);
       background: var(--surface);
       border-color: rgba(0, 240, 64, 0.48);
       box-shadow: 0 0 0 0.16rem rgba(0, 240, 64, 0.12);
     }
 
-    :root[data-theme="dark"] [data-ideal-rank-choice].choice-chip.is-selected {
+    :root[data-theme="dark"] [data-ideal-rank-choice].choice-chip.is-selected,
+    :root[data-theme="dark"] [data-mypage-ideal-rank-choice].choice-chip.is-selected {
       color: var(--ink);
       background: var(--surface);
       border-color: rgba(0, 240, 64, 0.48);
@@ -6152,6 +6217,7 @@
 
     :root:not([data-theme="dark"]) .region-choice.children-choice.is-selected,
     :root:not([data-theme="dark"]) [data-ideal-rank-choice].choice-chip.is-selected,
+    :root:not([data-theme="dark"]) [data-mypage-ideal-rank-choice].choice-chip.is-selected,
     :root:not([data-theme="dark"]) .ideal-rank-slot.is-filled {
       border-color: #00f040;
       color: var(--tint-green-text);
@@ -6185,6 +6251,14 @@
       font-weight: 850;
       text-align: center;
       word-break: keep-all;
+    }
+
+    .ideal-rank-section .choice-chip,
+    .ideal-rank-section .choice-chip:active,
+    .ideal-rank-section .choice-chip.is-selected,
+    .ideal-rank-slot,
+    .ideal-rank-slot.is-filled {
+      box-shadow: 0 0.18rem 0.38rem rgba(15, 23, 42, 0.08);
     }
 
     .ideal-rank-slot b {
@@ -7902,7 +7976,37 @@
       gap: 0;
       margin-top: 0.2rem;
       background: #f1f5f9;
-      color: #06120a;
+      color: #8b95a4;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.72);
+      transition: background .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+    }
+
+    .mypage-info-form .choice-chip {
+      box-shadow: 0 0.22rem 0.42rem rgba(15, 23, 42, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.92), inset 0 -1px 0 rgba(148, 163, 184, 0.12);
+    }
+
+    .mypage-info-form .choice-chip:active {
+      box-shadow: inset 0.24rem 0.24rem 0.52rem rgba(15, 23, 42, 0.12), inset -1px -1px 0 rgba(255, 255, 255, 0.72);
+    }
+
+    .mypage-info-form .choice-chip.is-selected {
+      box-shadow: inset 0.24rem 0.24rem 0.52rem rgba(0, 240, 64, 0.1), inset -1px -1px 0 rgba(255, 255, 255, 0.62);
+    }
+
+    .mypage-info-save-btn[disabled] {
+      cursor: default;
+      opacity: 1;
+    }
+
+    .mypage-info-save-btn.is-dirty {
+      border-color: rgba(0, 216, 56, .34);
+      background: #121218;
+      color: #f7f9fb;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 .42rem 1rem rgba(15,23,42,.14);
+    }
+
+    .mypage-info-save-btn.is-dirty:active {
+      transform: translateY(1px);
     }
 
     .mypage-info-save-btn.is-loading::before {
@@ -7915,6 +8019,44 @@
       border-radius: 50%;
       animation: submit-spin 0.7s linear infinite;
       flex: 0 0 auto;
+    }
+
+    :root[data-theme="dark"] .mypage-info-save-btn {
+      background: #2a2a2a;
+      color: #8f98a4;
+      box-shadow: inset 1px 1px 0 rgba(255,255,255,.045), inset -1px -1px 0 rgba(0,0,0,.32);
+    }
+
+    :root[data-theme="dark"] .mypage-info-save-btn.is-dirty {
+      border-color: rgba(0, 255, 64, .34);
+      background: linear-gradient(180deg, #303030 0%, #242424 100%);
+      color: #f7f9fb;
+      box-shadow: 0 0 0 1px rgba(0, 255, 64, .08), 0 .45rem 1.05rem rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.075), inset 0 -1px 0 rgba(0,0,0,.38);
+    }
+
+    :root[data-theme="dark"] .mypage-info-form .choice-chip {
+      box-shadow: 0 0.22rem 0.42rem rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.065), inset 0 -1px 0 rgba(0, 0, 0, 0.28);
+    }
+
+    :root[data-theme="dark"] .mypage-info-form .choice-chip.is-selected {
+      border-color: #00f040;
+      color: #00ff40;
+      background: rgba(0, 255, 64, 0.1);
+      box-shadow: inset 0.24rem 0.24rem 0.52rem rgba(0, 0, 0, 0.28), inset -1px -1px 0 rgba(255, 255, 255, 0.035);
+    }
+
+    :root[data-theme="dark"] .mypage-info-form [data-info-group] .choice-chip.is-selected {
+      border-color: #00f040;
+      color: #f7f9fb;
+      background: linear-gradient(180deg, #303030 0%, #242424 100%);
+      box-shadow: 0 0 0 1px rgba(0, 255, 64, 0.1), 0 0.22rem 0.42rem rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.065);
+    }
+
+    :root[data-theme="dark"] .mypage-info-form [data-mypage-ideal-rank-choice].choice-chip.is-selected {
+      border-color: #00f040;
+      color: #f7f9fb;
+      background: linear-gradient(180deg, #303030 0%, #242424 100%);
+      box-shadow: 0 0 0 1px rgba(0, 255, 64, 0.1), 0 0.22rem 0.42rem rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.065);
     }
 
     .mypage-data-delete-btn {
@@ -8601,6 +8743,12 @@
       border-radius: 0 0 0.95rem 0.95rem;
     }
 
+    #page-mypage .mypage-layer-content:has(> [data-mypage-counsel]),
+    #page-mypage .mypage-layer-content:has(> [data-mypage-board]) {
+      padding-top: 0.9rem;
+      padding-bottom: 0.9rem;
+    }
+
     #page-mypage .mypage-list {
       justify-items: center;
     }
@@ -9006,6 +9154,7 @@
     #page-counsel .counsel-list,
     #page-mypage [data-mypage-counsel] {
       gap: .55rem;
+      margin-top: 0;
       border: 0;
       background: transparent;
       box-shadow: none;
@@ -9430,6 +9579,25 @@
       gap: 0.75rem;
     }
 
+    .mypage-app-more-btn {
+      min-height: 2.55rem;
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 0.82rem;
+      color: var(--ink);
+      background: var(--surface);
+      font-size: 0.84rem;
+      font-weight: 900;
+      box-shadow: 0 0.24rem 0.55rem rgba(15, 23, 42, 0.06);
+    }
+
+    :root[data-theme="dark"] .mypage-app-more-btn {
+      border-color: rgba(255, 255, 255, 0.1);
+      background: #242424;
+      color: #f7f9fb;
+      box-shadow: 0 0.28rem 0.65rem rgba(0, 0, 0, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
     .mypage-empty {
       color: var(--muted);
       font-size: 0.85rem;
@@ -9676,12 +9844,37 @@
       grid-template-areas:
         "num title meta"
         "num author date";
-      gap: .25rem .65rem;
-      min-height: 3.35rem;
-      padding: .72rem .78rem;
+      grid-template-rows: auto auto;
+      align-content: center;
+      align-items: center;
+      gap: .32rem .65rem;
+      min-height: 3.6rem;
+      padding: .82rem .78rem;
       border: 1px solid var(--line);
       border-radius: .78rem;
       background: var(--paper);
+    }
+
+    #page-mypage .counsel-card-title,
+    #page-mypage .counsel-author-inline {
+      align-self: center;
+      line-height: 1.18;
+    }
+
+    #page-mypage [data-mypage-board] .board-post {
+      min-height: 3.6rem;
+      padding: .82rem .78rem;
+      align-content: center;
+    }
+
+    #page-mypage [data-mypage-board] .board-post-open {
+      align-items: center;
+      min-height: 1.96rem;
+    }
+
+    #page-mypage [data-mypage-board] .board-post-author-wrap,
+    #page-mypage [data-mypage-board] .board-post-side {
+      align-items: center;
     }
 
     #page-mypage .counsel-card-date,
@@ -10127,7 +10320,7 @@
       right: max(-3.6rem, calc((100vw - var(--page-max)) / 2 - 3.6rem));
       bottom: 0;
       z-index: 31;
-      width: min(calc(76vw - 20px), 16.75rem);
+      width: min(calc(72vw - 20px), 15.9rem);
       display: flex;
       flex-direction: column;
       padding: 1.1rem;
@@ -11074,9 +11267,9 @@
     .schedule-image-card { position: relative; flex: 0 0 auto; width: min(30.75rem, 100%); aspect-ratio: 16 / 9; border: 0; padding: 0; margin: 0; border-radius: 10px; overflow: hidden; background: var(--tint-neutral); cursor: pointer; appearance: none; -webkit-appearance: none; }
     .schedule-image-card img { display: block; height: 100%; width: 100%; object-fit: cover; }
     .schedule-image-card::after { content: ""; position: absolute; inset: auto 0 0 0; height: 62%; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.68) 100%); pointer-events: none; }
-    .schedule-image-card-copy { position: absolute; left: .55rem; right: .55rem; bottom: .42rem; z-index: 1; display: grid; gap: .12rem; text-align: left; text-shadow: 0 1px 3px rgba(0,0,0,.42); }
-    .schedule-image-card-title { color: #fff; font-size: .95rem; font-weight: 950; line-height: 1.18; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .schedule-image-card-content { color: rgba(255,255,255,.82); font-size: .78rem; font-weight: 850; line-height: 1.25; display: -webkit-box; overflow: hidden; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
+    .schedule-image-card-copy { position: absolute; left: .88rem; right: .88rem; bottom: .68rem; z-index: 1; display: grid; gap: .18rem; text-align: left; text-shadow: 0 1px 3px rgba(0,0,0,.42); }
+    .schedule-image-card-title { color: #fff; font-size: 1.06rem; font-weight: 950; line-height: 1.18; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .schedule-image-card-content { color: rgba(255,255,255,.86); font-size: .86rem; font-weight: 850; line-height: 1.25; display: -webkit-box; overflow: hidden; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
 
     .schedule-post-card:not(.is-headline) .schedule-post-content { min-height: 0; }
     .schedule-post-card:not(.is-headline) .schedule-post-meta span,
@@ -11368,7 +11561,8 @@
 
     /* Drawer neumorphic menu refresh */
     .drawer {
-      padding: 1.35rem 1.25rem 1.1rem;
+      width: min(calc(75vw - 18px), 16.7rem);
+      padding: 1.45rem 1.3rem 1.15rem;
       background: #eef1f5;
       border-radius: 1.9rem 0 0 1.9rem;
       box-shadow: -1.2rem 0 2.5rem rgba(15, 23, 42, 0.2), inset 0.65rem 0.65rem 1.2rem rgba(255, 255, 255, 0.68), inset -0.7rem -0.7rem 1.25rem rgba(148, 163, 184, 0.22);
@@ -11384,13 +11578,13 @@
       min-width: 0;
       display: inline-flex;
       align-items: center;
-      gap: 0.68rem;
+      gap: 0.66rem;
     }
 
     .drawer-brand-logo {
-      width: 3.15rem;
-      height: 3.15rem;
-      flex: 0 0 3.15rem;
+      width: 3.05rem;
+      height: 3.05rem;
+      flex: 0 0 3.05rem;
       display: grid;
       place-items: center;
       overflow: hidden;
@@ -11400,8 +11594,8 @@
     }
 
     .drawer-brand-logo img {
-      width: 2.1rem;
-      height: 2.1rem;
+      width: 2.02rem;
+      height: 2.02rem;
       display: block;
       object-fit: contain;
       filter: brightness(0);
@@ -11415,21 +11609,21 @@
 
     .drawer-brand-title {
       color: #121218;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 950;
       letter-spacing: 0;
     }
 
     .drawer-brand-subtitle {
       color: #667085;
-      font-size: 0.66rem;
+      font-size: 0.64rem;
       font-weight: 850;
       letter-spacing: 0;
     }
 
     .drawer .menu-button {
-      width: 2.45rem;
-      height: 2.45rem;
+      width: 2.42rem;
+      height: 2.42rem;
       border-radius: 0.9rem;
       color: #121218;
       background: #eef1f5;
@@ -11443,14 +11637,14 @@
     }
 
     .drawer-links {
-      gap: 0.48rem;
-      padding: 0.8rem 0;
+      gap: 0.62rem;
+      padding: 0.88rem 0;
     }
 
     .drawer-link {
-      min-height: 3.12rem;
-      gap: 0.82rem;
-      padding: 0 0.95rem;
+      min-height: 3.05rem;
+      gap: 0.76rem;
+      padding: 0 0.9rem;
       border: 0;
       border-radius: 1.05rem;
       color: #667085;
@@ -11460,8 +11654,8 @@
     }
 
     .drawer-link svg {
-      width: 1.18rem;
-      height: 1.18rem;
+      width: 1.12rem;
+      height: 1.12rem;
       display: block;
       color: currentColor;
       stroke: currentColor;
@@ -11907,6 +12101,11 @@
       font-size: 0.82rem;
       font-weight: 850;
       text-align: center;
+    }
+
+    #page-login .auth-card,
+    #page-signup .auth-card {
+      padding-top: 1.6rem;
     }
 
     .home-schedule-image-nav {
@@ -12399,6 +12598,7 @@
       min-height: 2.45rem !important;
       padding: 0 0.82rem !important;
       font-size: 0.88rem !important;
+      box-shadow: 0 0.18rem 0.55rem rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.78) !important;
     }
 
     #page-home .event-card {
@@ -14487,12 +14687,14 @@
       --field-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z'/%3E%3C/svg%3E");
     }
     /* ?꾨떖 ?ы빆 ?낅젰移??꾩씠肄??쒓굅 */
-    .application-form .form-field:has(#applyMessage)::before {
+    .application-form .form-field:has(#applyMessage)::before,
+    .mypage-info-form .form-field:has(#infoMessage)::before {
       content: none !important;
       display: none !important;
     }
 
-    .application-form .form-field:has(#applyMessage) textarea {
+    .application-form .form-field:has(#applyMessage) textarea,
+    .mypage-info-form .form-field:has(#infoMessage) textarea {
       min-height: 11rem !important;
       padding-left: 0.85rem !important;
     }
@@ -15571,7 +15773,7 @@
     const iconPopular = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z" fill="#ff4d6d"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbxvH9_BZkFa1Qxpx5Sq90iHZPn7HlSvtZq0STJVPwbHAQekIkkbpGIUqob7zTmrqwKs/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbyGNEez_HO0AAV51fBxFQtGXi-G2sHT3dQoO33v-3SGXmvbEUQKNE5oeArJGY89z4YJ/exec";
     const EVENT_LIST_CACHE_KEY = "clover-managed-event-list-v6";
     const EVENT_LIST_CACHE_TTL_MS = 10 * 60 * 1000;
     const CLOUDINARY_ASSET_MAP = {"assets/optimized/event-taste-homebody.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572124/clover/optimized/event-taste-homebody.webp","assets/optimized/clover-proof-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572106/clover/optimized/clover-proof-08.webp","assets/columns/webtoon-column-01.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572080/clover/columns/webtoon-column-01.png","assets/link-preview.jpg":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572079/clover/link-preview.jpg","assets/optimized/field-venue-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-01.webp","assets/optimized/event-taste-workout.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572126/clover/optimized/event-taste-workout.webp","assets/optimized/clover-proof-12.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572110/clover/optimized/clover-proof-12.webp","assets/columns/webtoon-column-03.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572082/clover/columns/webtoon-column-03.png","assets/optimized/field-venue-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572139/clover/optimized/field-venue-05.webp","assets/optimized/clover-proof-19.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-19.webp","assets/columns/webtoon-column-05.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572084/clover/columns/webtoon-column-05.png","assets/optimized/field-venue-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572143/clover/optimized/field-venue-10.webp","assets/optimized/event-group-study-cafe.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572118/clover/optimized/event-group-study-cafe.webp","assets/optimized/clover-proof-17.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572115/clover/optimized/clover-proof-17.webp","assets/columns/webtoon-column-18.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572097/clover/columns/webtoon-column-18.png","assets/optimized/clover-proof-15.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572113/clover/optimized/clover-proof-15.webp","assets/optimized/clover-proof-14.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572112/clover/optimized/clover-proof-14.webp","assets/optimized/field-venue-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-02.webp","assets/favicon.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572078/clover/favicon.png","assets/optimized/clover-proof-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572105/clover/optimized/clover-proof-07.webp","assets/optimized/event-theme-warm.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572134/clover/optimized/event-theme-warm.webp","assets/optimized/event-theme-dress-code.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572129/clover/optimized/event-theme-dress-code.webp","assets/optimized/clover-proof-11.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572109/clover/optimized/clover-proof-11.webp","assets/optimized/event-theme-divorced.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572128/clover/optimized/event-theme-divorced.webp","assets/optimized/event-theme-professional-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572131/clover/optimized/event-theme-professional-man.webp","assets/optimized/event-theme-japanese-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572130/clover/optimized/event-theme-japanese-woman.webp","assets/optimized/event-theme-wealthy-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572135/clover/optimized/event-theme-wealthy-man.webp","assets/columns/webtoon-column-07.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572086/clover/columns/webtoon-column-07.png","assets/optimized/clover-proof-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-06.webp","assets/clover-logo-v2.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572076/clover/clover-logo-v2.png","assets/columns/webtoon-column-12.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572091/clover/columns/webtoon-column-12.png","assets/optimized/clover-proof-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572102/clover/optimized/clover-proof-03.webp","assets/optimized/event-taste-travel.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572125/clover/optimized/event-taste-travel.webp","assets/optimized/event-theme-tall-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572133/clover/optimized/event-theme-tall-man.webp","assets/columns/webtoon-column-11.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572090/clover/columns/webtoon-column-11.png","assets/optimized/clover-proof-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572108/clover/optimized/clover-proof-10.webp","assets/optimized/event-theme-career-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-career-man.webp","assets/columns/webtoon-column-09.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572088/clover/columns/webtoon-column-09.png","assets/optimized/event-random-destiny-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-random-destiny-new.webp","assets/optimized/event-live-office-worker-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572120/clover/optimized/event-live-office-worker-new.webp","assets/optimized/field-venue-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-08.webp","assets/columns/webtoon-column-04.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572083/clover/columns/webtoon-column-04.png","assets/columns/webtoon-column-16.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572095/clover/columns/webtoon-column-16.png","assets/optimized/clover-proof-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-05.webp","assets/optimized/clover-proof-20.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572117/clover/optimized/clover-proof-20.webp","assets/columns/webtoon-column-17.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572096/clover/columns/webtoon-column-17.png","assets/optimized/event-theme-comfort-40s.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-comfort-40s.webp","assets/optimized/field-venue-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-04.webp","assets/optimized/clover-proof-16.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572114/clover/optimized/clover-proof-16.webp","assets/columns/webtoon-column-14.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572093/clover/columns/webtoon-column-14.png","assets/columns/webtoon-column-19.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572098/clover/columns/webtoon-column-19.png","assets/optimized/event-live-christian.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572119/clover/optimized/event-live-christian.webp","assets/optimized/event-romance-faceless.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572122/clover/optimized/event-romance-faceless.webp","assets/optimized/event-theme-public-servant-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572132/clover/optimized/event-theme-public-servant-woman.webp","assets/optimized/field-venue-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-03.webp","assets/optimized/field-venue-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572140/clover/optimized/field-venue-06.webp","assets/columns/webtoon-column-08.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572087/clover/columns/webtoon-column-08.png","assets/optimized/clover-proof-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572101/clover/optimized/clover-proof-02.webp","assets/optimized/field-venue-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572141/clover/optimized/field-venue-07.webp","assets/optimized/clover-proof-13.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572111/clover/optimized/clover-proof-13.webp","assets/columns/webtoon-column-20.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572099/clover/columns/webtoon-column-20.png","assets/optimized/clover-proof-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572107/clover/optimized/clover-proof-09.webp","assets/optimized/event-taste-active.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572123/clover/optimized/event-taste-active.webp","assets/columns/webtoon-column-06.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572085/clover/columns/webtoon-column-06.png","assets/optimized/event-live-shift-worker.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-live-shift-worker.webp","assets/columns/webtoon-column-15.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572094/clover/columns/webtoon-column-15.png","assets/optimized/footer-lobby-banner-clean.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572144/clover/optimized/footer-lobby-banner-clean.webp","assets/optimized/field-venue-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-09.webp","assets/columns/webtoon-column-13.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572092/clover/columns/webtoon-column-13.png","assets/optimized/clover-proof-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572103/clover/optimized/clover-proof-04.webp","assets/columns/webtoon-column-10.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572089/clover/columns/webtoon-column-10.png","assets/columns/webtoon-column-02.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572081/clover/columns/webtoon-column-02.png","assets/optimized/clover-proof-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572100/clover/optimized/clover-proof-01.webp","assets/optimized/clover-proof-18.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-18.webp"};
@@ -15686,10 +15888,10 @@
       const sectionRect = section.getBoundingClientRect();
       const buttonRect = button.getBoundingClientRect();
       const inlineGap = 7;
-      const preferredWidth = Math.min(368, Math.max(230, sectionRect.width - inlineGap * 2));
+      const preferredWidth = Math.min(340, Math.max(220, sectionRect.width - inlineGap * 2));
       const left = Math.min(Math.max(buttonRect.left - sectionRect.left, inlineGap), Math.max(inlineGap, sectionRect.width - preferredWidth - inlineGap));
       panel.style.setProperty("--event-guide-left", `${left}px`);
-      panel.style.setProperty("--event-guide-top", `${buttonRect.bottom - sectionRect.top + 17}px`);
+      panel.style.setProperty("--event-guide-top", `${buttonRect.bottom - sectionRect.top + 12}px`);
       panel.style.setProperty("--event-guide-width", `${preferredWidth}px`);
       panel.style.setProperty("--event-guide-pointer-left", `${buttonRect.left - sectionRect.left - left + buttonRect.width / 2}px`);
     }
@@ -16725,6 +16927,7 @@
       `;
       if (preserveForm) {
         renderApplicationSelectedFilePreviews();
+        selectedChildrenCondition = applicationFormDraft.selectedChildrenCondition || selectedChildrenCondition;
         selectIdealRankChoices(applicationFormDraft.idealRank || []);
         selectApplicationChips("[data-dislike-choice]", applicationFormDraft.dislike || "");
       }
@@ -16801,6 +17004,7 @@
       if (isDivorcedEvent(selectedEvent)) return applicationAgeOptionsDivorced;
       return selectedEvent?.station === "40-50대" ? applicationAgeOptions4050 : applicationAgeOptions;
     }
+
     let selectedFileSequence = 0;
     let mypageDocumentFile = null;
     let mypagePhotoFiles = [];
@@ -16812,6 +17016,7 @@
     let mypageInfoEditing = false;
     let mypageInfoCurrentProfile = null;
     let mypageHasProfileData = false;
+    let mypageInfoInitialSignature = "";
     const boardForm = document.getElementById("boardForm");
     const boardAuthor = document.getElementById("boardAuthor");
     const boardPostList = document.getElementById("boardPostList");
@@ -16828,6 +17033,8 @@
     const mypageCacheKey = "clover-mypage-applications-v1";
     const mypageHiddenCanceledKeyPrefix = "clover-mypage-hidden-canceled-v1";
     const profileInfoCacheKey = "clover-mypage-profile-info-v1";
+    const authVisitorOwnerKey = "cloverAuthVisitorOwner";
+    const authVisitorIdKeyPrefix = "cloverAuthVisitorId";
 
     function createVisitorId() {
       if (window.crypto && typeof window.crypto.randomUUID === "function") return window.crypto.randomUUID();
@@ -16872,17 +17079,82 @@
       try { localStorage.setItem(boardAuthorOverrideKey, JSON.stringify(next)); } catch (_) {}
     }
 
+    function currentAuthPhoneKey() {
+      return onlyDigits(currentAuthKey(), 11);
+    }
+
+    function authVisitorIdStorageKey(authPhone) {
+      return `${authVisitorIdKeyPrefix}:${onlyDigits(authPhone, 11)}`;
+    }
+
+    function recordAuthKey(record) {
+      return onlyDigits(record?.authUser || "", 11);
+    }
+
+    function recordPhoneKey(record) {
+      return onlyDigits(`${record?.phone || ""} ${record?.contactPhone || ""}`, 11);
+    }
+
+    function isCurrentMypageRecord(record) {
+      const authPhone = currentAuthPhoneKey();
+      const { id } = getVisitorIdentity();
+      const visitorMatches = Boolean(id && record?.visitorId && String(record.visitorId) === String(id));
+      if (authPhone) {
+        const recordAuth = recordAuthKey(record);
+        const recordPhone = recordPhoneKey(record);
+        if (recordAuth) return recordAuth === authPhone;
+        return visitorMatches && (!recordPhone || recordPhone === authPhone);
+      }
+      return Boolean(id && record?.visitorId && String(record.visitorId) === String(id));
+    }
+
+    function mypageCacheStorageKey() {
+      const authPhone = currentAuthPhoneKey();
+      if (authPhone) return `${mypageCacheKey}:auth:${authPhone}`;
+      const visitorId = getVisitorIdentity().id;
+      return `${mypageCacheKey}:visitor:${visitorId || "guest"}`;
+    }
+
+    function ensureAuthVisitorOwner(authPhone = currentAuthPhoneKey()) {
+      if (!authPhone) return;
+      try {
+        const previousOwner = localStorage.getItem(authVisitorOwnerKey) || "";
+        let scopedVisitorId = localStorage.getItem(authVisitorIdStorageKey(authPhone)) || "";
+        if (previousOwner !== authPhone) {
+          if (!scopedVisitorId) {
+            scopedVisitorId = createVisitorId();
+            localStorage.setItem(authVisitorIdStorageKey(authPhone), scopedVisitorId);
+          }
+          localStorage.setItem(visitorIdKey, scopedVisitorId);
+          localStorage.setItem(authVisitorOwnerKey, authPhone);
+          currentMyApplications = [];
+          myCounselPosts = [];
+          myBoardPosts = [];
+        } else if (!scopedVisitorId) {
+          scopedVisitorId = localStorage.getItem(visitorIdKey) || createVisitorId();
+          localStorage.setItem(authVisitorIdStorageKey(authPhone), scopedVisitorId);
+          localStorage.setItem(visitorIdKey, scopedVisitorId);
+        }
+      } catch {}
+    }
+
     function readMypageCache() {
       try {
-        const cached = JSON.parse(localStorage.getItem(mypageCacheKey) || "null");
-        return Array.isArray(cached) ? cached : null;
+        const key = mypageCacheStorageKey();
+        const scoped = JSON.parse(localStorage.getItem(key) || "null");
+        if (Array.isArray(scoped)) return scoped.filter(isCurrentMypageRecord);
+        const legacy = JSON.parse(localStorage.getItem(mypageCacheKey) || "null");
+        if (!Array.isArray(legacy)) return null;
+        const mine = legacy.filter(isCurrentMypageRecord);
+        if (mine.length) localStorage.setItem(key, JSON.stringify(mine));
+        return mine.length ? mine : null;
       } catch {
         return null;
       }
     }
 
     function writeMypageCache(applications) {
-      try { localStorage.setItem(mypageCacheKey, JSON.stringify(applications)); } catch {}
+      try { localStorage.setItem(mypageCacheStorageKey(), JSON.stringify((Array.isArray(applications) ? applications : []).filter(isCurrentMypageRecord))); } catch {}
     }
 
     function mypageHiddenCanceledStorageKey() {
@@ -17042,6 +17314,9 @@
           .then((applied) => {
             if (applied) sameAsProfileBtn.classList.add("is-applied");
           })
+          .catch(() => {
+            showInfoModal("정보가 없습니다.");
+          })
           .finally(() => {
             sameAsProfileBtn.classList.remove("is-loading");
             sameAsProfileBtn.disabled = false;
@@ -17077,6 +17352,7 @@
         thumb?.style.removeProperty("--document-image");
         preview?.classList.add("is-hidden");
         addButton?.classList.remove("is-hidden");
+        updateMypageInfoSaveButton();
         return;
       }
       const mypagePhotoRemoveBtn = closestFrom(event.target, ".mypage-thumb-remove");
@@ -17098,6 +17374,7 @@
           mypageExistingBodyPhotoUrls = mypageExistingBodyPhotoUrls.filter((url) => url !== thumb.dataset.existingBodyPhotoUrl);
         }
         thumb?.remove();
+        updateMypageInfoSaveButton();
         return;
       }
       const counselWriteBtn = closestFrom(event.target, "[data-counsel-write]");
@@ -17275,7 +17552,9 @@
         if (submitBtn) { submitBtn.disabled = true; submitBtn.classList.add("is-loading"); submitBtn.textContent = "로그인 중"; }
         try {
           await firebaseAuth.signInWithEmailAndPassword(phoneToAuthEmail(phone), password);
-          localStorage.setItem(AUTH_USER_KEY, onlyDigits(phone, 11));
+          const authPhone = onlyDigits(phone, 11);
+          localStorage.setItem(AUTH_USER_KEY, authPhone);
+          ensureAuthVisitorOwner(authPhone);
           updateAuthDrawerLinks();
           setPage("mypage");
         } catch (error) {
@@ -17292,22 +17571,24 @@
         const password = signupForm.querySelector('[name="password"]')?.value || "";
         const passwordConfirm = signupForm.querySelector('[name="passwordConfirm"]')?.value || "";
         if (onlyDigits(phone, 11).length !== 11) {
-          showInfoModal("회원가입 정보를 확인해 주세요.", "연락처를 정확히 입력해 주세요.");
+          showInfoModal("정보를 다시 확인해 주세요.", "연락처를 정확히 입력해 주세요.");
           return;
         }
         if (password !== passwordConfirm) {
-          showInfoModal("회원가입 정보를 확인해 주세요.", "비밀번호가 일치하지 않습니다.");
+          showInfoModal("정보를 다시 확인해 주세요.", "비밀번호가 일치하지 않습니다.");
           return;
         }
         const submitBtn = signupForm.querySelector(".auth-submit");
         if (submitBtn) { submitBtn.disabled = true; submitBtn.classList.add("is-loading"); submitBtn.textContent = "가입 중"; }
         try {
           await firebaseAuth.createUserWithEmailAndPassword(phoneToAuthEmail(phone), password);
-          localStorage.setItem(AUTH_USER_KEY, onlyDigits(phone, 11));
+          const authPhone = onlyDigits(phone, 11);
+          localStorage.setItem(AUTH_USER_KEY, authPhone);
+          ensureAuthVisitorOwner(authPhone);
           updateAuthDrawerLinks();
           setPage("mypage");
         } catch (error) {
-          showInfoModal("회원가입 정보를 확인해 주세요.", firebaseAuthErrorMessage(error));
+          showInfoModal("정보를 다시 확인해 주세요.", firebaseAuthErrorMessage(error));
         } finally {
           if (submitBtn) { submitBtn.disabled = false; submitBtn.classList.remove("is-loading"); submitBtn.textContent = "계정 만들기"; }
         }
@@ -17464,6 +17745,7 @@
     const applicationStatusSteps = ["접수", "확인", "승인"];
     const canceledApplicationStatus = "취소";
     let currentMyApplications = [];
+    let myApplicationsExpanded = false;
     let myApplicationsLoadPromise = null;
 
     function applicationGenderValue(application) {
@@ -17542,10 +17824,10 @@
       const merged = new Map();
       const now = Date.now();
       const recentWindow = 2 * 60 * 1000;
-      (Array.isArray(serverApplications) ? serverApplications : []).forEach((application) => {
+      (Array.isArray(serverApplications) ? serverApplications : []).filter(isCurrentMypageRecord).forEach((application) => {
         merged.set(applicationStableKey(application), application);
       });
-      (Array.isArray(localApplications) ? localApplications : []).forEach((application) => {
+      (Array.isArray(localApplications) ? localApplications : []).filter(isCurrentMypageRecord).forEach((application) => {
         const key = applicationStableKey(application);
         const serverApplication = merged.get(key);
         const isRecentLocal = now - applicationTimestamp(application) < recentWindow;
@@ -17567,8 +17849,7 @@
         return false;
       }
       if (!Array.isArray(adminApplications) || !adminApplications.length) return false;
-      const { id } = getVisitorIdentity();
-      const mine = adminApplications.filter((application) => String(application?.visitorId || "") === String(id || ""));
+      const mine = adminApplications.filter(isCurrentMypageRecord);
       if (!mine.length) return false;
       const mergedApplications = mergeApplicationsWithLocal(mine, readMypageCache() || currentMyApplications);
       writeMypageCache(mergedApplications);
@@ -17590,9 +17871,10 @@
       });
     }
 
-    async function requestMyApplications(visitorId) {
+    async function requestMyApplications(visitorId, authUser = authProfileKey()) {
+      const authParam = authUser ? `&authUser=${encodeURIComponent(authUser)}` : "";
       return Promise.race([
-        fetch(`${GOOGLE_SCRIPT_URL}?action=myApplications&visitorId=${encodeURIComponent(visitorId)}&t=${Date.now()}`, { cache: "no-store" })
+        fetch(`${GOOGLE_SCRIPT_URL}?action=myApplications&visitorId=${encodeURIComponent(visitorId)}${authParam}&t=${Date.now()}`, { cache: "no-store" })
           .then((response) => response.json()),
         myApplicationsFetchTimeout()
       ]);
@@ -17603,6 +17885,14 @@
       if (applicationsRow) applicationsRow.classList.toggle("is-empty", !applications.length);
       const count = document.querySelector("[data-mypage-application-count]");
       if (count) count.textContent = applications.length ? `(${applications.length})` : "";
+    }
+
+    function updateApplicationLayerDefaultOpen(applications) {
+      const applicationsLayer = document.querySelector('[data-mypage-layer-row="applications"]')?.closest(".mypage-fold-card");
+      if (!applicationsLayer) return;
+      if ((Array.isArray(applications) ? applications.length : 0) >= 1) {
+        applicationsLayer.open = true;
+      }
     }
 
     function applicationTitleTags(title) {
@@ -17695,25 +17985,40 @@
     }
 
     function renderMyApplications(applications) {
-      const visibleApplications = dedupeApplicationsByStableKey(applications).filter((application) => !isHiddenCanceledApplication(application));
+      const visibleApplications = dedupeApplicationsByStableKey(applications)
+        .filter(isCurrentMypageRecord)
+        .filter((application) => !isHiddenCanceledApplication(application));
       const displayApplications = sortApplicationsForDisplay(visibleApplications);
       writeMypageCache(displayApplications);
       currentMyApplications = displayApplications;
       updateApplicationLayerCount(displayApplications);
+      updateApplicationLayerDefaultOpen(displayApplications);
       const applicationGender = latestApplicationGender(displayApplications);
       if (applicationGender) syncProfileGender(applicationGender);
       const list = document.querySelector("[data-mypage-list]");
       if (!list) return;
       if (!displayApplications.length) {
+        myApplicationsExpanded = false;
         list.innerHTML = `<p class="mypage-empty">신청 내역이 없습니다.</p>`;
         updateMypageDeleteButtonState();
         return;
       }
-      list.innerHTML = displayApplications.map((application, index) => applicationCardHtml(application, index)).join("");
+      const renderedApplications = myApplicationsExpanded || displayApplications.length <= 1
+        ? displayApplications
+        : displayApplications.slice(0, 1);
+      const cardsHtml = renderedApplications.map((application) => {
+        const index = displayApplications.indexOf(application);
+        return applicationCardHtml(application, index);
+      }).join("");
+      const moreHtml = !myApplicationsExpanded && displayApplications.length > 1
+        ? `<button class="mypage-app-more-btn" type="button" data-mypage-app-more>더 보기</button>`
+        : "";
+      list.innerHTML = `${cardsHtml}${moreHtml}`;
       updateMypageDeleteButtonState();
     }
 
     async function loadMyApplications(forceRefresh = false) {
+      ensureAuthVisitorOwner();
       const list = document.querySelector("[data-mypage-list]");
       const cached = readMypageCache();
       if (cached) {
@@ -17728,7 +18033,7 @@
       myApplicationsLoadPromise = (async () => {
         try {
         const { id } = getVisitorIdentity();
-        const result = await requestMyApplications(id);
+        const result = await requestMyApplications(id, authProfileKey());
         const applications = result?.ok && Array.isArray(result.applications) ? result.applications : [];
         const mergedApplications = mergeApplicationsWithLocal(applications, cached || currentMyApplications);
         writeMypageCache(mergedApplications);
@@ -17758,7 +18063,8 @@
       setBoardDeleteModal(true, () => cancelMyApplicationConfirmed(index, button), {
         title: "신청을 취소하시겠습니까?",
         copy: "신청 내에서 취소 상태로 표시됩니다.",
-        confirmText: "취소"
+        confirmText: "취소하기",
+        singleAction: true
       });
     }
 
@@ -17824,14 +18130,23 @@
       try { localStorage.setItem(key, JSON.stringify(profile)); } catch {}
     }
 
-    async function refreshProfileInfoCache() {
+    function profileInfoFetchTimeout(ms = 6000) {
+      return new Promise((_, reject) => {
+        window.setTimeout(() => reject(new Error("profileInfo timeout")), ms);
+      });
+    }
+
+    async function refreshProfileInfoCache(timeoutMs = 6000) {
       if (!isLoggedIn()) return null;
       const cached = readProfileInfoCache();
       try {
         const { id } = getVisitorIdentity();
-        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=myProfileInfo&visitorId=${encodeURIComponent(id)}&authUser=${encodeURIComponent(authProfileKey())}&t=${Date.now()}`);
-        const result = await response.json();
-        if (response.ok && result.ok && result.registered) {
+        const result = await Promise.race([
+          fetch(`${GOOGLE_SCRIPT_URL}?action=myProfileInfo&visitorId=${encodeURIComponent(id)}&authUser=${encodeURIComponent(authProfileKey())}&t=${Date.now()}`, { cache: "no-store" })
+            .then((response) => response.json()),
+          profileInfoFetchTimeout(timeoutMs)
+        ]);
+        if (result?.ok && result.registered) {
           const normalized = mergeProfileFileFallbacks(result, cached) || result;
           writeProfileInfoCache(normalized);
           return normalized;
@@ -17857,6 +18172,24 @@
         <div class="form-field full">
           <label>${label}</label>
           <div class="choice-row" data-info-multi-group="${groupKey}" ${maxChoice ? `data-max-choice="${maxChoice}"` : ""}>${chips}</div>
+        </div>
+      `;
+    }
+
+    function mypageIdealRankGroup(selectedValue) {
+      const selected = [...new Set(String(selectedValue || "").split(",").map((item) => item.trim()).filter(Boolean))].slice(0, 3);
+      const chips = idealRankOptions.map((option) => {
+        const rank = selected.indexOf(option);
+        return `<button class="choice-chip${rank >= 0 ? " is-selected" : ""}" type="button" data-mypage-ideal-rank-choice="${htmlAttr(option)}"${rank >= 0 ? ` data-mypage-ideal-rank="${rank + 1}"` : ""}>${htmlAttr(option)}</button>`;
+      }).join("");
+      return `
+        <div class="form-field full">
+          <div class="ideal-rank-row" aria-label="나의 이상형 선택 순위">
+            <span class="ideal-rank-slot${selected[0] ? " is-filled" : ""}" data-mypage-ideal-rank-slot="1"><b>1위</b><span data-mypage-ideal-rank-value>${htmlAttr(selected[0] || "")}</span></span>
+            <span class="ideal-rank-slot${selected[1] ? " is-filled" : ""}" data-mypage-ideal-rank-slot="2"><b>2위</b><span data-mypage-ideal-rank-value>${htmlAttr(selected[1] || "")}</span></span>
+            <span class="ideal-rank-slot${selected[2] ? " is-filled" : ""}" data-mypage-ideal-rank-slot="3"><b>3위</b><span data-mypage-ideal-rank-value>${htmlAttr(selected[2] || "")}</span></span>
+          </div>
+          <div class="choice-row" data-mypage-ideal-rank-choices data-max-choice="3">${chips}</div>
         </div>
       `;
     }
@@ -18073,7 +18406,7 @@
         <section class="form-section mypage-file-section">
           <h3>제출 서류</h3>
           <div class="form-field">
-            <label>얼굴 사진 (3-5장)<span class="req">*</span></label>
+            <label>얼굴 사진 (3-5장)</label>
             <p class="form-help">얼굴이 잘 보이는 사진을 등록해 주세요.</p>
             <div class="file-drop">
               <div class="photo-row" data-mypage-photo-row>
@@ -18086,7 +18419,7 @@
             </div>
           </div>
           <div class="form-field">
-            <label>전신 사진 (1-3장)<span class="req">*</span></label>
+            <label>전신 사진 (1-3장)</label>
             <p class="form-help">전신이 잘 보이는 사진을 등록해 주세요.</p>
             <div class="file-drop">
               <div class="photo-row" data-mypage-body-photo-row>
@@ -18155,11 +18488,12 @@
       const childrenHasLabel = optionLabelById(myChildrenHasOptions, profile?.childrenHas);
       const childrenCountLabel = optionLabelById(myChildrenCountOptions, profile?.childrenCount);
       const childrenLivingLabel = optionLabelById(myChildrenLivingOptions, profile?.childrenLiving);
-      const showChildrenDetail = profile?.childrenHas === "yes";
+      const showChildrenCount = profile?.childrenHas === "yes";
+      const showChildrenLiving = showChildrenCount && Boolean(profile?.childrenCount);
       return `
         ${infoChoiceGroup("childrenHas", "자녀가 있나요?", myChildrenHasOptions.map((option) => option.label), childrenHasLabel)}
-        ${showChildrenDetail ? infoChoiceGroup("childrenCount", "자녀는 몇 명인가요?", myChildrenCountOptions.map((option) => option.label), childrenCountLabel) : ""}
-        ${showChildrenDetail ? infoChoiceGroup("childrenLiving", "자녀와 함께 살고 있나요?", myChildrenLivingOptions.map((option) => option.label), childrenLivingLabel) : ""}
+        ${showChildrenCount ? infoChoiceGroup("childrenCount", "자녀는 몇 명인가요?", myChildrenCountOptions.map((option) => option.label), childrenCountLabel) : ""}
+        ${showChildrenLiving ? infoChoiceGroup("childrenLiving", "자녀와 함께 살고 있나요?", myChildrenLivingOptions.map((option) => option.label), childrenLivingLabel) : ""}
       `;
     }
 
@@ -18247,36 +18581,36 @@
       container.innerHTML = `
         <div class="mypage-info-form">
           <section class="form-section">
-            <h3>기본 정보<span class="req">*</span></h3>
+            <h3>기본 정보</h3>
             <div class="form-grid">
               <div class="form-field">
-                <label for="infoName">이름<span class="req">*</span></label>
+                <label for="infoName">이름</label>
                 <input id="infoName" type="text" value="${htmlAttr(p.name || "")}" placeholder="이름">
               </div>
               <div class="form-field">
-                <label for="infoPhone">연락처<span class="req">*</span></label>
+                <label for="infoPhone">연락처</label>
                 <input id="infoPhone" type="text" inputmode="numeric" maxlength="13" value="${htmlAttr(p.phone || "")}" placeholder="010-0000-0000">
               </div>
               <div class="form-field full">
-                <label for="infoArea">거주지<span class="req">*</span></label>
+                <label for="infoArea">거주지</label>
                 <input id="infoArea" type="text" value="${htmlAttr(p.area || "")}" placeholder="현재 사는 곳">
               </div>
             </div>
           </section>
 
           <section class="form-section">
-            <h3>신체 및 거주 정보<span class="req">*</span></h3>
+            <h3>신체 및 거주 정보</h3>
             <div class="form-grid">
               <div class="form-field full">
-                <label for="infoBirth">생년월일<span class="req">*</span></label>
+                <label for="infoBirth">생년월일</label>
                 <input id="infoBirth" type="text" inputmode="numeric" maxlength="10" value="${htmlAttr(p.birth || "")}" placeholder="1990-00-00">
               </div>
               <div class="form-field">
-                <label for="infoHeight">키<span class="req">*</span></label>
+                <label for="infoHeight">키</label>
                 <input id="infoHeight" type="text" inputmode="numeric" value="${htmlAttr(p.height || "")}" placeholder="cm">
               </div>
               <div class="form-field">
-                <label for="infoWeight">체중<span class="req">*</span></label>
+                <label for="infoWeight">체중</label>
                 <input id="infoWeight" type="text" inputmode="numeric" value="${htmlAttr(p.weight || "")}" placeholder="kg">
               </div>
             </div>
@@ -18286,30 +18620,30 @@
             <h3>직업</h3>
             <div class="form-grid application-job-grid">
               <div class="form-field apply-company-field">
-                <label for="infoCompany">회사명<span class="req">*</span></label>
+                <label for="infoCompany">회사명</label>
                 <input id="infoCompany" type="text" value="${htmlAttr(splitApplicationJobText(p.job || "")[0])}" placeholder="회사명">
               </div>
               <div class="form-field">
-                <label for="infoDepartment">부서<span class="req">*</span></label>
+                <label for="infoDepartment">부서</label>
                 <input id="infoDepartment" type="text" value="${htmlAttr(splitApplicationJobText(p.job || "")[1])}" placeholder="부서">
               </div>
               <div class="form-field">
-                <label for="infoPosition">직무<span class="req">*</span></label>
+                <label for="infoPosition">직무</label>
                 <input id="infoPosition" type="text" value="${htmlAttr(splitApplicationJobText(p.job || "")[2])}" placeholder="직무">
               </div>
             </div>
           </section>
 
           <section class="form-section">
-            <h3>나에 대해서<span class="req">*</span></h3>
+            <h3>나에 대해서</h3>
             <div class="form-field">
               <textarea id="infoMessage" placeholder="작성한 정보는 다른 이성의 이상형에 반영됩니다.">${htmlAttr(p.message || "")}</textarea>
             </div>
           </section>
 
           <section class="form-section">
-            <h3>나의 이상형<span class="req">*</span></h3>
-            ${infoMultiChoiceGroup("idealRank", "나의 이상형", idealRankOptions, p.idealRank || p.ideal, 3)}
+            <h3>나의 이상형</h3>
+            ${mypageIdealRankGroup(p.idealRank || p.ideal)}
           </section>
 
           <section class="form-section children-section">
@@ -18321,21 +18655,22 @@
 
           ${renderProfileDocumentFields()}
           <div class="mypage-info-form-actions">
-            <button class="submit-btn mypage-info-save-btn" type="button" data-mypage-info-save>저장</button>
+            <button class="submit-btn mypage-info-save-btn" type="button" data-mypage-info-save disabled>저장</button>
           </div>
         </div>
       `;
+      mypageInfoInitialSignature = mypageInfoSignature(readMyProfileInfoPayload(container));
+      updateMypageInfoSaveButton();
     }
 
-    async function saveMyProfileInfo() {
-      const container = document.querySelector("[data-mypage-info]");
-      if (!container) return;
-      const getValue = (id) => container.querySelector(`#${id}`)?.value.trim() || "";
-      const getChoice = (groupKey) => container.querySelector(`[data-info-group="${groupKey}"] .choice-chip.is-selected`)?.textContent.trim() || "";
-      const getMultiChoice = (groupKey) => [...container.querySelectorAll(`[data-info-multi-group="${groupKey}"] .choice-chip.is-selected`)].map((chip) => chip.textContent.trim()).join(", ");
+    function readMyProfileInfoPayload(root = document.querySelector("[data-mypage-info]")) {
+      if (!root) return null;
+      const getValue = (id) => root.querySelector(`#${id}`)?.value.trim() || "";
+      const getChoice = (groupKey) => root.querySelector(`[data-info-group="${groupKey}"] .choice-chip.is-selected`)?.textContent.trim() || "";
+      const getMultiChoice = (groupKey) => [...root.querySelectorAll(`[data-info-multi-group="${groupKey}"] .choice-chip.is-selected`)].map((chip) => chip.textContent.trim()).join(", ");
       const childrenHas = optionIdByLabel(myChildrenHasOptions, getChoice("childrenHas"));
       const selectedChildrenCondition = childConditionIdFromValue(getChoice("selectedChildrenCondition"));
-      const payload = {
+      return {
         visitorId: getVisitorIdentity().id,
         name: getValue("infoName"),
         phone: getValue("infoPhone"),
@@ -18357,14 +18692,82 @@
         idealHeight: "",
         idealBody: "",
         idealImpression: "",
-        idealRank: getMultiChoice("idealRank"),
-        ideal: getMultiChoice("idealRank"),
+        idealRank: selectedMypageIdealRankValues(root).join(", "),
+        ideal: selectedMypageIdealRankValues(root).join(", "),
         dislike: "",
         existingDocumentUrl: mypageExistingDocumentUrl,
         existingPhotoUrls: [...mypageExistingPhotoUrls],
         existingBodyPhotoUrls: [...mypageExistingBodyPhotoUrls],
         authUser: authProfileKey()
       };
+    }
+
+    function mypageInfoSignature(payload) {
+      if (!payload) return "";
+      return JSON.stringify({
+        ...payload,
+        existingPhotoUrls: [...(payload.existingPhotoUrls || [])].sort(),
+        existingBodyPhotoUrls: [...(payload.existingBodyPhotoUrls || [])].sort(),
+        photoFileNames: mypagePhotoFiles.map(({ file }) => `${file.name}:${file.size}:${file.lastModified}`).sort(),
+        bodyPhotoFileNames: mypageBodyPhotoFiles.map(({ file }) => `${file.name}:${file.size}:${file.lastModified}`).sort(),
+        documentFileName: mypageDocumentFile ? `${mypageDocumentFile.name}:${mypageDocumentFile.size}:${mypageDocumentFile.lastModified}` : ""
+      });
+    }
+
+    function selectedMypageIdealRankChips(root = document.querySelector("[data-mypage-info]")) {
+      return [...(root?.querySelectorAll("[data-mypage-ideal-rank-choice].is-selected") || [])]
+        .sort((a, b) => Number(a.dataset.mypageIdealRank || 0) - Number(b.dataset.mypageIdealRank || 0));
+    }
+
+    function selectedMypageIdealRankValues(root = document.querySelector("[data-mypage-info]")) {
+      return selectedMypageIdealRankChips(root)
+        .map((chip) => chip.dataset.mypageIdealRankChoice || chip.textContent.trim())
+        .filter(Boolean);
+    }
+
+    function syncMypageIdealRankSlots(root = document.querySelector("[data-mypage-info]")) {
+      if (!root) return;
+      const selected = selectedMypageIdealRankChips(root);
+      selected.forEach((chip, index) => {
+        chip.dataset.mypageIdealRank = String(index + 1);
+      });
+      root.querySelectorAll("[data-mypage-ideal-rank-slot]").forEach((slot) => {
+        const rank = Number(slot.dataset.mypageIdealRankSlot || 0);
+        const value = selected[rank - 1]?.dataset.mypageIdealRankChoice || "";
+        const valueEl = slot.querySelector("[data-mypage-ideal-rank-value]");
+        if (valueEl) valueEl.textContent = value;
+        slot.classList.toggle("is-filled", Boolean(value));
+      });
+    }
+
+    function toggleMypageIdealRankChoice(choiceTarget) {
+      const root = choiceTarget.closest("[data-mypage-info]");
+      const selected = selectedMypageIdealRankChips(root);
+      if (choiceTarget.classList.contains("is-selected")) {
+        choiceTarget.classList.remove("is-selected");
+        delete choiceTarget.dataset.mypageIdealRank;
+      } else if (selected.length < 3) {
+        choiceTarget.classList.add("is-selected");
+        choiceTarget.dataset.mypageIdealRank = String(selected.length + 1);
+      }
+      syncMypageIdealRankSlots(root);
+      updateMypageInfoSaveButton();
+    }
+
+    function updateMypageInfoSaveButton() {
+      const container = document.querySelector("[data-mypage-info]");
+      const saveBtn = container?.querySelector("[data-mypage-info-save]");
+      if (!saveBtn || saveBtn.classList.contains("is-loading")) return;
+      const isDirty = mypageInfoSignature(readMyProfileInfoPayload(container)) !== mypageInfoInitialSignature;
+      saveBtn.disabled = !isDirty;
+      saveBtn.classList.toggle("is-dirty", isDirty);
+    }
+
+    async function saveMyProfileInfo() {
+      const container = document.querySelector("[data-mypage-info]");
+      if (!container) return;
+      const payload = readMyProfileInfoPayload(container);
+      if (!payload) return;
       const saveBtn = container.querySelector("[data-mypage-info-save]");
       if (saveBtn) {
         saveBtn.disabled = true;
@@ -18404,9 +18807,9 @@
       } catch (error) {
         alert(error?.message || "저장하지 못했습니다.");
         if (saveBtn) {
-          saveBtn.disabled = false;
           saveBtn.classList.remove("is-loading");
           saveBtn.textContent = "저장";
+          updateMypageInfoSaveButton();
         }
       }
     }
@@ -18454,11 +18857,16 @@
     }
 
     function isMyCounselPost(post) {
+      const authPhone = currentAuthPhoneKey();
       const { id } = getVisitorIdentity();
-      return Boolean(
-        post?.isMine ||
-        (!!post?.visitorId && String(post.visitorId) === id)
-      );
+      const visitorMatches = Boolean(id && post?.visitorId && String(post.visitorId) === id);
+      if (authPhone) {
+        const recordAuth = recordAuthKey(post);
+        const recordPhone = recordPhoneKey(post);
+        if (recordAuth) return recordAuth === authPhone;
+        return visitorMatches && (!recordPhone || recordPhone === authPhone);
+      }
+      return Boolean(id && post?.visitorId && String(post.visitorId) === id);
     }
 
     function counselCanEditPost(post) {
@@ -18748,10 +19156,15 @@
     }
 
     function isMyBoardPost(post, visitorId) {
-      return Boolean(
-        post?.isMine ||
-        (visitorId && post?.visitorId === visitorId)
-      );
+      const authPhone = currentAuthPhoneKey();
+      const visitorMatches = Boolean(visitorId && post?.visitorId && post.visitorId === visitorId);
+      if (authPhone) {
+        const recordAuth = recordAuthKey(post);
+        const recordPhone = recordPhoneKey(post);
+        if (recordAuth) return recordAuth === authPhone;
+        return visitorMatches && (!recordPhone || recordPhone === authPhone);
+      }
+      return Boolean(visitorId && post?.visitorId && post.visitorId === visitorId);
     }
 
     function renderMyCounsel() {
@@ -18790,6 +19203,7 @@
     async function loadMyCounsel() {
       const container = document.querySelector("[data-mypage-counsel]");
       if (!container) return;
+      ensureAuthVisitorOwner();
       const cachedMine = (readCounselCache() || []).filter(isMyCounselPost);
       if (cachedMine.length) {
         myCounselPosts = cachedMine;
@@ -18888,6 +19302,7 @@
     async function loadMyBoardPosts() {
       const container = document.querySelector("[data-mypage-board]");
       if (!container) return;
+      ensureAuthVisitorOwner();
       const { id } = getVisitorIdentity();
       const cachedMine = readBoardCache().filter((post) => isMyBoardPost(post, id));
       if (cachedMine.length) {
@@ -19180,9 +19595,14 @@
         return false;
       }
       const cachedProfile = readProfileInfoCache();
-      const profile = mergeProfileFileFallbacks(await refreshProfileInfoCache(), cachedProfile) || cachedProfile;
+      let profile = null;
+      try {
+        profile = mergeProfileFileFallbacks(await refreshProfileInfoCache(900), cachedProfile) || cachedProfile;
+      } catch {
+        profile = cachedProfile;
+      }
       if (!profile || !profile.registered) {
-        showInfoModal("정보가 없습니다.", "로그인 이후 이용 가능합니다.");
+        showInfoModal("정보가 없습니다.");
         return false;
       }
       const setValue = (selector, value) => {
@@ -19455,6 +19875,14 @@
     }
 
     document.addEventListener("click", (event) => {
+      const mypageAppMoreTarget = closestFrom(event.target, "[data-mypage-app-more]");
+      if (mypageAppMoreTarget) {
+        event.preventDefault();
+        event.stopPropagation();
+        myApplicationsExpanded = true;
+        renderMyApplications(currentMyApplications);
+        return;
+      }
       const deleteCanceledApplicationTarget = closestFrom(event.target, "[data-mypage-canceled-delete]");
       if (deleteCanceledApplicationTarget) {
         event.preventDefault();
@@ -21036,7 +21464,7 @@
         return (scheduleTimeHour(a.scheduleTime) || 0) - (scheduleTimeHour(b.scheduleTime) || 0);
       });
       timeline.forEach((post, index) => {
-        const episode = scheduleEpisodeNumber(post);
+        const episode = index + 1;
         post.displayEpisodeNumber = episode;
         post.displayEpisode = episode ? `${episode}화` : "";
       });
@@ -21950,13 +22378,15 @@
       const placeholderProofs = placeholders.filter((post) => post.category === "클로버 근황");
       const dashboardManagedPosts = readAdminDashboardContentPosts()
         .filter((post) => post?.active !== false && ["현장", "클로버 근황"].includes(String(post?.category || "").trim()));
+      const managedRegular = dashboardManagedPosts.filter((post) => String(post?.category || "").trim() === "현장");
       const visibleSchedulePosts = uniqueScheduleContentPosts([...dashboardManagedPosts, ...schedulePosts]);
 
       const realProofs = visibleSchedulePosts.filter((post) => !post.headline && post.category === "클로버 근황");
       const realProofIds = new Set(realProofs.map((post) => post.id));
-      const realRegular = visibleSchedulePosts.filter((post) => post.category === "현장" && !realProofIds.has(post.id));
+      const liveRegular = visibleSchedulePosts.filter((post) => post.category === "현장" && !realProofIds.has(post.id));
+      const realRegular = managedRegular.length ? managedRegular : liveRegular;
 
-      const regularSource = uniqueByScheduleTitle(realRegular.length ? [...realRegular, ...placeholderRegular] : placeholderRegular).slice(0, Math.max(3, realRegular.length));
+      const regularSource = uniqueByScheduleTitle(realRegular.length ? realRegular : placeholderRegular);
       const regular = regularSource.map((post, i) => ({ ...post, imageUrl: schedulePostImageUrl(post) || SCHEDULE_FIELD_IMAGES[i % SCHEDULE_FIELD_IMAGES.length] }));
       const proofPosts = uniqueByScheduleTitle(realProofs.length ? realProofs : placeholderProofs)
         .sort(compareDashboardPostOrder);
@@ -22193,7 +22623,10 @@
       if (authLogoutTarget) {
         event.preventDefault();
         firebaseAuth.signOut().catch(() => {});
-        try { localStorage.removeItem(AUTH_USER_KEY); } catch {}
+        try {
+          localStorage.removeItem(AUTH_USER_KEY);
+          localStorage.removeItem(authVisitorOwnerKey);
+        } catch {}
         updateAuthDrawerLinks();
         setPage("home");
         return;
@@ -23257,9 +23690,13 @@
         const title = modal.querySelector("[data-board-delete-title]");
         const copy = modal.querySelector("[data-board-delete-copy]");
         const confirmButton = modal.querySelector("[data-board-delete-confirm]");
+        const cancelButton = modal.querySelector("[data-board-delete-close].modal-cancel-btn");
+        const actions = modal.querySelector(".gender-modal-actions");
         if (title) title.textContent = options.title || "글을 삭제하시겠습니까?";
         if (copy) copy.textContent = options.copy || "삭제된 글은 목록에서 사라집니다.";
         if (confirmButton) confirmButton.textContent = options.confirmText || "삭제";
+        if (actions) actions.classList.toggle("is-single-action", !!options.singleAction);
+        if (cancelButton) cancelButton.hidden = !!options.singleAction;
         modal.hidden = !open;
         if (open && !wasOpen) rememberPopupHistory();
         if (!open && wasOpen) settlePopupHistoryAfterClose(options);
@@ -23386,8 +23823,13 @@
 
     firebaseAuth.onAuthStateChanged((user) => {
       try {
-        if (user) localStorage.setItem(AUTH_USER_KEY, user.email?.split("@")[0] || "1");
-        else localStorage.removeItem(AUTH_USER_KEY);
+        if (user) {
+          const authPhone = onlyDigits(user.email?.split("@")[0] || "", 11);
+          if (authPhone) {
+            localStorage.setItem(AUTH_USER_KEY, authPhone);
+            ensureAuthVisitorOwner(authPhone);
+          }
+        }
       } catch {}
       updateAuthDrawerLinks();
     });
@@ -23985,6 +24427,7 @@
         department: inputValue("#applyDepartment"),
         position: inputValue("#applyPosition"),
         message: selectedApplicationMessage,
+        selectedChildrenCondition,
         idealRank: selectedIdealRankValues(),
         dislike: inputValue("#applyDislike")
       };
@@ -24008,6 +24451,53 @@
       return [inputValue("#applyCompany"), inputValue("#applyDepartment"), inputValue("#applyPosition")]
         .filter(Boolean)
         .join(" / ");
+    }
+
+    function applicationPayloadProfileUrls(result, payload, payloadKey) {
+      const resultUrls = payloadKey === "bodyPhotoFileUrls"
+        ? normalizeProfileBodyPhotoUrls(result)
+        : normalizeProfilePhotoUrls(result);
+      if (resultUrls.length) return resultUrls;
+      return normalizeProfileFileUrlList(payload?.[payloadKey]);
+    }
+
+    function applicationPayloadToProfileInfo(payload, result = {}) {
+      const documentUrl = normalizeProfileDocumentUrl(result) || payload.documentFileUrl || "";
+      return {
+        ok: true,
+        registered: true,
+        authUser: payload.authUser,
+        visitorId: payload.visitorId,
+        name: payload.name,
+        phone: payload.phone,
+        birth: payload.birth,
+        height: payload.height,
+        weight: payload.weight,
+        area: payload.area,
+        job: payload.job,
+        smoking: payload.smoking || "",
+        drinking: payload.drinking || "",
+        religion: payload.religion || "",
+        ideal: payload.ideal,
+        idealRank: payload.idealRank,
+        dislike: payload.dislike,
+        childrenHas: payload.profileChildrenHas || payload.childrenHas || "",
+        childrenCount: payload.profileChildrenCount || payload.childrenCount || "",
+        childrenLiving: payload.profileChildrenLiving || payload.childrenLiving || "",
+        selectedChildrenCondition: payload.selectedChildrenCondition || "",
+        message: payload.message,
+        documentUrl,
+        photoUrls: applicationPayloadProfileUrls(result, payload, "photoFileUrls"),
+        bodyPhotoUrls: applicationPayloadProfileUrls(result, payload, "bodyPhotoFileUrls")
+      };
+    }
+
+    function cacheApplicationProfileInfo(payload, result = {}) {
+      if (!isLoggedIn() || !payload?.profileAutoSave) return null;
+      const savedProfile = applicationPayloadToProfileInfo(payload, result);
+      writeProfileInfoCache(savedProfile);
+      mypageInfoCurrentProfile = savedProfile;
+      return savedProfile;
     }
 
     function selectedChoice(labelText) {
@@ -24745,34 +25235,7 @@
             writeMypageCache(canceledApplications);
             renderMyApplications(canceledApplications);
           }
-          if (isLoggedIn() && payload.profileAutoSave) {
-            const savedProfile = {
-              ok: true,
-              registered: true,
-              authUser: payload.authUser,
-              visitorId: payload.visitorId,
-              name: payload.name,
-              phone: payload.phone,
-              birth: payload.birth,
-              height: payload.height,
-              weight: payload.weight,
-              area: payload.area,
-              job: payload.job,
-              ideal: payload.ideal,
-              idealRank: payload.idealRank,
-              dislike: payload.dislike,
-              childrenHas: payload.profileChildrenHas,
-              childrenCount: payload.profileChildrenCount,
-              childrenLiving: payload.profileChildrenLiving,
-              selectedChildrenCondition: payload.selectedChildrenCondition,
-              message: payload.message,
-              documentUrl: result.documentUrl || payload.documentFileUrl || "",
-              photoUrls: normalizeProfilePhotoUrls(result).length ? normalizeProfilePhotoUrls(result) : payload.photoFileUrls,
-              bodyPhotoUrls: normalizeProfileBodyPhotoUrls(result).length ? normalizeProfileBodyPhotoUrls(result) : payload.bodyPhotoFileUrls
-            };
-            writeProfileInfoCache(savedProfile);
-            mypageInfoCurrentProfile = savedProfile;
-          }
+          cacheApplicationProfileInfo(payload, result);
         } catch (error) {
           writeMypageCache(cachedBeforeSubmit);
           renderMyApplications(cachedBeforeSubmit);
@@ -25077,6 +25540,10 @@
           updateFormSubmitButton();
           return;
         }
+        if (choiceTarget.matches("[data-mypage-ideal-rank-choice]")) {
+          toggleMypageIdealRankChoice(choiceTarget);
+          return;
+        }
         const infoMultiGroup = choiceTarget.closest("[data-info-multi-group]");
         if (infoMultiGroup) {
           const maxChoice = Number(infoMultiGroup.dataset.maxChoice || 0);
@@ -25085,6 +25552,7 @@
           if (isSelected || !maxChoice || selectedCount < maxChoice) {
             choiceTarget.classList.toggle("is-selected");
           }
+          updateMypageInfoSaveButton();
           return;
         }
         const infoGroup = choiceTarget.closest("[data-info-group]");
@@ -25093,11 +25561,16 @@
           infoGroup.querySelectorAll(".choice-chip").forEach((chip) => chip.classList.remove("is-selected"));
           if (!wasSelected) choiceTarget.classList.add("is-selected");
           const mypageChildrenRoot = infoGroup.closest("[data-mypage-children-fields]");
-          if (mypageChildrenRoot && infoGroup.dataset.infoGroup === "childrenHas") {
-            const selectedLabel = infoGroup.querySelector(".choice-chip.is-selected")?.textContent.trim() || "";
-            const childrenHas = optionIdByLabel(myChildrenHasOptions, selectedLabel);
-            mypageChildrenRoot.innerHTML = mypageChildrenFields({ childrenHas });
+          if (mypageChildrenRoot && ["childrenHas", "childrenCount"].includes(infoGroup.dataset.infoGroup || "")) {
+            const selectedChildrenHasLabel = mypageChildrenRoot.querySelector('[data-info-group="childrenHas"] .choice-chip.is-selected')?.textContent.trim() || "";
+            const selectedChildrenCountLabel = mypageChildrenRoot.querySelector('[data-info-group="childrenCount"] .choice-chip.is-selected')?.textContent.trim() || "";
+            const selectedChildrenLivingLabel = mypageChildrenRoot.querySelector('[data-info-group="childrenLiving"] .choice-chip.is-selected')?.textContent.trim() || "";
+            const childrenHas = optionIdByLabel(myChildrenHasOptions, selectedChildrenHasLabel);
+            const childrenCount = childrenHas === "yes" ? optionIdByLabel(myChildrenCountOptions, selectedChildrenCountLabel) : "";
+            const childrenLiving = childrenHas === "yes" && childrenCount ? optionIdByLabel(myChildrenLivingOptions, selectedChildrenLivingLabel) : "";
+            mypageChildrenRoot.innerHTML = mypageChildrenFields({ childrenHas, childrenCount, childrenLiving });
           }
+          updateMypageInfoSaveButton();
           return;
         }
         if (choiceTarget.matches("[data-ideal-choice]")) {
@@ -25326,11 +25799,19 @@
       }
       if (target instanceof HTMLInputElement && target.matches("[data-mypage-file-input]")) {
         renderMypageSelectedFiles(target);
+        updateMypageInfoSaveButton();
         return;
       }
       if (target instanceof HTMLInputElement && target.matches("[data-file-input]")) {
         renderSelectedFiles(target);
         updateFormSubmitButton();
+      }
+    });
+
+    document.addEventListener("input", (event) => {
+      const target = event.target;
+      if ((target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) && target.closest(".mypage-info-form")) {
+        updateMypageInfoSaveButton();
       }
     });
 

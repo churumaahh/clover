@@ -1,0 +1,1777 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CLOVER 메모장</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://script.google.com">
+  <link rel="preconnect" href="https://script.googleusercontent.com">
+  <script src="config.js?v=20260831-application-dashboard"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; }
+    body {
+      margin: 0;
+      background: #eef1f5;
+      color: #101418;
+      --ink: #101418;
+      --muted: #667085;
+      font-family: "Pretendard", "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 850;
+    }
+    button, input, select, textarea { font: inherit; }
+    button { border: 0; cursor: pointer; }
+    .memo-page {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    .memo-theme-toggle {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      padding: 0;
+      margin-left: auto;
+      background: transparent;
+      box-shadow: none;
+      cursor: pointer;
+    }
+    .memo-theme-toggle-track {
+      position: relative;
+      display: block;
+      width: 2.3rem;
+      height: 1.5rem;
+      padding: 0;
+      border: none;
+      border-radius: 999px;
+      background: #b9bdc4;
+      box-shadow: inset 0 0.05rem 0.15rem rgba(0, 0, 0, 0.15);
+      transition: background-color 0.22s ease;
+      pointer-events: none;
+    }
+    .memo-theme-toggle-knob {
+      position: absolute;
+      top: 0.06rem;
+      left: 0.06rem;
+      width: 1.38rem;
+      height: 1.38rem;
+      border-radius: 999px;
+      background-color: #e9e6df;
+      background-image:
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.55) 0, rgba(255, 255, 255, 0.55) 0.05rem, transparent 0.05rem, transparent 0.2rem),
+        repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.08) 0, rgba(0, 0, 0, 0.08) 0.05rem, transparent 0.05rem, transparent 0.2rem);
+      box-shadow: 0 0.12rem 0.3rem rgba(18, 24, 35, 0.3), inset 0 0.03rem 0.08rem rgba(255, 255, 255, 0.6);
+      transition: transform 0.22s ease;
+    }
+    .auth-page {
+      display: grid;
+      place-items: center;
+      min-height: calc(100svh - 36px);
+      padding: 2rem 0 4rem;
+    }
+    .auth-card {
+      position: relative;
+      width: min(24rem, 100%);
+      padding: 2rem 1.9rem 1.45rem;
+      border-radius: 2rem;
+      background: #eef1f5;
+      box-shadow: 0.9rem 0.9rem 1.8rem rgba(148, 163, 184, 0.4), -0.9rem -0.9rem 1.8rem rgba(255, 255, 255, 0.85);
+      text-align: center;
+    }
+    .auth-title {
+      margin: 0 0 0.3rem;
+      font-size: 1.5rem;
+      font-weight: 950;
+      color: var(--ink);
+    }
+    .auth-subrow {
+      position: static;
+      display: grid;
+      place-items: center;
+      align-items: center;
+      min-height: 2rem;
+      margin: 0 0 2rem;
+    }
+    .auth-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+    .auth-form {
+      display: grid;
+      gap: 0.82rem;
+      text-align: left;
+    }
+    .auth-field {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .auth-field-icon {
+      position: absolute;
+      left: 1rem;
+      display: inline-flex;
+      width: 1.05rem;
+      height: 1.05rem;
+      color: var(--muted);
+    }
+    .auth-field-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+    }
+    .auth-field input {
+      width: 100%;
+      min-height: 3rem;
+      padding: 0 1rem 0 2.7rem;
+      border: 0;
+      border-radius: 1rem;
+      background: #eef1f5;
+      color: var(--ink);
+      font-size: 0.88rem;
+      font-weight: 750;
+      outline: 0;
+      box-shadow: inset 0.32rem 0.32rem 0.7rem rgba(148, 163, 184, 0.32), inset -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.85);
+    }
+    .auth-field input:focus {
+      box-shadow: inset 0.32rem 0.32rem 0.7rem rgba(148, 163, 184, 0.32), inset -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.85), 0 0 0 2px #00c934;
+    }
+    .auth-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 3rem;
+      margin-top: 0.4rem;
+      border-radius: 1rem;
+      background: #eef1f5;
+      color: var(--ink);
+      font-size: 0.86rem;
+      font-weight: 950;
+      box-shadow: 0.32rem 0.32rem 0.7rem rgba(148, 163, 184, 0.32), -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.85);
+      cursor: not-allowed;
+      opacity: .56;
+    }
+    .auth-submit.is-ready {
+      background: #eef1f5;
+      color: var(--ink);
+      box-shadow: 0.32rem 0.32rem 0.7rem rgba(148, 163, 184, 0.32), -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.85);
+      cursor: pointer;
+      opacity: 1;
+    }
+    .auth-submit.is-loading {
+      cursor: wait;
+      opacity: 1;
+      pointer-events: none;
+    }
+    .auth-submit.is-loading::before {
+      content: "";
+      width: 0.95rem;
+      height: 0.95rem;
+      border: 2px solid rgba(16, 20, 24, .18);
+      border-top-color: rgba(16, 20, 24, .9);
+      border-radius: 50%;
+      animation: submit-spin .7s linear infinite;
+      flex: 0 0 auto;
+    }
+    .memo-card {
+      display: grid;
+      gap: 14px;
+      padding: 16px;
+      border: 1px solid rgba(15, 23, 42, .08);
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, .08);
+    }
+    .memo-workspace {
+      display: grid;
+      gap: 14px;
+      padding: 82px 20px 0;
+    }
+    .memo-workspace.is-final {
+      align-content: start;
+      min-height: 1200px;
+      padding-top: 78px;
+    }
+    .memo-top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 5;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      padding: 11px 20px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.32);
+      background: #eef1f5;
+    }
+    .memo-brand-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .memo-back-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      width: 42px;
+      height: 42px;
+      margin-top: 2px;
+      border-radius: 50%;
+      background: #eef1f5;
+      color: #101418;
+      box-shadow: 0.32rem 0.32rem 0.7rem rgba(148, 163, 184, 0.24), -0.24rem -0.24rem 0.55rem rgba(255, 255, 255, 0.82);
+    }
+    .memo-back-btn::before {
+      content: "";
+      width: 0.62rem;
+      height: 0.62rem;
+      border-left: 3px solid currentColor;
+      border-bottom: 3px solid currentColor;
+      transform: translateX(2px) rotate(45deg);
+    }
+    .memo-back-btn:active {
+      transform: translateY(1px);
+      box-shadow: inset 0.24rem 0.24rem 0.5rem rgba(148, 163, 184, 0.25), inset -0.18rem -0.18rem 0.44rem rgba(255, 255, 255, 0.74);
+    }
+    .memo-top .memo-back-btn {
+      width: 42px;
+      height: 42px;
+      margin-top: 0;
+    }
+    .memo-brand-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      width: 46px;
+      height: 44px;
+      border-radius: 14px;
+      background: #eef1f5;
+      box-shadow: 0.32rem 0.32rem 0.7rem rgba(148, 163, 184, 0.24), -0.24rem -0.24rem 0.55rem rgba(255, 255, 255, 0.82);
+    }
+    .memo-brand-logo img {
+      width: 32px;
+      height: 28px;
+      object-fit: contain;
+      display: block;
+    }
+    .memo-brand-copy {
+      min-width: 0;
+    }
+    .memo-title { margin: 0; font-size: 18px; font-weight: 800; line-height: 1.05; letter-spacing: 0; }
+    .memo-sub { margin: 3px 0 0; color: #667085; font-size: 10.5px; line-height: 1.25; letter-spacing: 0; }
+    .memo-sub-participant {
+      font-weight: 950;
+    }
+    .memo-sub-participant.is-male {
+      color: #2563eb;
+    }
+    .memo-sub-participant.is-female {
+      color: #e11d48;
+    }
+    .memo-card input,
+    .memo-card textarea {
+      width: 100%;
+      border: 1px solid rgba(15, 23, 42, .13);
+      border-radius: 12px;
+      background: #fff;
+      color: #101418;
+      font-weight: 900;
+      outline: 0;
+    }
+    .memo-card input { min-height: 46px; padding: 0 12px; }
+    .memo-card textarea {
+      min-height: 210px;
+      padding: 13px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+    .memo-login-grid { display: grid; gap: 10px; }
+    .memo-note-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .memo-target-title { margin: 0; font-size: 18px; letter-spacing: 0; }
+    .memo-heart {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #f1f3f7;
+      color: #9aa3af;
+      font-size: 21px;
+      line-height: 1;
+    }
+    .memo-heart.is-on { color: #ff2f68; background: #ffe9f0; }
+    .memo-rank-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 2px;
+    }
+    .memo-rank-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 10px minmax(0, 1fr) 42px;
+      gap: 12px;
+      align-items: center;
+      width: 100%;
+      max-width: 100%;
+      min-height: 58px;
+      padding: 0 12px;
+      border: 1px solid rgba(15, 23, 42, .08);
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 0.42rem 1.05rem rgba(15, 23, 42, 0.045);
+      font-size: 13px;
+      user-select: none;
+      touch-action: pan-y;
+      overflow: hidden;
+    }
+    .memo-rank-item.is-active {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fbf9 100%);
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      box-shadow: 0 0.42rem 1.05rem rgba(15, 23, 42, 0.045);
+    }
+    .memo-entry-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #c3c9d1;
+      box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.14);
+    }
+    .memo-entry-dot.is-filled {
+      background: #00f040;
+      box-shadow: 0 0 0 4px rgba(0, 240, 64, 0.12);
+    }
+    .memo-rank-handle {
+      position: relative;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: transparent;
+      color: #00c934;
+      font-size: 20px;
+      line-height: 1;
+    }
+    .memo-rank-handle::before {
+      content: "♥";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+    }
+    .memo-rank-handle:not(.is-on) {
+      background: transparent;
+      color: #aab2bd;
+    }
+    .memo-rank-title {
+      display: inline-flex;
+      align-items: center;
+      justify-self: start;
+      gap: 8px;
+      min-width: 0;
+      text-align: left;
+    }
+    .memo-rank-title strong {
+      min-width: 0;
+    }
+    .memo-inline-note {
+      display: grid;
+      gap: 10px;
+      width: 100%;
+      max-width: 100%;
+      margin: -10px 0 4px;
+      padding: 12px;
+      border: 1px solid rgba(15, 23, 42, .08);
+      border-top: 0;
+      border-radius: 16px;
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+      background: #fff;
+      box-shadow: 0 0.42rem 1.05rem rgba(15, 23, 42, 0.045);
+    }
+    .memo-inline-note textarea {
+      width: 100%;
+      min-height: 190px;
+      padding: 14px;
+      border: 0;
+      border-radius: 14px;
+      background: #eef1f5;
+      color: #101418;
+      font-weight: 400;
+      line-height: 1.55;
+      resize: vertical;
+      outline: 0;
+      box-shadow: inset 0.28rem 0.28rem 0.64rem rgba(148, 163, 184, 0.24), inset -0.24rem -0.24rem 0.58rem rgba(255, 255, 255, 0.82);
+    }
+    .memo-inline-note textarea:focus {
+      box-shadow: inset 0.28rem 0.28rem 0.64rem rgba(148, 163, 184, 0.24), inset -0.24rem -0.24rem 0.58rem rgba(255, 255, 255, 0.82), 0 0 0 2px rgba(0, 240, 64, 0.42);
+    }
+    .memo-submit {
+      position: sticky;
+      bottom: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      width: 100%;
+      min-height: 54px;
+      border-radius: 16px;
+      background: #eef1f5;
+      color: #101418;
+      font-weight: 1000;
+      box-shadow: 0.32rem 0.32rem 0.7rem rgba(148, 163, 184, 0.32), -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.85);
+    }
+    .memo-submit small {
+      display: block;
+      color: #667085;
+      font-size: 0.66rem;
+      font-weight: 850;
+      line-height: 1;
+    }
+    .memo-submit.is-loading::before {
+      content: "";
+      width: 0.95rem;
+      height: 0.95rem;
+      border: 2px solid rgba(16, 20, 24, 0.2);
+      border-top-color: rgba(16, 20, 24, 0.9);
+      border-radius: 50%;
+      animation: submit-spin 0.7s linear infinite;
+      flex: 0 0 auto;
+    }
+    .memo-status {
+      min-height: 0;
+      color: #667085;
+      font-size: 12px;
+      font-weight: 850;
+    }
+    .auth-form .memo-status:empty {
+      display: none;
+    }
+    .memo-bottom-actions {
+      display: grid;
+      gap: 10px;
+    }
+    .memo-list-actions {
+      display: grid;
+      margin-top: 2px;
+    }
+    .memo-final-actions {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 12px;
+      min-height: 42px;
+      margin-bottom: -2px;
+    }
+    .memo-final-open {
+      width: 100%;
+      min-height: 54px;
+      padding: 0 1rem;
+      border-radius: 16px;
+      background: #edf0f5;
+      color: #101418;
+      font-size: 0.94rem;
+      font-weight: 1000;
+      white-space: nowrap;
+      box-shadow: 0.32rem 0.32rem 0.7rem rgba(148, 163, 184, 0.32), -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.85);
+    }
+    .memo-logout {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      justify-self: center;
+      gap: 0.35rem;
+      width: auto;
+      min-width: 5.6rem;
+      min-height: 2.2rem;
+      padding: 0 0.95rem;
+      margin: calc(2.8rem + 200px) auto 1.7rem;
+      border: 1px solid rgba(239, 68, 68, 0.36);
+      border-radius: 999px;
+      background: rgba(239, 68, 68, 0.04);
+      color: #dc2626;
+      font-size: 0.78rem;
+      font-weight: 900;
+      line-height: 1;
+      box-shadow: none;
+      transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+    }
+    .memo-logout:hover {
+      border-color: rgba(220, 38, 38, 0.58);
+      background: rgba(239, 68, 68, 0.09);
+      color: #b91c1c;
+    }
+    .memo-logout:active {
+      border-color: rgba(185, 28, 28, 0.66);
+      background: rgba(239, 68, 68, 0.13);
+      color: #991b1b;
+      transform: translateY(1px);
+    }
+    .memo-footer {
+      display: grid;
+      gap: 0.5rem;
+      margin: 0.9rem 0 0;
+      padding: 0.85rem 0;
+      border-top: 1px solid rgba(148, 163, 184, 0.32);
+      color: #667085;
+      font-size: 0.62rem;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+    .memo-footer p {
+      margin: 0;
+      padding: 0 4px;
+      white-space: nowrap;
+    }
+    .memo-footer strong {
+      color: #101418;
+      font-weight: 950;
+    }
+    .memo-final-list {
+      display: grid;
+      gap: 10px;
+    }
+    .memo-final-slots {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .memo-final-slot {
+      display: grid;
+      place-items: center;
+      min-height: 58px;
+      padding: 0 0.45rem;
+      border: 1px solid rgba(148, 163, 184, 0.32);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.64);
+      color: #101418;
+      font-size: 0.68rem;
+      font-weight: 950;
+      line-height: 1.2;
+      text-align: center;
+      white-space: nowrap;
+      box-shadow: inset 0.18rem 0.18rem 0.38rem rgba(148, 163, 184, 0.16), inset -0.14rem -0.14rem 0.32rem rgba(255, 255, 255, 0.7);
+    }
+    .memo-final-slot.is-filled {
+      border-color: rgba(0, 201, 52, 0.36);
+      background: rgba(0, 201, 52, 0.1);
+      color: #008d28;
+      box-shadow: 0 0.38rem 0.9rem rgba(0, 201, 52, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.42);
+    }
+    .memo-final-slot:empty::before {
+      content: "";
+    }
+    .memo-final-choice {
+      display: grid;
+      grid-template-columns: minmax(0, max-content) 28px minmax(4.2rem, auto);
+      align-items: center;
+      width: 100%;
+      max-width: 100%;
+      gap: 8px;
+      min-height: 58px;
+      padding: 0 12px 0 16px;
+      border-radius: 16px;
+      background: #fff;
+      color: #101418;
+      font-size: 13px;
+      font-weight: 950;
+      border: 1px solid rgba(15, 23, 42, .08);
+      box-shadow: 0 0.42rem 1.05rem rgba(15, 23, 42, 0.045);
+    }
+    .memo-final-choice span:first-child {
+      justify-self: start;
+      min-width: 0;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .memo-final-heart {
+      justify-self: start;
+      color: #aab2bd;
+      font-size: 18px;
+      line-height: 1;
+      opacity: 0.34;
+      pointer-events: none;
+    }
+    .memo-final-heart.is-on {
+      color: #00c934;
+      opacity: 1;
+    }
+    .memo-final-choice-state {
+      justify-self: end;
+      min-width: 4.2rem;
+      padding: 0.42rem 0.62rem;
+      border: 1px solid rgba(148, 163, 184, 0.32);
+      border-radius: 999px;
+      background: #f3f5f8;
+      color: #667085;
+      font-size: 0.78rem;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .memo-final-choice.is-selected {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fbf9 100%);
+      border-color: rgba(0, 201, 52, 0.38);
+      box-shadow: 0 0.42rem 1.05rem rgba(15, 23, 42, 0.045);
+    }
+    .memo-final-choice.is-selected .memo-final-choice-state {
+      border-color: rgba(0, 201, 52, 0.36);
+      background: rgba(0, 201, 52, 0.1);
+      color: #008d28;
+    }
+    .memo-final-choice.is-disabled:not(.is-selected) {
+      cursor: not-allowed;
+      opacity: 0.58;
+    }
+    .memo-submit:disabled {
+      cursor: not-allowed;
+      opacity: 0.48;
+    }
+    .memo-complete-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(15, 23, 42, 0.34);
+    }
+    .memo-complete-dialog {
+      position: relative;
+      display: grid;
+      place-items: center;
+      gap: 0.75rem;
+      width: min(19rem, 100%);
+      min-height: 9.5rem;
+      padding: 1.6rem 1.4rem;
+      border-radius: 18px;
+      background: #eef1f5;
+      color: #101418;
+      text-align: center;
+      box-shadow: 0.9rem 0.9rem 1.8rem rgba(15, 23, 42, 0.22), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.7);
+    }
+    .memo-complete-title {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 1000;
+      line-height: 1.35;
+    }
+    .memo-complete-sub {
+      margin: 0;
+      color: #667085;
+      font-size: 0.78rem;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+    .memo-complete-actions {
+      display: grid;
+      grid-template-columns: minmax(7.5rem, 10rem);
+      justify-content: center;
+      gap: 0.55rem;
+      width: 100%;
+      margin-top: 0.35rem;
+    }
+    .memo-complete-btn {
+      min-height: 2.4rem;
+      border-radius: 999px;
+      background: #eef1f5;
+      color: #101418;
+      font-size: 0.8rem;
+      font-weight: 950;
+      box-shadow: 0.24rem 0.24rem 0.55rem rgba(148, 163, 184, 0.28), -0.2rem -0.2rem 0.48rem rgba(255, 255, 255, 0.82);
+    }
+    .memo-complete-btn.is-primary {
+      color: #008d28;
+      border: 1px solid rgba(0, 201, 52, 0.32);
+    }
+    .memo-complete-btn.is-secondary {
+      color: #667085;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+    }
+    .memo-complete-close {
+      position: absolute;
+      top: 0.8rem;
+      right: 0.8rem;
+      display: grid;
+      place-items: center;
+      width: 1.9rem;
+      height: 1.9rem;
+      border-radius: 50%;
+      background: rgba(148, 163, 184, 0.12);
+      color: #667085;
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1;
+      box-shadow: none;
+    }
+    .memo-secondary {
+      width: 100%;
+      min-height: 48px;
+      border-radius: 14px;
+      background: #eef1f5;
+      color: #667085;
+      font-weight: 950;
+      box-shadow: 0.32rem 0.32rem 0.7rem rgba(148, 163, 184, 0.32), -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.85);
+    }
+    @keyframes hold-progress {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+    @keyframes submit-spin {
+      to { transform: rotate(360deg); }
+    }
+    @media (prefers-color-scheme: dark) {
+      body, .memo-top { background: #101010; color: #f7f9fb; --ink: #f7f9fb; --muted: #aeb6c2; }
+      .auth-card { background: #232323; box-shadow: 0.9rem 0.9rem 1.8rem rgba(0, 0, 0, 0.5), -0.9rem -0.9rem 1.8rem rgba(255, 255, 255, 0.04); }
+      .auth-field input { background: #232323; box-shadow: inset 0.32rem 0.32rem 0.7rem rgba(0, 0, 0, 0.5), inset -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.04); }
+      .auth-submit { background: #232323; color: var(--ink); box-shadow: 0.32rem 0.32rem 0.7rem rgba(0, 0, 0, 0.5), -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.04); }
+      .memo-card { border-color: #2d2d2d; background: #181818; box-shadow: 0 14px 30px rgba(0,0,0,.28); }
+      .memo-sub, .memo-status { color: #aeb6c2; }
+      .memo-card input,
+      .memo-card textarea { border-color: #343434; background: #111; color: #fff; }
+      .memo-rank-item { border-color: #333; background: #202020; }
+      .memo-rank-item.is-active { background: #202020; }
+      .memo-inline-note { border-color: #333; background: #202020; }
+      .memo-logout { border-color: rgba(255, 71, 90, 0.38); background: rgba(255, 71, 90, 0.05); color: #ff5c6d; box-shadow: none; }
+      .memo-final-choice { border-color: #333; background: #202020; color: #f7f9fb; }
+      .memo-final-choice.is-selected { border-color: #333; background: #202020; }
+    }
+    :root[data-theme="light"] body,
+    :root[data-theme="light"] .memo-top {
+      background: #eef1f5;
+      color: #101418;
+      --ink: #101418;
+      --muted: #667085;
+    }
+    :root[data-theme="light"] .auth-card {
+      background: #eef1f5;
+      box-shadow: 0.9rem 0.9rem 1.8rem rgba(148, 163, 184, 0.4), -0.9rem -0.9rem 1.8rem rgba(255, 255, 255, 0.85);
+    }
+    :root[data-theme="light"] .auth-field input {
+      background: #eef1f5;
+      color: #101418;
+      box-shadow: inset 0.32rem 0.32rem 0.7rem rgba(148, 163, 184, 0.32), inset -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.85);
+    }
+    :root[data-theme="light"] .auth-submit {
+      background: #eef1f5;
+      color: #101418;
+      box-shadow: 0.32rem 0.32rem 0.7rem rgba(148, 163, 184, 0.32), -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.85);
+    }
+    :root[data-theme="light"] .auth-submit.is-ready {
+      background: #eef1f5;
+      color: #101418;
+      box-shadow: 0.32rem 0.32rem 0.7rem rgba(148, 163, 184, 0.32), -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.85);
+    }
+    :root[data-theme="light"] .memo-card {
+      border-color: rgba(15, 23, 42, .08);
+      background: #fff;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, .08);
+    }
+    :root[data-theme="light"] .memo-sub,
+    :root[data-theme="light"] .memo-status { color: #667085; }
+    :root[data-theme="light"] .memo-card input,
+    :root[data-theme="light"] .memo-card textarea {
+      border-color: rgba(15, 23, 42, .13);
+      background: #fff;
+      color: #101418;
+    }
+    :root[data-theme="light"] .memo-rank-item {
+      border-color: rgba(15, 23, 42, .08);
+      background: #fff;
+      box-shadow: 0 0.42rem 1.05rem rgba(15, 23, 42, 0.045);
+    }
+    :root[data-theme="light"] .memo-rank-item.is-active {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fbf9 100%);
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      box-shadow: 0 0.42rem 1.05rem rgba(15, 23, 42, 0.045);
+    }
+    :root[data-theme="light"] .memo-inline-note {
+      border-color: rgba(15, 23, 42, .08);
+      background: #fff;
+      box-shadow: 0 0.42rem 1.05rem rgba(15, 23, 42, 0.045);
+    }
+    :root[data-theme="light"] .memo-inline-note textarea {
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      background: #ffffff;
+      color: #101418;
+      box-shadow: 0 0.35rem 0.9rem rgba(15, 23, 42, 0.06), inset 0 0 0 1px rgba(255, 255, 255, 0.74);
+    }
+    :root[data-theme="light"] .memo-inline-note textarea:focus {
+      border-color: rgba(0, 201, 52, 0.42);
+      box-shadow: 0 0.45rem 1rem rgba(15, 23, 42, 0.07), 0 0 0 2px rgba(0, 201, 52, 0.18);
+    }
+    :root[data-theme="light"] .memo-logout {
+      border-color: rgba(239, 68, 68, 0.36);
+      background: rgba(239, 68, 68, 0.04);
+      color: #dc2626;
+      box-shadow: none;
+    }
+    :root[data-theme="light"] .memo-footer {
+      color: #667085;
+    }
+    :root[data-theme="light"] .memo-footer strong {
+      color: #101418;
+    }
+    :root[data-theme="light"] .memo-final-open {
+      background: #eef1f5;
+      color: #101418;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(148, 163, 184, 0.28), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9);
+    }
+    :root[data-theme="light"] .memo-final-choice {
+      border-color: rgba(15, 23, 42, .08);
+      background: #fff;
+      color: #101418;
+      box-shadow: 0 0.42rem 1.05rem rgba(15, 23, 42, 0.045);
+    }
+    :root[data-theme="light"] .memo-final-choice.is-selected {
+      border-color: rgba(15, 23, 42, .08);
+      background: linear-gradient(135deg, #ffffff 0%, #f8fbf9 100%);
+      color: #101418;
+      box-shadow: 0 0.42rem 1.05rem rgba(15, 23, 42, 0.045);
+    }
+    :root[data-theme="dark"] body,
+    :root[data-theme="dark"] .memo-top {
+      background: #101010;
+      color: #f7f9fb;
+      --ink: #f7f9fb;
+      --muted: #aeb6c2;
+    }
+    :root[data-theme="dark"] .memo-top {
+      border-bottom-color: rgba(255, 255, 255, 0.12);
+    }
+    :root[data-theme="dark"] .auth-card {
+      background: #232323;
+      box-shadow: 0.9rem 0.9rem 1.8rem rgba(0, 0, 0, 0.5), -0.9rem -0.9rem 1.8rem rgba(255, 255, 255, 0.04);
+    }
+    :root[data-theme="dark"] .auth-field input {
+      background: #232323;
+      color: #f7f9fb;
+      box-shadow: inset 0.32rem 0.32rem 0.7rem rgba(0, 0, 0, 0.5), inset -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.04);
+    }
+    :root[data-theme="dark"] .auth-submit {
+      background: #232323;
+      color: #f7f9fb;
+      box-shadow: 0.32rem 0.32rem 0.7rem rgba(0, 0, 0, 0.5), -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.04);
+    }
+    :root[data-theme="dark"] .auth-submit.is-ready {
+      background: #232323;
+      color: #f7f9fb;
+      box-shadow: 0.32rem 0.32rem 0.7rem rgba(0, 0, 0, 0.5), -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.04);
+    }
+    :root[data-theme="dark"] .auth-submit.is-loading::before {
+      border-color: rgba(247, 249, 251, .2);
+      border-top-color: rgba(247, 249, 251, .92);
+    }
+    :root[data-theme="dark"] .memo-card {
+      border-color: #2d2d2d;
+      background: #181818;
+      box-shadow: 0 14px 30px rgba(0,0,0,.28);
+    }
+    :root[data-theme="dark"] .memo-sub,
+    :root[data-theme="dark"] .memo-status { color: #aeb6c2; }
+    :root[data-theme="dark"] .memo-sub-participant.is-male {
+      color: #7fb1ff;
+    }
+    :root[data-theme="dark"] .memo-sub-participant.is-female {
+      color: #ff8aa3;
+    }
+    :root[data-theme="dark"] .memo-card input,
+    :root[data-theme="dark"] .memo-card textarea {
+      border-color: #343434;
+      background: #111;
+      color: #fff;
+    }
+    :root[data-theme="dark"] .memo-rank-item {
+      border-color: #333;
+      background: #232323;
+      box-shadow: 0 0.42rem 1.05rem rgba(0, 0, 0, 0.22);
+    }
+    :root[data-theme="dark"] .memo-rank-item.is-active {
+      background: #232323;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      box-shadow: 0 0.42rem 1.05rem rgba(0, 0, 0, 0.22);
+    }
+    :root[data-theme="dark"] .memo-rank-handle {
+      background: transparent;
+      color: #00f040;
+      box-shadow: none;
+    }
+    :root[data-theme="dark"] .memo-rank-handle:not(.is-on) {
+      background: transparent;
+      color: #7f8996;
+      box-shadow: none;
+    }
+    :root[data-theme="dark"] .memo-inline-note {
+      border-color: #333;
+      background: #232323;
+      box-shadow: 0 0.42rem 1.05rem rgba(0, 0, 0, 0.22);
+    }
+    :root[data-theme="dark"] .memo-inline-note textarea {
+      background: #181818;
+      color: #f7f9fb;
+      box-shadow: inset 0.28rem 0.28rem 0.64rem rgba(0, 0, 0, 0.48), inset -0.24rem -0.24rem 0.58rem rgba(255, 255, 255, 0.035);
+    }
+    :root[data-theme="dark"] .memo-inline-note textarea:focus {
+      box-shadow: inset 0.28rem 0.28rem 0.64rem rgba(0, 0, 0, 0.48), inset -0.24rem -0.24rem 0.58rem rgba(255, 255, 255, 0.035), 0 0 0 2px rgba(0, 240, 64, 0.34);
+    }
+    :root[data-theme="dark"] .memo-back-btn {
+      background: #232323;
+      color: #f7f9fb;
+      box-shadow: 0.32rem 0.32rem 0.7rem rgba(0, 0, 0, 0.5), -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.04);
+    }
+    :root[data-theme="dark"] .memo-back-btn:active {
+      box-shadow: inset 0.24rem 0.24rem 0.5rem rgba(0, 0, 0, 0.48), inset -0.18rem -0.18rem 0.44rem rgba(255, 255, 255, 0.04);
+    }
+    :root[data-theme="dark"] .memo-logout {
+      border-color: rgba(255, 71, 90, 0.38);
+      background: rgba(255, 71, 90, 0.05);
+      color: #ff5c6d;
+      box-shadow: none;
+    }
+    :root[data-theme="dark"] .memo-footer {
+      color: #aeb6c2;
+      border-top-color: rgba(255, 255, 255, 0.12);
+    }
+    :root[data-theme="dark"] .memo-footer strong {
+      color: #f7f9fb;
+    }
+    :root[data-theme="dark"] .memo-logout:hover {
+      border-color: rgba(255, 71, 90, 0.64);
+      background: rgba(255, 71, 90, 0.11);
+      color: #ff7a87;
+    }
+    :root[data-theme="dark"] .memo-logout:active {
+      border-color: rgba(255, 71, 90, 0.76);
+      background: rgba(255, 71, 90, 0.16);
+      color: #ff9aa3;
+    }
+    :root[data-theme="dark"] .memo-final-open {
+      background: #232323;
+      color: #f7f9fb;
+      box-shadow: 0.45rem 0.45rem 0.9rem rgba(0, 0, 0, 0.45), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.04);
+    }
+    :root[data-theme="dark"] .memo-final-choice {
+      border-color: #333;
+      background: #232323;
+      color: #f7f9fb;
+      box-shadow: 0 0.42rem 1.05rem rgba(0, 0, 0, 0.22);
+    }
+    :root[data-theme="dark"] .memo-final-choice.is-selected {
+      border-color: #333;
+      background: #232323;
+      color: #f7f9fb;
+      box-shadow: 0 0.42rem 1.05rem rgba(0, 0, 0, 0.22);
+    }
+    :root[data-theme="dark"] .memo-final-slot {
+      border-color: rgba(255, 255, 255, 0.12);
+      background: #1b1b1b;
+      color: #f7f9fb;
+      box-shadow: inset 0.18rem 0.18rem 0.38rem rgba(0, 0, 0, 0.42), inset -0.14rem -0.14rem 0.32rem rgba(255, 255, 255, 0.035);
+    }
+    :root[data-theme="dark"] .memo-final-slot.is-filled {
+      border-color: rgba(0, 240, 64, 0.28);
+      background: rgba(0, 240, 64, 0.1);
+      color: #00f040;
+      box-shadow: 0 0.38rem 0.9rem rgba(0, 240, 64, 0.06), inset 0 0 0 1px rgba(0, 240, 64, 0.1);
+    }
+    :root[data-theme="dark"] .memo-final-heart {
+      color: #7f8996;
+    }
+    :root[data-theme="dark"] .memo-final-heart.is-on {
+      color: #00f040;
+    }
+    :root[data-theme="dark"] .memo-final-choice-state {
+      border-color: rgba(255, 255, 255, 0.14);
+      background: #1b1b1b;
+      color: #aeb6c2;
+    }
+    :root[data-theme="dark"] .memo-final-choice.is-selected .memo-final-choice-state {
+      border-color: rgba(0, 240, 64, 0.28);
+      background: rgba(0, 240, 64, 0.09);
+      color: #00f040;
+    }
+    :root[data-theme="dark"] .memo-complete-modal {
+      background: rgba(0, 0, 0, 0.52);
+    }
+    :root[data-theme="dark"] .memo-complete-dialog {
+      background: #232323;
+      color: #f7f9fb;
+      box-shadow: 0.9rem 0.9rem 1.8rem rgba(0, 0, 0, 0.52), -0.22rem -0.22rem 0.55rem rgba(255, 255, 255, 0.04);
+    }
+    :root[data-theme="dark"] .memo-complete-sub {
+      color: #aeb6c2;
+    }
+    :root[data-theme="dark"] .memo-complete-btn {
+      background: #232323;
+      color: #f7f9fb;
+      box-shadow: 0.24rem 0.24rem 0.55rem rgba(0, 0, 0, 0.42), -0.18rem -0.18rem 0.42rem rgba(255, 255, 255, 0.04);
+    }
+    :root[data-theme="dark"] .memo-complete-btn.is-primary {
+      color: #00f040;
+      border-color: rgba(0, 240, 64, 0.28);
+    }
+    :root[data-theme="dark"] .memo-complete-btn.is-secondary {
+      color: #aeb6c2;
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+    :root[data-theme="dark"] .memo-complete-close {
+      background: rgba(255, 255, 255, 0.08);
+      color: #aeb6c2;
+    }
+    :root[data-theme="dark"] .memo-submit,
+    :root[data-theme="dark"] .memo-secondary {
+      background: #232323;
+      color: #f7f9fb;
+      box-shadow: 0.32rem 0.32rem 0.7rem rgba(0, 0, 0, 0.5), -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.04);
+    }
+    :root[data-theme="dark"] .memo-submit small {
+      color: #aeb6c2;
+    }
+    :root[data-theme="dark"] .memo-submit.is-loading::before {
+      border-color: rgba(247, 249, 251, 0.2);
+      border-top-color: rgba(247, 249, 251, 0.92);
+    }
+    :root[data-theme="dark"] .memo-brand-logo {
+      background: #232323;
+      box-shadow: 0.32rem 0.32rem 0.7rem rgba(0, 0, 0, 0.42), -0.2rem -0.2rem 0.48rem rgba(255, 255, 255, 0.04);
+    }
+    :root[data-theme="dark"] .memo-brand-logo img {
+      filter: brightness(0) invert(1);
+    }
+    :root[data-theme="dark"] .memo-theme-toggle-track {
+      background: #e8560f;
+    }
+    :root[data-theme="dark"] .memo-theme-toggle-knob {
+      transform: translateX(0.8rem);
+    }
+  </style>
+</head>
+<body>
+  <main class="memo-page">
+    <div data-memo-root></div>
+  </main>
+  <script>
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbyGNEez_HO0AAV51fBxFQtGXi-G2sHT3dQoO33v-3SGXmvbEUQKNE5oeArJGY89z4YJ/exec";
+    const MEMO_THEME_KEY = "cloverTheme";
+    const MEMO_SESSION_KEY = "clover-memo-session:v1";
+    const MEMO_VIEW_KEY = "clover-memo-view:v1";
+    const MEMO_DRAFT_PREFIX = "clover-memo-draft:v1:";
+    let memoSession = null;
+    let memoState = null;
+    let memoActiveIndex = 0;
+    let memoSaveTimer = 0;
+    let memoView = "notes";
+    let memoLoginPrefetchTimer = 0;
+    let memoLoginPrefetch = { key: "", promise: null, result: null, error: null };
+
+    function htmlAttr(value) {
+      return String(value || "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
+    }
+
+    function applyMemoTheme(theme) {
+      const safeTheme = theme === "dark" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", safeTheme);
+      const toggle = document.querySelector("[data-memo-theme-toggle]");
+      if (toggle) {
+        toggle.setAttribute("aria-pressed", String(safeTheme === "dark"));
+        toggle.setAttribute("aria-label", safeTheme === "dark" ? "밝은 모드로 변경" : "다크 모드로 변경");
+      }
+    }
+
+    function initMemoTheme() {
+      let saved = "";
+      try { saved = localStorage.getItem(MEMO_THEME_KEY) || ""; } catch {}
+      if (saved !== "dark" && saved !== "light") {
+        saved = window.matchMedia?.("(prefers-color-scheme: dark)")?.matches ? "dark" : "light";
+      }
+      applyMemoTheme(saved);
+    }
+
+    function memoNormalizePhone(value) {
+      return String(value || "").replace(/\D/g, "");
+    }
+
+    function memoNormalizeBirth(value) {
+      return String(value || "").replace(/\D/g, "").slice(0, 8);
+    }
+
+    function memoFormatPhone(value) {
+      const digits = memoNormalizePhone(value).slice(0, 11);
+      if (digits.length <= 3) return digits;
+      if (digits.length <= 7) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+      return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
+    }
+
+    function memoFormatBirth(value) {
+      const digits = memoNormalizeBirth(value);
+      if (digits.length <= 4) return digits;
+      if (digits.length <= 6) return `${digits.slice(0, 4)}-${digits.slice(4)}`;
+      return `${digits.slice(0, 4)}-${digits.slice(4, 6)}-${digits.slice(6)}`;
+    }
+
+    function memoLoginCredentials(form) {
+      return {
+        roundId: String(form?.roundId?.value || "").trim(),
+        phone: memoNormalizePhone(form?.phone?.value),
+        birth: memoNormalizeBirth(form?.birth?.value)
+      };
+    }
+
+    function memoLoginKey(credentials) {
+      return `${credentials.roundId}|${credentials.phone}|${credentials.birth}`;
+    }
+
+    function memoLoginCredentialsReady(credentials) {
+      return !!credentials.roundId && credentials.phone.length === 11 && credentials.birth.length === 8;
+    }
+
+    async function fetchMemoLogin(credentials) {
+      const query = new URLSearchParams({
+        action: "memoLogin",
+        roundId: credentials.roundId,
+        phone: credentials.phone,
+        birth: credentials.birth,
+        t: String(Date.now())
+      });
+      const result = await fetch(`${GOOGLE_SCRIPT_URL}?${query.toString()}`, { cache: "no-store" }).then((response) => response.json());
+      if (!result.ok) throw new Error(result.error || "접속 실패");
+      return result;
+    }
+
+    function clearMemoLoginPrefetch() {
+      if (memoLoginPrefetchTimer) window.clearTimeout(memoLoginPrefetchTimer);
+      memoLoginPrefetchTimer = 0;
+      memoLoginPrefetch = { key: "", promise: null, result: null, error: null };
+    }
+
+    function scheduleMemoLoginPrefetch(form) {
+      const credentials = memoLoginCredentials(form);
+      if (!memoLoginCredentialsReady(credentials)) {
+        clearMemoLoginPrefetch();
+        return;
+      }
+      const key = memoLoginKey(credentials);
+      if (memoLoginPrefetch.key === key && (memoLoginPrefetch.promise || memoLoginPrefetch.result)) return;
+      if (memoLoginPrefetchTimer) window.clearTimeout(memoLoginPrefetchTimer);
+      memoLoginPrefetchTimer = window.setTimeout(() => {
+        memoLoginPrefetchTimer = 0;
+        const promise = fetchMemoLogin(credentials)
+          .then((result) => {
+            if (memoLoginPrefetch.key === key) memoLoginPrefetch.result = result;
+            return result;
+          })
+          .catch((error) => {
+            if (memoLoginPrefetch.key === key) memoLoginPrefetch.error = error;
+            throw error;
+          });
+        memoLoginPrefetch = { key, promise, result: null, error: null };
+        promise.catch(() => {});
+      }, 180);
+    }
+
+    async function getMemoLoginResult(credentials) {
+      const key = memoLoginKey(credentials);
+      if (memoLoginPrefetch.key === key) {
+        if (memoLoginPrefetch.result) return memoLoginPrefetch.result;
+        if (memoLoginPrefetch.promise) return memoLoginPrefetch.promise;
+      }
+      return fetchMemoLogin(credentials);
+    }
+
+    function memoDraftKey() {
+      return memoSession ? `${MEMO_DRAFT_PREFIX}${memoSession.round.id}:${memoSession.participant.id}` : "";
+    }
+
+    function readMemoSession() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(MEMO_SESSION_KEY) || "null");
+        return parsed && parsed.round && parsed.participant && Array.isArray(parsed.targets) ? parsed : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function writeMemoSession(session) {
+      memoSession = session;
+      try {
+        if (session) localStorage.setItem(MEMO_SESSION_KEY, JSON.stringify(session));
+        else {
+          localStorage.removeItem(MEMO_SESSION_KEY);
+          localStorage.removeItem(MEMO_VIEW_KEY);
+        }
+      } catch {}
+    }
+
+    function readMemoView() {
+      try {
+        return localStorage.getItem(MEMO_VIEW_KEY) === "final" ? "final" : "notes";
+      } catch {
+        return "notes";
+      }
+    }
+
+    function writeMemoView(view) {
+      memoView = view === "final" ? "final" : "notes";
+      try { localStorage.setItem(MEMO_VIEW_KEY, memoView); } catch {}
+    }
+
+    function memoHistoryState(view) {
+      return { memoView: view === "final" ? "final" : "notes" };
+    }
+
+    function replaceMemoHistory(view) {
+      try { history.replaceState(memoHistoryState(view), ""); } catch {}
+    }
+
+    function pushMemoHistory(view) {
+      try { history.pushState(memoHistoryState(view), ""); } catch {}
+    }
+
+    function initMemoHistory() {
+      replaceMemoHistory(readMemoSession() ? readMemoView() : "notes");
+    }
+
+    function emptyMemoState() {
+      return { memos: {}, hearts: {}, ranking: [], finalChoice: "", finalChoices: [], submittedAt: 0 };
+    }
+
+    function memoChoiceArray(value) {
+      if (Array.isArray(value)) return value.map(String).filter(Boolean);
+      return String(value || "")
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean);
+    }
+
+    function memoStoredChoiceSource(primary, fallback) {
+      return Array.isArray(primary) ? primary : fallback;
+    }
+
+    function readMemoDraft() {
+      const fallback = emptyMemoState();
+      if (!memoSession) return fallback;
+      try {
+        const localDraft = JSON.parse(localStorage.getItem(memoDraftKey()) || "null") || {};
+        const serverDraft = memoSession.submission || {};
+        const finalChoices = memoChoiceArray(memoStoredChoiceSource(localDraft.finalChoices, localDraft.finalChoice || memoStoredChoiceSource(serverDraft.finalChoices, serverDraft.finalChoice)));
+        return {
+          memos: { ...(serverDraft.memos || {}), ...(localDraft.memos || {}) },
+          hearts: { ...(serverDraft.hearts || {}), ...(localDraft.hearts || {}) },
+          ranking: Array.isArray(localDraft.ranking) ? localDraft.ranking : (Array.isArray(serverDraft.ranking) ? serverDraft.ranking : []),
+          finalChoice: finalChoices[0] || "",
+          finalChoices,
+          submittedAt: Number(localDraft.submittedAt || serverDraft.submittedAt || 0)
+        };
+      } catch {
+        return fallback;
+      }
+    }
+
+    function writeMemoDraft() {
+      if (!memoSession || !memoState) return;
+      try { localStorage.setItem(memoDraftKey(), JSON.stringify(memoState)); } catch {}
+    }
+
+    function memoTargetLabel(target) {
+      const genderLabel = target.gender === "female" ? "여성" : "남성";
+      return `${genderLabel} ${Number(target.number) || ""}번 참가자`.trim();
+    }
+
+    function memoParticipantLabelHtml(participant) {
+      const genderLabel = participant?.gender === "female" ? "여성" : "남성";
+      const number = Number(participant?.number) || "";
+      const genderClass = participant?.gender === "female" ? "is-female" : "is-male";
+      const label = `${genderLabel} ${number ? `${number}번` : ""} 참가자`.trim();
+      return `<span class="memo-sub-participant ${genderClass}">${htmlAttr(label)}</span>`;
+    }
+
+    function memoFooterMarkup() {
+      return `
+        <footer class="memo-footer">
+          <p>본 콘텐츠의 저작권은 클로버에 있으며 무단 이용 시 법적 책임이 있을 수 있습니다.</p>
+          <p><strong>CLOVER</strong> Copyright © 2026 CLOVER. All Rights Reserved.</p>
+        </footer>
+      `;
+    }
+
+    function memoOrderedTargets() {
+      const targets = Array.isArray(memoSession?.targets) ? [...memoSession.targets] : [];
+      const startNumber = Number(memoSession?.participant?.number) || 1;
+      return targets
+        .map((target, index) => {
+          const number = Number(target.number) || index + 1;
+          const offset = ((number - startNumber) % 6 + 6) % 6;
+          return { target, index, number, offset };
+        })
+        .sort((a, b) => a.offset - b.offset || a.number - b.number || a.index - b.index)
+        .map((entry) => entry.target);
+    }
+
+    function memoCurrentTarget() {
+      const targets = memoOrderedTargets();
+      return targets[memoActiveIndex] || null;
+    }
+
+    function memoSetStatus(message) {
+      const status = document.querySelector("[data-memo-status]");
+      if (!status) return;
+      status.textContent = message || "";
+      status.classList.toggle("is-saving", message === "저장 중");
+    }
+
+    function showMemoCompleteModal() {
+      document.querySelector("[data-memo-complete-modal]")?.remove();
+      document.body.insertAdjacentHTML("beforeend", `
+        <div class="memo-complete-modal" data-memo-complete-modal role="dialog" aria-modal="true" aria-labelledby="memoCompleteTitle">
+          <div class="memo-complete-dialog">
+            <strong class="memo-complete-title" id="memoCompleteTitle">최종 선택을 완료하였습니다.</strong>
+            <span class="memo-complete-sub">확인하면 초기 화면으로 이동합니다.</span>
+            <button class="memo-complete-close" type="button" data-memo-complete-close aria-label="닫기">×</button>
+            <span class="memo-complete-actions">
+              <button class="memo-complete-btn is-primary" type="button" data-memo-complete-confirm>확인</button>
+            </span>
+          </div>
+        </div>
+      `);
+    }
+
+    function goMemoLoginPage() {
+      writeMemoSession(null);
+      writeMemoView("notes");
+      memoState = null;
+      memoActiveIndex = 0;
+      renderMemoPage();
+    }
+
+    function updateMemoLoginReady(form) {
+      if (!form) return;
+      const button = form.querySelector(".auth-submit");
+      const credentials = memoLoginCredentials(form);
+      const ready = memoLoginCredentialsReady(credentials);
+      if (!button) return;
+      button.classList.toggle("is-ready", ready);
+      button.disabled = !ready;
+      button.setAttribute("aria-disabled", ready ? "false" : "true");
+      scheduleMemoLoginPrefetch(form);
+    }
+
+    function memoSavePayload(type = "memoSave") {
+      const finalChoices = memoChoiceArray(memoStoredChoiceSource(memoState.finalChoices, memoState.finalChoice));
+      return {
+        type,
+        roundId: memoSession.round.id,
+        participantId: memoSession.participant.id,
+        memos: memoState.memos,
+        hearts: memoState.hearts,
+        ranking: memoState.ranking,
+        finalChoice: finalChoices.join(","),
+        finalChoices,
+        submittedAt: memoState.submittedAt || 0
+      };
+    }
+
+    function scheduleMemoSave() {
+      writeMemoDraft();
+      if (memoState?.submittedAt) {
+        memoSetStatus("");
+        return;
+      }
+      memoSetStatus("저장 중");
+      if (memoSaveTimer) window.clearTimeout(memoSaveTimer);
+      memoSaveTimer = window.setTimeout(async () => {
+        if (!memoSession || !GOOGLE_SCRIPT_URL) {
+          memoSetStatus("");
+          return;
+        }
+        try {
+          const result = await fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: JSON.stringify(memoSavePayload())
+          }).then((response) => response.json());
+          if (!result.ok) throw new Error(result.error || "저장 실패");
+          memoSetStatus("");
+        } catch {
+          memoSetStatus("");
+        }
+      }, 450);
+    }
+
+    function normalizeMemoRanking() {
+      if (!memoSession || !memoState) return;
+      const targetIds = new Set(memoOrderedTargets().map((target) => String(target.id)));
+      memoState.ranking = [...new Set(memoState.ranking.map(String))].filter((id) => targetIds.has(id));
+      const maxFinalChoices = memoFinalChoiceLimit();
+      memoState.finalChoices = [...new Set(memoChoiceArray(memoStoredChoiceSource(memoState.finalChoices, memoState.finalChoice)))]
+        .filter((id) => targetIds.has(id))
+        .slice(0, maxFinalChoices);
+      memoState.finalChoice = memoState.finalChoices[0] || "";
+    }
+
+    function memoFinalChoiceLimit() {
+      return memoOrderedTargets().length >= 6 ? 3 : 1;
+    }
+
+    function renderMemoPage() {
+      const root = document.querySelector("[data-memo-root]");
+      memoSession = readMemoSession();
+      if (!memoSession) {
+        writeMemoView("notes");
+        root.innerHTML = `
+          <main class="auth-page">
+            <div class="auth-card">
+              <h1 class="auth-title">메모장</h1>
+              <div class="auth-subrow">
+                <p class="auth-subtitle">안내받은 정보로 접속하세요</p>
+              </div>
+              <form class="auth-form" data-memo-login-form>
+                <label class="auth-field">
+                  <span class="auth-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span>
+                  <input name="roundId" placeholder="접속 코드" autocomplete="off" required>
+                </label>
+                <label class="auth-field">
+                  <span class="auth-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3h3l1.5 4.5-2 1.5a11 11 0 0 0 5.5 5.5l1.5-2 4.5 1.5v3a2 2 0 0 1-2 2C10 19 5 14 5 5a2 2 0 0 1 1.5-2z"/></svg></span>
+                  <input type="tel" name="phone" inputmode="numeric" maxlength="13" placeholder="010-0000-0000" autocomplete="tel" required>
+                </label>
+                <label class="auth-field">
+                  <span class="auth-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+                  <input name="birth" inputmode="numeric" maxlength="10" placeholder="1990-00-00" autocomplete="bday" required>
+                </label>
+                <button class="auth-submit" type="submit" disabled aria-disabled="true">접속</button>
+                <span class="memo-status" data-memo-status></span>
+              </form>
+            </div>
+          </main>
+        `;
+        updateMemoLoginReady(root.querySelector("[data-memo-login-form]"));
+        applyMemoTheme(document.documentElement.getAttribute("data-theme"));
+        return;
+      }
+      memoState = readMemoDraft();
+      memoView = readMemoView();
+      normalizeMemoRanking();
+      const orderedTargets = memoOrderedTargets();
+      const current = memoCurrentTarget();
+      if (!orderedTargets.length) {
+        root.innerHTML = `
+          <section class="memo-card">
+            <h1 class="memo-title">${htmlAttr(memoSession.round.title || "메모장")}</h1>
+            <p class="memo-sub">관리자가 상대 참가자 레이어를 아직 만들지 않았습니다.</p>
+            <button class="memo-logout" type="button" data-memo-logout>로그아웃</button>
+          </section>
+        `;
+        return;
+      }
+      if (memoView === "final") {
+        const finalChoiceIds = memoChoiceArray(memoStoredChoiceSource(memoState.finalChoices, memoState.finalChoice));
+        const finalChoices = new Set(finalChoiceIds);
+        const maxFinalChoices = memoFinalChoiceLimit();
+        const finalSlotHtml = Array.from({ length: maxFinalChoices }, (_, index) => {
+          const targetId = finalChoiceIds[index];
+          const target = orderedTargets.find((entry) => String(entry.id) === String(targetId));
+          return `<span class="memo-final-slot${target ? " is-filled" : ""}">${target ? htmlAttr(memoTargetLabel(target)) : ""}</span>`;
+        }).join("");
+        const finalChoiceHtml = orderedTargets.map((target) => `
+          <button class="memo-final-choice${finalChoices.has(String(target.id)) ? " is-selected" : ""}${!finalChoices.has(String(target.id)) && finalChoices.size >= maxFinalChoices ? " is-disabled" : ""}" type="button" data-memo-final-choice="${htmlAttr(target.id)}">
+            <span>${htmlAttr(memoTargetLabel(target))}</span>
+            <span class="memo-final-heart${memoState.hearts[target.id] ? " is-on" : ""}" aria-hidden="true">♥</span>
+            <span class="memo-final-choice-state">${finalChoices.has(String(target.id)) ? "선택됨" : "선택"}</span>
+          </button>
+        `).join("");
+        root.innerHTML = `
+          <div class="memo-top">
+            <div class="memo-brand-head">
+              <span class="memo-brand-logo" aria-hidden="true"><img src="assets/clover-logo-v2.png" alt=""></span>
+              <div class="memo-brand-copy">
+                <h1 class="memo-title">CLOVER MEMO</h1>
+                <p class="memo-sub">${htmlAttr(memoSession.round.title || "메모장")} · ${memoParticipantLabelHtml(memoSession.participant)}</p>
+              </div>
+            </div>
+            <button class="memo-theme-toggle" type="button" data-memo-theme-toggle aria-label="다크 모드로 변경" aria-pressed="false" title="밝은 모드 / 다크 모드">
+              <span class="memo-theme-toggle-track">
+                <span class="memo-theme-toggle-knob" aria-hidden="true"></span>
+              </span>
+            </button>
+          </div>
+          <section class="memo-workspace is-final">
+            <div class="memo-final-slots">${finalSlotHtml}</div>
+            <div class="memo-final-list">${finalChoiceHtml}</div>
+            <button class="memo-submit" type="button" data-memo-submit>제출 완료</button>
+            <button class="memo-logout" type="button" data-memo-logout>로그아웃</button>
+            ${memoFooterMarkup()}
+          </section>
+        `;
+        applyMemoTheme(document.documentElement.getAttribute("data-theme"));
+        return;
+      }
+      const rankHtml = orderedTargets.map((target) => {
+        const isActive = current && String(current.id) === String(target.id);
+        const hasMemo = String(memoState.memos[target.id] || "").trim().length > 0;
+        return `
+          <div class="memo-rank-item${isActive ? " is-active" : ""}" data-memo-rank-target="${htmlAttr(target.id)}">
+            <span class="memo-entry-dot${hasMemo ? " is-filled" : ""}" data-memo-entry-dot="${htmlAttr(target.id)}" aria-hidden="true"></span>
+            <span class="memo-rank-title"><strong>${htmlAttr(memoTargetLabel(target))}</strong></span>
+            <button class="memo-rank-handle${memoState.hearts[target.id] ? " is-on" : ""}" type="button" data-memo-rank-handle="${htmlAttr(target.id)}" aria-label="관심 표시"></button>
+          </div>
+          ${isActive ? `
+            <div class="memo-inline-note">
+              <textarea data-memo-text placeholder="메모를 입력하세요.">${htmlAttr(memoState.memos[target.id] || "")}</textarea>
+            </div>
+          ` : ""}
+        `;
+      }).join("");
+      root.innerHTML = `
+        <div class="memo-top">
+          <div class="memo-brand-head">
+            <span class="memo-brand-logo" aria-hidden="true"><img src="assets/clover-logo-v2.png" alt=""></span>
+            <div class="memo-brand-copy">
+              <h1 class="memo-title">CLOVER MEMO</h1>
+              <p class="memo-sub">${htmlAttr(memoSession.round.title || "메모장")} · ${memoParticipantLabelHtml(memoSession.participant)}</p>
+            </div>
+          </div>
+          <button class="memo-theme-toggle" type="button" data-memo-theme-toggle aria-label="다크 모드로 변경" aria-pressed="false" title="밝은 모드 / 다크 모드">
+            <span class="memo-theme-toggle-track">
+              <span class="memo-theme-toggle-knob" aria-hidden="true"></span>
+            </span>
+          </button>
+        </div>
+        <section class="memo-workspace">
+          <div class="memo-rank-list">${rankHtml}</div>
+          <div class="memo-list-actions">
+            <button class="memo-final-open" type="button" data-memo-open-final>최종 선택</button>
+          </div>
+          <div class="memo-bottom-actions">
+            <button class="memo-logout" type="button" data-memo-logout>로그아웃</button>
+          </div>
+          ${memoFooterMarkup()}
+        </section>
+      `;
+      applyMemoTheme(document.documentElement.getAttribute("data-theme"));
+    }
+
+    async function memoLogin(form) {
+      const credentials = memoLoginCredentials(form);
+      const submitButton = form.querySelector(".auth-submit");
+      if (!memoLoginCredentialsReady(credentials)) {
+        memoSetStatus("접속 코드, 휴대폰 번호, 생년월일 8자리를 확인해 주세요.");
+        return;
+      }
+      memoSetStatus("");
+      const previousText = submitButton?.textContent || "접속";
+      if (submitButton) {
+        submitButton.classList.add("is-loading");
+        submitButton.dataset.loading = "true";
+        submitButton.textContent = "확인 중";
+      }
+      try {
+        const result = await getMemoLoginResult(credentials);
+        writeMemoSession({ round: result.round, participant: result.participant, targets: result.targets || [], submission: result.submission || null });
+        writeMemoView("notes");
+        clearMemoLoginPrefetch();
+        memoActiveIndex = 0;
+        renderMemoPage();
+      } catch (error) {
+        memoSetStatus(error.message || "접속하지 못했습니다.");
+        if (submitButton) {
+          submitButton.classList.remove("is-loading");
+          delete submitButton.dataset.loading;
+          submitButton.textContent = previousText;
+          updateMemoLoginReady(form);
+        }
+      }
+    }
+
+    function captureCurrentMemoText() {
+      const current = memoCurrentTarget();
+      const textArea = document.querySelector("[data-memo-text]");
+      if (current && textArea && memoState) memoState.memos[current.id] = textArea.value;
+    }
+
+    function memoSelectTarget(targetId) {
+      captureCurrentMemoText();
+      const nextIndex = memoOrderedTargets().findIndex((target) => String(target.id) === String(targetId || ""));
+      if (nextIndex < 0) return;
+      memoActiveIndex = memoActiveIndex === nextIndex ? -1 : nextIndex;
+      scheduleMemoSave();
+      renderMemoPage();
+      window.requestAnimationFrame(() => document.querySelector("[data-memo-text]")?.focus());
+    }
+
+    document.addEventListener("submit", async (event) => {
+      const form = event.target.closest("[data-memo-login-form]");
+      if (!form) return;
+      event.preventDefault();
+      updateMemoLoginReady(form);
+      if (form.querySelector(".auth-submit")?.dataset.loading === "true") return;
+      if (form.querySelector(".auth-submit")?.disabled) return;
+      await memoLogin(form);
+    });
+
+    document.addEventListener("input", (event) => {
+      const target = event.target;
+      if (target instanceof HTMLInputElement && target.name === "phone" && target.closest("[data-memo-login-form]")) target.value = memoFormatPhone(target.value);
+      if (target instanceof HTMLInputElement && target.name === "birth" && target.closest("[data-memo-login-form]")) target.value = memoFormatBirth(target.value);
+      if (target instanceof HTMLInputElement && target.closest("[data-memo-login-form]")) updateMemoLoginReady(target.closest("[data-memo-login-form]"));
+      if (target instanceof HTMLTextAreaElement && target.matches("[data-memo-text]")) {
+        const current = memoCurrentTarget();
+        if (current && memoState) {
+          memoState.memos[current.id] = target.value;
+          document
+            .querySelector(`[data-memo-entry-dot="${CSS.escape(String(current.id))}"]`)
+            ?.classList.toggle("is-filled", target.value.trim().length > 0);
+          scheduleMemoSave();
+        }
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      const completeModal = event.target.closest("[data-memo-complete-modal]");
+      const completeConfirm = event.target.closest("[data-memo-complete-confirm]");
+      const completeClose = event.target.closest("[data-memo-complete-close], .memo-complete-btn.is-secondary, .memo-complete-close");
+      if (completeConfirm) {
+        event.preventDefault();
+        document.querySelector("[data-memo-complete-modal]")?.remove();
+        goMemoLoginPage();
+        return;
+      }
+      if (completeClose) {
+        event.preventDefault();
+        completeClose.closest("[data-memo-complete-modal]")?.remove();
+        return;
+      }
+      if (completeModal && !event.target.closest(".memo-complete-dialog")) {
+        event.preventDefault();
+        completeModal.remove();
+        return;
+      }
+      const button = event.target.closest("[data-memo-heart], [data-memo-rank-handle], [data-memo-open-final], [data-memo-final-choice], [data-memo-back-notes], [data-memo-close-note], [data-memo-submit], [data-memo-logout], [data-memo-theme-toggle]");
+      if (!button) {
+        const rankItem = event.target.closest("[data-memo-rank-target]");
+        if (!rankItem) return;
+        event.preventDefault();
+        memoSelectTarget(rankItem.dataset.memoRankTarget);
+        return;
+      }
+      event.preventDefault();
+      captureCurrentMemoText();
+      const current = memoCurrentTarget();
+      if (button.matches("[data-memo-logout]")) {
+        goMemoLoginPage();
+        return;
+      }
+      if (button.matches("[data-memo-theme-toggle]")) {
+        const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        applyMemoTheme(next);
+        try { localStorage.setItem(MEMO_THEME_KEY, next); } catch {}
+        return;
+      }
+      if (button.matches("[data-memo-heart]") && current) {
+        memoState.hearts[current.id] = !memoState.hearts[current.id];
+        scheduleMemoSave();
+        renderMemoPage();
+        return;
+      }
+      if (button.matches("[data-memo-rank-handle]")) {
+        const id = String(button.dataset.memoRankHandle || "");
+        if (!id) return;
+        memoState.hearts[id] = !memoState.hearts[id];
+        scheduleMemoSave();
+        renderMemoPage();
+        return;
+      }
+      if (button.matches("[data-memo-open-final]")) {
+        writeMemoDraft();
+        writeMemoView("final");
+        pushMemoHistory("final");
+        scheduleMemoSave();
+        renderMemoPage();
+        return;
+      }
+      if (button.matches("[data-memo-final-choice]")) {
+        const id = String(button.dataset.memoFinalChoice || "");
+        const maxFinalChoices = memoFinalChoiceLimit();
+        const finalChoices = memoChoiceArray(memoStoredChoiceSource(memoState.finalChoices, memoState.finalChoice));
+        const existingIndex = finalChoices.indexOf(id);
+        if (existingIndex >= 0) {
+          finalChoices.splice(existingIndex, 1);
+        } else if (finalChoices.length < maxFinalChoices) {
+          finalChoices.push(id);
+        }
+        memoState.finalChoices = finalChoices;
+        memoState.finalChoice = finalChoices[0] || "";
+        scheduleMemoSave();
+        renderMemoPage();
+        return;
+      }
+      if (button.matches("[data-memo-back-notes]")) {
+        writeMemoDraft();
+        writeMemoView("notes");
+        pushMemoHistory("notes");
+        scheduleMemoSave();
+        renderMemoPage();
+        return;
+      }
+      if (button.matches("[data-memo-close-note]")) {
+        memoActiveIndex = -1;
+        scheduleMemoSave();
+        renderMemoPage();
+        return;
+      }
+      if (button.matches("[data-memo-submit]")) {
+        memoState.submittedAt = Date.now();
+        writeMemoDraft();
+        button.disabled = true;
+        button.classList.add("is-loading");
+        button.textContent = "제출 중";
+        showMemoCompleteModal();
+        fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          keepalive: true,
+          body: JSON.stringify(memoSavePayload("memoSubmit"))
+        })
+          .then((response) => response.json())
+          .then((result) => {
+            if (!result.ok) throw new Error(result.error || "제출 실패");
+            button.disabled = false;
+            button.classList.remove("is-loading");
+            button.textContent = "제출 완료";
+          })
+          .catch(() => {
+            button.disabled = false;
+            button.classList.remove("is-loading");
+            button.textContent = "제출 완료";
+            memoSetStatus("제출 실패");
+          });
+      }
+    });
+
+    window.addEventListener("popstate", (event) => {
+      writeMemoDraft();
+      const view = event.state?.memoView === "final" ? "final" : "notes";
+      writeMemoView(view);
+      renderMemoPage();
+    });
+
+    initMemoTheme();
+    initMemoHistory();
+    renderMemoPage();
+  </script>
+</body>
+</html>
