@@ -173,6 +173,7 @@
     .nav-btn[data-nav="field"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 21s7-5 7-11a7 7 0 1 0-14 0c0 6 7 11 7 11z' fill='none' stroke='black' stroke-width='2'/%3E%3Ccircle cx='12' cy='10' r='2.5' fill='black'/%3E%3C/svg%3E"); }
     .nav-btn[data-nav="match"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 4h8v3a4 4 0 0 1-8 0V4z' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M6 4H4v2a4 4 0 0 0 4 4M18 4h2v2a4 4 0 0 1-4 4M12 11v5M9 20h6M10 16h4' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); }
     .nav-btn[data-nav="counsel"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 5h14v10H8l-3 3V5z' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M8 9h8M8 12h5' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); }
+    .nav-btn[data-nav="memo"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M8 8h8M8 12h8M8 16h5' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); }
     .nav-btn[data-nav="application"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='6' y='3' width='12' height='18' rx='2' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M9 8h6M9 12h6M9 16h3' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); }
     .nav-btn[data-nav="board"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6h16v12H4z' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='m4 7 8 6 8-6' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
     .nav-btn.is-active { outline: 2px solid var(--accent); background: #1f2b22; color: #fff; }
@@ -654,15 +655,100 @@
     .dashboard-application-card {
       position: relative;
       padding-right: 86px;
+      gap: 8px;
     }
     .dashboard-application-card .dashboard-title-row {
       padding-right: 0;
     }
+    .dashboard-application-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-right: 0;
+    }
+    .dashboard-application-side {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex: 0 0 auto;
+      min-width: 0;
+    }
+    .dashboard-application-title {
+      margin: 0;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 950;
+      line-height: 1.3;
+    }
+    .dashboard-application-title-tag {
+      color: #00ff40;
+    }
+    .dashboard-application-badges {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 7px;
+      min-width: 0;
+    }
+    .dashboard-application-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 24px;
+      padding: 0 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: rgba(255, 255, 255, .08);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 950;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .dashboard-application-badge.is-composition {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+    .dashboard-application-badge .composition-choice-badges {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.22rem;
+    }
+    .dashboard-application-badge .composition-gender-badge {
+      min-width: 2rem;
+      height: 1.28rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.12rem;
+      padding: 0 0.38rem;
+      border-radius: 999px;
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 950;
+      line-height: 1;
+    }
+    .dashboard-application-badge .composition-gender-badge.is-male {
+      background: #1688f8;
+    }
+    .dashboard-application-badge .composition-gender-badge.is-female {
+      background: #ff7068;
+    }
+    .dashboard-application-badge .composition-gender-badge svg {
+      width: 0.72rem;
+      height: 0.72rem;
+      color: currentColor;
+      stroke: currentColor;
+      flex: 0 0 auto;
+    }
     .dashboard-application-card .dashboard-board-status {
-      position: absolute;
-      top: 13px;
-      right: 13px;
-      align-self: auto;
+      position: static;
+      align-self: center;
     }
     .dashboard-application-card .dashboard-application-steps {
       grid-column: 1 / -1;
@@ -823,6 +909,61 @@
       text-decoration: none;
       word-break: break-word;
     }
+    .dashboard-board-attachment-badge {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 24px;
+      padding: 0 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 255, 64, .24);
+      background: rgba(0, 255, 64, .12);
+      color: #8fffa8;
+      font-size: 11px;
+      font-weight: 950;
+    }
+    .dashboard-board-attachment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+      gap: 10px;
+      margin: 0;
+    }
+    .dashboard-board-attachment-preview {
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+    }
+    .dashboard-board-attachment-name {
+      display: block;
+      overflow: hidden;
+      color: #bfdbfe;
+      font-size: 12px;
+      font-weight: 950;
+      line-height: 1.2;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .dashboard-board-attachment-thumb,
+    .dashboard-board-attachment-file {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: #101010;
+      color: #dbeafe;
+      font-size: 12px;
+      font-weight: 950;
+      text-decoration: none;
+      aspect-ratio: 4 / 3;
+    }
+    .dashboard-board-attachment-thumb img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
     .dashboard-board-reply-box textarea {
       min-height: 110px;
       resize: vertical;
@@ -860,6 +1001,23 @@
       border: 2px solid rgba(0, 255, 64, .24);
       border-top-color: var(--accent);
       animation: list-loading-spin .7s linear infinite;
+    }
+    .memo-status-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 0 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 255, 64, .42);
+      background: rgba(0, 255, 64, .12);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 950;
+    }
+    .memo-status-badge.is-blocked {
+      border-color: rgba(255, 74, 96, .48);
+      background: rgba(255, 74, 96, .12);
+      color: #ff7c8d;
     }
     .dashboard-author-meta {
       display: inline-flex;
@@ -1161,13 +1319,37 @@
       width: 144px;
     }
     .toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-width: 62px;
       min-height: 48px;
       border-radius: 10px;
-      padding: 0;
+      padding: 0 16px;
       font-size: 15px;
+      line-height: 1;
+      white-space: nowrap;
     }
     .toggle-btn.is-on { background: var(--accent); color: #061008; box-shadow: 5px 7px 16px rgba(0, 255, 64, .22), -4px -4px 10px rgba(255,255,255,.03); }
     .toggle-btn.is-off { color: #9aa4b2; background: #252525; border: 1px solid #343434; }
+    .toggle-btn.is-loading {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      cursor: wait;
+      opacity: .9;
+    }
+    .toggle-btn.is-loading::before {
+      content: "";
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(6, 16, 8, .28);
+      border-top-color: #061008;
+      border-radius: 999px;
+      animation: list-loading-spin .7s linear infinite;
+    }
     .event-actions .toggle-btn,
     .event-actions .small-btn {
       min-height: 36px;
@@ -1291,6 +1473,16 @@
     }
     .edit-field textarea { min-height: 82px; resize: vertical; }
     .edit-actions { justify-content: flex-end; }
+    .edit-actions .toggle-btn.is-on[type="submit"],
+    .edit-actions .create-btn[type="submit"] {
+      width: auto;
+      min-width: 78px;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 999px;
+      line-height: 1;
+      white-space: nowrap;
+    }
     .schedule-maker {
       display: grid;
       gap: 14px;
@@ -1303,14 +1495,27 @@
     }
     .schedule-maker-head {
       display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 14px;
+      align-items: stretch;
+      justify-content: stretch;
+      gap: 8px;
     }
     .schedule-maker-head h2 {
       margin: 0;
       font-size: 20px;
       line-height: 1.2;
+    }
+    .schedule-head-actions {
+      display: inline-flex;
+      width: 100%;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+    .schedule-head-actions .soft-btn {
+      width: 100%;
+      min-width: 0;
+      justify-content: center;
+      padding: 0 10px;
+      white-space: nowrap;
     }
     .schedule-maker-grid {
       display: grid;
@@ -1447,6 +1652,74 @@
       font-size: 11px;
       font-weight: 950;
     }
+    .schedule-layer-card.is-saving {
+      position: relative;
+      border-color: rgba(0, 255, 64, .86);
+      background: #20251f;
+      box-shadow: 0 0 0 2px rgba(0, 255, 64, .2), 0 18px 34px rgba(0, 0, 0, .38), 0 0 22px rgba(0, 255, 64, .14);
+      opacity: 1;
+    }
+    .schedule-layer-card.is-saving .schedule-card-actions button {
+      pointer-events: none;
+      opacity: .7;
+    }
+    .schedule-inline-save-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 8px;
+      padding: 4px 8px;
+      border: 1px solid rgba(0, 255, 64, .45);
+      border-radius: 999px;
+      background: rgba(6, 16, 8, .9);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 950;
+      line-height: 1;
+      vertical-align: 2px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, .28), 0 0 14px rgba(0, 255, 64, .22);
+      pointer-events: none;
+    }
+    .schedule-inline-save-badge::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: 2px solid rgba(0, 255, 64, .25);
+      border-top-color: var(--accent);
+      animation: list-loading-spin .7s linear infinite;
+    }
+    .schedule-maker .edit-actions {
+      align-items: center;
+      justify-content: flex-end;
+      min-height: 44px;
+    }
+    .schedule-maker button[type="submit"] {
+      width: auto;
+      min-width: 74px;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .schedule-maker button[type="submit"][aria-busy="true"] {
+      gap: 7px;
+      pointer-events: none;
+      opacity: .88;
+    }
+    .schedule-maker button[type="submit"][aria-busy="true"]::before {
+      content: "";
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: 2px solid rgba(7, 21, 11, .28);
+      border-top-color: #07150b;
+      animation: list-loading-spin .7s linear infinite;
+    }
     .schedule-layer-card strong {
       display: block;
       margin-bottom: 6px;
@@ -1511,14 +1784,346 @@
       justify-content: flex-end;
       gap: 6px;
     }
+    .memo-admin-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .memo-admin-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .memo-participant-box {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #181818;
+    }
+    .memo-participant-box h2 { margin: 0; font-size: 15px; }
+    .memo-participant-row {
+      display: grid;
+      grid-template-columns: 70px minmax(0, 1fr);
+      gap: 10px;
+      align-items: stretch;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 12px;
+      background: #141414;
+    }
+    .memo-participant-row > span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 12px;
+      border-radius: 10px;
+      background: #202020;
+      white-space: nowrap;
+    }
+    .memo-participant-fields {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.5fr) minmax(0, 1.2fr);
+      gap: 8px;
+      min-width: 0;
+    }
+    .memo-participant-fields input {
+      min-width: 0;
+      min-height: 40px;
+      padding: 0 10px;
+    }
+    .memo-admin-results {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .memo-result-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .memo-result-head h2 {
+      margin: 0;
+    }
+    .memo-result-board {
+      display: grid;
+      gap: 14px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #181818;
+    }
+    .memo-match-map {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(92px, 1fr) minmax(72px, .8fr) minmax(92px, 1fr);
+      gap: 10px;
+      min-height: 378px;
+      overflow: hidden;
+    }
+    .memo-match-column {
+      display: grid;
+      grid-template-rows: repeat(6, 52px);
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .memo-match-person {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+      padding: 0 8px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px;
+      background: #141414;
+      color: #f7f7f7;
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+    .memo-match-person.is-picked {
+      border-color: rgba(0, 240, 64, .42);
+      color: #00f040;
+    }
+    .memo-match-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .memo-match-line {
+      fill: none;
+      stroke: rgba(148, 163, 184, .62);
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      vector-effect: non-scaling-stroke;
+    }
+    .memo-match-line.is-mutual {
+      stroke: #00f040;
+      stroke-width: 2.6;
+      filter: drop-shadow(0 0 4px rgba(0, 240, 64, .34));
+    }
+    .memo-match-arrowhead {
+      position: absolute;
+      z-index: 2;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+    }
+    .memo-match-arrowhead.is-right {
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-left: 7px solid rgba(148, 163, 184, .95);
+    }
+    .memo-match-arrowhead.is-left {
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-right: 7px solid rgba(148, 163, 184, .95);
+    }
+    .memo-match-arrowhead.is-mutual.is-right {
+      border-left-color: #00f040;
+      filter: drop-shadow(0 0 4px rgba(0, 240, 64, .34));
+    }
+    .memo-match-arrowhead.is-mutual.is-left {
+      border-right-color: #00f040;
+      filter: drop-shadow(0 0 4px rgba(0, 240, 64, .34));
+    }
+    .memo-match-startpoint {
+      position: absolute;
+      z-index: 2;
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, .95);
+      box-shadow: 0 0 0 2px rgba(24, 24, 24, .9);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+    }
+    .memo-match-startpoint.is-mutual {
+      background: #00f040;
+      box-shadow: 0 0 0 2px rgba(24, 24, 24, .9), 0 0 7px rgba(0, 240, 64, .42);
+    }
+    .memo-match-success {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: start;
+      gap: 10px;
+      min-height: 40px;
+      padding: 10px;
+      border: 1px solid rgba(0, 240, 64, .24);
+      border-radius: 10px;
+      background: rgba(0, 240, 64, .06);
+    }
+    .memo-match-success-title {
+      color: #00f040;
+      font-size: 12px;
+      font-weight: 950;
+    }
+    .memo-match-success-list {
+      display: grid;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .memo-match-success-line {
+      color: #f7f7f7;
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1.35;
+    }
+    .memo-match-success-heart {
+      color: #00f040;
+      font-weight: 950;
+    }
+    .memo-match-success-count {
+      color: #00f040;
+      font-size: 12px;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+    .memo-match-success-empty {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .memo-match-dot {
+      fill: rgba(148, 163, 184, .78);
+    }
+    .memo-match-dot.is-mutual {
+      fill: #00f040;
+      filter: drop-shadow(0 0 4px rgba(0, 240, 64, .34));
+    }
+    .memo-note-results {
+      display: grid;
+      gap: 10px;
+    }
+    .memo-note-results h3 {
+      margin: 0;
+      font-size: 14px;
+    }
+    .memo-result-section-title {
+      margin: 2px 0 0;
+      color: #f7f7f7;
+      font-size: 14px;
+      font-weight: 950;
+    }
+    .memo-note-group {
+      display: grid;
+      gap: 8px;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 10px;
+      background: #141414;
+    }
+    .memo-note-group strong,
+    .memo-note-group p {
+      margin: 0;
+      line-height: 1.45;
+    }
+    .memo-note-group strong {
+      font-size: 12px;
+      color: #f7f7f7;
+    }
+    .memo-note-group p {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 750;
+      white-space: pre-wrap;
+    }
+    .memo-note-empty {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .memo-note-people {
+      display: grid;
+      gap: 10px;
+    }
+    .memo-note-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      min-width: 0;
+      align-items: stretch;
+    }
+    .memo-note-person {
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      min-width: 0;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 10px;
+      background: #141414;
+    }
+    .memo-note-person h3 {
+      margin: 0;
+      color: #f7f7f7;
+      font-size: 12px;
+    }
+    .memo-note-line {
+      display: grid;
+      gap: 4px;
+      min-width: 0;
+      padding: 8px;
+      border-radius: 8px;
+      background: #101010;
+    }
+    .memo-note-line span {
+      color: #00f040;
+      font-size: 11px;
+      font-weight: 900;
+    }
+    .memo-note-line p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 750;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .memo-result-card {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #181818;
+    }
+    .memo-result-card strong,
+    .memo-result-card span,
+    .memo-result-card p {
+      display: block;
+      margin: 0 0 6px;
+      line-height: 1.35;
+    }
+    .memo-result-card span,
+    .memo-result-card p {
+      color: var(--muted);
+      font-size: 12px;
+    }
     @media (max-width: 620px) {
       .edit-grid { grid-template-columns: 1fr; }
       .schedule-maker-head { align-items: stretch; flex-direction: column; }
+      .schedule-head-actions { justify-content: stretch; }
       .schedule-maker-grid { grid-template-columns: 1fr; }
       .schedule-layer-card { grid-template-columns: 1fr; }
       .schedule-card-actions { justify-content: flex-start; }
       .hero-admin-item { grid-template-columns: 1fr; }
       .hero-admin-actions { justify-items: stretch; }
+      .memo-participant-row,
+      .memo-participant-fields { grid-template-columns: 1fr; }
+      .memo-participant-row > span { min-height: 34px; }
+      .memo-note-row { grid-template-columns: 1fr; }
     }
     .link-btn, .soft-btn, .nav-btn, .small-btn { border-color: #343434; }
     .search { background: #1f1f1f; }
@@ -1695,6 +2300,32 @@
         </form>
         <div class="dashboard-list" data-dashboard-list="counsel"></div>
       </section>
+      <section class="panel admin-panel dashboard-panel" data-admin-panel="memo" hidden>
+        <div class="dashboard-head">
+          <h1>메모장</h1>
+          <span class="dashboard-head-actions">
+            <button class="soft-btn" type="button" data-memo-import>신청 접수에서 12명 불러오기</button>
+            <button class="soft-btn" type="button" data-memo-new>회차 생성</button>
+            <button class="soft-btn" type="button" data-memo-refresh>새로고침</button>
+          </span>
+        </div>
+        <div data-memo-form-anchor></div>
+        <form class="dashboard-maker" data-memo-form hidden>
+          <div class="dashboard-maker-grid">
+            <label class="edit-field">접속 코드<input name="roundId" placeholder="예: 1 또는 20260906-A"></label>
+            <label class="edit-field">회차명<input name="title" placeholder="예: 2026년 9월 6일 6:6"></label>
+            <label class="edit-field">접속 상태<select name="status"><option value="active">접속 허용</option><option value="blocked">접속 차단</option></select></label>
+          </div>
+          <div class="memo-admin-grid" data-memo-participants></div>
+          <div class="memo-admin-actions">
+            <button class="small-btn" type="button" data-memo-form-close>닫기</button>
+            <button class="small-btn" type="button" data-memo-clear>비우기</button>
+            <button class="create-btn" type="submit">저장</button>
+          </div>
+        </form>
+        <div class="dashboard-list" data-memo-round-list></div>
+        <div class="memo-admin-results" data-memo-results></div>
+      </section>
       <section class="panel admin-panel dashboard-panel" data-admin-panel="application" hidden>
         <div class="dashboard-head">
           <h1>신청 접수</h1>
@@ -1748,11 +2379,9 @@
           <div class="nav-submenu" aria-label="일정 안내 하위 메뉴">
             <form class="schedule-maker" data-schedule-maker>
               <div class="schedule-maker-head">
-                <div class="page-head">
-                  <h1>일정 안내 생성</h1>
-                  <p class="sub">날짜와 시간을 선택하면 메인 일정 안내 달력 아래 카드 레이어로 표시됩니다.</p>
-                </div>
-                <button class="soft-btn" type="button" data-schedule-sync>현재 상태 업로드</button>
+                <span class="schedule-head-actions">
+                  <button class="soft-btn" type="button" data-schedule-sync>현재 상태 업로드</button>
+                </span>
               </div>
               <div class="schedule-maker-grid">
                 <div class="edit-field schedule-date-field is-wide">날짜
@@ -1766,7 +2395,7 @@
                   </select>
                 </label>
                 <label class="edit-field">연령대
-                  <input name="ageRange" autocomplete="off" value="27-36세">
+                  <select name="ageRange" data-dashboard-age-select></select>
                 </label>
                 <label class="edit-field">상태
                   <select name="active">
@@ -1845,6 +2474,7 @@
         <button class="nav-btn" type="button" data-nav="field">현장 <span class="count-pill" data-dashboard-menu-count="field">0</span></button>
         <button class="nav-btn" type="button" data-nav="match">매칭결과 <span class="count-pill" data-dashboard-menu-count="match">0</span></button>
         <button class="nav-btn" type="button" data-nav="counsel">연애상담 <span class="count-pill" data-dashboard-menu-count="counsel">0</span></button>
+        <button class="nav-btn" type="button" data-nav="memo">메모장 <span class="count-pill" data-memo-menu-count>0</span></button>
         <div class="nav-divider" role="separator" aria-hidden="true"></div>
         <button class="nav-btn" type="button" data-nav="application">신청 접수 <span class="count-pill" data-dashboard-menu-count="application">0</span></button>
         <button class="nav-btn" type="button" data-nav="board">문의 하기 <span class="count-pill" data-dashboard-menu-count="board">0</span></button>
@@ -1854,6 +2484,8 @@
   <div class="toast" role="status" aria-live="polite" data-toast></div>
 
   <script>
+    const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
+    const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
     const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "";
     const ADMIN_PASSWORD = "1111";
     async function apiPost(payload) {
@@ -1882,6 +2514,10 @@
     const ADMIN_SCHEDULE_POSTS_KEY = "clover-admin-schedule-posts:v1";
     const ADMIN_SCHEDULE_BACKUP_KEY = "clover-admin-schedule-posts-backup:v1";
     const ADMIN_SCHEDULE_DELETED_KEY = "clover-admin-schedule-deleted-slots:v1";
+    const ADMIN_MEMO_ROUNDS_KEY = "clover-admin-memo-rounds:v1";
+    const ADMIN_MEMO_SUBMISSIONS_KEY = "clover-admin-memo-submissions:v1";
+    const ADMIN_MEMO_STATUS_OVERRIDE_KEY = "clover-admin-memo-status-overrides:v1";
+    const ADMIN_MEMO_DELETED_KEY = "clover-admin-memo-deleted:v1";
     const DASHBOARD_CONTENT_CACHE_KEY = "clover-admin-dashboard-content:v1";
     const DASHBOARD_DELETED_CACHE_KEY = "clover-admin-dashboard-deleted:v1";
     const DASHBOARD_IMAGE_FILE_MAX_SIZE = 200 * 1024 * 1024;
@@ -1944,6 +2580,7 @@
     let fallbackDeletedEvents = [];
     let fallbackOrder = [];
     let editingScheduleId = "";
+    const savingScheduleIds = new Set();
     let dashboardEditingIds = {};
     let dashboardLocalPosts = [];
     let dashboardDeletedIds = [];
@@ -2538,8 +3175,11 @@
       match: [],
       counsel: [],
       application: [],
-      board: []
+      board: [],
+      memo: []
     };
+    let memoRounds = [];
+    let memoSubmissions = [];
     const dashboardOpenBoardIds = new Set();
     const PUBLIC_SCHEDULE_CACHE_KEY = "clover-schedule-posts-cache:v3";
     const PUBLIC_BOARD_CACHE_KEY = "clover-board-posts-v1";
@@ -2880,6 +3520,605 @@
       try {
         localStorage.setItem(key, JSON.stringify((Array.isArray(posts) ? posts : []).slice(0, 100)));
       } catch {}
+    }
+
+    function normalizeMemoPhone(value) {
+      return String(value || "").replace(/\D/g, "");
+    }
+
+    function normalizeMemoBirth(value) {
+      return String(value || "").replace(/\D/g, "").slice(0, 8);
+    }
+
+    function normalizeMemoGender(value) {
+      const text = String(value || "").trim();
+      return text.includes("여") || /^f/i.test(text) ? "female" : "male";
+    }
+
+    function memoGenderLabel(gender) {
+      return normalizeMemoGender(gender) === "female" ? "여성" : "남성";
+    }
+
+    function memoParticipantId(gender, number) {
+      return `${normalizeMemoGender(gender)}-${Number(number) || 1}`;
+    }
+
+    function normalizeMemoParticipant(item = {}, index = 0) {
+      const gender = normalizeMemoGender(item.gender || (index < 6 ? "male" : "female"));
+      const number = Number(item.number) || ((index % 6) + 1);
+      return {
+        id: String(item.id || memoParticipantId(gender, number)),
+        gender,
+        number,
+        name: String(item.name || "").trim(),
+        phone: normalizeMemoPhone(item.phone),
+        birth: normalizeMemoBirth(item.birth)
+      };
+    }
+
+    function normalizeMemoRound(item = {}) {
+      const participants = Array.isArray(item.participants) ? item.participants.map(normalizeMemoParticipant) : [];
+      return {
+        id: String(item.id || item.roundId || `memo-${Date.now()}`),
+        title: String(item.title || "메모장 회차").trim() || "메모장 회차",
+        status: item.status === "blocked" ? "blocked" : "active",
+        participants,
+        updatedAt: Number(item.updatedAt) || Date.now(),
+        createdAt: Number(item.createdAt) || Date.now()
+      };
+    }
+
+    function readMemoRoundsCache() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(ADMIN_MEMO_ROUNDS_KEY) || "[]");
+        return Array.isArray(parsed) ? applyMemoLocalOverrides(parsed.map(normalizeMemoRound)) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function writeMemoRoundsCache(rounds) {
+      try { localStorage.setItem(ADMIN_MEMO_ROUNDS_KEY, JSON.stringify((rounds || []).slice(0, 60))); } catch {}
+    }
+
+    function readMemoSubmissionsCache() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(ADMIN_MEMO_SUBMISSIONS_KEY) || "[]");
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function writeMemoSubmissionsCache(items) {
+      try { localStorage.setItem(ADMIN_MEMO_SUBMISSIONS_KEY, JSON.stringify((items || []).slice(0, 300))); } catch {}
+    }
+
+    function readMemoStatusOverrides() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(ADMIN_MEMO_STATUS_OVERRIDE_KEY) || "{}");
+        return parsed && typeof parsed === "object" ? parsed : {};
+      } catch {
+        return {};
+      }
+    }
+
+    function writeMemoStatusOverrides(overrides) {
+      try { localStorage.setItem(ADMIN_MEMO_STATUS_OVERRIDE_KEY, JSON.stringify(overrides || {})); } catch {}
+    }
+
+    function readDeletedMemoRoundIds() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(ADMIN_MEMO_DELETED_KEY) || "[]");
+        return new Set(Array.isArray(parsed) ? parsed.map(String) : []);
+      } catch {
+        return new Set();
+      }
+    }
+
+    function writeDeletedMemoRoundIds(ids) {
+      try { localStorage.setItem(ADMIN_MEMO_DELETED_KEY, JSON.stringify([...ids].map(String))); } catch {}
+    }
+
+    function applyMemoLocalOverrides(rounds = []) {
+      const deletedIds = readDeletedMemoRoundIds();
+      const statusOverrides = readMemoStatusOverrides();
+      return (rounds || [])
+        .filter((round) => !deletedIds.has(String(round.id)))
+        .map((round) => {
+          const override = statusOverrides[String(round.id)];
+          if (!override) return round;
+          const status = override.status === "blocked" ? "blocked" : "active";
+          const updatedAt = Math.max(Number(round.updatedAt || 0), Number(override.updatedAt || 0));
+          return { ...round, status, updatedAt };
+        });
+    }
+
+    function mergeMemoRounds(primary = [], fallback = []) {
+      const byId = new Map();
+      [...fallback, ...primary].forEach((round) => {
+        const normalized = normalizeMemoRound(round);
+        if (!normalized.id) return;
+        const key = String(normalized.id);
+        const existing = byId.get(key);
+        if (!existing || Number(normalized.updatedAt || 0) >= Number(existing.updatedAt || 0)) {
+          byId.set(key, normalized);
+        }
+      });
+      return applyMemoLocalOverrides([...byId.values()]).sort((a, b) => Number(b.updatedAt || 0) - Number(a.updatedAt || 0));
+    }
+
+    function emptyMemoParticipants() {
+      return ["male", "female"].flatMap((gender) => Array.from({ length: 6 }, (_, index) => ({
+        id: memoParticipantId(gender, index + 1),
+        gender,
+        number: index + 1,
+        name: "",
+        phone: "",
+        birth: ""
+      })));
+    }
+
+    function nextMemoRoundCode() {
+      const numbers = memoRounds.map((round) => Number(round.id)).filter((number) => Number.isFinite(number));
+      return String((numbers.length ? Math.max(...numbers) : 0) + 1);
+    }
+
+    function renderMemoParticipantInputs(participants = emptyMemoParticipants()) {
+      const container = document.querySelector("[data-memo-participants]");
+      if (!container) return;
+      const list = emptyMemoParticipants().map((base) => {
+        const existing = participants.find((item) => normalizeMemoGender(item.gender) === base.gender && Number(item.number) === base.number);
+        return { ...base, ...(existing || {}) };
+      });
+      container.innerHTML = ["male", "female"].map((gender) => {
+        const rows = list.filter((item) => item.gender === gender).map((item) => `
+          <label class="memo-participant-row">
+            <span>${htmlAttr(memoGenderLabel(gender))} ${Number(item.number)}번</span>
+            <span class="memo-participant-fields">
+              <input name="memo-${gender}-${Number(item.number)}-name" value="${htmlAttr(item.name)}" placeholder="이름">
+              <input name="memo-${gender}-${Number(item.number)}-phone" value="${htmlAttr(item.phone)}" inputmode="numeric" placeholder="휴대폰 번호">
+              <input name="memo-${gender}-${Number(item.number)}-birth" value="${htmlAttr(item.birth)}" inputmode="numeric" maxlength="8" placeholder="생년월일 8자리">
+            </span>
+          </label>
+        `).join("");
+        return `<section class="memo-participant-box"><h2>${htmlAttr(memoGenderLabel(gender))} 참가자</h2>${rows}</section>`;
+      }).join("");
+    }
+
+    function collectMemoParticipants(form) {
+      return ["male", "female"].flatMap((gender) => Array.from({ length: 6 }, (_, index) => {
+        const number = index + 1;
+        return normalizeMemoParticipant({
+          id: memoParticipantId(gender, number),
+          gender,
+          number,
+          name: form.querySelector(`[name="memo-${gender}-${number}-name"]`)?.value || "",
+          phone: form.querySelector(`[name="memo-${gender}-${number}-phone"]`)?.value || "",
+          birth: form.querySelector(`[name="memo-${gender}-${number}-birth"]`)?.value || ""
+        });
+      }));
+    }
+
+    function fillMemoForm(round = null) {
+      const form = document.querySelector("[data-memo-form]");
+      if (!form) return;
+      form.hidden = false;
+      const code = nextMemoRoundCode();
+      const normalized = round ? normalizeMemoRound(round) : normalizeMemoRound({ id: code, participants: emptyMemoParticipants(), title: `${code}화` });
+      form.querySelector('[name="roundId"]').value = normalized.id;
+      form.querySelector('[name="title"]').value = normalized.title;
+      form.querySelector('[name="status"]').value = normalized.status;
+      renderMemoParticipantInputs(normalized.participants);
+    }
+
+    function closeMemoForm() {
+      const form = document.querySelector("[data-memo-form]");
+      if (form) form.hidden = true;
+    }
+
+    function moveMemoFormToDefault() {
+      const anchor = document.querySelector("[data-memo-form-anchor]");
+      const form = document.querySelector("[data-memo-form]");
+      if (anchor && form && anchor.nextElementSibling !== form) anchor.after(form);
+    }
+
+    function moveMemoFormAfterRound(roundId) {
+      const form = document.querySelector("[data-memo-form]");
+      const card = document.querySelector(`[data-memo-round="${window.CSS?.escape ? CSS.escape(String(roundId)) : String(roundId)}"]`);
+      if (form && card) card.after(form);
+    }
+
+    function importMemoParticipantsFromApplications() {
+      const applications = dashboardData.application || [];
+      const accepted = applications.filter((item) => !String(item.status || "").includes("취소"));
+      const byGender = { male: [], female: [] };
+      accepted.forEach((item) => {
+        const gender = normalizeMemoGender(item.gender);
+        if (byGender[gender].length >= 6) return;
+        byGender[gender].push(item);
+      });
+      const participants = emptyMemoParticipants().map((base) => {
+        const source = byGender[base.gender][base.number - 1];
+        return source ? normalizeMemoParticipant({
+          ...base,
+          name: source.name,
+          phone: source.phone,
+          birth: source.birth
+        }) : base;
+      });
+      fillMemoForm({ participants, title: `메모장 ${new Date().toLocaleDateString("ko-KR")}` });
+      showToast("신청 접수에서 남녀 최대 6명씩 불러왔습니다.");
+    }
+
+    function memoSubmissionSummary(round, submission) {
+      const targets = (round.participants || []).filter((item) => item.gender !== submission.gender);
+      const labelFor = (id) => {
+        const target = targets.find((item) => String(item.id) === String(id));
+        return target ? `${memoGenderLabel(target.gender)} ${target.number}번 ${target.name || ""}`.trim() : String(id || "");
+      };
+      const ranking = Array.isArray(submission.ranking) ? submission.ranking.map(labelFor).filter(Boolean) : [];
+      const memoCount = Object.values(submission.memos || {}).filter((value) => String(value || "").trim()).length;
+      return { finalChoice: labelFor(submission.finalChoice) || "미선택", ranking, memoCount };
+    }
+
+    function memoParticipantResultLabel(participant) {
+      if (!participant) return "";
+      return `${memoGenderLabel(participant.gender)} ${Number(participant.number) || ""}번`;
+    }
+
+    function memoSubmissionByParticipant(submissions) {
+      const map = new Map();
+      (submissions || []).forEach((submission) => {
+        const id = String(submission.participantId || "");
+        if (id) map.set(id, submission);
+      });
+      return map;
+    }
+
+    function memoChoiceIds(submission) {
+      if (!submission) return [];
+      const choices = [];
+      const add = (value) => {
+        if (Array.isArray(value)) {
+          value.forEach(add);
+          return;
+        }
+        String(value || "")
+          .split(",")
+          .map((item) => item.trim())
+          .filter(Boolean)
+          .forEach((id) => choices.push(id));
+      };
+      add(submission.finalChoices);
+      add(submission.finalChoice);
+      add(submission.ranking);
+      Object.entries(submission.hearts || {}).forEach(([id, on]) => {
+        if (on) choices.push(String(id));
+      });
+      return [...new Set(choices)].slice(0, 3);
+    }
+
+    function memoMutualChoice(fromSubmission, targetSubmission) {
+      if (!fromSubmission || !targetSubmission) return false;
+      return memoChoiceIds(fromSubmission).includes(String(targetSubmission.participantId || ""))
+        && memoChoiceIds(targetSubmission).includes(String(fromSubmission.participantId || ""));
+    }
+
+    function memoMatchSuccessMarkup(males, females, submissionsById) {
+      const pairs = [];
+      males.forEach((male) => {
+        const maleSubmission = submissionsById.get(String(male.id));
+        memoChoiceIds(maleSubmission).forEach((targetId) => {
+          const female = females.find((item) => String(item.id) === String(targetId));
+          if (!female) return;
+          const femaleSubmission = submissionsById.get(String(female.id));
+          if (!memoMutualChoice(maleSubmission, femaleSubmission)) return;
+          pairs.push({ male, female });
+        });
+      });
+      const pairMarkup = pairs.map(({ male, female }) => `
+        <div class="memo-match-success-line">
+          ${htmlAttr(memoParticipantResultLabel(male))}
+          <span class="memo-match-success-heart">하트</span>
+          ${htmlAttr(memoParticipantResultLabel(female))}
+        </div>
+      `).join("");
+      return `
+        <div class="memo-match-success">
+          <div>
+            <span class="memo-match-success-title">매칭 성공</span>
+            <div class="memo-match-success-list">
+              ${pairMarkup || '<p class="memo-match-success-empty">아직 서로 선택한 매칭이 없습니다.</p>'}
+            </div>
+          </div>
+          <span class="memo-match-success-count">총 ${pairs.length}커플 매칭</span>
+        </div>
+      `;
+    }
+
+    function memoMatchLinesMarkup(males, females, submissionsById) {
+      const mapHeight = 378;
+      const rowStep = 64;
+      const rowCenter = 26;
+      const lines = [];
+      const startPoints = [];
+      const arrowheads = [];
+      males.forEach((male, maleIndex) => {
+        const submission = submissionsById.get(String(male.id));
+        memoChoiceIds(submission).forEach((targetId, choiceIndex) => {
+          const targetIndex = females.findIndex((female) => String(female.id) === String(targetId));
+          if (targetIndex < 0) return;
+          const target = females[targetIndex];
+          const targetSubmission = submissionsById.get(String(target.id));
+          const mutual = memoMutualChoice(submission, targetSubmission);
+          const y1 = maleIndex * rowStep + rowCenter;
+          const y2 = targetIndex * rowStep + rowCenter;
+          lines.push(`<line class="memo-match-line${mutual ? " is-mutual" : ""}" x1="37" y1="${y1}" x2="63" y2="${y2}"></line>`);
+          startPoints.push(`<span class="memo-match-startpoint${mutual ? " is-mutual" : ""}" style="left: 37%; top: ${(y1 / mapHeight) * 100}%;"></span>`);
+          arrowheads.push(`<span class="memo-match-arrowhead is-right${mutual ? " is-mutual" : ""}" style="left: 63%; top: ${(y2 / mapHeight) * 100}%;"></span>`);
+        });
+      });
+      females.forEach((female, femaleIndex) => {
+        const submission = submissionsById.get(String(female.id));
+        memoChoiceIds(submission).forEach((targetId, choiceIndex) => {
+          const targetIndex = males.findIndex((male) => String(male.id) === String(targetId));
+          if (targetIndex < 0) return;
+          const target = males[targetIndex];
+          const targetSubmission = submissionsById.get(String(target.id));
+          if (memoMutualChoice(submission, targetSubmission)) return;
+          const y1 = femaleIndex * rowStep + rowCenter;
+          const y2 = targetIndex * rowStep + rowCenter;
+          lines.push(`<line class="memo-match-line" x1="63" y1="${y1}" x2="37" y2="${y2}"></line>`);
+          startPoints.push(`<span class="memo-match-startpoint" style="left: 63%; top: ${(y1 / mapHeight) * 100}%;"></span>`);
+          arrowheads.push(`<span class="memo-match-arrowhead is-left" style="left: 37%; top: ${(y2 / mapHeight) * 100}%;"></span>`);
+        });
+      });
+      return `
+        <svg class="memo-match-lines" viewBox="0 0 100 ${mapHeight}" preserveAspectRatio="none" aria-hidden="true">
+          ${lines.join("")}
+        </svg>
+        ${startPoints.join("")}
+        ${arrowheads.join("")}
+      `;
+    }
+
+    function memoWomenNotesMarkup(females, submissions, participantsById) {
+      const groups = females.map((female) => {
+        const notes = (submissions || []).map((submission) => {
+          const text = String((submission.memos || {})[female.id] || "").trim();
+          if (!text) return "";
+          const writer = participantsById.get(String(submission.participantId || ""));
+          return `<div class="memo-note-group"><strong>${htmlAttr(memoParticipantResultLabel(writer) || "참가자")}</strong><p>${htmlAttr(text)}</p></div>`;
+        }).filter(Boolean).join("");
+        return `
+          <section class="memo-note-results">
+            <h3>${htmlAttr(memoParticipantResultLabel(female))} 메모</h3>
+            ${notes || '<p class="memo-note-empty">작성된 메모가 없습니다.</p>'}
+          </section>
+        `;
+      }).join("");
+      return `<div class="memo-note-results">${groups}</div>`;
+    }
+
+    function memoParticipantNoteCardMarkup(participant, submissionsById, targetsByGender) {
+        const submission = submissionsById.get(String(participant.id));
+        const targets = targetsByGender[participant.gender === "male" ? "female" : "male"] || [];
+        const notes = targets.map((target) => {
+          const text = String((submission?.memos || {})[target.id] || "").trim();
+          if (!text) return "";
+          return `<div class="memo-note-line"><span>${htmlAttr(memoParticipantResultLabel(target))}</span><p>${htmlAttr(text)}</p></div>`;
+        }).filter(Boolean).join("");
+        return `
+          <section class="memo-note-person">
+            <h3>${htmlAttr(memoParticipantResultLabel(participant))} 메모</h3>
+            ${notes || '<p class="memo-note-empty">작성된 메모가 없습니다.</p>'}
+          </section>
+        `;
+    }
+
+    function memoAllParticipantNotesMarkup(males, females, submissionsById, targetsByGender) {
+      const rowCount = Math.max(males.length, females.length);
+      const rows = Array.from({ length: rowCount }, (_, index) => `
+        <div class="memo-note-row">
+          ${males[index] ? memoParticipantNoteCardMarkup(males[index], submissionsById, targetsByGender) : '<div></div>'}
+          ${females[index] ? memoParticipantNoteCardMarkup(females[index], submissionsById, targetsByGender) : '<div></div>'}
+        </div>
+      `).join("");
+      return `
+        <div class="memo-note-people">
+          ${rows}
+        </div>
+      `;
+    }
+
+    function renderMemoAdmin() {
+      moveMemoFormToDefault();
+      if (!document.querySelector("[data-memo-participants]")?.children.length) renderMemoParticipantInputs();
+      const list = document.querySelector("[data-memo-round-list]");
+      const results = document.querySelector("[data-memo-results]");
+      const badge = document.querySelector("[data-memo-menu-count]");
+      if (badge) badge.textContent = String(memoRounds.length);
+      if (list) {
+        list.innerHTML = memoRounds.length ? memoRounds.map((round) => {
+          const maleCount = round.participants.filter((item) => item.gender === "male").length;
+          const femaleCount = round.participants.filter((item) => item.gender === "female").length;
+          const submissions = memoSubmissions.filter((item) => item.roundId === round.id);
+          const isBlocked = round.status === "blocked";
+          return `
+            <article class="dashboard-item" data-memo-round="${htmlAttr(round.id)}">
+              <span class="dashboard-title-row"><strong>${htmlAttr(round.title)}</strong><span class="memo-status-badge${isBlocked ? " is-blocked" : ""}">${isBlocked ? "차단" : "허용"}</span></span>
+              <span class="dashboard-meta">접속 코드 ${htmlAttr(round.id)} · 남성 ${maleCount}명 · 여성 ${femaleCount}명 · 제출 ${submissions.filter((item) => item.submittedAt).length}명</span>
+              <span class="dashboard-item-actions">
+                <button class="toggle-btn ${isBlocked ? "is-on" : "is-off"}" type="button" data-memo-toggle="${htmlAttr(round.id)}">${isBlocked ? "허용" : "차단"}</button>
+                <button class="small-btn" type="button" data-memo-edit="${htmlAttr(round.id)}">수정</button>
+                <button class="small-btn" type="button" data-memo-view="${htmlAttr(round.id)}">결과</button>
+                <button class="small-btn danger-btn" type="button" data-memo-delete="${htmlAttr(round.id)}">삭제</button>
+              </span>
+            </article>
+          `;
+        }).join("") : '<div class="empty is-visible">등록된 메모장 회차가 없습니다.</div>';
+      }
+      if (results && !results.dataset.roundId) results.innerHTML = "";
+    }
+
+    function closeMemoResults() {
+      const results = document.querySelector("[data-memo-results]");
+      if (!results) return;
+      results.innerHTML = "";
+      delete results.dataset.roundId;
+    }
+
+    function renderMemoResults(roundId) {
+      const results = document.querySelector("[data-memo-results]");
+      if (!results) return;
+      const round = memoRounds.find((item) => item.id === roundId);
+      if (!round) {
+        results.innerHTML = "";
+        delete results.dataset.roundId;
+        return;
+      }
+      results.dataset.roundId = roundId;
+      const submissions = memoSubmissions.filter((item) => item.roundId === roundId);
+      const participants = Array.isArray(round.participants) ? [...round.participants] : [];
+      const males = participants.filter((item) => item.gender === "male").sort((a, b) => Number(a.number) - Number(b.number)).slice(0, 6);
+      const females = participants.filter((item) => item.gender === "female").sort((a, b) => Number(a.number) - Number(b.number)).slice(0, 6);
+      const submissionsById = memoSubmissionByParticipant(submissions);
+      const targetsByGender = { male: males, female: females };
+      const personCell = (participant) => {
+        const submission = submissionsById.get(String(participant.id));
+        const picked = memoChoiceIds(submission).length > 0;
+        return `<div class="memo-match-person${picked ? " is-picked" : ""}">${htmlAttr(memoParticipantResultLabel(participant))}</div>`;
+      };
+      results.innerHTML = `
+        <div class="memo-result-head">
+          <h2>${htmlAttr(round.title)} 최종 결과</h2>
+          <button class="small-btn" type="button" data-memo-results-close>닫기</button>
+        </div>
+        ${submissions.length ? `
+          <article class="memo-result-board">
+            <h3 class="memo-result-section-title">사랑의 작대기</h3>
+            <div class="memo-match-map">
+              ${memoMatchLinesMarkup(males, females, submissionsById)}
+              <div class="memo-match-column">${males.map(personCell).join("")}</div>
+              <div></div>
+              <div class="memo-match-column">${females.map(personCell).join("")}</div>
+            </div>
+            ${memoMatchSuccessMarkup(males, females, submissionsById)}
+            <h3 class="memo-result-section-title">참가자별 작성 메모</h3>
+            ${memoAllParticipantNotesMarkup(males, females, submissionsById, targetsByGender)}
+          </article>
+        ` : '<div class="empty is-visible">아직 저장된 메모가 없습니다.</div>'}
+      `;
+    }
+
+    async function loadMemoAdmin() {
+      memoRounds = readMemoRoundsCache();
+      memoSubmissions = readMemoSubmissionsCache();
+      renderMemoAdmin();
+      if (!GOOGLE_SCRIPT_URL) return;
+      try {
+        const [roundResult, submissionResult] = await Promise.all([
+          apiGet("memoRoundList"),
+          apiGet("memoSubmissionList")
+        ]);
+        const serverRounds = (Array.isArray(roundResult.rounds) ? roundResult.rounds : []).map(normalizeMemoRound);
+        memoRounds = mergeMemoRounds(serverRounds, memoRounds);
+        memoSubmissions = Array.isArray(submissionResult.submissions) ? submissionResult.submissions : [];
+        writeMemoRoundsCache(memoRounds);
+        writeMemoSubmissionsCache(memoSubmissions);
+        renderMemoAdmin();
+      } catch (error) {
+        showToast(`메모장 데이터를 불러오지 못했습니다: ${error.message}`);
+      }
+    }
+
+    async function saveMemoRoundFromForm(form) {
+      const roundIdInput = form.querySelector('[name="roundId"]');
+      const titleInput = form.querySelector('[name="title"]');
+      const statusInput = form.querySelector('[name="status"]');
+      const round = normalizeMemoRound({
+        id: roundIdInput?.value || `memo-${Date.now()}`,
+        title: titleInput?.value,
+        status: statusInput?.value,
+        participants: collectMemoParticipants(form)
+      });
+      if (round.participants.length !== 12 || round.participants.some((item) => !item.phone || !item.birth)) {
+        showToast("남녀 6명씩 휴대폰 ID와 생년월일 8자리를 입력해 주세요.");
+        return;
+      }
+      const deletedIds = readDeletedMemoRoundIds();
+      deletedIds.delete(String(round.id));
+      writeDeletedMemoRoundIds(deletedIds);
+      const statusOverrides = readMemoStatusOverrides();
+      statusOverrides[String(round.id)] = { status: round.status, updatedAt: Date.now() };
+      writeMemoStatusOverrides(statusOverrides);
+      memoRounds = [round, ...memoRounds.filter((item) => item.id !== round.id)];
+      writeMemoRoundsCache(memoRounds);
+      renderMemoAdmin();
+      showToast("메모장 회차를 저장했습니다.");
+      try {
+        const result = await apiPost({ type: "memoRoundSave", roundId: round.id, title: round.title, status: round.status, participants: round.participants });
+        const saved = normalizeMemoRound(result.round || round);
+        memoRounds = [saved, ...memoRounds.filter((item) => item.id !== saved.id)];
+        writeMemoRoundsCache(memoRounds);
+        renderMemoAdmin();
+        showToast("메모장 회차를 서버까지 저장했습니다.");
+      } catch (error) {
+        showToast(`로컬 저장 완료, 서버 반영 실패: ${error.message}`);
+      }
+    }
+
+    async function toggleMemoRound(roundId) {
+      const round = memoRounds.find((item) => item.id === roundId);
+      if (!round) return;
+      const nextStatus = round.status === "blocked" ? "active" : "blocked";
+      round.status = nextStatus;
+      round.updatedAt = Date.now();
+      const statusOverrides = readMemoStatusOverrides();
+      statusOverrides[String(roundId)] = { status: nextStatus, updatedAt: round.updatedAt };
+      writeMemoStatusOverrides(statusOverrides);
+      writeMemoRoundsCache(memoRounds);
+      renderMemoAdmin();
+      showToast(nextStatus === "blocked" ? "메모장 접속을 차단했습니다." : "메모장 접속을 허용했습니다.");
+      try {
+        const result = await apiPost({ type: "memoRoundToggle", roundId, status: nextStatus });
+        const saved = normalizeMemoRound(result.round || round);
+        memoRounds = memoRounds.map((item) => item.id === saved.id ? { ...item, ...saved, status: nextStatus } : item);
+        writeMemoRoundsCache(memoRounds);
+      } catch (error) {
+        showToast(`로컬 반영 완료, 서버 반영 실패: ${error.message}`);
+      } finally {
+        renderMemoAdmin();
+      }
+    }
+
+    async function deleteMemoRound(roundId) {
+      const id = String(roundId || "");
+      const round = memoRounds.find((item) => item.id === id);
+      if (!round) return;
+      if (!window.confirm(`${round.title} 메모장 회차를 삭제할까요?`)) return;
+      const previousRounds = [...memoRounds];
+      const previousSubmissions = [...memoSubmissions];
+      const deletedIds = readDeletedMemoRoundIds();
+      deletedIds.add(id);
+      writeDeletedMemoRoundIds(deletedIds);
+      const statusOverrides = readMemoStatusOverrides();
+      delete statusOverrides[id];
+      writeMemoStatusOverrides(statusOverrides);
+      memoRounds = memoRounds.filter((item) => item.id !== id);
+      memoSubmissions = memoSubmissions.filter((item) => item.roundId !== id);
+      writeMemoRoundsCache(memoRounds);
+      writeMemoSubmissionsCache(memoSubmissions);
+      const results = document.querySelector("[data-memo-results]");
+      if (results?.dataset.roundId === id) closeMemoResults();
+      renderMemoAdmin();
+      showToast("메모장 회차를 삭제했습니다.");
+      try {
+        await apiPost({ type: "memoRoundDelete", roundId: id });
+      } catch (error) {
+        showToast(`로컬 삭제 완료, 서버 삭제 실패: ${error.message}`);
+      }
     }
 
     function replaceSharedDashboardCategoryCache(category, posts) {
@@ -3223,7 +4462,7 @@
         scheduleDate: bp.scheduleDate || "",
         scheduleTime: bp.scheduleTime || "",
         meetingMode: bp.meetingMode || "1:1",
-        ageRange: bp.ageRange || "27-36세",
+        ageRange: normalizeAgeRangeText(bp.ageRange || "27-36세"),
         address: bp.address || "부산 부산진구 서전로 8번길 27",
         mapImageUrl: bp.mapImageUrl || "",
         mapImageUrls: Array.isArray(bp.mapImageUrls) ? bp.mapImageUrls : [],
@@ -3502,7 +4741,7 @@
               scheduleDate: iso,
               scheduleTime: time,
               meetingMode: "1:1",
-              ageRange: "27-36세",
+              ageRange: "27 - 36세",
               active: true,
               source: "기본"
             });
@@ -3529,8 +4768,8 @@
         const dateCompare = String(a.scheduleDate || "").localeCompare(String(b.scheduleDate || ""));
         if (dateCompare) return dateCompare;
         return (scheduleTimeHour(a.scheduleTime) || 0) - (scheduleTimeHour(b.scheduleTime) || 0);
-      }).map((post) => {
-        const episode = scheduleEpisodeNumber(post);
+      }).map((post, index) => {
+        const episode = index + 1;
         return {
         ...post,
         displayEpisodeNumber: episode,
@@ -3644,8 +4883,24 @@
       return text;
     }
 
+    function scheduleImageUrlList(value) {
+      if (Array.isArray(value)) return value.map((item) => String(item || "").trim()).filter(Boolean);
+      return String(value || "")
+        .split(/\r?\n|,/)
+        .map((item) => item.trim())
+        .filter(Boolean);
+    }
+
+    function schedulePrimaryImageUrl(post) {
+      const imageUrl = String(post?.imageUrl || "").trim();
+      if (imageUrl && !DASHBOARD_FIELD_IMAGES.includes(imageUrl)) return imageUrl;
+      const mapImages = scheduleImageUrlList(post?.mapImageUrls?.length ? post.mapImageUrls : post?.mapImageUrl);
+      return mapImages[0] || imageUrl || DASHBOARD_FIELD_IMAGES[0];
+    }
+
     function initScheduleMaker() {
       if (!scheduleMaker) return;
+      renderDashboardAgeOptions();
       const dateInput = scheduleMaker.querySelector('[name="scheduleDate"]');
       if (dateInput) {
         if (!dateInput.value) setScheduleDateValue(seoulTodayIso());
@@ -3657,6 +4912,19 @@
     function scheduleFormSubmitButtonText(text) {
       const button = scheduleMaker?.querySelector('button[type="submit"]');
       if (button) button.textContent = text;
+    }
+
+    function setScheduleFormSubmitting(submitting, label) {
+      const button = scheduleMaker?.querySelector('button[type="submit"]');
+      if (!button) return;
+      button.disabled = submitting;
+      button.textContent = label;
+      button.setAttribute("aria-busy", String(submitting));
+    }
+
+    function scheduleMakerTitleText(text) {
+      const title = scheduleMaker?.querySelector(".page-head h1");
+      if (title) title.textContent = text;
     }
 
     function openScheduleNavGroup() {
@@ -3675,7 +4943,8 @@
       const mapImageFileEl = scheduleMaker.querySelector('[name="mapImageFile"]');
       const activeEl = scheduleMaker.querySelector('[name="active"]');
       if (modeEl) modeEl.value = "1:1";
-      if (ageEl) ageEl.value = "27-36세";
+      renderDashboardAgeOptions();
+      if (ageEl) ageEl.value = "27 - 36세";
       if (addressEl) addressEl.value = "부산 부산진구 서전로 8번길 27";
       if (mapImageUrlEl) mapImageUrlEl.value = "";
       if (mapImageFileEl) {
@@ -3688,6 +4957,7 @@
       if (contentEl) contentEl.value = "자세한 사항은 개별적으로 문자 안내드릴 예정입니다.";
       initScheduleMaker();
       scheduleFormSubmitButtonText("생성");
+      scheduleMakerTitleText("일정 안내 생성");
     }
 
     function fillScheduleMaker(post) {
@@ -3703,7 +4973,14 @@
       const contentEl = scheduleMaker.querySelector('[name="content"]');
       if (dateEl) setScheduleDateValue(post.scheduleDate || seoulTodayIso());
       if (modeEl) modeEl.value = post.meetingMode || "1:1";
-      if (ageEl) ageEl.value = post.ageRange || "27-36세";
+      renderDashboardAgeOptions();
+      if (ageEl) {
+        const ageRange = normalizeAgeRangeText(post.ageRange || "27-36세");
+        if (![...ageEl.options].some((option) => option.value === ageRange)) {
+          ageEl.insertAdjacentHTML("afterbegin", `<option value="${htmlAttr(ageRange)}">${htmlAttr(ageRange)}</option>`);
+        }
+        ageEl.value = ageRange;
+      }
       if (addressEl) addressEl.value = post.address || "부산 부산진구 서전로 8번길 27";
       if (mapImageUrlEl) mapImageUrlEl.value = (Array.isArray(post.mapImageUrls) && post.mapImageUrls.length ? post.mapImageUrls : [post.mapImageUrl]).filter(Boolean).join("\n");
       if (mapImageFileEl) {
@@ -3716,6 +4993,7 @@
       if (contentEl) contentEl.value = post.content || "자세한 사항은 개별적으로 문자 안내드릴 예정입니다.";
       setScheduleTimeChecks([post.scheduleTime || "19시"]);
       scheduleFormSubmitButtonText("수정");
+      scheduleMakerTitleText("일정 안내 수정");
       openScheduleNavGroup();
       markScheduleCardSelected(editingScheduleId);
     }
@@ -3731,15 +5009,18 @@
       const posts = dashboardSchedulePosts();
       if (scheduleMenuCount) scheduleMenuCount.textContent = posts.length;
       if (scheduleEmpty) scheduleEmpty.classList.toggle("is-visible", posts.length === 0);
-      scheduleLayerList.innerHTML = posts.map((post) => `
-        <article class="schedule-layer-card${post.source === "기본" ? " is-default" : ""}${post.closed ? " is-closed" : ""}${String(post.id) === String(editingScheduleId) ? " is-selected" : ""}" data-admin-schedule-id="${htmlAttr(post.id)}">
+      scheduleLayerList.innerHTML = posts.map((post) => {
+        const id = String(post.id || "");
+        const savingLabel = savingScheduleIds.has(id) ? "수정 중" : "";
+        return `
+        <article class="schedule-layer-card${post.source === "기본" ? " is-default" : ""}${post.closed ? " is-closed" : ""}${id === String(editingScheduleId) ? " is-selected" : ""}${savingLabel ? " is-saving" : ""}" data-admin-schedule-id="${htmlAttr(post.id)}">
           <div>
-            <strong><span class="schedule-layer-episode">${htmlAttr(post.displayEpisode || "")}</span>[${htmlAttr(scheduleTimeText(post.scheduleTime))}] 소개팅 안내</strong>
+            <strong><span class="schedule-layer-episode">${htmlAttr(post.displayEpisode || "")}</span>[${htmlAttr(scheduleTimeText(post.scheduleTime))}] 소개팅 안내${savingLabel ? `<span class="schedule-inline-save-badge">${htmlAttr(savingLabel)}</span>` : ""}</strong>
             <div class="schedule-layer-meta">
               <span>${htmlAttr(scheduleDateText(post.scheduleDate))}</span>
               <span class="is-source">${htmlAttr(post.source || "관리자")}</span>
               <span>${htmlAttr(post.meetingMode || "1:1")}</span>
-              <span>${htmlAttr(post.ageRange || "27-36세")}</span>
+              <span>${htmlAttr(normalizeAgeRangeText(post.ageRange || "27-36세"))}</span>
               <span>${post.closed ? "종료" : "진행 예정"}</span>
             </div>
           </div>
@@ -3747,7 +5028,8 @@
             <button class="small-btn danger-btn" type="button" data-schedule-delete="${htmlAttr(post.id)}">삭제</button>
           </span>
         </article>
-      `).join("");
+      `;
+      }).join("");
     }
 
     async function createScheduleLayers(formEl) {
@@ -3763,20 +5045,29 @@
         return;
       }
       const meetingMode = String(form.get("meetingMode") || "1:1").trim() || "1:1";
-      const ageRange = String(form.get("ageRange") || "27-36세").trim() || "27-36세";
+      const ageRange = normalizeAgeRangeText(form.get("ageRange") || "27-36세") || "27 - 36세";
       const address = normalizeScheduleAddress(form.get("address")) || "부산 부산진구 서전로 8번길 27";
       const mapImageUrl = String(form.get("mapImageUrl") || "").trim();
+      const mapImageUrls = scheduleImageUrlList(mapImageUrl);
       const mapImageFileInput = formEl.querySelector('input[type="file"][name="mapImageFile"]');
       if (mapImageFileInput?.files?.[0] && !mapImageFileInput.dataset.imagePayloads) await handleScheduleImageFiles(mapImageFileInput);
       const mapImageFiles = mapImageFileInput?.dataset.imagePayloads ? JSON.parse(mapImageFileInput.dataset.imagePayloads).filter(Boolean).slice(0, 5) : [];
+      const primaryImageUrl = mapImageUrls[0] || DASHBOARD_FIELD_IMAGES[0];
+      const primaryImageFile = mapImageFiles[0] || null;
       const content = String(form.get("content") || "").trim() || "자세한 사항은 개별적으로 문자 안내드릴 예정입니다.";
       const active = form.get("active") !== "false";
       const wasEditing = !!editingScheduleId;
+      const editingId = String(editingScheduleId || "");
+      const targetTimes = wasEditing ? times.slice(0, 1) : times;
+      const savingIds = wasEditing ? [editingId] : [];
       const deletedSlots = readDeletedScheduleSlots();
       try {
+        setScheduleFormSubmitting(true, wasEditing ? "수정 중" : "생성 중");
+        savingIds.forEach((id) => savingScheduleIds.add(id));
+        if (savingIds.length) renderScheduleAdmin();
         const savedPosts = [];
-        for (const time of times) {
-          const id = schedulePostId(date, time);
+        for (const time of targetTimes) {
+          const id = wasEditing ? editingId : schedulePostId(date, time);
           deletedSlots.delete(scheduleSlotKey({ scheduleDate: date, scheduleTime: time }));
           const result = await apiPost({
             type: "schedulePostSave",
@@ -3784,13 +5075,15 @@
             category: "일정 안내",
             title: `${date} ${time} 소개팅 안내`,
             content,
-            imageUrl: DASHBOARD_FIELD_IMAGES[0],
+            imageUrl: primaryImageUrl,
+            imageFile: primaryImageFile,
             scheduleDate: date,
             scheduleTime: time,
             meetingMode,
             ageRange,
             address,
             mapImageUrl,
+            mapImageUrls,
             mapImageFiles,
             active
           });
@@ -3804,10 +5097,15 @@
         }
         editingScheduleId = "";
         scheduleFormSubmitButtonText("생성");
+        scheduleMakerTitleText("일정 안내 생성");
         await loadAdminSchedulePosts();
-        showToast(`${date} 일정 안내 ${times.length}개 ${wasEditing ? "수정" : "저장"}됨`);
+        showToast(`${date} 일정 안내 ${targetTimes.length}개 ${wasEditing ? "수정" : "저장"}됨`);
       } catch (error) {
         showToast(`저장 실패: ${error.message}`);
+      } finally {
+        savingIds.forEach((id) => savingScheduleIds.delete(id));
+        if (savingIds.length) renderScheduleAdmin();
+        setScheduleFormSubmitting(false, editingScheduleId ? "수정" : "생성");
       }
     }
 
@@ -4064,6 +5362,18 @@
       return [{ name: "첨부 파일", url: raw, mimeType: "", size: 0 }];
     }
 
+    function dashboardBoardAttachmentPreviewUrl(file) {
+      const url = String(file?.url || "").trim();
+      if (!url) return "";
+      const mimeType = String(file?.mimeType || "").toLowerCase();
+      const name = String(file?.name || "").toLowerCase();
+      const isImage = mimeType.startsWith("image/") || /\.(png|jpe?g|gif|webp|bmp|avif)(?:[?#].*)?$/i.test(url) || /\.(png|jpe?g|gif|webp|bmp|avif)$/i.test(name);
+      if (!isImage) return "";
+      const driveMatch = url.match(/drive\.google\.com\/file\/d\/([^/]+)/) || url.match(/[?&]id=([^&]+)/);
+      if (driveMatch) return `https://drive.google.com/thumbnail?id=${encodeURIComponent(driveMatch[1])}&sz=w480`;
+      return url;
+    }
+
     function dashboardBoardMessageTime(message) {
       const time = Number(message?.updatedAt || message?.createdAt || 0);
       return time ? new Date(time).toLocaleString("ko-KR") : "";
@@ -4086,15 +5396,20 @@
     function dashboardBoardAttachmentsHtml(attachments) {
       const files = normalizeDashboardBoardAttachments(attachments);
       if (!files.length) return "";
-      const links = files.map((file, index) => `
-        <li><a href="${htmlAttr(file.url)}" target="_blank" rel="noopener">${htmlAttr(file.name || `첨부 파일 ${index + 1}`)}</a></li>
-      `).join("");
+      const previews = files.map((file, index) => {
+        const previewUrl = dashboardBoardAttachmentPreviewUrl(file);
+        const name = file.name || `첨부 파일 ${index + 1}`;
+        const preview = previewUrl
+          ? `<a class="dashboard-board-attachment-thumb" href="${htmlAttr(file.url)}" target="_blank" rel="noopener" title="${htmlAttr(name)} 원본 보기"><img src="${htmlAttr(previewUrl)}" alt="${htmlAttr(name)}" loading="lazy"></a>`
+          : `<a class="dashboard-board-attachment-file" href="${htmlAttr(file.url)}" target="_blank" rel="noopener" title="${htmlAttr(name)} 원본 보기">원본 보기</a>`;
+        return `<div class="dashboard-board-attachment-preview"><span class="dashboard-board-attachment-name" title="${htmlAttr(name)}">${htmlAttr(name)}</span>${preview}</div>`;
+      }).join("");
       return `
         <div class="dashboard-board-message is-original">
           <div class="dashboard-board-message-head">
-            <span class="dashboard-board-message-title">첨부 파일</span>
+            <span class="dashboard-board-message-title">첨부 파일 ${htmlAttr(files.length)}개</span>
           </div>
-          <ul class="dashboard-board-attachments">${links}</ul>
+          <div class="dashboard-board-attachment-grid">${previews}</div>
         </div>
       `;
     }
@@ -4135,6 +5450,7 @@
       const adminThread = replies.map((message, index) => dashboardBoardReplyHtml(message, index)).join("");
       const latestReply = replies.length ? replies[replies.length - 1].text : "";
       const saveLabel = replies.length ? "답변 수정" : "답변 저장";
+      const attachmentBadge = attachments.length ? `<span class="dashboard-board-attachment-badge">첨부 ${htmlAttr(attachments.length)}개</span>` : "";
       return `
         <article class="dashboard-item dashboard-board-card${isOpen ? " is-open" : ""}" data-dashboard-item="${htmlAttr(id)}" data-dashboard-board-card="${htmlAttr(id)}">
           <button class="dashboard-board-toggle" type="button" data-dashboard-board-toggle="${htmlAttr(id)}" aria-expanded="${isOpen ? "true" : "false"}">
@@ -4142,6 +5458,7 @@
               <span class="dashboard-title-row"><span class="dashboard-episode-badge">${htmlAttr(number)}</span><strong>${htmlAttr(authorTitle)}</strong></span>
               <span class="dashboard-meta">${htmlAttr([category, createdAt].filter(Boolean).join(" · "))}</span>
               <span class="dashboard-board-body">${htmlAttr(preview)}</span>
+              ${attachmentBadge}
             </span>
             <span class="dashboard-board-status ${statusClass}">${htmlAttr(status)}</span>
           </button>
@@ -4225,6 +5542,60 @@
       return time ? new Date(time).toLocaleString("ko-KR", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }) : "";
     }
 
+    function dashboardApplicationTitleTags(title) {
+      return [...String(title || "").matchAll(/\[([^\]]+)\]/g)].map((match) => match[1].trim()).filter(Boolean);
+    }
+
+    function dashboardApplicationBaseTitle(title) {
+      return String(title || "").replace(/^(?:\[[^\]]+\]\s*)+/, "").trim();
+    }
+
+    function dashboardApplicationLayerLabel(item, baseTitle) {
+      const tag = dashboardApplicationTitleTags(item?.eventTitle).find((value) =>
+        !value.includes("신청") && !value.includes(":") && !/세/.test(value)
+      );
+      if (tag) return tag;
+      return String(baseTitle || "").includes("원하는 조건에 맞는 이상형") ? "맞춤" : "";
+    }
+
+    function dashboardCompositionLabel(value) {
+      const text = String(value || "").trim();
+      const match = text.match(/^(\d+)\s*:\s*(\d+)$/);
+      if (!match) return text;
+      return `♂ ${match[1]}  ♀ ${match[2]}`;
+    }
+
+    function dashboardCompositionBadgeHtml(value) {
+      const text = String(value || "").trim();
+      const match = text.match(/^(\d+)\s*:\s*(\d+)$/);
+      if (!match) return htmlAttr(dashboardCompositionLabel(text));
+      return `
+        <span class="composition-choice-badges" aria-hidden="true">
+          <span class="composition-gender-badge is-male">${iconMale}<b>${htmlAttr(match[1])}</b></span>
+          <span class="composition-gender-badge is-female">${iconFemale}<b>${htmlAttr(match[2])}</b></span>
+        </span>
+      `;
+    }
+
+    function dashboardApplicationBadges(item) {
+      const tags = dashboardApplicationTitleTags(item?.eventTitle);
+      const composition = String(item?.selectedComposition || tags.find((tag) => /:/.test(tag)) || "").trim();
+      const ageRange = normalizeAgeRangeText(item?.selectedAgeRange || tags.find((tag) => /세/.test(tag)) || "");
+      const weekdays = String(item?.eventDate || "").trim();
+      const badges = [];
+      if (composition) badges.push(`<span class="dashboard-application-badge is-composition" aria-label="선택 인원 ${htmlAttr(composition)}">${dashboardCompositionBadgeHtml(composition)}</span>`);
+      if (ageRange) badges.push(`<span class="dashboard-application-badge is-female">${htmlAttr(ageRange)}</span>`);
+      if (weekdays) badges.push(`<span class="dashboard-application-badge">${htmlAttr(weekdays)}</span>`);
+      return badges.length ? `<div class="dashboard-application-badges">${badges.join("")}</div>` : "";
+    }
+
+    function dashboardApplicationTitleHtml(item) {
+      const baseTitle = dashboardApplicationBaseTitle(item?.eventTitle);
+      const layerLabel = dashboardApplicationLayerLabel(item, baseTitle);
+      if (!layerLabel) return htmlAttr(baseTitle || item?.eventTitle || "신청");
+      return `<span class="dashboard-application-title-tag">[${htmlAttr(layerLabel)}]</span> ${htmlAttr(baseTitle || item?.eventTitle || "신청")}`;
+    }
+
     function dashboardApplicationStepsHtml(id, status, itemIndex) {
       const steps = ["접수", "확인", "승인"];
       const activeIndex = Math.max(0, steps.indexOf(status));
@@ -4238,26 +5609,24 @@
     function dashboardApplicationCardHtml(item, fallbackTitle, index) {
       const id = dashboardItemId(item) || [item?.submittedAt || "", item?.phone || "", item?.eventTitle || ""].join("|");
       const status = String(item?.status || "접수");
-      const title = [
-        item?.gender ? `${item.gender} 신청` : "신청",
-        item?.applicationType ? `[${item.applicationType}]` : "",
-        item?.eventTitle || fallbackTitle
-      ].filter(Boolean).join(" ");
+      const title = dashboardApplicationTitleHtml(item);
       const meta = [
         dashboardApplicationTime(item?.submittedAt),
         item?.name,
         item?.phone
       ].filter(Boolean).join(" · ");
-      const details = [
-        item?.eventDate,
-        item?.selectedAgeRange,
-        item?.selectedRegions || item?.place,
-        item?.price
-      ].filter(Boolean).join(" · ");
+      const details = [item?.selectedRegions || item?.place, item?.price].filter(Boolean).join(" · ");
+      const badges = dashboardApplicationBadges(item);
       return `
         <article class="dashboard-item dashboard-application-card" data-dashboard-item="${htmlAttr(id)}" data-dashboard-application-row="${htmlAttr(item?.rowNumber || "")}" data-dashboard-application-index="${htmlAttr(index)}">
-          <span class="dashboard-title-row"><strong>${htmlAttr(title)}</strong><span class="dashboard-board-status ${dashboardApplicationStatusClass(status)}">${htmlAttr(status)}</span></span>
-          ${meta ? `<span class="dashboard-meta">${htmlAttr(meta)}</span>` : ""}
+          <div class="dashboard-application-head">
+            <span class="dashboard-board-status ${dashboardApplicationStatusClass(status)}">${htmlAttr(status)}</span>
+            <span class="dashboard-application-side">
+              ${meta ? `<span class="dashboard-meta">${htmlAttr(meta)}</span>` : ""}
+            </span>
+          </div>
+          <h3 class="dashboard-application-title">${title}</h3>
+          ${badges}
           ${details ? `<p>${htmlAttr(details)}</p>` : ""}
           ${item?.message ? `<p>${htmlAttr(String(item.message)).slice(0, 180)}</p>` : ""}
           ${dashboardApplicationStepsHtml(id, status, index)}
@@ -4698,15 +6067,17 @@
         category: "일정 안내",
         title: post.title || `${post.scheduleDate || ""} ${post.scheduleTime || ""} 소개팅 안내`,
         content: post.content || "자세한 사항은 개별적으로 문자 안내드릴 예정입니다.",
-        imageUrl: post.imageUrl || DASHBOARD_FIELD_IMAGES[0],
+        imageUrl: schedulePrimaryImageUrl(post),
+        imageFile: post.imageFile || null,
         headline: false,
         active: post.active !== false,
         scheduleDate: dashboardDateInputValue(post.scheduleDate || ""),
         scheduleTime: dashboardTimeInputValue(post.scheduleTime, post.hour || ""),
         meetingMode: post.meetingMode || "1:1",
-        ageRange: post.ageRange || "27-36세",
+        ageRange: normalizeAgeRangeText(post.ageRange || "27-36세") || "27 - 36세",
         address: normalizeScheduleAddress(post.address) || "부산 부산진구 서전로 8번길 27",
-        mapImageUrl: (Array.isArray(post.mapImageUrls) && post.mapImageUrls.length ? post.mapImageUrls : [post.mapImageUrl]).filter(Boolean).join("\n")
+        mapImageUrl: scheduleImageUrlList(post.mapImageUrls?.length ? post.mapImageUrls : post.mapImageUrl).join("\n"),
+        mapImageFiles: Array.isArray(post.mapImageFiles) ? post.mapImageFiles.filter(Boolean).slice(0, 5) : []
       };
     }
 
@@ -5447,7 +6818,7 @@
       }
     });
     function setAdminPanel(name) {
-      const panelNames = ["hero", "schedule", "events", "events2", "clover", "field", "match", "counsel", "application", "board"];
+      const panelNames = ["hero", "schedule", "events", "events2", "clover", "field", "match", "counsel", "memo", "application", "board"];
       const panelName = panelNames.includes(name) ? name : "schedule";
       document.querySelectorAll("[data-admin-panel]").forEach((panel) => {
         panel.hidden = panel.dataset.adminPanel !== panelName;
@@ -5465,6 +6836,7 @@
       if (panelName === "hero") renderHeroAdmin();
       else if (panelName === "schedule") renderScheduleAdmin();
       else if (panelName === "events" || panelName === "events2") render();
+      else if (panelName === "memo") loadMemoAdmin();
       else loadContentDashboards(panelName);
     }
 
@@ -5482,9 +6854,12 @@
     }
 
     function readAdminActivePanel() {
+      const allowed = ["hero", "schedule", "events", "events2", "clover", "field", "match", "counsel", "memo", "application", "board"];
+      const hashPanel = String(location.hash || "").replace("#", "");
+      if (allowed.includes(hashPanel)) return hashPanel;
       try {
         const saved = localStorage.getItem(ADMIN_ACTIVE_PANEL_KEY);
-        return ["hero", "schedule", "events", "events2", "clover", "field", "match", "counsel", "application", "board"].includes(saved) ? saved : "schedule";
+        return allowed.includes(saved) ? saved : "schedule";
       } catch {
         return "schedule";
       }
@@ -5494,13 +6869,63 @@
       button.addEventListener("click", () => {
         const label = button.childNodes[0]?.textContent?.trim() || "메뉴";
         if (button.classList.contains("is-active")) {
-          clearAdminPanel();
-          showToast(`${label} 레이어를 해제했습니다.`);
+          setAdminPanel(button.dataset.nav);
+          showToast(`${label} 화면입니다.`);
           return;
         }
         setAdminPanel(button.dataset.nav);
         showToast(`${label} 화면입니다.`);
       });
+    });
+
+    document.querySelector("[data-memo-new]")?.addEventListener("click", () => {
+      moveMemoFormToDefault();
+      fillMemoForm();
+      document.querySelector("[data-memo-form]")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    document.querySelector("[data-memo-clear]")?.addEventListener("click", () => fillMemoForm());
+    document.querySelector("[data-memo-form-close]")?.addEventListener("click", () => closeMemoForm());
+    document.querySelector("[data-memo-import]")?.addEventListener("click", async () => {
+      if (!(dashboardData.application || []).length) await loadContentDashboards("application");
+      importMemoParticipantsFromApplications();
+    });
+    document.querySelector("[data-memo-refresh]")?.addEventListener("click", () => loadMemoAdmin());
+    document.querySelector("[data-memo-form]")?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      saveMemoRoundFromForm(event.currentTarget);
+    });
+    document.querySelector("[data-memo-results]")?.addEventListener("click", (event) => {
+      if (event.target.closest("[data-memo-results-close]")) closeMemoResults();
+    });
+    document.querySelector("[data-memo-round-list]")?.addEventListener("click", (event) => {
+      const toggle = event.target.closest("[data-memo-toggle]");
+      if (toggle) {
+        toggleMemoRound(toggle.dataset.memoToggle);
+        return;
+      }
+      const edit = event.target.closest("[data-memo-edit]");
+      if (edit) {
+        const round = memoRounds.find((item) => item.id === edit.dataset.memoEdit);
+        if (round) {
+          fillMemoForm(round);
+          moveMemoFormAfterRound(round.id);
+          document.querySelector("[data-memo-form]")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }
+        return;
+      }
+      const view = event.target.closest("[data-memo-view]");
+      if (view) {
+        renderMemoResults(view.dataset.memoView);
+        return;
+      }
+      const remove = event.target.closest("[data-memo-delete]");
+      if (remove) {
+        deleteMemoRound(remove.dataset.memoDelete);
+        return;
+      }
+      const card = event.target.closest("[data-memo-round]");
+      const results = document.querySelector("[data-memo-results]");
+      if (card?.dataset.memoRound && results?.dataset.roundId === card.dataset.memoRound) closeMemoResults();
     });
 
     scheduleMaker?.addEventListener("submit", (event) => {
@@ -5527,6 +6952,11 @@
       if (!deleteButton) {
         const card = event.target.closest("[data-admin-schedule-id]");
         if (!card) return;
+        if (String(editingScheduleId) === String(card.dataset.adminScheduleId)) {
+          resetScheduleMaker();
+          showToast("일정 안내 레이어를 해제했습니다.");
+          return;
+        }
         const post = dashboardSchedulePosts().find((item) => String(item.id) === card.dataset.adminScheduleId);
         if (!post) return;
         fillScheduleMaker(post);
@@ -5651,6 +7081,7 @@
       }
       if (event.key === EVENT_ACTIVE_OVERRIDE_KEY) render();
       if (event.key === ADMIN_SCHEDULE_POSTS_KEY || event.key === ADMIN_SCHEDULE_BACKUP_KEY || event.key === ADMIN_SCHEDULE_DELETED_KEY) renderScheduleAdmin();
+      if ([ADMIN_MEMO_ROUNDS_KEY, ADMIN_MEMO_SUBMISSIONS_KEY, ADMIN_MEMO_STATUS_OVERRIDE_KEY, ADMIN_MEMO_DELETED_KEY].includes(event.key)) loadMemoAdmin();
       if (event.key === ADMIN_HERO_CACHE_KEY) {
         heroSlides = readAdminHeroCache();
         renderHeroAdmin();
@@ -5665,7 +7096,10 @@
     loadEvents();
     loadHeroAdmin();
     loadAdminSchedulePosts();
-    if (!["clover", "field", "match", "counsel", "application", "board"].includes(initialAdminPanel)) {
+    if (initialAdminPanel === "memo") {
+      loadMemoAdmin();
+    }
+    if (!["clover", "field", "match", "counsel", "memo", "application", "board"].includes(initialAdminPanel)) {
       loadContentDashboards();
     }
   </script>
