@@ -363,15 +363,18 @@
       border-radius: 50%;
       background: transparent;
       color: #00c934;
-      font-size: 20px;
-      line-height: 1;
     }
     .memo-rank-handle::before {
-      content: "♥";
+      content: "";
       position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
+      left: 50%;
+      top: 50%;
+      width: 19px;
+      height: 17px;
+      background: currentColor;
+      transform: translate(-50%, -50%);
+      -webkit-mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 22' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 21.1 10.55 19.78C5.4 15.12 2 12.04 2 8.25 2 5.17 4.42 2.75 7.5 2.75c1.74 0 3.41.81 4.5 2.08a5.98 5.98 0 0 1 4.5-2.08c3.08 0 5.5 2.42 5.5 5.5 0 3.79-3.4 6.87-8.55 11.54L12 21.1Z'/%3E%3C/svg%3E") center / contain no-repeat;
+      mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 22' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 21.1 10.55 19.78C5.4 15.12 2 12.04 2 8.25 2 5.17 4.42 2.75 7.5 2.75c1.74 0 3.41.81 4.5 2.08a5.98 5.98 0 0 1 4.5-2.08c3.08 0 5.5 2.42 5.5 5.5 0 3.79-3.4 6.87-8.55 11.54L12 21.1Z'/%3E%3C/svg%3E") center / contain no-repeat;
     }
     .memo-rank-handle:not(.is-on) {
       background: transparent;
@@ -420,7 +423,8 @@
     .memo-inline-note textarea:focus {
       box-shadow: inset 0.28rem 0.28rem 0.64rem rgba(148, 163, 184, 0.24), inset -0.24rem -0.24rem 0.58rem rgba(255, 255, 255, 0.82), 0 0 0 2px rgba(0, 240, 64, 0.42);
     }
-    .memo-submit {
+    .memo-submit,
+    .memo-final-open {
       position: sticky;
       bottom: 12px;
       display: inline-flex;
@@ -428,12 +432,65 @@
       justify-content: center;
       gap: 0.45rem;
       width: 100%;
-      min-height: 54px;
-      border-radius: 16px;
-      background: #eef1f5;
+      min-height: 3.75rem;
+      padding: 0.72rem 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.24);
+      border-radius: 12px;
+      background-color: #eef1f5;
+      background: linear-gradient(180deg, #ffffff 0%, #eef1f5 100%);
+      color: #07150b;
+      font-size: 0.95rem;
+      font-weight: 950;
+      box-shadow: 0 0.45rem 0.8rem rgba(15, 23, 42, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(148, 163, 184, 0.18);
+    }
+    .memo-workspace.is-final .memo-submit {
+      margin-top: 24px;
+      margin-bottom: 24px;
+    }
+    .memo-final-guide {
+      display: grid;
+      gap: 0.65rem;
+      margin-top: 0;
+      padding: 1rem;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 1.15rem;
+      background: #fff;
+      box-shadow: 0 0.42rem 1.05rem rgba(15, 23, 42, 0.045);
+    }
+    .memo-final-guide-title {
+      margin: 0;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
       color: #101418;
+      font-size: 0.92rem;
       font-weight: 1000;
-      box-shadow: 0.32rem 0.32rem 0.7rem rgba(148, 163, 184, 0.32), -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.85);
+      line-height: 1.2;
+    }
+    .memo-final-guide-list {
+      display: grid;
+      gap: 0.42rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .memo-final-guide-list li {
+      position: relative;
+      padding-left: 0.72rem;
+      color: #667085;
+      font-size: 0.78rem;
+      font-weight: 700;
+      line-height: 1.5;
+      word-break: keep-all;
+    }
+    .memo-final-guide-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.58em;
+      width: 0.28rem;
+      height: 0.28rem;
+      border-radius: 999px;
+      background: #00e83a;
     }
     .memo-submit small {
       display: block;
@@ -478,16 +535,9 @@
       margin-bottom: -2px;
     }
     .memo-final-open {
-      width: 100%;
-      min-height: 54px;
-      padding: 0 1rem;
-      border-radius: 16px;
-      background: #edf0f5;
-      color: #101418;
-      font-size: 0.94rem;
-      font-weight: 1000;
+      position: static;
+      bottom: auto;
       white-space: nowrap;
-      box-shadow: 0.32rem 0.32rem 0.7rem rgba(148, 163, 184, 0.32), -0.28rem -0.28rem 0.6rem rgba(255, 255, 255, 0.85);
     }
     .memo-logout {
       display: inline-flex;
@@ -548,22 +598,22 @@
     .memo-final-slots {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 8px;
+      gap: 10px;
     }
     .memo-final-slot {
       display: grid;
       place-items: center;
-      min-height: 58px;
+      align-content: center;
+      gap: 2px;
+      min-height: 62px;
       padding: 0 0.45rem;
       border: 1px solid rgba(148, 163, 184, 0.32);
       border-radius: 14px;
       background: rgba(255, 255, 255, 0.64);
       color: #101418;
-      font-size: 0.68rem;
       font-weight: 950;
       line-height: 1.2;
       text-align: center;
-      white-space: nowrap;
       box-shadow: inset 0.18rem 0.18rem 0.38rem rgba(148, 163, 184, 0.16), inset -0.14rem -0.14rem 0.32rem rgba(255, 255, 255, 0.7);
     }
     .memo-final-slot.is-filled {
@@ -575,63 +625,107 @@
     .memo-final-slot:empty::before {
       content: "";
     }
+    .memo-final-slot-main,
+    .memo-final-slot-sub {
+      display: block;
+      white-space: nowrap;
+    }
+    .memo-final-slot-main {
+      color: #101418;
+      font-size: 0.86rem;
+      font-weight: 950;
+    }
+    .memo-final-slot-sub {
+      color: #008d28;
+      font-size: 0.68rem;
+      font-weight: 900;
+    }
     .memo-final-choice {
       display: grid;
-      grid-template-columns: minmax(0, max-content) 28px minmax(4.2rem, auto);
+      grid-template-columns: auto minmax(0, 1fr) auto;
       align-items: center;
       width: 100%;
       max-width: 100%;
-      gap: 8px;
+      gap: 0.75rem;
       min-height: 58px;
-      padding: 0 12px 0 16px;
-      border-radius: 16px;
-      background: #fff;
+      padding: 0.8rem;
+      border: 1px solid rgba(148, 163, 184, 0.24);
+      border-radius: 0.9rem;
+      background: linear-gradient(180deg, #ffffff 0%, #eef1f5 100%);
       color: #101418;
       font-size: 13px;
       font-weight: 950;
-      border: 1px solid rgba(15, 23, 42, .08);
-      box-shadow: 0 0.42rem 1.05rem rgba(15, 23, 42, 0.045);
-    }
-    .memo-final-choice span:first-child {
-      justify-self: start;
-      min-width: 0;
       text-align: left;
+      box-shadow: 0 0.28rem 0.55rem rgba(15, 23, 42, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.92), inset 0 -1px 0 rgba(148, 163, 184, 0.12);
+    }
+    .memo-final-choice:active {
+      transform: translateY(-4px);
+      box-shadow: inset 0.42rem 0.42rem 0.9rem rgba(15, 23, 42, 0.16), inset -1px -1px 0 rgba(255, 255, 255, 0.8);
+    }
+    .memo-final-choice-check {
+      position: relative;
+      width: 1.08rem;
+      height: 1.08rem;
+      border: 1.5px solid #c8d0dc;
+      border-radius: 999px;
+      background: transparent;
+      box-shadow: none;
+      flex: 0 0 auto;
+    }
+    .memo-final-choice-check::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 48%;
+      width: 0.32rem;
+      height: 0.58rem;
+      border: solid #020703;
+      border-width: 0 2.6px 2.6px 0;
+      opacity: 0;
+      transform: translate(calc(-50% + 0.5px), calc(-50% - 2px)) rotate(42deg) scale(0.82);
+    }
+    .memo-final-choice-label {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
       white-space: nowrap;
     }
     .memo-final-heart {
-      justify-self: start;
+      justify-self: end;
+      display: inline-block;
+      width: 19px;
+      height: 17px;
       color: #aab2bd;
-      font-size: 18px;
-      line-height: 1;
       opacity: 0.34;
       pointer-events: none;
+      background: currentColor;
+      -webkit-mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 22' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 21.1 10.55 19.78C5.4 15.12 2 12.04 2 8.25 2 5.17 4.42 2.75 7.5 2.75c1.74 0 3.41.81 4.5 2.08a5.98 5.98 0 0 1 4.5-2.08c3.08 0 5.5 2.42 5.5 5.5 0 3.79-3.4 6.87-8.55 11.54L12 21.1Z'/%3E%3C/svg%3E") center / contain no-repeat;
+      mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 22' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 21.1 10.55 19.78C5.4 15.12 2 12.04 2 8.25 2 5.17 4.42 2.75 7.5 2.75c1.74 0 3.41.81 4.5 2.08a5.98 5.98 0 0 1 4.5-2.08c3.08 0 5.5 2.42 5.5 5.5 0 3.79-3.4 6.87-8.55 11.54L12 21.1Z'/%3E%3C/svg%3E") center / contain no-repeat;
     }
     .memo-final-heart.is-on {
       color: #00c934;
       opacity: 1;
     }
     .memo-final-choice-state {
-      justify-self: end;
-      min-width: 4.2rem;
-      padding: 0.42rem 0.62rem;
-      border: 1px solid rgba(148, 163, 184, 0.32);
-      border-radius: 999px;
-      background: #f3f5f8;
-      color: #667085;
-      font-size: 0.78rem;
-      line-height: 1;
-      text-align: center;
-      white-space: nowrap;
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
     }
     .memo-final-choice.is-selected {
-      background: linear-gradient(135deg, #ffffff 0%, #f8fbf9 100%);
-      border-color: rgba(0, 201, 52, 0.38);
-      box-shadow: 0 0.42rem 1.05rem rgba(15, 23, 42, 0.045);
-    }
-    .memo-final-choice.is-selected .memo-final-choice-state {
-      border-color: rgba(0, 201, 52, 0.36);
-      background: rgba(0, 201, 52, 0.1);
+      border-color: #00f040;
       color: #008d28;
+      background: rgba(0, 240, 64, 0.08);
+      box-shadow: inset 0.28rem 0.28rem 0.62rem rgba(0, 240, 64, 0.1), inset -1px -1px 0 rgba(255, 255, 255, 0.62);
+    }
+    .memo-final-choice.is-selected .memo-final-choice-check {
+      border-color: #00ff40;
+      background: #00ff40;
+    }
+    .memo-final-choice.is-selected .memo-final-choice-check::after {
+      opacity: 1;
     }
     .memo-final-choice.is-disabled:not(.is-selected) {
       cursor: not-allowed;
@@ -655,14 +749,14 @@
       display: grid;
       place-items: center;
       gap: 0.75rem;
-      width: min(19rem, 100%);
+      width: min(17rem, 100%);
       min-height: 9.5rem;
       padding: 1.6rem 1.4rem;
       border-radius: 18px;
       background: #eef1f5;
       color: #101418;
       text-align: center;
-      box-shadow: 0.9rem 0.9rem 1.8rem rgba(15, 23, 42, 0.22), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.7);
+      box-shadow: 0 0.9rem 1.8rem rgba(15, 23, 42, 0.22);
     }
     .memo-complete-title {
       margin: 0;
@@ -695,8 +789,8 @@
       box-shadow: 0.24rem 0.24rem 0.55rem rgba(148, 163, 184, 0.28), -0.2rem -0.2rem 0.48rem rgba(255, 255, 255, 0.82);
     }
     .memo-complete-btn.is-primary {
-      color: #008d28;
-      border: 1px solid rgba(0, 201, 52, 0.32);
+      color: #101418;
+      border: 0;
     }
     .memo-complete-btn.is-secondary {
       color: #667085;
@@ -747,8 +841,8 @@
       .memo-rank-item.is-active { background: #202020; }
       .memo-inline-note { border-color: #333; background: #202020; }
       .memo-logout { border-color: rgba(255, 71, 90, 0.38); background: rgba(255, 71, 90, 0.05); color: #ff5c6d; box-shadow: none; }
-      .memo-final-choice { border-color: #333; background: #202020; color: #f7f9fb; }
-      .memo-final-choice.is-selected { border-color: #333; background: #202020; }
+      .memo-final-choice { border-color: rgba(255, 255, 255, 0.08); background: #232323; color: #f7f9fb; box-shadow: 0 0.18rem 0.38rem rgba(0, 0, 0, 0.28); }
+      .memo-final-choice.is-selected { border-color: rgba(0, 240, 64, 0.48); background: #232323; color: #f7f9fb; box-shadow: 0 0 0 0.16rem rgba(0, 240, 64, 0.12), 0 0.18rem 0.38rem rgba(0, 0, 0, 0.28); }
     }
     :root[data-theme="light"] body,
     :root[data-theme="light"] .memo-top {
@@ -828,21 +922,22 @@
       color: #101418;
     }
     :root[data-theme="light"] .memo-final-open {
-      background: #eef1f5;
-      color: #101418;
-      box-shadow: 0.45rem 0.45rem 0.9rem rgba(148, 163, 184, 0.28), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9);
+      background-color: #eef1f5;
+      background: linear-gradient(180deg, #ffffff 0%, #eef1f5 100%);
+      color: #07150b;
+      box-shadow: 0 0.45rem 0.8rem rgba(15, 23, 42, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(148, 163, 184, 0.18);
     }
     :root[data-theme="light"] .memo-final-choice {
-      border-color: rgba(15, 23, 42, .08);
-      background: #fff;
+      border-color: rgba(148, 163, 184, 0.24);
+      background: linear-gradient(180deg, #ffffff 0%, #eef1f5 100%);
       color: #101418;
-      box-shadow: 0 0.42rem 1.05rem rgba(15, 23, 42, 0.045);
+      box-shadow: 0 0.28rem 0.55rem rgba(15, 23, 42, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.92), inset 0 -1px 0 rgba(148, 163, 184, 0.12);
     }
     :root[data-theme="light"] .memo-final-choice.is-selected {
-      border-color: rgba(15, 23, 42, .08);
-      background: linear-gradient(135deg, #ffffff 0%, #f8fbf9 100%);
-      color: #101418;
-      box-shadow: 0 0.42rem 1.05rem rgba(15, 23, 42, 0.045);
+      border-color: #00f040;
+      background: rgba(0, 240, 64, 0.08);
+      color: #008d28;
+      box-shadow: inset 0.28rem 0.28rem 0.62rem rgba(0, 240, 64, 0.1), inset -1px -1px 0 rgba(255, 255, 255, 0.62);
     }
     :root[data-theme="dark"] body,
     :root[data-theme="dark"] .memo-top {
@@ -962,33 +1057,41 @@
       color: #ff9aa3;
     }
     :root[data-theme="dark"] .memo-final-open {
-      background: #232323;
-      color: #f7f9fb;
-      box-shadow: 0.45rem 0.45rem 0.9rem rgba(0, 0, 0, 0.45), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.035);
+      background-color: #1e1e1e;
+      background: linear-gradient(180deg, #282828 0%, #1e1e1e 100%);
+      color: #ffffff;
+      box-shadow: 0 0.45rem 0.8rem rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(0, 0, 0, 0.36);
     }
     :root[data-theme="dark"] .memo-final-choice {
-      border-color: #333;
+      border-color: rgba(255, 255, 255, 0.08);
       background: #232323;
       color: #f7f9fb;
-      box-shadow: 0 0.42rem 1.05rem rgba(0, 0, 0, 0.22);
+      box-shadow: 0 0.18rem 0.38rem rgba(0, 0, 0, 0.28);
     }
     :root[data-theme="dark"] .memo-final-choice.is-selected {
-      border-color: #333;
+      border-color: rgba(0, 240, 64, 0.48);
       background: #232323;
       color: #f7f9fb;
-      box-shadow: 0 0.42rem 1.05rem rgba(0, 0, 0, 0.22);
+      box-shadow: 0 0 0 0.16rem rgba(0, 240, 64, 0.12), 0 0.18rem 0.38rem rgba(0, 0, 0, 0.28);
     }
     :root[data-theme="dark"] .memo-final-slot {
-      border-color: rgba(255, 255, 255, 0.12);
-      background: #1b1b1b;
+      border-color: rgba(255, 255, 255, 0.08);
+      background: #232323;
       color: #f7f9fb;
-      box-shadow: inset 0.18rem 0.18rem 0.38rem rgba(0, 0, 0, 0.42), inset -0.14rem -0.14rem 0.32rem rgba(255, 255, 255, 0.035);
+      box-shadow: 0 0.18rem 0.38rem rgba(0, 0, 0, 0.28);
     }
     :root[data-theme="dark"] .memo-final-slot.is-filled {
-      border-color: rgba(0, 240, 64, 0.28);
-      background: rgba(0, 240, 64, 0.1);
-      color: #00f040;
-      box-shadow: 0 0.38rem 0.9rem rgba(0, 240, 64, 0.06), inset 0 0 0 1px rgba(0, 240, 64, 0.1);
+      border-color: rgba(0, 240, 64, 0.48);
+      background: #232323;
+      color: #f7f9fb;
+      box-shadow: 0 0 0 0.16rem rgba(0, 240, 64, 0.12), 0 0.18rem 0.38rem rgba(0, 0, 0, 0.28);
+    }
+    :root[data-theme="dark"] .memo-final-slot-main {
+      color: #f7f9fb;
+    }
+    :root[data-theme="dark"] .memo-final-slot-sub {
+      color: #aeb6c2;
     }
     :root[data-theme="dark"] .memo-final-heart {
       color: #7f8996;
@@ -996,15 +1099,17 @@
     :root[data-theme="dark"] .memo-final-heart.is-on {
       color: #00f040;
     }
-    :root[data-theme="dark"] .memo-final-choice-state {
-      border-color: rgba(255, 255, 255, 0.14);
-      background: #1b1b1b;
-      color: #aeb6c2;
+    :root[data-theme="dark"] .memo-final-guide {
+      border-color: rgba(255, 255, 255, 0.08);
+      background: #232323;
+      box-shadow: 0 0.18rem 0.38rem rgba(0, 0, 0, 0.28);
     }
-    :root[data-theme="dark"] .memo-final-choice.is-selected .memo-final-choice-state {
-      border-color: rgba(0, 240, 64, 0.28);
-      background: rgba(0, 240, 64, 0.09);
-      color: #00f040;
+    :root[data-theme="dark"] .memo-final-guide-title {
+      color: #f7f9fb;
+      border-bottom-color: #303030;
+    }
+    :root[data-theme="dark"] .memo-final-guide-list li {
+      color: #c9ced8;
     }
     :root[data-theme="dark"] .memo-complete-modal {
       background: rgba(0, 0, 0, 0.52);
@@ -1012,7 +1117,7 @@
     :root[data-theme="dark"] .memo-complete-dialog {
       background: #232323;
       color: #f7f9fb;
-      box-shadow: 0.9rem 0.9rem 1.8rem rgba(0, 0, 0, 0.52), -0.22rem -0.22rem 0.55rem rgba(255, 255, 255, 0.04);
+      box-shadow: 0 0.9rem 1.8rem rgba(0, 0, 0, 0.52);
     }
     :root[data-theme="dark"] .memo-complete-sub {
       color: #aeb6c2;
@@ -1023,8 +1128,8 @@
       box-shadow: 0.24rem 0.24rem 0.55rem rgba(0, 0, 0, 0.42), -0.18rem -0.18rem 0.42rem rgba(255, 255, 255, 0.04);
     }
     :root[data-theme="dark"] .memo-complete-btn.is-primary {
-      color: #00f040;
-      border-color: rgba(0, 240, 64, 0.28);
+      color: #f7f9fb;
+      border: 0;
     }
     :root[data-theme="dark"] .memo-complete-btn.is-secondary {
       color: #aeb6c2;
@@ -1034,7 +1139,13 @@
       background: rgba(255, 255, 255, 0.08);
       color: #aeb6c2;
     }
-    :root[data-theme="dark"] .memo-submit,
+    :root[data-theme="dark"] .memo-submit {
+      border-color: rgba(255, 255, 255, 0.035);
+      background-color: #1e1e1e;
+      background: linear-gradient(180deg, #282828 0%, #1e1e1e 100%);
+      color: #ffffff;
+      box-shadow: 0 0.45rem 0.8rem rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(0, 0, 0, 0.36);
+    }
     :root[data-theme="dark"] .memo-secondary {
       background: #232323;
       color: #f7f9fb;
@@ -1067,7 +1178,7 @@
     <div data-memo-root></div>
   </main>
   <script>
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbyGNEez_HO0AAV51fBxFQtGXi-G2sHT3dQoO33v-3SGXmvbEUQKNE5oeArJGY89z4YJ/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbwwHS6_BjaGBuYrAs8AbHjuj2ETEPr4ULts2qoZzBcSowjWYOpxGvGdebdsQSZmFuE/exec";
     const MEMO_THEME_KEY = "cloverTheme";
     const MEMO_SESSION_KEY = "clover-memo-session:v1";
     const MEMO_VIEW_KEY = "clover-memo-view:v1";
@@ -1244,7 +1355,9 @@
     }
 
     function initMemoHistory() {
-      replaceMemoHistory(readMemoSession() ? readMemoView() : "notes");
+      const view = readMemoSession() ? readMemoView() : "notes";
+      replaceMemoHistory("notes");
+      if (view === "final") pushMemoHistory("final");
     }
 
     function emptyMemoState() {
@@ -1291,6 +1404,13 @@
     function memoTargetLabel(target) {
       const genderLabel = target.gender === "female" ? "여성" : "남성";
       return `${genderLabel} ${Number(target.number) || ""}번 참가자`.trim();
+    }
+
+    function memoFinalSlotHtml(target) {
+      if (!target) return "";
+      const genderLabel = target.gender === "female" ? "여성" : "남성";
+      const numberLabel = `${genderLabel} ${Number(target.number) || ""}번`.trim();
+      return `<span class="memo-final-slot-main">${htmlAttr(numberLabel)}</span><span class="memo-final-slot-sub">참가자</span>`;
     }
 
     function memoParticipantLabelHtml(participant) {
@@ -1340,8 +1460,8 @@
       document.body.insertAdjacentHTML("beforeend", `
         <div class="memo-complete-modal" data-memo-complete-modal role="dialog" aria-modal="true" aria-labelledby="memoCompleteTitle">
           <div class="memo-complete-dialog">
-            <strong class="memo-complete-title" id="memoCompleteTitle">최종 선택을 완료하였습니다.</strong>
-            <span class="memo-complete-sub">확인하면 초기 화면으로 이동합니다.</span>
+            <strong class="memo-complete-title" id="memoCompleteTitle">완료하였습니다.</strong>
+            <span class="memo-complete-sub">확인하면 로그인 화면으로 이동합니다.</span>
             <button class="memo-complete-close" type="button" data-memo-complete-close aria-label="닫기">×</button>
             <span class="memo-complete-actions">
               <button class="memo-complete-btn is-primary" type="button" data-memo-complete-confirm>확인</button>
@@ -1485,17 +1605,19 @@
         const finalSlotHtml = Array.from({ length: maxFinalChoices }, (_, index) => {
           const targetId = finalChoiceIds[index];
           const target = orderedTargets.find((entry) => String(entry.id) === String(targetId));
-          return `<span class="memo-final-slot${target ? " is-filled" : ""}">${target ? htmlAttr(memoTargetLabel(target)) : ""}</span>`;
+          return `<span class="memo-final-slot${target ? " is-filled" : ""}">${memoFinalSlotHtml(target)}</span>`;
         }).join("");
         const finalChoiceHtml = orderedTargets.map((target) => `
           <button class="memo-final-choice${finalChoices.has(String(target.id)) ? " is-selected" : ""}${!finalChoices.has(String(target.id)) && finalChoices.size >= maxFinalChoices ? " is-disabled" : ""}" type="button" data-memo-final-choice="${htmlAttr(target.id)}">
-            <span>${htmlAttr(memoTargetLabel(target))}</span>
-            <span class="memo-final-heart${memoState.hearts[target.id] ? " is-on" : ""}" aria-hidden="true">♥</span>
+            <span class="memo-final-choice-check" aria-hidden="true"></span>
+            <span class="memo-final-choice-label">${htmlAttr(memoTargetLabel(target))}</span>
+            <span class="memo-final-heart${memoState.hearts[target.id] ? " is-on" : ""}" aria-hidden="true"></span>
             <span class="memo-final-choice-state">${finalChoices.has(String(target.id)) ? "선택됨" : "선택"}</span>
           </button>
         `).join("");
         root.innerHTML = `
           <div class="memo-top">
+            <button class="memo-back-btn" type="button" data-memo-back-notes aria-label="1페이지로 이동"></button>
             <div class="memo-brand-head">
               <span class="memo-brand-logo" aria-hidden="true"><img src="assets/clover-logo-v2.png" alt=""></span>
               <div class="memo-brand-copy">
@@ -1512,7 +1634,14 @@
           <section class="memo-workspace is-final">
             <div class="memo-final-slots">${finalSlotHtml}</div>
             <div class="memo-final-list">${finalChoiceHtml}</div>
-            <button class="memo-submit" type="button" data-memo-submit>제출 완료</button>
+            <button class="memo-submit" type="button" data-memo-submit>최종 선택 완료</button>
+            <section class="memo-final-guide" aria-labelledby="memoFinalGuideTitle">
+              <h2 class="memo-final-guide-title" id="memoFinalGuideTitle">최종 선택 안내</h2>
+              <ul class="memo-final-guide-list">
+                <li>0 ~ 3명 선택할 수 있습니다.</li>
+                <li>당일까지 수정 및 최종 선택 가능합니다.</li>
+              </ul>
+            </section>
             <button class="memo-logout" type="button" data-memo-logout>로그아웃</button>
             ${memoFooterMarkup()}
           </section>
@@ -1722,7 +1851,7 @@
       if (button.matches("[data-memo-back-notes]")) {
         writeMemoDraft();
         writeMemoView("notes");
-        pushMemoHistory("notes");
+        replaceMemoHistory("notes");
         scheduleMemoSave();
         renderMemoPage();
         return;
@@ -1751,12 +1880,12 @@
             if (!result.ok) throw new Error(result.error || "제출 실패");
             button.disabled = false;
             button.classList.remove("is-loading");
-            button.textContent = "제출 완료";
+            button.textContent = "최종 선택 완료";
           })
           .catch(() => {
             button.disabled = false;
             button.classList.remove("is-loading");
-            button.textContent = "제출 완료";
+            button.textContent = "최종 선택 완료";
             memoSetStatus("제출 실패");
           });
       }
@@ -1766,6 +1895,7 @@
       writeMemoDraft();
       const view = event.state?.memoView === "final" ? "final" : "notes";
       writeMemoView(view);
+      if (view === "notes") replaceMemoHistory("notes");
       renderMemoPage();
     });
 

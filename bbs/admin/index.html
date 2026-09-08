@@ -57,9 +57,11 @@
       box-shadow: inset 5px 5px 11px rgba(0,0,0,.58), inset -4px -4px 9px rgba(255,255,255,.055), 6px 8px 16px rgba(0,0,0,.32);
     }
     .brand-mark img {
+      display: block;
       width: 31px;
       height: 31px;
       object-fit: contain;
+      object-position: center;
       filter: brightness(0) invert(1) drop-shadow(0 1px 0 rgba(255,255,255,.18)) drop-shadow(0 5px 9px rgba(0,0,0,.58));
       opacity: .98;
     }
@@ -72,7 +74,7 @@
       letter-spacing: 0;
       text-shadow: 0 1px 0 rgba(255,255,255,.14), 0 7px 14px rgba(0,0,0,.5);
     }
-    .brand span {
+    .brand-copy span {
       display: block;
       margin-top: 5px;
       color: #d8dde3;
@@ -176,6 +178,7 @@
     .nav-btn[data-nav="memo"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M8 8h8M8 12h8M8 16h5' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); }
     .nav-btn[data-nav="application"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='6' y='3' width='12' height='18' rx='2' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M9 8h6M9 12h6M9 16h3' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); }
     .nav-btn[data-nav="board"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6h16v12H4z' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='m4 7 8 6 8-6' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+    .nav-btn[data-nav="menubar"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='3' y='5' width='18' height='14' rx='3' fill='none' stroke='black' stroke-width='2'/%3E%3Ccircle cx='8' cy='12' r='1.7' fill='black'/%3E%3Ccircle cx='12' cy='12' r='1.7' fill='black'/%3E%3Ccircle cx='16' cy='12' r='1.7' fill='black'/%3E%3C/svg%3E"); }
     .nav-btn.is-active { outline: 2px solid var(--accent); background: #1f2b22; color: #fff; }
     .nav-group {
       display: grid;
@@ -308,6 +311,73 @@
       min-height: 42px;
       padding: 0 22px;
       font-size: 15px;
+    }
+    .menubar-icon-settings {
+      display: grid;
+      gap: 10px;
+    }
+    .menubar-icon-toggle {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+      min-height: 58px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #181818;
+    }
+    .menubar-icon-toggle strong,
+    .menubar-icon-toggle small {
+      display: block;
+      line-height: 1.35;
+    }
+    .menubar-icon-toggle strong {
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 950;
+    }
+    .menubar-icon-toggle small {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+    }
+    .menubar-icon-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 950;
+    }
+    .menubar-icon-switch input {
+      width: 42px;
+      height: 24px;
+      appearance: none;
+      border: 1px solid #343434;
+      border-radius: 999px;
+      background: #252525;
+      box-shadow: inset 2px 2px 5px rgba(0,0,0,.35);
+      cursor: pointer;
+    }
+    .menubar-icon-switch input::before {
+      content: "";
+      display: block;
+      width: 18px;
+      height: 18px;
+      margin: 2px;
+      border-radius: 999px;
+      background: #9aa4b2;
+      transition: transform .16s ease, background .16s ease;
+    }
+    .menubar-icon-switch input:checked {
+      border-color: rgba(0, 255, 64, .55);
+      background: rgba(0, 255, 64, .16);
+    }
+    .menubar-icon-switch input:checked::before {
+      transform: translateX(18px);
+      background: var(--accent);
     }
     .hero-remote-form {
       display: grid;
@@ -1850,10 +1920,10 @@
     .memo-result-head h2 {
       margin: 0;
     }
-    .memo-result-board {
+    .memo-result-layer {
       display: grid;
       gap: 14px;
-      padding: 12px;
+      padding: 14px;
       border: 1px solid var(--line);
       border-radius: 12px;
       background: #181818;
@@ -1912,32 +1982,6 @@
       stroke-width: 2.6;
       filter: drop-shadow(0 0 4px rgba(0, 240, 64, .34));
     }
-    .memo-match-arrowhead {
-      position: absolute;
-      z-index: 2;
-      width: 0;
-      height: 0;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-    }
-    .memo-match-arrowhead.is-right {
-      border-top: 4px solid transparent;
-      border-bottom: 4px solid transparent;
-      border-left: 7px solid rgba(148, 163, 184, .95);
-    }
-    .memo-match-arrowhead.is-left {
-      border-top: 4px solid transparent;
-      border-bottom: 4px solid transparent;
-      border-right: 7px solid rgba(148, 163, 184, .95);
-    }
-    .memo-match-arrowhead.is-mutual.is-right {
-      border-left-color: #00f040;
-      filter: drop-shadow(0 0 4px rgba(0, 240, 64, .34));
-    }
-    .memo-match-arrowhead.is-mutual.is-left {
-      border-right-color: #00f040;
-      filter: drop-shadow(0 0 4px rgba(0, 240, 64, .34));
-    }
     .memo-match-startpoint {
       position: absolute;
       z-index: 2;
@@ -1959,9 +2003,8 @@
       align-items: start;
       gap: 10px;
       min-height: 40px;
-      padding: 10px;
       border: 1px solid rgba(0, 240, 64, .24);
-      border-radius: 10px;
+      border-radius: 12px;
       background: rgba(0, 240, 64, .06);
     }
     .memo-match-success-title {
@@ -1981,8 +2024,11 @@
       line-height: 1.35;
     }
     .memo-match-success-heart {
+      display: inline-block;
       color: #00f040;
+      font-size: 15px;
       font-weight: 950;
+      line-height: 1;
     }
     .memo-match-success-count {
       color: #00f040;
@@ -2304,9 +2350,13 @@
         <div class="dashboard-head">
           <h1>메모장</h1>
           <span class="dashboard-head-actions">
-            <button class="soft-btn" type="button" data-memo-import>신청 접수에서 12명 불러오기</button>
             <button class="soft-btn" type="button" data-memo-new>회차 생성</button>
-            <button class="soft-btn" type="button" data-memo-refresh>새로고침</button>
+            <button class="icon-btn" type="button" data-memo-refresh aria-label="새로고침" title="새로고침">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+                <path d="M21 3v6h-6" />
+              </svg>
+            </button>
           </span>
         </div>
         <div data-memo-form-anchor></div>
@@ -2339,6 +2389,43 @@
           <button class="soft-btn" type="button" data-dashboard-refresh>새로고침</button>
         </div>
         <div class="dashboard-list" data-dashboard-list="board"></div>
+      </section>
+      <section class="panel admin-panel dashboard-panel" data-admin-panel="menubar" hidden>
+        <div class="dashboard-head">
+          <h1>메뉴바 아이콘 설정</h1>
+        </div>
+        <div class="menubar-icon-settings" data-menubar-settings>
+          <label class="menubar-icon-toggle">
+            <span>
+              <strong>유튜브</strong>
+              <small>메뉴바 유튜브 아이콘 표시</small>
+            </span>
+            <span class="menubar-icon-switch">
+              <input type="checkbox" data-menubar-icon-setting="youtube" checked>
+              <span data-menubar-icon-state="youtube">ON</span>
+            </span>
+          </label>
+          <label class="menubar-icon-toggle">
+            <span>
+              <strong>인스타그램</strong>
+              <small>메뉴바 인스타그램 아이콘 표시</small>
+            </span>
+            <span class="menubar-icon-switch">
+              <input type="checkbox" data-menubar-icon-setting="instagram" checked>
+              <span data-menubar-icon-state="instagram">ON</span>
+            </span>
+          </label>
+          <label class="menubar-icon-toggle">
+            <span>
+              <strong>MBTI 궁합</strong>
+              <small>메뉴바 MBTI 아이콘 표시</small>
+            </span>
+            <span class="menubar-icon-switch">
+              <input type="checkbox" data-menubar-icon-setting="mbti" checked>
+              <span data-menubar-icon-state="mbti">ON</span>
+            </span>
+          </label>
+        </div>
       </section>
     </main>
 
@@ -2438,8 +2525,8 @@
           </div>
         </div>
         <div class="nav-group" data-nav-group="events">
-          <button class="nav-btn" type="button" data-nav="events">선택창 관리 <span class="count-pill" data-menu-count>0</span></button>
-          <div class="nav-submenu" aria-label="선택창 관리 하위 메뉴">
+          <button class="nav-btn" type="button" data-nav="events">선택창 관리1 <span class="count-pill" data-menu-count>0</span></button>
+          <div class="nav-submenu" aria-label="선택창 관리1 하위 메뉴">
             <section class="cards" aria-label="선택창 요약">
               <article class="metric"><span>전체 선택창</span><strong data-total>0</strong></article>
               <article class="metric"><span>노출 ON</span><strong data-on>0</strong></article>
@@ -2474,10 +2561,13 @@
         <button class="nav-btn" type="button" data-nav="field">현장 <span class="count-pill" data-dashboard-menu-count="field">0</span></button>
         <button class="nav-btn" type="button" data-nav="match">매칭결과 <span class="count-pill" data-dashboard-menu-count="match">0</span></button>
         <button class="nav-btn" type="button" data-nav="counsel">연애상담 <span class="count-pill" data-dashboard-menu-count="counsel">0</span></button>
-        <button class="nav-btn" type="button" data-nav="memo">메모장 <span class="count-pill" data-memo-menu-count>0</span></button>
         <div class="nav-divider" role="separator" aria-hidden="true"></div>
         <button class="nav-btn" type="button" data-nav="application">신청 접수 <span class="count-pill" data-dashboard-menu-count="application">0</span></button>
         <button class="nav-btn" type="button" data-nav="board">문의 하기 <span class="count-pill" data-dashboard-menu-count="board">0</span></button>
+        <div class="nav-divider" role="separator" aria-hidden="true"></div>
+        <button class="nav-btn" type="button" data-nav="memo">메모장 <span class="count-pill" data-memo-menu-count>0</span></button>
+        <div class="nav-divider" role="separator" aria-hidden="true"></div>
+        <button class="nav-btn" type="button" data-nav="menubar">메뉴바 아이콘 설정 <span class="count-pill">ON</span></button>
       </nav>
     </aside>
   </div>
@@ -2518,6 +2608,7 @@
     const ADMIN_MEMO_SUBMISSIONS_KEY = "clover-admin-memo-submissions:v1";
     const ADMIN_MEMO_STATUS_OVERRIDE_KEY = "clover-admin-memo-status-overrides:v1";
     const ADMIN_MEMO_DELETED_KEY = "clover-admin-memo-deleted:v1";
+    const MENU_BAR_ICON_SETTINGS_KEY = "clover-menu-bar-icon-settings:v1";
     const DASHBOARD_CONTENT_CACHE_KEY = "clover-admin-dashboard-content:v1";
     const DASHBOARD_DELETED_CACHE_KEY = "clover-admin-dashboard-deleted:v1";
     const DASHBOARD_IMAGE_FILE_MAX_SIZE = 200 * 1024 * 1024;
@@ -2800,6 +2891,63 @@
       toastEl.textContent = message;
       toastEl.classList.add("is-visible");
       toastTimer = window.setTimeout(() => toastEl.classList.remove("is-visible"), 1800);
+    }
+
+    function readMenuBarIconSettings() {
+      const defaults = { youtube: true, instagram: true, mbti: true };
+      try {
+        const parsed = JSON.parse(localStorage.getItem(MENU_BAR_ICON_SETTINGS_KEY) || "{}");
+        return { ...defaults, ...(parsed && typeof parsed === "object" ? parsed : {}) };
+      } catch {
+        return defaults;
+      }
+    }
+
+    function writeMenuBarIconSettings(settings) {
+      try { localStorage.setItem(MENU_BAR_ICON_SETTINGS_KEY, JSON.stringify(settings)); } catch {}
+    }
+
+    async function loadMenuBarIconSettings() {
+      renderMenuBarIconSettings();
+      if (!GOOGLE_SCRIPT_URL) return;
+      try {
+        const result = await apiGet("menuBarIconSettings");
+        if (result.settings) {
+          writeMenuBarIconSettings(result.settings);
+          renderMenuBarIconSettings();
+        }
+      } catch (error) {
+        showToast(`메뉴바 아이콘 설정을 불러오지 못했습니다: ${error.message}`);
+      }
+    }
+
+    function renderMenuBarIconSettings() {
+      const settings = readMenuBarIconSettings();
+      document.querySelectorAll("[data-menubar-icon-setting]").forEach((input) => {
+        const id = input.dataset.menubarIconSetting;
+        input.checked = settings[id] !== false;
+        const state = document.querySelector(`[data-menubar-icon-state="${id}"]`);
+        if (state) state.textContent = input.checked ? "ON" : "OFF";
+      });
+    }
+
+    async function setMenuBarIconSetting(id, enabled) {
+      const settings = readMenuBarIconSettings();
+      settings[id] = !!enabled;
+      writeMenuBarIconSettings(settings);
+      renderMenuBarIconSettings();
+      if (!GOOGLE_SCRIPT_URL) {
+        showToast(`메뉴바 아이콘 ${enabled ? "ON" : "OFF"} 로컬 저장됨`);
+        return;
+      }
+      try {
+        const result = await apiPost({ type: "menuBarIconSettingsSave", settings });
+        if (result.settings) writeMenuBarIconSettings(result.settings);
+        renderMenuBarIconSettings();
+        showToast(`메뉴바 아이콘 ${enabled ? "ON" : "OFF"} 저장됨`);
+      } catch (error) {
+        showToast(`서버 저장 실패, 로컬에는 반영됨: ${error.message}`);
+      }
     }
 
     function eventKey(event) {
@@ -3820,12 +3968,12 @@
       const pairMarkup = pairs.map(({ male, female }) => `
         <div class="memo-match-success-line">
           ${htmlAttr(memoParticipantResultLabel(male))}
-          <span class="memo-match-success-heart">하트</span>
+          <span class="memo-match-success-heart" aria-label="하트">♥</span>
           ${htmlAttr(memoParticipantResultLabel(female))}
         </div>
       `).join("");
       return `
-        <div class="memo-match-success">
+        <article class="memo-result-layer memo-match-success">
           <div>
             <span class="memo-match-success-title">매칭 성공</span>
             <div class="memo-match-success-list">
@@ -3833,7 +3981,7 @@
             </div>
           </div>
           <span class="memo-match-success-count">총 ${pairs.length}커플 매칭</span>
-        </div>
+        </article>
       `;
     }
 
@@ -3843,7 +3991,6 @@
       const rowCenter = 26;
       const lines = [];
       const startPoints = [];
-      const arrowheads = [];
       males.forEach((male, maleIndex) => {
         const submission = submissionsById.get(String(male.id));
         memoChoiceIds(submission).forEach((targetId, choiceIndex) => {
@@ -3854,9 +4001,8 @@
           const mutual = memoMutualChoice(submission, targetSubmission);
           const y1 = maleIndex * rowStep + rowCenter;
           const y2 = targetIndex * rowStep + rowCenter;
-          lines.push(`<line class="memo-match-line${mutual ? " is-mutual" : ""}" x1="37" y1="${y1}" x2="63" y2="${y2}"></line>`);
+          lines.push(`<line class="memo-match-line${mutual ? " is-mutual" : ""}" x1="37" y1="${y1}" x2="63" y2="${y2}" marker-end="url(#memo-arrow-${mutual ? "mutual" : "normal"})"></line>`);
           startPoints.push(`<span class="memo-match-startpoint${mutual ? " is-mutual" : ""}" style="left: 37%; top: ${(y1 / mapHeight) * 100}%;"></span>`);
-          arrowheads.push(`<span class="memo-match-arrowhead is-right${mutual ? " is-mutual" : ""}" style="left: 63%; top: ${(y2 / mapHeight) * 100}%;"></span>`);
         });
       });
       females.forEach((female, femaleIndex) => {
@@ -3869,17 +4015,23 @@
           if (memoMutualChoice(submission, targetSubmission)) return;
           const y1 = femaleIndex * rowStep + rowCenter;
           const y2 = targetIndex * rowStep + rowCenter;
-          lines.push(`<line class="memo-match-line" x1="63" y1="${y1}" x2="37" y2="${y2}"></line>`);
+          lines.push(`<line class="memo-match-line" x1="63" y1="${y1}" x2="37" y2="${y2}" marker-end="url(#memo-arrow-normal)"></line>`);
           startPoints.push(`<span class="memo-match-startpoint" style="left: 63%; top: ${(y1 / mapHeight) * 100}%;"></span>`);
-          arrowheads.push(`<span class="memo-match-arrowhead is-left" style="left: 37%; top: ${(y2 / mapHeight) * 100}%;"></span>`);
         });
       });
       return `
         <svg class="memo-match-lines" viewBox="0 0 100 ${mapHeight}" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <marker id="memo-arrow-normal" markerWidth="7" markerHeight="8" refX="6.5" refY="4" orient="auto" markerUnits="strokeWidth">
+              <path d="M0,0 L7,4 L0,8 Z" fill="rgba(148, 163, 184, .95)"></path>
+            </marker>
+            <marker id="memo-arrow-mutual" markerWidth="7" markerHeight="8" refX="6.5" refY="4" orient="auto" markerUnits="strokeWidth">
+              <path d="M0,0 L7,4 L0,8 Z" fill="#00f040"></path>
+            </marker>
+          </defs>
           ${lines.join("")}
         </svg>
         ${startPoints.join("")}
-        ${arrowheads.join("")}
       `;
     }
 
@@ -3996,7 +4148,7 @@
           <button class="small-btn" type="button" data-memo-results-close>닫기</button>
         </div>
         ${submissions.length ? `
-          <article class="memo-result-board">
+          <article class="memo-result-layer memo-result-board">
             <h3 class="memo-result-section-title">사랑의 작대기</h3>
             <div class="memo-match-map">
               ${memoMatchLinesMarkup(males, females, submissionsById)}
@@ -4004,7 +4156,9 @@
               <div></div>
               <div class="memo-match-column">${females.map(personCell).join("")}</div>
             </div>
-            ${memoMatchSuccessMarkup(males, females, submissionsById)}
+          </article>
+          ${memoMatchSuccessMarkup(males, females, submissionsById)}
+          <article class="memo-result-layer memo-result-notes">
             <h3 class="memo-result-section-title">참가자별 작성 메모</h3>
             ${memoAllParticipantNotesMarkup(males, females, submissionsById, targetsByGender)}
           </article>
@@ -5618,7 +5772,7 @@
       const details = [item?.selectedRegions || item?.place, item?.price].filter(Boolean).join(" · ");
       const badges = dashboardApplicationBadges(item);
       return `
-        <article class="dashboard-item dashboard-application-card" data-dashboard-item="${htmlAttr(id)}" data-dashboard-application-row="${htmlAttr(item?.rowNumber || "")}" data-dashboard-application-index="${htmlAttr(index)}">
+        <article class="dashboard-item dashboard-application-card" data-dashboard-item="${htmlAttr(id)}" data-dashboard-application-row="${htmlAttr(item?.rowNumber || "")}" data-dashboard-application-sheet="${htmlAttr(item?.sheetName || "")}" data-dashboard-application-index="${htmlAttr(index)}">
           <div class="dashboard-application-head">
             <span class="dashboard-board-status ${dashboardApplicationStatusClass(status)}">${htmlAttr(status)}</span>
             <span class="dashboard-application-side">
@@ -6397,6 +6551,7 @@
         const result = await apiPost({
           type: "applicationStatusUpdate",
           rowNumber: item.rowNumber || card?.dataset.dashboardApplicationRow || "",
+          sheetName: item.sheetName || card?.dataset.dashboardApplicationSheet || "",
           visitorId: item.visitorId || "",
           submittedAt: item.submittedAt || "",
           eventTitle: item.eventTitle || "",
@@ -6406,6 +6561,7 @@
         });
         item.status = result.status || status;
         if (result.rowNumber) item.rowNumber = result.rowNumber;
+        if (result.sheetName) item.sheetName = result.sheetName;
         setDashboardApplicationStatusOnCard(card, item.status);
         writeSharedDashboardCache(PUBLIC_APPLICATION_CACHE_KEY, dashboardData.application);
         showToast(`신청 상태를 ${item.status}(으)로 변경했습니다.`);
@@ -6438,6 +6594,7 @@
         await apiPost({
           type: "applicationDelete",
           rowNumber: item.rowNumber || card?.dataset.dashboardApplicationRow || "",
+          sheetName: item.sheetName || card?.dataset.dashboardApplicationSheet || "",
           visitorId: item.visitorId || "",
           submittedAt: item.submittedAt || "",
           eventTitle: item.eventTitle || "",
@@ -6818,7 +6975,7 @@
       }
     });
     function setAdminPanel(name) {
-      const panelNames = ["hero", "schedule", "events", "events2", "clover", "field", "match", "counsel", "memo", "application", "board"];
+      const panelNames = ["hero", "schedule", "events", "events2", "clover", "field", "match", "counsel", "memo", "application", "board", "menubar"];
       const panelName = panelNames.includes(name) ? name : "schedule";
       document.querySelectorAll("[data-admin-panel]").forEach((panel) => {
         panel.hidden = panel.dataset.adminPanel !== panelName;
@@ -6837,6 +6994,7 @@
       else if (panelName === "schedule") renderScheduleAdmin();
       else if (panelName === "events" || panelName === "events2") render();
       else if (panelName === "memo") loadMemoAdmin();
+      else if (panelName === "menubar") loadMenuBarIconSettings();
       else loadContentDashboards(panelName);
     }
 
@@ -6854,7 +7012,7 @@
     }
 
     function readAdminActivePanel() {
-      const allowed = ["hero", "schedule", "events", "events2", "clover", "field", "match", "counsel", "memo", "application", "board"];
+      const allowed = ["hero", "schedule", "events", "events2", "clover", "field", "match", "counsel", "memo", "application", "board", "menubar"];
       const hashPanel = String(location.hash || "").replace("#", "");
       if (allowed.includes(hashPanel)) return hashPanel;
       try {
@@ -6878,6 +7036,12 @@
       });
     });
 
+    document.querySelector("[data-menubar-settings]")?.addEventListener("change", (event) => {
+      const input = event.target.closest("[data-menubar-icon-setting]");
+      if (!input) return;
+      setMenuBarIconSetting(input.dataset.menubarIconSetting, input.checked);
+    });
+
     document.querySelector("[data-memo-new]")?.addEventListener("click", () => {
       moveMemoFormToDefault();
       fillMemoForm();
@@ -6885,10 +7049,6 @@
     });
     document.querySelector("[data-memo-clear]")?.addEventListener("click", () => fillMemoForm());
     document.querySelector("[data-memo-form-close]")?.addEventListener("click", () => closeMemoForm());
-    document.querySelector("[data-memo-import]")?.addEventListener("click", async () => {
-      if (!(dashboardData.application || []).length) await loadContentDashboards("application");
-      importMemoParticipantsFromApplications();
-    });
     document.querySelector("[data-memo-refresh]")?.addEventListener("click", () => loadMemoAdmin());
     document.querySelector("[data-memo-form]")?.addEventListener("submit", (event) => {
       event.preventDefault();

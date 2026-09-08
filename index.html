@@ -26,7 +26,7 @@
   <script src="config.js?v=20260722-schedule-api"></script>
   <script>
     (function () {
-      var scriptUrl = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbyGNEez_HO0AAV51fBxFQtGXi-G2sHT3dQoO33v-3SGXmvbEUQKNE5oeArJGY89z4YJ/exec";
+      var scriptUrl = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbwwHS6_BjaGBuYrAs8AbHjuj2ETEPr4ULts2qoZzBcSowjWYOpxGvGdebdsQSZmFuE/exec";
       window.__earlyEventListPromise = fetch(scriptUrl + "?action=eventList&t=" + Date.now(), { cache: "no-store" })
         .then(function (r) { return r.json().then(function (json) { return { ok: r.ok, json: json }; }); })
         .catch(function (error) { return { ok: false, error: error }; });
@@ -4237,6 +4237,21 @@
       min-height: 2.35rem;
       border-radius: 0.72rem;
       font-size: 0.84rem;
+    }
+
+    .board-delete-modal.is-compact .home-schedule-panel {
+      width: min(16.25rem, calc(100vw - 2rem)) !important;
+      padding: 1.15rem 0.95rem 1rem !important;
+      border-radius: 1.2rem !important;
+    }
+
+    .board-delete-modal.is-compact .board-delete-title {
+      font-size: 0.94rem;
+    }
+
+    .board-delete-modal.is-compact .board-delete-copy {
+      margin-bottom: 0.85rem;
+      font-size: 0.72rem;
     }
 
     .account-withdraw-title,
@@ -10452,6 +10467,10 @@
       box-shadow: 0 0.45rem 0.95rem rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.78) !important;
     }
 
+    .drawer-social-link[hidden] {
+      display: none !important;
+    }
+
     .drawer-social-link:hover {
       border-color: transparent !important;
       background: #e8edf4 !important;
@@ -15471,13 +15490,13 @@
     <div class="drawer-shortcuts">
       <button class="drawer-shortcut-label" type="button" data-page-link="board" onclick="window.openBusinessProposalInquiry(event)">문의하기</button>
       <div class="drawer-social-links">
-        <a class="drawer-social-link is-youtube" href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="유튜브 바로가기" title="유튜브">
+        <a class="drawer-social-link is-youtube" data-menubar-icon="youtube" href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="유튜브 바로가기" title="유튜브">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <rect width="24" height="24" rx="5" fill="#ff0033"/>
             <path d="M9.2 7.1v9.8l8-4.9-8-4.9Z" fill="#fff"/>
           </svg>
         </a>
-        <a class="drawer-social-link" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="인스타그램 바로가기" title="인스타그램">
+        <a class="drawer-social-link" data-menubar-icon="instagram" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="인스타그램 바로가기" title="인스타그램">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <defs>
               <linearGradient id="instagramGradient" x1="3" y1="21" x2="21" y2="3" gradientUnits="userSpaceOnUse">
@@ -15492,7 +15511,7 @@
             <circle cx="16.6" cy="7.6" r="1" fill="#fff"/>
           </svg>
         </a>
-        <button class="drawer-social-link is-mbti" type="button" data-page-link="mbti" onclick="window.goPage(event, 'mbti')" aria-label="MBTI 궁합" title="MBTI 궁합">
+        <button class="drawer-social-link is-mbti" type="button" data-menubar-icon="mbti" data-page-link="mbti" onclick="window.goPage(event, 'mbti')" aria-label="MBTI 궁합" title="MBTI 궁합">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <rect x="2.8" y="2.8" width="8.35" height="8.35" rx="1.9" fill="#22c55e"/>
             <rect x="12.85" y="2.8" width="8.35" height="8.35" rx="1.9" fill="#60a5fa"/>
@@ -15773,7 +15792,7 @@
     const iconPopular = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z" fill="#ff4d6d"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbyGNEez_HO0AAV51fBxFQtGXi-G2sHT3dQoO33v-3SGXmvbEUQKNE5oeArJGY89z4YJ/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbwwHS6_BjaGBuYrAs8AbHjuj2ETEPr4ULts2qoZzBcSowjWYOpxGvGdebdsQSZmFuE/exec";
     const EVENT_LIST_CACHE_KEY = "clover-managed-event-list-v6";
     const EVENT_LIST_CACHE_TTL_MS = 10 * 60 * 1000;
     const CLOUDINARY_ASSET_MAP = {"assets/optimized/event-taste-homebody.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572124/clover/optimized/event-taste-homebody.webp","assets/optimized/clover-proof-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572106/clover/optimized/clover-proof-08.webp","assets/columns/webtoon-column-01.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572080/clover/columns/webtoon-column-01.png","assets/link-preview.jpg":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572079/clover/link-preview.jpg","assets/optimized/field-venue-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-01.webp","assets/optimized/event-taste-workout.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572126/clover/optimized/event-taste-workout.webp","assets/optimized/clover-proof-12.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572110/clover/optimized/clover-proof-12.webp","assets/columns/webtoon-column-03.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572082/clover/columns/webtoon-column-03.png","assets/optimized/field-venue-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572139/clover/optimized/field-venue-05.webp","assets/optimized/clover-proof-19.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-19.webp","assets/columns/webtoon-column-05.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572084/clover/columns/webtoon-column-05.png","assets/optimized/field-venue-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572143/clover/optimized/field-venue-10.webp","assets/optimized/event-group-study-cafe.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572118/clover/optimized/event-group-study-cafe.webp","assets/optimized/clover-proof-17.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572115/clover/optimized/clover-proof-17.webp","assets/columns/webtoon-column-18.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572097/clover/columns/webtoon-column-18.png","assets/optimized/clover-proof-15.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572113/clover/optimized/clover-proof-15.webp","assets/optimized/clover-proof-14.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572112/clover/optimized/clover-proof-14.webp","assets/optimized/field-venue-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-02.webp","assets/favicon.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572078/clover/favicon.png","assets/optimized/clover-proof-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572105/clover/optimized/clover-proof-07.webp","assets/optimized/event-theme-warm.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572134/clover/optimized/event-theme-warm.webp","assets/optimized/event-theme-dress-code.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572129/clover/optimized/event-theme-dress-code.webp","assets/optimized/clover-proof-11.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572109/clover/optimized/clover-proof-11.webp","assets/optimized/event-theme-divorced.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572128/clover/optimized/event-theme-divorced.webp","assets/optimized/event-theme-professional-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572131/clover/optimized/event-theme-professional-man.webp","assets/optimized/event-theme-japanese-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572130/clover/optimized/event-theme-japanese-woman.webp","assets/optimized/event-theme-wealthy-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572135/clover/optimized/event-theme-wealthy-man.webp","assets/columns/webtoon-column-07.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572086/clover/columns/webtoon-column-07.png","assets/optimized/clover-proof-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-06.webp","assets/clover-logo-v2.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572076/clover/clover-logo-v2.png","assets/columns/webtoon-column-12.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572091/clover/columns/webtoon-column-12.png","assets/optimized/clover-proof-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572102/clover/optimized/clover-proof-03.webp","assets/optimized/event-taste-travel.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572125/clover/optimized/event-taste-travel.webp","assets/optimized/event-theme-tall-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572133/clover/optimized/event-theme-tall-man.webp","assets/columns/webtoon-column-11.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572090/clover/columns/webtoon-column-11.png","assets/optimized/clover-proof-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572108/clover/optimized/clover-proof-10.webp","assets/optimized/event-theme-career-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-career-man.webp","assets/columns/webtoon-column-09.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572088/clover/columns/webtoon-column-09.png","assets/optimized/event-random-destiny-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-random-destiny-new.webp","assets/optimized/event-live-office-worker-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572120/clover/optimized/event-live-office-worker-new.webp","assets/optimized/field-venue-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-08.webp","assets/columns/webtoon-column-04.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572083/clover/columns/webtoon-column-04.png","assets/columns/webtoon-column-16.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572095/clover/columns/webtoon-column-16.png","assets/optimized/clover-proof-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-05.webp","assets/optimized/clover-proof-20.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572117/clover/optimized/clover-proof-20.webp","assets/columns/webtoon-column-17.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572096/clover/columns/webtoon-column-17.png","assets/optimized/event-theme-comfort-40s.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-comfort-40s.webp","assets/optimized/field-venue-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-04.webp","assets/optimized/clover-proof-16.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572114/clover/optimized/clover-proof-16.webp","assets/columns/webtoon-column-14.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572093/clover/columns/webtoon-column-14.png","assets/columns/webtoon-column-19.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572098/clover/columns/webtoon-column-19.png","assets/optimized/event-live-christian.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572119/clover/optimized/event-live-christian.webp","assets/optimized/event-romance-faceless.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572122/clover/optimized/event-romance-faceless.webp","assets/optimized/event-theme-public-servant-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572132/clover/optimized/event-theme-public-servant-woman.webp","assets/optimized/field-venue-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-03.webp","assets/optimized/field-venue-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572140/clover/optimized/field-venue-06.webp","assets/columns/webtoon-column-08.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572087/clover/columns/webtoon-column-08.png","assets/optimized/clover-proof-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572101/clover/optimized/clover-proof-02.webp","assets/optimized/field-venue-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572141/clover/optimized/field-venue-07.webp","assets/optimized/clover-proof-13.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572111/clover/optimized/clover-proof-13.webp","assets/columns/webtoon-column-20.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572099/clover/columns/webtoon-column-20.png","assets/optimized/clover-proof-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572107/clover/optimized/clover-proof-09.webp","assets/optimized/event-taste-active.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572123/clover/optimized/event-taste-active.webp","assets/columns/webtoon-column-06.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572085/clover/columns/webtoon-column-06.png","assets/optimized/event-live-shift-worker.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-live-shift-worker.webp","assets/columns/webtoon-column-15.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572094/clover/columns/webtoon-column-15.png","assets/optimized/footer-lobby-banner-clean.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572144/clover/optimized/footer-lobby-banner-clean.webp","assets/optimized/field-venue-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-09.webp","assets/columns/webtoon-column-13.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572092/clover/columns/webtoon-column-13.png","assets/optimized/clover-proof-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572103/clover/optimized/clover-proof-04.webp","assets/columns/webtoon-column-10.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572089/clover/columns/webtoon-column-10.png","assets/columns/webtoon-column-02.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572081/clover/columns/webtoon-column-02.png","assets/optimized/clover-proof-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572100/clover/optimized/clover-proof-01.webp","assets/optimized/clover-proof-18.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-18.webp"};
@@ -16962,6 +16981,8 @@
     let selectedExistingBodyPhotoUrls = [];
     const RAW_UPLOAD_FILE_MAX_SIZE = 200 * 1024 * 1024;
     const PAYLOAD_UPLOAD_FILE_MAX_SIZE = 200 * 1024 * 1024;
+    const MAX_FACE_PHOTOS = 5;
+    const MAX_BODY_PHOTOS = 3;
     let selectedApplicationRegions = [];
     let selectedAgeOption = null;
     let selectedComposition = "";
@@ -17361,11 +17382,10 @@
         event.stopPropagation();
         const thumb = mypagePhotoRemoveBtn.closest(".photo-thumb");
         if (thumb?.dataset.mypageFileId) {
-          if (thumb.dataset.mypageBodyFileId) {
-          mypageBodyPhotoFiles = mypageBodyPhotoFiles.filter(({ id }) => id !== thumb.dataset.mypageBodyFileId);
-        } else {
           mypagePhotoFiles = mypagePhotoFiles.filter(({ id }) => id !== thumb.dataset.mypageFileId);
         }
+        if (thumb?.dataset.mypageBodyFileId) {
+          mypageBodyPhotoFiles = mypageBodyPhotoFiles.filter(({ id }) => id !== thumb.dataset.mypageBodyFileId);
         }
         if (thumb?.dataset.existingPhotoUrl) {
           mypageExistingPhotoUrls = mypageExistingPhotoUrls.filter((url) => url !== thumb.dataset.existingPhotoUrl);
@@ -17374,6 +17394,7 @@
           mypageExistingBodyPhotoUrls = mypageExistingBodyPhotoUrls.filter((url) => url !== thumb.dataset.existingBodyPhotoUrl);
         }
         thumb?.remove();
+        updatePhotoAddVisibility();
         updateMypageInfoSaveButton();
         return;
       }
@@ -17834,7 +17855,7 @@
         const shouldKeepLocalCanceled = normalizedApplicationStatus(application) === canceledApplicationStatus &&
           isRecentLocal &&
           normalizedApplicationStatus(serverApplication) !== canceledApplicationStatus;
-        if (application?.isPending || application?.syncError || shouldKeepLocalCanceled || (isRecentLocal && !merged.has(key))) {
+        if (application?.isPending || application?.syncError || shouldKeepLocalCanceled) {
           merged.set(key, application);
         }
       });
@@ -18061,9 +18082,10 @@
       const application = currentMyApplications[Number(index)];
       if (!application) return;
       setBoardDeleteModal(true, () => cancelMyApplicationConfirmed(index, button), {
-        title: "신청을 취소하시겠습니까?",
-        copy: "신청 내에서 취소 상태로 표시됩니다.",
-        confirmText: "취소하기",
+        title: "신청을 취소할까요?",
+        copy: "접수가 취소됩니다.",
+        confirmText: "접수 취소",
+        compact: true,
         singleAction: true
       });
     }
@@ -18090,6 +18112,7 @@
           const result = await visitorApi({
             type: "applicationCancel",
             visitorId: application.visitorId || currentVisitorId,
+            sheetName: application.sheetName || "",
             submittedAt: applicationSubmittedAtForApi(application),
             eventTitle: application.eventTitle,
             eventDate: application.eventDate,
@@ -18388,6 +18411,8 @@
         </div>` : "";
       const documentPreviewHidden = mypageDocumentFile ? "" : " is-hidden";
       const documentAddHidden = (mypageExistingDocumentUrl || mypageDocumentFile) ? " is-hidden" : "";
+      const photoAddHidden = mypageExistingPhotoUrls.length + mypagePhotoFiles.length >= MAX_FACE_PHOTOS ? " is-hidden" : "";
+      const bodyPhotoAddHidden = mypageExistingBodyPhotoUrls.length + mypageBodyPhotoFiles.length >= MAX_BODY_PHOTOS ? " is-hidden" : "";
       const photoThumbs = mypageExistingPhotoUrls.map((url) => {
         const previewUrl = profilePreviewImageUrl(url);
         return `
@@ -18411,7 +18436,7 @@
             <div class="file-drop">
               <div class="photo-row" data-mypage-photo-row>
                 ${photoThumbs}
-                <label class="photo-add">
+                <label class="photo-add${photoAddHidden}">
                   + 추가
                   <input class="file-input" type="file" data-mypage-file-input="photos" accept="image/*" multiple>
                 </label>
@@ -18424,7 +18449,7 @@
             <div class="file-drop">
               <div class="photo-row" data-mypage-body-photo-row>
                 ${bodyPhotoThumbs}
-                <label class="photo-add">
+                <label class="photo-add${bodyPhotoAddHidden}">
                   + 추가
                   <input class="file-input" type="file" data-mypage-file-input="bodyPhotos" accept="image/*" multiple>
                 </label>
@@ -23695,13 +23720,17 @@
         if (title) title.textContent = options.title || "글을 삭제하시겠습니까?";
         if (copy) copy.textContent = options.copy || "삭제된 글은 목록에서 사라집니다.";
         if (confirmButton) confirmButton.textContent = options.confirmText || "삭제";
+        modal.classList.toggle("is-compact", !!options.compact);
         if (actions) actions.classList.toggle("is-single-action", !!options.singleAction);
         if (cancelButton) cancelButton.hidden = !!options.singleAction;
         modal.hidden = !open;
         if (open && !wasOpen) rememberPopupHistory();
         if (!open && wasOpen) settlePopupHistoryAfterClose(options);
       }
-      if (!open) pendingBoardDeleteAction = null;
+      if (!open) {
+        modal?.classList.remove("is-compact");
+        pendingBoardDeleteAction = null;
+      }
     }
 
     async function withdrawAccount(button) {
@@ -24162,6 +24191,7 @@
 
 
     const THEME_KEY = "cloverTheme";
+    const MENU_BAR_ICON_SETTINGS_KEY = "clover-menu-bar-icon-settings:v1";
     function applyTheme(theme) {
       document.documentElement.setAttribute("data-theme", theme);
       const toggle = document.getElementById("themeToggle");
@@ -24178,6 +24208,38 @@
       try { localStorage.setItem(THEME_KEY, next); } catch {}
     });
     initTheme();
+
+    function readMenuBarIconSettings() {
+      const defaults = { youtube: true, instagram: true, mbti: true };
+      try {
+        const parsed = JSON.parse(localStorage.getItem(MENU_BAR_ICON_SETTINGS_KEY) || "{}");
+        return { ...defaults, ...(parsed && typeof parsed === "object" ? parsed : {}) };
+      } catch {
+        return defaults;
+      }
+    }
+
+    function applyMenuBarIconSettings() {
+      const settings = readMenuBarIconSettings();
+      document.querySelectorAll("[data-menubar-icon]").forEach((item) => {
+        item.hidden = settings[item.dataset.menubarIcon] === false;
+      });
+    }
+
+    async function loadMenuBarIconSettings() {
+      applyMenuBarIconSettings();
+      if (!GOOGLE_SCRIPT_URL) return;
+      try {
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=menuBarIconSettings&t=${Date.now()}`, { cache: "no-store" });
+        const result = await response.json();
+        if (result && result.ok && result.settings) {
+          try { localStorage.setItem(MENU_BAR_ICON_SETTINGS_KEY, JSON.stringify(result.settings)); } catch {}
+          applyMenuBarIconSettings();
+        }
+      } catch {}
+    }
+    applyMenuBarIconSettings();
+    loadMenuBarIconSettings();
 
     window.goBack = function goBack(event, fallbackPage = "home") {
       if (event) {
@@ -24697,6 +24759,18 @@
         addButton?.classList.add("is-hidden");
       }
       updatePhotoDropValidity();
+      updatePhotoAddVisibility();
+    }
+
+    function updatePhotoAddVisibility() {
+      const photoAdd = document.querySelector('[data-file-input="photos"]')?.closest(".photo-add");
+      const bodyPhotoAdd = document.querySelector('[data-file-input="bodyPhotos"]')?.closest(".photo-add");
+      const mypagePhotoAdd = document.querySelector('[data-mypage-file-input="photos"]')?.closest(".photo-add");
+      const mypageBodyPhotoAdd = document.querySelector('[data-mypage-file-input="bodyPhotos"]')?.closest(".photo-add");
+      photoAdd?.classList.toggle("is-hidden", selectedExistingPhotoUrls.length + selectedPhotoFiles.length >= MAX_FACE_PHOTOS);
+      bodyPhotoAdd?.classList.toggle("is-hidden", selectedExistingBodyPhotoUrls.length + selectedBodyPhotoFiles.length >= MAX_BODY_PHOTOS);
+      mypagePhotoAdd?.classList.toggle("is-hidden", mypageExistingPhotoUrls.length + mypagePhotoFiles.length >= MAX_FACE_PHOTOS);
+      mypageBodyPhotoAdd?.classList.toggle("is-hidden", mypageExistingBodyPhotoUrls.length + mypageBodyPhotoFiles.length >= MAX_BODY_PHOTOS);
     }
 
     function onlyDigits(value, maxLength) {
@@ -24766,7 +24840,7 @@
         const row = document.querySelector("[data-mypage-photo-row]");
         const addButton = input.closest(".photo-add");
         const currentCount = (mypageExistingPhotoUrls.length + mypagePhotoFiles.length);
-        const remainingCount = Math.max(0, 5 - currentCount);
+        const remainingCount = Math.max(0, MAX_FACE_PHOTOS - currentCount);
         files.slice(0, remainingCount).forEach((file) => {
           const fileId = `mypage-photo-${++mypageFileSequence}`;
           mypagePhotoFiles.push({ id: fileId, file });
@@ -24783,13 +24857,14 @@
           row?.insertBefore(thumb, addButton);
         });
         input.value = "";
+        updatePhotoAddVisibility();
       }
 
       if (input.dataset.mypageFileInput === "bodyPhotos") {
         const row = document.querySelector("[data-mypage-body-photo-row]");
         const addButton = input.closest(".photo-add");
         const currentCount = mypageExistingBodyPhotoUrls.length + mypageBodyPhotoFiles.length;
-        const remainingCount = Math.max(0, 3 - currentCount);
+        const remainingCount = Math.max(0, MAX_BODY_PHOTOS - currentCount);
         files.slice(0, remainingCount).forEach((file) => {
           const fileId = `mypage-body-photo-${++mypageFileSequence}`;
           mypageBodyPhotoFiles.push({ id: fileId, file });
@@ -24806,6 +24881,7 @@
           row?.insertBefore(thumb, addButton);
         });
         input.value = "";
+        updatePhotoAddVisibility();
       }
     }
     function renderSelectedFiles(input) {
@@ -24834,7 +24910,7 @@
         const row = document.querySelector("[data-photo-row]");
         const addButton = input.closest(".photo-add");
         const currentCount = row?.querySelectorAll(".photo-thumb").length || 0;
-        const remainingCount = Math.max(0, 5 - currentCount);
+        const remainingCount = Math.max(0, MAX_FACE_PHOTOS - currentCount);
         files.slice(0, remainingCount).forEach((file) => {
           const fileId = `photo-${++selectedFileSequence}`;
           selectedPhotoFiles.push({ id: fileId, file });
@@ -24859,7 +24935,7 @@
         const row = document.querySelector("[data-body-photo-row]");
         const addButton = input.closest(".photo-add");
         const currentCount = row?.querySelectorAll(".photo-thumb").length || 0;
-        const remainingCount = Math.max(0, 3 - currentCount);
+        const remainingCount = Math.max(0, MAX_BODY_PHOTOS - currentCount);
         files.slice(0, remainingCount).forEach((file) => {
           const fileId = `body-photo-${++selectedFileSequence}`;
           selectedBodyPhotoFiles.push({ id: fileId, file });
@@ -24889,6 +24965,7 @@
       const bodyCount = selectedExistingBodyPhotoUrls.length + selectedBodyPhotoFiles.length;
       const bodyDrop = document.querySelector('[data-photo-file-drop="bodyPhotos"]');
       bodyDrop?.classList.toggle("is-invalid", bodyCount > 0 && bodyCount > 3);
+      updatePhotoAddVisibility();
     }
 
     function readAsDataUrl(file) {
@@ -25099,6 +25176,7 @@
       const payload = {
         submittedAt: new Date().toISOString(),
         visitorId: getVisitorIdentity().id,
+        eventTitleLayer: eventTitleLayer,
         eventTitle: `${eventTitlePrefix}${eventTitleMeta} ${selectedEvent.title}`,
         applicationType: `${selectedApplyGender} 신청`,
         gender: selectedApplyGender,
@@ -25217,6 +25295,7 @@
             const cancelResult = await visitorApi({
               type: "applicationCancel",
               visitorId: savedApplication.visitorId || getVisitorIdentity().id,
+              sheetName: savedApplication.sheetName || "",
               submittedAt: applicationSubmittedAtForApi(savedApplication),
               eventTitle: savedApplication.eventTitle,
               eventDate: savedApplication.eventDate,
@@ -26368,6 +26447,9 @@
       if (event.key === ADMIN_SCHEDULE_POSTS_KEY || event.key === ADMIN_SCHEDULE_DELETED_KEY) {
         renderHomeParticipationCalendar();
         renderScheduleInfoCalendar();
+      }
+      if (event.key === MENU_BAR_ICON_SETTINGS_KEY) {
+        applyMenuBarIconSettings();
       }
     });
 
