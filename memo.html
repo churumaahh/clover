@@ -319,6 +319,8 @@
       display: grid;
       gap: 10px;
       margin-top: 2px;
+      width: 100%;
+      min-width: 0;
     }
     .memo-rank-item {
       position: relative;
@@ -329,6 +331,7 @@
       width: 100%;
       max-width: 100%;
       min-height: 58px;
+      box-sizing: border-box;
       padding: 0 12px;
       border: 1px solid rgba(15, 23, 42, .08);
       border-radius: 16px;
@@ -396,6 +399,8 @@
       gap: 10px;
       width: 100%;
       max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
       margin: -10px 0 4px;
       padding: 12px;
       border: 1px solid rgba(15, 23, 42, .08);
@@ -408,7 +413,9 @@
     }
     .memo-inline-note textarea {
       width: 100%;
-      min-height: 190px;
+      max-width: 100%;
+      box-sizing: border-box;
+      min-height: calc(1.55em * 4 + 28px);
       padding: 14px;
       border: 0;
       border-radius: 14px;
@@ -1185,7 +1192,8 @@
     const MEMO_DRAFT_PREFIX = "clover-memo-draft:v1:";
     let memoSession = null;
     let memoState = null;
-    let memoActiveIndex = 0;
+    let memoOpenTargetIds = new Set();
+    let memoOpenTargetsInitialized = false;
     let memoSaveTimer = 0;
     let memoView = "notes";
     let memoLoginPrefetchTimer = 0;
@@ -1443,9 +1451,19 @@
         .map((entry) => entry.target);
     }
 
+    function normalizeMemoOpenTargets(targets) {
+      const targetIds = new Set(targets.map((target) => String(target.id)));
+      memoOpenTargetIds = new Set([...memoOpenTargetIds].filter((id) => targetIds.has(id)));
+      if (!memoOpenTargetsInitialized) {
+        const firstTarget = targets[0];
+        if (firstTarget) memoOpenTargetIds.add(String(firstTarget.id));
+        memoOpenTargetsInitialized = true;
+      }
+    }
+
     function memoCurrentTarget() {
       const targets = memoOrderedTargets();
-      return targets[memoActiveIndex] || null;
+      return targets.find((target) => memoOpenTargetIds.has(String(target.id))) || null;
     }
 
     function memoSetStatus(message) {
@@ -1475,7 +1493,8 @@
       writeMemoSession(null);
       writeMemoView("notes");
       memoState = null;
-      memoActiveIndex = 0;
+      memoOpenTargetIds = new Set();
+      memoOpenTargetsInitialized = false;
       renderMemoPage();
     }
 
@@ -1587,6 +1606,7 @@
       memoView = readMemoView();
       normalizeMemoRanking();
       const orderedTargets = memoOrderedTargets();
+      normalizeMemoOpenTargets(orderedTargets);
       const current = memoCurrentTarget();
       if (!orderedTargets.length) {
         root.innerHTML = `
@@ -1650,7 +1670,7 @@
         return;
       }
       const rankHtml = orderedTargets.map((target) => {
-        const isActive = current && String(current.id) === String(target.id);
+        const isActive = memoOpenTargetIds.has(String(target.id));
         const hasMemo = String(memoState.memos[target.id] || "").trim().length > 0;
         return `
           <div class="memo-rank-item${isActive ? " is-active" : ""}" data-memo-rank-target="${htmlAttr(target.id)}">
@@ -1660,7 +1680,7 @@
           </div>
           ${isActive ? `
             <div class="memo-inline-note">
-              <textarea data-memo-text placeholder="메모를 입력하세요.">${htmlAttr(memoState.memos[target.id] || "")}</textarea>
+              <textarea data-memo-text="${htmlAttr(target.id)}" placeholder="메모를 입력하세요.">${htmlAttr(memoState.memos[target.id] || "")}</textarea>
             </div>
           ` : ""}
         `;
@@ -1713,7 +1733,8 @@
         writeMemoSession({ round: result.round, participant: result.participant, targets: result.targets || [], submission: result.submission || null });
         writeMemoView("notes");
         clearMemoLoginPrefetch();
-        memoActiveIndex = 0;
+        memoOpenTargetIds = new Set();
+        memoOpenTargetsInitialized = false;
         renderMemoPage();
       } catch (error) {
         memoSetStatus(error.message || "접속하지 못했습니다.");
@@ -1727,19 +1748,21 @@
     }
 
     function captureCurrentMemoText() {
-      const current = memoCurrentTarget();
-      const textArea = document.querySelector("[data-memo-text]");
-      if (current && textArea && memoState) memoState.memos[current.id] = textArea.value;
+      if (!memoState) return;
+      document.querySelectorAll("[data-memo-text]").forEach((textArea) => {
+        const targetId = String(textArea.dataset.memoText || "");
+        if (targetId) memoState.memos[targetId] = textArea.value;
+      });
     }
 
     function memoSelectTarget(targetId) {
       captureCurrentMemoText();
-      const nextIndex = memoOrderedTargets().findIndex((target) => String(target.id) === String(targetId || ""));
-      if (nextIndex < 0) return;
-      memoActiveIndex = memoActiveIndex === nextIndex ? -1 : nextIndex;
+      const nextId = String(targetId || "");
+      if (!memoOrderedTargets().some((target) => String(target.id) === nextId)) return;
+      if (memoOpenTargetIds.has(nextId)) memoOpenTargetIds.delete(nextId);
+      else memoOpenTargetIds.add(nextId);
       scheduleMemoSave();
       renderMemoPage();
-      window.requestAnimationFrame(() => document.querySelector("[data-memo-text]")?.focus());
     }
 
     document.addEventListener("submit", async (event) => {
@@ -1758,11 +1781,11 @@
       if (target instanceof HTMLInputElement && target.name === "birth" && target.closest("[data-memo-login-form]")) target.value = memoFormatBirth(target.value);
       if (target instanceof HTMLInputElement && target.closest("[data-memo-login-form]")) updateMemoLoginReady(target.closest("[data-memo-login-form]"));
       if (target instanceof HTMLTextAreaElement && target.matches("[data-memo-text]")) {
-        const current = memoCurrentTarget();
-        if (current && memoState) {
-          memoState.memos[current.id] = target.value;
+        const targetId = String(target.dataset.memoText || "");
+        if (targetId && memoState) {
+          memoState.memos[targetId] = target.value;
           document
-            .querySelector(`[data-memo-entry-dot="${CSS.escape(String(current.id))}"]`)
+            .querySelector(`[data-memo-entry-dot="${CSS.escape(targetId)}"]`)
             ?.classList.toggle("is-filled", target.value.trim().length > 0);
           scheduleMemoSave();
         }
@@ -1857,7 +1880,9 @@
         return;
       }
       if (button.matches("[data-memo-close-note]")) {
-        memoActiveIndex = -1;
+        const targetId = String(button.dataset.memoCloseNote || "");
+        if (targetId) memoOpenTargetIds.delete(targetId);
+        else memoOpenTargetIds.clear();
         scheduleMemoSave();
         renderMemoPage();
         return;
