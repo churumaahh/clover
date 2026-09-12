@@ -54,7 +54,7 @@
     }
     .memo-theme-toggle-knob {
       position: absolute;
-      top: 0.06rem;
+      top: 50%;
       left: 0.06rem;
       width: 1.38rem;
       height: 1.38rem;
@@ -64,6 +64,7 @@
         repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.55) 0, rgba(255, 255, 255, 0.55) 0.05rem, transparent 0.05rem, transparent 0.2rem),
         repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.08) 0, rgba(0, 0, 0, 0.08) 0.05rem, transparent 0.05rem, transparent 0.2rem);
       box-shadow: 0 0.12rem 0.3rem rgba(18, 24, 35, 0.3), inset 0 0.03rem 0.08rem rgba(255, 255, 255, 0.6);
+      transform: translateY(-50%);
       transition: transform 0.22s ease;
     }
     .auth-page {
@@ -498,6 +499,12 @@
       height: 0.28rem;
       border-radius: 999px;
       background: #00e83a;
+    }
+    .memo-final-guide-divider {
+      width: 100%;
+      height: 1px;
+      margin: 0;
+      background: rgba(148, 163, 184, 0.24);
     }
     .memo-submit small {
       display: block;
@@ -1118,6 +1125,9 @@
     :root[data-theme="dark"] .memo-final-guide-list li {
       color: #c9ced8;
     }
+    :root[data-theme="dark"] .memo-final-guide-divider {
+      background: rgba(255, 255, 255, 0.12);
+    }
     :root[data-theme="dark"] .memo-complete-modal {
       background: rgba(0, 0, 0, 0.52);
     }
@@ -1176,7 +1186,7 @@
       background: #e8560f;
     }
     :root[data-theme="dark"] .memo-theme-toggle-knob {
-      transform: translateX(0.8rem);
+      transform: translate(0.8rem, -50%);
     }
   </style>
 </head>
@@ -1652,16 +1662,18 @@
             </button>
           </div>
           <section class="memo-workspace is-final">
-            <div class="memo-final-slots">${finalSlotHtml}</div>
-            <div class="memo-final-list">${finalChoiceHtml}</div>
-            <button class="memo-submit" type="button" data-memo-submit>최종 선택 완료</button>
             <section class="memo-final-guide" aria-labelledby="memoFinalGuideTitle">
               <h2 class="memo-final-guide-title" id="memoFinalGuideTitle">최종 선택 안내</h2>
               <ul class="memo-final-guide-list">
-                <li>0 ~ 3명 선택할 수 있습니다.</li>
-                <li>당일까지 수정 및 최종 선택 가능합니다.</li>
+                <li>최대 3명까지 선택할 수 있습니다.</li>
+                <li>소개팅 당일까지 자유롭게 수정이 가능합니다.</li>
+                <li>관심 가는 상태가 없을 경우 선택하지 않아도 됩니다.</li>
               </ul>
             </section>
+            <div class="memo-final-guide-divider" aria-hidden="true"></div>
+            <div class="memo-final-slots">${finalSlotHtml}</div>
+            <div class="memo-final-list">${finalChoiceHtml}</div>
+            <button class="memo-submit" type="button" data-memo-submit>최종 선택 완료</button>
             <button class="memo-logout" type="button" data-memo-logout>로그아웃</button>
             ${memoFooterMarkup()}
           </section>
@@ -1701,6 +1713,14 @@
           </button>
         </div>
         <section class="memo-workspace">
+          <section class="memo-final-guide" aria-labelledby="memoNotesGuideTitle">
+            <h2 class="memo-final-guide-title" id="memoNotesGuideTitle">메모장 안내</h2>
+            <ul class="memo-final-guide-list">
+              <li>작성된 내용은 참가자에게 전달되지 않습니다.</li>
+              <li>단순 기록용이며 참가자에 대해 기록해주세요.</li>
+              <li>관심 있는 참가자에게 하트를 표시해주세요.</li>
+            </ul>
+          </section>
           <div class="memo-rank-list">${rankHtml}</div>
           <div class="memo-list-actions">
             <button class="memo-final-open" type="button" data-memo-open-final>최종 선택</button>

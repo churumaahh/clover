@@ -2600,6 +2600,7 @@
     const EVENT_ORDER_OVERRIDE_KEY = "cloverAdminEventOrder:v1";
     const EVENT_CUSTOM_OVERRIDE_KEY = "cloverAdminCustomEvents:v1";
     const EVENT_DELETED_OVERRIDE_KEY = "cloverAdminDeletedEvents:v1";
+    const PUBLIC_EVENT_LIST_CACHE_KEY = "clover-managed-event-list-v7";
     const ADMIN_ACTIVE_PANEL_KEY = "clover-admin-active-panel:v1";
     const ADMIN_SCHEDULE_POSTS_KEY = "clover-admin-schedule-posts:v1";
     const ADMIN_SCHEDULE_BACKUP_KEY = "clover-admin-schedule-posts-backup:v1";
@@ -2637,7 +2638,7 @@
       { station: "라이브", title: "9 to 6 직장인", target: "퇴근 후 일상에 설렘을 더하는 만남", image: "assets/event-live-office-worker-new.png" },
       { station: "라이브", title: "교대 근무자를 하는 사람", target: "서로의 리듬을 이해하는 현실적인 만남", image: "assets/event-live-shift-worker.png" },
       { station: "라이브", title: "기독교 종교를 가진 사람", target: "가치관과 따뜻한 대화가 통하는 만남", image: "assets/event-live-christian.png" },
-      { station: "테마", title: "40 - 50대 더 편한 만남", target: "편안한 분위기에서 천천히 알아가는 성숙한 만남", image: "assets/event-theme-comfort-40s.png" },
+      { station: "테마", title: "30 - 40대 더 편한 만남", target: "편안한 분위기에서 천천히 알아가는 성숙한 만남", image: "assets/event-theme-comfort-40s.png" },
       { station: "테마", title: "호감형 외모를 가진 사람", target: "첫인상부터 편안한 분위기의 만남", image: "assets/event-theme-warm.png" },
       { station: "테마", title: "드레스 코드를 맞춰 만나는 소개팅", target: "정해진 콘셉트로 맞춰 입고 즐기는 특별한 만남", image: "assets/event-theme-dress-code.png" },
       { station: "테마", title: "한국어 가능한 일본인 여성 선호", target: "다른 문화의 매력을 자연스럽게 만나는 시간", image: "assets/event-theme-japanese-woman.png" },
@@ -2701,6 +2702,7 @@
     function writeOverrides(overrides) {
       fallbackOverrides = { ...overrides };
       try { localStorage.setItem(EVENT_ACTIVE_OVERRIDE_KEY, JSON.stringify(fallbackOverrides)); } catch {}
+      try { localStorage.removeItem(PUBLIC_EVENT_LIST_CACHE_KEY); } catch {}
     }
 
     function readEdits() {
@@ -2715,6 +2717,7 @@
     function writeEdits(edits) {
       fallbackEdits = { ...edits };
       try { localStorage.setItem(EVENT_EDIT_OVERRIDE_KEY, JSON.stringify(fallbackEdits)); } catch {}
+      try { localStorage.removeItem(PUBLIC_EVENT_LIST_CACHE_KEY); } catch {}
     }
 
     function readCustomEvents() {
@@ -2730,6 +2733,7 @@
     function writeCustomEvents(customEvents) {
       fallbackCustomEvents = Array.isArray(customEvents) ? [...customEvents] : [];
       try { localStorage.setItem(EVENT_CUSTOM_OVERRIDE_KEY, JSON.stringify(fallbackCustomEvents)); } catch {}
+      try { localStorage.removeItem(PUBLIC_EVENT_LIST_CACHE_KEY); } catch {}
     }
 
     function readOrder() {
@@ -2745,6 +2749,7 @@
     function writeOrder(order) {
       fallbackOrder = Array.isArray(order) ? [...order] : [];
       try { localStorage.setItem(EVENT_ORDER_OVERRIDE_KEY, JSON.stringify(fallbackOrder)); } catch {}
+      try { localStorage.removeItem(PUBLIC_EVENT_LIST_CACHE_KEY); } catch {}
     }
 
     function readDeletedEvents() {
@@ -2760,6 +2765,7 @@
     function writeDeletedEvents(ids) {
       fallbackDeletedEvents = Array.isArray(ids) ? [...new Set(ids.map(String))] : [];
       try { localStorage.setItem(EVENT_DELETED_OVERRIDE_KEY, JSON.stringify(fallbackDeletedEvents)); } catch {}
+      try { localStorage.removeItem(PUBLIC_EVENT_LIST_CACHE_KEY); } catch {}
     }
 
     function applySavedOrder(list) {
@@ -2991,7 +2997,7 @@
 
     const defaultLayerForm2Config = Object.freeze({
       compositionOptions: ["1:1", "6:6"],
-      ageOptions: ["20 - 27세", "24 - 29세", "27 - 36세", "30 - 37세", "34 - 39세", "37 - 46세", "40 - 47세", "44 - 49세", "47 - 56세", "50 - 57세"],
+      ageOptions: ["20 - 27세", "24 - 29세", "27 - 36세", "30 - 37세", "34 - 39세", "37 - 46세", "40 - 47세", "44 - 49세"],
       weekdayOptions: ["월", "화", "수", "목", "금", "토", "일", "상관없음", "유동일정"],
       priceByComposition: {
         "1:1": { malePrice: "99,000원", femalePrice: "30,000원" },
@@ -2999,6 +3005,7 @@
       },
       noteEnabled: true
     });
+    const thirtyFortyAgeOptions = Object.freeze(["37 - 46세", "40 - 47세", "44 - 49세"]);
 
     const defaultLayerForm3Config = Object.freeze({
       fields: ["basicInfo", "physicalInfo", "job", "idealRank", "documents", "message", "agreements"]
@@ -3016,7 +3023,7 @@
     }
 
     function eventPriceConfig(event) {
-      const config = layerFormConfig(event?.form2Config, defaultLayerForm2Config);
+      const config = normalizeEventForm2Config(event, event?.form2Config);
       const prices = config.priceByComposition && typeof config.priceByComposition === "object" ? config.priceByComposition : {};
       const fallbackMale = event?.malePrice || event?.price || "99,000원";
       const fallbackFemale = event?.femalePrice || "30,000원";
@@ -3033,10 +3040,23 @@
     }
 
     function eventForm2ConfigWithPrices(event, priceByComposition) {
-      return {
-        ...layerFormConfig(event?.form2Config, defaultLayerForm2Config),
+      const config = {
+        ...normalizeEventForm2Config(event, event?.form2Config),
         priceByComposition
       };
+      if (isThirtyFortyEvent(event)) config.ageOptions = [...thirtyFortyAgeOptions];
+      return config;
+    }
+
+    function isThirtyFortyEvent(event) {
+      const text = `${event?.id || ""} ${event?.station || ""} ${event?.title || ""}`;
+      return String(event?.id || "") === "clover-default-event-09" || /30\s*-?\s*40|3040|30대/.test(text);
+    }
+
+    function normalizeEventForm2Config(event, value) {
+      const config = layerFormConfig(value, defaultLayerForm2Config);
+      if (isThirtyFortyEvent(event)) config.ageOptions = [...thirtyFortyAgeOptions];
+      return config;
     }
 
     function layerFormConfigPayload(value, fallback) {
@@ -3053,7 +3073,7 @@
     function dashboardAgeOptions() {
       const options = new Set(defaultLayerForm2Config.ageOptions || []);
       events.forEach((event) => {
-        layerFormConfig(event.form2Config, defaultLayerForm2Config).ageOptions.forEach((option) => {
+        normalizeEventForm2Config(event, event.form2Config).ageOptions.forEach((option) => {
           const text = normalizeAgeRangeText(option);
           if (text) options.add(text);
         });
@@ -3088,7 +3108,7 @@
         layerType: preset.layerType || (["모임", "파티", "소모임 파티"].includes(String(preset.station || "").trim()) ? "party" : "rotation"),
         badgeType: preset.badgeType || "",
         form1Config: layerFormConfig(preset.form1Config, defaultLayerForm1Config),
-        form2Config: layerFormConfig(preset.form2Config, defaultLayerForm2Config),
+        form2Config: normalizeEventForm2Config(preset, preset.form2Config),
         form3Config: layerFormConfig(preset.form3Config, defaultLayerForm3Config),
         image,
         imageUrl: adminImageUrl(image)
@@ -3218,7 +3238,7 @@
         imageUrl: adminImageUrl(be.image || ""),
         badgeType: String(be.badgeType || "").trim(),
         form1Config: layerFormConfig(be.form1Config, defaultLayerForm1Config),
-        form2Config: layerFormConfig(be.form2Config, defaultLayerForm2Config),
+        form2Config: normalizeEventForm2Config(be, be.form2Config),
         form3Config: layerFormConfig(be.form3Config, defaultLayerForm3Config),
         active: be.active !== false
       };

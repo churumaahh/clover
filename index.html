@@ -6252,7 +6252,7 @@
     }
 
     .ideal-rank-slot {
-      min-height: 2.35rem;
+      min-height: 2.55rem;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -10530,7 +10530,7 @@
 
     .theme-toggle-knob {
       position: absolute;
-      top: 0.06rem;
+      top: 50%;
       left: 0.06rem;
       width: 1.38rem;
       height: 1.38rem;
@@ -10540,6 +10540,7 @@
         repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.55) 0, rgba(255, 255, 255, 0.55) 0.05rem, transparent 0.05rem, transparent 0.2rem),
         repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.08) 0, rgba(0, 0, 0, 0.08) 0.05rem, transparent 0.05rem, transparent 0.2rem);
       box-shadow: 0 0.12rem 0.3rem rgba(18, 24, 35, 0.3), inset 0 0.03rem 0.08rem rgba(255, 255, 255, 0.6);
+      transform: translateY(-50%);
       transition: transform 0.22s ease;
     }
 
@@ -10548,7 +10549,7 @@
     }
 
     :root[data-theme="dark"] .theme-toggle-knob {
-      transform: translateX(0.8rem);
+      transform: translate(0.8rem, -50%);
     }
 
     .drawer-staff-link {
@@ -13419,6 +13420,39 @@
       color: #ffffff !important;
     }
 
+    #page-reviews .match-result-tags .composition-choice-badges {
+      display: inline-flex !important;
+      align-items: stretch !important;
+      justify-content: center !important;
+      gap: 0 !important;
+      height: 1.1rem !important;
+      min-height: 1.1rem !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+      line-height: 1 !important;
+      vertical-align: middle !important;
+    }
+
+    #page-reviews .match-result-tags .composition-gender-badge {
+      box-sizing: border-box !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      align-self: stretch !important;
+      height: 100% !important;
+      min-height: 100% !important;
+      margin: 0 !important;
+      border: 0 !important;
+      line-height: 1 !important;
+      transform: none !important;
+      vertical-align: top !important;
+    }
+
+    :root[data-theme="dark"] #page-reviews .match-result-tags .composition-gender-badge.is-male,
+    :root[data-theme="dark"] #page-reviews .match-result-tags .composition-gender-badge.is-female {
+      border-color: transparent !important;
+    }
+
 
     /* 紐⑸줉 ?꾩껜瑜?媛먯떥??諛뷀깢 ?덉씠??*/
     :root[data-theme="dark"] #page-reviews .match-result-list-panel,
@@ -14858,7 +14892,7 @@
               var items = [
                 { station: "랜덤", title: "순차적으로 무작위 선정", target: "우연처럼 시작되는 설렘", place: "부산 클로버 라운지 (승인 후 안내)", image: "https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-random-destiny-new.webp" },
                 { station: "맞춤", title: "원하는 조건에 맞는 이상형", target: "서로의 리듬을 이해하는 현실적인 만남", place: "부산 클로버 라운지 (승인 후 안내)", image: "https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-live-shift-worker.webp" },
-                { station: "40-50대", title: "좋은 사람을 만날 시간", target: "편안한 분위기에서 천천히 알아가는 성숙한 만남", place: "부산 클로버 라운지 (승인 후 안내)", image: "https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-comfort-40s.webp" },
+                { station: "30-40대", title: "좋은 사람을 만날 시간", target: "편안한 분위기에서 천천히 알아가는 성숙한 만남", place: "부산 클로버 라운지 (승인 후 안내)", image: "https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-comfort-40s.webp" },
                 { station: "돌싱", title: "새로운 시작, 새로운 만남", target: "조금 더 성숙하고 솔직한 두 번째 설렘", place: "부산 클로버 라운지 (승인 후 안내)", image: "https://res.cloudinary.com/lkkfechj/image/upload/v1787572128/clover/optimized/event-theme-divorced.webp" }
               ];
               var esc = function (value) {
@@ -14869,12 +14903,13 @@
               var cssUrl = function (value) {
                 return "url('" + String(value || "").replace(/['\\]/g, "") + "')";
               };
+              var iconPin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
               list.dataset.bootstrapped = "true";
               list.innerHTML = items.map(function (item, index) {
                 return '<li><article class="event-card">'
                   + '<div class="event-thumb is-loaded" style="--thumb-image: ' + cssUrl(item.image) + '; background-image: ' + cssUrl(item.image) + '; background-size: cover; background-position: center;" role="button" tabindex="0" data-join-index="' + index + '" aria-label="' + esc(item.title) + ' 참여 선택"></div>'
                   + '<div class="event-body"><div><div class="event-title-row"><h3 class="event-title"><span>[' + esc(item.station) + ']</span> ' + esc(item.title) + '</h3></div>'
-                  + '<div class="event-meta"><div class="meta-line"><span>' + esc(item.place) + '</span></div></div></div>'
+                  + '<div class="event-meta"><div class="meta-line">' + iconPin + '<span>' + esc(item.place) + '</span></div></div></div>'
                   + '<div class="event-foot"><div class="event-action"><button class="join-btn" type="button" data-join-index="' + index + '">참여</button></div></div>'
                   + '</div></article></li>';
               }).join("");
@@ -15623,7 +15658,7 @@
       { station: "라이브", title: "9 to 6 직장인", target: "퇴근 후 일상을 설레게 하는 만남", image: "assets/event-live-office-worker-new.png" },
       { station: "라이브", title: "교대 근무자를 아는 사람", target: "서로의 리듬을 이해하는 현실적인 만남", image: "assets/event-live-shift-worker.png" },
       { station: "라이브", title: "기독교 종교를 가진 사람", target: "가치관과 따뜻한 대화가 통하는 만남", image: "assets/event-live-christian.png" },
-      { station: "테마", title: "40 - 50대 편안한 만남", target: "편안한 분위기에서 천천히 알아가는 성숙한 만남", image: "assets/event-theme-comfort-40s.png" },
+      { station: "테마", title: "30 - 40대 편안한 만남", target: "편안한 분위기에서 천천히 알아가는 성숙한 만남", image: "assets/event-theme-comfort-40s.png" },
       { station: "테마", title: "감각적 취미를 가진 사람", target: "취향과 감성이 편안하게 이어지는 만남", image: "assets/event-theme-warm.png" },
       { station: "테마", title: "드레스 코드를 맞춰 만나는 소개팅", target: "정해진 콘셉트로 맞춰 입고 즐기는 특별한 만남", image: "assets/event-theme-dress-code.png" },
       { station: "테마", title: "한국에 거주 가능한 일본인 여성 선호", target: "다른 문화의 매력을 자연스럽게 만나는 시간", image: "assets/event-theme-japanese-woman.png" },
@@ -15806,7 +15841,7 @@
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
     const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbwwHS6_BjaGBuYrAs8AbHjuj2ETEPr4ULts2qoZzBcSowjWYOpxGvGdebdsQSZmFuE/exec";
-    const EVENT_LIST_CACHE_KEY = "clover-managed-event-list-v6";
+    const EVENT_LIST_CACHE_KEY = "clover-managed-event-list-v7";
     const EVENT_LIST_CACHE_TTL_MS = 10 * 60 * 1000;
     const CLOUDINARY_ASSET_MAP = {"assets/optimized/event-taste-homebody.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572124/clover/optimized/event-taste-homebody.webp","assets/optimized/clover-proof-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572106/clover/optimized/clover-proof-08.webp","assets/columns/webtoon-column-01.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572080/clover/columns/webtoon-column-01.png","assets/link-preview.jpg":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572079/clover/link-preview.jpg","assets/optimized/field-venue-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-01.webp","assets/optimized/event-taste-workout.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572126/clover/optimized/event-taste-workout.webp","assets/optimized/clover-proof-12.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572110/clover/optimized/clover-proof-12.webp","assets/columns/webtoon-column-03.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572082/clover/columns/webtoon-column-03.png","assets/optimized/field-venue-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572139/clover/optimized/field-venue-05.webp","assets/optimized/clover-proof-19.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-19.webp","assets/columns/webtoon-column-05.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572084/clover/columns/webtoon-column-05.png","assets/optimized/field-venue-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572143/clover/optimized/field-venue-10.webp","assets/optimized/event-group-study-cafe.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572118/clover/optimized/event-group-study-cafe.webp","assets/optimized/clover-proof-17.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572115/clover/optimized/clover-proof-17.webp","assets/columns/webtoon-column-18.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572097/clover/columns/webtoon-column-18.png","assets/optimized/clover-proof-15.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572113/clover/optimized/clover-proof-15.webp","assets/optimized/clover-proof-14.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572112/clover/optimized/clover-proof-14.webp","assets/optimized/field-venue-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-02.webp","assets/favicon.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572078/clover/favicon.png","assets/optimized/clover-proof-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572105/clover/optimized/clover-proof-07.webp","assets/optimized/event-theme-warm.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572134/clover/optimized/event-theme-warm.webp","assets/optimized/event-theme-dress-code.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572129/clover/optimized/event-theme-dress-code.webp","assets/optimized/clover-proof-11.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572109/clover/optimized/clover-proof-11.webp","assets/optimized/event-theme-divorced.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572128/clover/optimized/event-theme-divorced.webp","assets/optimized/event-theme-professional-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572131/clover/optimized/event-theme-professional-man.webp","assets/optimized/event-theme-japanese-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572130/clover/optimized/event-theme-japanese-woman.webp","assets/optimized/event-theme-wealthy-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572135/clover/optimized/event-theme-wealthy-man.webp","assets/columns/webtoon-column-07.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572086/clover/columns/webtoon-column-07.png","assets/optimized/clover-proof-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-06.webp","assets/clover-logo-v2.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572076/clover/clover-logo-v2.png","assets/columns/webtoon-column-12.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572091/clover/columns/webtoon-column-12.png","assets/optimized/clover-proof-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572102/clover/optimized/clover-proof-03.webp","assets/optimized/event-taste-travel.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572125/clover/optimized/event-taste-travel.webp","assets/optimized/event-theme-tall-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572133/clover/optimized/event-theme-tall-man.webp","assets/columns/webtoon-column-11.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572090/clover/columns/webtoon-column-11.png","assets/optimized/clover-proof-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572108/clover/optimized/clover-proof-10.webp","assets/optimized/event-theme-career-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-career-man.webp","assets/columns/webtoon-column-09.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572088/clover/columns/webtoon-column-09.png","assets/optimized/event-random-destiny-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-random-destiny-new.webp","assets/optimized/event-live-office-worker-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572120/clover/optimized/event-live-office-worker-new.webp","assets/optimized/field-venue-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-08.webp","assets/columns/webtoon-column-04.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572083/clover/columns/webtoon-column-04.png","assets/columns/webtoon-column-16.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572095/clover/columns/webtoon-column-16.png","assets/optimized/clover-proof-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-05.webp","assets/optimized/clover-proof-20.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572117/clover/optimized/clover-proof-20.webp","assets/columns/webtoon-column-17.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572096/clover/columns/webtoon-column-17.png","assets/optimized/event-theme-comfort-40s.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-comfort-40s.webp","assets/optimized/field-venue-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-04.webp","assets/optimized/clover-proof-16.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572114/clover/optimized/clover-proof-16.webp","assets/columns/webtoon-column-14.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572093/clover/columns/webtoon-column-14.png","assets/columns/webtoon-column-19.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572098/clover/columns/webtoon-column-19.png","assets/optimized/event-live-christian.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572119/clover/optimized/event-live-christian.webp","assets/optimized/event-romance-faceless.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572122/clover/optimized/event-romance-faceless.webp","assets/optimized/event-theme-public-servant-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572132/clover/optimized/event-theme-public-servant-woman.webp","assets/optimized/field-venue-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-03.webp","assets/optimized/field-venue-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572140/clover/optimized/field-venue-06.webp","assets/columns/webtoon-column-08.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572087/clover/columns/webtoon-column-08.png","assets/optimized/clover-proof-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572101/clover/optimized/clover-proof-02.webp","assets/optimized/field-venue-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572141/clover/optimized/field-venue-07.webp","assets/optimized/clover-proof-13.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572111/clover/optimized/clover-proof-13.webp","assets/columns/webtoon-column-20.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572099/clover/columns/webtoon-column-20.png","assets/optimized/clover-proof-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572107/clover/optimized/clover-proof-09.webp","assets/optimized/event-taste-active.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572123/clover/optimized/event-taste-active.webp","assets/columns/webtoon-column-06.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572085/clover/columns/webtoon-column-06.png","assets/optimized/event-live-shift-worker.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-live-shift-worker.webp","assets/columns/webtoon-column-15.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572094/clover/columns/webtoon-column-15.png","assets/optimized/footer-lobby-banner-clean.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572144/clover/optimized/footer-lobby-banner-clean.webp","assets/optimized/field-venue-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-09.webp","assets/columns/webtoon-column-13.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572092/clover/columns/webtoon-column-13.png","assets/optimized/clover-proof-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572103/clover/optimized/clover-proof-04.webp","assets/columns/webtoon-column-10.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572089/clover/columns/webtoon-column-10.png","assets/columns/webtoon-column-02.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572081/clover/columns/webtoon-column-02.png","assets/optimized/clover-proof-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572100/clover/optimized/clover-proof-01.webp","assets/optimized/clover-proof-18.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-18.webp"};
     const HERO_CACHE_KEY = "clover-managed-hero-slides-v5";
@@ -17028,15 +17063,48 @@
       ...applicationAgeOptions,
       { id: "age-37-46", range: "37 - 46세", remaining: 6 }
     ];
-    const applicationAgeOptions4050 = [
+    const applicationAgeOptions3040 = [
+      { id: "age-37-46", range: "37 - 46세", remaining: 6 },
       { id: "age-40-47", range: "40 - 47세", remaining: 6 },
-      { id: "age-44-49", range: "44 - 49세", remaining: 6 },
-      { id: "age-47-56", range: "47 - 56세", remaining: 6 },
-      { id: "age-50-57", range: "50 - 57세", remaining: 6 }
+      { id: "age-44-49", range: "44 - 49세", remaining: 6 }
     ];
+    const applicationAgeOptions4050 = applicationAgeOptions3040;
+    function ageOptionIdFromRange(range) {
+      return `age-${String(range || "").replace(/\s+/g, "").replace(/[^\d-]/g, "")}`;
+    }
+
+    function eventConfiguredAgeOptions(event) {
+      const config = layerFormConfig(event?.form2Config, defaultLayerForm2Config);
+      const ranges = Array.isArray(config.ageOptions) ? config.ageOptions : [];
+      const options = ranges
+        .map(normalizeAgeRangeText)
+        .filter(Boolean)
+        .map((range) => ({ id: ageOptionIdFromRange(range), range, remaining: 6 }));
+      const seen = new Set();
+      return options.filter((option) => {
+        if (seen.has(option.range)) return false;
+        seen.add(option.range);
+        return true;
+      });
+    }
+
+    function isLegacy4050Event(event) {
+      const text = `${event?.id || ""} ${event?.station || ""} ${event?.title || ""}`;
+      return /40\s*-?\s*50|4050|40대|50대/.test(text);
+    }
+
+    function isThirtyFortyEvent(event) {
+      const text = `${event?.id || ""} ${event?.station || ""} ${event?.title || ""}`;
+      return String(event?.id || "") === "clover-default-event-09" || /30\s*-?\s*40|3040|30대/.test(text);
+    }
+
     function currentApplicationAgeOptions() {
+      if (isThirtyFortyEvent(selectedEvent)) return applicationAgeOptions3040;
       if (isDivorcedEvent(selectedEvent)) return applicationAgeOptionsDivorced;
-      return selectedEvent?.station === "40-50대" ? applicationAgeOptions4050 : applicationAgeOptions;
+      if (isLegacy4050Event(selectedEvent)) return applicationAgeOptions4050;
+      const configuredOptions = eventConfiguredAgeOptions(selectedEvent);
+      if (configuredOptions.length) return configuredOptions;
+      return applicationAgeOptions;
     }
 
     let selectedFileSequence = 0;
@@ -26252,7 +26320,7 @@
         if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
         const savedAt = Number(parsed.savedAt || 0);
         if (!savedAt || Date.now() - savedAt > EVENT_LIST_CACHE_TTL_MS) return null;
-        const list = filterDeletedManagedEvents(parsed.items);
+        const list = filterDeletedManagedEvents(parsed.items).map(applySavedEventEdit);
         return Array.isArray(list) && list.length ? list : null;
       } catch {
         return null;
@@ -26270,9 +26338,10 @@
 
     function serverBootstrapEvents() {
       const ageOptions = ["20세 - 27세", "24세 - 29세", "27세 - 36세", "30세 - 37세", "34세 - 39세"];
+      const ageOptions3040 = ["37 - 46세", "40 - 47세", "44 - 49세"];
       const weekdayOptions = ["월", "화", "수", "목", "금", "토", "일", "상관없음", "유동일정"];
       const form3Config = { fields: ["basicInfo", "physicalInfo", "job", "idealRank", "documents", "contactMethod", "message", "agreements"] };
-      const item = (id, order, station, title, target, image, oneToOne, sixToSix, badgeType = "none") => createEventFromPreset({
+      const item = (id, order, station, title, target, image, oneToOne, sixToSix, badgeType = "none", customAgeOptions = ageOptions) => createEventFromPreset({
         id,
         order,
         station,
@@ -26287,7 +26356,7 @@
         active: true,
         form2Config: {
           compositionOptions: ["1:1", "6:6"],
-          ageOptions,
+          ageOptions: customAgeOptions,
           weekdayOptions,
           priceByComposition: {
             "1:1": { malePrice: oneToOne, femalePrice: oneToOne },
@@ -26300,7 +26369,7 @@
       return [
         item("clover-default-event-01", 1, "랜덤", "순차적으로 무작위 선정", "우연처럼 시작되는 설렘", "assets/event-random-destiny-new.png", "10,000원", { male: "60,000원", female: "40,000원" }),
         item("clover-default-event-07", 2, "맞춤", "원하는 조건에 맞는 이상형", "서로의 리듬을 이해하는 현실적인 만남", "assets/event-live-shift-worker.png", "20,000원", { male: "90,000원", female: "70,000원" }),
-        item("clover-default-event-09", 3, "40-50대", "좋은 사람을 만날 시간", "편안한 분위기에서 천천히 알아가는 성숙한 만남", "assets/event-theme-comfort-40s.png", "20,000원", { male: "70,000원", female: "50,000원" }),
+        item("clover-default-event-09", 3, "30-40대", "좋은 사람을 만날 시간", "편안한 분위기에서 천천히 알아가는 성숙한 만남", "assets/event-theme-comfort-40s.png", "20,000원", { male: "70,000원", female: "50,000원" }, "none", ageOptions3040),
         item("clover-default-event-18", 4, "돌싱", "새로운 시작, 새로운 만남", "조금 더 성숙하고 솔직한 두 번째 설렘", "assets/event-theme-divorced.png", "20,000원", { male: "70,000원", female: "50,000원" }, "")
       ];
     }
@@ -26352,6 +26421,7 @@
         if (ok && result && result.ok && Array.isArray(result.events) && result.events.length) {
           const nextEvents = result.events
             .map(backendEventToPublic)
+            .map(applySavedEventEdit)
             .filter((event) => event.active !== false)
             .sort((a, b) => Number(a.order || 0) - Number(b.order || 0));
           applyManagedEvents(nextEvents, { fromServer: true });
