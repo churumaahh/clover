@@ -26,7 +26,7 @@
   <script src="config.js?v=20260722-schedule-api"></script>
   <script>
     (function () {
-      var scriptUrl = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycby2qo5tJz8yTifHLfgpLpy4k6FnBdVw3e7kv8rSkLeReLLQH603GrSalL_dV6b4WtIF/exec";
+      var scriptUrl = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbxYTzjE1BY6JIlwYtyQuDUa2Zr9VvCcmKPhImySLnub8R1EKg8XGR1F__SWCaF1WPaF/exec";
       window.__earlyEventListPromise = fetch(scriptUrl + "?action=eventList&t=" + Date.now(), { cache: "no-store" })
         .then(function (r) { return r.json().then(function (json) { return { ok: r.ok, json: json }; }); })
         .catch(function (error) { return { ok: false, error: error }; });
@@ -16000,7 +16000,7 @@
     const iconPopular = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z" fill="#ff4d6d"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycby2qo5tJz8yTifHLfgpLpy4k6FnBdVw3e7kv8rSkLeReLLQH603GrSalL_dV6b4WtIF/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbxYTzjE1BY6JIlwYtyQuDUa2Zr9VvCcmKPhImySLnub8R1EKg8XGR1F__SWCaF1WPaF/exec";
     const EVENT_LIST_CACHE_KEY = "clover-managed-event-list-v7";
     const EVENT_LIST_CACHE_TTL_MS = 10 * 60 * 1000;
     const CLOUDINARY_ASSET_MAP = {"assets/optimized/event-taste-homebody.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572124/clover/optimized/event-taste-homebody.webp","assets/optimized/clover-proof-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572106/clover/optimized/clover-proof-08.webp","assets/columns/webtoon-column-01.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572080/clover/columns/webtoon-column-01.png","assets/link-preview.jpg":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572079/clover/link-preview.jpg","assets/optimized/field-venue-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-01.webp","assets/optimized/event-taste-workout.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572126/clover/optimized/event-taste-workout.webp","assets/optimized/clover-proof-12.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572110/clover/optimized/clover-proof-12.webp","assets/columns/webtoon-column-03.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572082/clover/columns/webtoon-column-03.png","assets/optimized/field-venue-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572139/clover/optimized/field-venue-05.webp","assets/optimized/clover-proof-19.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-19.webp","assets/columns/webtoon-column-05.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572084/clover/columns/webtoon-column-05.png","assets/optimized/field-venue-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572143/clover/optimized/field-venue-10.webp","assets/optimized/event-group-study-cafe.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572118/clover/optimized/event-group-study-cafe.webp","assets/optimized/clover-proof-17.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572115/clover/optimized/clover-proof-17.webp","assets/columns/webtoon-column-18.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572097/clover/columns/webtoon-column-18.png","assets/optimized/clover-proof-15.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572113/clover/optimized/clover-proof-15.webp","assets/optimized/clover-proof-14.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572112/clover/optimized/clover-proof-14.webp","assets/optimized/field-venue-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-02.webp","assets/favicon.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572078/clover/favicon.png","assets/optimized/clover-proof-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572105/clover/optimized/clover-proof-07.webp","assets/optimized/event-theme-warm.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572134/clover/optimized/event-theme-warm.webp","assets/optimized/event-theme-dress-code.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572129/clover/optimized/event-theme-dress-code.webp","assets/optimized/clover-proof-11.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572109/clover/optimized/clover-proof-11.webp","assets/optimized/event-theme-divorced.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572128/clover/optimized/event-theme-divorced.webp","assets/optimized/event-theme-professional-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572131/clover/optimized/event-theme-professional-man.webp","assets/optimized/event-theme-japanese-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572130/clover/optimized/event-theme-japanese-woman.webp","assets/optimized/event-theme-wealthy-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572135/clover/optimized/event-theme-wealthy-man.webp","assets/columns/webtoon-column-07.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572086/clover/columns/webtoon-column-07.png","assets/optimized/clover-proof-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-06.webp","assets/clover-logo-v2.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572076/clover/clover-logo-v2.png","assets/columns/webtoon-column-12.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572091/clover/columns/webtoon-column-12.png","assets/optimized/clover-proof-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572102/clover/optimized/clover-proof-03.webp","assets/optimized/event-taste-travel.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572125/clover/optimized/event-taste-travel.webp","assets/optimized/event-theme-tall-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572133/clover/optimized/event-theme-tall-man.webp","assets/columns/webtoon-column-11.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572090/clover/columns/webtoon-column-11.png","assets/optimized/clover-proof-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572108/clover/optimized/clover-proof-10.webp","assets/optimized/event-theme-career-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-career-man.webp","assets/columns/webtoon-column-09.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572088/clover/columns/webtoon-column-09.png","assets/optimized/event-random-destiny-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-random-destiny-new.webp","assets/optimized/event-live-office-worker-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572120/clover/optimized/event-live-office-worker-new.webp","assets/optimized/field-venue-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-08.webp","assets/columns/webtoon-column-04.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572083/clover/columns/webtoon-column-04.png","assets/columns/webtoon-column-16.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572095/clover/columns/webtoon-column-16.png","assets/optimized/clover-proof-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-05.webp","assets/optimized/clover-proof-20.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572117/clover/optimized/clover-proof-20.webp","assets/columns/webtoon-column-17.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572096/clover/columns/webtoon-column-17.png","assets/optimized/event-theme-comfort-40s.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-comfort-40s.webp","assets/optimized/field-venue-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-04.webp","assets/optimized/clover-proof-16.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572114/clover/optimized/clover-proof-16.webp","assets/columns/webtoon-column-14.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572093/clover/columns/webtoon-column-14.png","assets/columns/webtoon-column-19.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572098/clover/columns/webtoon-column-19.png","assets/optimized/event-live-christian.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572119/clover/optimized/event-live-christian.webp","assets/optimized/event-romance-faceless.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572122/clover/optimized/event-romance-faceless.webp","assets/optimized/event-theme-public-servant-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572132/clover/optimized/event-theme-public-servant-woman.webp","assets/optimized/field-venue-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-03.webp","assets/optimized/field-venue-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572140/clover/optimized/field-venue-06.webp","assets/columns/webtoon-column-08.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572087/clover/columns/webtoon-column-08.png","assets/optimized/clover-proof-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572101/clover/optimized/clover-proof-02.webp","assets/optimized/field-venue-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572141/clover/optimized/field-venue-07.webp","assets/optimized/clover-proof-13.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572111/clover/optimized/clover-proof-13.webp","assets/columns/webtoon-column-20.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572099/clover/columns/webtoon-column-20.png","assets/optimized/clover-proof-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572107/clover/optimized/clover-proof-09.webp","assets/optimized/event-taste-active.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572123/clover/optimized/event-taste-active.webp","assets/columns/webtoon-column-06.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572085/clover/columns/webtoon-column-06.png","assets/optimized/event-live-shift-worker.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-live-shift-worker.webp","assets/columns/webtoon-column-15.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572094/clover/columns/webtoon-column-15.png","assets/optimized/footer-lobby-banner-clean.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572144/clover/optimized/footer-lobby-banner-clean.webp","assets/optimized/field-venue-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-09.webp","assets/columns/webtoon-column-13.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572092/clover/columns/webtoon-column-13.png","assets/optimized/clover-proof-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572103/clover/optimized/clover-proof-04.webp","assets/columns/webtoon-column-10.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572089/clover/columns/webtoon-column-10.png","assets/columns/webtoon-column-02.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572081/clover/columns/webtoon-column-02.png","assets/optimized/clover-proof-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572100/clover/optimized/clover-proof-01.webp","assets/optimized/clover-proof-18.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-18.webp"};
@@ -18385,6 +18385,7 @@
     }
 
     async function loadMyApplications(forceRefresh = false) {
+      await waitForAuthReady();
       ensureAuthVisitorOwner();
       const list = document.querySelector("[data-mypage-list]");
       const cached = readMypageCache();
@@ -18405,6 +18406,7 @@
         const mergedApplications = mergeApplicationsWithLocal(applications, cached || currentMyApplications);
         writeMypageCache(mergedApplications);
         renderMyApplications(mergedApplications);
+        if (!mypageHasProfileData) cacheLatestApplicationAsProfile(mergedApplications);
         } catch {
         if (!cached && !currentMyApplications.length) renderMyApplications([]);
         } finally {
@@ -19913,6 +19915,8 @@
     }
 
     async function loadMyProfileInfo() {
+      await waitForAuthReady();
+      ensureAuthVisitorOwner();
       if (!isLoggedIn()) {
         renderMyProfileInfo(null, false);
         return;
@@ -19927,7 +19931,8 @@
           renderMyProfileInfo(merged, false);
         }
       } else if (!cached && !mypageInfoEditing) {
-        renderMyProfileInfo(null, false);
+        const profileFromApplication = cacheLatestApplicationAsProfile(currentMyApplications);
+        if (!profileFromApplication) renderMyProfileInfo(null, false);
       }
     }
 
@@ -24918,6 +24923,24 @@
       return savedProfile;
     }
 
+    function cacheLatestApplicationAsProfile(applications = currentMyApplications) {
+      if (!isLoggedIn()) return null;
+      const latestApplication = [...(Array.isArray(applications) ? applications : [])]
+        .filter(isCurrentMypageRecord)
+        .filter((application) => application?.name || application?.phone || application?.photoFileUrls?.length || application?.documentFileUrl)
+        .sort((a, b) => applicationTimestamp(b) - applicationTimestamp(a))[0];
+      if (!latestApplication) return null;
+      const profile = applicationPayloadToProfileInfo({
+        ...latestApplication,
+        authUser: latestApplication.authUser || authProfileKey(),
+        profileAutoSave: true
+      }, latestApplication);
+      writeProfileInfoCache(profile);
+      mypageInfoCurrentProfile = profile;
+      if (!mypageInfoEditing) renderMyProfileInfo(profile, false);
+      return profile;
+    }
+
     function selectedChoice(labelText) {
       const labels = [...document.querySelectorAll(".application-form .form-field label")];
       const label = labels.find((item) => item.textContent.includes(labelText));
@@ -25328,7 +25351,7 @@
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = () => resolve(reader.result);
-        reader.onerror = () => reject(new Error(`${file.name} ?뚯씪???쎌쓣 ???놁뒿?덈떎.`));
+        reader.onerror = () => reject(new Error(`${file.name} 파일을 읽을 수 없습니다.`));
         reader.readAsDataURL(file);
       });
     }
@@ -25349,7 +25372,7 @@
           URL.revokeObjectURL(objectUrl);
           canvas.toBlob((blob) => {
             if (!blob) {
-              reject(new Error(`${file.name} ?대?吏瑜?蹂?섑븷 ???놁뒿?덈떎.`));
+              reject(new Error(`${file.name} 이미지를 변환할 수 없습니다.`));
               return;
             }
             const baseName = file.name.replace(/\.[^.]+$/, "") || "image";
@@ -25358,7 +25381,7 @@
         };
         image.onerror = () => {
           URL.revokeObjectURL(objectUrl);
-          reject(new Error(`${file.name} ?대?吏瑜?遺덈윭?????놁뒿?덈떎.`));
+          reject(new Error(`${file.name} 이미지를 불러올 수 없습니다.`));
         };
         image.src = objectUrl;
       });
@@ -25366,7 +25389,15 @@
 
     async function fileToPayload(file, options = {}) {
       const maxSize = Number(options.maxSize) || PAYLOAD_UPLOAD_FILE_MAX_SIZE;
-      const preparedFile = file.type.startsWith("image/") ? await compressImage(file, options) : file;
+      let preparedFile = file;
+      if (file.type.startsWith("image/")) {
+        try {
+          preparedFile = await compressImage(file, options);
+        } catch (error) {
+          console.warn(error);
+          preparedFile = file;
+        }
+      }
       if (preparedFile.size > maxSize) {
         throw new Error(`${file.name} 파일은 ${formatFileSize(maxSize)} 이하만 업로드할 수 있습니다.`);
       }
@@ -25448,6 +25479,8 @@
     }
 
     async function submitApplication(button) {
+      await waitForAuthReady();
+      ensureAuthVisitorOwner();
       if (!selectedScheduleDate) {
         alert("참여 일정을 이전 단계에서 선택해 주세요.");
         return;
@@ -25549,6 +25582,7 @@
       const eventTitlePrefix = `${eventTitleLayer ? `[${eventTitleLayer}] ` : ""}[${selectedApplyGender} 신청]`;
       const shouldSubmitChildren = isDivorcedEvent(selectedEvent) || isCustomMatchEvent(selectedEvent);
       const profileForAutosave = readProfileInfoCache() || mypageInfoCurrentProfile || {};
+      const authUserForSubmit = currentAuthPhoneKey();
       const payload = {
         submittedAt: new Date().toISOString(),
         visitorId: getVisitorIdentity().id,
@@ -25598,8 +25632,8 @@
         documentFileName: pendingDocumentFile?.name || (pendingExistingDocumentUrl ? "내 정보 재직 증명" : ""),
         photoFileNames: [...pendingExistingPhotoUrls.map((_, index) => `내 정보 얼굴 사진 ${index + 1}`), ...pendingPhotoFiles.map(({ file }) => file.name)].join(", "),
         bodyPhotoFileNames: [...pendingExistingBodyPhotoUrls.map((_, index) => `내 정보 전신 사진 ${index + 1}`), ...pendingBodyPhotoFiles.map(({ file }) => file.name)].join(", "),
-        profileAutoSave: isLoggedIn(),
-        authUser: authProfileKey(),
+        profileAutoSave: Boolean(authUserForSubmit),
+        authUser: authUserForSubmit,
         termsAgree: document.querySelector("[data-agree-all]")?.checked || false,
         privacyAgree: document.querySelector("[data-agree-privacy]")?.checked || false,
         refundAgree: false,
@@ -26847,11 +26881,17 @@
     });
 
     window.addEventListener("focus", () => {
-      if (currentPageName === "mypage") loadMyApplications(true);
+      if (currentPageName === "mypage") {
+        loadMyApplications(true);
+        loadMyProfileInfo();
+      }
     });
 
     document.addEventListener("visibilitychange", () => {
-      if (!document.hidden && currentPageName === "mypage") loadMyApplications(true);
+      if (!document.hidden && currentPageName === "mypage") {
+        loadMyApplications(true);
+        loadMyProfileInfo();
+      }
     });
 
     seedHeroSlides();
