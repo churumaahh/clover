@@ -6590,6 +6590,17 @@
       opacity: 0.55;
     }
 
+    .form-submit-hint {
+      margin: 0.4rem 0 0;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #e0453c;
+    }
+
+    .form-submit-hint[hidden] {
+      display: none;
+    }
+
     :root[data-theme="dark"] .form-submit-btn {
       background-color: #1e1e1e !important;
       background: linear-gradient(180deg, #282828 0%, #1e1e1e 100%) !important;
@@ -17159,6 +17170,7 @@
           </div>
 
           <button class="form-submit-btn" type="button" disabled>신청하기</button>
+          <p class="form-submit-hint" data-form-submit-hint hidden></p>
           ${applicationProcessNoticeMarkup()}
         </form>
 
@@ -25454,28 +25466,37 @@
       updateFormSubmitButton();
     }
 
-    function isApplicationFormReady() {
+    function applicationFormMissingReason() {
       const required = ["#applyName", "#applyPhone", "#applyBirth", "#applyHeight", "#applyWeight", "#applyArea"];
-      if (required.some((selector) => !inputValue(selector))) return false;
+      if (required.some((selector) => !inputValue(selector))) return "이름, 연락처, 생년월일, 키, 체중, 거주지를 모두 입력해 주세요.";
       const birthInput = document.querySelector("#applyBirth");
-      if (!birthInput) return false;
-      if (birthInput.value.length !== 10) return false;
+      if (!birthInput || birthInput.value.length !== 10) return "생년월일을 형식에 맞게 입력해 주세요. (예: 1990-01-01)";
       const totalPhotoCount = selectedExistingPhotoUrls.length + selectedPhotoFiles.length;
-      if (totalPhotoCount < 3 || totalPhotoCount > 5) return false;
+      if (totalPhotoCount < 3 || totalPhotoCount > 5) return "얼굴 사진을 3~5장 등록해 주세요.";
       const totalBodyPhotoCount = selectedExistingBodyPhotoUrls.length + selectedBodyPhotoFiles.length;
-      if (totalBodyPhotoCount < 1 || totalBodyPhotoCount > 3) return false;
-      if (isDivorcedEvent(selectedEvent) && !myChildrenReady()) return false;
-      if (isDivorcedEvent(selectedEvent) && !selectedChildrenCondition) return false;
-      if (isCustomMatchEvent(selectedEvent) && !inputValue("#applyMessage")) return false;
-      if (isCustomMatchEvent(selectedEvent) && selectedIdealRankValues().length < 3) return false;
-      if (!hasRequiredApplicationAgreements()) return false;
-      return true;
+      if (totalBodyPhotoCount < 1 || totalBodyPhotoCount > 3) return "전신 사진을 1~3장 등록해 주세요.";
+      if (isDivorcedEvent(selectedEvent) && !myChildrenReady()) return "자녀 정보를 선택해 주세요.";
+      if (isDivorcedEvent(selectedEvent) && !selectedChildrenCondition) return "희망 조건을 선택해 주세요.";
+      if (isCustomMatchEvent(selectedEvent) && !inputValue("#applyMessage")) return "하고 싶은 말을 입력해 주세요.";
+      if (isCustomMatchEvent(selectedEvent) && selectedIdealRankValues().length < 3) return "나의 이상형을 3순위까지 선택해 주세요.";
+      if (!hasRequiredApplicationAgreements()) return "필수 동의 항목을 확인해 주세요.";
+      return "";
+    }
+
+    function isApplicationFormReady() {
+      return !applicationFormMissingReason();
     }
 
     function updateFormSubmitButton() {
       const button = document.querySelector(".application-form .form-submit-btn");
       if (!button || button.classList.contains("is-loading")) return;
-      button.disabled = !isApplicationFormReady();
+      const reason = applicationFormMissingReason();
+      button.disabled = Boolean(reason);
+      const hint = document.querySelector(".application-form [data-form-submit-hint]");
+      if (hint) {
+        hint.textContent = reason;
+        hint.hidden = !reason;
+      }
     }
 
     async function submitApplication(button) {
@@ -25521,12 +25542,14 @@
 
       const totalPhotoCount = selectedExistingPhotoUrls.length + selectedPhotoFiles.length;
       if (totalPhotoCount < 3 || totalPhotoCount > 5) {
+        alert("본인 사진을 3~5장 등록해 주세요.");
         document.querySelector('[data-photo-file-drop="photos"]')?.classList.add("is-invalid");
         document.querySelector('[data-photo-file-drop="photos"]')?.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
       }
       const totalBodyPhotoCount = selectedExistingBodyPhotoUrls.length + selectedBodyPhotoFiles.length;
       if (totalBodyPhotoCount < 1 || totalBodyPhotoCount > 3) {
+        alert("전신 사진을 1~3장 등록해 주세요.");
         document.querySelector('[data-photo-file-drop="bodyPhotos"]')?.classList.add("is-invalid");
         document.querySelector('[data-photo-file-drop="bodyPhotos"]')?.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
