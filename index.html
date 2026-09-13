@@ -26,7 +26,7 @@
   <script src="config.js?v=20260722-schedule-api"></script>
   <script>
     (function () {
-      var scriptUrl = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbwwHS6_BjaGBuYrAs8AbHjuj2ETEPr4ULts2qoZzBcSowjWYOpxGvGdebdsQSZmFuE/exec";
+      var scriptUrl = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycby2qo5tJz8yTifHLfgpLpy4k6FnBdVw3e7kv8rSkLeReLLQH603GrSalL_dV6b4WtIF/exec";
       window.__earlyEventListPromise = fetch(scriptUrl + "?action=eventList&t=" + Date.now(), { cache: "no-store" })
         .then(function (r) { return r.json().then(function (json) { return { ok: r.ok, json: json }; }); })
         .catch(function (error) { return { ok: false, error: error }; });
@@ -3984,6 +3984,7 @@
       border-radius: 1rem;
       background: var(--surface);
       box-shadow: 0 1rem 2.4rem rgba(18, 24, 35, 0.26);
+      transform: translateY(-2.4rem);
     }
 
     .app-edit-head {
@@ -3998,14 +3999,6 @@
       margin: 0;
       font-size: 1.05rem;
       font-weight: 950;
-    }
-
-    .app-edit-title {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.82rem;
-      line-height: 1.2;
-      font-weight: 700;
     }
 
     .app-edit-close-btn {
@@ -4032,6 +4025,35 @@
 
     .app-edit-actions .selection-complete-btn {
       min-width: 0;
+    }
+
+    .app-edit-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin: 0;
+      line-height: 1.15;
+    }
+
+    .app-edit-title-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.35rem;
+      height: 1.35rem;
+      color: currentColor;
+      flex: 0 0 auto;
+      transform: translateY(0.02rem);
+    }
+
+    .app-edit-title-icon svg {
+      width: 1.3rem;
+      height: 1.3rem;
+      stroke-width: 2.2;
+    }
+
+    .app-edit-title-icon .app-edit-title-check {
+      stroke: var(--accent);
     }
 
     .app-check-summary {
@@ -4134,22 +4156,59 @@
     }
 
     [data-info-modal] .gender-modal-panel {
-      width: min(17.1rem, calc(100vw - 2rem));
-      padding: 1.75rem 1.35rem 1.45rem;
+      display: grid;
+      place-items: center;
+      gap: 0.75rem;
+      width: min(17rem, calc(100vw - 2rem));
+      min-height: 9.5rem;
+      padding: 1.6rem 1.4rem;
       border: 0;
-      border-radius: 1.15rem;
+      border-radius: 18px;
       background: #eef1f5;
-      box-shadow: 0 1rem 2.4rem rgba(15, 23, 42, 0.2), inset 0.65rem 0.65rem 1.2rem rgba(255, 255, 255, 0.68), inset -0.7rem -0.7rem 1.25rem rgba(148, 163, 184, 0.22);
+      box-shadow: 0 0.9rem 1.8rem rgba(15, 23, 42, 0.22);
+    }
+
+    [data-info-modal] .gender-modal-close {
+      top: 0.8rem !important;
+      right: 0.8rem !important;
+      background-color: #eef1f5 !important;
+      background: #eef1f5 !important;
+      border-radius: 0.7rem !important;
+      color: #121218 !important;
+      font-size: 1.25rem !important;
+      box-shadow: 0.22rem 0.22rem 0.46rem rgba(148, 163, 184, 0.18), -0.18rem -0.18rem 0.42rem rgba(255, 255, 255, 0.78) !important;
+    }
+
+    [data-info-modal] .gender-modal-close:hover,
+    [data-info-modal] .gender-modal-close:active {
+      color: #00c934 !important;
+      background: #eef1f5 !important;
+      box-shadow: inset 0.24rem 0.24rem 0.5rem rgba(148, 163, 184, 0.28), inset -0.24rem -0.24rem 0.5rem rgba(255, 255, 255, 0.86) !important;
+    }
+
+    :root[data-theme="dark"] [data-info-modal] .gender-modal-close {
+      background-color: #232323 !important;
+      background: #232323 !important;
+      color: #aeb6c2 !important;
+      box-shadow: 0.22rem 0.22rem 0.46rem rgba(0, 0, 0, 0.42), -0.18rem -0.18rem 0.42rem rgba(255, 255, 255, 0.04) !important;
+    }
+
+    :root[data-theme="dark"] [data-info-modal] .gender-modal-close:hover,
+    :root[data-theme="dark"] [data-info-modal] .gender-modal-close:active {
+      background: #232323 !important;
+      color: #00c934 !important;
+      box-shadow: inset 0.24rem 0.24rem 0.5rem rgba(0, 0, 0, 0.45), inset -0.24rem -0.24rem 0.5rem rgba(255, 255, 255, 0.05) !important;
     }
 
     [data-info-modal] .modal-confirm-btn {
-      min-width: 6.2rem;
-      min-height: 2.35rem;
-      font-size: 0.88rem;
+      min-width: 7.5rem;
+      min-height: 2.4rem;
+      border-radius: 0.85rem;
+      font-size: 0.8rem;
       border: 0 !important;
       background-color: #eef1f5 !important;
       background: #eef1f5 !important;
-      box-shadow: 0.45rem 0.45rem 0.9rem rgba(148, 163, 184, 0.28), -0.35rem -0.35rem 0.8rem rgba(255, 255, 255, 0.9);
+      box-shadow: 0.24rem 0.24rem 0.55rem rgba(148, 163, 184, 0.28), -0.2rem -0.2rem 0.48rem rgba(255, 255, 255, 0.82);
     }
 
     [data-info-modal] .modal-confirm-btn:hover,
@@ -4160,33 +4219,66 @@
       transform: none;
     }
 
+    [data-info-modal] .gender-modal-actions {
+      display: grid;
+      grid-template-columns: minmax(7.5rem, 10rem);
+      justify-content: center;
+      gap: 0.55rem;
+      width: 100%;
+      margin-top: 0.35rem;
+    }
+
     :root[data-theme="dark"] [data-info-modal] .gender-modal-panel {
-      background: #1e1e1e;
-      box-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.34), inset 0.45rem 0.45rem 1rem rgba(255, 255, 255, 0.035), inset -0.55rem -0.55rem 1rem rgba(0, 0, 0, 0.28);
+      background: #232323;
+      color: #f7f9fb;
+      box-shadow: 0 0.9rem 1.8rem rgba(0, 0, 0, 0.52);
+    }
+
+    :root[data-theme="dark"] [data-info-modal] .modal-confirm-btn {
+      background-color: #232323 !important;
+      background: #232323 !important;
+      color: #f7f9fb !important;
+      box-shadow: 0.24rem 0.24rem 0.55rem rgba(0, 0, 0, 0.42), -0.18rem -0.18rem 0.42rem rgba(255, 255, 255, 0.04) !important;
+    }
+
+    :root[data-theme="dark"] [data-info-modal] .modal-confirm-btn:hover,
+    :root[data-theme="dark"] [data-info-modal] .modal-confirm-btn:focus-visible,
+    :root[data-theme="dark"] [data-info-modal] .modal-confirm-btn:active {
+      background: #232323 !important;
+      box-shadow: inset 0.35rem 0.35rem 0.75rem rgba(0, 0, 0, 0.45), inset -0.35rem -0.35rem 0.75rem rgba(255, 255, 255, 0.05) !important;
+      transform: none;
     }
 
     .info-modal-message {
       display: grid;
       gap: .54rem;
-      margin: 0 0 1.75rem;
-      padding: 0 1.35rem;
+      margin: 0;
+      padding: 0;
+      color: #101418;
+      font-size: 1rem;
+      font-weight: 1000;
+      line-height: 1.35;
       text-align: center;
     }
 
     .info-modal-main {
       color: #2f3540;
-      font-size: 0.96rem;
-      font-weight: 850;
-      line-height: 1.4;
+      font-size: 1.05rem;
+      font-weight: 1000;
+      line-height: 1.35;
     }
 
     :root[data-theme="dark"] .info-modal-main {
       color: #f1f1f1;
     }
 
+    :root[data-theme="dark"] .info-modal-message {
+      color: #f1f1f1;
+    }
+
     .info-modal-sub {
       font-size: .78rem;
-      font-weight: 500;
+      font-weight: 800;
       line-height: 1.45;
       color: var(--muted);
     }
@@ -4312,9 +4404,18 @@
     }
 
     .submit-success-modal .submit-success-hint {
+      margin: 0.45rem 0 1.1rem;
+      color: #aeb6c2;
+      font-size: 0.68rem;
+      font-weight: 700;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    [data-data-deleted-modal] .submit-success-hint {
       margin: 0 0 1rem;
       color: #7f8792;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 700;
       line-height: 1.45;
       text-align: center;
@@ -8186,9 +8287,18 @@
       position: absolute;
       left: 1rem;
       display: inline-flex;
+      align-items: center;
+      justify-content: center;
       width: 1.05rem;
       height: 1.05rem;
       color: var(--muted);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    [data-auth-login-form] .auth-field:first-of-type .auth-field-icon,
+    [data-auth-signup-form] .auth-field:first-of-type .auth-field-icon {
+      transform: translateY(calc(-50% + 0.06rem));
     }
 
     .auth-field-icon svg {
@@ -8298,6 +8408,12 @@
       transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
     }
 
+    .auth-submit:disabled,
+    .auth-submit[aria-disabled="true"] {
+      cursor: not-allowed;
+      opacity: 0.56;
+    }
+
     :root[data-theme="dark"] .auth-submit {
       background: #232323;
       color: var(--ink);
@@ -8325,8 +8441,8 @@
     }
 
     :root[data-theme="dark"] .auth-submit.is-loading::before {
-      border-color: rgba(7, 21, 11, 0.2);
-      border-top-color: rgba(7, 21, 11, 0.94);
+      border-color: rgba(255, 255, 255, 0.2);
+      border-top-color: #ffffff;
       background: transparent;
       box-shadow: none;
     }
@@ -8336,16 +8452,34 @@
       border-top-color: rgba(7, 21, 11, 0.94);
     }
 
+    :root[data-theme="dark"] .auth-submit.is-loading.is-ready::before {
+      border-color: rgba(255, 255, 255, 0.2);
+      border-top-color: #ffffff;
+    }
+
     .auth-submit.is-ready {
-      background: #00ff40 !important;
-      color: #07150b !important;
-      box-shadow: 0.32rem 0.32rem 0.7rem rgba(0, 240, 64, 0.28), -0.22rem -0.22rem 0.55rem rgba(255, 255, 255, 0.5) !important;
+      cursor: pointer;
+      opacity: 1;
     }
 
     :root[data-theme="dark"] .auth-submit.is-ready {
-      background: #00ff40 !important;
-      color: #07150b !important;
-      box-shadow: 0.32rem 0.32rem 0.7rem rgba(0, 0, 0, 0.4), -0.22rem -0.22rem 0.55rem rgba(0, 240, 64, 0.15) !important;
+      color: var(--ink) !important;
+    }
+
+    :root[data-theme="dark"] .app:has(#page-login.is-active),
+    :root[data-theme="dark"] .app:has(#page-signup.is-active),
+    :root[data-theme="dark"] #page-login .auth-page,
+    :root[data-theme="dark"] #page-signup .auth-page {
+      background: #101010 !important;
+    }
+
+    :root[data-theme="dark"] #page-login .auth-card,
+    :root[data-theme="dark"] #page-signup .auth-card,
+    :root[data-theme="dark"] #page-login .auth-field input,
+    :root[data-theme="dark"] #page-signup .auth-field input,
+    :root[data-theme="dark"] #page-login .auth-submit,
+    :root[data-theme="dark"] #page-signup .auth-submit {
+      background: #232323 !important;
     }
 
     .auth-switch {
@@ -8505,6 +8639,10 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       color: #667085;
+    }
+
+    :root[data-theme="dark"] .mypage-file-preview span:last-child {
+      color: #aeb6c2;
     }
 
     .mypage-info-form-actions {
@@ -10049,10 +10187,21 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      border: 1px solid rgba(148, 163, 184, 0.24);
       border-radius: 0.55rem;
-      color: #111;
-      background: #00ff40;
+      color: var(--ink);
+      background-color: #eef1f5;
+      background: linear-gradient(180deg, #ffffff 0%, #eef1f5 100%);
       font-weight: 900;
+      box-shadow: 0 0.45rem 0.8rem rgba(15, 23, 42, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(148, 163, 184, 0.18);
+    }
+
+    :root[data-theme="dark"] .board-access-button {
+      border-color: rgba(255, 255, 255, 0.035);
+      background-color: #1e1e1e;
+      background: linear-gradient(180deg, #282828 0%, #1e1e1e 100%);
+      color: #ffffff;
+      box-shadow: 0 0.45rem 0.8rem rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(0, 0, 0, 0.36);
     }
 
     .board-access-button.is-loading::before {
@@ -10077,7 +10226,7 @@
 
     .board-private-heading {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 0.75rem;
     }
@@ -10955,9 +11104,9 @@
     }
 
     .footer-policy-modal-body {
-      min-height: 9rem;
+      min-height: 0;
       margin-top: 0.9rem;
-      padding: 0 1.1rem 1rem;
+      padding: 0 1.1rem 0.2rem;
       color: var(--ink);
       font-size: 0.8rem;
       font-weight: 500;
@@ -10974,6 +11123,10 @@
     .footer-policy-modal-body p {
       margin: 0 0 0.7rem;
       color: #596171;
+    }
+
+    .footer-policy-modal-body > :last-child {
+      margin-bottom: 0;
     }
 
     .footer-policy-modal-body h3 {
@@ -11031,8 +11184,8 @@
       width: 0.36rem;
       height: 0.36rem;
       border-radius: 999px;
-      background: #00ff40;
-      box-shadow: 0 0 0.35rem rgba(0, 255, 64, 0.42);
+      background: #ffffff;
+      box-shadow: 0 0 0.35rem rgba(255, 255, 255, 0.28);
       transform: translateY(-50%);
     }
 
@@ -11122,9 +11275,12 @@
 
     .board-private-actions {
       display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0.35rem;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.45rem;
+      margin-left: auto;
+      flex: 0 0 auto;
     }
 
     .business-info dd {
@@ -12073,6 +12229,10 @@
     :root[data-theme="dark"] .home-schedule-panel .schedule-detail-heading,
     :root[data-theme="dark"] .home-schedule-panel p {
       color: #f1f1f1;
+    }
+
+    :root[data-theme="dark"] .submit-success-modal .home-schedule-panel .submit-success-hint {
+      color: #aeb6c2;
     }
 
     [data-match-result-modal] .match-result-detail-summary {
@@ -14629,8 +14789,8 @@
 
     .application-selection-page .application-note-input::placeholder {
       color: #8a96a6 !important;
-      font-size: 0.86rem !important;
-      font-weight: 800 !important;
+      font-size: 0.8rem !important;
+      font-weight: 400 !important;
     }
 
     :root[data-theme="dark"] .application-selection-page .application-note-input {
@@ -15480,8 +15640,8 @@
   <div class="gender-modal" data-data-deleted-modal role="dialog" aria-modal="true" aria-labelledby="dataDeletedTitle" hidden>
     <div class="gender-modal-panel">
       <button class="gender-modal-close" type="button" aria-label="닫기" data-data-deleted-close>×</button>
-      <p class="gender-modal-title" id="dataDeletedTitle">계정 탈퇴가 완료되었습니다.</p>
-      <p class="submit-success-hint">신청 내역은 취소 처리되고 작성한 내용은 삭제되었습니다.</p>
+      <p class="gender-modal-title" id="dataDeletedTitle">탈퇴가 완료되었습니다.</p>
+      <p class="submit-success-hint">신청 등 모든 정보가 삭제되었습니다.</p>
       <div class="gender-modal-actions">
         <button class="modal-confirm-btn" type="button" data-data-deleted-close>확인</button>
       </div>
@@ -15492,10 +15652,10 @@
     <div class="gender-modal-panel">
       <button class="gender-modal-close" type="button" aria-label="닫기" data-account-withdraw-close>×</button>
       <p class="gender-modal-title account-withdraw-title" id="accountWithdrawTitle">계정을 탈퇴하시겠습니까?</p>
-      <p class="account-withdraw-copy">가입 정보는 삭제되고, 신청 내역은 취소 처리되며, 작성한 내용은 모두 삭제됩니다.</p>
+      <p class="account-withdraw-copy">신청 내역 등 모든 정보가 삭제됩니다.</p>
       <div class="gender-modal-actions">
         <button class="modal-cancel-btn" type="button" data-account-withdraw-close>취소</button>
-        <button class="modal-danger-btn" type="button" data-account-withdraw-confirm>탈퇴하기</button>
+        <button class="modal-danger-btn" type="button" data-account-withdraw-confirm>탈퇴</button>
       </div>
     </div>
   </div>
@@ -15628,7 +15788,7 @@
         if (genderModal && !genderModal.hidden) { setGenderModal(false); return true; }
         if (popupModalVisible("[data-submit-success-modal]")) { setSubmitSuccessModal(false); return true; }
         if (popupModalVisible("[data-info-modal]")) { setInfoModal(false); return true; }
-        if (popupModalVisible("[data-data-deleted-modal]")) { setDataDeletedModal(false); return true; }
+        if (popupModalVisible("[data-data-deleted-modal]")) { closeDataDeletedModalAndLogout(); return true; }
         if (popupModalVisible("[data-account-withdraw-modal]")) { setAccountWithdrawModal(false); return true; }
         if (popupModalVisible("[data-board-delete-modal]")) { setBoardDeleteModal(false); return true; }
         if (popupModalVisible("[data-app-edit-modal]")) { closeAppEditModal(); return true; }
@@ -15840,7 +16000,7 @@
     const iconPopular = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z" fill="#ff4d6d"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbwwHS6_BjaGBuYrAs8AbHjuj2ETEPr4ULts2qoZzBcSowjWYOpxGvGdebdsQSZmFuE/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycby2qo5tJz8yTifHLfgpLpy4k6FnBdVw3e7kv8rSkLeReLLQH603GrSalL_dV6b4WtIF/exec";
     const EVENT_LIST_CACHE_KEY = "clover-managed-event-list-v7";
     const EVENT_LIST_CACHE_TTL_MS = 10 * 60 * 1000;
     const CLOUDINARY_ASSET_MAP = {"assets/optimized/event-taste-homebody.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572124/clover/optimized/event-taste-homebody.webp","assets/optimized/clover-proof-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572106/clover/optimized/clover-proof-08.webp","assets/columns/webtoon-column-01.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572080/clover/columns/webtoon-column-01.png","assets/link-preview.jpg":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572079/clover/link-preview.jpg","assets/optimized/field-venue-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-01.webp","assets/optimized/event-taste-workout.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572126/clover/optimized/event-taste-workout.webp","assets/optimized/clover-proof-12.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572110/clover/optimized/clover-proof-12.webp","assets/columns/webtoon-column-03.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572082/clover/columns/webtoon-column-03.png","assets/optimized/field-venue-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572139/clover/optimized/field-venue-05.webp","assets/optimized/clover-proof-19.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-19.webp","assets/columns/webtoon-column-05.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572084/clover/columns/webtoon-column-05.png","assets/optimized/field-venue-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572143/clover/optimized/field-venue-10.webp","assets/optimized/event-group-study-cafe.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572118/clover/optimized/event-group-study-cafe.webp","assets/optimized/clover-proof-17.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572115/clover/optimized/clover-proof-17.webp","assets/columns/webtoon-column-18.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572097/clover/columns/webtoon-column-18.png","assets/optimized/clover-proof-15.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572113/clover/optimized/clover-proof-15.webp","assets/optimized/clover-proof-14.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572112/clover/optimized/clover-proof-14.webp","assets/optimized/field-venue-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-02.webp","assets/favicon.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572078/clover/favicon.png","assets/optimized/clover-proof-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572105/clover/optimized/clover-proof-07.webp","assets/optimized/event-theme-warm.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572134/clover/optimized/event-theme-warm.webp","assets/optimized/event-theme-dress-code.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572129/clover/optimized/event-theme-dress-code.webp","assets/optimized/clover-proof-11.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572109/clover/optimized/clover-proof-11.webp","assets/optimized/event-theme-divorced.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572128/clover/optimized/event-theme-divorced.webp","assets/optimized/event-theme-professional-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572131/clover/optimized/event-theme-professional-man.webp","assets/optimized/event-theme-japanese-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572130/clover/optimized/event-theme-japanese-woman.webp","assets/optimized/event-theme-wealthy-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572135/clover/optimized/event-theme-wealthy-man.webp","assets/columns/webtoon-column-07.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572086/clover/columns/webtoon-column-07.png","assets/optimized/clover-proof-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-06.webp","assets/clover-logo-v2.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572076/clover/clover-logo-v2.png","assets/columns/webtoon-column-12.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572091/clover/columns/webtoon-column-12.png","assets/optimized/clover-proof-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572102/clover/optimized/clover-proof-03.webp","assets/optimized/event-taste-travel.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572125/clover/optimized/event-taste-travel.webp","assets/optimized/event-theme-tall-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572133/clover/optimized/event-theme-tall-man.webp","assets/columns/webtoon-column-11.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572090/clover/columns/webtoon-column-11.png","assets/optimized/clover-proof-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572108/clover/optimized/clover-proof-10.webp","assets/optimized/event-theme-career-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-career-man.webp","assets/columns/webtoon-column-09.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572088/clover/columns/webtoon-column-09.png","assets/optimized/event-random-destiny-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-random-destiny-new.webp","assets/optimized/event-live-office-worker-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572120/clover/optimized/event-live-office-worker-new.webp","assets/optimized/field-venue-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-08.webp","assets/columns/webtoon-column-04.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572083/clover/columns/webtoon-column-04.png","assets/columns/webtoon-column-16.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572095/clover/columns/webtoon-column-16.png","assets/optimized/clover-proof-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-05.webp","assets/optimized/clover-proof-20.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572117/clover/optimized/clover-proof-20.webp","assets/columns/webtoon-column-17.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572096/clover/columns/webtoon-column-17.png","assets/optimized/event-theme-comfort-40s.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-comfort-40s.webp","assets/optimized/field-venue-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-04.webp","assets/optimized/clover-proof-16.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572114/clover/optimized/clover-proof-16.webp","assets/columns/webtoon-column-14.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572093/clover/columns/webtoon-column-14.png","assets/columns/webtoon-column-19.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572098/clover/columns/webtoon-column-19.png","assets/optimized/event-live-christian.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572119/clover/optimized/event-live-christian.webp","assets/optimized/event-romance-faceless.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572122/clover/optimized/event-romance-faceless.webp","assets/optimized/event-theme-public-servant-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572132/clover/optimized/event-theme-public-servant-woman.webp","assets/optimized/field-venue-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-03.webp","assets/optimized/field-venue-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572140/clover/optimized/field-venue-06.webp","assets/columns/webtoon-column-08.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572087/clover/columns/webtoon-column-08.png","assets/optimized/clover-proof-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572101/clover/optimized/clover-proof-02.webp","assets/optimized/field-venue-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572141/clover/optimized/field-venue-07.webp","assets/optimized/clover-proof-13.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572111/clover/optimized/clover-proof-13.webp","assets/columns/webtoon-column-20.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572099/clover/columns/webtoon-column-20.png","assets/optimized/clover-proof-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572107/clover/optimized/clover-proof-09.webp","assets/optimized/event-taste-active.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572123/clover/optimized/event-taste-active.webp","assets/columns/webtoon-column-06.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572085/clover/columns/webtoon-column-06.png","assets/optimized/event-live-shift-worker.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-live-shift-worker.webp","assets/columns/webtoon-column-15.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572094/clover/columns/webtoon-column-15.png","assets/optimized/footer-lobby-banner-clean.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572144/clover/optimized/footer-lobby-banner-clean.webp","assets/optimized/field-venue-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-09.webp","assets/columns/webtoon-column-13.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572092/clover/columns/webtoon-column-13.png","assets/optimized/clover-proof-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572103/clover/optimized/clover-proof-04.webp","assets/columns/webtoon-column-10.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572089/clover/columns/webtoon-column-10.png","assets/columns/webtoon-column-02.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572081/clover/columns/webtoon-column-02.png","assets/optimized/clover-proof-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572100/clover/optimized/clover-proof-01.webp","assets/optimized/clover-proof-18.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-18.webp"};
@@ -16400,7 +16560,7 @@
       const isDivorced = isDivorcedEvent(event);
       const placeholder = isDivorced
         ? "일정 조율 시 참고할 사항을 남겨주세요."
-        : "예시&#10;'토요일에 1:1로 3회 진행하고 싶어요'&#10;'근무 시간이 일정하지 않아요'";
+        : "OO회사 김OO 제외해주세요&#10;같은 날 1:1로 3회 진행 희망해요";
       return `
         <section class="form-section application-note-section">
           <div class="schedule-heading">전달 사항</div>
@@ -16566,6 +16726,13 @@
       section.outerHTML = myChildrenSectionMarkup();
     }
 
+    function refreshChildrenConditionSection() {
+      const heading = [...document.querySelectorAll(".application-form .children-condition-heading")][0];
+      const section = heading?.closest(".selection-section");
+      if (!section || !isDivorcedEvent(selectedEvent)) return;
+      section.outerHTML = childrenConditionMarkup();
+    }
+
     function childrenConditionMarkup() {
       const cards = childrenConditionOptions.map((option) => `
         <button class="age-option-card${selectedChildrenCondition === option.id ? " is-selected" : ""}" type="button" data-children-condition="${option.id}">
@@ -16628,7 +16795,7 @@
       detailRoot.dataset.gender = selectedApplyGender || "";
       const detailImage = eventImageStack(event);
       const detailVideo = eventVideoMarkup(event, "detail-media");
-      selectedApplicationRegions = ["부산"];
+      selectedApplicationRegions = [];
       const selectionReady = isApplicationSelectionReady();
       const selectionPrice = eventPriceForGender(event, selectedApplyGender);
       selectedApplyPrice = selectionPrice;
@@ -16981,6 +17148,10 @@
                 <button class="agree-detail-btn" type="button" data-footer-policy="개인정보처리방침">자세히</button>
               </div>
               <div class="agree-item">
+                <label><input type="checkbox" data-required-agree data-agree-marital> [필수] 미혼 확인 동의</label>
+                <button class="agree-detail-btn" type="button" data-footer-policy="미혼 확인 동의">자세히</button>
+              </div>
+              <div class="agree-item">
                 <label><input type="checkbox" data-required-agree data-agree-content> [필수] 콘텐츠 활용 동의</label>
                 <button class="agree-detail-btn" type="button" data-footer-policy="콘텐츠 활용 동의">자세히</button>
               </div>
@@ -17201,13 +17372,14 @@
       const authPhone = currentAuthPhoneKey();
       const { id } = getVisitorIdentity();
       const visitorMatches = Boolean(id && record?.visitorId && String(record.visitorId) === String(id));
+      if (visitorMatches) return true;
       if (authPhone) {
         const recordAuth = recordAuthKey(record);
         const recordPhone = recordPhoneKey(record);
         if (recordAuth) return recordAuth === authPhone;
-        return visitorMatches && (!recordPhone || recordPhone === authPhone);
+        return !recordPhone || recordPhone === authPhone;
       }
-      return Boolean(id && record?.visitorId && String(record.visitorId) === String(id));
+      return false;
     }
 
     function mypageCacheStorageKey() {
@@ -17238,6 +17410,22 @@
           localStorage.setItem(visitorIdKey, scopedVisitorId);
         }
       } catch {}
+    }
+
+    function resetAuthVisitorOwner(authPhone = currentAuthPhoneKey()) {
+      if (!authPhone) return getVisitorIdentity().id;
+      const nextVisitorId = createVisitorId();
+      try {
+        localStorage.setItem(authVisitorIdStorageKey(authPhone), nextVisitorId);
+        localStorage.setItem(visitorIdKey, nextVisitorId);
+        localStorage.setItem(authVisitorOwnerKey, authPhone);
+      } catch {}
+      currentMyApplications = [];
+      mypageInfoCurrentProfile = null;
+      mypageHasProfileData = false;
+      myCounselPosts = [];
+      myBoardPosts = [];
+      return nextVisitorId;
     }
 
     function readMypageCache() {
@@ -17273,6 +17461,37 @@
       ].map((value) => String(value).trim()).join("|");
     }
 
+    function readApplicationSharedCache() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem("clover-application-list-v1") || "[]");
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function writeApplicationSharedCache(applications) {
+      try {
+        localStorage.setItem("clover-application-list-v1", JSON.stringify((Array.isArray(applications) ? applications : []).slice(0, 100)));
+      } catch {}
+    }
+
+    function upsertApplicationSharedCache(application) {
+      if (!application) return;
+      const targetKey = applicationStableKey(application);
+      const next = [
+        application,
+        ...readApplicationSharedCache().filter((item) => applicationStableKey(item) !== targetKey)
+      ];
+      writeApplicationSharedCache(next);
+    }
+
+    function removeApplicationSharedCache(application) {
+      if (!application) return;
+      const targetKey = applicationStableKey(application);
+      writeApplicationSharedCache(readApplicationSharedCache().filter((item) => applicationStableKey(item) !== targetKey));
+    }
+
     function readHiddenCanceledApplications() {
       try {
         const parsed = JSON.parse(localStorage.getItem(mypageHiddenCanceledStorageKey()) || "[]");
@@ -17301,6 +17520,9 @@
     async function visitorApi(payload) {
       const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
+        cache: "no-store",
+        credentials: "omit",
+        redirect: "follow",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify(payload)
       });
@@ -17317,6 +17539,19 @@
       }
       if (!response.ok || !result.ok) throw new Error(result.error || "요청을 처리하지 못했습니다.");
       return result;
+    }
+
+    async function visitorApiWithRetry(payload, attempts = 2) {
+      let lastError = null;
+      for (let i = 0; i < attempts; i += 1) {
+        try {
+          return await visitorApi(payload);
+        } catch (error) {
+          lastError = error;
+          if (i + 1 < attempts) await new Promise((resolve) => setTimeout(resolve, 450));
+        }
+      }
+      throw lastError || new Error("요청을 처리하지 못했습니다.");
     }
 
     function readProfileGender() {
@@ -17660,7 +17895,7 @@
           updateAuthDrawerLinks();
           setPage("mypage");
         } catch (error) {
-          showInfoModal("로그인 정보를 확인해 주세요.", firebaseAuthErrorMessage(error));
+          showInfoModal("일치하지 않습니다.", "로그인 정보를 확인해 주세요.");
         } finally {
           if (submitBtn) { submitBtn.disabled = false; submitBtn.classList.remove("is-loading"); submitBtn.textContent = "로그인"; }
         }
@@ -17672,25 +17907,32 @@
         const phone = signupForm.querySelector('[name="phone"]')?.value || "";
         const password = signupForm.querySelector('[name="password"]')?.value || "";
         const passwordConfirm = signupForm.querySelector('[name="passwordConfirm"]')?.value || "";
+        const authPhone = onlyDigits(phone, 11);
+        const previousVisitorId = getVisitorIdentity().id;
         if (onlyDigits(phone, 11).length !== 11) {
-          showInfoModal("정보를 다시 확인해 주세요.", "연락처를 정확히 입력해 주세요.");
+          showInfoModal("다시 확인해 주세요.", "연락처를 정확히 입력해 주세요.");
           return;
         }
         if (password !== passwordConfirm) {
-          showInfoModal("정보를 다시 확인해 주세요.", "비밀번호가 일치하지 않습니다.");
+          showInfoModal("다시 확인해 주세요.", "비밀번호가 일치하지 않습니다.");
           return;
         }
         const submitBtn = signupForm.querySelector(".auth-submit");
         if (submitBtn) { submitBtn.disabled = true; submitBtn.classList.add("is-loading"); submitBtn.textContent = "가입 중"; }
         try {
           await firebaseAuth.createUserWithEmailAndPassword(phoneToAuthEmail(phone), password);
-          const authPhone = onlyDigits(phone, 11);
+          await visitorApi({
+            type: "myDataDelete",
+            visitorId: previousVisitorId,
+            authUser: authPhone,
+            reason: "signupReset"
+          }).catch(() => null);
+          resetAuthVisitorOwner(authPhone);
           localStorage.setItem(AUTH_USER_KEY, authPhone);
-          ensureAuthVisitorOwner(authPhone);
           updateAuthDrawerLinks();
           setPage("mypage");
         } catch (error) {
-          showInfoModal("정보를 다시 확인해 주세요.", firebaseAuthErrorMessage(error));
+          showInfoModal("다시 확인해 주세요.", firebaseAuthErrorMessage(error));
         } finally {
           if (submitBtn) { submitBtn.disabled = false; submitBtn.classList.remove("is-loading"); submitBtn.textContent = "계정 만들기"; }
         }
@@ -17926,6 +18168,7 @@
       const merged = new Map();
       const now = Date.now();
       const recentWindow = 2 * 60 * 1000;
+      const statusRank = { "접수": 0, "확인": 1, "승인": 2, "취소": 3 };
       (Array.isArray(serverApplications) ? serverApplications : []).filter(isCurrentMypageRecord).forEach((application) => {
         merged.set(applicationStableKey(application), application);
       });
@@ -17933,12 +18176,35 @@
         const key = applicationStableKey(application);
         const serverApplication = merged.get(key);
         const isRecentLocal = now - applicationTimestamp(application) < recentWindow;
+        const localStatus = normalizedApplicationStatus(application);
+        const serverStatus = normalizedApplicationStatus(serverApplication);
+        const localUpdatedAt = Number(application?.localUpdatedAt || 0);
+        const serverUpdatedAt = Number(serverApplication?.localUpdatedAt || 0);
+        const hasRecentLocalStatus = Boolean(application?.localUpdatedAt) &&
+          isRecentLocal &&
+          serverApplication &&
+          localStatus !== serverStatus &&
+          localUpdatedAt > serverUpdatedAt &&
+          (statusRank[localStatus] || 0) >= (statusRank[serverStatus] || 0);
         const shouldKeepLocalCanceled = normalizedApplicationStatus(application) === canceledApplicationStatus &&
           isRecentLocal &&
           normalizedApplicationStatus(serverApplication) !== canceledApplicationStatus;
-        if (application?.isPending || application?.syncError || shouldKeepLocalCanceled) {
-          merged.set(key, application);
+        if (application?.isPending || application?.syncError || shouldKeepLocalCanceled || hasRecentLocalStatus) {
+          merged.set(key, serverApplication ? { ...serverApplication, ...application, status: application.status } : application);
         }
+      });
+      return sortApplicationsForDisplay(dedupeApplicationsByStableKey([...merged.values()]));
+    }
+
+    function mergeApplicationsFromAdminCache(adminApplications, localApplications = readMypageCache() || currentMyApplications || []) {
+      const merged = new Map();
+      (Array.isArray(localApplications) ? localApplications : []).filter(isCurrentMypageRecord).forEach((application) => {
+        merged.set(applicationStableKey(application), application);
+      });
+      (Array.isArray(adminApplications) ? adminApplications : []).filter(isCurrentMypageRecord).forEach((application) => {
+        const key = applicationStableKey(application);
+        const previous = merged.get(key);
+        merged.set(key, previous ? { ...previous, ...application, status: application.status || previous.status } : application);
       });
       return sortApplicationsForDisplay(dedupeApplicationsByStableKey([...merged.values()]));
     }
@@ -17950,10 +18216,9 @@
       } catch {
         return false;
       }
-      if (!Array.isArray(adminApplications) || !adminApplications.length) return false;
+      if (!Array.isArray(adminApplications)) return false;
       const mine = adminApplications.filter(isCurrentMypageRecord);
-      if (!mine.length) return false;
-      const mergedApplications = mergeApplicationsWithLocal(mine, readMypageCache() || currentMyApplications);
+      const mergedApplications = mergeApplicationsFromAdminCache(mine, readMypageCache() || currentMyApplications);
       writeMypageCache(mergedApplications);
       if (document.querySelector("#page-mypage.is-active")) renderMyApplications(mergedApplications);
       return true;
@@ -19738,6 +20003,7 @@
       selectedMyChildrenLiving = shouldApplyChildren ? (profile.childrenLiving || "") : "";
       selectedChildrenCondition = shouldApplyChildren ? childConditionIdFromValue(profile.selectedChildrenCondition) : selectedChildrenCondition;
       refreshMyChildrenSection();
+      refreshChildrenConditionSection();
       selectedApplicationMessage = profile.message || "";
       setValue("#applyMessage", profile.message);
       selectChoiceByLabelAndText("흡연", profile.smoking);
@@ -19786,9 +20052,11 @@
       selectedMyChildrenHas = "";
       selectedMyChildrenCount = "";
       selectedMyChildrenLiving = "";
+      selectedChildrenCondition = "";
       selectedApplicationNote = "";
       selectedApplicationMessage = "";
       refreshMyChildrenSection();
+      refreshChildrenConditionSection();
       clearAppliedProfileFiles();
       ["흡연", "음주", "종교"].forEach((labelText) => {
         const labels = [...document.querySelectorAll(".application-form .form-field label")];
@@ -19937,10 +20205,17 @@
       modal.innerHTML = `
         <div class="app-edit-panel">
           <div class="app-edit-head">
-            <h3>신청 확인</h3>
+            <h3 class="app-edit-title">
+              <span class="app-edit-title-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="8"></circle>
+                  <path class="app-edit-title-check" d="M8.5 12.2l2.2 2.2 4.8-5"></path>
+                </svg>
+              </span>
+              <span>신청 정보 확인</span>
+            </h3>
             <button class="app-edit-close-btn" type="button" data-app-edit-close aria-label="닫기">×</button>
           </div>
-          <p class="app-edit-title">${editingApplication.baseTitle}</p>
           <section class="app-check-summary">${rows}</section>
         </div>
       `;
@@ -19951,7 +20226,7 @@
     function openAppEditModal(application) {
       const baseTitle = String(application.eventTitle || "").replace(/^(?:\[[^\]]*\]\s*)+/, "");
       editingApplication = { ...application, baseTitle };
-      editRegion = String(application.selectedRegions || "").split(",")[0].trim() || "부산";
+      editRegion = String(application.selectedRegions || "").split(",")[0].trim();
       const parsed = parseScheduleDateText(application.eventDate);
       editDateKey = parsed?.isoDate || "";
       editTime = parsed?.time || "";
@@ -20075,6 +20350,8 @@
     const scheduleFeed = document.querySelector('[data-schedule-feed]');
     const homeScheduleHeadlines = document.querySelector('[data-home-schedule-headlines]');
     let schedulePosts = [];
+    let schedulePostsLoaded = false;
+    let schedulePostsLoading = false;
     let selectedSchedulePostId = sessionStorage.getItem("cloverSchedulePostId") || "";
     const SCHEDULE_LIKED_KEY = "clover-schedule-liked:v1";
     const SCHEDULE_VIEWED_KEY = "clover-schedule-viewed:v1";
@@ -20127,12 +20404,7 @@
       return values.map((url) => String(url || "").trim()).filter(Boolean).slice(0, 5);
     }
     function readAdminSchedulePosts() {
-      try {
-        const parsed = JSON.parse(localStorage.getItem(ADMIN_SCHEDULE_POSTS_KEY) || "[]");
-        return Array.isArray(parsed) ? parsed.filter((item) => item && typeof item === "object" && item.active !== false) : [];
-      } catch {
-        return [];
-      }
+      return [];
     }
     function readDeletedScheduleSlots() {
       try {
@@ -20842,6 +21114,14 @@
         <p>콘텐츠를 활용할 때에는 참여자의 얼굴이 식별되지 않도록 얼굴 노출을 제한하거나 모자이크, 크롭, 뒷모습, 손, 공간 중심 이미지 등 비식별 방식으로 반영합니다.</p>
         <p>개인의 이름, 연락처 등 직접 식별 가능한 개인정보는 별도 동의 없이 콘텐츠에 공개하지 않습니다.</p>
         <p>이 동의는 서비스 운영 및 현장 콘텐츠 활용을 위한 필수 동의이며, 세부 운영 방식은 현장 상황과 서비스 정책에 따라 조정될 수 있습니다.</p>
+      `,
+      "미혼 확인 동의": `
+        <p class="footer-policy-meta">시행일자: 2026년 0월 0일</p>
+        <h3>미혼 확인 동의</h3>
+        <p>본인은 클로버 서비스를 신청하는 현재 기준으로 미혼 상태이며, 법적 혼인 관계, 사실혼 관계, 별거 중인 혼인 관계, 이혼 절차 진행 중인 상태 등 소개팅 참여에 중대한 영향을 줄 수 있는 혼인 관련 사정에 해당하지 않음을 확인합니다.</p>
+        <p>본인은 위 확인 내용이 사실과 다르거나 중요한 사실을 누락한 경우 발생할 수 있는 불이익, 분쟁, 손해, 민원 및 법적 책임이 본인에게 있음을 이해하고 동의합니다.</p>
+        <p>클로버는 이용자가 직접 제공한 혼인관계 및 사실혼 관련 진술의 진위 여부를 법적으로 확인하거나 보증하지 않으며, 허위 진술 또는 누락으로 인해 발생하는 당사자 간 분쟁, 손해, 법적 책임에 대하여 책임을 지지 않습니다.</p>
+        <p>본인은 서비스 신청 및 이용 과정에서 혼인관계 또는 사실혼 관계와 관련하여 사실과 다른 정보를 제공하지 않을 것을 확인하며, 관련 문제가 발생할 경우 본인이 성실히 해결할 것에 동의합니다.</p>
       `
     };
 
@@ -21456,43 +21736,11 @@
       return map;
     }
 
-    // TEMP: 愿由ъ옄媛 ?ㅼ젣 ?쇱젙???곌껐?섍린 ?꾧퉴吏, 湲????쇱슂?쇱뿉 ?꾩떆 ?덈궡 ?щ’???먮룞?쇰줈 梨꾩썙 蹂댁뿬以??
-    // ?ㅼ젣 ?쇱젙 ?뚯떇???섎굹?쇰룄 ?곌껐?섎㈃ ???꾩떆 ?곗씠?곕뒗 ?곗씠吏 ?딅뒗??
     let homeCalendarPlaceholderPosts = [];
 
     function homeCalendarPlaceholderMap(year, month) {
-      const map = {};
-      const deletedSlots = readDeletedScheduleSlots();
-      const lastDate = new Date(year, month, 0).getDate();
-      const progressPost = schedulePosts.find((post) => post.category === "진행 과정");
-      const fallbackImage = (progressPost && progressPost.imageUrl)
-        || (schedulePosts[0] && schedulePosts[0].imageUrl)
-        || (events[0] && events[0].image)
-        || "https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg";
-      for (let day = 1; day <= lastDate; day += 1) {
-        const iso = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-        const dayOfWeek = new Date(`${iso}T00:00:00`).getDay();
-        let times = [];
-        if (dayOfWeek === 5) times = ["19시"];
-        else if (dayOfWeek === 6 || dayOfWeek === 0) times = ["13시", "16시", "19시"];
-        times = times.filter((time) => !deletedSlots.has(scheduleSlotKey({ scheduleDate: iso, scheduleTime: time })));
-        if (!times.length) continue;
-        const weekdayLabel = ["일", "월", "화", "수", "목", "금", "토"][dayOfWeek];
-        map[iso] = times.map((time) => ({
-          id: `placeholder-${iso}-${time}`,
-          title: `${month}월 ${day}일(${weekdayLabel}) ${time} 소개팅`,
-          content: "모집 일정은 확정되는 대로 안내합니다. (임시 데이터)",
-          imageUrl: fallbackImage,
-          category: "일정 안내",
-          views: 0,
-          likes: 0,
-          comments: [],
-          scheduleDate: iso,
-          scheduleTime: time
-        }));
-      }
-      homeCalendarPlaceholderPosts = Object.values(map).flat();
-      return map;
+      homeCalendarPlaceholderPosts = [];
+      return {};
     }
 
     function homeCalendarTodayIso() {
@@ -21550,6 +21798,9 @@
 
     function homeCalendarLayerMarkup(availableMap, variant = "info") {
       const variantClass = variant === "home" ? " is-home-compact" : "";
+      if (schedulePostsLoading && !schedulePosts.length) {
+        return `<div class="home-schedule-layer${variantClass} is-empty"><p class="schedule-feed-empty">일정을 불러오는 중입니다.</p></div>`;
+      }
       if (!selectedHomeCalendarDate) {
         return `<div class="home-schedule-layer${variantClass} is-empty"><p class="schedule-feed-empty">등록된 일정이 없습니다.</p></div>`;
       }
@@ -21579,22 +21830,11 @@
 
     function scheduleInfoAvailableMap(months) {
       const realMap = homeCalendarAvailableMap();
-      const previousPlaceholders = [...homeCalendarPlaceholderPosts];
       const mergedMap = {};
-      const mergedPosts = [];
-      months.forEach(({ year, month }) => {
-        const monthMap = homeCalendarPlaceholderMap(year, month);
-        Object.entries(monthMap).forEach(([iso, posts]) => {
-          mergedMap[iso] = [...posts];
-        });
-      });
       Object.entries(realMap).forEach(([iso, posts]) => {
-        const scheduleTimes = new Set(posts.map(scheduleSlotKey));
-        const placeholders = (mergedMap[iso] || []).filter((post) => !scheduleTimes.has(scheduleSlotKey(post)));
-        mergedMap[iso] = [...placeholders, ...posts].sort((a, b) => (scheduleTimeHour(a.scheduleTime) || 0) - (scheduleTimeHour(b.scheduleTime) || 0));
+        mergedMap[iso] = [...posts].sort((a, b) => (scheduleTimeHour(a.scheduleTime) || 0) - (scheduleTimeHour(b.scheduleTime) || 0));
       });
-      Object.values(mergedMap).forEach((posts) => mergedPosts.push(...posts));
-      homeCalendarPlaceholderPosts = mergedPosts.length ? mergedPosts : previousPlaceholders;
+      homeCalendarPlaceholderPosts = [];
       return assignScheduleEpisodesToMap(mergedMap);
     }
 
@@ -22516,27 +22756,44 @@
       } catch {}
     }
 
+    function seedSchedulePostsForFirstRender() {
+      const cachedPosts = readScheduleCache();
+      if (cachedPosts.length) {
+        schedulePosts = cachedPosts;
+        schedulePostsLoaded = true;
+        schedulePostsLoading = false;
+        return;
+      }
+      schedulePostsLoaded = false;
+      schedulePostsLoading = true;
+    }
+
     async function loadSchedulePosts() {
       if (!scheduleFeed) return;
-      if (!schedulePosts.length) renderSchedulePosts();
       const cachedPosts = readScheduleCache();
-      if (cachedPosts.length && !schedulePosts.length) {
+      if (!schedulePosts.length && cachedPosts.length) {
         schedulePosts = cachedPosts;
+        schedulePostsLoaded = true;
         renderSchedulePosts();
-        requestAnimationFrame(refreshScheduleHeadlineControls);
-        if (selectedSchedulePostId) renderScheduleDetail(schedulePosts.find((post) => String(post.id) === String(selectedSchedulePostId)));
+      } else if (!schedulePosts.length) {
+        schedulePostsLoading = true;
+        renderSchedulePosts();
       }
       try {
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=schedulePostList&t=${Date.now()}`, { cache: "no-store" });
         const result = await response.json();
         if (!response.ok || !result.ok || !Array.isArray(result.posts)) throw new Error(result.error || "일정 소식을 불러오지 못했습니다.");
         schedulePosts = normalizeSchedulePostImages(result.posts);
+        schedulePostsLoaded = true;
+        schedulePostsLoading = false;
         writeScheduleCache(schedulePosts);
         renderSchedulePosts();
         requestAnimationFrame(refreshScheduleHeadlineControls);
         if (selectedSchedulePostId) renderScheduleDetail(schedulePosts.find((post) => String(post.id) === String(selectedSchedulePostId)));
       } catch (error) {
-        if (!cachedPosts.length) renderSchedulePosts();
+        schedulePostsLoaded = true;
+        schedulePostsLoading = false;
+        renderSchedulePosts();
       }
     }
     document.addEventListener("click", async (event) => {
@@ -22760,7 +23017,10 @@
       const footerPolicyTarget = event.target.closest("[data-footer-policy]");
       if (footerPolicyTarget) {
         event.preventDefault();
+        event.stopPropagation();
+        const agreementState = footerPolicyTarget.closest(".agree-row") ? captureAgreementState() : null;
         openFooterPolicyModal(footerPolicyTarget.dataset.footerPolicy || "");
+        if (agreementState) requestAnimationFrame(() => restoreAgreementState(agreementState));
         return;
       }
       const footerPolicyCloseTarget = event.target.closest("[data-footer-policy-close]");
@@ -23821,11 +24081,8 @@
       button.textContent = "탈퇴 중";
       try {
         const authUser = firebaseAuth.currentUser;
-        await visitorApi({
-          type: "myDataDelete",
-          visitorId: getVisitorIdentity().id,
-          authUser: authProfileKey()
-        });
+        const visitorId = getVisitorIdentity().id;
+        const authKey = authProfileKey();
         if (authUser) {
           try {
             await authUser.delete();
@@ -23838,6 +24095,16 @@
         } else {
           await firebaseAuth.signOut().catch(() => {});
         }
+        try {
+          await visitorApiWithRetry({
+            type: "myDataDelete",
+            visitorId,
+            authUser: authKey
+          }, 3);
+        } catch (cleanupError) {
+          console.warn("myDataDelete cleanup failed", cleanupError);
+          throw new Error("계정은 삭제되었지만 서버 데이터 정리에 실패했습니다. 새로고침 후 다시 확인해 주세요.");
+        }
         Object.keys(localStorage)
           .filter((key) => key.startsWith("clover") && key !== THEME_KEY)
           .forEach((key) => localStorage.removeItem(key));
@@ -23848,11 +24115,11 @@
         myBoardPosts = [];
         setDataDeletedModal(true);
       } catch (error) {
-        alert(error?.message || "계정 탈퇴를 처리하지 못했습니다.");
+        showInfoModal("탈퇴하지 못했습니다.", error?.message || "다시 시도해 주세요.");
       } finally {
         button.disabled = false;
         button.classList.remove("is-loading");
-        button.textContent = "계정 탈퇴";
+        button.textContent = "탈퇴";
         updateMypageDeleteButtonState();
       }
     }
@@ -23870,11 +24137,19 @@
       mypageExistingBodyPhotoUrls = [];
       mypageFileSequence = 0;
       writeProfileGender("");
-      ensureVisitorRegistered();
-      loadMyApplications(true);
-      loadMyProfileInfo();
-      loadMyCounsel();
-      loadMyBoardPosts();
+      renderMyApplications([]);
+      renderMyProfileInfo(null, false);
+      renderMyCounsel();
+      renderMyBoardPosts();
+      updateAuthDrawerLinks();
+      navigate("home");
+    }
+
+    async function closeDataDeletedModalAndLogout() {
+      setDataDeletedModal(false);
+      try { await firebaseAuth.signOut(); } catch {}
+      try { localStorage.removeItem(AUTH_USER_KEY); } catch {}
+      refreshMypageAfterDataDelete();
     }
 
     const firebaseConfig = {
@@ -25128,6 +25403,26 @@
       updateFormSubmitButton();
     }
 
+    function captureAgreementState() {
+      const allInput = document.querySelector(".application-form [data-agree-all]");
+      return {
+        all: Boolean(allInput?.checked),
+        required: requiredAgreementInputs().map((input) => Boolean(input.checked))
+      };
+    }
+
+    function restoreAgreementState(state) {
+      if (!state) return;
+      const allInput = document.querySelector(".application-form [data-agree-all]");
+      const inputs = requiredAgreementInputs();
+      inputs.forEach((input, index) => {
+        input.checked = Boolean(state.required?.[index]);
+      });
+      if (allInput) allInput.checked = Boolean(state.all);
+      syncAgreementAllCheckbox();
+      updateFormSubmitButton();
+    }
+
     function isApplicationFormReady() {
       const required = ["#applyName", "#applyPhone", "#applyBirth", "#applyHeight", "#applyWeight", "#applyArea"];
       if (required.some((selector) => !inputValue(selector))) return false;
@@ -25262,7 +25557,7 @@
         applicationType: `${selectedApplyGender} 신청`,
         gender: selectedApplyGender,
         eventDate: selectedScheduleDate,
-        selectedRegions: selectedApplicationRegions.join(", "),
+        selectedRegions: "",
         selectedAgeRange: isPartyApplication ? "" : (selectedAgeOption?.range || ""),
         selectedAgeLabel: isPartyApplication ? "" : (selectedAgeOption?.label || ""),
         selectedComposition: isPartyApplication ? "" : (selectedComposition || ""),
@@ -25312,15 +25607,17 @@
         cancellationRefundAgree: false,
         marketingPhotoAgree: document.querySelector("[data-agree-content]")?.checked || false,
         contentUsageAgree: document.querySelector("[data-agree-content]")?.checked || false,
+        maritalAgree: document.querySelector("[data-agree-marital]")?.checked || false,
         infoNoticeAgree: document.querySelector("[data-agree-info]")?.checked || false
       };
       const cachedBeforeSubmit = readMypageCache() || currentMyApplications || [];
-      const optimisticApplication = { ...payload, status: "접수", isPending: true, localUpdatedAt: Date.now() };
+      const optimisticApplication = { ...payload, id: applicationStableKey(payload), status: "접수", isPending: true, localUpdatedAt: Date.now() };
       const optimisticApplications = [
         optimisticApplication,
         ...cachedBeforeSubmit.filter((application) => applicationStableKey(application) !== applicationStableKey(optimisticApplication))
       ];
       writeMypageCache(optimisticApplications);
+      upsertApplicationSharedCache(optimisticApplication);
       renderMyApplications(optimisticApplications);
       syncProfileGender(selectedApplyGender);
       button.classList.remove("is-loading");
@@ -25359,6 +25656,12 @@
           const shouldCancelAfterSave = latestApplication?.cancelAfterSave || normalizedApplicationStatus(latestApplication) === canceledApplicationStatus;
           const savedApplication = {
             ...optimisticApplication,
+            id: result.id || optimisticApplication.id || applicationStableKey(optimisticApplication),
+            rowNumber: result.row || result.rowNumber || optimisticApplication.rowNumber || "",
+            sheetName: result.sheetName || optimisticApplication.sheetName || "",
+            backupSheetName: result.backupSheetName || optimisticApplication.backupSheetName || "",
+            phone: payload.phone || optimisticApplication.phone || "",
+            authUser: payload.authUser || optimisticApplication.authUser || "",
             status: shouldCancelAfterSave ? canceledApplicationStatus : "접수",
             isPending: shouldCancelAfterSave,
             cancelAfterSave: shouldCancelAfterSave,
@@ -25371,6 +25674,7 @@
             ...latestApplications.filter((application) => applicationStableKey(application) !== applicationStableKey(savedApplication))
           ];
           writeMypageCache(nextApplications);
+          upsertApplicationSharedCache(savedApplication);
           renderMyApplications(nextApplications);
           if (shouldCancelAfterSave) {
             const cancelResult = await visitorApi({
@@ -25397,6 +25701,7 @@
           }
           cacheApplicationProfileInfo(payload, result);
         } catch (error) {
+          removeApplicationSharedCache(optimisticApplication);
           writeMypageCache(cachedBeforeSubmit);
           renderMyApplications(cachedBeforeSubmit);
           alert(error?.message || "접수 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
@@ -25557,8 +25862,7 @@
       if (dataDeletedClose) {
         event.preventDefault();
         event.stopPropagation();
-        setDataDeletedModal(false);
-        refreshMypageAfterDataDelete();
+        closeDataDeletedModalAndLogout();
         return;
       }
 
@@ -26013,6 +26317,8 @@
       const inputs = [...form.querySelectorAll("input[required]")];
       const ready = inputs.every((input) => input.value.trim() !== "");
       submitBtn.classList.toggle("is-ready", ready);
+      submitBtn.disabled = !ready;
+      submitBtn.setAttribute("aria-disabled", String(!ready));
     }
     document.querySelectorAll("[data-auth-login-form], [data-auth-signup-form]").forEach((form) => {
       updateAuthSubmitReady(form);
@@ -26527,6 +26833,10 @@
       if (event.key === ADMIN_APPLICATION_CACHE_KEY) {
         syncMyApplicationsFromAdminCache(event.newValue);
       }
+      if (event.key && event.key.startsWith(`${mypageCacheKey}:`)) {
+        const cached = readMypageCache();
+        if (cached && currentPageName === "mypage") renderMyApplications(cached);
+      }
       if (event.key === ADMIN_SCHEDULE_POSTS_KEY || event.key === ADMIN_SCHEDULE_DELETED_KEY) {
         renderHomeParticipationCalendar();
         renderScheduleInfoCalendar();
@@ -26545,10 +26855,11 @@
     });
 
     seedHeroSlides();
+    seedSchedulePostsForFirstRender();
     renderSchedulePosts();
+    loadSchedulePosts();
     const runDeferredStartup = () => {
       loadManagedHeroSlides();
-      loadSchedulePosts();
       if (currentPageName !== "counsel") loadCounselPosts();
     };
     if ("requestIdleCallback" in window) {

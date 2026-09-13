@@ -745,6 +745,11 @@
       flex: 0 0 auto;
       min-width: 0;
     }
+    .dashboard-application-side .dashboard-meta {
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 950;
+    }
     .dashboard-application-title {
       margin: 0;
       color: #ffffff;
@@ -818,7 +823,7 @@
     }
     .dashboard-application-card .dashboard-board-status {
       position: static;
-      align-self: center;
+      align-self: flex-end;
     }
     .dashboard-application-card .dashboard-application-steps {
       grid-column: 1 / -1;
@@ -826,9 +831,12 @@
     }
     .dashboard-application-delete-wrap {
       position: absolute;
-      top: 51px;
+      top: 18px;
       right: 13px;
-      display: block;
+      display: inline-flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
     }
     .dashboard-application-delete-btn {
       min-width: 56px;
@@ -904,6 +912,94 @@
     .dashboard-application-step:disabled {
       cursor: default;
       opacity: .6;
+    }
+    .dashboard-application-card.is-open {
+      border-color: rgba(0, 255, 64, .42);
+    }
+    .dashboard-application-details {
+      display: none;
+      grid-column: 1 / -1;
+      gap: 12px;
+      margin: 4px -65px 2px 0;
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 14px;
+      background: #171717;
+    }
+    .dashboard-application-card.is-open .dashboard-application-details {
+      display: grid;
+    }
+    .dashboard-application-detail-section {
+      display: grid;
+      gap: 8px;
+    }
+    .dashboard-application-detail-section h4 {
+      margin: 0;
+      color: #00ff40;
+      font-size: 13px;
+      font-weight: 950;
+    }
+    .dashboard-application-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .dashboard-application-detail-cell {
+      display: grid;
+      gap: 3px;
+      min-width: 0;
+      padding: 9px 10px;
+      border: 1px solid rgba(255, 255, 255, .07);
+      border-radius: 10px;
+      background: #202020;
+    }
+    .dashboard-application-detail-cell span {
+      color: #aeb6c2;
+      font-size: 11px;
+      font-weight: 850;
+    }
+    .dashboard-application-detail-cell strong {
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 850;
+      line-height: 1.35;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+    .dashboard-application-files {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+      gap: 8px;
+    }
+    .dashboard-application-file {
+      display: grid;
+      gap: 5px;
+      min-width: 0;
+      color: #aeb6c2;
+      font-size: 11px;
+      font-weight: 850;
+      text-decoration: none;
+    }
+    .dashboard-application-file img,
+    .dashboard-application-document {
+      width: 100%;
+      aspect-ratio: 1;
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 10px;
+      background: #242424;
+      object-fit: cover;
+    }
+    .dashboard-application-document {
+      display: grid;
+      place-items: center;
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 950;
+    }
+    .dashboard-application-file span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .dashboard-board-details {
       display: none;
@@ -2785,10 +2881,24 @@
       });
     }
 
+    function publishPublicEventListCache(list = events) {
+      const items = (Array.isArray(list) ? list : [])
+        .map((event, index) => ({ ...event, order: Number(event.order) || index + 1 }))
+        .filter((event) => event.active !== false)
+        .sort((a, b) => Number(a.order || 0) - Number(b.order || 0));
+      try {
+        localStorage.setItem(PUBLIC_EVENT_LIST_CACHE_KEY, JSON.stringify({
+          savedAt: Date.now(),
+          items
+        }));
+      } catch {}
+    }
+
     async function saveEventsSequentially(list) {
       for (const event of list) {
         await apiPost(eventSavePayload(event));
       }
+      publishPublicEventListCache(list);
     }
 
     async function persistEventOrder() {
@@ -2835,6 +2945,7 @@
     function persistCustomEvents() {
       updateEventOrders();
       writeCustomEvents(events.filter(isCustomEvent).map(eventStorageData));
+      publishPublicEventListCache();
     }
 
     function moveEventTo(dragId, targetId, afterTarget = false) {
@@ -3285,6 +3396,7 @@
         if (list.length) {
           events = filterDeletedEvents(list.map(backendEventToAdmin)).sort((a, b) => a.order - b.order);
           eventsLoadedFromServer = true;
+          publishPublicEventListCache(events);
         }
       } catch (error) {
         showToast(`서버에서 목록을 불러오지 못해 임시 목록을 표시합니다: ${error.message}`);
@@ -3306,6 +3418,7 @@
         const result = await apiPost(eventSavePayload(event, { active }));
         if (result.event) Object.assign(event, backendEventToAdmin(result.event));
         else event.active = active;
+        publishPublicEventListCache();
         render();
         showToast(`${event.title} ${active ? "노출 ON" : "비노출 OFF"} 저장됨`);
       } catch (error) {
@@ -3349,12 +3462,15 @@
     let memoRounds = [];
     let memoSubmissions = [];
     const dashboardOpenBoardIds = new Set();
+    const dashboardOpenApplicationIds = new Set();
     const PUBLIC_SCHEDULE_CACHE_KEY = "clover-schedule-posts-cache:v3";
     const PUBLIC_BOARD_CACHE_KEY = "clover-board-posts-v1";
     const PUBLIC_BOARD_STATUS_OVERRIDE_KEY = "clover-board-status-overrides-v1";
     const PUBLIC_BOARD_AUTHOR_OVERRIDE_KEY = "clover-board-author-overrides-v1";
     const PUBLIC_COUNSEL_CACHE_KEY = "clover-counsel-posts-v1";
     const PUBLIC_APPLICATION_CACHE_KEY = "clover-application-list-v1";
+    const PUBLIC_APPLICATION_STATUS_OVERRIDE_KEY = "clover-application-status-overrides-v1";
+    const MYPAGE_APPLICATION_CACHE_KEY = "clover-mypage-applications-v1";
     const dashboardPanelCategories = Object.freeze({
       clover: "클로버 근황",
       field: "현장",
@@ -3688,6 +3804,131 @@
       try {
         localStorage.setItem(key, JSON.stringify((Array.isArray(posts) ? posts : []).slice(0, 100)));
       } catch {}
+    }
+
+    function dashboardOnlyDigits(value) {
+      return String(value || "").replace(/\D/g, "");
+    }
+
+    function dashboardApplicationStableKey(item) {
+      return [
+        item?.submittedAt || "",
+        item?.eventTitle || "",
+        item?.eventDate || "",
+        item?.selectedAgeRange || "",
+        item?.visitorId || ""
+      ].map((value) => String(value).trim()).join("|");
+    }
+
+    function dashboardApplicationStatusRank(status) {
+      const ranks = { "접수": 0, "확인": 1, "승인": 2, "취소": 3 };
+      return Number.isFinite(ranks[status]) ? ranks[status] : 0;
+    }
+
+    function readDashboardApplicationStatusOverrides() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(PUBLIC_APPLICATION_STATUS_OVERRIDE_KEY) || "{}");
+        return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+      } catch {
+        return {};
+      }
+    }
+
+    function writeDashboardApplicationStatusOverride(item, status) {
+      const key = dashboardApplicationStableKey(item);
+      if (!key) return;
+      const next = { ...readDashboardApplicationStatusOverrides(), [key]: status };
+      try { localStorage.setItem(PUBLIC_APPLICATION_STATUS_OVERRIDE_KEY, JSON.stringify(next)); } catch {}
+    }
+
+    function removeDashboardApplicationStatusOverride(item) {
+      const key = dashboardApplicationStableKey(item);
+      if (!key) return;
+      const overrides = readDashboardApplicationStatusOverrides();
+      if (!Object.prototype.hasOwnProperty.call(overrides, key)) return;
+      delete overrides[key];
+      try { localStorage.setItem(PUBLIC_APPLICATION_STATUS_OVERRIDE_KEY, JSON.stringify(overrides)); } catch {}
+    }
+
+    function applyDashboardApplicationStatusOverrides(applications) {
+      const overrides = readDashboardApplicationStatusOverrides();
+      return (Array.isArray(applications) ? applications : []).map((application) => {
+        const overrideStatus = overrides[dashboardApplicationStableKey(application)];
+        if (!overrideStatus) return application;
+        return { ...application, status: overrideStatus };
+      });
+    }
+
+    function mergeDashboardApplicationStatuses(applications, previousApplications = []) {
+      const previousByKey = new Map();
+      (Array.isArray(previousApplications) ? previousApplications : []).forEach((application) => {
+        previousByKey.set(dashboardApplicationStableKey(application), application);
+      });
+      return applyDashboardApplicationStatusOverrides((Array.isArray(applications) ? applications : []).map((application) => {
+        const previous = previousByKey.get(dashboardApplicationStableKey(application));
+        if (!previous) return application;
+        const previousStatus = previous.status || "접수";
+        const nextStatus = application.status || "접수";
+        if (dashboardApplicationStatusRank(previousStatus) <= dashboardApplicationStatusRank(nextStatus)) return application;
+        return { ...application, status: previousStatus };
+      }));
+    }
+
+    function updateMypageApplicationStatusCache(item) {
+      const keys = [];
+      const authPhone = dashboardOnlyDigits(item?.authUser || item?.phone).slice(0, 11);
+      const visitorId = String(item?.visitorId || "").trim();
+      if (authPhone) keys.push(`${MYPAGE_APPLICATION_CACHE_KEY}:auth:${authPhone}`);
+      if (visitorId) keys.push(`${MYPAGE_APPLICATION_CACHE_KEY}:visitor:${visitorId}`);
+      keys.push(MYPAGE_APPLICATION_CACHE_KEY);
+      const targetKey = dashboardApplicationStableKey(item);
+      keys.forEach((key) => {
+        try {
+          const cached = JSON.parse(localStorage.getItem(key) || "null");
+          if (!Array.isArray(cached)) return;
+          let changed = false;
+          const next = cached.map((application) => {
+            const sameStableKey = dashboardApplicationStableKey(application) === targetKey;
+            const sameRow = item?.rowNumber && application?.rowNumber &&
+              String(application.rowNumber) === String(item.rowNumber) &&
+              String(application.sheetName || "") === String(item.sheetName || "");
+            if (!sameStableKey && !sameRow) return application;
+            changed = true;
+            return {
+              ...application,
+              status: item.status || application.status,
+              rowNumber: item.rowNumber || application.rowNumber,
+              sheetName: item.sheetName || application.sheetName,
+              localUpdatedAt: Date.now()
+            };
+          });
+          if (changed) localStorage.setItem(key, JSON.stringify(next));
+        } catch {}
+      });
+    }
+
+    function removeMypageApplicationCache(item) {
+      const keys = [];
+      const authPhone = dashboardOnlyDigits(item?.authUser || item?.phone).slice(0, 11);
+      const visitorId = String(item?.visitorId || "").trim();
+      if (authPhone) keys.push(`${MYPAGE_APPLICATION_CACHE_KEY}:auth:${authPhone}`);
+      if (visitorId) keys.push(`${MYPAGE_APPLICATION_CACHE_KEY}:visitor:${visitorId}`);
+      keys.push(MYPAGE_APPLICATION_CACHE_KEY);
+      const targetKey = dashboardApplicationStableKey(item);
+      keys.forEach((key) => {
+        try {
+          const cached = JSON.parse(localStorage.getItem(key) || "null");
+          if (!Array.isArray(cached)) return;
+          const next = cached.filter((application) => {
+            const sameStableKey = dashboardApplicationStableKey(application) === targetKey;
+            const sameRow = item?.rowNumber && application?.rowNumber &&
+              String(application.rowNumber) === String(item.rowNumber) &&
+              String(application.sheetName || "") === String(item.sheetName || "");
+            return !sameStableKey && !sameRow;
+          });
+          if (next.length !== cached.length) localStorage.setItem(key, JSON.stringify(next));
+        } catch {}
+      });
     }
 
     function normalizeMemoPhone(value) {
@@ -4617,7 +4858,7 @@
       dashboardData.match = uniqueDashboardItems([...dashboardLocalPostsFor("match"), ...dashboardData.match]);
       dashboardData.board = mergeDashboardBoardPosts(dashboardData.board, readSharedDashboardCache(PUBLIC_BOARD_CACHE_KEY));
       if (!dashboardData.counsel.length) dashboardData.counsel = readSharedDashboardCache(PUBLIC_COUNSEL_CACHE_KEY);
-      if (!dashboardData.application.length) dashboardData.application = readSharedDashboardCache(PUBLIC_APPLICATION_CACHE_KEY);
+      if (!dashboardData.application.length) dashboardData.application = applyDashboardApplicationStatusOverrides(readSharedDashboardCache(PUBLIC_APPLICATION_CACHE_KEY));
       ["clover", "field", "match"].forEach((name) => {
         dashboardData[name] = withoutDeletedDashboardItems(dashboardData[name]);
       });
@@ -4650,8 +4891,8 @@
         const result = await apiGet("schedulePostList", { includeInactive: "1" });
         const list = Array.isArray(result.posts) ? result.posts : [];
         adminSchedulePosts = list.filter((post) => String(post.id || "").startsWith("admin-schedule-")).map(backendSchedulePostToAdmin);
-        applyDashboardSchedulePosts(list);
         writeSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY, list);
+        applyDashboardSchedulePosts(list);
       } catch (error) {
         showToast(`일정 안내 목록을 불러오지 못했습니다: ${error.message}`);
       }
@@ -4720,10 +4961,8 @@
           if (GOOGLE_SCRIPT_URL) {
             const result = await apiGetWithTimeout("schedulePostList", { includeInactive: "1" });
             const posts = Array.isArray(result?.posts) ? result.posts : [];
-            if (posts.length) {
-              applyDashboardSchedulePosts(posts);
-              writeSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY, posts);
-            }
+            writeSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY, posts);
+            applyDashboardSchedulePosts(posts);
           }
         } finally {
           if (requestId === dashboardLoadSeq) dashboardLoading = false;
@@ -4732,7 +4971,7 @@
         return;
       }
       if (targetName === "application") {
-        if (!(dashboardData.application || []).length) dashboardData.application = readSharedDashboardCache(PUBLIC_APPLICATION_CACHE_KEY);
+        if (!(dashboardData.application || []).length) dashboardData.application = applyDashboardApplicationStatusOverrides(readSharedDashboardCache(PUBLIC_APPLICATION_CACHE_KEY));
         dashboardLoading = !(dashboardData.application || []).length;
         renderContentDashboards();
         try {
@@ -4740,7 +4979,7 @@
             const result = await apiGet("applicationList", { includeInactive: "1" });
             const applications = Array.isArray(result?.applications) ? result.applications : (Array.isArray(result?.items) ? result.items : null);
             if (applications) {
-              dashboardData.application = applications;
+              dashboardData.application = mergeDashboardApplicationStatuses(applications, dashboardData.application);
               writeSharedDashboardCache(PUBLIC_APPLICATION_CACHE_KEY, dashboardData.application);
             }
           }
@@ -4773,7 +5012,7 @@
             }).catch(() => {}),
             apiGet("applicationList", { includeInactive: "1" }).then((result) => {
               const applications = Array.isArray(result.applications) ? result.applications : (Array.isArray(result.items) ? result.items : []);
-              dashboardData.application = applications;
+              dashboardData.application = mergeDashboardApplicationStatuses(applications, dashboardData.application);
               writeSharedDashboardCache(PUBLIC_APPLICATION_CACHE_KEY, dashboardData.application);
             }).catch(() => {})
           ]);
@@ -4932,13 +5171,8 @@
     }
 
     function dashboardSchedulePosts() {
-      const defaultPosts = defaultAdminSchedulePosts();
       const adminPosts = readAdminSchedulePosts().map((post) => ({ ...post, source: "관리자" }));
-      const adminSlotKeys = new Set(adminPosts.map(scheduleSlotKey));
-      return [
-        ...defaultPosts.filter((post) => !adminSlotKeys.has(scheduleSlotKey(post))),
-        ...adminPosts
-      ].sort((a, b) => {
+      return adminPosts.sort((a, b) => {
         const dateCompare = String(a.scheduleDate || "").localeCompare(String(b.scheduleDate || ""));
         if (dateCompare) return dateCompare;
         return (scheduleTimeHour(a.scheduleTime) || 0) - (scheduleTimeHour(b.scheduleTime) || 0);
@@ -5226,7 +5460,7 @@
       const mapImageFileInput = formEl.querySelector('input[type="file"][name="mapImageFile"]');
       if (mapImageFileInput?.files?.[0] && !mapImageFileInput.dataset.imagePayloads) await handleScheduleImageFiles(mapImageFileInput);
       const mapImageFiles = mapImageFileInput?.dataset.imagePayloads ? JSON.parse(mapImageFileInput.dataset.imagePayloads).filter(Boolean).slice(0, 5) : [];
-      const primaryImageUrl = mapImageUrls[0] || DASHBOARD_FIELD_IMAGES[0];
+      const primaryImageUrl = mapImageUrls[0] || "";
       const primaryImageFile = mapImageFiles[0] || null;
       const content = String(form.get("content") || "").trim() || "자세한 사항은 개별적으로 문자 안내드릴 예정입니다.";
       const active = form.get("active") !== "false";
@@ -5268,11 +5502,21 @@
           const currentCache = readSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY);
           const savedIds = new Set(savedPosts.map((post) => String(post.id || "")));
           writeSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY, uniqueDashboardItems([...savedPosts, ...currentCache.filter((post) => !savedIds.has(String(post.id || "")))]));
+          const savedAdminPosts = savedPosts
+            .filter((post) => String(post.id || "").startsWith("admin-schedule-"))
+            .map(backendSchedulePostToAdmin);
+          adminSchedulePosts = uniqueDashboardItems([
+            ...savedAdminPosts,
+            ...adminSchedulePosts.filter((post) => !savedIds.has(String(post.id || "")))
+          ]);
+          applyDashboardSchedulePosts(savedPosts);
         }
         editingScheduleId = "";
         scheduleFormSubmitButtonText("생성");
         scheduleMakerTitleText("일정 안내 생성");
-        await loadAdminSchedulePosts();
+        renderScheduleAdmin();
+        renderContentDashboards();
+        loadAdminSchedulePosts().catch(() => {});
         showToast(`${date} 일정 안내 ${targetTimes.length}개 ${wasEditing ? "수정" : "저장"}됨`);
       } catch (error) {
         showToast(`저장 실패: ${error.message}`);
@@ -5712,8 +5956,29 @@
     }
 
     function dashboardApplicationTime(value) {
-      const time = Number(value) || 0;
-      return time ? new Date(time).toLocaleString("ko-KR", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }) : "";
+      const parsedTime = Number(value);
+      const time = Number.isFinite(parsedTime) && parsedTime > 0 ? parsedTime : new Date(value || 0).getTime();
+      if (!time) return "";
+      const parts = new Intl.DateTimeFormat("ko-KR", {
+        timeZone: "Asia/Seoul",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true
+      }).formatToParts(new Date(time));
+      const part = (type) => parts.find((item) => item.type === type)?.value || "";
+      return `${part("year")}-${part("month")}-${part("day")} ${part("dayPeriod")} ${part("hour")}:${part("minute")}`.trim();
+    }
+
+    function dashboardApplicationGenderLabel(item) {
+      const direct = String(item?.gender || "").trim();
+      if (direct) return direct;
+      const type = String(item?.applicationType || item?.eventTitle || "").trim();
+      if (type.includes("남성")) return "남성";
+      if (type.includes("여성")) return "여성";
+      return "";
     }
 
     function dashboardApplicationTitleTags(title) {
@@ -5780,21 +6045,121 @@
       `;
     }
 
+    function dashboardApplicationValue(value) {
+      const text = String(value || "").trim();
+      return text || "-";
+    }
+
+    function dashboardApplicationChildrenValue(value, type = "") {
+      const text = String(value || "").trim();
+      const maps = {
+        has: { yes: "자녀 있음", no: "자녀 없음" },
+        living: { together: "함께 거주", separate: "따로 거주", partial: "일부 함께 거주" }
+      };
+      return maps[type]?.[text] || text || "-";
+    }
+
+    function dashboardApplicationDetailCell(label, value) {
+      return `<div class="dashboard-application-detail-cell"><span>${htmlAttr(label)}</span><strong>${htmlAttr(dashboardApplicationValue(value))}</strong></div>`;
+    }
+
+    function dashboardApplicationDetailSection(title, cells) {
+      return `
+        <section class="dashboard-application-detail-section">
+          <h4>${htmlAttr(title)}</h4>
+          <div class="dashboard-application-detail-grid">${cells.join("")}</div>
+        </section>
+      `;
+    }
+
+    function dashboardApplicationFilesHtml(item) {
+      const filePreviewUrl = (url) => {
+        const raw = String(url || "").trim();
+        if (!raw) return "";
+        const driveMatch = raw.match(/drive\.google\.com\/file\/d\/([^/]+)/) || raw.match(/[?&]id=([^&]+)/);
+        if (driveMatch) return `https://drive.google.com/thumbnail?id=${encodeURIComponent(driveMatch[1])}&sz=w480`;
+        return adminImageUrl(raw);
+      };
+      const faceUrls = Array.isArray(item?.photoUrls) ? item.photoUrls.filter(Boolean) : [];
+      const bodyUrls = Array.isArray(item?.bodyPhotoUrls) ? item.bodyPhotoUrls.filter(Boolean) : [];
+      const files = [
+        ...faceUrls.map((url, index) => ({ url, label: `얼굴 사진 ${index + 1}`, image: true })),
+        ...bodyUrls.map((url, index) => ({ url, label: `전신 사진 ${index + 1}`, image: true }))
+      ];
+      if (item?.documentUrl) files.push({ url: item.documentUrl, label: "재직 증명", image: false });
+      if (!files.length) return dashboardApplicationDetailSection("제출 서류", [dashboardApplicationDetailCell("파일", "등록된 제출 서류 없음")]);
+      return `
+        <section class="dashboard-application-detail-section">
+          <h4>제출 서류</h4>
+          <div class="dashboard-application-files">
+            ${files.map((file) => {
+              const previewUrl = filePreviewUrl(file.url);
+              return `
+              <a class="dashboard-application-file" href="${htmlAttr(adminImageUrl(file.url))}" target="_blank" rel="noopener">
+                ${previewUrl ? `<img src="${htmlAttr(previewUrl)}" alt="">` : `<span class="dashboard-application-document">DOC</span>`}
+                <span>${htmlAttr(file.label)}</span>
+              </a>
+            `;
+            }).join("")}
+          </div>
+        </section>
+      `;
+    }
+
+    function dashboardApplicationDetailsHtml(item) {
+      return `
+        <div class="dashboard-application-details">
+          ${dashboardApplicationDetailSection("기본 정보", [
+            dashboardApplicationDetailCell("성명", item?.name),
+            dashboardApplicationDetailCell("연락처", item?.phone),
+            dashboardApplicationDetailCell("생년월일", item?.birth),
+            dashboardApplicationDetailCell("성별", item?.gender),
+            dashboardApplicationDetailCell("신청 구분", item?.applicationType),
+            dashboardApplicationDetailCell("일정", item?.eventDate)
+          ])}
+          ${dashboardApplicationDetailSection("신체 및 거주 정보", [
+            dashboardApplicationDetailCell("키", item?.height),
+            dashboardApplicationDetailCell("체중", item?.weight),
+            dashboardApplicationDetailCell("거주지", item?.area)
+          ])}
+          ${dashboardApplicationDetailSection("직업", [
+            dashboardApplicationDetailCell("회사명 / 부서 / 직무", item?.job)
+          ])}
+          ${dashboardApplicationDetailSection("나에 대해서", [
+            dashboardApplicationDetailCell("내용", item?.message)
+          ])}
+          ${dashboardApplicationDetailSection("나의 이상형", [
+            dashboardApplicationDetailCell("이상형", item?.ideal),
+            dashboardApplicationDetailCell("비선호", item?.dislike)
+          ])}
+          ${dashboardApplicationDetailSection("자녀 정보", [
+            dashboardApplicationDetailCell("자녀 여부", dashboardApplicationChildrenValue(item?.childrenHas, "has")),
+            dashboardApplicationDetailCell("자녀 수", item?.childrenCount),
+            dashboardApplicationDetailCell("자녀 동거", dashboardApplicationChildrenValue(item?.childrenLiving, "living"))
+          ])}
+          ${dashboardApplicationDetailSection("상대방의 자녀 조건", [
+            dashboardApplicationDetailCell("조건", item?.selectedChildrenCondition)
+          ])}
+          ${dashboardApplicationFilesHtml(item)}
+        </div>
+      `;
+    }
+
     function dashboardApplicationCardHtml(item, fallbackTitle, index) {
       const id = dashboardItemId(item) || [item?.submittedAt || "", item?.phone || "", item?.eventTitle || ""].join("|");
       const status = String(item?.status || "접수");
       const title = dashboardApplicationTitleHtml(item);
       const meta = [
         dashboardApplicationTime(item?.submittedAt),
-        item?.name,
-        item?.phone
+        dashboardApplicationGenderLabel(item),
+        item?.name
       ].filter(Boolean).join(" · ");
-      const details = [item?.selectedRegions || item?.place, item?.price].filter(Boolean).join(" · ");
+      const details = String(item?.price || "").trim();
       const badges = dashboardApplicationBadges(item);
+      const isOpen = dashboardOpenApplicationIds.has(id);
       return `
-        <article class="dashboard-item dashboard-application-card" data-dashboard-item="${htmlAttr(id)}" data-dashboard-application-row="${htmlAttr(item?.rowNumber || "")}" data-dashboard-application-sheet="${htmlAttr(item?.sheetName || "")}" data-dashboard-application-index="${htmlAttr(index)}">
+        <article class="dashboard-item dashboard-application-card${isOpen ? " is-open" : ""}" data-dashboard-item="${htmlAttr(id)}" data-dashboard-application-row="${htmlAttr(item?.rowNumber || "")}" data-dashboard-application-sheet="${htmlAttr(item?.sheetName || "")}" data-dashboard-application-index="${htmlAttr(index)}" data-dashboard-application-card tabindex="0" role="button" aria-expanded="${isOpen ? "true" : "false"}">
           <div class="dashboard-application-head">
-            <span class="dashboard-board-status ${dashboardApplicationStatusClass(status)}">${htmlAttr(status)}</span>
             <span class="dashboard-application-side">
               ${meta ? `<span class="dashboard-meta">${htmlAttr(meta)}</span>` : ""}
             </span>
@@ -5804,7 +6169,9 @@
           ${details ? `<p>${htmlAttr(details)}</p>` : ""}
           ${item?.message ? `<p>${htmlAttr(String(item.message)).slice(0, 180)}</p>` : ""}
           ${dashboardApplicationStepsHtml(id, status, index)}
+          ${dashboardApplicationDetailsHtml(item)}
           <div class="dashboard-application-delete-wrap">
+            <span class="dashboard-board-status ${dashboardApplicationStatusClass(status)}">${htmlAttr(status)}</span>
             <button class="dashboard-application-delete-btn" type="button" data-dashboard-application-delete="${htmlAttr(id)}" data-dashboard-application-index="${htmlAttr(index)}">삭제</button>
           </div>
         </article>
@@ -6565,14 +6932,18 @@
       if (!item || !["접수", "확인", "승인"].includes(status) || item.status === "취소") return;
       const previousStatus = item.status || "접수";
       item.status = status;
+      item.localUpdatedAt = Date.now();
       setDashboardApplicationStatusOnCard(card, status);
       writeSharedDashboardCache(PUBLIC_APPLICATION_CACHE_KEY, dashboardData.application);
+      updateMypageApplicationStatusCache(item);
       try {
         const result = await apiPost({
           type: "applicationStatusUpdate",
           rowNumber: item.rowNumber || card?.dataset.dashboardApplicationRow || "",
           sheetName: item.sheetName || card?.dataset.dashboardApplicationSheet || "",
           visitorId: item.visitorId || "",
+          authUser: item.authUser || "",
+          phone: item.phone || "",
           submittedAt: item.submittedAt || "",
           eventTitle: item.eventTitle || "",
           eventDate: item.eventDate || "",
@@ -6580,15 +6951,20 @@
           status
         });
         item.status = result.status || status;
+        item.localUpdatedAt = Date.now();
         if (result.rowNumber) item.rowNumber = result.rowNumber;
         if (result.sheetName) item.sheetName = result.sheetName;
         setDashboardApplicationStatusOnCard(card, item.status);
+        writeDashboardApplicationStatusOverride(item, item.status);
         writeSharedDashboardCache(PUBLIC_APPLICATION_CACHE_KEY, dashboardData.application);
+        updateMypageApplicationStatusCache(item);
         showToast(`신청 상태를 ${item.status}(으)로 변경했습니다.`);
       } catch (error) {
         item.status = previousStatus;
+        item.localUpdatedAt = Date.now();
         setDashboardApplicationStatusOnCard(card, previousStatus);
         writeSharedDashboardCache(PUBLIC_APPLICATION_CACHE_KEY, dashboardData.application);
+        updateMypageApplicationStatusCache(item);
         showToast(`신청 상태 변경 실패: ${error.message}`);
       }
     }
@@ -6609,6 +6985,8 @@
       }
       dashboardData.application = applications.filter((application) => application !== item);
       writeSharedDashboardCache(PUBLIC_APPLICATION_CACHE_KEY, dashboardData.application);
+      removeDashboardApplicationStatusOverride(item);
+      removeMypageApplicationCache(item);
       renderDashboardList("application", "신청 접수", "등록된 신청 접수가 없습니다.");
       try {
         await apiPost({
@@ -6616,6 +6994,8 @@
           rowNumber: item.rowNumber || card?.dataset.dashboardApplicationRow || "",
           sheetName: item.sheetName || card?.dataset.dashboardApplicationSheet || "",
           visitorId: item.visitorId || "",
+          authUser: item.authUser || "",
+          phone: item.phone || "",
           submittedAt: item.submittedAt || "",
           eventTitle: item.eventTitle || "",
           eventDate: item.eventDate || "",
@@ -6870,6 +7250,20 @@
           deleteDashboardApplication(applicationDeleteButton.dataset.dashboardApplicationDelete, card);
           return;
         }
+        const applicationCard = event.target.closest("[data-dashboard-application-card]");
+        if (applicationCard && !event.target.closest("button, a, input, textarea, select, label")) {
+          const id = String(applicationCard.dataset.dashboardItem || "");
+          if (dashboardOpenApplicationIds.has(id)) {
+            dashboardOpenApplicationIds.delete(id);
+            applicationCard.classList.remove("is-open");
+            applicationCard.setAttribute("aria-expanded", "false");
+          } else {
+            dashboardOpenApplicationIds.add(id);
+            applicationCard.classList.add("is-open");
+            applicationCard.setAttribute("aria-expanded", "true");
+          }
+          return;
+        }
         const boardToggle = event.target.closest("[data-dashboard-board-toggle]");
         if (boardToggle) {
           const card = boardToggle.closest("[data-dashboard-board-card]");
@@ -6934,6 +7328,13 @@
         }
         const remove = event.target.closest("[data-dashboard-delete]");
         if (remove) deleteDashboardPost(remove.dataset.dashboardPanel, remove.dataset.dashboardDelete);
+      });
+      list.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        const applicationCard = event.target.closest("[data-dashboard-application-card]");
+        if (!applicationCard || event.target.closest("button, a, input, textarea, select, label")) return;
+        event.preventDefault();
+        applicationCard.click();
       });
     });
     document.querySelectorAll("[data-dashboard-sync]").forEach((button) => {
@@ -7217,7 +7618,8 @@
           [item.id]: eventStorageData(item)
         });
         pendingCreatedEventIds.delete(String(item.id));
-        persistEventOrder();
+        await persistEventOrder();
+        publishPublicEventListCache();
         showToast(`${item.title} 전체 수정 저장됨`);
       } catch (error) {
         Object.assign(item, snapshot);
@@ -7265,6 +7667,12 @@
       if (event.key === ADMIN_HERO_CACHE_KEY) {
         heroSlides = readAdminHeroCache();
         renderHeroAdmin();
+      }
+      if (event.key === PUBLIC_APPLICATION_CACHE_KEY) {
+        dashboardData.application = applyDashboardApplicationStatusOverrides(readSharedDashboardCache(PUBLIC_APPLICATION_CACHE_KEY));
+        if (!document.querySelector('[data-admin-panel="application"]')?.hidden) {
+          renderDashboardList("application", "신청 접수", "등록된 신청 접수가 없습니다.");
+        }
       }
     });
 
