@@ -18491,42 +18491,51 @@
       const targetIndex = Number(index);
       const application = currentMyApplications[Number(index)];
       if (!application) return;
-      const previousApplications = [...currentMyApplications];
       const shouldCancelAfterSave = application?.isPending && normalizedApplicationStatus(application) === "접수";
       const canceledApplication = { ...application, status: canceledApplicationStatus, isPending: true, cancelAfterSave: shouldCancelAfterSave, localUpdatedAt: Date.now() };
-      currentMyApplications[targetIndex] = canceledApplication;
-      writeMypageCache(currentMyApplications);
-      renderMyApplications(currentMyApplications);
-      if (shouldCancelAfterSave) return;
-      if (button) {
-        button.disabled = true;
-        button.classList.add("is-loading");
-        button.textContent = "취소 중";
+
+      if (shouldCancelAfterSave) {
+        currentMyApplications[targetIndex] = canceledApplication;
+        writeMypageCache(currentMyApplications);
+        renderMyApplications(currentMyApplications);
+        return;
       }
-      (async () => {
-        try {
-          const { id: currentVisitorId } = getVisitorIdentity();
-          const result = await visitorApi({
-            type: "applicationCancel",
-            visitorId: application.visitorId || currentVisitorId,
-            sheetName: application.sheetName || "",
-            submittedAt: applicationSubmittedAtForApi(application),
-            eventTitle: application.eventTitle,
-            eventDate: application.eventDate,
-            selectedAgeRange: application.selectedAgeRange
-          });
-          const savedApplication = { ...canceledApplication, status: result.status || canceledApplicationStatus, isPending: false, localUpdatedAt: Date.now() };
-          const nextApplications = (readMypageCache() || currentMyApplications).map((item) =>
-            applicationStableKey(item) === applicationStableKey(savedApplication) ? savedApplication : item
-          );
-          writeMypageCache(nextApplications);
-          renderMyApplications(nextApplications);
-        } catch (error) {
-          writeMypageCache(previousApplications);
-          renderMyApplications(previousApplications);
-          alert(error?.message || "신청을 취소하지 못했습니다.");
+
+      const liveButton = document.querySelector(`[data-mypage-cancel-open="${targetIndex}"]`) || button;
+      const liveCard = liveButton?.closest(".mypage-card");
+      if (liveButton) {
+        liveButton.disabled = true;
+        liveButton.classList.add("is-loading");
+        liveButton.textContent = "취소 중";
+      }
+      liveCard?.querySelectorAll("[data-mypage-check-open]").forEach((el) => { el.disabled = true; });
+
+      try {
+        const { id: currentVisitorId } = getVisitorIdentity();
+        const result = await visitorApi({
+          type: "applicationCancel",
+          visitorId: application.visitorId || currentVisitorId,
+          sheetName: application.sheetName || "",
+          submittedAt: applicationSubmittedAtForApi(application),
+          eventTitle: application.eventTitle,
+          eventDate: application.eventDate,
+          selectedAgeRange: application.selectedAgeRange
+        });
+        const savedApplication = { ...canceledApplication, status: result.status || canceledApplicationStatus, isPending: false, localUpdatedAt: Date.now() };
+        const nextApplications = (readMypageCache() || currentMyApplications).map((item) =>
+          applicationStableKey(item) === applicationStableKey(savedApplication) ? savedApplication : item
+        );
+        writeMypageCache(nextApplications);
+        renderMyApplications(nextApplications);
+      } catch (error) {
+        if (liveButton) {
+          liveButton.disabled = false;
+          liveButton.classList.remove("is-loading");
+          liveButton.textContent = "취소";
         }
-      })();
+        liveCard?.querySelectorAll("[data-mypage-check-open]").forEach((el) => { el.disabled = false; });
+        alert(error?.message || "신청을 취소하지 못했습니다.");
+      }
     }
 
     function authProfileKey() {

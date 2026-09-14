@@ -53,6 +53,8 @@ try {
         }
         Send-Response $stream 200 $contentType ([System.IO.File]::ReadAllBytes($fullPath))
       }
+    } catch {
+      # Ignore aborted/broken client connections; keep the server loop alive.
     } finally {
       $client.Close()
     }
