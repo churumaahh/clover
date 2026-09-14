@@ -18361,7 +18361,7 @@
       const status = normalizedApplicationStatus(application);
       const stepIndex = applicationStatusSteps.indexOf(status);
       const statusClass = applicationStatusClass(status);
-      const isOwnApplication = String(application.visitorId || "") === String(getVisitorIdentity().id || "");
+      const isOwnApplication = isCurrentMypageRecord(application);
       const canManage = status === "접수" && isOwnApplication;
       const isCanceled = status === canceledApplicationStatus;
       const dateText = formatMypageSubmittedAt(application.submittedAt);
