@@ -4049,11 +4049,18 @@
     .app-edit-title-icon svg {
       width: 1.3rem;
       height: 1.3rem;
+      color: currentColor;
+      stroke: currentColor;
       stroke-width: 2.2;
     }
 
+    .app-edit-title-icon circle {
+      fill: none;
+      stroke: #121218;
+    }
+
     .app-edit-title-icon .app-edit-title-check {
-      stroke: var(--accent);
+      stroke: #121218;
     }
 
     .app-check-summary {
@@ -8941,6 +8948,7 @@
 
     #page-mypage .mypage-card {
       width: min(100%, 36rem);
+      padding-top: 0.72rem;
     }
 
     #page-mypage .mypage-fold-card:not([open]) > .mypage-layer-content {
@@ -15106,13 +15114,13 @@
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
-      width: 4.05rem !important;
-      height: 2.45rem !important;
-      min-width: 4.05rem !important;
-      min-height: 2.45rem !important;
+      width: 2.85rem !important;
+      height: 1.75rem !important;
+      min-width: 2.85rem !important;
+      min-height: 1.75rem !important;
       padding: 0 !important;
       border-radius: 999px !important;
-      font-size: 0.92rem !important;
+      font-size: 0.76rem !important;
       font-weight: 950 !important;
       line-height: 1 !important;
       white-space: nowrap !important;
@@ -18379,26 +18387,27 @@
       });
     }
 
+    function applicationRecordsOverlap(a, b) {
+      const aKeys = new Set(applicationDashboardClearKeys(a));
+      return applicationDashboardClearKeys(b).some((key) => aKeys.has(key));
+    }
+
+    function preferredApplicationRecord(previous, next) {
+      const previousStatus = normalizedApplicationStatus(previous);
+      const nextStatus = normalizedApplicationStatus(next);
+      if (previousStatus !== canceledApplicationStatus && nextStatus === canceledApplicationStatus) return { ...previous, ...next };
+      if (previousStatus === canceledApplicationStatus && nextStatus !== canceledApplicationStatus) return previous;
+      return applicationTimestamp(next) >= applicationTimestamp(previous) ? { ...previous, ...next } : previous;
+    }
+
     function dedupeApplicationsByStableKey(applications) {
-      const merged = new Map();
-      (Array.isArray(applications) ? applications : []).forEach((application) => {
-        const key = applicationStableKey(application);
-        const previous = merged.get(key);
-        if (!previous) {
-          merged.set(key, application);
-          return;
-        }
-        const previousStatus = normalizedApplicationStatus(previous);
-        const nextStatus = normalizedApplicationStatus(application);
-        if (previousStatus !== canceledApplicationStatus && nextStatus === canceledApplicationStatus) {
-          merged.set(key, application);
-          return;
-        }
-        if (applicationTimestamp(application) >= applicationTimestamp(previous)) {
-          merged.set(key, { ...previous, ...application });
-        }
-      });
-      return [...merged.values()];
+      return (Array.isArray(applications) ? applications : []).reduce((items, application) => {
+        const existingIndex = items.findIndex((item) => applicationRecordsOverlap(item, application));
+        if (existingIndex < 0) return items.concat(application);
+        const nextItems = [...items];
+        nextItems[existingIndex] = preferredApplicationRecord(nextItems[existingIndex], application);
+        return nextItems;
+      }, []);
     }
 
     function mergeApplicationsWithLocal(serverApplications, localApplications = readMypageCache() || currentMyApplications || []) {
@@ -18669,7 +18678,6 @@
         title: "신청을 취소할까요?",
         copy: "접수가 취소됩니다.",
         confirmText: "접수 취소",
-        variant: "positive",
         compact: true,
         singleAction: true
       });
@@ -25818,6 +25826,10 @@
       button.disabled = !isApplicationFormReady();
     }
 
+    function formRequirementMessage(label, action) {
+      return `'${label}'을 ${action}해 주세요.`;
+    }
+
     async function submitApplication(button) {
       await waitForAuthReady();
       ensureAuthVisitorOwner();
@@ -25873,27 +25885,27 @@
       }
 
       if (isDivorcedEvent(selectedEvent) && !myChildrenReady()) {
-        alert("자녀 정보를 선택해 주세요.");
+        alert(formRequirementMessage("자녀 정보", "선택"));
         document.querySelector(".children-section")?.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
       }
 
       if (isDivorcedEvent(selectedEvent) && !selectedChildrenCondition) {
-        alert("상대방의 자녀 조건을 선택해 주세요.");
+        alert(formRequirementMessage("상대방의 자녀 조건", "선택"));
         document.querySelector(".children-condition-heading")?.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
       }
 
       if (isCustomMatchEvent(selectedEvent) && !inputValue("#applyMessage")) {
         const messageInput = document.querySelector("#applyMessage");
-        alert("나에 대해서를 입력해 주세요.");
+        alert(formRequirementMessage("나에 대해서", "작성"));
         messageInput?.scrollIntoView({ behavior: "smooth", block: "center" });
         messageInput?.focus();
         return;
       }
 
       if (isCustomMatchEvent(selectedEvent) && selectedIdealRankValues().length < 3) {
-        alert("나의 이상형을 3순위까지 선택해 주세요.");
+        alert("'나의 이상형'을 3순위까지 선택해 주세요.");
         document.querySelector("[data-ideal-rank-section]")?.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
       }
