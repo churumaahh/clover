@@ -20246,8 +20246,8 @@
       const ageOption = editApplicationAgeOptions(editingApplication).find((option) => option.id === editAgeOptionId);
       const rows = [
         ["인원 선택", editComposition || "-"],
-        ["가능한 요일", editWeekdays.length ? editWeekdays.join(", ") : "-"],
         ["연령대", ageOption?.range || normalizeAgeRangeText(editingApplication.selectedAgeRange) || "-"],
+        ["가능한 요일", editWeekdays.length ? editWeekdays.join(", ") : "-"],
         ...(needsChildrenCondition || editChildrenCondition ? [["자녀 조건", childConditionLabelFromId(editChildrenCondition) || editingApplication.selectedChildrenCondition || "-"]] : []),
         ["전달 사항", editApplicationNote || "-"]
       ].map(([label, value]) => `
