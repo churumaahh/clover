@@ -26,7 +26,7 @@
   <script src="config.js?v=20260722-schedule-api"></script>
   <script>
     (function () {
-      var scriptUrl = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbxYTzjE1BY6JIlwYtyQuDUa2Zr9VvCcmKPhImySLnub8R1EKg8XGR1F__SWCaF1WPaF/exec";
+      var scriptUrl = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbw4oaj98gxf0aZ_iA8F--2JXnFlQH4WEkQU8mXVo65npJxy_GYKwXc8DlzsBwS52boj/exec";
       window.__earlyEventListPromise = fetch(scriptUrl + "?action=eventList&t=" + Date.now(), { cache: "no-store" })
         .then(function (r) { return r.json().then(function (json) { return { ok: r.ok, json: json }; }); })
         .catch(function (error) { return { ok: false, error: error }; });
@@ -4158,10 +4158,10 @@
     [data-info-modal] .gender-modal-panel {
       display: grid;
       place-items: center;
-      gap: 0.75rem;
-      width: min(17rem, calc(100vw - 2rem));
-      min-height: 9.5rem;
-      padding: 1.6rem 1.4rem;
+      gap: 0.55rem;
+      width: min(12.8rem, calc(100vw - 2rem));
+      min-height: 7.6rem;
+      padding: 1.25rem 1.1rem;
       border: 0;
       border-radius: 18px;
       background: #eef1f5;
@@ -4201,9 +4201,9 @@
     }
 
     [data-info-modal] .modal-confirm-btn {
-      min-width: 7.5rem;
-      min-height: 2.4rem;
-      border-radius: 0.85rem;
+      min-width: 6.1rem;
+      min-height: 2.05rem;
+      border-radius: 0.75rem;
       font-size: 0.8rem;
       border: 0 !important;
       background-color: #eef1f5 !important;
@@ -4221,11 +4221,11 @@
 
     [data-info-modal] .gender-modal-actions {
       display: grid;
-      grid-template-columns: minmax(7.5rem, 10rem);
+      grid-template-columns: minmax(6.1rem, 7.6rem);
       justify-content: center;
-      gap: 0.55rem;
+      gap: 0.4rem;
       width: 100%;
-      margin-top: 0.35rem;
+      margin-top: 0.2rem;
     }
 
     :root[data-theme="dark"] [data-info-modal] .gender-modal-panel {
@@ -4385,6 +4385,12 @@
       background: #ff475a;
       color: #ffffff;
       box-shadow: 0 0.45rem 0.8rem rgba(255, 71, 90, 0.18);
+    }
+
+    .board-delete-modal.is-positive .modal-danger-btn {
+      border-color: rgba(0, 220, 82, 0.42);
+      background: #00e65a;
+      box-shadow: 0 0.45rem 0.8rem rgba(0, 220, 82, 0.2);
     }
 
     :root[data-theme="dark"] .modal-cancel-btn {
@@ -4688,8 +4694,8 @@
     }
 
     .mypage-selected-badges {
-      margin-top: 0.06rem;
-      margin-bottom: 0.4rem;
+      margin-top: 0.28rem;
+      margin-bottom: 0.58rem;
     }
 
     .mypage-selected-badges .composition-choice-badges {
@@ -6439,6 +6445,33 @@
       border: 1px solid #e7edf5;
     }
 
+    .photo-thumb.is-preview-empty {
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: 0.66rem;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .photo-thumb.is-preview-empty::before {
+      content: "IMG";
+    }
+
+    .photo-thumb.is-document {
+      display: grid;
+      place-items: center;
+      background-image: var(--photo-image, none);
+      color: var(--muted);
+      font-size: 0.66rem;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .photo-thumb.is-document:not([style*="--photo-image"])::before {
+      content: "FILE";
+    }
+
     .photo-add {
       display: grid;
       place-items: center;
@@ -6588,17 +6621,6 @@
     .form-submit-btn[disabled] {
       cursor: not-allowed;
       opacity: 0.55;
-    }
-
-    .form-submit-hint {
-      margin: 0.4rem 0 0;
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: #e0453c;
-    }
-
-    .form-submit-hint[hidden] {
-      display: none;
     }
 
     :root[data-theme="dark"] .form-submit-btn {
@@ -8775,12 +8797,6 @@
       box-shadow: 0 0.25rem 0.65rem rgba(15, 23, 42, 0.06);
     }
 
-    #page-mypage .mypage-edit-btn[data-auth-logout] {
-      min-height: 1.6rem;
-      padding: 0 0.6rem;
-      font-size: 0.66rem;
-    }
-
     :root[data-theme="dark"] #page-mypage .mypage-edit-btn {
       border-color: rgba(255, 255, 255, 0.14);
       background: #2f2f2f;
@@ -9777,7 +9793,7 @@
 
     .mypage-card {
       display: grid;
-      gap: 0.35rem;
+      gap: 0.5rem;
       padding: 1rem;
       border: 1px solid var(--line);
       border-radius: 0.9rem;
@@ -9790,13 +9806,6 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.5rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .mypage-card-head .board-status {
-      min-width: 0;
-      padding: 0.32rem 0.7rem;
-      font-size: 0.78rem;
     }
 
     .mypage-card-side {
@@ -9861,11 +9870,13 @@
       width: 100%;
     }
 
-    .mypage-steps.is-canceled::before {
+    .mypage-steps.is-canceled::before,
+    .mypage-steps.is-canceling::before {
       display: none;
     }
 
-    .mypage-steps.is-canceled {
+    .mypage-steps.is-canceled,
+    .mypage-steps.is-canceling {
       background: #f3f5f8;
       border-color: rgba(239, 68, 68, 0.28);
     }
@@ -9892,17 +9903,41 @@
       box-shadow: 0 0 0 1px rgba(185, 28, 28, 0.22) inset;
     }
 
+    .mypage-step.is-canceling {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      border-radius: 999px;
+      color: #ffffff;
+      background: #ef4444;
+      box-shadow: 0 0 0 1px rgba(185, 28, 28, 0.22) inset;
+    }
+
+    .mypage-step.is-canceling::before {
+      content: "";
+      width: 0.72rem;
+      height: 0.72rem;
+      border: 2px solid rgba(255, 255, 255, 0.48);
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: submit-spin 0.7s linear infinite;
+      flex: 0 0 auto;
+    }
+
     :root[data-theme="dark"] .mypage-steps {
       background: #eef1f5;
       border: 0;
     }
 
-    :root[data-theme="dark"] .mypage-steps.is-canceled {
+    :root[data-theme="dark"] .mypage-steps.is-canceled,
+    :root[data-theme="dark"] .mypage-steps.is-canceling {
       background: #eef1f5;
       border-color: rgba(255, 93, 108, 0.55);
     }
 
-    :root[data-theme="dark"] .mypage-step.is-canceled {
+    :root[data-theme="dark"] .mypage-step.is-canceled,
+    :root[data-theme="dark"] .mypage-step.is-canceling {
       color: #ffffff;
       background: #ff475a;
       box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18) inset, 0 0.2rem 0.75rem rgba(255, 71, 90, 0.22);
@@ -9921,13 +9956,20 @@
     }
 
     .mypage-card-edit-btn {
-      padding: 0.28rem 0.62rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 3.1rem;
+      min-height: 1.9rem;
+      padding: 0.35rem 0.75rem;
       border: 1px solid var(--line);
       border-radius: 999px;
       background: var(--surface);
       color: var(--ink);
-      font-size: 0.72rem;
+      font-size: 0.82rem;
       font-weight: 900;
+      line-height: 1;
+      box-shadow: 0 0.18rem 0.45rem rgba(15, 23, 42, 0.08);
     }
 
     .mypage-card-cancel-btn {
@@ -9949,6 +9991,26 @@
       outline: 0;
     }
 
+    #page-mypage .mypage-card-head .mypage-card-status {
+      min-width: 3.1rem !important;
+      min-height: 1.9rem !important;
+      padding: 0.35rem 0.75rem !important;
+      border-color: #dbe3ed !important;
+      background: #ffffff !important;
+      color: #475569 !important;
+      -webkit-text-fill-color: #475569 !important;
+      font-size: 0.82rem !important;
+      line-height: 1 !important;
+      box-shadow: 0 0.18rem 0.45rem rgba(15, 23, 42, 0.08) !important;
+    }
+
+    #page-mypage .mypage-card-head .mypage-card-status.is-canceling {
+      border-color: rgba(255, 71, 90, 0.36) !important;
+      background: rgba(255, 71, 90, 0.08) !important;
+      color: #ff475a !important;
+      -webkit-text-fill-color: #ff475a !important;
+    }
+
     :root[data-theme="dark"] .mypage-card-edit-btn:not(.mypage-card-cancel-btn) {
       border-color: rgba(255, 255, 255, 0.08);
       background: #232323;
@@ -9966,6 +10028,21 @@
 
     :root[data-theme="dark"] [data-mypage-check-open].mypage-card-edit-btn {
       color: #ffffff !important;
+    }
+
+    :root[data-theme="dark"] #page-mypage .mypage-card-head .mypage-card-status {
+      border-color: rgba(255, 255, 255, 0.08) !important;
+      background: #232323 !important;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      box-shadow: 0 0.18rem 0.48rem rgba(0, 0, 0, 0.28) !important;
+    }
+
+    :root[data-theme="dark"] #page-mypage .mypage-card-head .mypage-card-status.is-canceling {
+      border-color: rgba(255, 71, 90, 0.42) !important;
+      background: rgba(255, 71, 90, 0.12) !important;
+      color: #ff5d6c !important;
+      -webkit-text-fill-color: #ff5d6c !important;
     }
 
     .mypage-card-delete-btn {
@@ -10001,7 +10078,9 @@
       align-items: center;
       justify-content: center;
       gap: 0.35rem;
-      color: #8b95a1;
+      border-color: rgba(255, 71, 90, 0.36);
+      background: rgba(255, 71, 90, 0.08);
+      color: #ff475a;
       cursor: wait;
     }
 
@@ -10009,8 +10088,8 @@
       content: "";
       width: 0.72rem;
       height: 0.72rem;
-      border: 2px solid rgba(139, 149, 161, 0.26);
-      border-top-color: #8b95a1;
+      border: 2px solid rgba(255, 71, 90, 0.24);
+      border-top-color: #ff475a;
       border-radius: 50%;
       animation: submit-spin 0.7s linear infinite;
       flex: 0 0 auto;
@@ -15019,6 +15098,25 @@
       color: #ffffff !important;
       -webkit-text-fill-color: #ffffff !important;
     }
+
+    #page-mypage .mypage-card-head > .mypage-card-status,
+    #page-mypage .mypage-card-side > .mypage-card-check-btn,
+    #page-mypage .mypage-card-side > .mypage-card-cancel-btn {
+      box-sizing: border-box !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 4.05rem !important;
+      height: 2.45rem !important;
+      min-width: 4.05rem !important;
+      min-height: 2.45rem !important;
+      padding: 0 !important;
+      border-radius: 999px !important;
+      font-size: 0.92rem !important;
+      font-weight: 950 !important;
+      line-height: 1 !important;
+      white-space: nowrap !important;
+    }
 </style>
 </head>
 <body>
@@ -16024,7 +16122,7 @@
     const iconPopular = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z" fill="#ff4d6d"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbxYTzjE1BY6JIlwYtyQuDUa2Zr9VvCcmKPhImySLnub8R1EKg8XGR1F__SWCaF1WPaF/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbw4oaj98gxf0aZ_iA8F--2JXnFlQH4WEkQU8mXVo65npJxy_GYKwXc8DlzsBwS52boj/exec";
     const EVENT_LIST_CACHE_KEY = "clover-managed-event-list-v7";
     const EVENT_LIST_CACHE_TTL_MS = 10 * 60 * 1000;
     const CLOUDINARY_ASSET_MAP = {"assets/optimized/event-taste-homebody.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572124/clover/optimized/event-taste-homebody.webp","assets/optimized/clover-proof-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572106/clover/optimized/clover-proof-08.webp","assets/columns/webtoon-column-01.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572080/clover/columns/webtoon-column-01.png","assets/link-preview.jpg":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572079/clover/link-preview.jpg","assets/optimized/field-venue-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-01.webp","assets/optimized/event-taste-workout.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572126/clover/optimized/event-taste-workout.webp","assets/optimized/clover-proof-12.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572110/clover/optimized/clover-proof-12.webp","assets/columns/webtoon-column-03.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572082/clover/columns/webtoon-column-03.png","assets/optimized/field-venue-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572139/clover/optimized/field-venue-05.webp","assets/optimized/clover-proof-19.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-19.webp","assets/columns/webtoon-column-05.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572084/clover/columns/webtoon-column-05.png","assets/optimized/field-venue-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572143/clover/optimized/field-venue-10.webp","assets/optimized/event-group-study-cafe.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572118/clover/optimized/event-group-study-cafe.webp","assets/optimized/clover-proof-17.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572115/clover/optimized/clover-proof-17.webp","assets/columns/webtoon-column-18.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572097/clover/columns/webtoon-column-18.png","assets/optimized/clover-proof-15.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572113/clover/optimized/clover-proof-15.webp","assets/optimized/clover-proof-14.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572112/clover/optimized/clover-proof-14.webp","assets/optimized/field-venue-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-02.webp","assets/favicon.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572078/clover/favicon.png","assets/optimized/clover-proof-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572105/clover/optimized/clover-proof-07.webp","assets/optimized/event-theme-warm.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572134/clover/optimized/event-theme-warm.webp","assets/optimized/event-theme-dress-code.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572129/clover/optimized/event-theme-dress-code.webp","assets/optimized/clover-proof-11.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572109/clover/optimized/clover-proof-11.webp","assets/optimized/event-theme-divorced.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572128/clover/optimized/event-theme-divorced.webp","assets/optimized/event-theme-professional-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572131/clover/optimized/event-theme-professional-man.webp","assets/optimized/event-theme-japanese-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572130/clover/optimized/event-theme-japanese-woman.webp","assets/optimized/event-theme-wealthy-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572135/clover/optimized/event-theme-wealthy-man.webp","assets/columns/webtoon-column-07.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572086/clover/columns/webtoon-column-07.png","assets/optimized/clover-proof-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-06.webp","assets/clover-logo-v2.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572076/clover/clover-logo-v2.png","assets/columns/webtoon-column-12.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572091/clover/columns/webtoon-column-12.png","assets/optimized/clover-proof-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572102/clover/optimized/clover-proof-03.webp","assets/optimized/event-taste-travel.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572125/clover/optimized/event-taste-travel.webp","assets/optimized/event-theme-tall-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572133/clover/optimized/event-theme-tall-man.webp","assets/columns/webtoon-column-11.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572090/clover/columns/webtoon-column-11.png","assets/optimized/clover-proof-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572108/clover/optimized/clover-proof-10.webp","assets/optimized/event-theme-career-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-career-man.webp","assets/columns/webtoon-column-09.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572088/clover/columns/webtoon-column-09.png","assets/optimized/event-random-destiny-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-random-destiny-new.webp","assets/optimized/event-live-office-worker-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572120/clover/optimized/event-live-office-worker-new.webp","assets/optimized/field-venue-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-08.webp","assets/columns/webtoon-column-04.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572083/clover/columns/webtoon-column-04.png","assets/columns/webtoon-column-16.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572095/clover/columns/webtoon-column-16.png","assets/optimized/clover-proof-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-05.webp","assets/optimized/clover-proof-20.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572117/clover/optimized/clover-proof-20.webp","assets/columns/webtoon-column-17.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572096/clover/columns/webtoon-column-17.png","assets/optimized/event-theme-comfort-40s.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-comfort-40s.webp","assets/optimized/field-venue-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-04.webp","assets/optimized/clover-proof-16.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572114/clover/optimized/clover-proof-16.webp","assets/columns/webtoon-column-14.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572093/clover/columns/webtoon-column-14.png","assets/columns/webtoon-column-19.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572098/clover/columns/webtoon-column-19.png","assets/optimized/event-live-christian.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572119/clover/optimized/event-live-christian.webp","assets/optimized/event-romance-faceless.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572122/clover/optimized/event-romance-faceless.webp","assets/optimized/event-theme-public-servant-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572132/clover/optimized/event-theme-public-servant-woman.webp","assets/optimized/field-venue-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-03.webp","assets/optimized/field-venue-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572140/clover/optimized/field-venue-06.webp","assets/columns/webtoon-column-08.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572087/clover/columns/webtoon-column-08.png","assets/optimized/clover-proof-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572101/clover/optimized/clover-proof-02.webp","assets/optimized/field-venue-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572141/clover/optimized/field-venue-07.webp","assets/optimized/clover-proof-13.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572111/clover/optimized/clover-proof-13.webp","assets/columns/webtoon-column-20.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572099/clover/columns/webtoon-column-20.png","assets/optimized/clover-proof-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572107/clover/optimized/clover-proof-09.webp","assets/optimized/event-taste-active.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572123/clover/optimized/event-taste-active.webp","assets/columns/webtoon-column-06.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572085/clover/columns/webtoon-column-06.png","assets/optimized/event-live-shift-worker.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-live-shift-worker.webp","assets/columns/webtoon-column-15.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572094/clover/columns/webtoon-column-15.png","assets/optimized/footer-lobby-banner-clean.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572144/clover/optimized/footer-lobby-banner-clean.webp","assets/optimized/field-venue-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-09.webp","assets/columns/webtoon-column-13.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572092/clover/columns/webtoon-column-13.png","assets/optimized/clover-proof-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572103/clover/optimized/clover-proof-04.webp","assets/columns/webtoon-column-10.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572089/clover/columns/webtoon-column-10.png","assets/columns/webtoon-column-02.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572081/clover/columns/webtoon-column-02.png","assets/optimized/clover-proof-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572100/clover/optimized/clover-proof-01.webp","assets/optimized/clover-proof-18.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-18.webp"};
@@ -17132,20 +17230,14 @@
             <div class="form-field">
               <label>재직 증명</label>
               <p class="form-help">재직증명서, 급여명세서, 건강보험, 사원증 등 하나로 제출해 주세요.</p>
-            </div>
-            <div class="file-drop">
-              <div class="document-preview is-hidden" data-document-preview>
-                <span class="document-thumb" data-document-thumb></span>
-                <span class="document-copy">
-                  <strong class="document-title">등록된 증빙 서류</strong>
-                  <span class="document-status">업로드 준비 완료</span>
-                </span>
-                <button class="remove-file-btn" type="button" data-clear-file="document" aria-label="증빙 서류 삭제">×</button>
+              <div class="file-drop" data-document-file-drop>
+                <div class="photo-row" data-document-row>
+                  <label class="photo-add" data-document-add>
+                    + 추가
+                    <input class="file-input" type="file" data-file-input="document" accept="image/*" multiple>
+                  </label>
+                </div>
               </div>
-              <label class="photo-add" data-document-add>
-                + 추가
-                <input class="file-input" type="file" data-file-input="document" accept="image/*,.pdf">
-              </label>
             </div>
           </section>
 
@@ -17183,7 +17275,6 @@
           </div>
 
           <button class="form-submit-btn" type="button" disabled>신청하기</button>
-          <p class="form-submit-hint" data-form-submit-hint hidden></p>
           ${applicationProcessNoticeMarkup()}
         </form>
 
@@ -17220,30 +17311,6 @@
     let selectedDocumentFile = null;
     let selectedPhotoFiles = [];
     let selectedBodyPhotoFiles = [];
-    const fileDataUrlCache = new Map();
-    let fileReadQueue = Promise.resolve();
-
-    function primeFileDataUrl(file) {
-      const pending = fileReadQueue.then(
-        () => readAsDataUrl(file),
-        () => readAsDataUrl(file)
-      ).catch((error) => {
-        fileDataUrlCache.delete(file);
-        throw error;
-      });
-      fileReadQueue = pending.then(() => {}, () => {});
-      fileDataUrlCache.set(file, pending);
-      return pending;
-    }
-
-    function getFileDataUrl(file) {
-      return fileDataUrlCache.get(file) || readAsDataUrl(file);
-    }
-
-    async function getFilePayload(file, options = {}) {
-      const dataUrl = await getFileDataUrl(file);
-      return dataUrlToPayload(dataUrl, file, options);
-    }
     let selectedExistingDocumentUrl = "";
     let selectedExistingPhotoUrls = [];
     let selectedExistingBodyPhotoUrls = [];
@@ -17354,6 +17421,8 @@
     const profileGenderKey = "cloverProfileGender";
     const mypageCacheKey = "clover-mypage-applications-v1";
     const mypageHiddenCanceledKeyPrefix = "clover-mypage-hidden-canceled-v1";
+    const dashboardClearedCanceledKey = "clover-dashboard-cleared-canceled-v1";
+    const adminDashboardCacheKey = "cloverAdminDashboardCache:v4";
     const profileInfoCacheKey = "clover-mypage-profile-info-v1";
     const authVisitorOwnerKey = "cloverAuthVisitorOwner";
     const authVisitorIdKeyPrefix = "cloverAuthVisitorId";
@@ -17410,11 +17479,11 @@
     }
 
     function recordAuthKey(record) {
-      return onlyDigits(record?.authUser || "", 11);
+      return onlyDigits(`${record?.authUser || ""} ${record?.["회원키"] || ""}`, 11);
     }
 
     function recordPhoneKey(record) {
-      return onlyDigits(`${record?.phone || ""} ${record?.contactPhone || ""}`, 11);
+      return onlyDigits(`${record?.phone || ""} ${record?.contactPhone || ""} ${record?.["연락처"] || ""}`, 11);
     }
 
     function isCurrentMypageRecord(record) {
@@ -17426,9 +17495,9 @@
         const recordAuth = recordAuthKey(record);
         const recordPhone = recordPhoneKey(record);
         if (recordAuth) return recordAuth === authPhone;
-        return !recordPhone || recordPhone === authPhone;
+        if (recordPhone) return recordPhone === authPhone;
       }
-      return false;
+      return visitorMatches;
     }
 
     function mypageCacheStorageKey() {
@@ -17500,14 +17569,72 @@
       return `${mypageHiddenCanceledKeyPrefix}:${authProfileKey() || getVisitorIdentity().id || "guest"}`;
     }
 
+    function normalizeApplicationKeyText(value) {
+      return String(value || "").replace(/\s+/g, "").trim();
+    }
+
+    function applicationIdentityKey(application) {
+      return onlyDigits(`${application?.authUser || ""} ${application?.phone || ""} ${application?.contactPhone || ""} ${application?.["회원키"] || ""} ${application?.["연락처"] || ""}`, 11) ||
+        String(application?.visitorId || application?.["방문자ID"] || getVisitorIdentity().id || "").trim();
+    }
+
     function applicationStableKey(application) {
       return [
         applicationSubmittedAtForApi(application) || application?.submittedAt || "",
-        application?.eventTitle || "",
-        application?.eventDate || "",
-        application?.selectedAgeRange || "",
-        application?.visitorId || getVisitorIdentity().id || ""
+        normalizeApplicationKeyText(application?.eventTitle || application?.["이벤트명"] || ""),
+        normalizeApplicationKeyText(application?.eventDate || application?.["요일"] || application?.["일정"] || ""),
+        normalizeApplicationKeyText(application?.selectedAgeRange || application?.["연령대"] || ""),
+        applicationIdentityKey(application)
       ].map((value) => String(value).trim()).join("|");
+    }
+
+    function applicationDashboardClearParts(application) {
+      const submittedAt = applicationSubmittedAtForApi(application) || Number(application?.["접수일시"]) || "";
+      const eventTitle = application?.eventTitle || application?.["이벤트명"] || "";
+      const eventDate = application?.eventDate || application?.["요일"] || application?.["일정"] || "";
+      const ageRange = application?.selectedAgeRange || applicationAgeFromTitle(application) || "";
+      const identity = onlyDigits(`${application?.authUser || ""} ${application?.phone || ""} ${application?.contactPhone || ""} ${application?.["연락처"] || ""}`, 11) || application?.visitorId || "";
+      return { submittedAt: String(submittedAt).trim(), eventTitle: String(eventTitle).trim(), eventDate: String(eventDate).trim(), ageRange: String(ageRange).trim(), identity: String(identity).trim() };
+    }
+
+    function applicationDashboardClearKeys(application) {
+      if (!application) return [];
+      const { submittedAt, eventTitle, eventDate, ageRange, identity } = applicationDashboardClearParts(application);
+      return [...new Set([
+        applicationStableKey(application),
+        [submittedAt, eventTitle, eventDate].join("|"),
+        [submittedAt, eventTitle, eventDate, ageRange].join("|"),
+        [submittedAt, eventTitle, eventDate, identity].join("|"),
+        [submittedAt, eventTitle, eventDate, ageRange, identity].join("|")
+      ].filter((key) => key.replace(/\|/g, "").trim()))];
+    }
+
+    function readDashboardClearedCanceledApplications() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(dashboardClearedCanceledKey) || "[]");
+        return Array.isArray(parsed) ? new Set(parsed.map(String)) : new Set();
+      } catch {
+        return new Set();
+      }
+    }
+
+    function isDashboardClearedCanceledApplication(application) {
+      if (normalizedApplicationStatus(application) !== canceledApplicationStatus) return false;
+      const cleared = readDashboardClearedCanceledApplications();
+      return applicationDashboardClearKeys(application).some((key) => cleared.has(key));
+    }
+
+    function markDashboardCanceledApplicationCleared(application) {
+      if (!application || normalizedApplicationStatus(application) !== canceledApplicationStatus) return;
+      const cleared = readDashboardClearedCanceledApplications();
+      applicationDashboardClearKeys(application).forEach((key) => cleared.add(key));
+      try { localStorage.setItem(dashboardClearedCanceledKey, JSON.stringify([...cleared])); } catch {}
+    }
+
+    function unmarkDashboardCanceledApplicationCleared(application) {
+      const cleared = readDashboardClearedCanceledApplications();
+      applicationDashboardClearKeys(application).forEach((key) => cleared.delete(key));
+      try { localStorage.setItem(dashboardClearedCanceledKey, JSON.stringify([...cleared])); } catch {}
     }
 
     function readApplicationSharedCache() {
@@ -17521,7 +17648,7 @@
 
     function writeApplicationSharedCache(applications) {
       try {
-        localStorage.setItem("clover-application-list-v1", JSON.stringify((Array.isArray(applications) ? applications : []).slice(0, 100)));
+        localStorage.setItem("clover-application-list-v1", JSON.stringify((Array.isArray(applications) ? applications : []).filter((application) => !isDashboardClearedCanceledApplication(application)).slice(0, 100)));
       } catch {}
     }
 
@@ -17537,8 +17664,53 @@
 
     function removeApplicationSharedCache(application) {
       if (!application) return;
-      const targetKey = applicationStableKey(application);
-      writeApplicationSharedCache(readApplicationSharedCache().filter((item) => applicationStableKey(item) !== targetKey));
+      const targetKeys = new Set(applicationDashboardClearKeys(application));
+      writeApplicationSharedCache(readApplicationSharedCache().filter((item) => !applicationDashboardClearKeys(item).some((key) => targetKeys.has(key))));
+    }
+
+    function removeApplicationFromAdminDashboardCache(application) {
+      if (!application) return;
+      const targetKeys = new Set(applicationDashboardClearKeys(application));
+      try {
+        const cached = JSON.parse(localStorage.getItem(adminDashboardCacheKey) || "null");
+        if (!cached || !Array.isArray(cached.applications)) return;
+        cached.applications = cached.applications.filter((item) => !applicationDashboardClearKeys(item).some((key) => targetKeys.has(key)));
+        cached.savedAt = Date.now();
+        localStorage.setItem(adminDashboardCacheKey, JSON.stringify(cached));
+      } catch {}
+    }
+
+    function upsertApplicationInAdminDashboardCache(application) {
+      if (!application) return;
+      const targetKeys = new Set(applicationDashboardClearKeys(application));
+      try {
+        const cached = JSON.parse(localStorage.getItem(adminDashboardCacheKey) || "null");
+        if (!cached || !Array.isArray(cached.applications)) return;
+        const existingIndex = cached.applications.findIndex((item) =>
+          applicationDashboardClearKeys(item).some((key) => targetKeys.has(key))
+        );
+        const existing = existingIndex >= 0 ? cached.applications[existingIndex] : {};
+        const nextApplication = {
+          ...existing,
+          ...application,
+          "접수일시": applicationSubmittedAtForApi(application) || application?.["접수일시"] || existing["접수일시"] || application?.submittedAt || "",
+          "취소일시": application?.["취소일시"] || existing["취소일시"] || Date.now(),
+          "이벤트명": application?.eventTitle || application?.["이벤트명"] || existing["이벤트명"] || "",
+          "요일": application?.eventDate || application?.["요일"] || application?.["일정"] || existing["요일"] || "",
+          "연령대": application?.selectedAgeRange || application?.["연령대"] || existing["연령대"] || "",
+          "방문자ID": application?.visitorId || application?.["방문자ID"] || existing["방문자ID"] || "",
+          "회원키": application?.authUser || application?.["회원키"] || existing["회원키"] || "",
+          "진행상태": normalizedApplicationStatus(application),
+          status: normalizedApplicationStatus(application)
+        };
+        if (existingIndex >= 0) {
+          cached.applications[existingIndex] = nextApplication;
+        } else {
+          cached.applications = [nextApplication, ...cached.applications];
+        }
+        cached.savedAt = Date.now();
+        localStorage.setItem(adminDashboardCacheKey, JSON.stringify(cached));
+      } catch {}
     }
 
     function readHiddenCanceledApplications() {
@@ -17566,28 +17738,44 @@
       writeHiddenCanceledApplications(hidden);
     }
 
-    async function visitorApi(payload) {
+    function unhideCanceledApplication(application) {
+      if (!application) return;
+      const hidden = readHiddenCanceledApplications();
+      hidden.delete(applicationStableKey(application));
+      writeHiddenCanceledApplications(hidden);
+    }
+
+    async function postVisitorApi(payload, body, headers = {}) {
       const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
         cache: "no-store",
         credentials: "omit",
         redirect: "follow",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload)
+        headers,
+        body
       });
-      const text = await response.text();
-      let result = null;
-      try {
-        result = JSON.parse(text);
-      } catch {
-        const plainText = text.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
-        const message = plainText
-          ? `서버 응답 오류: ${plainText.slice(0, 120)}`
-          : "서버에서 올바르지 않은 응답을 받았습니다.";
-        throw new Error(message);
-      }
+      const result = await readJsonResponse(response, "서버에서 올바르지 않은 응답을 받았습니다.");
       if (!response.ok || !result.ok) throw new Error(result.error || "요청을 처리하지 못했습니다.");
       return result;
+    }
+
+    async function visitorApi(payload) {
+      try {
+        return await postVisitorApi(payload, new URLSearchParams({ payload: JSON.stringify(payload) }));
+      } catch (error) {
+        const message = String(error?.message || "");
+        if (!/요청 형식|올바르지 않은 응답|unexpected|cannot read|parse/i.test(message)) throw error;
+        return postVisitorApi(payload, JSON.stringify(payload), { "Content-Type": "text/plain;charset=utf-8" });
+      }
+    }
+
+    async function readJsonResponse(response, fallbackMessage) {
+      const text = await response.text();
+      try {
+        return text ? JSON.parse(text) : {};
+      } catch {
+        throw new Error(fallbackMessage);
+      }
     }
 
     async function visitorApiWithRetry(payload, attempts = 2) {
@@ -17808,7 +17996,7 @@
             const result = await visitorApi({ type: "counselSave", id: counselSaveBtn.dataset.counselSave, visitorId });
             updateCounselPostInState(result.post);
           } catch (error) {
-            alert(error?.message || "泥섎━?섏? 紐삵뻽?듬땲??");
+            alert(error?.message || "처리하지 못했습니다.");
           }
         })();
         return;
@@ -18161,7 +18349,7 @@
     }
 
     function normalizedApplicationStatus(application) {
-      const status = application?.status || "";
+      const status = application?.status || application?.["진행상태"] || application?.["진행 상태"] || "";
       const legacyMap = { "?묒닔": "접수", "?뺤씤": "확인", "?뱀씤": "승인", "痍⑥냼": "취소" };
       const normalizedStatus = legacyMap[status] || status;
       return normalizedStatus === canceledApplicationStatus || applicationStatusSteps.includes(normalizedStatus) ? normalizedStatus : "접수";
@@ -18253,6 +18441,12 @@
       (Array.isArray(adminApplications) ? adminApplications : []).filter(isCurrentMypageRecord).forEach((application) => {
         const key = applicationStableKey(application);
         const previous = merged.get(key);
+        const previousStatus = normalizedApplicationStatus(previous);
+        const nextStatus = normalizedApplicationStatus(application);
+        if (previous && (previous?.isPending || (previousStatus === canceledApplicationStatus && nextStatus !== canceledApplicationStatus))) {
+          merged.set(key, previous);
+          return;
+        }
         merged.set(key, previous ? { ...previous, ...application, status: application.status || previous.status } : application);
       });
       return sortApplicationsForDisplay(dedupeApplicationsByStableKey([...merged.values()]));
@@ -18291,7 +18485,7 @@
       const authParam = authUser ? `&authUser=${encodeURIComponent(authUser)}` : "";
       return Promise.race([
         fetch(`${GOOGLE_SCRIPT_URL}?action=myApplications&visitorId=${encodeURIComponent(visitorId)}${authParam}&t=${Date.now()}`, { cache: "no-store" })
-          .then((response) => response.json()),
+          .then((response) => readJsonResponse(response, "신청 내역을 불러오지 못했습니다.")),
         myApplicationsFetchTimeout()
       ]);
     }
@@ -18374,23 +18568,26 @@
       const status = normalizedApplicationStatus(application);
       const stepIndex = applicationStatusSteps.indexOf(status);
       const statusClass = applicationStatusClass(status);
-      const isOwnApplication = isCurrentMypageRecord(application);
+      const isOwnApplication = String(application.visitorId || "") === String(getVisitorIdentity().id || "");
       const canManage = status === "접수" && isOwnApplication;
-      const isCanceled = status === canceledApplicationStatus;
+      const isCanceling = status === canceledApplicationStatus && !!application?.isPending;
+      const isCanceled = status === canceledApplicationStatus && !isCanceling;
+      const displayStatus = isCanceling ? "취소 중" : status;
+      const displayStatusClass = isCanceling ? `${statusClass} is-canceling` : statusClass;
       const dateText = formatMypageSubmittedAt(application.submittedAt);
       const badgeText = mypageApplicationBadges(application);
       const steps = status === canceledApplicationStatus
-        ? `<span class="mypage-step is-canceled">취소</span>`
+        ? `<span class="mypage-step ${isCanceling ? "is-canceling" : "is-canceled"}">${isCanceling ? "취소 중" : "취소"}</span>`
         : applicationStatusSteps.map((step, i) => `<span class="mypage-step${i <= stepIndex ? " is-done" : ""}">${step}</span>`).join("");
-      const stepClass = status === canceledApplicationStatus ? "is-canceled" : `is-step-${Math.max(0, stepIndex)}`;
+      const stepClass = status === canceledApplicationStatus ? (isCanceling ? "is-canceling" : "is-canceled") : `is-step-${Math.max(0, stepIndex)}`;
       return `
         <article class="mypage-card${canManage ? " is-editable" : ""}" ${canManage ? `data-mypage-check-open="${index}"` : ""}>
           <div class="mypage-card-head">
-            <span class="board-status ${statusClass}">${status}</span>
+            <button class="mypage-card-edit-btn mypage-card-check-btn mypage-card-status ${displayStatusClass}" type="button" tabindex="-1">${displayStatus}</button>
             <span class="mypage-card-side">
               <span class="mypage-date">${dateText}</span>
               ${canManage ? `<button class="mypage-card-edit-btn mypage-card-check-btn" type="button" data-mypage-check-open="${index}">확인</button><button class="mypage-card-edit-btn mypage-card-cancel-btn" type="button" data-mypage-cancel-open="${index}">취소</button>` : ""}
-              ${isCanceled ? `<button class="mypage-card-delete-btn" type="button" data-mypage-canceled-delete="${index}" aria-label="삭제" title="삭제">×</button>` : ""}
+              ${isCanceled ? `<button class="mypage-card-delete-btn" type="button" data-mypage-canceled-delete="${index}" aria-label="신청 내역에서 삭제" title="신청 내역에서 삭제">×</button>` : ""}
             </span>
           </div>
           <h3 class="mypage-event-title">${formatMypageEventTitle(application)}</h3>
@@ -18465,16 +18662,6 @@
       return myApplicationsLoadPromise;
     }
 
-    function deleteCanceledApplicationLayer(index) {
-      const targetIndex = Number(index);
-      const application = currentMyApplications[targetIndex];
-      if (!application || normalizedApplicationStatus(application) !== canceledApplicationStatus) return;
-      hideCanceledApplication(application);
-      currentMyApplications.splice(targetIndex, 1);
-      writeMypageCache(currentMyApplications);
-      renderMyApplications(currentMyApplications);
-    }
-
     async function cancelMyApplication(index, button) {
       const application = currentMyApplications[Number(index)];
       if (!application) return;
@@ -18482,6 +18669,7 @@
         title: "신청을 취소할까요?",
         copy: "접수가 취소됩니다.",
         confirmText: "접수 취소",
+        variant: "positive",
         compact: true,
         singleAction: true
       });
@@ -18491,51 +18679,61 @@
       const targetIndex = Number(index);
       const application = currentMyApplications[Number(index)];
       if (!application) return;
+      if (normalizedApplicationStatus(application) !== "접수") return;
+      if (button?.disabled) return;
+      const previousApplications = [...currentMyApplications];
       const shouldCancelAfterSave = application?.isPending && normalizedApplicationStatus(application) === "접수";
       const canceledApplication = { ...application, status: canceledApplicationStatus, isPending: true, cancelAfterSave: shouldCancelAfterSave, localUpdatedAt: Date.now() };
-
-      if (shouldCancelAfterSave) {
-        currentMyApplications[targetIndex] = canceledApplication;
-        writeMypageCache(currentMyApplications);
-        renderMyApplications(currentMyApplications);
-        return;
+      currentMyApplications[targetIndex] = canceledApplication;
+      writeMypageCache(currentMyApplications);
+      removeApplicationSharedCache(application);
+      upsertApplicationInAdminDashboardCache(canceledApplication);
+      upsertApplicationSharedCache(canceledApplication);
+      renderMyApplications(currentMyApplications);
+      if (shouldCancelAfterSave) return;
+      if (button) {
+        button.disabled = true;
+        button.classList.add("is-loading");
+        button.textContent = "취소 중";
       }
-
-      const liveButton = document.querySelector(`[data-mypage-cancel-open="${targetIndex}"]`) || button;
-      const liveCard = liveButton?.closest(".mypage-card");
-      if (liveButton) {
-        liveButton.disabled = true;
-        liveButton.classList.add("is-loading");
-        liveButton.textContent = "취소 중";
-      }
-      liveCard?.querySelectorAll("[data-mypage-check-open]").forEach((el) => { el.disabled = true; });
-
-      try {
-        const { id: currentVisitorId } = getVisitorIdentity();
-        const result = await visitorApi({
-          type: "applicationCancel",
-          visitorId: application.visitorId || currentVisitorId,
-          sheetName: application.sheetName || "",
-          submittedAt: applicationSubmittedAtForApi(application),
-          eventTitle: application.eventTitle,
-          eventDate: application.eventDate,
-          selectedAgeRange: application.selectedAgeRange
-        });
-        const savedApplication = { ...canceledApplication, status: result.status || canceledApplicationStatus, isPending: false, localUpdatedAt: Date.now() };
-        const nextApplications = (readMypageCache() || currentMyApplications).map((item) =>
-          applicationStableKey(item) === applicationStableKey(savedApplication) ? savedApplication : item
-        );
-        writeMypageCache(nextApplications);
-        renderMyApplications(nextApplications);
-      } catch (error) {
-        if (liveButton) {
-          liveButton.disabled = false;
-          liveButton.classList.remove("is-loading");
-          liveButton.textContent = "취소";
+      (async () => {
+        try {
+          const { id: currentVisitorId } = getVisitorIdentity();
+          const result = await visitorApi({
+            type: "applicationCancel",
+            visitorId: application.visitorId || currentVisitorId,
+            authUser: application.authUser || authProfileKey(),
+            sheetName: application.sheetName || "",
+            submittedAt: applicationSubmittedAtForApi(application),
+            eventTitle: application.eventTitle,
+            eventDate: application.eventDate,
+            selectedAgeRange: application.selectedAgeRange
+          });
+          const savedApplication = { ...canceledApplication, status: result.status || canceledApplicationStatus, isPending: false, localUpdatedAt: Date.now() };
+          removeApplicationSharedCache(application);
+          upsertApplicationInAdminDashboardCache(savedApplication);
+          upsertApplicationSharedCache(savedApplication);
+          const nextApplications = (readMypageCache() || currentMyApplications).map((item) =>
+            applicationStableKey(item) === applicationStableKey(savedApplication) ? savedApplication : item
+          );
+          writeMypageCache(nextApplications);
+          renderMyApplications(nextApplications);
+        } catch (error) {
+          writeMypageCache(previousApplications);
+          renderMyApplications(previousApplications);
+          alert(error?.message || "신청을 취소하지 못했습니다.");
         }
-        liveCard?.querySelectorAll("[data-mypage-check-open]").forEach((el) => { el.disabled = false; });
-        alert(error?.message || "신청을 취소하지 못했습니다.");
-      }
+      })();
+    }
+
+    function removeCanceledApplicationLayer(index) {
+      const targetIndex = Number(index);
+      const application = currentMyApplications[targetIndex];
+      if (!application || normalizedApplicationStatus(application) !== canceledApplicationStatus) return;
+      hideCanceledApplication(application);
+      const nextApplications = currentMyApplications.filter((_, itemIndex) => itemIndex !== targetIndex);
+      writeMypageCache(nextApplications);
+      renderMyApplications(nextApplications);
     }
 
     function authProfileKey() {
@@ -18572,7 +18770,7 @@
         const { id } = getVisitorIdentity();
         const result = await Promise.race([
           fetch(`${GOOGLE_SCRIPT_URL}?action=myProfileInfo&visitorId=${encodeURIComponent(id)}&authUser=${encodeURIComponent(authProfileKey())}&t=${Date.now()}`, { cache: "no-store" })
-            .then((response) => response.json()),
+            .then((response) => readJsonResponse(response, "소개 프로필을 불러오지 못했습니다.")),
           profileInfoFetchTimeout(timeoutMs)
         ]);
         if (result?.ok && result.registered) {
@@ -19206,9 +19404,9 @@
         saveBtn.textContent = "저장 중";
       }
       try {
-        const documentPayload = mypageDocumentFile ? await getFilePayload(mypageDocumentFile, { maxEdge: 520, quality: 0.55, maxSize: 2 * 1024 * 1024 }) : null;
-        const photoPayloads = await Promise.all(mypagePhotoFiles.map(({ file }) => getFilePayload(file, { maxEdge: 520, quality: 0.55, maxSize: 2 * 1024 * 1024 })));
-        const bodyPhotoPayloads = await Promise.all(mypageBodyPhotoFiles.map(({ file }) => getFilePayload(file, { maxEdge: 520, quality: 0.55, maxSize: 2 * 1024 * 1024 })));
+        const documentPayload = mypageDocumentFile ? await fileToPayload(mypageDocumentFile, { maxEdge: 520, quality: 0.55, maxSize: 2 * 1024 * 1024 }) : null;
+        const photoPayloads = await Promise.all(mypagePhotoFiles.map(({ file }) => fileToPayload(file, { maxEdge: 520, quality: 0.55, maxSize: 2 * 1024 * 1024 })));
+        const bodyPhotoPayloads = await Promise.all(mypageBodyPhotoFiles.map(({ file }) => fileToPayload(file, { maxEdge: 520, quality: 0.55, maxSize: 2 * 1024 * 1024 })));
         const response = await visitorApi({
           type: "profileInfoSave",
           ...payload,
@@ -19546,7 +19744,7 @@
       try {
         const { id } = getVisitorIdentity();
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=counselList&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`);
-        const result = await response.json();
+        const result = await readJsonResponse(response, "상담 목록을 불러오지 못했습니다.");
         if (response.ok && result.ok && Array.isArray(result.posts)) {
           counselPosts = mergeCounselPostsWithLocal(result.posts);
           counselCurrentPage = Math.min(counselCurrentPage, Math.max(1, Math.ceil(counselPosts.length / counselPageSize)));
@@ -19644,11 +19842,11 @@
       try {
         const { id } = getVisitorIdentity();
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=counselMine&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`, { cache: "no-store" });
-        const result = await response.json();
+        const result = await readJsonResponse(response, "내 상담 내역을 불러오지 못했습니다.");
         let posts = response.ok && result.ok && Array.isArray(result.posts) ? result.posts : [];
         if (!posts.length) {
           const fallbackResponse = await fetch(`${GOOGLE_SCRIPT_URL}?action=counselList&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`, { cache: "no-store" });
-          const fallbackResult = await fallbackResponse.json();
+          const fallbackResult = await readJsonResponse(fallbackResponse, "상담 목록을 불러오지 못했습니다.");
           const fallbackPosts = fallbackResponse.ok && fallbackResult.ok && Array.isArray(fallbackResult.posts) ? fallbackResult.posts : [];
           posts = fallbackPosts.filter(isMyCounselPost);
         }
@@ -19743,12 +19941,12 @@
       }
       try {
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardMine&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`, { cache: "no-store" });
-        const result = await response.json();
+        const result = await readJsonResponse(response, "내 문의 내역을 불러오지 못했습니다.");
         if (!response.ok || !result.ok || !Array.isArray(result.posts)) throw new Error(result.error || "문의 목록을 불러오지 못했습니다.");
         let posts = result.posts;
         if (!posts.length) {
           const fallbackResponse = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardList&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`, { cache: "no-store" });
-          const fallbackResult = await fallbackResponse.json();
+          const fallbackResult = await readJsonResponse(fallbackResponse, "문의 목록을 불러오지 못했습니다.");
           const fallbackPosts = fallbackResponse.ok && fallbackResult.ok && Array.isArray(fallbackResult.posts) ? fallbackResult.posts : [];
           posts = fallbackPosts.filter((post) => isMyBoardPost(post, id));
         }
@@ -20255,8 +20453,8 @@
       const ageOption = editApplicationAgeOptions(editingApplication).find((option) => option.id === editAgeOptionId);
       const rows = [
         ["인원 선택", editComposition || "-"],
-        ["연령대", ageOption?.range || normalizeAgeRangeText(editingApplication.selectedAgeRange) || "-"],
         ["가능한 요일", editWeekdays.length ? editWeekdays.join(", ") : "-"],
+        ["연령대", ageOption?.range || normalizeAgeRangeText(editingApplication.selectedAgeRange) || "-"],
         ...(needsChildrenCondition || editChildrenCondition ? [["자녀 조건", childConditionLabelFromId(editChildrenCondition) || editingApplication.selectedChildrenCondition || "-"]] : []),
         ["전달 사항", editApplicationNote || "-"]
       ].map(([label, value]) => `
@@ -20331,7 +20529,7 @@
       if (deleteCanceledApplicationTarget) {
         event.preventDefault();
         event.stopPropagation();
-        deleteCanceledApplicationLayer(deleteCanceledApplicationTarget.dataset.mypageCanceledDelete);
+        removeCanceledApplicationLayer(deleteCanceledApplicationTarget.dataset.mypageCanceledDelete);
         return;
       }
       const cancelApplicationTarget = closestFrom(event.target, "[data-mypage-cancel-open]");
@@ -20499,7 +20697,7 @@
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify(payload)
       });
-      const result = await response.json();
+      const result = await readJsonResponse(response, "일정 요청을 처리하지 못했습니다.");
       if (!response.ok || !result.ok) throw new Error(result.error || "일정 요청을 처리하지 못했습니다.");
       return result;
     }
@@ -20584,7 +20782,7 @@
       const target = document.querySelector("[data-schedule-detail]");
       if (!target) return;
       if (!post) {
-        target.innerHTML = '<div class="schedule-feed-empty">?좏깮???쇱젙 ?뚯떇??李얠? 紐삵뻽?듬땲??</div>';
+        target.innerHTML = '<div class="schedule-feed-empty">선택한 일정 소식을 찾지 못했습니다.</div>';
         return;
       }
       const comments = Array.isArray(post.comments) ? post.comments : [];
@@ -22844,7 +23042,7 @@
       }
       try {
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=schedulePostList&t=${Date.now()}`, { cache: "no-store" });
-        const result = await response.json();
+        const result = await readJsonResponse(response, "일정 소식을 불러오지 못했습니다.");
         if (!response.ok || !result.ok || !Array.isArray(result.posts)) throw new Error(result.error || "일정 소식을 불러오지 못했습니다.");
         schedulePosts = normalizeSchedulePostImages(result.posts);
         schedulePostsLoaded = true;
@@ -23177,8 +23375,8 @@
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify(payload)
       });
-      const result = await response.json();
-      if (!response.ok || !result.ok) throw new Error(result.error || "寃뚯떆???붿껌??泥섎━?섏? 紐삵뻽?듬땲??");
+      const result = await readJsonResponse(response, "게시판 요청을 처리하지 못했습니다.");
+      if (!response.ok || !result.ok) throw new Error(result.error || "게시판 요청을 처리하지 못했습니다.");
       return result;
     }
 
@@ -23309,9 +23507,9 @@
       try {
         const { id } = getVisitorIdentity();
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardList&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`, { cache: "no-store" });
-        const result = await response.json();
+        const result = await readJsonResponse(response, "게시글 목록을 불러오지 못했습니다.");
         if (!response.ok || !result.ok || !Array.isArray(result.posts)) {
-          throw new Error(result.error || "寃뚯떆湲 紐⑸줉??遺덈윭?ㅼ? 紐삵뻽?듬땲??");
+          throw new Error(result.error || "게시글 목록을 불러오지 못했습니다.");
         }
         const localById = new Map(boardPosts.map((post) => [String(post.id), post]));
         boardPosts = normalizeBoardPostList(result.posts).map((post) => {
@@ -23336,7 +23534,7 @@
           boardPostList.replaceChildren();
           const message = document.createElement("p");
           message.className = "board-empty";
-          message.textContent = error?.message || "寃뚯떆湲 紐⑸줉??遺덈윭?ㅼ? 紐삵뻽?듬땲??";
+          message.textContent = error?.message || "게시글 목록을 불러오지 못했습니다.";
           boardPostList.append(message);
         }
       }
@@ -24027,7 +24225,7 @@
           loadBoardPosts();
         })
         .catch((error) => {
-          console.warn("寃뚯떆湲 ?쒕쾭 ????ㅽ뙣", error);
+          console.warn("게시글 서버 저장 실패", error);
           const failedPost = { ...optimisticPost, syncError: true };
           replaceBoardPost(optimisticPost.id, failedPost);
         });
@@ -24125,6 +24323,7 @@
         if (copy) copy.textContent = options.copy || "삭제된 글은 목록에서 사라집니다.";
         if (confirmButton) confirmButton.textContent = options.confirmText || "삭제";
         modal.classList.toggle("is-compact", !!options.compact);
+        modal.classList.toggle("is-positive", options.variant === "positive");
         if (actions) actions.classList.toggle("is-single-action", !!options.singleAction);
         if (cancelButton) cancelButton.hidden = !!options.singleAction;
         modal.hidden = !open;
@@ -24133,6 +24332,7 @@
       }
       if (!open) {
         modal?.classList.remove("is-compact");
+        modal?.classList.remove("is-positive");
         pendingBoardDeleteAction = null;
       }
     }
@@ -24143,20 +24343,19 @@
       button.classList.add("is-loading");
       button.textContent = "탈퇴 중";
       try {
-        const authUser = firebaseAuth.currentUser;
+        const authUser = firebaseAuth.currentUser || await waitForFirebaseUser();
         const visitorId = getVisitorIdentity().id;
         const authKey = authProfileKey();
-        if (authUser) {
-          try {
-            await authUser.delete();
-          } catch (error) {
-            if (error?.code === "auth/requires-recent-login") {
-              throw new Error("보안을 위해 다시 로그인한 뒤 계정 탈퇴를 눌러주세요.");
-            }
-            throw error;
+        if (!authUser) {
+          throw new Error("보안을 위해 다시 로그인한 뒤 계정 탈퇴를 눌러주세요.");
+        }
+        try {
+          await authUser.delete();
+        } catch (error) {
+          if (error?.code === "auth/requires-recent-login") {
+            throw new Error("보안을 위해 다시 로그인한 뒤 계정 탈퇴를 눌러주세요.");
           }
-        } else {
-          await firebaseAuth.signOut().catch(() => {});
+          throw error;
         }
         try {
           await visitorApiWithRetry({
@@ -24205,11 +24404,12 @@
       renderMyCounsel();
       renderMyBoardPosts();
       updateAuthDrawerLinks();
-      navigate("home");
+      setPage("home");
     }
 
     async function closeDataDeletedModalAndLogout() {
       setDataDeletedModal(false);
+      setPage("home");
       try { await firebaseAuth.signOut(); } catch {}
       try { localStorage.removeItem(AUTH_USER_KEY); } catch {}
       refreshMypageAfterDataDelete();
@@ -24253,6 +24453,24 @@
 
     function waitForAuthReady(timeoutMs = 1200) {
       if (firebaseAuth.currentUser || currentAuthKey()) return Promise.resolve(firebaseAuth.currentUser);
+      return new Promise((resolve) => {
+        let settled = false;
+        let timer = null;
+        let unsubscribe = null;
+        const finish = (user) => {
+          if (settled) return;
+          settled = true;
+          if (timer) clearTimeout(timer);
+          if (typeof unsubscribe === "function") unsubscribe();
+          resolve(user || firebaseAuth.currentUser || null);
+        };
+        unsubscribe = firebaseAuth.onAuthStateChanged((user) => finish(user));
+        timer = setTimeout(() => finish(firebaseAuth.currentUser || null), timeoutMs);
+      });
+    }
+
+    function waitForFirebaseUser(timeoutMs = 2500) {
+      if (firebaseAuth.currentUser) return Promise.resolve(firebaseAuth.currentUser);
       return new Promise((resolve) => {
         let settled = false;
         let timer = null;
@@ -24650,7 +24868,7 @@
       if (!GOOGLE_SCRIPT_URL) return;
       try {
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=menuBarIconSettings&t=${Date.now()}`, { cache: "no-store" });
-        const result = await response.json();
+        const result = await readJsonResponse(response, "메뉴 설정을 불러오지 못했습니다.");
         if (result && result.ok && result.settings) {
           try { localStorage.setItem(MENU_BAR_ICON_SETTINGS_KEY, JSON.stringify(result.settings)); } catch {}
           applyMenuBarIconSettings();
@@ -24785,7 +25003,7 @@
               resolve();
             } else if (Date.now() - startedAt > 8000) {
               window.clearInterval(timer);
-              reject(new Error("?ㅼ씠踰?吏?꾨? 遺덈윭?ㅼ? 紐삵뻽?듬땲??"));
+              reject(new Error("네이버 지도를 불러오지 못했습니다."));
             }
           }, 80);
         });
@@ -24796,7 +25014,7 @@
         script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${encodeURIComponent(naverMapClientId)}&submodules=geocoder`;
         script.async = true;
         script.onload = () => resolve();
-        script.onerror = () => reject(new Error("?ㅼ씠踰?吏?꾨? 遺덈윭?ㅼ? 紐삵뻽?듬땲??"));
+        script.onerror = () => reject(new Error("네이버 지도를 불러오지 못했습니다."));
         document.head.appendChild(script);
       });
     }
@@ -24856,7 +25074,7 @@
         window.setTimeout(() => naver.maps.Event.trigger(map, "resize"), 80);
         if (mapWrap) mapWrap.classList.add("is-ready");
       } catch (error) {
-        if (fallback) fallback.textContent = "吏?꾨? 遺덈윭?ㅼ? 紐삵뻽?듬땲?? ?꾨옒 踰꾪듉?쇰줈 ?ㅼ씠踰?吏?꾩뿉???뺤씤??二쇱꽭??";
+        if (fallback) fallback.textContent = "지도를 불러오지 못했습니다. 아래 버튼으로 네이버 지도에서 확인해 주세요.";
       }
     }
 
@@ -25087,12 +25305,9 @@
 
     function clearAppliedProfileFiles() {
       document.querySelectorAll("[data-profile-photo-url], [data-profile-body-photo-url]").forEach((thumb) => thumb.remove());
-      const preview = document.querySelector("[data-document-preview]");
-      const thumb = document.querySelector("[data-document-thumb]");
+      document.querySelectorAll("[data-profile-document-url]").forEach((thumb) => thumb.remove());
       const addButton = document.querySelector("[data-document-add]");
       if (!selectedDocumentFile) {
-        preview?.classList.add("is-hidden");
-        thumb?.style.removeProperty("--document-image");
         addButton?.classList.remove("is-hidden");
       }
     }
@@ -25136,14 +25351,23 @@
         bodyRow?.insertBefore(thumb, bodyAddButton);
       });
 
-      const preview = document.querySelector("[data-document-preview]");
-      const documentThumb = document.querySelector("[data-document-thumb]");
+      const documentRow = document.querySelector("[data-document-row]");
       const documentAdd = document.querySelector("[data-document-add]");
+      document.querySelectorAll("[data-profile-document-url]").forEach((thumb) => thumb.remove());
       if (selectedExistingDocumentUrl) {
         const previewUrl = profilePreviewImageUrl(selectedExistingDocumentUrl);
-        documentThumb?.style.removeProperty("--document-image");
-        if (previewUrl) documentThumb?.style.setProperty("--document-image", `url('${previewUrl}')`);
-        preview?.classList.remove("is-hidden");
+        const thumb = document.createElement("span");
+        thumb.className = "photo-thumb is-document";
+        thumb.dataset.profileDocumentUrl = selectedExistingDocumentUrl;
+        thumb.dataset.fileKind = "document";
+        if (previewUrl) thumb.style.setProperty("--photo-image", `url('${previewUrl}')`);
+        const removeButton = document.createElement("button");
+        removeButton.className = "thumb-remove";
+        removeButton.type = "button";
+        removeButton.setAttribute("aria-label", "재직 증명 삭제");
+        removeButton.textContent = "×";
+        thumb.appendChild(removeButton);
+        documentRow?.insertBefore(thumb, documentAdd);
         documentAdd?.classList.add("is-hidden");
       }
     }
@@ -25158,7 +25382,7 @@
         thumb.className = "photo-thumb";
         thumb.dataset.fileId = id;
         thumb.dataset.fileKind = "face";
-        if (file?.type?.startsWith("image/")) thumb.style.setProperty("--photo-image", `url('${URL.createObjectURL(file)}')`);
+        applyFilePreview(thumb, file);
         const removeButton = document.createElement("button");
         removeButton.className = "thumb-remove";
         removeButton.type = "button";
@@ -25175,7 +25399,7 @@
         thumb.className = "photo-thumb";
         thumb.dataset.fileId = id;
         thumb.dataset.fileKind = "body";
-        if (file?.type?.startsWith("image/")) thumb.style.setProperty("--photo-image", `url('${URL.createObjectURL(file)}')`);
+        applyFilePreview(thumb, file);
         const removeButton = document.createElement("button");
         removeButton.className = "thumb-remove";
         removeButton.type = "button";
@@ -25185,14 +25409,20 @@
         row.insertBefore(thumb, addButton);
       });
       if (selectedDocumentFile) {
-        const preview = document.querySelector("[data-document-preview]");
-        const thumb = document.querySelector("[data-document-thumb]");
+        const row = document.querySelector("[data-document-row]");
         const addButton = document.querySelector("[data-document-add]");
-        thumb?.style.removeProperty("--document-image");
-        if (selectedDocumentFile.type?.startsWith("image/")) {
-          thumb?.style.setProperty("--document-image", `url('${URL.createObjectURL(selectedDocumentFile)}')`);
-        }
-        preview?.classList.remove("is-hidden");
+        row?.querySelectorAll(".photo-thumb.is-document:not([data-profile-document-url])").forEach((thumb) => thumb.remove());
+        const thumb = document.createElement("span");
+        thumb.className = "photo-thumb is-document";
+        thumb.dataset.fileKind = "document";
+        applyFilePreview(thumb, selectedDocumentFile);
+        const removeButton = document.createElement("button");
+        removeButton.className = "thumb-remove";
+        removeButton.type = "button";
+        removeButton.setAttribute("aria-label", "재직 증명 삭제");
+        removeButton.textContent = "×";
+        thumb.appendChild(removeButton);
+        row?.insertBefore(thumb, addButton);
         addButton?.classList.add("is-hidden");
       }
       updatePhotoDropValidity();
@@ -25262,12 +25492,9 @@
         mypageDocumentFile = file;
         mypageExistingDocumentUrl = "";
         existing?.remove();
-        const mypageDocumentDataUrlPromise = primeFileDataUrl(file);
-        thumb?.style.removeProperty("--document-image");
-        if (thumb && file.type.startsWith("image/")) {
-          mypageDocumentDataUrlPromise.then((dataUrl) => {
-            if (mypageDocumentFile === file) thumb.style.setProperty("--document-image", `url('${dataUrl}')`);
-          }).catch(() => {});
+        if (thumb) {
+          thumb.style.removeProperty("--document-image");
+          applyFilePreview(thumb, file, "--document-image");
         }
         preview?.classList.remove("is-hidden");
         addButton?.classList.add("is-hidden");
@@ -25285,9 +25512,7 @@
           const thumb = document.createElement("span");
           thumb.className = "photo-thumb";
           thumb.dataset.mypageFileId = fileId;
-          primeFileDataUrl(file).then((dataUrl) => {
-            thumb.style.setProperty("--photo-image", `url('${dataUrl}')`);
-          }).catch(() => {});
+          applyFilePreview(thumb, file);
           const removeButton = document.createElement("button");
           removeButton.className = "thumb-remove mypage-thumb-remove";
           removeButton.type = "button";
@@ -25296,7 +25521,6 @@
           thumb.appendChild(removeButton);
           row?.insertBefore(thumb, addButton);
         });
-        input.value = "";
         updatePhotoAddVisibility();
       }
 
@@ -25311,9 +25535,7 @@
           const thumb = document.createElement("span");
           thumb.className = "photo-thumb";
           thumb.dataset.mypageBodyFileId = fileId;
-          primeFileDataUrl(file).then((dataUrl) => {
-            thumb.style.setProperty("--photo-image", `url('${dataUrl}')`);
-          }).catch(() => {});
+          applyFilePreview(thumb, file);
           const removeButton = document.createElement("button");
           removeButton.className = "thumb-remove mypage-thumb-remove";
           removeButton.type = "button";
@@ -25322,29 +25544,52 @@
           thumb.appendChild(removeButton);
           row?.insertBefore(thumb, addButton);
         });
-        input.value = "";
         updatePhotoAddVisibility();
       }
     }
+
+    function applyFilePreview(thumb, file, imageProperty = "--photo-image") {
+      if (!thumb || !file || !file.type?.startsWith("image/")) {
+        thumb?.classList.add("is-preview-empty");
+        return;
+      }
+      const objectUrl = URL.createObjectURL(file);
+      const image = new Image();
+      image.onload = () => {
+        thumb.classList.remove("is-preview-empty");
+        thumb.style.setProperty(imageProperty, `url('${objectUrl}')`);
+      };
+      image.onerror = () => {
+        URL.revokeObjectURL(objectUrl);
+        thumb.classList.add("is-preview-empty");
+        thumb.style.removeProperty(imageProperty);
+      };
+      image.src = objectUrl;
+    }
+
     function renderSelectedFiles(input) {
       const files = [...input.files];
       if (!validateUploadFileSize(files, input)) return;
 
       if (input.dataset.fileInput === "document") {
-        const preview = document.querySelector("[data-document-preview]");
-        const thumb = document.querySelector("[data-document-thumb]");
+        const row = document.querySelector("[data-document-row]");
         const addButton = document.querySelector("[data-document-add]");
         const file = files[0];
         if (!file) return;
         selectedDocumentFile = file;
-        const documentDataUrlPromise = primeFileDataUrl(file);
-        thumb?.style.removeProperty("--document-image");
-        if (thumb && file.type.startsWith("image/")) {
-          documentDataUrlPromise.then((dataUrl) => {
-            if (selectedDocumentFile === file) thumb.style.setProperty("--document-image", `url('${dataUrl}')`);
-          }).catch(() => {});
-        }
-        preview?.classList.remove("is-hidden");
+        selectedExistingDocumentUrl = "";
+        row?.querySelectorAll(".photo-thumb.is-document").forEach((thumb) => thumb.remove());
+        const thumb = document.createElement("span");
+        thumb.className = "photo-thumb is-document";
+        thumb.dataset.fileKind = "document";
+        applyFilePreview(thumb, file);
+        const removeButton = document.createElement("button");
+        removeButton.className = "thumb-remove";
+        removeButton.type = "button";
+        removeButton.setAttribute("aria-label", "재직 증명 삭제");
+        removeButton.textContent = "×";
+        thumb.appendChild(removeButton);
+        row?.insertBefore(thumb, addButton);
         addButton?.classList.add("is-hidden");
         return;
       }
@@ -25361,9 +25606,7 @@
           thumb.className = "photo-thumb";
           thumb.dataset.fileId = fileId;
           thumb.dataset.fileKind = "face";
-          primeFileDataUrl(file).then((dataUrl) => {
-            thumb.style.setProperty("--photo-image", `url('${dataUrl}')`);
-          }).catch(() => {});
+          applyFilePreview(thumb, file);
           const removeButton = document.createElement("button");
           removeButton.className = "thumb-remove";
           removeButton.type = "button";
@@ -25372,7 +25615,6 @@
           thumb.appendChild(removeButton);
           row?.insertBefore(thumb, addButton);
         });
-        input.value = "";
         updatePhotoDropValidity();
       }
 
@@ -25388,9 +25630,7 @@
           thumb.className = "photo-thumb";
           thumb.dataset.fileId = fileId;
           thumb.dataset.fileKind = "body";
-          primeFileDataUrl(file).then((dataUrl) => {
-            thumb.style.setProperty("--photo-image", `url('${dataUrl}')`);
-          }).catch(() => {});
+          applyFilePreview(thumb, file);
           const removeButton = document.createElement("button");
           removeButton.className = "thumb-remove";
           removeButton.type = "button";
@@ -25399,7 +25639,6 @@
           thumb.appendChild(removeButton);
           row?.insertBefore(thumb, addButton);
         });
-        input.value = "";
         updatePhotoDropValidity();
         updateFormSubmitButton();
       }
@@ -25419,15 +25658,29 @@
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = () => resolve(reader.result);
-        reader.onerror = () => reject(new Error(`${file.name} 파일을 읽을 수 없습니다.`));
+        reader.onerror = async () => {
+          try {
+            if (!file.arrayBuffer) throw new Error("arrayBuffer unsupported");
+            const bytes = new Uint8Array(await file.arrayBuffer());
+            let binary = "";
+            const chunkSize = 0x8000;
+            for (let i = 0; i < bytes.length; i += chunkSize) {
+              binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
+            }
+            resolve(`data:${file.type || "application/octet-stream"};base64,${btoa(binary)}`);
+          } catch {
+            reject(new Error("첨부 파일을 읽을 수 없습니다. 사진을 다시 선택해 주세요."));
+          }
+        };
         reader.readAsDataURL(file);
       });
     }
 
-    function compressImageFromSrc(imageSrc, fileName, options = {}) {
+    function compressImage(file, options = {}) {
       return new Promise((resolve, reject) => {
         const image = new Image();
-        image.onload = () => {
+        const objectUrl = URL.createObjectURL(file);
+        const drawLoadedImage = () => {
           const maxEdge = Number(options.maxEdge) || 720;
           const quality = Number(options.quality) || 0.64;
           const scale = Math.min(1, maxEdge / Math.max(image.naturalWidth, image.naturalHeight));
@@ -25438,21 +25691,30 @@
           context.drawImage(image, 0, 0, canvas.width, canvas.height);
           canvas.toBlob((blob) => {
             if (!blob) {
-              reject(new Error(`${fileName} 이미지를 변환할 수 없습니다.`));
+              reject(new Error("이미지를 변환할 수 없습니다."));
               return;
             }
-            const baseName = fileName.replace(/\.[^.]+$/, "") || "image";
+            const baseName = file.name.replace(/\.[^.]+$/, "") || "image";
             resolve(new File([blob], `${baseName}.jpg`, { type: "image/jpeg" }));
           }, "image/jpeg", quality);
         };
-        image.onerror = () => reject(new Error(`${fileName} 이미지를 불러올 수 없습니다.`));
-        image.src = imageSrc;
+        image.onload = () => {
+          URL.revokeObjectURL(objectUrl);
+          drawLoadedImage();
+        };
+        image.onerror = () => {
+          URL.revokeObjectURL(objectUrl);
+          const reader = new FileReader();
+          reader.onload = () => {
+            image.onload = drawLoadedImage;
+            image.onerror = () => reject(new Error("이미지를 불러올 수 없습니다."));
+            image.src = String(reader.result || "");
+          };
+          reader.onerror = () => reject(new Error("파일을 읽을 수 없습니다."));
+          reader.readAsDataURL(file);
+        };
+        image.src = objectUrl;
       });
-    }
-
-    function compressImage(file, options = {}) {
-      const objectUrl = URL.createObjectURL(file);
-      return compressImageFromSrc(objectUrl, file.name, options).finally(() => URL.revokeObjectURL(objectUrl));
     }
 
     async function fileToPayload(file, options = {}) {
@@ -25467,46 +25729,24 @@
         }
       }
       if (preparedFile.size > maxSize) {
-        throw new Error(`${file.name} 파일은 ${formatFileSize(maxSize)} 이하만 업로드할 수 있습니다.`);
+        throw new Error(`첨부 파일은 ${formatFileSize(maxSize)} 이하만 업로드할 수 있습니다.`);
       }
-      const dataUrl = await readAsDataUrl(preparedFile);
+      let dataUrl = "";
+      try {
+        dataUrl = await readAsDataUrl(preparedFile);
+      } catch (error) {
+        if (preparedFile !== file) {
+          dataUrl = await readAsDataUrl(file);
+          preparedFile = file;
+        } else {
+          throw error;
+        }
+      }
       return {
         name: preparedFile.name,
         mimeType: preparedFile.type || "application/octet-stream",
         size: preparedFile.size,
         base64: String(dataUrl).split(",")[1] || ""
-      };
-    }
-
-    async function dataUrlToPayload(dataUrl, file, options = {}) {
-      const maxSize = Number(options.maxSize) || PAYLOAD_UPLOAD_FILE_MAX_SIZE;
-      if (file.type.startsWith("image/")) {
-        try {
-          const compressed = await compressImageFromSrc(dataUrl, file.name, options);
-          if (compressed.size > maxSize) {
-            throw new Error(`${file.name} 파일은 ${formatFileSize(maxSize)} 이하만 업로드할 수 있습니다.`);
-          }
-          const compressedDataUrl = await readAsDataUrl(compressed);
-          return {
-            name: compressed.name,
-            mimeType: compressed.type || "application/octet-stream",
-            size: compressed.size,
-            base64: String(compressedDataUrl).split(",")[1] || ""
-          };
-        } catch (error) {
-          console.warn(error);
-        }
-      }
-      const base64 = String(dataUrl).split(",")[1] || "";
-      const approxSize = Math.round((base64.length * 3) / 4);
-      if (approxSize > maxSize) {
-        throw new Error(`${file.name} 파일은 ${formatFileSize(maxSize)} 이하만 업로드할 수 있습니다.`);
-      }
-      return {
-        name: file.name,
-        mimeType: file.type || "application/octet-stream",
-        size: approxSize,
-        base64
       };
     }
 
@@ -25554,37 +25794,28 @@
       updateFormSubmitButton();
     }
 
-    function applicationFormMissingReason() {
-      const required = ["#applyName", "#applyPhone", "#applyBirth", "#applyHeight", "#applyWeight", "#applyArea"];
-      if (required.some((selector) => !inputValue(selector))) return "이름, 연락처, 생년월일, 키, 체중, 거주지를 모두 입력해 주세요.";
-      const birthInput = document.querySelector("#applyBirth");
-      if (!birthInput || birthInput.value.length !== 10) return "생년월일을 형식에 맞게 입력해 주세요. (예: 1990-01-01)";
-      const totalPhotoCount = selectedExistingPhotoUrls.length + selectedPhotoFiles.length;
-      if (totalPhotoCount < 3 || totalPhotoCount > 5) return "얼굴 사진을 3~5장 등록해 주세요.";
-      const totalBodyPhotoCount = selectedExistingBodyPhotoUrls.length + selectedBodyPhotoFiles.length;
-      if (totalBodyPhotoCount < 1 || totalBodyPhotoCount > 3) return "전신 사진을 1~3장 등록해 주세요.";
-      if (isDivorcedEvent(selectedEvent) && !myChildrenReady()) return "자녀 정보를 선택해 주세요.";
-      if (isDivorcedEvent(selectedEvent) && !selectedChildrenCondition) return "희망 조건을 선택해 주세요.";
-      if (isCustomMatchEvent(selectedEvent) && !inputValue("#applyMessage")) return "하고 싶은 말을 입력해 주세요.";
-      if (isCustomMatchEvent(selectedEvent) && selectedIdealRankValues().length < 3) return "나의 이상형을 3순위까지 선택해 주세요.";
-      if (!hasRequiredApplicationAgreements()) return "필수 동의 항목을 확인해 주세요.";
-      return "";
-    }
-
     function isApplicationFormReady() {
-      return !applicationFormMissingReason();
+      const required = ["#applyName", "#applyPhone", "#applyBirth", "#applyHeight", "#applyWeight", "#applyArea"];
+      if (required.some((selector) => !inputValue(selector))) return false;
+      const birthInput = document.querySelector("#applyBirth");
+      if (!birthInput) return false;
+      if (birthInput.value.length !== 10) return false;
+      const totalPhotoCount = selectedExistingPhotoUrls.length + selectedPhotoFiles.length;
+      if (totalPhotoCount < 3 || totalPhotoCount > 5) return false;
+      const totalBodyPhotoCount = selectedExistingBodyPhotoUrls.length + selectedBodyPhotoFiles.length;
+      if (totalBodyPhotoCount < 1 || totalBodyPhotoCount > 3) return false;
+      if (isDivorcedEvent(selectedEvent) && !myChildrenReady()) return false;
+      if (isDivorcedEvent(selectedEvent) && !selectedChildrenCondition) return false;
+      if (isCustomMatchEvent(selectedEvent) && !inputValue("#applyMessage")) return false;
+      if (isCustomMatchEvent(selectedEvent) && selectedIdealRankValues().length < 3) return false;
+      if (!hasRequiredApplicationAgreements()) return false;
+      return true;
     }
 
     function updateFormSubmitButton() {
       const button = document.querySelector(".application-form .form-submit-btn");
       if (!button || button.classList.contains("is-loading")) return;
-      const reason = applicationFormMissingReason();
-      button.disabled = Boolean(reason);
-      const hint = document.querySelector(".application-form [data-form-submit-hint]");
-      if (hint) {
-        hint.textContent = reason;
-        hint.hidden = !reason;
-      }
+      button.disabled = !isApplicationFormReady();
     }
 
     async function submitApplication(button) {
@@ -25630,14 +25861,12 @@
 
       const totalPhotoCount = selectedExistingPhotoUrls.length + selectedPhotoFiles.length;
       if (totalPhotoCount < 3 || totalPhotoCount > 5) {
-        alert("본인 사진을 3~5장 등록해 주세요.");
         document.querySelector('[data-photo-file-drop="photos"]')?.classList.add("is-invalid");
         document.querySelector('[data-photo-file-drop="photos"]')?.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
       }
       const totalBodyPhotoCount = selectedExistingBodyPhotoUrls.length + selectedBodyPhotoFiles.length;
       if (totalBodyPhotoCount < 1 || totalBodyPhotoCount > 3) {
-        alert("전신 사진을 1~3장 등록해 주세요.");
         document.querySelector('[data-photo-file-drop="bodyPhotos"]')?.classList.add("is-invalid");
         document.querySelector('[data-photo-file-drop="bodyPhotos"]')?.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
@@ -25702,7 +25931,7 @@
         applicationType: `${selectedApplyGender} 신청`,
         gender: selectedApplyGender,
         eventDate: selectedScheduleDate,
-        selectedRegions: "",
+        selectedRegions: selectedApplicationRegions.join(", "),
         selectedAgeRange: isPartyApplication ? "" : (selectedAgeOption?.range || ""),
         selectedAgeLabel: isPartyApplication ? "" : (selectedAgeOption?.label || ""),
         selectedComposition: isPartyApplication ? "" : (selectedComposition || ""),
@@ -25771,9 +26000,9 @@
 
       (async () => {
         try {
-          const documentFile = pendingDocumentFile ? await getFilePayload(pendingDocumentFile) : null;
-          const photoFiles = await Promise.all(pendingPhotoFiles.map(({ file }) => getFilePayload(file)));
-          const bodyPhotoFiles = await Promise.all(pendingBodyPhotoFiles.map(({ file }) => getFilePayload(file)));
+          const documentFile = pendingDocumentFile ? await fileToPayload(pendingDocumentFile) : null;
+          const photoFiles = await Promise.all(pendingPhotoFiles.map(({ file }) => fileToPayload(file)));
+          const bodyPhotoFiles = await Promise.all(pendingBodyPhotoFiles.map(({ file }) => fileToPayload(file)));
           const uploadPayload = {
             ...payload,
             documentFile,
@@ -25788,7 +26017,7 @@
           headers: { "Content-Type": "text/plain;charset=utf-8" },
             body: JSON.stringify(uploadPayload)
           });
-          const result = await response.json();
+          const result = await readJsonResponse(response, "신청 정보를 저장하지 못했습니다. 잠시 후 다시 시도해 주세요.");
           if (!response.ok || !result.ok) {
             const serverError = result.error || "";
             if (serverError.includes("DriveApp") || serverError.includes("drive")) {
@@ -25819,12 +26048,14 @@
             ...latestApplications.filter((application) => applicationStableKey(application) !== applicationStableKey(savedApplication))
           ];
           writeMypageCache(nextApplications);
+          upsertApplicationInAdminDashboardCache(savedApplication);
           upsertApplicationSharedCache(savedApplication);
           renderMyApplications(nextApplications);
           if (shouldCancelAfterSave) {
             const cancelResult = await visitorApi({
               type: "applicationCancel",
               visitorId: savedApplication.visitorId || getVisitorIdentity().id,
+              authUser: savedApplication.authUser || authProfileKey(),
               sheetName: savedApplication.sheetName || "",
               submittedAt: applicationSubmittedAtForApi(savedApplication),
               eventTitle: savedApplication.eventTitle,
@@ -25842,6 +26073,8 @@
               applicationStableKey(application) === applicationStableKey(canceledSavedApplication) ? canceledSavedApplication : application
             );
             writeMypageCache(canceledApplications);
+            upsertApplicationInAdminDashboardCache(canceledSavedApplication);
+            upsertApplicationSharedCache(canceledSavedApplication);
             renderMyApplications(canceledApplications);
           }
           cacheApplicationProfileInfo(payload, result);
@@ -25987,7 +26220,7 @@
         event.preventDefault();
         event.stopPropagation();
         const action = pendingBoardDeleteAction;
-        setBoardDeleteModal(false, null, { preserveHistory: true });
+        setBoardDeleteModal(false);
         if (action) action();
         return;
       }
@@ -26290,15 +26523,13 @@
         event.preventDefault();
         event.stopPropagation();
         const fileInput = document.querySelector('[data-file-input="document"]');
-        const preview = document.querySelector("[data-document-preview]");
+        const row = document.querySelector("[data-document-row]");
         const addButton = document.querySelector("[data-document-add]");
-        const thumb = document.querySelector("[data-document-thumb]");
         if (fileInput) fileInput.value = "";
         selectedDocumentFile = null;
         selectedExistingDocumentUrl = "";
-        preview?.classList.add("is-hidden");
+        row?.querySelectorAll(".photo-thumb.is-document").forEach((thumb) => thumb.remove());
         addButton?.classList.remove("is-hidden");
-        thumb?.style.removeProperty("--document-image");
         return;
       }
 
@@ -26310,8 +26541,16 @@
         const fileId = thumb?.dataset.fileId;
         const profilePhotoUrl = thumb?.dataset.profilePhotoUrl;
         const profileBodyPhotoUrl = thumb?.dataset.profileBodyPhotoUrl;
+        const profileDocumentUrl = thumb?.dataset.profileDocumentUrl;
         const fileKind = thumb?.dataset.fileKind || "face";
-        if (fileKind === "body") {
+        if (fileKind === "document") {
+          const fileInput = document.querySelector('[data-file-input="document"]');
+          const addButton = document.querySelector("[data-document-add]");
+          if (fileInput) fileInput.value = "";
+          selectedDocumentFile = null;
+          if (profileDocumentUrl) selectedExistingDocumentUrl = "";
+          addButton?.classList.remove("is-hidden");
+        } else if (fileKind === "body") {
           selectedBodyPhotoFiles = selectedBodyPhotoFiles.filter(({ id }) => id !== fileId);
           if (profileBodyPhotoUrl) selectedExistingBodyPhotoUrls = selectedExistingBodyPhotoUrls.filter((url) => url !== profileBodyPhotoUrl);
         } else {
@@ -26636,7 +26875,7 @@
         if (!url || isVideoMedia(url)) return resolve(url);
         const image = new Image();
         image.onload = () => resolve(url);
-        image.onerror = () => reject(new Error("?덉뼱濡??대?吏瑜?遺덈윭?ㅼ? 紐삵뻽?듬땲??"));
+        image.onerror = () => reject(new Error("히어로 이미지를 불러오지 못했습니다."));
         image.src = url;
       });
     }
@@ -26703,7 +26942,7 @@
     async function loadManagedHeroSlides() {
       try {
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=heroList&t=${Date.now()}`);
-        const result = await response.json();
+        const result = await readJsonResponse(response, "배너 목록을 불러오지 못했습니다.");
         if (response.ok && result.ok && Array.isArray(result.slides) && result.slides.length) {
           const normalizedSlides = normalizeHeroSlides(result.slides);
           if (normalizedSlides.length) {
@@ -26834,7 +27073,7 @@
     async function requestManagedEventList() {
       const requestFresh = async () => {
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=eventList&t=${Date.now()}`, { cache: "no-store" });
-        return { ok: response.ok, json: await response.json() };
+        return { ok: response.ok, json: await readJsonResponse(response, "이벤트 목록을 불러오지 못했습니다.") };
       };
 
       if (window.__earlyEventListPromise) {
@@ -27021,3 +27260,4 @@
   </script>
 </body>
 </html>
+
