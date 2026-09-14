@@ -17427,13 +17427,41 @@
 
     const visitorIdKey = "cloverVisitorId";
     const profileGenderKey = "cloverProfileGender";
-    const mypageCacheKey = "clover-mypage-applications-v1";
+    const mypageCacheKey = "clover-mypage-applications-v2";
+    const applicationSharedCacheKey = "clover-application-list-v2";
     const mypageHiddenCanceledKeyPrefix = "clover-mypage-hidden-canceled-v1";
     const dashboardClearedCanceledKey = "clover-dashboard-cleared-canceled-v1";
     const adminDashboardCacheKey = "cloverAdminDashboardCache:v4";
     const profileInfoCacheKey = "clover-mypage-profile-info-v1";
     const authVisitorOwnerKey = "cloverAuthVisitorOwner";
     const authVisitorIdKeyPrefix = "cloverAuthVisitorId";
+
+    function cleanupLegacyApplicationCaches() {
+      try {
+        const stalePrefixes = ["clover-mypage-applications-v1", "clover-application-list-v1"];
+        const keys = Array.from({ length: localStorage.length }, (_, index) => localStorage.key(index)).filter(Boolean);
+        keys.forEach((key) => {
+          if (stalePrefixes.some((prefix) => key === prefix || key.startsWith(`${prefix}:`))) {
+            localStorage.removeItem(key);
+          }
+        });
+
+        const pendingCancelCutoff = Date.now() - 2 * 60 * 1000;
+        Array.from({ length: localStorage.length }, (_, index) => localStorage.key(index)).filter(Boolean).forEach((key) => {
+          if (key !== applicationSharedCacheKey && !key.startsWith(`${mypageCacheKey}:`)) return;
+          const parsed = JSON.parse(localStorage.getItem(key) || "null");
+          if (!Array.isArray(parsed)) return;
+          const cleaned = parsed.filter((application) => {
+            const status = application?.status || application?.["진행상태"] || application?.["진행 상태"] || "";
+            const updatedAt = Number(application?.localUpdatedAt || 0);
+            return !(status === "취소" && application?.isPending && (!updatedAt || updatedAt < pendingCancelCutoff));
+          });
+          if (cleaned.length !== parsed.length) localStorage.setItem(key, JSON.stringify(cleaned));
+        });
+      } catch {}
+    }
+
+    cleanupLegacyApplicationCaches();
 
     function createVisitorId() {
       if (window.crypto && typeof window.crypto.randomUUID === "function") return window.crypto.randomUUID();
@@ -17647,7 +17675,7 @@
 
     function readApplicationSharedCache() {
       try {
-        const parsed = JSON.parse(localStorage.getItem("clover-application-list-v1") || "[]");
+        const parsed = JSON.parse(localStorage.getItem(applicationSharedCacheKey) || "[]");
         return Array.isArray(parsed) ? parsed : [];
       } catch {
         return [];
@@ -17656,7 +17684,7 @@
 
     function writeApplicationSharedCache(applications) {
       try {
-        localStorage.setItem("clover-application-list-v1", JSON.stringify((Array.isArray(applications) ? applications : []).filter((application) => !isDashboardClearedCanceledApplication(application)).slice(0, 100)));
+        localStorage.setItem(applicationSharedCacheKey, JSON.stringify((Array.isArray(applications) ? applications : []).filter((application) => !isDashboardClearedCanceledApplication(application)).slice(0, 100)));
       } catch {}
     }
 
@@ -20627,7 +20655,7 @@
     const SCHEDULE_CACHE_KEY = "clover-schedule-posts-cache:v3";
     const ADMIN_DASHBOARD_CONTENT_CACHE_KEY = "clover-admin-dashboard-content:v1";
     const ADMIN_DASHBOARD_DELETED_CACHE_KEY = "clover-admin-dashboard-deleted:v1";
-    const ADMIN_APPLICATION_CACHE_KEY = "clover-application-list-v1";
+    const ADMIN_APPLICATION_CACHE_KEY = applicationSharedCacheKey;
     const ADMIN_SCHEDULE_POSTS_KEY = "clover-admin-schedule-posts:v1";
     const ADMIN_SCHEDULE_DELETED_KEY = "clover-admin-schedule-deleted-slots:v1";
     const SCHEDULE_FIELD_IMAGES = [
