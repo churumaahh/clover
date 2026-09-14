@@ -17208,12 +17208,17 @@
     let selectedPhotoFiles = [];
     let selectedBodyPhotoFiles = [];
     const fileDataUrlCache = new Map();
+    let fileReadQueue = Promise.resolve();
 
     function primeFileDataUrl(file) {
-      const pending = readAsDataUrl(file).catch((error) => {
+      const pending = fileReadQueue.then(
+        () => readAsDataUrl(file),
+        () => readAsDataUrl(file)
+      ).catch((error) => {
         fileDataUrlCache.delete(file);
         throw error;
       });
+      fileReadQueue = pending.then(() => {}, () => {});
       fileDataUrlCache.set(file, pending);
       return pending;
     }
