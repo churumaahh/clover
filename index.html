@@ -2699,7 +2699,14 @@
     }
 
     .home-schedule-headlines .schedule-headline-strip.is-empty .schedule-headline-row {
-      min-height: 10.4rem;
+      min-height: 0;
+    }
+
+    .home-schedule-headlines .schedule-headline-strip.is-empty .schedule-headline-row::before {
+      content: "";
+      display: block;
+      width: min(15rem, 78vw);
+      aspect-ratio: 16 / 9;
     }
 
     .home-schedule-headlines .schedule-post-card {
@@ -14334,7 +14341,22 @@
 
     #page-schedule .schedule-feed > .schedule-post-strip.is-empty,
     #page-schedule .schedule-feed > .schedule-clover-proof-section.is-empty {
-      min-height: 10.4rem;
+      min-height: 0;
+    }
+
+    #page-schedule .schedule-feed > .schedule-post-strip.is-empty::after {
+      content: "";
+      display: block;
+      width: min(30.75rem, 100%);
+      aspect-ratio: 16 / 9;
+    }
+
+    #page-schedule .schedule-feed > .schedule-clover-proof-section.is-empty::after {
+      content: "";
+      display: block;
+      width: calc((100% - 1.44rem) / 3);
+      max-width: 10rem;
+      aspect-ratio: 4 / 4.35;
     }
 
     #page-schedule > main.support-page {
