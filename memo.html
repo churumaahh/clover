@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preconnect" href="https://script.google.com">
   <link rel="preconnect" href="https://script.googleusercontent.com">
-  <script src="config.js?v=20260831-application-dashboard"></script>
+  <script src="config.js?v=20260915-memo-api"></script>
   <style>
     * { box-sizing: border-box; }
     html, body { min-height: 100%; }
@@ -1230,7 +1230,7 @@
     <div data-memo-root></div>
   </main>
   <script>
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbyL-uGkBLHiRBhWzX9cpxqKTTPLExrL7TCpBRC7c-Yd6QbgHy0cgQg0yP2ldygVbanC/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbwwatbMn8v8iCfSvChxm2eJhrgtSdRA1oiJSzi3oejEZH7sk6Vfs0yr_r_XW92xyMyZ/exec";
     const MEMO_THEME_KEY = "cloverTheme";
     const MEMO_SESSION_KEY = "clover-memo-session:v1";
     const MEMO_VIEW_KEY = "clover-memo-view:v1";
@@ -1305,6 +1305,18 @@
       return !!credentials.roundId && credentials.phone.length === 11 && credentials.birth.length === 8;
     }
 
+    async function readMemoJsonResponse(response, fallbackMessage = "메모장 서버 응답을 확인하지 못했습니다.") {
+      const text = await response.text();
+      let result = null;
+      try {
+        result = text ? JSON.parse(text) : null;
+      } catch {
+        throw new Error(text.trim().startsWith("<") ? "메모장 서버 주소 또는 배포 권한을 확인해 주세요." : fallbackMessage);
+      }
+      if (!response.ok || !result) throw new Error(result?.error || fallbackMessage);
+      return result;
+    }
+
     async function fetchMemoLogin(credentials) {
       const query = new URLSearchParams({
         action: "memoLogin",
@@ -1313,7 +1325,8 @@
         birth: credentials.birth,
         t: String(Date.now())
       });
-      const result = await fetch(`${GOOGLE_SCRIPT_URL}?${query.toString()}`, { cache: "no-store" }).then((response) => response.json());
+      const result = await fetch(`${GOOGLE_SCRIPT_URL}?${query.toString()}`, { cache: "no-store" })
+        .then((response) => readMemoJsonResponse(response, "접속 실패"));
       if (!result.ok) throw new Error(result.error || "접속 실패");
       return result;
     }
@@ -1588,7 +1601,7 @@
             method: "POST",
             headers: { "Content-Type": "text/plain;charset=utf-8" },
             body: JSON.stringify(memoSavePayload())
-          }).then((response) => response.json());
+          }).then((response) => readMemoJsonResponse(response, "저장 실패"));
           if (!result.ok) throw new Error(result.error || "저장 실패");
           memoSetStatus("");
         } catch {
@@ -1956,7 +1969,7 @@
           keepalive: true,
           body: JSON.stringify(memoSavePayload("memoSubmit"))
         })
-          .then((response) => response.json())
+          .then((response) => readMemoJsonResponse(response, "제출 실패"))
           .then((result) => {
             if (!result.ok) throw new Error(result.error || "제출 실패");
             button.disabled = false;
