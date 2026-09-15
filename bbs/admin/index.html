@@ -1993,7 +1993,7 @@
     }
     .memo-participant-fields {
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.5fr) minmax(0, 1.2fr);
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.2fr);
       gap: 8px;
       min-width: 0;
     }
@@ -3939,6 +3939,39 @@
       return String(value || "").replace(/\D/g, "").slice(0, 8);
     }
 
+    function memoFormatPhone(value) {
+      const digits = normalizeMemoPhone(value).slice(0, 11);
+      if (digits.length <= 3) return digits;
+      if (digits.length <= 7) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+      return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
+    }
+
+    function memoFormatBirth(value) {
+      const digits = normalizeMemoBirth(value);
+      if (digits.length <= 4) return digits;
+      if (digits.length <= 6) return `${digits.slice(0, 4)}-${digits.slice(4)}`;
+      return `${digits.slice(0, 4)}-${digits.slice(4, 6)}-${digits.slice(6)}`;
+    }
+
+    function memoApplyFormattedInput(input, formatter) {
+      const before = input.value;
+      const selectionStart = input.selectionStart ?? before.length;
+      const digitOffset = before.slice(0, selectionStart).replace(/\D/g, "").length;
+      const formatted = formatter(before);
+      input.value = formatted;
+      let nextCursor = 0;
+      let seenDigits = 0;
+      while (nextCursor < formatted.length && seenDigits < digitOffset) {
+        if (/\d/.test(formatted[nextCursor])) seenDigits += 1;
+        nextCursor += 1;
+      }
+      try { input.setSelectionRange(nextCursor, nextCursor); } catch {}
+    }
+
+    function hasCompleteMemoParticipantInfo(item = {}) {
+      return normalizeMemoPhone(item.phone).length === 11 && normalizeMemoBirth(item.birth).length === 8;
+    }
+
     function normalizeMemoGender(value) {
       const text = String(value || "").trim();
       return text.includes("여") || /^f/i.test(text) ? "female" : "male";
@@ -3959,7 +3992,6 @@
         id: String(item.id || memoParticipantId(gender, number)),
         gender,
         number,
-        name: String(item.name || "").trim(),
         phone: normalizeMemoPhone(item.phone),
         birth: normalizeMemoBirth(item.birth)
       };
@@ -4057,12 +4089,20 @@
       return applyMemoLocalOverrides([...byId.values()]).sort((a, b) => Number(b.updatedAt || 0) - Number(a.updatedAt || 0));
     }
 
+    function replaceMemoRoundKeepingPosition(rounds = [], nextRound) {
+      const normalized = normalizeMemoRound(nextRound);
+      const index = (rounds || []).findIndex((item) => String(item.id) === String(normalized.id));
+      if (index < 0) return [normalized, ...(rounds || [])];
+      const nextRounds = [...rounds];
+      nextRounds[index] = normalized;
+      return nextRounds;
+    }
+
     function emptyMemoParticipants() {
       return ["male", "female"].flatMap((gender) => Array.from({ length: 6 }, (_, index) => ({
         id: memoParticipantId(gender, index + 1),
         gender,
         number: index + 1,
-        name: "",
         phone: "",
         birth: ""
       })));
@@ -4085,9 +4125,8 @@
           <label class="memo-participant-row">
             <span>${htmlAttr(memoGenderLabel(gender))} ${Number(item.number)}번</span>
             <span class="memo-participant-fields">
-              <input name="memo-${gender}-${Number(item.number)}-name" value="${htmlAttr(item.name)}" placeholder="이름">
-              <input name="memo-${gender}-${Number(item.number)}-phone" value="${htmlAttr(item.phone)}" inputmode="numeric" placeholder="휴대폰 번호">
-              <input name="memo-${gender}-${Number(item.number)}-birth" value="${htmlAttr(item.birth)}" inputmode="numeric" maxlength="8" placeholder="생년월일 8자리">
+              <input name="memo-${gender}-${Number(item.number)}-phone" value="${htmlAttr(memoFormatPhone(item.phone))}" inputmode="numeric" maxlength="13" placeholder="010-0000-0000">
+              <input name="memo-${gender}-${Number(item.number)}-birth" value="${htmlAttr(memoFormatBirth(item.birth))}" inputmode="numeric" maxlength="10" placeholder="1990-00-00">
             </span>
           </label>
         `).join("");
@@ -4102,11 +4141,10 @@
           id: memoParticipantId(gender, number),
           gender,
           number,
-          name: form.querySelector(`[name="memo-${gender}-${number}-name"]`)?.value || "",
           phone: form.querySelector(`[name="memo-${gender}-${number}-phone"]`)?.value || "",
           birth: form.querySelector(`[name="memo-${gender}-${number}-birth"]`)?.value || ""
         });
-      }));
+      })).filter(hasCompleteMemoParticipantInfo);
     }
 
     function fillMemoForm(round = null) {
@@ -4132,10 +4170,22 @@
       if (anchor && form && anchor.nextElementSibling !== form) anchor.after(form);
     }
 
+    function moveMemoResultsToDefault() {
+      const list = document.querySelector("[data-memo-round-list]");
+      const results = document.querySelector("[data-memo-results]");
+      if (list && results && list.nextElementSibling !== results) list.after(results);
+    }
+
     function moveMemoFormAfterRound(roundId) {
       const form = document.querySelector("[data-memo-form]");
       const card = document.querySelector(`[data-memo-round="${window.CSS?.escape ? CSS.escape(String(roundId)) : String(roundId)}"]`);
       if (form && card) card.after(form);
+    }
+
+    function moveMemoResultsAfterRound(roundId) {
+      const results = document.querySelector("[data-memo-results]");
+      const card = document.querySelector(`[data-memo-round="${window.CSS?.escape ? CSS.escape(String(roundId)) : String(roundId)}"]`);
+      if (results && card) card.after(results);
     }
 
     function importMemoParticipantsFromApplications() {
@@ -4151,7 +4201,6 @@
         const source = byGender[base.gender][base.number - 1];
         return source ? normalizeMemoParticipant({
           ...base,
-          name: source.name,
           phone: source.phone,
           birth: source.birth
         }) : base;
@@ -4164,7 +4213,7 @@
       const targets = (round.participants || []).filter((item) => item.gender !== submission.gender);
       const labelFor = (id) => {
         const target = targets.find((item) => String(item.id) === String(id));
-        return target ? `${memoGenderLabel(target.gender)} ${target.number}번 ${target.name || ""}`.trim() : String(id || "");
+        return target ? `${memoGenderLabel(target.gender)} ${target.number}번` : String(id || "");
       };
       const ranking = Array.isArray(submission.ranking) ? submission.ranking.map(labelFor).filter(Boolean) : [];
       const memoCount = Object.values(submission.memos || {}).filter((value) => String(value || "").trim()).length;
@@ -4314,9 +4363,21 @@
       return `<div class="memo-note-results">${groups}</div>`;
     }
 
+    function memoOrderedTargetsForParticipant(participant, targets = []) {
+      const startNumber = Number(participant?.number) || 1;
+      return [...(targets || [])]
+        .map((target, index) => {
+          const number = Number(target.number) || index + 1;
+          const offset = ((number - startNumber) % 6 + 6) % 6;
+          return { target, index, number, offset };
+        })
+        .sort((a, b) => a.offset - b.offset || a.number - b.number || a.index - b.index)
+        .map((entry) => entry.target);
+    }
+
     function memoParticipantNoteCardMarkup(participant, submissionsById, targetsByGender) {
         const submission = submissionsById.get(String(participant.id));
-        const targets = targetsByGender[participant.gender === "male" ? "female" : "male"] || [];
+        const targets = memoOrderedTargetsForParticipant(participant, targetsByGender[participant.gender === "male" ? "female" : "male"] || []);
         const notes = targets.map((target) => {
           const text = String((submission?.memos || {})[target.id] || "").trim();
           if (!text) return "";
@@ -4346,7 +4407,12 @@
     }
 
     function renderMemoAdmin() {
+      const form = document.querySelector("[data-memo-form]");
+      const keepFormVisible = !!form && !form.hidden;
+      const formRoundId = String(form?.querySelector('[name="roundId"]')?.value || "");
+      const activeResultsId = String(document.querySelector("[data-memo-results]")?.dataset.roundId || "");
       moveMemoFormToDefault();
+      moveMemoResultsToDefault();
       if (!document.querySelector("[data-memo-participants]")?.children.length) renderMemoParticipantInputs();
       const list = document.querySelector("[data-memo-round-list]");
       const results = document.querySelector("[data-memo-results]");
@@ -4373,6 +4439,8 @@
         }).join("") : '<div class="empty is-visible">등록된 메모장 회차가 없습니다.</div>';
       }
       if (results && !results.dataset.roundId) results.innerHTML = "";
+      if (keepFormVisible && formRoundId) moveMemoFormAfterRound(formRoundId);
+      if (activeResultsId) moveMemoResultsAfterRound(activeResultsId);
     }
 
     function closeMemoResults() {
@@ -4425,6 +4493,7 @@
           </article>
         ` : '<div class="empty is-visible">아직 저장된 메모가 없습니다.</div>'}
       `;
+      moveMemoResultsAfterRound(roundId);
     }
 
     async function loadMemoAdmin() {
@@ -4458,8 +4527,10 @@
         status: statusInput?.value,
         participants: collectMemoParticipants(form)
       });
-      if (round.participants.length !== 12 || round.participants.some((item) => !item.phone || !item.birth)) {
-        showToast("남녀 6명씩 휴대폰 ID와 생년월일 8자리를 입력해 주세요.");
+      const maleCount = round.participants.filter((item) => item.gender === "male").length;
+      const femaleCount = round.participants.filter((item) => item.gender === "female").length;
+      if (!maleCount || !femaleCount) {
+        showToast("연락처 11자리와 생년월일 8자리가 입력된 남성/여성 참가자를 각각 1명 이상 입력해 주세요.");
         return;
       }
       const deletedIds = readDeletedMemoRoundIds();
@@ -4468,16 +4539,18 @@
       const statusOverrides = readMemoStatusOverrides();
       statusOverrides[String(round.id)] = { status: round.status, updatedAt: Date.now() };
       writeMemoStatusOverrides(statusOverrides);
-      memoRounds = [round, ...memoRounds.filter((item) => item.id !== round.id)];
+      memoRounds = replaceMemoRoundKeepingPosition(memoRounds, round);
       writeMemoRoundsCache(memoRounds);
       renderMemoAdmin();
+      moveMemoFormAfterRound(round.id);
       showToast("메모장 회차를 저장했습니다.");
       try {
         const result = await apiPost({ type: "memoRoundSave", roundId: round.id, title: round.title, status: round.status, participants: round.participants });
         const saved = normalizeMemoRound(result.round || round);
-        memoRounds = [saved, ...memoRounds.filter((item) => item.id !== saved.id)];
+        memoRounds = replaceMemoRoundKeepingPosition(memoRounds, saved);
         writeMemoRoundsCache(memoRounds);
         renderMemoAdmin();
+        moveMemoFormAfterRound(saved.id);
         showToast("메모장 회차를 서버까지 저장했습니다.");
       } catch (error) {
         showToast(`로컬 저장 완료, 서버 반영 실패: ${error.message}`);
@@ -6942,7 +7015,7 @@
       try {
         const result = await apiPost({
           type: "applicationStatusUpdate",
-          rowNumber: item.rowNumber || card?.dataset.dashboardApplicationRow || "",
+          rowNumber: item.rowNumber || item.id || card?.dataset.dashboardApplicationRow || "",
           sheetName: item.sheetName || card?.dataset.dashboardApplicationSheet || "",
           visitorId: item.visitorId || "",
           authUser: item.authUser || "",
@@ -6994,7 +7067,7 @@
       try {
         await apiPost({
           type: "applicationDelete",
-          rowNumber: item.rowNumber || card?.dataset.dashboardApplicationRow || "",
+          rowNumber: item.rowNumber || item.id || card?.dataset.dashboardApplicationRow || "",
           sheetName: item.sheetName || card?.dataset.dashboardApplicationSheet || "",
           visitorId: item.visitorId || "",
           authUser: item.authUser || "",
@@ -7477,6 +7550,12 @@
     document.querySelector("[data-memo-form]")?.addEventListener("submit", (event) => {
       event.preventDefault();
       saveMemoRoundFromForm(event.currentTarget);
+    });
+    document.querySelector("[data-memo-participants]")?.addEventListener("input", (event) => {
+      const input = event.target.closest("input");
+      if (!input) return;
+      if (/-phone$/.test(input.name)) memoApplyFormattedInput(input, memoFormatPhone);
+      if (/-birth$/.test(input.name)) memoApplyFormattedInput(input, memoFormatBirth);
     });
     document.querySelector("[data-memo-results]")?.addEventListener("click", (event) => {
       if (event.target.closest("[data-memo-results-close]")) closeMemoResults();

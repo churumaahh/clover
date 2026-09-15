@@ -1230,7 +1230,7 @@
     <div data-memo-root></div>
   </main>
   <script>
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbwwatbMn8v8iCfSvChxm2eJhrgtSdRA1oiJSzi3oejEZH7sk6Vfs0yr_r_XW92xyMyZ/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbzN43Am7rKg3TDJhFu03-e2VVEmDHw_BTDFAdr-XQFxyRDIt7LbtfGYV70YeNtkly9D/exec";
     const MEMO_THEME_KEY = "cloverTheme";
     const MEMO_SESSION_KEY = "clover-memo-session:v1";
     const MEMO_VIEW_KEY = "clover-memo-view:v1";
@@ -1287,6 +1287,21 @@
       if (digits.length <= 4) return digits;
       if (digits.length <= 6) return `${digits.slice(0, 4)}-${digits.slice(4)}`;
       return `${digits.slice(0, 4)}-${digits.slice(4, 6)}-${digits.slice(6)}`;
+    }
+
+    function memoApplyFormattedInput(input, formatter) {
+      const before = input.value;
+      const selectionStart = input.selectionStart ?? before.length;
+      const digitOffset = before.slice(0, selectionStart).replace(/\D/g, "").length;
+      const formatted = formatter(before);
+      input.value = formatted;
+      let nextCursor = 0;
+      let seenDigits = 0;
+      while (nextCursor < formatted.length && seenDigits < digitOffset) {
+        if (/\d/.test(formatted[nextCursor])) seenDigits += 1;
+        nextCursor += 1;
+      }
+      try { input.setSelectionRange(nextCursor, nextCursor); } catch {}
     }
 
     function memoLoginCredentials(form) {
@@ -1713,7 +1728,6 @@
             <section class="memo-final-guide" aria-labelledby="memoFinalGuideTitle">
               <h2 class="memo-final-guide-title" id="memoFinalGuideTitle">최종 선택 안내</h2>
               <ul class="memo-final-guide-list">
-                <li>0명 ~ 3명까지 선택할 수 있습니다.</li>
                 <li>소개팅 당일까지 자유롭게 수정이 가능합니다.</li>
                 <li>최종 결과는 다음날 개별 안내됩니다.</li>
               </ul>
@@ -1766,7 +1780,6 @@
             <ul class="memo-final-guide-list">
               <li>메모장은 누구에게도 전달되지 않습니다.</li>
               <li>메모장은 단순 기록용입니다.</li>
-              <li>최종 선택은 3명까지 가능합니다.</li>
             </ul>
           </section>
           <div class="memo-final-guide-divider" aria-hidden="true"></div>
@@ -1846,8 +1859,8 @@
 
     document.addEventListener("input", (event) => {
       const target = event.target;
-      if (target instanceof HTMLInputElement && target.name === "phone" && target.closest("[data-memo-login-form]")) target.value = memoFormatPhone(target.value);
-      if (target instanceof HTMLInputElement && target.name === "birth" && target.closest("[data-memo-login-form]")) target.value = memoFormatBirth(target.value);
+      if (target instanceof HTMLInputElement && target.name === "phone" && target.closest("[data-memo-login-form]")) memoApplyFormattedInput(target, memoFormatPhone);
+      if (target instanceof HTMLInputElement && target.name === "birth" && target.closest("[data-memo-login-form]")) memoApplyFormattedInput(target, memoFormatBirth);
       if (target instanceof HTMLInputElement && target.closest("[data-memo-login-form]")) updateMemoLoginReady(target.closest("[data-memo-login-form]"));
       if (target instanceof HTMLTextAreaElement && target.matches("[data-memo-text]")) {
         const targetId = String(target.dataset.memoText || "");
