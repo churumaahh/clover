@@ -4865,6 +4865,9 @@
     }
 
     function backendSchedulePostToAdmin(bp) {
+      const scheduleDate = dashboardDateInputValue(bp.scheduleDate || bp.date || bp.title || "");
+      const scheduleTime = dashboardTimeInputValue(bp.scheduleTime || bp.time || "", "")
+        || dashboardTimeInputValue(bp.title || "", "");
       return {
         id: bp.id,
         category: bp.category || "일정 안내",
@@ -4874,8 +4877,8 @@
         views: bp.views || 0,
         likes: bp.likes || 0,
         comments: bp.comments || [],
-        scheduleDate: bp.scheduleDate || "",
-        scheduleTime: bp.scheduleTime || "",
+        scheduleDate: scheduleDate || bp.scheduleDate || "",
+        scheduleTime: scheduleTime || bp.scheduleTime || "",
         meetingMode: bp.meetingMode || "1:1",
         ageRange: normalizeAgeRangeText(bp.ageRange || "27-36세"),
         address: bp.address || "부산 부산진구 서전로 8번길 27",
@@ -5042,10 +5045,10 @@
 
     function scheduleTimeHour(time) {
       const text = String(time || "");
-      const clockMatch = text.match(/(\d{1,2}):(\d{2})/);
+      const clockMatch = text.match(/(오전|오후)?\s*(\d{1,2})(?::(\d{2})|시)/);
       const match = clockMatch || text.match(/(\d{1,2})/);
       if (!match) return NaN;
-      let hour = Number(match[1]);
+      let hour = Number(clockMatch ? match[2] : match[1]);
       if (/오후/.test(text) && hour < 12) hour += 12;
       if (/오전/.test(text) && hour === 12) hour = 0;
       return hour >= 0 && hour <= 23 ? hour : NaN;
