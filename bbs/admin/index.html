@@ -4926,7 +4926,7 @@
 
     function applyDashboardSchedulePosts(posts) {
       const merged = normalizeDashboardFieldImages(cleanDashboardPosts(uniqueDashboardItems([...(Array.isArray(posts) ? posts : []), ...readSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY)])));
-      const clover = merged.filter((post) => ["일정 안내", "클로버 근황"].includes(String(post.category || "").trim()));
+      const clover = merged.filter((post) => String(post.category || "").trim() === "클로버 근황");
       const field = merged.filter((post) => String(post.category || "").trim() === "현장");
       const match = merged.filter((post) => String(post.category || "").trim() === "매칭결과");
       dashboardData.clover = withoutDeletedDashboardItems(uniqueDashboardItems([...dashboardLocalPostsFor("clover"), ...clover, ...dashboardCloverFallbackPosts()]));
