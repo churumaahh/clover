@@ -23056,7 +23056,7 @@
     }
 
     function scheduleEmptyCardHtml(message, home = false) {
-      return `<div class="schedule-empty-card${home ? " is-home" : ""}">${htmlAttr(message)}</div>`;
+      return `<div class="schedule-empty-card${home ? " is-home" : ""}" aria-label="${htmlAttr(message)}"></div>`;
     }
 
     function cloverProofGridHtml(posts, hasData = true) {
