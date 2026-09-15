@@ -18438,6 +18438,18 @@
       }, []);
     }
 
+    function confirmedCanceledApplication(serverApplication, localApplication) {
+      return {
+        ...localApplication,
+        ...serverApplication,
+        status: canceledApplicationStatus,
+        isPending: false,
+        cancelAfterSave: false,
+        syncError: false,
+        localUpdatedAt: Number(serverApplication?.localUpdatedAt || localApplication?.localUpdatedAt || Date.now())
+      };
+    }
+
     function mergeApplicationsWithLocal(serverApplications, localApplications = readMypageCache() || currentMyApplications || []) {
       const merged = new Map();
       const now = Date.now();
@@ -18454,6 +18466,10 @@
         const serverStatus = normalizedApplicationStatus(serverApplication);
         const localUpdatedAt = Number(application?.localUpdatedAt || 0);
         const serverUpdatedAt = Number(serverApplication?.localUpdatedAt || 0);
+        if (serverApplication && serverStatus === canceledApplicationStatus && localStatus === canceledApplicationStatus) {
+          merged.set(key, confirmedCanceledApplication(serverApplication, application));
+          return;
+        }
         const hasRecentLocalStatus = Boolean(application?.localUpdatedAt) &&
           isRecentLocal &&
           serverApplication &&
@@ -18480,6 +18496,10 @@
         const previous = merged.get(key);
         const previousStatus = normalizedApplicationStatus(previous);
         const nextStatus = normalizedApplicationStatus(application);
+        if (previous && previousStatus === canceledApplicationStatus && nextStatus === canceledApplicationStatus) {
+          merged.set(key, confirmedCanceledApplication(application, previous));
+          return;
+        }
         if (previous && (previous?.isPending || (previousStatus === canceledApplicationStatus && nextStatus !== canceledApplicationStatus))) {
           merged.set(key, previous);
           return;
