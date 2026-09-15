@@ -20971,28 +20971,7 @@
         ...readAdminDashboardContentPosts(),
         ...schedulePosts
       ]).filter((post) => post?.active !== false && String(post?.category || "").trim() === targetCategory);
-      const realPosts = uniqueByScheduleTitle(posts).sort(compareDashboardPostOrder);
-      return realPosts.length ? realPosts : dashboardFallbackCategoryPosts(targetCategory);
-    }
-
-    function dashboardFallbackCategoryPosts(category) {
-      const deletedIds = readAdminDashboardDeletedIds();
-      let posts = [];
-      if (category === "현장") {
-        posts = scheduleFeedPlaceholderPosts()
-          .filter((post) => String(post?.category || "").trim() === "현장")
-          .slice(0, 3);
-      } else if (category === "클로버 근황") {
-        posts = cloverProofPosts().slice(0, 10).map((post, index) => ({
-          ...post,
-          id: `dashboard-clover-fallback-${index + 1}`,
-          title: `#${10 - index} 커플 인증`,
-          imageUrl: cloverProofImageUrl(index)
-        }));
-      }
-      return uniqueByScheduleTitle(posts)
-        .filter((post, index) => !deletedIds.has(managedDashboardPostId(post, index)))
-        .sort(compareDashboardPostOrder);
+      return uniqueByScheduleTitle(posts).sort(compareDashboardPostOrder);
     }
 
     function schedulePostSortTime(post) {
