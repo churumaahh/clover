@@ -2698,6 +2698,10 @@
       padding-bottom: 0;
     }
 
+    .home-schedule-headlines .schedule-headline-strip.is-empty .schedule-headline-row {
+      min-height: 10.4rem;
+    }
+
     .home-schedule-headlines .schedule-post-card {
       box-shadow: none;
     }
@@ -11515,38 +11519,6 @@
     .schedule-scroll-btn:active { transform: translateY(-50%) scale(.96); }
     .schedule-scroll-btn[hidden] { display: none; }
     .schedule-clover-proof-section { display: grid; gap: .58rem; }
-    .schedule-empty-card {
-      min-height: 6rem;
-      padding: 1.35rem 1.1rem;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--surface);
-      color: #667085;
-      display: flex;
-      align-items: center;
-      gap: .62rem;
-      font-weight: 800;
-      box-shadow: 0 .35rem 1.2rem rgba(15,23,42,.05);
-    }
-    .schedule-empty-card::before {
-      content: "";
-      width: .55rem;
-      height: .55rem;
-      border-radius: 999px;
-      background: #d9dee7;
-      box-shadow: 0 0 0 .22rem rgba(217,222,231,.38);
-      flex: 0 0 auto;
-    }
-    .schedule-empty-card.is-home {
-      min-width: min(15rem, 78vw);
-      min-height: 10.4rem;
-    }
-    :root[data-theme="dark"] .schedule-empty-card {
-      background: #202020;
-      border-color: rgba(255,255,255,.08);
-      color: #a5adba;
-      box-shadow: none;
-    }
     .schedule-clover-proof-more-wrap { display: flex; justify-content: center; padding: .42rem 0 2.08rem; }
     .schedule-clover-proof-more {
       min-height: 2.45rem;
@@ -14358,6 +14330,11 @@
     #page-schedule .schedule-feed > .schedule-post-strip,
     #page-schedule .schedule-feed > .schedule-clover-proof-section {
       margin-top: 1rem !important;
+    }
+
+    #page-schedule .schedule-feed > .schedule-post-strip.is-empty,
+    #page-schedule .schedule-feed > .schedule-clover-proof-section.is-empty {
+      min-height: 10.4rem;
     }
 
     #page-schedule > main.support-page {
@@ -22008,8 +21985,8 @@
       rememberHomeScheduleHeadlineScroll();
       const headlines = dashboardCategoryPosts("클로버 근황");
       homeScheduleHeadlines.hidden = false;
-      const content = headlines.length ? headlines.map((post) => schedulePostCard(post, true)).join("") : scheduleEmptyCardHtml("등록된 클로버 근황이 없습니다.", true);
-      homeScheduleHeadlines.innerHTML = `<section class="schedule-headline-strip"><div class="schedule-headline-head"><h2 class="schedule-section-title">${scheduleSectionTitleHtml("클로버 근황", !!headlines.length)}</h2><button class="schedule-more-btn" type="button" onclick="window.goPage(event, 'schedule')" aria-label="클로버 근황 더보기">+</button></div><div class="schedule-headline-scroller"><div class="schedule-headline-row" data-schedule-headline-row>${content}</div></div></section>`;
+      const content = headlines.length ? headlines.map((post) => schedulePostCard(post, true)).join("") : "";
+      homeScheduleHeadlines.innerHTML = `<section class="schedule-headline-strip${headlines.length ? "" : " is-empty"}"><div class="schedule-headline-head"><h2 class="schedule-section-title">${scheduleSectionTitleHtml("클로버 근황", !!headlines.length)}</h2><button class="schedule-more-btn" type="button" onclick="window.goPage(event, 'schedule')" aria-label="클로버 근황 더보기">+</button></div><div class="schedule-headline-scroller"><div class="schedule-headline-row" data-schedule-headline-row>${content}</div></div></section>`;
       requestAnimationFrame(() => {
         restoreHomeScheduleHeadlineScroll();
         refreshScheduleHeadlineControls();
@@ -23055,13 +23032,9 @@
         : "";
     }
 
-    function scheduleEmptyCardHtml(message, home = false) {
-      return `<div class="schedule-empty-card${home ? " is-home" : ""}" aria-label="${htmlAttr(message)}"></div>`;
-    }
-
     function cloverProofGridHtml(posts, hasData = true) {
       if (!posts.length) {
-        return `<section class="schedule-clover-proof-section"><h2 class="schedule-section-title">${scheduleSectionTitleHtml("클로버 근황", false)}</h2>${scheduleEmptyCardHtml("등록된 클로버 근황이 없습니다.")}</section>`;
+        return `<section class="schedule-clover-proof-section is-empty"><h2 class="schedule-section-title">${scheduleSectionTitleHtml("클로버 근황", false)}</h2></section>`;
       }
       cloverProofVisibleCount = Math.min(Math.max(cloverProofVisibleCount, 9), posts.length);
       const visiblePosts = posts.slice(0, cloverProofVisibleCount);
@@ -23167,7 +23140,8 @@
       const regular = regularSource.map((post, i) => ({ ...post, imageUrl: schedulePostImageUrl(post) || SCHEDULE_FIELD_IMAGES[i % SCHEDULE_FIELD_IMAGES.length] }));
       const proofPosts = realProofs;
 
-      scheduleFeed.innerHTML = `<section class="schedule-post-strip"><h2 class="schedule-section-title">${scheduleSectionTitleHtml("현장", !!regular.length)}</h2><div class="schedule-image-row" data-schedule-headline-row="regular">${regular.length ? regular.map((post) => scheduleImageCardHtml(post)).join("") : `<div class="schedule-feed-empty">등록된 일반 일정 소식이 없습니다.</div>`}</div></section>${cloverProofGridHtml(proofPosts, !!proofPosts.length)}`;
+      const regularCards = regular.length ? regular.map((post) => scheduleImageCardHtml(post)).join("") : "";
+      scheduleFeed.innerHTML = `<section class="schedule-post-strip${regular.length ? "" : " is-empty"}"><h2 class="schedule-section-title">${scheduleSectionTitleHtml("현장", !!regular.length)}</h2>${regularCards ? `<div class="schedule-image-row" data-schedule-headline-row="regular">${regularCards}</div>` : ""}</section>${cloverProofGridHtml(proofPosts, !!proofPosts.length)}`;
       requestAnimationFrame(refreshScheduleHeadlineControls);
     }
 
