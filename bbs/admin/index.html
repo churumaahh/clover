@@ -4929,9 +4929,15 @@
       const clover = merged.filter((post) => String(post.category || "").trim() === "클로버 근황");
       const field = merged.filter((post) => String(post.category || "").trim() === "현장");
       const match = merged.filter((post) => String(post.category || "").trim() === "매칭결과");
-      dashboardData.clover = withoutDeletedDashboardItems(uniqueDashboardItems([...dashboardLocalPostsFor("clover"), ...clover, ...dashboardCloverFallbackPosts()]));
-      dashboardData.field = withoutDeletedDashboardItems(uniqueDashboardItems([...dashboardLocalPostsFor("field"), ...field, ...dashboardFieldFallbackPosts()]));
-      dashboardData.match = withoutDeletedDashboardItems(uniqueDashboardItems([...dashboardLocalPostsFor("match"), ...match, ...dashboardMatchItems()]));
+      const localClover = dashboardLocalPostsFor("clover");
+      const localField = dashboardLocalPostsFor("field");
+      const localMatch = dashboardLocalPostsFor("match");
+      const cloverSource = uniqueDashboardItems([...localClover, ...clover]);
+      const fieldSource = uniqueDashboardItems([...localField, ...field]);
+      const matchSource = uniqueDashboardItems([...localMatch, ...match]);
+      dashboardData.clover = withoutDeletedDashboardItems(cloverSource.length ? cloverSource : dashboardCloverFallbackPosts());
+      dashboardData.field = withoutDeletedDashboardItems(fieldSource.length ? fieldSource : dashboardFieldFallbackPosts());
+      dashboardData.match = withoutDeletedDashboardItems(matchSource.length ? matchSource : dashboardMatchItems());
     }
 
     function applyLocalDashboardFallbacks() {

@@ -20965,6 +20965,15 @@
       ];
     }
 
+    function dashboardCategoryPosts(category) {
+      const targetCategory = String(category || "").trim();
+      const posts = uniqueScheduleContentPosts([
+        ...readAdminDashboardContentPosts(),
+        ...schedulePosts
+      ]).filter((post) => post?.active !== false && String(post?.category || "").trim() === targetCategory);
+      return uniqueByScheduleTitle(posts).sort(compareDashboardPostOrder);
+    }
+
     function schedulePostSortTime(post) {
       const toTime = (value) => {
         if (value instanceof Date) return value.getTime();
@@ -21958,14 +21967,7 @@
     function renderHomeScheduleHeadlines() {
       if (!homeScheduleHeadlines) return;
       rememberHomeScheduleHeadlineScroll();
-      const realProofs = realScheduleContentPosts()
-        .filter((post) => String(post?.category || "").trim() === "클로버 근황" && post?.active !== false);
-      const placeholderProofs = scheduleFeedPlaceholderPosts()
-        .filter((post) => String(post?.category || "").trim() === "클로버 근황");
-      const managedProofs = realProofs.length ? realProofs : placeholderProofs;
-      const headlines = uniqueByScheduleTitle(managedProofs)
-        .sort(compareDashboardPostOrder)
-        .slice(0, 12);
+      const headlines = dashboardCategoryPosts("클로버 근황");
       if (!headlines.length) {
         homeScheduleHeadlines.hidden = true;
         homeScheduleHeadlines.innerHTML = "";
@@ -23118,23 +23120,11 @@
       renderHomeScheduleHeadlines();
       renderMbtiCompatibility();
       if (!scheduleFeed) return;
-      const placeholders = scheduleFeedPlaceholderPosts();
-      const placeholderRegular = placeholders.filter((post) => !post.headline && post.category === "현장");
-      const placeholderProofs = placeholders.filter((post) => post.category === "클로버 근황");
-      const dashboardManagedPosts = readAdminDashboardContentPosts()
-        .filter((post) => post?.active !== false && ["현장", "클로버 근황"].includes(String(post?.category || "").trim()));
-      const managedRegular = dashboardManagedPosts.filter((post) => String(post?.category || "").trim() === "현장");
-      const visibleSchedulePosts = uniqueScheduleContentPosts([...dashboardManagedPosts, ...schedulePosts]);
-
-      const realProofs = visibleSchedulePosts.filter((post) => !post.headline && post.category === "클로버 근황");
-      const realProofIds = new Set(realProofs.map((post) => post.id));
-      const liveRegular = visibleSchedulePosts.filter((post) => post.category === "현장" && !realProofIds.has(post.id));
-      const realRegular = managedRegular.length ? managedRegular : liveRegular;
-
-      const regularSource = uniqueByScheduleTitle(realRegular.length ? realRegular : placeholderRegular);
+      const realRegular = dashboardCategoryPosts("현장");
+      const realProofs = dashboardCategoryPosts("클로버 근황");
+      const regularSource = realRegular;
       const regular = regularSource.map((post, i) => ({ ...post, imageUrl: schedulePostImageUrl(post) || SCHEDULE_FIELD_IMAGES[i % SCHEDULE_FIELD_IMAGES.length] }));
-      const proofPosts = uniqueByScheduleTitle(realProofs.length ? realProofs : placeholderProofs)
-        .sort(compareDashboardPostOrder);
+      const proofPosts = realProofs;
 
       scheduleFeed.innerHTML = `<section class="schedule-post-strip"><h2 class="schedule-section-title">${scheduleSectionTitleHtml("현장", !!regular.length)}</h2><div class="schedule-image-row" data-schedule-headline-row="regular">${regular.length ? regular.map((post) => scheduleImageCardHtml(post)).join("") : `<div class="schedule-feed-empty">등록된 일반 일정 소식이 없습니다.</div>`}</div></section>${cloverProofGridHtml(proofPosts, !!proofPosts.length)}`;
       requestAnimationFrame(refreshScheduleHeadlineControls);
@@ -27438,4 +27428,3 @@
   </script>
 </body>
 </html>
-
