@@ -9203,123 +9203,8 @@
       color: #9ca3af;
     }
 
-    .counsel-top3 {
-      margin-top: 0;
-    }
-
-    .counsel-top3-title {
-      margin: 0 0 0.75rem !important;
-    }
-
     .counsel-live-title {
       margin: 0 0 0.75rem !important;
-    }
-
-    .counsel-top3-list {
-      margin-top: 0;
-      border-color: var(--line);
-    }
-
-    #page-counsel .counsel-top3 {
-      border: 0;
-      background: transparent;
-      box-shadow: none;
-    }
-
-    #page-counsel .counsel-top3-list .counsel-card {
-      border: 1px solid var(--line);
-      background: var(--paper);
-      box-shadow: 0 .25rem .8rem rgba(15,23,42,.035);
-    }
-
-    .counsel-card-number.is-top3 {
-      --medal-fill: #b87333;
-      --medal-rim: #f0b37e;
-      --medal-deep: #7c2d12;
-      --medal-ribbon-left: #ff7068;
-      --medal-ribbon-right: #1688f8;
-      --medal-shadow: rgba(184, 115, 51, .28);
-      position: relative;
-      width: 1.62rem;
-      min-width: 1.62rem;
-      height: 1.72rem;
-      padding: 0;
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      color: transparent;
-      font-size: 0;
-      line-height: 1;
-      overflow: visible;
-      isolation: isolate;
-    }
-
-    .counsel-card-number.is-top3::before,
-    .counsel-card-number.is-top3::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      pointer-events: none;
-    }
-
-    .counsel-card-number.is-top3::before {
-      top: 0;
-      z-index: 1;
-      width: .92rem;
-      height: .72rem;
-      transform: translateX(-50%);
-      background:
-        linear-gradient(135deg, var(--medal-ribbon-left) 0 48%, transparent 49%),
-        linear-gradient(225deg, var(--medal-ribbon-right) 0 48%, transparent 49%);
-      clip-path: polygon(0 0, 100% 0, 78% 100%, 50% 78%, 22% 100%);
-      opacity: .95;
-    }
-
-    .counsel-card-number.is-top3::after {
-      top: .38rem;
-      z-index: 2;
-      width: 1.08rem;
-      height: 1.08rem;
-      transform: translateX(-50%);
-      border: 1px solid var(--medal-rim);
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 35% 28%, rgba(255, 255, 255, .82) 0 .08rem, transparent .085rem),
-        radial-gradient(circle at 50% 50%, var(--medal-fill) 0 45%, var(--medal-deep) 72%, var(--medal-rim) 100%);
-      box-shadow: inset 0 -.08rem .14rem rgba(0, 0, 0, .15), 0 .12rem .25rem var(--medal-shadow);
-    }
-
-    .counsel-card-number.is-top3.is-rank-1 {
-      --medal-fill: #f5b82e;
-      --medal-rim: #ffe08a;
-      --medal-deep: #b7791f;
-      --medal-ribbon-left: #ff6b6b;
-      --medal-ribbon-right: #1688f8;
-      --medal-shadow: rgba(245, 184, 46, .34);
-    }
-
-    .counsel-card-number.is-top3.is-rank-2 {
-      --medal-fill: #cbd5e1;
-      --medal-rim: #f8fafc;
-      --medal-deep: #64748b;
-      --medal-ribbon-left: #94a3b8;
-      --medal-ribbon-right: #1688f8;
-      --medal-shadow: rgba(148, 163, 184, .32);
-    }
-
-    .counsel-card-number.is-top3.is-rank-3 {
-      --medal-fill: #c47a3b;
-      --medal-rim: #f0b37e;
-      --medal-deep: #7c2d12;
-      --medal-ribbon-left: #b87333;
-      --medal-ribbon-right: #ff7068;
-      --medal-shadow: rgba(184, 115, 51, .3);
-    }
-
-    :root[data-theme="dark"] .counsel-card-number.is-top3 {
-      border-color: transparent;
-      background: transparent;
-      color: transparent;
     }
 
     .counsel-card-title {
@@ -9433,14 +9318,6 @@
       border-radius: 0;
     }
 
-    #page-counsel .counsel-card-number.is-top3,
-    #page-mypage [data-mypage-counsel] .counsel-card-number.is-top3 {
-      align-self: center;
-      justify-self: center;
-      width: 1.62rem;
-      min-width: 1.62rem;
-      height: 1.72rem;
-    }
     #page-counsel .counsel-card-title,
     #page-mypage [data-mypage-counsel] .counsel-card-title {
       grid-area: title;
@@ -13768,7 +13645,6 @@
 
     /* 紐⑸줉 ?꾩껜瑜?媛먯떥??諛뷀깢 ?덉씠??*/
     :root[data-theme="dark"] #page-reviews .match-result-list-panel,
-    :root[data-theme="dark"] #page-counsel .counsel-top3,
     :root[data-theme="dark"] #page-counsel .counsel-live-section {
       display: grid;
       gap: 0.75rem;
@@ -13798,23 +13674,6 @@
       max-height: var(--locked-panel-height, auto) !important;
     }
 
-    :root[data-theme="dark"] #page-counsel .counsel-top3[hidden] {
-      display: none !important;
-    }
-
-    :root[data-theme="dark"] #page-counsel .counsel-top3 {
-      border-color: #303030 !important;
-      background: #1b1b1b !important;
-      box-shadow: 8px 10px 24px rgba(0, 0, 0, .38), -4px -4px 12px rgba(255, 255, 255, .035), inset 0 1px 0 rgba(255,255,255,.045) !important;
-    }
-
-    :root[data-theme="dark"] #page-counsel .counsel-top3-list .counsel-card {
-      border-color: rgba(255,255,255,.075) !important;
-      background: #242424 !important;
-      box-shadow: 0 .35rem 1.2rem rgba(0,0,0,.35) !important;
-    }
-
-    :root[data-theme="dark"] #page-counsel .counsel-top3-title,
     :root[data-theme="dark"] #page-counsel .counsel-live-title {
       margin: 0 0 0.05rem !important;
     }
@@ -13932,11 +13791,6 @@
       opacity: 1 !important;
       pointer-events: none !important;
     }
-    /* ?곷떞 ?덉씠???쒕ぉ???꾨옒 移대뱶 ?쒖옉?좎뿉 留욎땄 */
-    :root[data-theme="dark"] #page-counsel .counsel-top3-title {
-      padding-left: 0.55rem !important;
-    }
-
     :root[data-theme="dark"] #page-counsel .counsel-live-head {
       padding: 0 0.55rem !important;
     }
@@ -14003,14 +13857,9 @@
     }
 
     #page-counsel .counsel-page-intro,
-    #page-counsel .counsel-top3,
     #page-counsel .counsel-live-section {
       margin-top: 0 !important;
       margin-bottom: 0 !important;
-    }
-
-    #page-counsel .counsel-top3 + .counsel-live-section {
-      margin-top: 0 !important;
     }
 
     /* ?곷떞 ?덉씠???쒕ぉ ?ш린? ?대? 媛꾧꺽 ?듭씪 */
@@ -14018,12 +13867,10 @@
       gap: 1.1rem !important;
     }
 
-    :root[data-theme="dark"] #page-counsel .counsel-top3,
     :root[data-theme="dark"] #page-counsel .counsel-live-section {
       gap: 0.9rem !important;
     }
 
-    :root[data-theme="dark"] #page-counsel .counsel-top3-title,
     :root[data-theme="dark"] #page-counsel .counsel-live-title {
       margin: 0 !important;
       padding: 0 !important;
@@ -14034,10 +13881,6 @@
       display: inline-flex !important;
       align-items: center !important;
       gap: 0.56rem !important;
-    }
-
-    :root[data-theme="dark"] #page-counsel .counsel-top3-title {
-      padding-left: 0.55rem !important;
     }
 
     :root[data-theme="dark"] #page-counsel .counsel-live-head {
@@ -14185,13 +14028,11 @@
       box-shadow: inset 1px 1px 0 rgba(255, 255, 255, .035), 3px 4px 10px rgba(0, 0, 0, .18) !important;
     }
     /* ?곷떞 ?덉씠???쒕ぉ/媛꾧꺽 怨듯넻 理쒖쥌 怨좎젙 */
-    #page-counsel .counsel-top3,
     #page-counsel .counsel-live-section {
       display: grid !important;
       gap: 0.9rem !important;
     }
 
-    #page-counsel .counsel-top3-title,
     #page-counsel .counsel-live-title {
       margin: 0 !important;
       font-size: 1.08rem !important;
@@ -14204,10 +14045,6 @@
       min-height: auto !important;
       margin: 0 !important;
       padding: 0 0.55rem !important;
-    }
-
-    #page-counsel .counsel-top3-title {
-      padding-left: 0.55rem !important;
     }
 
     /* ?꾨옒 ?곗븷 ?곷떞 紐⑸줉 異붽? ?곷떒 ?щ갚 ?쒓굅 */
@@ -14299,21 +14136,12 @@
       max-height: var(--locked-panel-height, auto) !important;
     }
 
-    :root[data-theme="dark"] #page-counsel .counsel-top3,
     :root[data-theme="dark"] #page-counsel .counsel-live-section {
       padding: 0 !important;
       border: 0 !important;
       border-radius: 0 !important;
       background: transparent !important;
       box-shadow: none !important;
-    }
-
-    #page-counsel .counsel-top3 {
-      margin-top: 0.85rem !important;
-    }
-
-    #page-counsel .counsel-top3 + .counsel-live-section {
-      margin-top: 1.05rem !important;
     }
 
     #page-reviews .match-result-list-panel {
@@ -14815,7 +14643,6 @@
       padding-left: 0.55rem !important;
     }
 
-    #page-counsel .counsel-layer-copy .counsel-top3-title,
     #page-counsel .counsel-layer-copy .counsel-live-title {
       padding-left: 0 !important;
       margin: 0 !important;
@@ -14835,6 +14662,62 @@
 
     #page-counsel .counsel-live-head {
       align-items: center !important;
+    }
+
+    #page-counsel > main.location-page,
+    #page-reviews > main.location-page {
+      min-height: calc(100svh - 6.25rem) !important;
+      padding-top: 1.5rem !important;
+      padding-bottom: 2rem !important;
+      align-content: start !important;
+    }
+
+    #page-counsel .counsel-page-main {
+      gap: 1.25rem !important;
+      grid-auto-rows: max-content !important;
+    }
+
+    #page-counsel .counsel-page-intro {
+      min-height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    #page-counsel .counsel-live-section,
+    #page-counsel .counsel-live-section.has-locked-height {
+      grid-template-rows: auto auto auto !important;
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+    }
+
+    #page-counsel .counsel-list,
+    #page-reviews .match-result-list {
+      align-content: start !important;
+    }
+
+    #page-counsel .counsel-card,
+    #page-reviews .match-result-card {
+      align-self: start !important;
+    }
+
+    #page-counsel .counsel-page-head {
+      justify-content: space-between !important;
+      align-items: center !important;
+      gap: 0.75rem !important;
+      padding: 0 0.25rem !important;
+      margin: 0 0 0.35rem !important;
+    }
+
+    #page-counsel .counsel-page-head .counsel-write-btn {
+      top: 0 !important;
+      min-height: 2.15rem !important;
+      padding: 0.42rem 0.86rem !important;
+      margin-left: auto !important;
+    }
+
+    #page-counsel .counsel-live-section {
+      gap: 0 !important;
     }
 
     /* ?곷떞 글쓰기 ?깅줉 踰꾪듉???좎껌 2?섏씠吏 ?좏깮 ?꾨즺 踰꾪듉怨??숈씪?섍쾶 ?곸슜 */
@@ -15512,18 +15395,11 @@
         <div class="counsel-page-intro page-intro-head">
           <div class="counsel-page-head">
             <h1 class="page-title"><svg class="page-title-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 9h8M8 13h5"/></svg>연애 상담</h1>
-
+            <button class="counsel-write-btn" type="button" data-counsel-write>글쓰기</button>
           </div>
           <p class="page-description">익명으로 편하게 고민을 나누고 서로 상담해 주세요.</p>
         </div>
-        <section class="counsel-top3" data-counsel-top3 hidden></section>
         <section class="counsel-live-section">
-          <div class="counsel-live-head">
-            <div class="counsel-layer-copy">
-              <h2 class="schedule-section-title counsel-live-title"><span class="section-title-icon" aria-hidden="true"></span>연애 상담</h2>
-            </div>
-            <button class="counsel-write-btn" type="button" data-counsel-write>글쓰기</button>
-          </div>
           <div class="counsel-list" data-counsel-list></div>
           <nav class="board-pagination" data-counsel-pagination aria-label="연애 상담 페이지 이동" hidden></nav>
         </section>
@@ -18104,8 +17980,9 @@
         setBoardDeleteModal(true, async () => {
           try {
             const { id: visitorId } = getVisitorIdentity();
+            const authUser = currentAuthPhoneKey();
             const id = counselDeleteBtn.dataset.counselDelete;
-            await visitorApi({ type: "counselDelete", id, visitorId });
+            await visitorApi({ type: "counselDelete", id, visitorId, authUser });
             counselPosts = counselPosts.filter((post) => String(post.id) !== String(id));
             myCounselPosts = myCounselPosts.filter((post) => String(post.id) !== String(id));
             writeCounselCache(counselPosts);
@@ -18294,6 +18171,7 @@
         }
         try {
           const { id: visitorId } = getVisitorIdentity();
+          const authUser = currentAuthPhoneKey();
           const author = document.querySelector("#counselAuthorInput")?.value.trim() || "익명";
           const gender = readProfileGender();
           if (isEditingCounsel) {
@@ -18303,6 +18181,7 @@
               ...(previousPost || {}),
               id: editingId,
               visitorId,
+              authUser: previousPost?.authUser || authUser,
               author,
               title,
               stage,
@@ -18314,7 +18193,7 @@
             };
             updateCounselPostInState(optimisticPost);
             closeCounselWriteModal();
-            visitorApi({ type: "counselUpdate", id: editingId, visitorId, author, title, stage, content, gender })
+            visitorApi({ type: "counselUpdate", id: editingId, visitorId, authUser, author, title, stage, content, gender })
               .then((result) => {
                 const savedPost = result.post ? {
                   ...optimisticPost,
@@ -18333,12 +18212,12 @@
                 alert(error?.message || "수정하지 못했습니다.");
               });
           } else {
-            const optimisticPost = createOptimisticCounselPost({ author, title, stage, content, visitorId, gender });
+            const optimisticPost = createOptimisticCounselPost({ author, title, stage, content, visitorId, gender, authUser });
             updateCounselPostInState(optimisticPost);
             writeForm.reset();
             updateCounselWriteSubmitReady();
             closeCounselWriteModal();
-            visitorApi({ type: "counselCreate", visitorId, author, title, stage, content, gender })
+            visitorApi({ type: "counselCreate", visitorId, authUser, author, title, stage, content, gender })
               .then((result) => {
                 const savedPost = result.post ? {
                   ...optimisticPost,
@@ -18350,6 +18229,7 @@
                   content: result.post.content || content,
                   gender: result.post.gender || gender,
                   visitorId: result.post.visitorId || visitorId,
+                  authUser: result.post.authUser || authUser,
                   isMine: result.post.isMine ?? true,
                   isPending: false
                 } : { ...optimisticPost, isPending: false };
@@ -19583,8 +19463,7 @@
     function counselAuthorGender(post) {
       const storedGender = ["남성", "여성"].includes(post?.gender) ? post.gender : "";
       if (storedGender) return storedGender;
-      const { id } = getVisitorIdentity();
-      if (post?.isMine || (!!post?.visitorId && String(post.visitorId) === id)) {
+      if (isMyCounselPost(post)) {
         return readProfileGender();
       }
       return "";
@@ -19608,11 +19487,9 @@
       const visitorMatches = Boolean(id && post?.visitorId && String(post.visitorId) === id);
       if (authPhone) {
         const recordAuth = recordAuthKey(post);
-        const recordPhone = recordPhoneKey(post);
-        if (recordAuth) return recordAuth === authPhone;
-        return visitorMatches && (!recordPhone || recordPhone === authPhone);
+        return Boolean(recordAuth && recordAuth === authPhone);
       }
-      return Boolean(id && post?.visitorId && String(post.visitorId) === id);
+      return Boolean(visitorMatches && !recordAuthKey(post));
     }
 
     function counselCanEditPost(post) {
@@ -19644,7 +19521,7 @@
       try { localStorage.setItem(counselCacheKey, JSON.stringify(posts.slice(0, 100))); } catch {}
     }
 
-    function createOptimisticCounselPost({ author, title, stage, content, visitorId, gender }) {
+    function createOptimisticCounselPost({ author, title, stage, content, visitorId, gender, authUser = "" }) {
       return {
         id: `local-counsel-${Date.now()}-${Math.random().toString(36).slice(2)}`,
         author: author || "익명",
@@ -19652,6 +19529,7 @@
         stage: stage || "관심 단계",
         content,
         visitorId,
+        authUser,
         gender: gender || "",
         createdAt: Date.now(),
         views: 0,
@@ -19729,15 +19607,14 @@
         </section>
       `;
     }
-    function counselCardHtml(post, postNumber = "", isTop3 = false) {
+    function counselCardHtml(post, postNumber = "") {
       const title = counselTitleWithStage(post) || "상담 글";
       const views = Number(post.views) || 0;
       const likes = Number(post.likeCount) || 0;
       const comments = Number(post.commentCount) || 0;
-      const topRankClass = isTop3 ? ` is-top-rank-${postNumber}` : "";
       return `
-        <button class="counsel-card${topRankClass}" type="button" data-counsel-open="${htmlAttr(post.id)}" title="${htmlAttr(title)}" aria-label="${htmlAttr(title)} 자세히 보기">
-          <span class="counsel-card-number${isTop3 ? ` is-top3 is-rank-${postNumber}` : ""}">${htmlAttr(postNumber)}</span>
+        <button class="counsel-card" type="button" data-counsel-open="${htmlAttr(post.id)}" title="${htmlAttr(title)}" aria-label="${htmlAttr(title)} 자세히 보기">
+          <span class="counsel-card-number">${htmlAttr(postNumber)}</span>
           <span class="counsel-card-title">${counselTitleHtml(post)}</span>
           ${counselAuthorHtml(post)}
           <span class="counsel-card-date">${htmlAttr(homeCounselShortDate(post.createdAt))}</span>
@@ -19745,27 +19622,6 @@
         </button>
       `;
     }
-    function renderCounselTop3() {
-      const top3Container = document.querySelector("[data-counsel-top3]");
-      if (!top3Container) return;
-      const ranked = [...counselPosts]
-        .filter((post) => (Number(post.views) || 0) > 0)
-        .sort((a, b) => (Number(b.views) || 0) - (Number(a.views) || 0) || b.createdAt - a.createdAt)
-        .slice(0, 3);
-      if (!ranked.length) {
-        top3Container.hidden = true;
-        top3Container.innerHTML = "";
-        return;
-      }
-      top3Container.hidden = false;
-      top3Container.innerHTML = `
-        <h2 class="schedule-section-title counsel-top3-title"><span class="section-title-icon" aria-hidden="true"></span>인기글 TOP3</h2>
-        <div class="counsel-list counsel-top3-list">
-          ${ranked.map((post, index) => counselCardHtml(post, index + 1, true)).join("")}
-        </div>
-      `;
-    }
-
     const panelLockedHeights = {};
     function applyLockedPanelHeight(panel, key) {
       if (!panel || !panel.parentElement) return;
@@ -19802,12 +19658,14 @@
       const container = document.querySelector("[data-counsel-list]");
       const pagination = document.querySelector("[data-counsel-pagination]");
       const panel = document.querySelector("#page-counsel .counsel-live-section");
-      renderCounselTop3();
+      if (panel) {
+        panel.classList.remove("has-locked-height");
+        panel.style.removeProperty("--locked-panel-height");
+      }
       if (!container) return;
       if (!counselPosts.length) {
         container.innerHTML = `<p class="mypage-empty">등록된 글이 없습니다.</p>`;
         if (pagination) pagination.hidden = true;
-        applyLockedPanelHeight(panel, "counsel");
         return;
       }
       const sortedPosts = [...counselPosts].sort((a, b) => b.createdAt - a.createdAt);
@@ -19820,7 +19678,6 @@
         return counselCardHtml(post, postNumber);
       }).join("");
       if (!pagination) {
-        applyLockedPanelHeight(panel, "counsel");
         return;
       }
       pagination.hidden = totalPages <= 1;
@@ -19829,7 +19686,6 @@
         <span class="board-page-status">${counselCurrentPage} / ${totalPages}</span>
         <button class="board-page-button" type="button" data-counsel-next ${counselCurrentPage === totalPages ? "disabled" : ""} aria-label="다음 페이지" title="다음 페이지"><span>›</span></button>
       ` : "";
-      applyLockedPanelHeight(panel, "counsel");
     }
 
     function mergeCounselPostsWithLocal(serverPosts) {
@@ -19860,7 +19716,9 @@
       }
       try {
         const { id } = getVisitorIdentity();
-        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=counselList&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`);
+        const authUser = currentAuthPhoneKey();
+        const authParam = authUser ? `&authUser=${encodeURIComponent(authUser)}` : "";
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=counselList&visitorId=${encodeURIComponent(id)}${authParam}&t=${Date.now()}`);
         const result = await readJsonResponse(response, "상담 목록을 불러오지 못했습니다.");
         if (response.ok && result.ok && Array.isArray(result.posts)) {
           counselPosts = mergeCounselPostsWithLocal(result.posts);
@@ -19906,11 +19764,9 @@
       const visitorMatches = Boolean(visitorId && post?.visitorId && post.visitorId === visitorId);
       if (authPhone) {
         const recordAuth = recordAuthKey(post);
-        const recordPhone = recordPhoneKey(post);
-        if (recordAuth) return recordAuth === authPhone;
-        return visitorMatches && (!recordPhone || recordPhone === authPhone);
+        return Boolean(recordAuth && recordAuth === authPhone);
       }
-      return Boolean(visitorId && post?.visitorId && post.visitorId === visitorId);
+      return Boolean(visitorMatches && !recordAuthKey(post));
     }
 
     function renderMyCounsel() {
@@ -19955,14 +19811,20 @@
         myCounselPosts = cachedMine;
         myCounselPage = 1;
         renderMyCounsel();
+      } else {
+        myCounselPosts = [];
+        myCounselPage = 1;
+        renderMyCounsel();
       }
       try {
         const { id } = getVisitorIdentity();
-        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=counselMine&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`, { cache: "no-store" });
+        const authUser = currentAuthPhoneKey();
+        const authParam = authUser ? `&authUser=${encodeURIComponent(authUser)}` : "";
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=counselMine&visitorId=${encodeURIComponent(id)}${authParam}&t=${Date.now()}`, { cache: "no-store" });
         const result = await readJsonResponse(response, "내 상담 내역을 불러오지 못했습니다.");
         let posts = response.ok && result.ok && Array.isArray(result.posts) ? result.posts : [];
         if (!posts.length) {
-          const fallbackResponse = await fetch(`${GOOGLE_SCRIPT_URL}?action=counselList&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`, { cache: "no-store" });
+          const fallbackResponse = await fetch(`${GOOGLE_SCRIPT_URL}?action=counselList&visitorId=${encodeURIComponent(id)}${authParam}&t=${Date.now()}`, { cache: "no-store" });
           const fallbackResult = await readJsonResponse(fallbackResponse, "상담 목록을 불러오지 못했습니다.");
           const fallbackPosts = fallbackResponse.ok && fallbackResult.ok && Array.isArray(fallbackResult.posts) ? fallbackResult.posts : [];
           posts = fallbackPosts.filter(isMyCounselPost);
@@ -20055,14 +19917,20 @@
         myBoardPosts = cachedMine;
         myBoardPage = 1;
         renderMyBoardPosts();
+      } else {
+        myBoardPosts = [];
+        myBoardPage = 1;
+        renderMyBoardPosts();
       }
       try {
-        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardMine&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`, { cache: "no-store" });
+        const authUser = currentAuthPhoneKey();
+        const authParam = authUser ? `&authUser=${encodeURIComponent(authUser)}` : "";
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardMine&visitorId=${encodeURIComponent(id)}${authParam}&t=${Date.now()}`, { cache: "no-store" });
         const result = await readJsonResponse(response, "내 문의 내역을 불러오지 못했습니다.");
         if (!response.ok || !result.ok || !Array.isArray(result.posts)) throw new Error(result.error || "문의 목록을 불러오지 못했습니다.");
         let posts = result.posts;
         if (!posts.length) {
-          const fallbackResponse = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardList&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`, { cache: "no-store" });
+          const fallbackResponse = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardList&visitorId=${encodeURIComponent(id)}${authParam}&t=${Date.now()}`, { cache: "no-store" });
           const fallbackResult = await readJsonResponse(fallbackResponse, "문의 목록을 불러오지 못했습니다.");
           const fallbackPosts = fallbackResponse.ok && fallbackResult.ok && Array.isArray(fallbackResult.posts) ? fallbackResult.posts : [];
           posts = fallbackPosts.filter((post) => isMyBoardPost(post, id));
@@ -20092,6 +19960,10 @@
         else myCounselPosts.unshift(nextPost);
         myCounselPage = 1;
         renderMyCounsel();
+      } else {
+        const beforeLength = myCounselPosts.length;
+        myCounselPosts = myCounselPosts.filter((post) => String(post.id) !== String(nextPost.id));
+        if (beforeLength !== myCounselPosts.length) renderMyCounsel();
       }
       writeCounselCache(counselPosts);
       renderCounselList();
@@ -23620,10 +23492,11 @@
       } catch (_) {}
     }
 
-    function createOptimisticBoardPost({ author, category, password, content, visitorId, attachments = [] }) {
+    function createOptimisticBoardPost({ author, category, password, content, visitorId, authUser = "", attachments = [] }) {
       return {
         id: `local-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
         visitorId,
+        authUser,
         author: normalizeBoardAuthor(author),
         category,
         content,
@@ -23671,7 +23544,9 @@
       }
       try {
         const { id } = getVisitorIdentity();
-        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardList&visitorId=${encodeURIComponent(id)}&t=${Date.now()}`, { cache: "no-store" });
+        const authUser = currentAuthPhoneKey();
+        const authParam = authUser ? `&authUser=${encodeURIComponent(authUser)}` : "";
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardList&visitorId=${encodeURIComponent(id)}${authParam}&t=${Date.now()}`, { cache: "no-store" });
         const result = await readJsonResponse(response, "게시글 목록을 불러오지 못했습니다.");
         if (!response.ok || !result.ok || !Array.isArray(result.posts)) {
           throw new Error(result.error || "게시글 목록을 불러오지 못했습니다.");
@@ -24312,6 +24187,7 @@
       const submittedPassword = password.value;
       const submittedContent = content.value.trim();
       const submittedVisitorId = getVisitorIdentity().id;
+      const submittedAuthUser = currentAuthPhoneKey();
       const attachmentFiles = [...boardForm.querySelectorAll('input[type="file"][name^="attachment"]')]
         .map((input) => input.files?.[0])
         .filter(Boolean)
@@ -24328,6 +24204,7 @@
         password: submittedPassword,
         content: submittedContent,
         visitorId: submittedVisitorId,
+        authUser: submittedAuthUser,
         attachments: optimisticAttachments
       });
 
@@ -24363,6 +24240,7 @@
         return boardApi({
           type: "boardCreate",
           visitorId: submittedVisitorId,
+          authUser: submittedAuthUser,
           author: submittedAuthor,
           category: submittedCategory,
           password: submittedPassword,
@@ -24382,6 +24260,7 @@
             createdAt: result.post?.createdAt || result.createdAt || optimisticPost.createdAt,
             status: result.post?.status || result.status || "접수",
             visitorId: result.post?.visitorId || submittedVisitorId,
+            authUser: result.post?.authUser || submittedAuthUser,
             isMine: result.post?.isMine ?? true,
             isPending: false
           };
@@ -24846,12 +24725,18 @@
         ...readScheduleCache(),
         ...schedulePosts
       ].filter((post, index) => post?.active !== false && String(post?.category || "").trim() === "매칭결과" && !isBlockedManagedMatchDuplicate(post) && !deletedIds.has(managedDashboardPostId(post, index)));
+      if (managedPosts.length) {
+        const seenManaged = new Set();
+        return managedPosts.map(schedulePostToMatchResultItem).filter((item) => {
+          const key = String(item.id || item.episode || item.title || "");
+          if (seenManaged.has(key)) return false;
+          seenManaged.add(key);
+          return true;
+        });
+      }
       const sampleItems = matchResultSampleItems.filter((item) => !deletedIds.has(`dashboard-match-${item.episode}`));
       const seen = new Set();
-      return [
-        ...managedPosts.map(schedulePostToMatchResultItem),
-        ...sampleItems
-      ].filter((item) => {
+      return sampleItems.filter((item) => {
         const key = String(item.id || item.episode || item.title || "");
         if (seen.has(key)) return false;
         seen.add(key);
