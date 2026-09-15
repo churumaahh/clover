@@ -14677,6 +14677,19 @@
       grid-auto-rows: max-content !important;
     }
 
+    #page-reviews .match-result-page {
+      gap: 1rem !important;
+      grid-auto-rows: max-content !important;
+      align-content: start !important;
+    }
+
+    #page-reviews .match-result-page-head {
+      min-height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      align-content: start !important;
+    }
+
     #page-counsel .counsel-page-intro {
       min-height: 0 !important;
       margin: 0 !important;
@@ -24734,14 +24747,7 @@
           return true;
         });
       }
-      const sampleItems = matchResultSampleItems.filter((item) => !deletedIds.has(`dashboard-match-${item.episode}`));
-      const seen = new Set();
-      return sampleItems.filter((item) => {
-        const key = String(item.id || item.episode || item.title || "");
-        if (seen.has(key)) return false;
-        seen.add(key);
-        return true;
-      });
+      return [];
     }
 
     function matchResultCardHtml(item) {
@@ -24826,6 +24832,17 @@
       const start = (matchResultCurrentPage - 1) * matchResultPageSize;
       const pageItems = items.slice(start, start + matchResultPageSize);
       container.innerHTML = pageItems.map(matchResultCardHtml).join("");
+      if (!items.length) {
+        if (pagination) {
+          pagination.hidden = true;
+          pagination.innerHTML = "";
+        }
+        if (panel) {
+          panel.classList.remove("has-locked-height");
+          panel.style.removeProperty("--locked-panel-height");
+        }
+        return;
+      }
       if (!pagination) {
         applyLockedPanelHeight(panel, "matchResult");
         return;
