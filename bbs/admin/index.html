@@ -3090,11 +3090,23 @@
       return `assets/optimized/${name}.webp${match[3] || ""}`;
     }
 
+    function googleDriveImageUrl(value, size = 1200) {
+      const raw = String(value || "").trim();
+      if (!raw) return "";
+      const thumbnail = raw.match(/^https:\/\/drive\.google\.com\/thumbnail\?id=([^&]+)(?:&.*)?$/i);
+      if (thumbnail) return `https://drive.google.com/thumbnail?id=${encodeURIComponent(decodeURIComponent(thumbnail[1]))}&sz=w${size}`;
+      const uc = raw.match(/^https:\/\/drive\.google\.com\/uc\?export=view&id=([^&]+)(?:&.*)?$/i);
+      if (uc) return `https://drive.google.com/thumbnail?id=${encodeURIComponent(decodeURIComponent(uc[1]))}&sz=w${size}`;
+      const file = raw.match(/^https:\/\/drive\.google\.com\/file\/d\/([^/]+)\//i);
+      if (file) return `https://drive.google.com/thumbnail?id=${encodeURIComponent(decodeURIComponent(file[1]))}&sz=w${size}`;
+      return raw;
+    }
+
     function adminImageUrl(value) {
       const raw = String(value || "").trim();
       if (!raw) return "";
       if (/^data:image\//i.test(raw)) return raw;
-      if (/^(https?:)?\/\//i.test(raw)) return raw;
+      if (/^(https?:)?\/\//i.test(raw)) return googleDriveImageUrl(raw);
       if (raw.startsWith("../../")) return raw;
       const optimized = optimizedAssetPath(raw.replace(/^\/+/, ""));
       return `../../${optimized}`;
@@ -4946,7 +4958,7 @@
         category: bp.category || "일정 안내",
         title: bp.title || "",
         content: bp.content || "",
-        imageUrl: bp.imageUrl || DASHBOARD_FIELD_IMAGES[0],
+        imageUrl: googleDriveImageUrl(bp.imageUrl) || DASHBOARD_FIELD_IMAGES[0],
         views: bp.views || 0,
         likes: bp.likes || 0,
         comments: bp.comments || [],
@@ -4955,8 +4967,8 @@
         meetingMode: bp.meetingMode || "1:1",
         ageRange: normalizeAgeRangeText(bp.ageRange || "27-36세"),
         address: bp.address || "부산 부산진구 서전로 8번길 27",
-        mapImageUrl: bp.mapImageUrl || "",
-        mapImageUrls: Array.isArray(bp.mapImageUrls) ? bp.mapImageUrls : [],
+        mapImageUrl: googleDriveImageUrl(bp.mapImageUrl),
+        mapImageUrls: (Array.isArray(bp.mapImageUrls) ? bp.mapImageUrls : scheduleImageUrlList(bp.mapImageUrl)).map((url) => googleDriveImageUrl(url)).filter(Boolean),
         active: bp.active !== false
       };
     }
