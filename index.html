@@ -455,6 +455,23 @@
       pointer-events: none;
     }
 
+    #heroBanner > .hero-fixed-copy,
+    #heroBanner > .hero-fixed-copy.hero-content {
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    #heroBanner > .hero-fixed-copy::before,
+    #heroBanner > .hero-fixed-copy::after {
+      content: none !important;
+      display: none !important;
+    }
+
 
     .hero-kicker {
       display: inline-flex;
@@ -15161,7 +15178,7 @@
         <article class="hero-slide is-active" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg')"></article>
         <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1784446244/kb6ybdlactigqtheezvm.jpg')"></article>
         <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg')"></article>
-        <div class="hero-content hero-fixed-copy">
+        <div class="hero-content hero-fixed-copy" style="padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;">
           <span class="hero-kicker">CLOVER NOW</span>
           <h1>너와 나, 자연스러운 설렘</h1>
           <p>반복되는 일상에 새로운 설렘</p>
@@ -26960,6 +26977,12 @@
       return "";
     }
 
+    function browserVideoUrl(value) {
+      const raw = String(value || "").trim();
+      if (!raw || raw === "삭제") return "";
+      return isVideoMedia(raw) ? raw : "";
+    }
+
     function normalizeHeroSlide(item) {
       const imageUrl = browserImageUrl(item.imageUrl || item.image || item.sourceImageUrl || item.originalImageUrl || item.imageSourceUrl);
       return {
@@ -26967,7 +26990,7 @@
         title: dashboardText(String(item.title || "")),
         description: dashboardText(String(item.description || "")),
         imageUrl: imageUrl,
-        videoUrl: item.videoUrl || item.heroVideoUrl || item.video || ""
+        videoUrl: browserVideoUrl(item.videoUrl || item.heroVideoUrl || item.video || "")
       };
     }
     function normalizeHeroSlides(items) {
@@ -27064,6 +27087,7 @@
 
       const fixedCopy = document.createElement("div");
       fixedCopy.className = "hero-content hero-fixed-copy";
+      fixedCopy.style.cssText = "padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;";
       const heroCopy = slides.find((item) => item.title || item.description) || {};
       const fixedKicker = document.createElement("span");
       fixedKicker.className = "hero-kicker";
