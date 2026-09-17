@@ -177,9 +177,16 @@
     .nav-btn[data-nav="counsel"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 5h14v10H8l-3 3V5z' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M8 9h8M8 12h5' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); }
     .nav-btn[data-nav="memo"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M8 8h8M8 12h8M8 16h5' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); }
     .nav-btn[data-nav="application"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='6' y='3' width='12' height='18' rx='2' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M9 8h6M9 12h6M9 16h3' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); }
+    .nav-btn[data-nav="application"],
+    .nav-btn[data-nav="application"].is-active {
+      color: var(--accent) !important;
+    }
     .nav-btn[data-nav="board"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6h16v12H4z' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='m4 7 8 6 8-6' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
     .nav-btn[data-nav="menubar"] { --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='3' y='5' width='18' height='14' rx='3' fill='none' stroke='black' stroke-width='2'/%3E%3Ccircle cx='8' cy='12' r='1.7' fill='black'/%3E%3Ccircle cx='12' cy='12' r='1.7' fill='black'/%3E%3Ccircle cx='16' cy='12' r='1.7' fill='black'/%3E%3C/svg%3E"); }
     .nav-btn.is-active { outline: 2px solid var(--accent); background: #1f2b22; color: #fff; }
+    .nav-btn[data-nav="application"].is-active {
+      color: var(--accent) !important;
+    }
     .nav-group {
       display: grid;
       gap: 8px;
@@ -677,6 +684,7 @@
       white-space: pre-wrap;
     }
     .dashboard-board-card {
+      position: relative;
       gap: 0;
       padding: 0;
       overflow: hidden;
@@ -686,12 +694,38 @@
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 12px;
       width: 100%;
-      padding: 15px;
+      padding: 15px 86px 15px 15px;
       border: 0;
       background: transparent;
       color: inherit;
       text-align: left;
       cursor: pointer;
+    }
+    .dashboard-board-card-actions {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 2;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .dashboard-board-card-actions .small-btn {
+      min-width: 52px;
+      min-height: 32px;
+      padding: 0 10px;
+      border-radius: 9px;
+      border: 1px solid #343434;
+      background: #242424;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 950;
+      box-shadow: 2px 3px 9px rgba(0, 0, 0, .24);
+    }
+    .dashboard-board-card-actions .danger-btn {
+      color: #ff7b7b;
+      border-color: rgba(255, 96, 96, .42);
+      background: #241818;
     }
     .dashboard-board-summary {
       display: grid;
@@ -2657,10 +2691,9 @@
         <button class="nav-btn" type="button" data-nav="field">현장 <span class="count-pill" data-dashboard-menu-count="field">0</span></button>
         <button class="nav-btn" type="button" data-nav="match">매칭결과 <span class="count-pill" data-dashboard-menu-count="match">0</span></button>
         <button class="nav-btn" type="button" data-nav="counsel">연애상담 <span class="count-pill" data-dashboard-menu-count="counsel">0</span></button>
-        <div class="nav-divider" role="separator" aria-hidden="true"></div>
-        <button class="nav-btn" type="button" data-nav="application">신청 접수 <span class="count-pill" data-dashboard-menu-count="application">0</span></button>
         <button class="nav-btn" type="button" data-nav="board">문의 하기 <span class="count-pill" data-dashboard-menu-count="board">0</span></button>
         <div class="nav-divider" role="separator" aria-hidden="true"></div>
+        <button class="nav-btn" type="button" data-nav="application">신청 접수 <span class="count-pill" data-dashboard-menu-count="application">0</span></button>
         <button class="nav-btn" type="button" data-nav="memo">메모장 <span class="count-pill" data-memo-menu-count>0</span></button>
         <div class="nav-divider" role="separator" aria-hidden="true"></div>
         <button class="nav-btn" type="button" data-nav="menubar">메뉴바 아이콘 설정 <span class="count-pill">ON</span></button>
@@ -4947,7 +4980,9 @@
       dashboardData.clover = uniqueDashboardItems([...dashboardLocalPostsFor("clover"), ...dashboardData.clover]);
       dashboardData.field = uniqueDashboardItems([...dashboardLocalPostsFor("field"), ...dashboardData.field]);
       dashboardData.match = uniqueDashboardItems([...dashboardLocalPostsFor("match"), ...dashboardData.match]);
-      dashboardData.board = mergeDashboardBoardPosts(dashboardData.board, readSharedDashboardCache(PUBLIC_BOARD_CACHE_KEY));
+      dashboardData.board = GOOGLE_SCRIPT_URL
+        ? []
+        : mergeDashboardBoardPosts(dashboardData.board, readSharedDashboardCache(PUBLIC_BOARD_CACHE_KEY));
       if (!dashboardData.counsel.length) dashboardData.counsel = readSharedDashboardCache(PUBLIC_COUNSEL_CACHE_KEY);
       if (!dashboardData.application.length) dashboardData.application = applyDashboardApplicationStatusOverrides(readSharedDashboardCache(PUBLIC_APPLICATION_CACHE_KEY));
       ["clover", "field", "match"].forEach((name) => {
@@ -5017,9 +5052,8 @@
         try {
           if (GOOGLE_SCRIPT_URL) {
             const result = await apiGetWithTimeout("boardList", { includeInactive: "1", adminPassword: ADMIN_PASSWORD });
-            const posts = Array.isArray(result?.posts) ? result.posts : [];
-            if (posts.length) {
-              dashboardData.board = mergeDashboardBoardPosts(posts, readSharedDashboardCache(PUBLIC_BOARD_CACHE_KEY), dashboardData.board);
+            if (Array.isArray(result?.posts)) {
+              dashboardData.board = mergeDashboardBoardPosts(result.posts);
               writeSharedDashboardCache(PUBLIC_BOARD_CACHE_KEY, dashboardData.board);
             }
           }
@@ -5096,7 +5130,7 @@
             }).catch(() => {}),
             apiGet("boardList", { includeInactive: "1", adminPassword: ADMIN_PASSWORD }).then((result) => {
               const posts = Array.isArray(result.posts) ? result.posts : [];
-              dashboardData.board = mergeDashboardBoardPosts(posts, readSharedDashboardCache(PUBLIC_BOARD_CACHE_KEY), dashboardData.board);
+              dashboardData.board = mergeDashboardBoardPosts(posts);
               writeSharedDashboardCache(PUBLIC_BOARD_CACHE_KEY, dashboardData.board);
             }).catch(() => {}),
             apiGet("counselList", { includeInactive: "1" }).then((result) => {
@@ -5974,6 +6008,9 @@
             </span>
             <span class="dashboard-board-status ${statusClass}">${htmlAttr(status)}</span>
           </button>
+          <span class="dashboard-board-card-actions">
+            <button class="small-btn danger-btn" type="button" data-dashboard-board-delete="${htmlAttr(id)}">삭제</button>
+          </span>
           <div class="dashboard-board-details">
             ${dashboardBoardMessageHtml("original", "작성자 원문", content || "문의 내용이 아직 표시되지 않습니다.")}
             ${dashboardBoardAttachmentsHtml(attachments)}
@@ -6990,6 +7027,32 @@
       }
     }
 
+    async function deleteDashboardBoardPost(card) {
+      if (!card) return;
+      const id = String(card.dataset.dashboardBoardCard || card.dataset.dashboardItem || "").trim();
+      if (!id || !confirm("해당 문의 글을 삭제하시겠습니까?")) return;
+      const previousBoard = [...(dashboardData.board || [])];
+      const deleteButton = card.querySelector("[data-dashboard-board-delete]");
+      if (deleteButton) {
+        deleteButton.disabled = true;
+        deleteButton.textContent = "삭제 중";
+      }
+      dashboardOpenBoardIds.delete(id);
+      dashboardData.board = previousBoard.filter((post) => dashboardItemId(post) !== id);
+      writeSharedDashboardCache(PUBLIC_BOARD_CACHE_KEY, dashboardData.board);
+      renderContentDashboards();
+      try {
+        await apiPost({ type: "boardDelete", id });
+        await loadContentDashboards("board");
+        showToast("문의 글을 삭제했습니다.");
+      } catch (error) {
+        dashboardData.board = previousBoard;
+        writeSharedDashboardCache(PUBLIC_BOARD_CACHE_KEY, dashboardData.board);
+        renderContentDashboards();
+        showToast(`문의 삭제 실패: ${error.message}`);
+      }
+    }
+
     function setDashboardBoardStatusOnCard(card, status) {
       const badge = card?.querySelector(".dashboard-board-status");
       if (!badge) return;
@@ -7356,6 +7419,13 @@
             applicationCard.classList.add("is-open");
             applicationCard.setAttribute("aria-expanded", "true");
           }
+          return;
+        }
+        const boardDelete = event.target.closest("[data-dashboard-board-delete]");
+        if (boardDelete) {
+          event.preventDefault();
+          event.stopPropagation();
+          deleteDashboardBoardPost(boardDelete.closest("[data-dashboard-board-card]"));
           return;
         }
         const boardToggle = event.target.closest("[data-dashboard-board-toggle]");
