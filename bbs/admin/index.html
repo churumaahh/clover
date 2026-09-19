@@ -122,6 +122,9 @@
       transform: translateY(1px);
       box-shadow: var(--inset);
     }
+    .icon-btn[aria-busy="true"] svg {
+      animation: list-loading-spin .7s linear infinite;
+    }
     .theme-toggle [data-theme-icon] { display: none; }
     html[data-admin-theme="dark"] .theme-toggle [data-theme-icon="light"],
     html[data-admin-theme="light"] .theme-toggle [data-theme-icon="dark"] { display: block; }
@@ -310,6 +313,15 @@
       gap: 8px;
       flex: 0 0 auto;
     }
+    .dashboard-head-actions .icon-btn {
+      order: 99;
+    }
+    .dashboard-head > .icon-btn,
+    .dashboard-head-actions .icon-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+    }
     .dashboard-list {
       display: grid;
       gap: 10px;
@@ -404,9 +416,21 @@
       transform: translateX(18px);
       background: var(--accent);
     }
-    .hero-remote-form {
+    .hero-copy-form {
       display: grid;
-      gap: 9px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: end;
+      margin-bottom: 12px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel-2);
+      box-shadow: var(--shadow);
+    }
+    .hero-copy-form .soft-btn {
+      min-width: 92px;
+      min-height: 42px;
     }
     .remote-field {
       display: grid;
@@ -417,6 +441,7 @@
       line-height: 1.35;
     }
     .remote-field input {
+      width: 100%;
       min-height: 38px;
       border: 1px solid #343434;
       border-radius: 10px;
@@ -445,10 +470,11 @@
     .hero-admin-item {
       position: relative;
       display: grid;
-      grid-template-columns: 112px minmax(0, 1fr);
-      gap: 12px;
+      grid-template-columns: minmax(200px, 240px) minmax(0, 320px);
+      gap: 18px;
       align-items: center;
-      padding: 58px 12px 12px;
+      justify-content: start;
+      padding: 18px;
       border: 1px solid var(--line);
       border-radius: 14px;
       background: var(--panel);
@@ -534,12 +560,9 @@
       filter: saturate(1.15) brightness(1.08);
     }
     .hero-admin-rank {
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      z-index: 2;
       display: inline-flex;
       align-items: center;
+      justify-self: start;
       min-height: 22px;
       padding: 0 8px;
       border-radius: 999px;
@@ -573,7 +596,35 @@
     .hero-admin-fields {
       display: grid;
       gap: 8px;
+      width: min(100%, 320px);
       min-width: 0;
+      justify-self: start;
+    }
+    .hero-admin-summary {
+      display: grid;
+      gap: 7px;
+      min-width: 0;
+      padding-right: 6px;
+    }
+    .hero-admin-summary strong {
+      overflow: hidden;
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.35;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .hero-admin-summary span {
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.4;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .hero-edit-layer {
+      margin: 0;
     }
     .hero-admin-field {
       display: grid;
@@ -611,6 +662,38 @@
       padding: 0 10px;
       border-radius: 9px;
       font-size: 13px;
+    }
+    .hero-admin-actions .toggle-btn {
+      min-width: 62px;
+      min-height: 36px;
+      padding: 0 10px;
+      border: 1px solid #343434;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 950;
+      box-shadow: 2px 3px 9px rgba(0, 0, 0, .24);
+    }
+    .hero-admin-actions .toggle-btn.is-on {
+      background: #242424;
+      border-color: rgba(0, 255, 64, .28);
+      color: var(--accent);
+      box-shadow: 2px 3px 9px rgba(0, 0, 0, .24), inset 0 0 0 1px rgba(0, 255, 64, .08);
+    }
+    .hero-admin-actions .toggle-btn.is-off {
+      background: #242424;
+      border-color: #343434;
+      color: #9aa4b2;
+    }
+    html[data-admin-theme="light"] .hero-admin-actions .toggle-btn {
+      background: #f4f6f8;
+      border-color: #d8dee6;
+      color: #768190;
+      box-shadow: 3px 4px 10px rgba(31, 41, 55, .1);
+    }
+    html[data-admin-theme="light"] .hero-admin-actions .toggle-btn.is-on {
+      background: #edf9f0;
+      border-color: rgba(0, 168, 50, .3);
+      color: var(--accent);
     }
     .hero-admin-toggle {
       display: block;
@@ -1381,13 +1464,6 @@
       filter: grayscale(.35);
     }
     .event-list { display: grid; gap: 12px; }
-    .create-layer-wrap {
-      display: grid;
-      gap: 10px;
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px solid var(--line);
-    }
     .create-btn {
       width: 100%;
       min-height: 54px;
@@ -1461,6 +1537,12 @@
       transform: translateY(-4px) scale(.96);
       pointer-events: none;
       transition: opacity .14s ease, transform .14s ease;
+    }
+    .hero-admin-media {
+      display: grid;
+      gap: 6px;
+      width: 100%;
+      align-self: start;
     }
     .event-card.is-off { opacity: .58; }
     .event-card.is-pressing {
@@ -1867,20 +1949,32 @@
       line-height: 1;
       white-space: nowrap;
     }
+    .schedule-admin-panel {
+      align-content: start;
+    }
+    .schedule-maker-host:empty {
+      display: none;
+    }
+    .schedule-maker[hidden] {
+      display: none !important;
+    }
     .schedule-maker {
       display: grid;
       gap: 14px;
-      margin-bottom: 14px;
+      margin: 2px 0 14px;
       padding: 16px;
       border: 1px solid rgba(0, 255, 64, .22);
       border-radius: 16px;
       background: #181818;
       box-shadow: inset 0 1px 0 rgba(255,255,255,.03), 0 16px 32px rgba(0,0,0,.22);
     }
+    .schedule-layer-list > .schedule-maker {
+      margin: 2px 0 8px;
+    }
     .schedule-maker-head {
       display: flex;
-      align-items: stretch;
-      justify-content: stretch;
+      align-items: center;
+      justify-content: space-between;
       gap: 8px;
     }
     .schedule-maker-head h2 {
@@ -2017,6 +2111,10 @@
     }
     .schedule-layer-card:hover {
       border-color: rgba(0, 255, 64, .4);
+    }
+    .schedule-layer-card:focus-visible {
+      outline: 2px solid #00ff40;
+      outline-offset: 2px;
     }
     .schedule-layer-card.is-selected {
       border-color: #00ff40;
@@ -2473,13 +2571,20 @@
     }
     @media (max-width: 620px) {
       .edit-grid { grid-template-columns: 1fr; }
+      .hero-copy-form { grid-template-columns: 1fr; }
+      .hero-copy-form .soft-btn { width: 100%; }
       .event-price-groups { grid-template-columns: 1fr; gap: 14px; }
       .schedule-maker-head { align-items: stretch; flex-direction: column; }
       .schedule-head-actions { justify-content: stretch; }
       .schedule-maker-grid { grid-template-columns: 1fr; }
       .schedule-layer-card { grid-template-columns: 1fr; }
       .schedule-card-actions { justify-content: flex-start; }
-      .hero-admin-item { grid-template-columns: 1fr; }
+      .hero-admin-item {
+        grid-template-columns: 1fr;
+        padding: 58px 14px 14px;
+      }
+      .hero-admin-thumb,
+      .hero-admin-fields { width: min(100%, 320px); }
       .hero-admin-actions { justify-items: stretch; }
       .memo-participant-row,
       .memo-participant-fields { grid-template-columns: 1fr; }
@@ -2641,21 +2746,107 @@
   </section>
   <div class="layout">
     <main>
-      <section class="panel admin-panel" data-admin-panel="events" hidden>
+      <section class="panel admin-panel dashboard-panel" data-admin-panel="events" hidden>
+        <div class="dashboard-head">
+          <h1>선택창 관리1</h1>
+          <span class="dashboard-head-actions">
+            <button class="soft-btn" type="button" data-create-event="rotation">추가</button>
+            <button class="soft-btn" type="button" data-event-sync="rotation">현재 상태 업로드</button>
+            <button class="icon-btn" type="button" data-event-refresh="rotation" aria-label="선택창 관리1 새로고침" title="선택창 관리1 새로고침">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+            </button>
+          </span>
+        </div>
         <div class="event-list" data-list></div>
         <div class="empty" data-empty>검색 결과가 없습니다.</div>
-        <div class="create-layer-wrap">
-          <button class="create-btn" type="button" data-create-event="rotation">로테이션 소개팅 생성</button>
-        </div>
       </section>
-      <section class="panel admin-panel" data-admin-panel="events2" hidden>
+      <section class="panel admin-panel dashboard-panel" data-admin-panel="events2" hidden>
+        <div class="dashboard-head">
+          <h1>선택창 관리2</h1>
+          <span class="dashboard-head-actions">
+            <button class="soft-btn" type="button" data-create-event="party">추가</button>
+            <button class="soft-btn" type="button" data-event-sync="party">현재 상태 업로드</button>
+            <button class="icon-btn" type="button" data-event-refresh="party" aria-label="선택창 관리2 새로고침" title="선택창 관리2 새로고침">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+            </button>
+          </span>
+        </div>
         <div class="event-list" data-party-list></div>
         <div class="empty" data-party-empty>검색 결과가 없습니다.</div>
-        <div class="create-layer-wrap">
-          <button class="create-btn is-party" type="button" data-create-event="party">소모임 · 파티 생성</button>
-        </div>
       </section>
-      <section class="panel admin-panel" data-admin-panel="schedule">
+      <section class="panel admin-panel dashboard-panel schedule-admin-panel" data-admin-panel="schedule">
+        <div class="dashboard-head">
+          <h1>일정 안내</h1>
+          <span class="dashboard-head-actions">
+            <button class="soft-btn" type="button" data-schedule-add>추가</button>
+            <button class="icon-btn" type="button" data-schedule-refresh aria-label="일정 새로고침" title="일정 새로고침">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+                <path d="M21 3v6h-6" />
+              </svg>
+            </button>
+          </span>
+        </div>
+        <div class="schedule-maker-host" data-schedule-maker-host>
+          <form class="schedule-maker" data-schedule-maker hidden>
+            <div class="schedule-maker-head">
+              <h2 data-schedule-maker-title>일정 안내 생성</h2>
+              <button class="small-btn" type="button" data-schedule-close>닫기</button>
+            </div>
+            <div class="schedule-maker-grid">
+              <div class="edit-field schedule-date-field is-wide">날짜
+                <input name="scheduleDate" type="hidden" required>
+                <div class="schedule-date-calendar" data-schedule-date-calendar></div>
+              </div>
+              <label class="edit-field">인원 구성
+                <select name="meetingMode">
+                  <option value="1:1">1:1</option>
+                  <option value="6:6">6:6</option>
+                </select>
+              </label>
+              <label class="edit-field">연령대
+                <select name="ageRange" data-dashboard-age-select></select>
+              </label>
+              <label class="edit-field">상태
+                <select name="active">
+                  <option value="true">노출</option>
+                  <option value="false">비노출</option>
+                </select>
+              </label>
+              <label class="edit-field">시간
+                <select name="scheduleTime" required>
+                  <option value="">시간 선택</option>
+                  <option value="10시">오전 10:00</option>
+                  <option value="11시">오전 11:00</option>
+                  <option value="12시">오후 12:00</option>
+                  <option value="13시">오후 01:00</option>
+                  <option value="14시">오후 02:00</option>
+                  <option value="15시">오후 03:00</option>
+                  <option value="16시">오후 04:00</option>
+                  <option value="17시">오후 05:00</option>
+                  <option value="18시">오후 06:00</option>
+                  <option value="19시">오후 07:00</option>
+                  <option value="20시">오후 08:00</option>
+                  <option value="21시">오후 09:00</option>
+                </select>
+              </label>
+              <input name="address" type="hidden" value="부산 부산진구 서전로 8번길 27">
+              <label class="edit-field is-wide">이미지 URL
+                <textarea name="mapImageUrl" placeholder="Cloudinary URL 또는 assets/...&#10;여러 장은 줄바꿈으로 입력"></textarea>
+              </label>
+              <label class="edit-field is-wide">이미지 첨부
+                <input type="file" name="mapImageFile" accept="image/*" multiple>
+              </label>
+              <label class="edit-field is-wide">안내 문구
+                <textarea name="content">자세한 사항은 개별적으로 문자 안내드릴 예정입니다.</textarea>
+              </label>
+            </div>
+            <div class="edit-actions">
+              <button class="small-btn" type="button" data-schedule-cancel>취소</button>
+              <button class="toggle-btn is-on" type="submit">생성</button>
+            </div>
+          </form>
+        </div>
         <div class="schedule-layer-list" data-schedule-layer-list></div>
         <div class="empty" data-schedule-empty>등록된 일정 안내 레이어가 없습니다.</div>
       </section>
@@ -2663,11 +2854,21 @@
         <div class="dashboard-head">
           <h1>히어로 섹션</h1>
           <span class="dashboard-head-actions">
-            <button class="soft-btn" type="button" data-hero-add>이미지 추가</button>
-            <button class="soft-btn" type="button" data-hero-refresh>새로고침</button>
-            <button class="soft-btn" type="button" data-hero-save>저장</button>
+            <button class="soft-btn" type="button" data-hero-add>추가</button>
+            <button class="icon-btn" type="button" data-hero-refresh aria-label="히어로 섹션 새로고침" title="히어로 섹션 새로고침">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+            </button>
           </span>
         </div>
+        <form class="hero-copy-form" data-hero-remote-form>
+          <label class="remote-field">제목
+            <input data-hero-title autocomplete="off" value="너와 나, 자연스러운 설렘">
+          </label>
+          <label class="remote-field">중제목
+            <input data-hero-description autocomplete="off" value="반복되는 일상에 새로운 설렘">
+          </label>
+          <button class="soft-btn" type="button" data-hero-copy-save>저장</button>
+        </form>
         <div class="hero-admin-tools">
           <p class="hero-admin-hint">위에서부터 1위 노출입니다. 카드를 길게 누른 뒤 움직이면 순서가 변경됩니다.</p>
         </div>
@@ -2679,7 +2880,9 @@
           <span class="dashboard-head-actions">
             <button class="soft-btn" type="button" data-dashboard-create="clover">추가</button>
             <button class="soft-btn" type="button" data-dashboard-sync="clover">현재 상태 업로드</button>
-            <button class="soft-btn" type="button" data-dashboard-refresh>새로고침</button>
+            <button class="icon-btn" type="button" data-dashboard-refresh aria-label="클로버 근황 새로고침" title="클로버 근황 새로고침">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+            </button>
           </span>
         </div>
         <form class="dashboard-maker" data-dashboard-maker="clover" hidden>
@@ -2704,7 +2907,9 @@
           <span class="dashboard-head-actions">
             <button class="soft-btn" type="button" data-dashboard-create="field">추가</button>
             <button class="soft-btn" type="button" data-dashboard-sync="field">현재 상태 업로드</button>
-            <button class="soft-btn" type="button" data-dashboard-refresh>새로고침</button>
+            <button class="icon-btn" type="button" data-dashboard-refresh aria-label="현장 새로고침" title="현장 새로고침">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+            </button>
           </span>
         </div>
         <form class="dashboard-maker" data-dashboard-maker="field" hidden>
@@ -2728,7 +2933,9 @@
           <h1>매칭결과</h1>
           <span class="dashboard-head-actions">
             <button class="soft-btn" type="button" data-dashboard-create="match">추가</button>
-            <button class="soft-btn" type="button" data-dashboard-refresh>새로고침</button>
+            <button class="icon-btn" type="button" data-dashboard-refresh aria-label="매칭결과 새로고침" title="매칭결과 새로고침">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+            </button>
           </span>
         </div>
         <form class="dashboard-maker" data-dashboard-maker="match" hidden>
@@ -2773,7 +2980,9 @@
           <h1>연애상담</h1>
           <span class="dashboard-head-actions">
             <button class="soft-btn" type="button" data-dashboard-create="counsel">추가</button>
-            <button class="soft-btn" type="button" data-dashboard-refresh>새로고침</button>
+            <button class="icon-btn" type="button" data-dashboard-refresh aria-label="연애상담 새로고침" title="연애상담 새로고침">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+            </button>
           </span>
         </div>
         <form class="dashboard-maker" data-dashboard-maker="counsel" hidden>
@@ -2823,14 +3032,18 @@
       <section class="panel admin-panel dashboard-panel" data-admin-panel="application" hidden>
         <div class="dashboard-head">
           <h1>신청 접수</h1>
-          <button class="soft-btn" type="button" data-dashboard-refresh>새로고침</button>
+          <button class="icon-btn" type="button" data-dashboard-refresh aria-label="신청 접수 새로고침" title="신청 접수 새로고침">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+          </button>
         </div>
         <div class="dashboard-list" data-dashboard-list="application"></div>
       </section>
       <section class="panel admin-panel dashboard-panel" data-admin-panel="board" hidden>
         <div class="dashboard-head">
           <h1>문의 하기</h1>
-          <button class="soft-btn" type="button" data-dashboard-refresh>새로고침</button>
+          <button class="icon-btn" type="button" data-dashboard-refresh aria-label="문의하기 새로고침" title="문의하기 새로고침">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+          </button>
         </div>
         <div class="dashboard-list" data-dashboard-list="board"></div>
       </section>
@@ -2921,112 +3134,15 @@
       <nav class="remote-nav" aria-label="관리자 메뉴">
         <div class="nav-group" data-nav-group="hero">
           <button class="nav-btn" type="button" data-nav="hero">히어로 섹션 <span class="count-pill" data-hero-menu-count>0</span></button>
-          <div class="nav-submenu" aria-label="히어로 섹션 하위 메뉴">
-            <form class="hero-remote-form" data-hero-remote-form>
-              <label class="remote-field">제목
-                <input data-hero-title autocomplete="off" value="너와 나, 자연스러운 설렘">
-              </label>
-              <label class="remote-field">중제목
-                <input data-hero-description autocomplete="off" value="반복되는 일상에 새로운 설렘">
-              </label>
-              <button class="soft-btn" type="button" data-hero-save>저장</button>
-            </form>
-          </div>
         </div>
         <div class="nav-group is-open" data-nav-group="schedule">
           <button class="nav-btn is-active" type="button" data-nav="schedule">일정 안내 <span class="count-pill" data-schedule-menu-count>0</span></button>
-          <div class="nav-submenu" aria-label="일정 안내 하위 메뉴">
-            <form class="schedule-maker" data-schedule-maker>
-              <div class="schedule-maker-head">
-                <span class="schedule-head-actions">
-                  <button class="soft-btn" type="button" data-schedule-sync>현재 상태 업로드</button>
-                </span>
-              </div>
-              <div class="schedule-maker-grid">
-                <div class="edit-field schedule-date-field is-wide">날짜
-                  <input name="scheduleDate" type="hidden" required>
-                  <div class="schedule-date-calendar" data-schedule-date-calendar></div>
-                </div>
-                <label class="edit-field">인원 구성
-                  <select name="meetingMode">
-                    <option value="1:1">1:1</option>
-                    <option value="6:6">6:6</option>
-                  </select>
-                </label>
-                <label class="edit-field">연령대
-                  <select name="ageRange" data-dashboard-age-select></select>
-                </label>
-                <label class="edit-field">상태
-                  <select name="active">
-                    <option value="true">노출</option>
-                    <option value="false">비노출</option>
-                  </select>
-                </label>
-                <label class="edit-field">시간
-                  <select name="scheduleTime" required>
-                    <option value="">시간 선택</option>
-                    <option value="10시">오전 10:00</option>
-                    <option value="11시">오전 11:00</option>
-                    <option value="12시">오후 12:00</option>
-                    <option value="13시">오후 01:00</option>
-                    <option value="14시">오후 02:00</option>
-                    <option value="15시">오후 03:00</option>
-                    <option value="16시">오후 04:00</option>
-                    <option value="17시">오후 05:00</option>
-                    <option value="18시">오후 06:00</option>
-                    <option value="19시">오후 07:00</option>
-                    <option value="20시">오후 08:00</option>
-                    <option value="21시">오후 09:00</option>
-                  </select>
-                </label>
-                <input name="address" type="hidden" value="부산 부산진구 서전로 8번길 27">
-                <label class="edit-field is-wide">이미지 URL
-                  <textarea name="mapImageUrl" placeholder="Cloudinary URL 또는 assets/...&#10;여러 장은 줄바꿈으로 입력"></textarea>
-                </label>
-                <label class="edit-field is-wide">이미지 첨부
-                  <input type="file" name="mapImageFile" accept="image/*" multiple>
-                </label>
-                <label class="edit-field is-wide">안내 문구
-                  <textarea name="content">자세한 사항은 개별적으로 문자 안내드릴 예정입니다.</textarea>
-                </label>
-              </div>
-              <div class="edit-actions">
-                <button class="toggle-btn is-on" type="submit">생성</button>
-              </div>
-            </form>
-          </div>
         </div>
         <div class="nav-group" data-nav-group="events">
           <button class="nav-btn" type="button" data-nav="events">선택창 관리1 <span class="count-pill" data-menu-count>0</span></button>
-          <div class="nav-submenu" aria-label="선택창 관리1 하위 메뉴">
-            <section class="cards" aria-label="선택창 요약">
-              <article class="metric"><span>전체 선택창</span><strong data-total>0</strong></article>
-              <article class="metric"><span>노출 ON</span><strong data-on>0</strong></article>
-              <article class="metric"><span>비노출 OFF</span><strong data-off>0</strong></article>
-            </section>
-
-            <section class="toolbar">
-              <input class="search" type="search" placeholder="이름, 분류, 대상 검색" data-search>
-              <button class="soft-btn" type="button" data-all-on>전체 ON</button>
-              <button class="soft-btn" type="button" data-all-off>전체 OFF</button>
-            </section>
-          </div>
         </div>
         <div class="nav-group" data-nav-group="events2">
           <button class="nav-btn" type="button" data-nav="events2">선택창 관리2 <span class="count-pill" data-party-menu-count>0</span></button>
-          <div class="nav-submenu" aria-label="선택창 관리2 하위 메뉴">
-            <section class="cards" aria-label="선택창 관리2 요약">
-              <article class="metric"><span>전체 레이어</span><strong data-party-total>0</strong></article>
-              <article class="metric"><span>노출 ON</span><strong data-party-on>0</strong></article>
-              <article class="metric"><span>비노출 OFF</span><strong data-party-off>0</strong></article>
-            </section>
-
-            <section class="toolbar">
-              <input class="search" type="search" placeholder="소모임, 파티, 지역 검색" data-party-search>
-              <button class="soft-btn" type="button" data-party-all-on>전체 ON</button>
-              <button class="soft-btn" type="button" data-party-all-off>전체 OFF</button>
-            </section>
-          </div>
         </div>
         <div class="nav-divider" role="separator" aria-hidden="true"></div>
         <button class="nav-btn" type="button" data-nav="field">현장 <span class="count-pill" data-dashboard-menu-count="field">0</span></button>
@@ -3135,6 +3251,8 @@
     ]);
     let heroSlides = [];
     const unsavedHeroSlideIds = new Set();
+    let editingHeroSlideId = "";
+    let heroEditingSnapshot = null;
     let heroPressTimer = 0;
     let heroPressingCardEl = null;
     let heroDraggingId = "";
@@ -3164,11 +3282,10 @@
 
     const $ = (selector) => document.querySelector(selector);
     const listEl = $("[data-list]");
-    const searchEl = $("[data-search]");
     const partyListEl = $("[data-party-list]");
-    const partySearchEl = $("[data-party-search]");
     const createEventButtons = [...document.querySelectorAll("[data-create-event]")];
     const scheduleMaker = $("[data-schedule-maker]");
+    const scheduleMakerHost = $("[data-schedule-maker-host]");
     const scheduleLayerList = $("[data-schedule-layer-list]");
     const scheduleEmpty = $("[data-schedule-empty]");
     const scheduleMenuCount = $("[data-schedule-menu-count]");
@@ -3314,6 +3431,35 @@
         await apiPost(eventSavePayload(event));
       }
       publishPublicEventListCache(list);
+    }
+
+    async function syncEventLayerToServer(layerType, button) {
+      const targetType = layerType === "party" ? "party" : "rotation";
+      const label = targetType === "party" ? "선택창 관리2" : "선택창 관리1";
+      const targetEvents = eventsForLayer(targetType);
+      if (!targetEvents.length) {
+        showToast(`${label}에 업로드할 레이어가 없습니다.`);
+        return;
+      }
+      if (button) {
+        button.disabled = true;
+        button.setAttribute("aria-busy", "true");
+      }
+      showToast(`${label} 현재 상태를 업로드 중입니다.`);
+      try {
+        for (const event of targetEvents) {
+          await apiPost(eventSavePayload(event));
+        }
+        await loadEvents();
+        showToast(`${label} ${targetEvents.length}개 레이어를 업로드했습니다.`);
+      } catch (error) {
+        showToast(`${label} 업로드 실패: ${error.message}`);
+      } finally {
+        if (button) {
+          button.disabled = false;
+          button.removeAttribute("aria-busy");
+        }
+      }
     }
 
     async function persistEventOrder() {
@@ -3698,10 +3844,8 @@
       events.push(item);
       updateEventOrders();
       if (layerType === "party") {
-        if (partySearchEl?.value) partySearchEl.value = "";
         setAdminPanel("events2");
       } else {
-        if (searchEl.value) searchEl.value = "";
         setAdminPanel("events");
       }
       openEditModal(item);
@@ -3870,16 +4014,8 @@
     function renderMetrics(rotationFiltered, partyFiltered) {
       const rotationEvents = eventsForLayer("rotation");
       const partyEvents = eventsForLayer("party");
-      const rotationActiveCount = rotationEvents.filter(isActive).length;
-      const partyActiveCount = partyEvents.filter(isActive).length;
-      $("[data-total]").textContent = rotationEvents.length;
-      $("[data-on]").textContent = rotationActiveCount;
-      $("[data-off]").textContent = rotationEvents.length - rotationActiveCount;
       $("[data-menu-count]").textContent = rotationEvents.length;
       $("[data-empty]").classList.toggle("is-visible", rotationFiltered.length === 0);
-      $("[data-party-total]").textContent = partyEvents.length;
-      $("[data-party-on]").textContent = partyActiveCount;
-      $("[data-party-off]").textContent = partyEvents.length - partyActiveCount;
       $("[data-party-menu-count]").textContent = partyEvents.length;
       $("[data-party-empty]").classList.toggle("is-visible", partyFiltered.length === 0);
     }
@@ -4014,30 +4150,57 @@
     function heroSlideCardHtml(item, index) {
       const id = htmlAttr(item.id);
       const imageUrl = item.imageUrl || item.sourceImageUrl || "";
+      const videoUrl = item.videoUrl || "";
       const preview = imageUrl
         ? `<span class="hero-admin-thumb"><img src="${htmlAttr(adminImageUrl(imageUrl))}" alt="" loading="lazy"></span>`
         : `<span class="hero-admin-thumb is-empty">이미지 없음</span>`;
       return `
         <article class="hero-admin-item${item.active ? "" : " is-off"}" data-hero-slide="${id}">
-          <span class="hero-admin-rank">${index + 1}위 노출</span>
-          ${preview}
-          <span class="hero-admin-fields">
-            <label class="hero-admin-field">이미지 URL
-              <input data-hero-image-url value="${htmlAttr(imageUrl)}" placeholder="Cloudinary URL 또는 assets/...">
-            </label>
-            <label class="hero-admin-field">이미지 첨부
-              <input type="file" data-hero-image-file accept="image/*">
-            </label>
-            <label class="hero-admin-field">동영상 URL
-              <input data-hero-video-url value="${htmlAttr(item.videoUrl || "")}" placeholder="선택 입력">
-            </label>
+          <span class="hero-admin-media">
+            <span class="hero-admin-rank">${index + 1}위 노출</span>
+            ${preview}
+          </span>
+          <span class="hero-admin-summary">
+            <strong>${videoUrl ? "동영상 히어로" : (imageUrl ? "이미지 히어로" : "미디어 미입력")}</strong>
+            <span>${htmlAttr(videoUrl || imageUrl || "이미지 또는 동영상을 등록해 주세요.")}</span>
+            <span>${item.active ? "노출 ON" : "비노출 OFF"}</span>
           </span>
           <span class="hero-admin-actions">
-            <label class="hero-admin-toggle" title="노출 상태"><input type="checkbox" data-hero-active aria-label="노출 상태" ${item.active ? "checked" : ""}><span aria-hidden="true"></span></label>
+            <button class="toggle-btn ${item.active ? "is-on" : "is-off"}" type="button" data-hero-toggle="${id}">${item.active ? "ON" : "OFF"}</button>
             <button class="small-btn" type="button" data-hero-edit="${id}">수정</button>
             <button class="small-btn danger-btn" type="button" data-hero-remove="${id}">삭제</button>
           </span>
         </article>
+      `;
+    }
+
+    function heroSlideEditorHtml(item, index) {
+      const id = htmlAttr(item.id);
+      const imageUrl = item.imageUrl || item.sourceImageUrl || "";
+      return `
+        <form class="edit-layer hero-edit-layer" data-hero-editor data-hero-editing-id="${id}">
+          <div class="edit-form">
+            <div class="edit-head"><h2>${index + 1}위 히어로 ${unsavedHeroSlideIds.has(String(item.id)) ? "추가" : "수정"}</h2></div>
+            <div class="edit-grid">
+              <label class="edit-field is-wide">이미지 URL
+                <input data-hero-image-url value="${htmlAttr(imageUrl)}" placeholder="Cloudinary URL 또는 assets/...">
+              </label>
+              <label class="edit-field is-wide">이미지 첨부
+                <input type="file" data-hero-image-file accept="image/*">
+              </label>
+              <label class="edit-field is-wide">동영상 URL
+                <input data-hero-video-url value="${htmlAttr(item.videoUrl || "")}" placeholder="선택 입력">
+              </label>
+              <label class="edit-field">노출
+                <select data-hero-active><option value="true"${item.active ? " selected" : ""}>노출 ON</option><option value="false"${item.active ? "" : " selected"}>비노출 OFF</option></select>
+              </label>
+            </div>
+            <div class="edit-actions">
+              <button class="small-btn" type="button" data-hero-edit-cancel>취소</button>
+              <button class="create-btn" type="submit">저장</button>
+            </div>
+          </div>
+        </form>
       `;
     }
 
@@ -4048,25 +4211,34 @@
       const list = document.querySelector("[data-hero-list]");
       if (!list) return;
       list.innerHTML = heroSlides.length
-        ? heroSlides.map(heroSlideCardHtml).join("")
+        ? heroSlides.map((item, index) => `${heroSlideCardHtml(item, index)}${String(item.id) === String(editingHeroSlideId) ? heroSlideEditorHtml(item, index) : ""}`).join("")
         : '<div class="empty is-visible">등록된 히어로 이미지가 없습니다.</div>';
     }
 
-    function collectHeroSlidesFromDom() {
-      const title = document.querySelector("[data-hero-title]")?.value.trim() || HERO_DEFAULT_TITLE;
-      const description = document.querySelector("[data-hero-description]")?.value.trim() || HERO_DEFAULT_DESCRIPTION;
-      return [...document.querySelectorAll("[data-hero-slide]")].slice(0, 5).map((card, index) => ({
-        id: card.dataset.heroSlide || `hero-local-${Date.now()}-${index}`,
+    function collectHeroSlideCard(card, index = 0) {
+      const id = card?.dataset.heroSlide || `hero-local-${Date.now()}-${index}`;
+      const previous = heroSlides.find((item) => String(item.id) === String(id)) || heroCopySource();
+      const editor = document.querySelector(`[data-hero-editor][data-hero-editing-id="${CSS.escape(String(id))}"]`);
+      const imageUrl = editor?.querySelector("[data-hero-image-url]")?.value.trim() ?? previous.imageUrl ?? "";
+      const imageFile = heroImagePayloadById.get(id) || null;
+      return {
+        id,
         order: index + 1,
-        title,
-        description,
-        imageUrl: card.querySelector("[data-hero-image-url]")?.value.trim() || "",
-        sourceImageUrl: card.querySelector("[data-hero-image-url]")?.value.trim() || "",
-        videoUrl: card.querySelector("[data-hero-video-url]")?.value.trim() || "",
-        imageFile: heroImagePayloadById.get(card.dataset.heroSlide || "") || null,
-        active: !!card.querySelector("[data-hero-active]")?.checked,
+        title: previous.title || HERO_DEFAULT_TITLE,
+        description: previous.description || HERO_DEFAULT_DESCRIPTION,
+        imageUrl,
+        sourceImageUrl: imageFile ? (previous.sourceImageUrl || "") : (imageUrl || previous.sourceImageUrl || ""),
+        videoUrl: editor?.querySelector("[data-hero-video-url]")?.value.trim() ?? previous.videoUrl ?? "",
+        imageFile,
+        active: editor ? editor.querySelector("[data-hero-active]")?.value !== "false" : previous.active !== false,
         updatedAt: Date.now()
-      })).filter((item) => item.imageUrl || item.videoUrl || item.imageFile);
+      };
+    }
+
+    function collectHeroSlidesFromDom() {
+      return [...document.querySelectorAll("[data-hero-slide]")].slice(0, 5)
+        .map((card, index) => collectHeroSlideCard(card, index))
+        .filter((item) => item.imageUrl || item.videoUrl || item.imageFile || unsavedHeroSlideIds.has(item.id));
     }
 
     async function handleHeroImageFile(input) {
@@ -4084,11 +4256,12 @@
       }
       try {
         const dataUrl = await fileToDataUrl(file);
-        const card = input.closest("[data-hero-slide]");
-        const id = card?.dataset.heroSlide || "";
-        if (!card || !id) return;
+        const editor = input.closest("[data-hero-editor]");
+        const id = editor?.dataset.heroEditingId || "";
+        const card = [...document.querySelectorAll("[data-hero-slide]")].find((item) => String(item.dataset.heroSlide) === String(id));
+        if (!editor || !card || !id) return;
         heroImagePayloadById.set(id, imagePayloadFromDataUrl(file, dataUrl));
-        const urlInput = card.querySelector("[data-hero-image-url]");
+        const urlInput = editor.querySelector("[data-hero-image-url]");
         if (urlInput) urlInput.value = dataUrl;
         const thumb = card.querySelector(".hero-admin-thumb");
         if (thumb) {
@@ -4104,6 +4277,10 @@
     }
 
     function addHeroSlide() {
+      if (editingHeroSlideId) {
+        showToast("열려 있는 히어로 레이어를 먼저 저장하거나 취소해 주세요.");
+        return;
+      }
       heroSlides = collectHeroSlidesFromDom();
       if (heroSlides.length >= 5) {
         showToast("히어로 이미지는 최대 5개까지 등록할 수 있습니다.");
@@ -4123,12 +4300,38 @@
         active: true,
         updatedAt: Date.now()
       });
+      editingHeroSlideId = id;
+      heroEditingSnapshot = null;
+      renderHeroAdmin();
+      const editor = document.querySelector(`[data-hero-editor][data-hero-editing-id="${id}"]`);
+      editor?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      editor?.querySelector("[data-hero-image-url]")?.focus();
+      showToast("새 히어로 레이어를 추가했습니다. 내용을 입력한 뒤 해당 레이어의 저장 버튼을 눌러 주세요.");
+    }
+
+    function closeHeroSlideEditor() {
+      const id = String(editingHeroSlideId || "");
+      editingHeroSlideId = "";
+      if (id && unsavedHeroSlideIds.has(id)) {
+        unsavedHeroSlideIds.delete(id);
+        heroImagePayloadById.delete(id);
+        heroSlides = heroSlides.filter((item) => String(item.id) !== id);
+      } else if (id && heroEditingSnapshot) {
+        heroSlides = heroSlides.map((item) => String(item.id) === id ? { ...heroEditingSnapshot } : item);
+        heroImagePayloadById.delete(id);
+      }
+      heroEditingSnapshot = null;
+      writeAdminHeroCache(heroSlides);
       renderHeroAdmin();
     }
 
     async function removeHeroSlide(id) {
       const slideId = String(id || "");
       if (!slideId) return;
+      if (String(editingHeroSlideId) === slideId) {
+        editingHeroSlideId = "";
+        heroEditingSnapshot = null;
+      }
       if (unsavedHeroSlideIds.has(slideId)) {
         unsavedHeroSlideIds.delete(slideId);
         heroImagePayloadById.delete(slideId);
@@ -4206,6 +4409,8 @@
     }
 
     async function loadHeroAdmin() {
+      editingHeroSlideId = "";
+      heroEditingSnapshot = null;
       heroSlides = readAdminHeroCache();
       renderHeroAdmin();
       if (!GOOGLE_SCRIPT_URL) return;
@@ -4221,26 +4426,93 @@
       }
     }
 
-    async function saveHeroAdmin() {
-      heroSlides = collectHeroSlidesFromDom();
-      if (!heroSlides.length) {
-        showToast("히어로 이미지를 1개 이상 입력해 주세요.");
+    async function saveHeroCopy() {
+      const title = document.querySelector("[data-hero-title]")?.value.trim() || HERO_DEFAULT_TITLE;
+      const description = document.querySelector("[data-hero-description]")?.value.trim() || HERO_DEFAULT_DESCRIPTION;
+      if (!GOOGLE_SCRIPT_URL) {
+        showToast("서버 연결을 확인해 주세요.");
+        return;
+      }
+      try {
+        heroSlides = collectHeroSlidesFromDom();
+        await apiPost({ type: "heroCopySave", title, description });
+        heroSlides = heroSlides.map((item) => ({ ...item, title, description, updatedAt: Date.now() }));
+        if (heroEditingSnapshot) heroEditingSnapshot = { ...heroEditingSnapshot, title, description };
+        writeAdminHeroCache(heroSlides);
+        renderHeroAdmin();
+        showToast("히어로 제목과 중제목을 저장했습니다.");
+      } catch (error) {
+        showToast(`히어로 문구 저장 실패: ${error.message}`);
+      }
+    }
+
+    async function saveHeroSlideCard(id) {
+      const card = document.querySelector(`[data-hero-slide="${CSS.escape(String(id || ""))}"]`);
+      const editor = document.querySelector(`[data-hero-editor][data-hero-editing-id="${CSS.escape(String(id || ""))}"]`);
+      if (!card || !editor) return;
+      const cards = [...document.querySelectorAll("[data-hero-slide]")];
+      const slide = collectHeroSlideCard(card, cards.indexOf(card));
+      if (!slide.imageUrl && !slide.videoUrl && !slide.imageFile) {
+        showToast("이 레이어에 이미지 또는 동영상을 입력해 주세요.");
         return;
       }
       if (!GOOGLE_SCRIPT_URL) {
         showToast("서버 연결을 확인해 주세요.");
         return;
       }
+      const submit = editor.querySelector('button[type="submit"]');
+      if (submit) {
+        submit.disabled = true;
+        submit.textContent = "저장 중";
+      }
       try {
-        const result = await apiPost({ type: "heroSave", slides: heroSlides });
-        heroImagePayloadById.clear();
-        heroSlides = normalizeAdminHeroSlides(Array.isArray(result.slides) ? result.slides : [], false);
-        unsavedHeroSlideIds.clear();
+        heroSlides = collectHeroSlidesFromDom();
+        const result = await apiPost({ type: "heroSave", ...slide });
+        const savedSlide = normalizeAdminHeroSlide(result.slide || slide, Math.max(0, slide.order - 1));
+        heroSlides = heroSlides.map((item) => String(item.id) === String(slide.id) ? savedSlide : item);
+        if (!heroSlides.some((item) => String(item.id) === String(savedSlide.id))) heroSlides.push(savedSlide);
+        heroImagePayloadById.delete(slide.id);
+        unsavedHeroSlideIds.delete(slide.id);
+        editingHeroSlideId = "";
+        heroEditingSnapshot = null;
         writeAdminHeroCache(heroSlides);
         renderHeroAdmin();
-        showToast("히어로 섹션을 저장했습니다.");
+        showToast(`${savedSlide.order}위 히어로 레이어를 저장했습니다.`);
       } catch (error) {
-        showToast(`히어로 저장 실패: ${error.message}`);
+        if (submit) {
+          submit.disabled = false;
+          submit.textContent = "저장";
+        }
+        showToast(`히어로 레이어 저장 실패: ${error.message}`);
+      }
+    }
+
+    async function toggleHeroSlide(id) {
+      if (editingHeroSlideId) {
+        showToast("열려 있는 히어로 레이어를 먼저 저장하거나 취소해 주세요.");
+        return;
+      }
+      heroSlides = collectHeroSlidesFromDom();
+      const index = heroSlides.findIndex((item) => String(item.id) === String(id));
+      if (index < 0) return;
+      const previous = heroSlides[index];
+      const next = { ...previous, active: previous.active === false, imageFile: heroImagePayloadById.get(String(id)) || null };
+      if (!next.imageUrl && !next.videoUrl && !next.imageFile) {
+        showToast("이미지 또는 동영상을 먼저 저장해 주세요.");
+        return;
+      }
+      heroSlides[index] = next;
+      renderHeroAdmin();
+      try {
+        const result = await apiPost({ type: "heroSave", ...next });
+        heroSlides[index] = normalizeAdminHeroSlide(result.slide || next, index);
+        writeAdminHeroCache(heroSlides);
+        renderHeroAdmin();
+        showToast(`${index + 1}위 히어로 레이어 ${heroSlides[index].active ? "ON" : "OFF"}`);
+      } catch (error) {
+        heroSlides[index] = previous;
+        renderHeroAdmin();
+        showToast(`노출 상태 저장 실패: ${error.message}`);
       }
     }
 
@@ -5916,12 +6188,42 @@
     }
 
     function scheduleMakerTitleText(text) {
-      const title = scheduleMaker?.querySelector(".page-head h1");
+      const title = scheduleMaker?.querySelector("[data-schedule-maker-title]");
       if (title) title.textContent = text;
     }
 
-    function openScheduleNavGroup() {
-      document.querySelector('[data-nav-group="schedule"]')?.classList.add("is-open");
+    function moveScheduleMakerToTop() {
+      if (scheduleMaker && scheduleMakerHost && scheduleMaker.parentElement !== scheduleMakerHost) {
+        scheduleMakerHost.append(scheduleMaker);
+      }
+    }
+
+    function positionScheduleMaker() {
+      if (!scheduleMaker || scheduleMaker.hidden) return;
+      if (editingScheduleId) {
+        const card = [...(scheduleLayerList?.querySelectorAll("[data-admin-schedule-id]") || [])]
+          .find((item) => String(item.dataset.adminScheduleId) === String(editingScheduleId));
+        if (card) {
+          card.insertAdjacentElement("afterend", scheduleMaker);
+          return;
+        }
+      }
+      moveScheduleMakerToTop();
+    }
+
+    function showScheduleCreateForm() {
+      resetScheduleMaker();
+      moveScheduleMakerToTop();
+      if (!scheduleMaker) return;
+      scheduleMaker.hidden = false;
+      scheduleMaker.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function closeScheduleMaker() {
+      resetScheduleMaker();
+      if (!scheduleMaker) return;
+      scheduleMaker.hidden = true;
+      moveScheduleMakerToTop();
     }
 
     function resetScheduleMaker() {
@@ -5955,6 +6257,7 @@
 
     function fillScheduleMaker(post) {
       if (!scheduleMaker || !post) return;
+      scheduleMaker.hidden = false;
       editingScheduleId = String(post.id || schedulePostId(post.scheduleDate, post.scheduleTime));
       const dateEl = scheduleMaker.querySelector('[name="scheduleDate"]');
       const modeEl = scheduleMaker.querySelector('[name="meetingMode"]');
@@ -5987,26 +6290,35 @@
       setScheduleTimeChecks([post.scheduleTime || "19시"]);
       scheduleFormSubmitButtonText("수정");
       scheduleMakerTitleText("일정 안내 수정");
-      openScheduleNavGroup();
       markScheduleCardSelected(editingScheduleId);
+      positionScheduleMaker();
+      scheduleMaker.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
 
     function markScheduleCardSelected(id) {
       scheduleLayerList?.querySelectorAll("[data-admin-schedule-id]").forEach((card) => {
-        card.classList.toggle("is-selected", String(id) === card.dataset.adminScheduleId);
+        const selected = String(id) === card.dataset.adminScheduleId;
+        card.classList.toggle("is-selected", selected);
+        card.setAttribute("aria-expanded", String(selected && !scheduleMaker?.hidden));
       });
     }
 
     function renderScheduleAdmin() {
       if (!scheduleLayerList) return;
+      if (scheduleMaker?.parentElement === scheduleLayerList) moveScheduleMakerToTop();
       const posts = dashboardSchedulePosts();
+      if (editingScheduleId && !posts.some((post) => String(post.id || "") === String(editingScheduleId))) {
+        resetScheduleMaker();
+        if (scheduleMaker) scheduleMaker.hidden = true;
+        moveScheduleMakerToTop();
+      }
       if (scheduleMenuCount) scheduleMenuCount.textContent = posts.length;
       if (scheduleEmpty) scheduleEmpty.classList.toggle("is-visible", posts.length === 0);
       scheduleLayerList.innerHTML = posts.map((post) => {
         const id = String(post.id || "");
         const savingLabel = savingScheduleIds.has(id) ? "수정 중" : "";
         return `
-        <article class="schedule-layer-card${post.source === "기본" ? " is-default" : ""}${post.closed ? " is-closed" : ""}${id === String(editingScheduleId) ? " is-selected" : ""}${savingLabel ? " is-saving" : ""}" data-admin-schedule-id="${htmlAttr(post.id)}">
+        <article class="schedule-layer-card${post.source === "기본" ? " is-default" : ""}${post.closed ? " is-closed" : ""}${id === String(editingScheduleId) ? " is-selected" : ""}${savingLabel ? " is-saving" : ""}" data-admin-schedule-id="${htmlAttr(post.id)}" role="button" tabindex="0" aria-expanded="${id === String(editingScheduleId) && !scheduleMaker?.hidden}">
           <div>
             <strong><span class="schedule-layer-episode">${htmlAttr(post.displayEpisode || "")}</span>[${htmlAttr(scheduleTimeText(post.scheduleTime))}] 소개팅 안내${savingLabel ? `<span class="schedule-inline-save-badge">${htmlAttr(savingLabel)}</span>` : ""}</strong>
             <div class="schedule-layer-meta">
@@ -6023,6 +6335,7 @@
         </article>
       `;
       }).join("");
+      positionScheduleMaker();
     }
 
     async function createScheduleLayers(formEl) {
@@ -6097,6 +6410,8 @@
           applyDashboardSchedulePosts(savedPosts);
         }
         editingScheduleId = "";
+        if (scheduleMaker) scheduleMaker.hidden = true;
+        moveScheduleMakerToTop();
         scheduleFormSubmitButtonText("생성");
         scheduleMakerTitleText("일정 안내 생성");
         renderScheduleAdmin();
@@ -6265,10 +6580,9 @@
 
     function render() {
       updateEventOrders();
-      const q = (searchEl.value || "").trim().toLowerCase();
-      const partyQ = (partySearchEl?.value || "").trim().toLowerCase();
+      const q = "";
       const rotationFiltered = eventsForLayer("rotation").filter((event) => eventMatchesSearch(event, q));
-      const partyFiltered = eventsForLayer("party").filter((event) => eventMatchesSearch(event, partyQ));
+      const partyFiltered = eventsForLayer("party");
       renderMetrics(rotationFiltered, partyFiltered);
       listEl.innerHTML = rotationFiltered.map(eventCardMarkup).join("");
       if (partyListEl) partyListEl.innerHTML = partyFiltered.map(eventCardMarkup).join("");
@@ -7826,10 +8140,21 @@
     window.addEventListener("pointercancel", finishReorder);
     window.addEventListener("scroll", clearPressTimer, true);
 
-    searchEl.addEventListener("input", render);
-    partySearchEl?.addEventListener("input", render);
     createEventButtons.forEach((button) => {
       button.addEventListener("click", () => createEventLayer(button.dataset.createEvent || "rotation"));
+    });
+    document.querySelectorAll("[data-event-sync]").forEach((button) => {
+      button.addEventListener("click", () => syncEventLayerToServer(button.dataset.eventSync, button));
+    });
+    document.querySelectorAll("[data-event-refresh]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        button.disabled = true;
+        button.setAttribute("aria-busy", "true");
+        await loadEvents();
+        button.disabled = false;
+        button.removeAttribute("aria-busy");
+        showToast(`${button.dataset.eventRefresh === "party" ? "선택창 관리2" : "선택창 관리1"}을 새로고침했습니다.`);
+      });
     });
     applyAdminTheme(document.documentElement.dataset.adminTheme);
     document.querySelector("[data-theme-toggle]")?.addEventListener("click", toggleAdminTheme);
@@ -7844,8 +8169,8 @@
     document.querySelectorAll("[data-hero-add]").forEach((button) => {
       button.addEventListener("click", addHeroSlide);
     });
-    document.querySelectorAll("[data-hero-save]").forEach((button) => {
-      button.addEventListener("click", saveHeroAdmin);
+    document.querySelectorAll("[data-hero-copy-save]").forEach((button) => {
+      button.addEventListener("click", saveHeroCopy);
     });
     document.querySelectorAll("[data-hero-refresh]").forEach((button) => {
       button.addEventListener("click", () => {
@@ -7863,20 +8188,43 @@
     });
     document.querySelector("[data-hero-remote-form]")?.addEventListener("submit", (event) => {
       event.preventDefault();
-      saveHeroAdmin();
+      saveHeroCopy();
     });
     document.querySelector("[data-hero-list]")?.addEventListener("click", (event) => {
+      const cancel = event.target.closest("[data-hero-edit-cancel]");
+      if (cancel) {
+        closeHeroSlideEditor();
+        return;
+      }
+      const toggle = event.target.closest("[data-hero-toggle]");
+      if (toggle) {
+        toggleHeroSlide(toggle.dataset.heroToggle);
+        return;
+      }
       const edit = event.target.closest("[data-hero-edit]");
       if (edit) {
-        const card = edit.closest("[data-hero-slide]");
-        const input = card?.querySelector("[data-hero-image-url]");
-        input?.focus();
-        input?.select();
-        showToast("히어로 이미지 수정 항목을 선택했습니다.");
+        if (editingHeroSlideId && String(editingHeroSlideId) !== String(edit.dataset.heroEdit)) {
+          showToast("열려 있는 히어로 레이어를 먼저 저장하거나 취소해 주세요.");
+          return;
+        }
+        heroSlides = collectHeroSlidesFromDom();
+        editingHeroSlideId = edit.dataset.heroEdit;
+        const original = heroSlides.find((item) => String(item.id) === String(editingHeroSlideId));
+        heroEditingSnapshot = original ? { ...original } : null;
+        renderHeroAdmin();
+        const editor = document.querySelector(`[data-hero-editor][data-hero-editing-id="${CSS.escape(String(editingHeroSlideId))}"]`);
+        editor?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        editor?.querySelector("[data-hero-image-url]")?.focus();
         return;
       }
       const remove = event.target.closest("[data-hero-remove]");
       if (remove) removeHeroSlide(remove.dataset.heroRemove);
+    });
+    document.querySelector("[data-hero-list]")?.addEventListener("submit", (event) => {
+      const editor = event.target.closest("[data-hero-editor]");
+      if (!editor) return;
+      event.preventDefault();
+      saveHeroSlideCard(editor.dataset.heroEditingId);
     });
     document.querySelector("[data-hero-list]")?.addEventListener("change", (event) => {
       if (event.target.closest("[data-hero-image-file]")) {
@@ -7884,16 +8232,17 @@
         return;
       }
       if (event.target.closest("[data-hero-image-url], [data-hero-video-url], [data-hero-active]")) {
-        const card = event.target.closest("[data-hero-slide]");
-        if (event.target.closest("[data-hero-image-url]") && card?.dataset.heroSlide) {
-          heroImagePayloadById.delete(card.dataset.heroSlide);
+        const editor = event.target.closest("[data-hero-editor]");
+        const id = editor?.dataset.heroEditingId || "";
+        if (event.target.closest("[data-hero-image-url]") && id) {
+          heroImagePayloadById.delete(id);
         }
         heroSlides = collectHeroSlidesFromDom();
         writeAdminHeroCache(heroSlides);
-        renderHeroAdmin();
       }
     });
     document.querySelector("[data-hero-list]")?.addEventListener("pointerdown", (event) => {
+      if (editingHeroSlideId) return;
       const card = event.target.closest("[data-hero-slide]");
       if (!card || isInteractiveReorderTarget(event.target)) return;
       clearHeroPressTimer();
@@ -8071,60 +8420,11 @@
     document.querySelectorAll("[data-dashboard-sync]").forEach((button) => {
       button.addEventListener("click", () => syncDashboardPanelToSheet(button.dataset.dashboardSync));
     });
-    $("[data-schedule-sync]")?.addEventListener("click", syncSchedulePostsToSheet);
     document.querySelectorAll('[data-dashboard-maker] input[type="file"][name="imageFile"]').forEach((input) => {
       input.addEventListener("change", () => handleDashboardImageFile(input));
     });
     scheduleMaker?.querySelector('input[type="file"][name="mapImageFile"]')?.addEventListener("change", (event) => {
       handleScheduleImageFiles(event.currentTarget);
-    });
-    $("[data-all-on]").addEventListener("click", async () => {
-      const targetEvents = eventsForLayer("rotation");
-      targetEvents.forEach((event) => { event.active = true; });
-      render();
-      try {
-        await saveEventsSequentially(targetEvents);
-        await loadEvents();
-        showToast("전체 선택창을 노출 ON으로 저장했습니다.");
-      } catch (error) {
-        showToast(`저장 실패: ${error.message}`);
-      }
-    });
-    $("[data-all-off]").addEventListener("click", async () => {
-      const targetEvents = eventsForLayer("rotation");
-      targetEvents.forEach((event) => { event.active = false; });
-      render();
-      try {
-        await saveEventsSequentially(targetEvents);
-        await loadEvents();
-        showToast("전체 선택창을 비노출 OFF로 저장했습니다.");
-      } catch (error) {
-        showToast(`저장 실패: ${error.message}`);
-      }
-    });
-    $("[data-party-all-on]")?.addEventListener("click", async () => {
-      const targetEvents = eventsForLayer("party");
-      targetEvents.forEach((event) => { event.active = true; });
-      render();
-      try {
-        await saveEventsSequentially(targetEvents);
-        await loadEvents();
-        showToast("선택창 관리2 전체 레이어를 노출 ON으로 저장했습니다.");
-      } catch (error) {
-        showToast(`저장 실패: ${error.message}`);
-      }
-    });
-    $("[data-party-all-off]")?.addEventListener("click", async () => {
-      const targetEvents = eventsForLayer("party");
-      targetEvents.forEach((event) => { event.active = false; });
-      render();
-      try {
-        await saveEventsSequentially(targetEvents);
-        await loadEvents();
-        showToast("선택창 관리2 전체 레이어를 비노출 OFF로 저장했습니다.");
-      } catch (error) {
-        showToast(`저장 실패: ${error.message}`);
-      }
     });
     function setAdminPanel(name) {
       const panelNames = ["hero", "schedule", "events", "events2", "clover", "field", "match", "counsel", "memo", "application", "board", "menubar"];
@@ -8246,6 +8546,19 @@
       if (card?.dataset.memoRound && results?.dataset.roundId === card.dataset.memoRound) closeMemoResults();
     });
 
+    $("[data-schedule-add]")?.addEventListener("click", showScheduleCreateForm);
+    $("[data-schedule-close]")?.addEventListener("click", closeScheduleMaker);
+    $("[data-schedule-cancel]")?.addEventListener("click", closeScheduleMaker);
+    $("[data-schedule-refresh]")?.addEventListener("click", async (event) => {
+      const button = event.currentTarget;
+      button.disabled = true;
+      button.setAttribute("aria-busy", "true");
+      await loadAdminSchedulePosts();
+      button.disabled = false;
+      button.removeAttribute("aria-busy");
+      showToast("일정 안내를 새로고침했습니다.");
+    });
+
     scheduleMaker?.addEventListener("submit", (event) => {
       event.preventDefault();
       createScheduleLayers(scheduleMaker);
@@ -8271,7 +8584,7 @@
         const card = event.target.closest("[data-admin-schedule-id]");
         if (!card) return;
         if (String(editingScheduleId) === String(card.dataset.adminScheduleId)) {
-          resetScheduleMaker();
+          closeScheduleMaker();
           showToast("일정 안내 레이어를 해제했습니다.");
           return;
         }
@@ -8288,7 +8601,7 @@
         const cachedPosts = readSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY)
           .filter((post) => String(post.id || "") !== id);
         writeSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY, cachedPosts);
-        if (editingScheduleId === id) resetScheduleMaker();
+        if (editingScheduleId === id) closeScheduleMaker();
         renderScheduleAdmin();
         showToast("일정 안내 레이어를 삭제했습니다.");
         try {
@@ -8303,6 +8616,14 @@
       } catch (error) {
         showToast(`삭제 실패: ${error.message}`);
       }
+    });
+    scheduleLayerList?.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      if (event.target.closest("button, input, textarea, select, label")) return;
+      const card = event.target.closest("[data-admin-schedule-id]");
+      if (!card) return;
+      event.preventDefault();
+      card.click();
     });
     async function handleEventFormSubmit(event) {
       const formEl = event.target.closest("[data-edit-form]");
