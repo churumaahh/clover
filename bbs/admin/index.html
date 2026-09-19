@@ -5,7 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CLOVER 관리자 모드</title>
   <link rel="icon" type="image/png" href="../../assets/favicon.png">
-  <script src="../../config.js?v=20260831-application-dashboard"></script>
+  <script src="../../config.js?v=20260918-application-sync"></script>
+  <script>
+    try {
+      const key = "clover-admin-session:v1";
+      const saved = JSON.parse(sessionStorage.getItem(key) || localStorage.getItem(key) || "null");
+      if (saved?.token && Number(saved.expiresAt) > Date.now()) {
+        document.documentElement.classList.add("admin-session-restoring");
+      }
+    } catch {}
+    try {
+      const theme = localStorage.getItem("clover-admin-theme:v1");
+      document.documentElement.dataset.adminTheme = theme === "light" ? "light" : "dark";
+    } catch {
+      document.documentElement.dataset.adminTheme = "dark";
+    }
+  </script>
   <style>
     :root {
       color-scheme: dark;
@@ -107,6 +122,9 @@
       transform: translateY(1px);
       box-shadow: var(--inset);
     }
+    .theme-toggle [data-theme-icon] { display: none; }
+    html[data-admin-theme="dark"] .theme-toggle [data-theme-icon="light"],
+    html[data-admin-theme="light"] .theme-toggle [data-theme-icon="dark"] { display: block; }
     .link-btn, .soft-btn, .toggle-btn, .nav-btn {
       border-radius: 12px;
       background: var(--panel-2);
@@ -427,10 +445,10 @@
     .hero-admin-item {
       position: relative;
       display: grid;
-      grid-template-columns: 112px minmax(0, 1fr) auto;
+      grid-template-columns: 112px minmax(0, 1fr);
       gap: 12px;
       align-items: center;
-      padding: 12px;
+      padding: 58px 12px 12px;
       border: 1px solid var(--line);
       border-radius: 14px;
       background: var(--panel);
@@ -576,26 +594,70 @@
       outline: 0;
     }
     .hero-admin-actions {
-      display: grid;
-      gap: 8px;
-      justify-items: end;
-      align-self: stretch;
-      align-content: center;
-      min-width: 72px;
-    }
-    .hero-admin-toggle {
-      display: inline-flex;
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 2;
+      display: flex;
       align-items: center;
+      justify-content: flex-end;
       gap: 6px;
-      color: #dfe5ec;
-      font-size: 12px;
-      font-weight: 950;
+      width: auto;
       white-space: nowrap;
     }
+    .hero-admin-actions .small-btn {
+      min-width: 62px;
+      min-height: 36px;
+      padding: 0 10px;
+      border-radius: 9px;
+      font-size: 13px;
+    }
+    .hero-admin-toggle {
+      display: block;
+      cursor: pointer;
+    }
     .hero-admin-toggle input {
-      width: 16px;
-      height: 16px;
-      accent-color: var(--accent);
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .hero-admin-toggle span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 62px;
+      min-height: 36px;
+      padding: 0 10px;
+      border: 1px solid #343434;
+      border-radius: 9px;
+      background: #242424;
+      color: #9aa4b2;
+      box-shadow: 2px 3px 9px rgba(0, 0, 0, .24);
+      font-size: 13px;
+      font-weight: 950;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .hero-admin-toggle span::before { content: "OFF"; }
+    .hero-admin-toggle input:checked + span {
+      color: var(--accent);
+      border-color: rgba(0, 255, 64, .28);
+      box-shadow: 2px 3px 9px rgba(0, 0, 0, .24), inset 0 0 0 1px rgba(0, 255, 64, .08);
+    }
+    .hero-admin-toggle input:checked + span::before { content: "ON"; }
+    .hero-admin-toggle input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+    html[data-admin-theme="light"] .hero-admin-toggle span {
+      background: #f4f6f8;
+      border-color: #d8dee6;
+      color: #768190;
+      box-shadow: 3px 4px 10px rgba(31, 41, 55, .1);
+    }
+    html[data-admin-theme="light"] .hero-admin-toggle input:checked + span {
+      color: var(--accent);
+      border-color: rgba(0, 168, 50, .3);
+      background: #edf9f0;
     }
     .hero-admin-hint {
       margin: 0;
@@ -605,6 +667,7 @@
       line-height: 1.45;
     }
     .dashboard-item {
+      position: relative;
       display: grid;
       grid-template-columns: 1fr;
       gap: 7px;
@@ -694,7 +757,7 @@
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 12px;
       width: 100%;
-      padding: 15px 86px 15px 15px;
+      padding: 15px 92px 15px 15px;
       border: 0;
       background: transparent;
       color: inherit;
@@ -703,22 +766,22 @@
     }
     .dashboard-board-card-actions {
       position: absolute;
-      top: 14px;
-      right: 14px;
+      top: 12px;
+      right: 12px;
       z-index: 2;
       display: flex;
       gap: 6px;
       align-items: center;
     }
     .dashboard-board-card-actions .small-btn {
-      min-width: 52px;
-      min-height: 32px;
+      min-width: 62px;
+      min-height: 36px;
       padding: 0 10px;
       border-radius: 9px;
       border: 1px solid #343434;
       background: #242424;
       color: #fff;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 950;
       box-shadow: 2px 3px 9px rgba(0, 0, 0, .24);
     }
@@ -918,6 +981,14 @@
     }
     .dashboard-application-steps.is-step-2::before {
       width: 100%;
+    }
+    .dashboard-application-steps.is-canceled::before {
+      background: #ff3b40;
+    }
+    .dashboard-application-steps.is-canceled .dashboard-application-step {
+      color: #ffffff;
+      -webkit-text-fill-color: #ffffff;
+      cursor: default;
     }
     .dashboard-application-step {
       position: relative;
@@ -1243,9 +1314,39 @@
       gap: 6px;
       margin-top: 2px;
     }
+    [data-dashboard-list="clover"] .dashboard-item,
+    [data-dashboard-list="field"] .dashboard-item,
+    [data-dashboard-list="match"] .dashboard-item {
+      padding-right: 222px;
+    }
+    [data-dashboard-list="clover"] .dashboard-item-actions,
+    [data-dashboard-list="field"] .dashboard-item-actions,
+    [data-dashboard-list="match"] .dashboard-item-actions,
+    [data-dashboard-list="counsel"] .dashboard-item-actions {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 2;
+      margin-top: 0;
+      white-space: nowrap;
+    }
+    [data-dashboard-list="counsel"] .dashboard-item {
+      padding-right: 88px;
+      padding-bottom: 16px;
+    }
+    [data-dashboard-list="counsel"] .dashboard-title-row {
+      min-height: 0;
+    }
+    [data-dashboard-list="counsel"] .dashboard-meta,
+    [data-dashboard-list="counsel"] .dashboard-author-meta {
+      padding-right: 60px;
+    }
+    [data-dashboard-list="counsel"] .dashboard-title-row strong {
+      overflow-wrap: anywhere;
+    }
     .dashboard-item-actions .toggle-btn,
     .dashboard-item-actions .small-btn {
-      min-width: 44px;
+      min-width: 62px;
       min-height: 36px;
       padding: 0 10px;
       border-radius: 9px;
@@ -1258,7 +1359,7 @@
     }
     .dashboard-item-actions .toggle-btn.is-on {
       background: #242424;
-      border-color: rgba(0, 255, 64, .42);
+      border-color: #343434;
       color: var(--accent);
       box-shadow: 2px 3px 9px rgba(0, 0, 0, .24), inset 0 0 0 1px rgba(0, 255, 64, .08);
     }
@@ -1313,7 +1414,7 @@
     .event-card {
       position: relative;
       display: grid;
-      grid-template-columns: 168px minmax(0, 1fr) 144px;
+      grid-template-columns: 168px minmax(0, 1fr);
       gap: 12px;
       padding: 12px;
       align-items: center;
@@ -1471,6 +1572,7 @@
       min-width: 0;
       display: grid;
       gap: 5px;
+      padding-right: 210px;
     }
     .station {
       display: inline-flex;
@@ -1510,13 +1612,16 @@
       word-break: keep-all;
     }
     .event-actions {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
       gap: 6px;
-      justify-items: stretch;
-      align-self: center;
-      justify-self: end;
-      width: 144px;
+      width: auto;
+      white-space: nowrap;
     }
     .toggle-btn {
       display: inline-flex;
@@ -1552,6 +1657,7 @@
     }
     .event-actions .toggle-btn,
     .event-actions .small-btn {
+      min-width: 62px;
       min-height: 36px;
       border-radius: 9px;
       padding: 0 10px;
@@ -1582,6 +1688,24 @@
       border-color: rgba(255, 96, 96, .42);
       background: #241818;
       box-shadow: 2px 3px 9px rgba(0, 0, 0, .24), inset 0 0 0 1px rgba(255, 96, 96, .06);
+    }
+    .dashboard-delete-btn.is-loading {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: wait;
+      opacity: .82;
+    }
+    .dashboard-delete-btn.is-loading::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      flex: 0 0 12px;
+      border: 2px solid rgba(255, 123, 123, .28);
+      border-top-color: #ff7b7b;
+      border-radius: 50%;
+      animation: list-loading-spin .7s linear infinite;
     }
     .empty {
       display: none;
@@ -1672,6 +1796,66 @@
       font: inherit;
     }
     .edit-field textarea { min-height: 82px; resize: vertical; }
+    .event-price-editor {
+      grid-column: 1 / -1;
+      display: grid;
+      gap: 12px;
+      padding: 14px 0 16px;
+      border-top: 1px solid #303030;
+      border-bottom: 1px solid #303030;
+    }
+    .event-price-editor-title {
+      margin: 0;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .event-price-groups {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .event-price-group {
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+    .event-price-group legend {
+      width: 100%;
+      margin: 0 0 9px;
+      padding: 0 0 7px;
+      border-bottom: 1px solid #292929;
+      color: #00f040;
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .event-price-fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .event-price-field > span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .event-price-field > span::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #2f91ff;
+      box-shadow: 0 0 0 3px rgba(47, 145, 255, .12);
+    }
+    .event-price-field.is-female > span::before {
+      background: #ff6673;
+      box-shadow: 0 0 0 3px rgba(255, 102, 115, .12);
+    }
+    .event-price-field input {
+      font-size: 14px;
+      font-weight: 900;
+    }
     .edit-actions { justify-content: flex-end; }
     .edit-actions .toggle-btn.is-on[type="submit"],
     .edit-actions .create-btn[type="submit"] {
@@ -2289,6 +2473,7 @@
     }
     @media (max-width: 620px) {
       .edit-grid { grid-template-columns: 1fr; }
+      .event-price-groups { grid-template-columns: 1fr; gap: 14px; }
       .schedule-maker-head { align-items: stretch; flex-direction: column; }
       .schedule-head-actions { justify-content: stretch; }
       .schedule-maker-grid { grid-template-columns: 1fr; }
@@ -2307,8 +2492,7 @@
       .layout { grid-template-columns: 1fr; }
       .side { position: static; grid-row: 1; max-height: none; }
       .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .event-card { grid-template-columns: 140px minmax(0, 1fr) 144px; }
-      .event-actions { grid-column: auto; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .event-card { grid-template-columns: 140px minmax(0, 1fr); }
       .toast {
         right: 14px;
         left: 14px;
@@ -2319,12 +2503,142 @@
       .cards { grid-template-columns: 1fr; }
       .toolbar { grid-template-columns: 1fr; }
       .toolbar .search { grid-column: auto; }
-      .event-card { grid-template-columns: 120px minmax(0, 1fr); }
-      .event-actions { grid-column: 1 / -1; width: 100%; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .event-card { grid-template-columns: 120px minmax(0, 1fr); padding-top: 60px; }
+      .meta { padding-right: 0; }
+      [data-dashboard-list="clover"] .dashboard-item,
+      [data-dashboard-list="field"] .dashboard-item,
+      [data-dashboard-list="match"] .dashboard-item {
+        padding-top: 60px;
+        padding-right: 13px;
+      }
     }
+    html[data-admin-theme="light"] {
+      color-scheme: light;
+      --accent: #00a832;
+      --accent-soft: rgba(0, 168, 50, .12);
+      --bg: #eef1f5;
+      --panel: #ffffff;
+      --panel-2: #f4f6f8;
+      --ink: #151a21;
+      --muted: #626c78;
+      --line: #d8dee6;
+      --shadow: 7px 9px 22px rgba(31, 41, 55, .12), -3px -3px 10px rgba(255, 255, 255, .9);
+      --inset: inset 3px 3px 8px rgba(31, 41, 55, .12), inset -3px -3px 8px rgba(255, 255, 255, .9);
+    }
+    html[data-admin-theme="light"] body.admin-authenticated { background: var(--bg); color: var(--ink); }
+    html[data-admin-theme="light"] .brand-mark {
+      background: #f4f6f8;
+      border-color: #dce2e9;
+      box-shadow: inset 2px 2px 5px rgba(31, 41, 55, .08), inset -3px -3px 7px #fff, 4px 6px 14px rgba(31, 41, 55, .12);
+    }
+    html[data-admin-theme="light"] .brand-mark img { filter: brightness(0) drop-shadow(0 3px 6px rgba(31, 41, 55, .2)); }
+    html[data-admin-theme="light"] .brand strong,
+    html[data-admin-theme="light"] .brand-copy span { color: var(--ink); text-shadow: none; }
+    html[data-admin-theme="light"] .icon-btn,
+    html[data-admin-theme="light"] .link-btn,
+    html[data-admin-theme="light"] .soft-btn,
+    html[data-admin-theme="light"] .small-btn,
+    html[data-admin-theme="light"] .nav-btn,
+    html[data-admin-theme="light"] .toggle-btn.is-off,
+    html[data-admin-theme="light"] .event-actions .toggle-btn,
+    html[data-admin-theme="light"] .dashboard-item-actions .toggle-btn,
+    html[data-admin-theme="light"] .dashboard-item-actions .small-btn,
+    html[data-admin-theme="light"] .dashboard-board-card-actions .small-btn,
+    html[data-admin-theme="light"] .schedule-date-calendar-nav button {
+      background: #f4f6f8;
+      border-color: #d8dee6;
+      color: var(--ink);
+      box-shadow: 3px 4px 10px rgba(31, 41, 55, .1);
+    }
+    html[data-admin-theme="light"] .nav-btn.is-active { background: #e5f7e9; color: #101820; }
+    html[data-admin-theme="light"] .count-pill { background: #18201b; color: #fff; }
+    html[data-admin-theme="light"] :is(
+      .nav-submenu, .dashboard-maker, .menubar-icon-toggle, .edit-layer, .schedule-maker,
+      .memo-participant-box, .memo-result-layer, .memo-result-card
+    ) { background: #ffffff; border-color: var(--line); box-shadow: var(--shadow); }
+    html[data-admin-theme="light"] :is(
+      .dashboard-item, .event-card, .hero-admin-item, .schedule-layer-card,
+      .memo-participant-row, .memo-match-person, .memo-note-group, .memo-note-person
+    ) { background: #f7f8fa; border-color: #d8dee6; color: var(--ink); }
+    html[data-admin-theme="light"] :is(
+      .dashboard-application-details, .dashboard-application-detail-cell,
+      .dashboard-board-message, .dashboard-board-reply-box, .dashboard-board-attachment-thumb,
+      .dashboard-board-attachment-file, .memo-participant-row > span, .memo-note-line
+    ) { background: #ffffff; border-color: #dce2e9; color: var(--ink); }
+    html[data-admin-theme="light"] :is(
+      input:not([type="checkbox"]):not([type="radio"]), textarea, select,
+      .remote-field input, .hero-admin-field input, .edit-field input,
+      .edit-field textarea, .edit-field select, .search,
+      .schedule-address-preview-map, .schedule-date-calendar
+    ) {
+      background: #ffffff;
+      border-color: #cfd6df;
+      color: var(--ink);
+      box-shadow: inset 2px 2px 6px rgba(31, 41, 55, .08);
+    }
+    html[data-admin-theme="light"] :is(input, textarea)::placeholder { color: #8a94a1; }
+    html[data-admin-theme="light"] .menubar-icon-switch input { background: #e2e7ed; border-color: #cbd3dc; }
+    html[data-admin-theme="light"] .dashboard-thumb,
+    html[data-admin-theme="light"] .hero-admin-thumb,
+    html[data-admin-theme="light"] .thumb { background: #e7ebf0; border-color: #d8dee6; }
+    html[data-admin-theme="light"] :is(
+      .dashboard-application-title, .dashboard-application-side .dashboard-meta,
+      .dashboard-application-detail-cell strong, .dashboard-application-document,
+      .dashboard-author-meta b, .memo-match-person, .memo-result-section-title,
+      .memo-note-group strong, .memo-note-person h3
+    ) { color: var(--ink); }
+    html[data-admin-theme="light"] .dashboard-application-badge { background: #e9edf2; border-color: #d5dce5; color: #26313d; }
+    html[data-admin-theme="light"] .dashboard-board-status { background: #e9edf2; border-color: #d5dce5; color: #44505e; }
+    html[data-admin-theme="light"] .dashboard-application-delete-btn { background: #f4f6f8; border-color: #d8dee6; color: #242b34; }
+    html[data-admin-theme="light"] .schedule-layer-meta span { background: #e9edf2; color: #46515e; }
+    html[data-admin-theme="light"] .schedule-layer-card.is-selected,
+    html[data-admin-theme="light"] :is(.event-card, .hero-admin-item, .schedule-layer-card).is-saving,
+    html[data-admin-theme="light"] :is(.event-card, .hero-admin-item).is-dragging { background: #e8f7eb; }
+    html[data-admin-theme="light"] .danger-btn,
+    html[data-admin-theme="light"] .dashboard-item-actions .danger-btn,
+    html[data-admin-theme="light"] .dashboard-board-card-actions .danger-btn {
+      background: #fff1f1;
+      border-color: #f2b8b8;
+      color: #c93838;
+    }
+    html[data-admin-theme="light"] .toast { background: #ffffff; color: var(--ink); box-shadow: var(--shadow); }
+    html[data-admin-theme="light"] .admin-logout { background: #e7ebf0; color: #1f2933; }
+    body:not(.admin-authenticated) { background: #101010; color: #f7f9fb; color-scheme: dark; }
+    body:not(.admin-authenticated) > .layout { display: none; }
+    html.admin-session-restoring .admin-login-screen { display: none; }
+    .admin-login-screen { min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; }
+    .admin-authenticated .admin-login-screen { display: none; }
+    .admin-login-form { width: min(100%, 424px); padding: 32px; border-radius: 32px; background: #1f1f1f; box-shadow: 12px 16px 28px rgba(0,0,0,.45), -8px -8px 24px rgba(255,255,255,.025); }
+    .admin-login-form h1 { margin: 0; text-align: center; font-size: 28px; color: #f7f9fb; }
+    .admin-login-subtitle { margin: 8px 0 28px; text-align: center; font-size: 14px; color: #b8c0ca; }
+    .admin-login-field { display: grid; gap: 6px; margin-bottom: 18px; }
+    .admin-login-field span { font-size: 12px; color: #b8c0ca; }
+    .admin-login-field input { width: 100%; min-height: 52px; padding: 12px 18px; border: 0; border-radius: 18px; background: #1f1f1f; color: #f7f9fb; box-shadow: inset 5px 5px 10px rgba(0,0,0,.45), inset -5px -5px 10px rgba(255,255,255,.035); outline-offset: 4px; }
+    .admin-login-field input::placeholder { color: #939da9; opacity: 1; }
+    .admin-login-remember { display: flex; align-items: center; gap: 8px; color: #b8c0ca; font-size: 13px; cursor: pointer; }
+    .admin-login-remember input { appearance: none; position: relative; width: 32px; height: 18px; margin: 0; border: 0; border-radius: 9px; background: #525861; cursor: pointer; }
+    .admin-login-remember input::after { content: ""; position: absolute; width: 14px; height: 14px; top: 2px; left: 2px; border-radius: 50%; background: #ffffff; transition: transform .15s; }
+    .admin-login-remember input:checked { background: #00d838; }
+    .admin-login-remember input:checked::after { transform: translateX(14px); }
+    .admin-login-error { min-height: 20px; margin: 12px 0; color: #ff7b89; font-size: 12px; line-height: 1.5; }
+    .admin-login-submit { width: 100%; min-height: 52px; border-radius: 18px; color: #f7f9fb; background: #242424; box-shadow: 6px 6px 14px rgba(0,0,0,.4), -6px -6px 14px rgba(255,255,255,.035); }
+    .admin-login-submit:disabled { cursor: wait; opacity: .65; }
+    .admin-logout { margin: 16px 0; padding: 10px 16px; border-radius: 8px; background: #303030; color: #ffffff; }
+    @media (max-width: 480px) { .admin-login-form { padding: 28px 24px; } }
   </style>
 </head>
 <body>
+  <section class="admin-login-screen" aria-label="관리자 로그인">
+    <form class="admin-login-form" data-admin-login>
+      <h1>Login</h1>
+      <p class="admin-login-subtitle">대시보드 로그인하세요</p>
+      <label class="admin-login-field"><span>아이디</span><input name="username" placeholder="아이디" autocomplete="username" required></label>
+      <label class="admin-login-field"><span>비밀번호</span><input name="password" placeholder="비밀번호" type="password" autocomplete="current-password" required></label>
+      <label class="admin-login-remember"><input name="remember" type="checkbox"> 로그인 상태 유지</label>
+      <p class="admin-login-error" data-admin-login-error role="status" aria-live="polite"></p>
+      <button class="admin-login-submit" type="submit">로그인</button>
+    </form>
+  </section>
   <div class="layout">
     <main>
       <section class="panel admin-panel" data-admin-panel="events" hidden>
@@ -2527,6 +2841,26 @@
         <div class="menubar-icon-settings" data-menubar-settings>
           <label class="menubar-icon-toggle">
             <span>
+              <strong>클로버 소식</strong>
+              <small>OFF 시 메뉴바에 준비 중으로 표시</small>
+            </span>
+            <span class="menubar-icon-switch">
+              <input type="checkbox" data-menubar-icon-setting="cloverNews" checked>
+              <span data-menubar-icon-state="cloverNews">ON</span>
+            </span>
+          </label>
+          <label class="menubar-icon-toggle">
+            <span>
+              <strong>연애 상담</strong>
+              <small>OFF 시 메뉴바에 준비 중으로 표시</small>
+            </span>
+            <span class="menubar-icon-switch">
+              <input type="checkbox" data-menubar-icon-setting="counsel" checked>
+              <span data-menubar-icon-state="counsel">ON</span>
+            </span>
+          </label>
+          <label class="menubar-icon-toggle">
+            <span>
               <strong>유튜브</strong>
               <small>메뉴바 유튜브 아이콘 표시</small>
             </span>
@@ -2571,6 +2905,14 @@
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M21 12a9 9 0 1 1-2.64-6.36" />
               <path d="M21 3v6h-6" />
+            </svg>
+          </button>
+          <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="밝은 모드로 전환" title="밝은 모드로 전환">
+            <svg data-theme-icon="light" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/>
+            </svg>
+            <svg data-theme-icon="dark" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/>
             </svg>
           </button>
         </div>
@@ -2687,8 +3029,8 @@
           </div>
         </div>
         <div class="nav-divider" role="separator" aria-hidden="true"></div>
-        <button class="nav-btn" type="button" data-nav="clover">클로버 근황 <span class="count-pill" data-dashboard-menu-count="clover">0</span></button>
         <button class="nav-btn" type="button" data-nav="field">현장 <span class="count-pill" data-dashboard-menu-count="field">0</span></button>
+        <button class="nav-btn" type="button" data-nav="clover">클로버 근황 <span class="count-pill" data-dashboard-menu-count="clover">0</span></button>
         <button class="nav-btn" type="button" data-nav="match">매칭결과 <span class="count-pill" data-dashboard-menu-count="match">0</span></button>
         <button class="nav-btn" type="button" data-nav="counsel">연애상담 <span class="count-pill" data-dashboard-menu-count="counsel">0</span></button>
         <button class="nav-btn" type="button" data-nav="board">문의 하기 <span class="count-pill" data-dashboard-menu-count="board">0</span></button>
@@ -2698,6 +3040,7 @@
         <div class="nav-divider" role="separator" aria-hidden="true"></div>
         <button class="nav-btn" type="button" data-nav="menubar">메뉴바 아이콘 설정 <span class="count-pill">ON</span></button>
       </nav>
+      <button class="admin-logout" type="button" data-admin-logout>로그아웃</button>
     </aside>
   </div>
   <div class="toast" role="status" aria-live="polite" data-toast></div>
@@ -2706,8 +3049,27 @@
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
     const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "";
-    const ADMIN_PASSWORD = "1111";
+    let ADMIN_PASSWORD = "";
+    const ADMIN_SESSION_KEY = "clover-admin-session:v1";
+    const ADMIN_THEME_KEY = "clover-admin-theme:v1";
+    let adminDashboardStarted = false;
+    function applyAdminTheme(theme) {
+      const nextTheme = theme === "light" ? "light" : "dark";
+      document.documentElement.dataset.adminTheme = nextTheme;
+      const button = document.querySelector("[data-theme-toggle]");
+      const label = nextTheme === "light" ? "다크 모드로 전환" : "밝은 모드로 전환";
+      if (button) {
+        button.setAttribute("aria-label", label);
+        button.title = label;
+        button.setAttribute("aria-pressed", nextTheme === "light" ? "true" : "false");
+      }
+      try { localStorage.setItem(ADMIN_THEME_KEY, nextTheme); } catch {}
+    }
+    function toggleAdminTheme() {
+      applyAdminTheme(document.documentElement.dataset.adminTheme === "light" ? "dark" : "light");
+    }
     async function apiPost(payload) {
+      if (!ADMIN_PASSWORD) throw new Error("관리자 로그인이 필요합니다.");
       const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -2717,12 +3079,31 @@
       if (!response.ok || !result.ok) throw new Error(result.error || "저장 요청이 실패했습니다.");
       return result;
     }
-    async function apiGet(action, params = {}) {
+    const dashboardGetRequests = new Map();
+    function apiGet(action, params = {}, timeoutMs = 25000) {
+      const key = JSON.stringify([action, params, ADMIN_PASSWORD]);
+      if (dashboardGetRequests.has(key)) return dashboardGetRequests.get(key);
+      const request = requestDashboardGet(action, params, timeoutMs)
+        .finally(() => { dashboardGetRequests.delete(key); });
+      dashboardGetRequests.set(key, request);
+      return request;
+    }
+    async function requestDashboardGet(action, params, timeoutMs) {
+      if (!ADMIN_PASSWORD) throw new Error("관리자 로그인이 필요합니다.");
       const query = new URLSearchParams({ action, t: String(Date.now()), adminPassword: ADMIN_PASSWORD, ...params });
-      const response = await fetch(`${GOOGLE_SCRIPT_URL}?${query.toString()}`, { cache: "no-store" });
-      const result = await response.json().catch(() => ({}));
-      if (!response.ok || !result.ok) throw new Error(result.error || "불러오기 요청이 실패했습니다.");
-      return result;
+      const controller = new AbortController();
+      const timer = window.setTimeout(() => controller.abort(), timeoutMs);
+      try {
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?${query.toString()}`, { cache: "no-store", signal: controller.signal });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || !result.ok) throw new Error(result.error || "불러오기 요청이 실패했습니다.");
+        return result;
+      } catch (error) {
+        if (error.name === "AbortError") throw new Error("서버 응답이 지연되고 있습니다. 다시 새로고침해 주세요.");
+        throw error;
+      } finally {
+        window.clearTimeout(timer);
+      }
     }
     const EVENT_ACTIVE_OVERRIDE_KEY = "cloverAdminEventActiveOverrides:v1";
     const EVENT_EDIT_OVERRIDE_KEY = "cloverAdminEventEdits:v1";
@@ -2753,6 +3134,7 @@
       "https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg"
     ]);
     let heroSlides = [];
+    const unsavedHeroSlideIds = new Set();
     let heroPressTimer = 0;
     let heroPressingCardEl = null;
     let heroDraggingId = "";
@@ -3044,7 +3426,7 @@
     }
 
     function readMenuBarIconSettings() {
-      const defaults = { youtube: true, instagram: true, mbti: true };
+      const defaults = { cloverNews: true, counsel: true, youtube: true, instagram: true, mbti: true };
       try {
         const parsed = JSON.parse(localStorage.getItem(MENU_BAR_ICON_SETTINGS_KEY) || "{}");
         return { ...defaults, ...(parsed && typeof parsed === "object" ? parsed : {}) };
@@ -3336,13 +3718,23 @@
       events.splice(index, 1);
       persistCustomEvents();
       writeOrder(events.map((event) => event.id));
+      publishPublicEventListCache();
       if (editingEventId === item.id) editingEventId = "";
       render();
       try {
         await apiPost({ type: "eventDelete", id: item.id });
         showToast(`${item.title} 레이어를 삭제했습니다.`);
       } catch (error) {
-        showToast(`삭제 완료, 서버 반영 확인 필요: ${error.message}`);
+        writeDeletedEvents(readDeletedEvents().filter((id) => String(id) !== String(item.id)));
+        if (!events.some((event) => String(event.id) === String(item.id))) {
+          events.splice(Math.min(index, events.length), 0, item);
+        }
+        updateEventOrders();
+        persistCustomEvents();
+        writeOrder(events.map((event) => event.id));
+        publishPublicEventListCache();
+        render();
+        showToast(`삭제 실패: ${error.message}`);
       }
     }
 
@@ -3431,20 +3823,22 @@
       };
     }
 
-    async function loadEvents() {
+    async function loadEvents(background = false) {
       if (!GOOGLE_SCRIPT_URL) return;
-      listEl.innerHTML = '<div class="list-loading" aria-hidden="true"><span class="list-loading-spinner"></span></div>';
-      if (partyListEl) partyListEl.innerHTML = '<div class="list-loading" aria-hidden="true"><span class="list-loading-spinner"></span></div>';
+      if (!background) {
+        listEl.innerHTML = '<div class="list-loading" aria-hidden="true"><span class="list-loading-spinner"></span></div>';
+        if (partyListEl) partyListEl.innerHTML = '<div class="list-loading" aria-hidden="true"><span class="list-loading-spinner"></span></div>';
+      }
       try {
         const result = await apiGet("eventList", { includeInactive: "1" });
-        const list = Array.isArray(result.events) ? result.events : [];
-        if (list.length) {
+        if (Array.isArray(result.events)) {
+          const list = result.events;
           events = filterDeletedEvents(list.map(backendEventToAdmin)).sort((a, b) => a.order - b.order);
           eventsLoadedFromServer = true;
           publishPublicEventListCache(events);
         }
       } catch (error) {
-        showToast(`서버에서 목록을 불러오지 못해 임시 목록을 표시합니다: ${error.message}`);
+        if (!background) showToast(`서버에서 목록을 불러오지 못해 임시 목록을 표시합니다: ${error.message}`);
       }
       updateEventOrders();
       render();
@@ -3508,14 +3902,15 @@
     let memoSubmissions = [];
     const dashboardOpenBoardIds = new Set();
     const dashboardOpenApplicationIds = new Set();
+    const dashboardDeletingIds = new Set();
     const PUBLIC_SCHEDULE_CACHE_KEY = "clover-schedule-posts-cache:v3";
     const PUBLIC_BOARD_CACHE_KEY = "clover-board-posts-v1";
     const PUBLIC_BOARD_STATUS_OVERRIDE_KEY = "clover-board-status-overrides-v1";
     const PUBLIC_BOARD_AUTHOR_OVERRIDE_KEY = "clover-board-author-overrides-v1";
     const PUBLIC_COUNSEL_CACHE_KEY = "clover-counsel-posts-v1";
-    const PUBLIC_APPLICATION_CACHE_KEY = "clover-application-list-v1";
+    const PUBLIC_APPLICATION_CACHE_KEY = "clover-application-list-v2";
     const PUBLIC_APPLICATION_STATUS_OVERRIDE_KEY = "clover-application-status-overrides-v1";
-    const MYPAGE_APPLICATION_CACHE_KEY = "clover-mypage-applications-v1";
+    const MYPAGE_APPLICATION_CACHE_KEY = "clover-mypage-applications-v2";
     const dashboardPanelCategories = Object.freeze({
       clover: "클로버 근황",
       field: "현장",
@@ -3565,20 +3960,22 @@
       };
     }
 
-    function normalizeAdminHeroSlides(items) {
+    function normalizeAdminHeroSlides(items, useDefaults = true) {
       const slides = (Array.isArray(items) ? items : [])
         .slice(0, 5)
         .map(normalizeAdminHeroSlide)
         .filter((item) => item.imageUrl || item.videoUrl);
-      return slides.length ? slides.sort((a, b) => Number(a.order || 0) - Number(b.order || 0)) : defaultHeroSlides();
+      return slides.length
+        ? slides.sort((a, b) => Number(a.order || 0) - Number(b.order || 0))
+        : (useDefaults ? defaultHeroSlides() : []);
     }
 
     function readAdminHeroCache() {
       try {
         const parsed = JSON.parse(localStorage.getItem(ADMIN_HERO_CACHE_KEY) || "[]");
-        return normalizeAdminHeroSlides(parsed);
+        return normalizeAdminHeroSlides(parsed, false);
       } catch {
-        return defaultHeroSlides();
+        return [];
       }
     }
 
@@ -3636,7 +4033,8 @@
             </label>
           </span>
           <span class="hero-admin-actions">
-            <label class="hero-admin-toggle"><input type="checkbox" data-hero-active ${item.active ? "checked" : ""}> 노출</label>
+            <label class="hero-admin-toggle" title="노출 상태"><input type="checkbox" data-hero-active aria-label="노출 상태" ${item.active ? "checked" : ""}><span aria-hidden="true"></span></label>
+            <button class="small-btn" type="button" data-hero-edit="${id}">수정</button>
             <button class="small-btn danger-btn" type="button" data-hero-remove="${id}">삭제</button>
           </span>
         </article>
@@ -3644,7 +4042,6 @@
     }
 
     function renderHeroAdmin() {
-      if (!heroSlides.length) heroSlides = readAdminHeroCache();
       const copy = heroCopySource();
       syncHeroCopyFields(copy.title, copy.description);
       updateHeroMenuCount();
@@ -3713,8 +4110,10 @@
         return;
       }
       const copy = heroCopySource();
+      const id = `hero-local-${Date.now()}`;
+      unsavedHeroSlideIds.add(id);
       heroSlides.push({
-        id: `hero-local-${Date.now()}`,
+        id,
         order: heroSlides.length + 1,
         title: copy.title || HERO_DEFAULT_TITLE,
         description: copy.description || HERO_DEFAULT_DESCRIPTION,
@@ -3727,10 +4126,38 @@
       renderHeroAdmin();
     }
 
-    function removeHeroSlide(id) {
-      heroSlides = collectHeroSlidesFromDom().filter((item) => String(item.id) !== String(id));
-      renderHeroAdmin();
-      showToast("히어로 이미지를 삭제했습니다.");
+    async function removeHeroSlide(id) {
+      const slideId = String(id || "");
+      if (!slideId) return;
+      if (unsavedHeroSlideIds.has(slideId)) {
+        unsavedHeroSlideIds.delete(slideId);
+        heroImagePayloadById.delete(slideId);
+        heroSlides = collectHeroSlidesFromDom().filter((item) => String(item.id) !== slideId);
+        renderHeroAdmin();
+        showToast("추가 중인 히어로 이미지를 삭제했습니다.");
+        return;
+      }
+      if (!GOOGLE_SCRIPT_URL) {
+        showToast("서버 연결을 확인해 주세요.");
+        return;
+      }
+      try {
+        await apiPost({ type: "heroDelete", id: slideId });
+        heroImagePayloadById.delete(slideId);
+        heroSlides = collectHeroSlidesFromDom().filter((item) => String(item.id) !== slideId);
+        unsavedHeroSlideIds.clear();
+        writeAdminHeroCache(heroSlides);
+        renderHeroAdmin();
+        showToast("히어로 이미지를 삭제했습니다.");
+        try {
+          const result = await apiGet("heroList", { includeInactive: "1" });
+          heroSlides = normalizeAdminHeroSlides(Array.isArray(result.slides) ? result.slides : [], false);
+          writeAdminHeroCache(heroSlides);
+          renderHeroAdmin();
+        } catch {}
+      } catch (error) {
+        showToast(`히어로 삭제 실패: ${error.message}`);
+      }
     }
 
     function moveHeroSlide(dragId, targetId, afterTarget = false) {
@@ -3785,7 +4212,8 @@
       try {
         const result = await apiGet("heroList", { includeInactive: "1" });
         const slides = Array.isArray(result.slides) ? result.slides : [];
-        heroSlides = normalizeAdminHeroSlides(slides);
+        heroSlides = normalizeAdminHeroSlides(slides, false);
+        unsavedHeroSlideIds.clear();
         writeAdminHeroCache(heroSlides);
         renderHeroAdmin();
       } catch (error) {
@@ -3799,16 +4227,15 @@
         showToast("히어로 이미지를 1개 이상 입력해 주세요.");
         return;
       }
-      writeAdminHeroCache(heroSlides);
-      renderHeroAdmin();
       if (!GOOGLE_SCRIPT_URL) {
-        showToast("히어로 섹션을 임시 저장했습니다.");
+        showToast("서버 연결을 확인해 주세요.");
         return;
       }
       try {
         const result = await apiPost({ type: "heroSave", slides: heroSlides });
         heroImagePayloadById.clear();
-        heroSlides = normalizeAdminHeroSlides(result.slides || heroSlides);
+        heroSlides = normalizeAdminHeroSlides(Array.isArray(result.slides) ? result.slides : [], false);
+        unsavedHeroSlideIds.clear();
         writeAdminHeroCache(heroSlides);
         renderHeroAdmin();
         showToast("히어로 섹션을 저장했습니다.");
@@ -3847,7 +4274,8 @@
 
     function writeSharedDashboardCache(key, posts) {
       try {
-        localStorage.setItem(key, JSON.stringify((Array.isArray(posts) ? posts : []).slice(0, 100)));
+        const value = JSON.stringify((Array.isArray(posts) ? posts : []).slice(0, 100));
+        if (localStorage.getItem(key) !== value) localStorage.setItem(key, value);
       } catch {}
     }
 
@@ -3898,6 +4326,10 @@
     function applyDashboardApplicationStatusOverrides(applications) {
       const overrides = readDashboardApplicationStatusOverrides();
       return (Array.isArray(applications) ? applications : []).map((application) => {
+        if ((application.status || application["진행상태"]) === "취소") {
+          if (!application.isPending) removeDashboardApplicationStatusOverride(application);
+          return { ...application, status: "취소" };
+        }
         const overrideStatus = overrides[dashboardApplicationStableKey(application)];
         if (!overrideStatus) return application;
         return { ...application, status: overrideStatus };
@@ -4552,8 +4984,10 @@
           apiGet("memoSubmissionList")
         ]);
         const serverRounds = (Array.isArray(roundResult.rounds) ? roundResult.rounds : []).map(normalizeMemoRound);
-        memoRounds = mergeMemoRounds(serverRounds, memoRounds);
+        memoRounds = serverRounds.sort((a, b) => Number(b.updatedAt || 0) - Number(a.updatedAt || 0));
         memoSubmissions = Array.isArray(submissionResult.submissions) ? submissionResult.submissions : [];
+        writeDeletedMemoRoundIds(new Set());
+        writeMemoStatusOverrides({});
         writeMemoRoundsCache(memoRounds);
         writeMemoSubmissionsCache(memoSubmissions);
         renderMemoAdmin();
@@ -4578,27 +5012,23 @@
         showToast("연락처 11자리와 생년월일 8자리가 입력된 남성/여성 참가자를 각각 1명 이상 입력해 주세요.");
         return;
       }
-      const deletedIds = readDeletedMemoRoundIds();
-      deletedIds.delete(String(round.id));
-      writeDeletedMemoRoundIds(deletedIds);
-      const statusOverrides = readMemoStatusOverrides();
-      statusOverrides[String(round.id)] = { status: round.status, updatedAt: Date.now() };
-      writeMemoStatusOverrides(statusOverrides);
-      memoRounds = replaceMemoRoundKeepingPosition(memoRounds, round);
-      writeMemoRoundsCache(memoRounds);
-      renderMemoAdmin();
-      moveMemoFormAfterRound(round.id);
-      showToast("메모장 회차를 저장했습니다.");
+      showToast("메모장 회차를 서버에 저장 중입니다.");
       try {
         const result = await apiPost({ type: "memoRoundSave", roundId: round.id, title: round.title, status: round.status, participants: round.participants });
         const saved = normalizeMemoRound(result.round || round);
+        const deletedIds = readDeletedMemoRoundIds();
+        deletedIds.delete(String(saved.id));
+        writeDeletedMemoRoundIds(deletedIds);
+        const statusOverrides = readMemoStatusOverrides();
+        delete statusOverrides[String(saved.id)];
+        writeMemoStatusOverrides(statusOverrides);
         memoRounds = replaceMemoRoundKeepingPosition(memoRounds, saved);
         writeMemoRoundsCache(memoRounds);
         renderMemoAdmin();
         moveMemoFormAfterRound(saved.id);
-        showToast("메모장 회차를 서버까지 저장했습니다.");
+        showToast("메모장 회차를 생성했습니다.");
       } catch (error) {
-        showToast(`로컬 저장 완료, 서버 반영 실패: ${error.message}`);
+        showToast(`메모장 회차를 생성하지 못했습니다: ${error.message}`);
       }
     }
 
@@ -4606,21 +5036,17 @@
       const round = memoRounds.find((item) => item.id === roundId);
       if (!round) return;
       const nextStatus = round.status === "blocked" ? "active" : "blocked";
-      round.status = nextStatus;
-      round.updatedAt = Date.now();
-      const statusOverrides = readMemoStatusOverrides();
-      statusOverrides[String(roundId)] = { status: nextStatus, updatedAt: round.updatedAt };
-      writeMemoStatusOverrides(statusOverrides);
-      writeMemoRoundsCache(memoRounds);
-      renderMemoAdmin();
-      showToast(nextStatus === "blocked" ? "메모장 접속을 차단했습니다." : "메모장 접속을 허용했습니다.");
       try {
         const result = await apiPost({ type: "memoRoundToggle", roundId, status: nextStatus });
         const saved = normalizeMemoRound(result.round || round);
         memoRounds = memoRounds.map((item) => item.id === saved.id ? { ...item, ...saved, status: nextStatus } : item);
+        const statusOverrides = readMemoStatusOverrides();
+        delete statusOverrides[String(roundId)];
+        writeMemoStatusOverrides(statusOverrides);
         writeMemoRoundsCache(memoRounds);
+        showToast(nextStatus === "blocked" ? "메모장 접속을 차단했습니다." : "메모장 접속을 허용했습니다.");
       } catch (error) {
-        showToast(`로컬 반영 완료, 서버 반영 실패: ${error.message}`);
+        showToast(`접속 상태를 변경하지 못했습니다: ${error.message}`);
       } finally {
         renderMemoAdmin();
       }
@@ -4631,26 +5057,24 @@
       const round = memoRounds.find((item) => item.id === id);
       if (!round) return;
       if (!window.confirm(`${round.title} 메모장 회차를 삭제할까요?`)) return;
-      const previousRounds = [...memoRounds];
-      const previousSubmissions = [...memoSubmissions];
-      const deletedIds = readDeletedMemoRoundIds();
-      deletedIds.add(id);
-      writeDeletedMemoRoundIds(deletedIds);
-      const statusOverrides = readMemoStatusOverrides();
-      delete statusOverrides[id];
-      writeMemoStatusOverrides(statusOverrides);
-      memoRounds = memoRounds.filter((item) => item.id !== id);
-      memoSubmissions = memoSubmissions.filter((item) => item.roundId !== id);
-      writeMemoRoundsCache(memoRounds);
-      writeMemoSubmissionsCache(memoSubmissions);
-      const results = document.querySelector("[data-memo-results]");
-      if (results?.dataset.roundId === id) closeMemoResults();
-      renderMemoAdmin();
-      showToast("메모장 회차를 삭제했습니다.");
       try {
         await apiPost({ type: "memoRoundDelete", roundId: id });
+        const deletedIds = readDeletedMemoRoundIds();
+        deletedIds.delete(id);
+        writeDeletedMemoRoundIds(deletedIds);
+        const statusOverrides = readMemoStatusOverrides();
+        delete statusOverrides[id];
+        writeMemoStatusOverrides(statusOverrides);
+        memoRounds = memoRounds.filter((item) => item.id !== id);
+        memoSubmissions = memoSubmissions.filter((item) => item.roundId !== id);
+        writeMemoRoundsCache(memoRounds);
+        writeMemoSubmissionsCache(memoSubmissions);
+        const results = document.querySelector("[data-memo-results]");
+        if (results?.dataset.roundId === id) closeMemoResults();
+        renderMemoAdmin();
+        showToast("메모장 회차를 삭제했습니다.");
       } catch (error) {
-        showToast(`로컬 삭제 완료, 서버 삭제 실패: ${error.message}`);
+        showToast(`메모장 회차를 삭제하지 못했습니다: ${error.message}`);
       }
     }
 
@@ -4736,7 +5160,10 @@
     }
 
     function cleanDashboardPosts(posts) {
-      return (Array.isArray(posts) ? posts : []).filter((post) => !isBlockedDashboardMatchDuplicate(post));
+      return (Array.isArray(posts) ? posts : []).filter((post) => {
+        if (isBlockedDashboardMatchDuplicate(post)) return false;
+        return !isDashboardFallbackId(post?.id);
+      });
     }
 
     function mergeDashboardBoardPosts(...groups) {
@@ -4957,8 +5384,22 @@
       }));
     }
 
-    function applyDashboardSchedulePosts(posts) {
-      const merged = normalizeDashboardFieldImages(cleanDashboardPosts(uniqueDashboardItems([...(Array.isArray(posts) ? posts : []), ...readSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY)])));
+    function applyDashboardSchedulePosts(posts, authoritative = false) {
+      const serverPosts = normalizeDashboardFieldImages(cleanDashboardPosts(uniqueDashboardItems(Array.isArray(posts) ? posts : [])));
+      if (authoritative) {
+        const clover = serverPosts.filter((post) => String(post.category || "").trim() === "클로버 근황");
+        const field = serverPosts.filter((post) => String(post.category || "").trim() === "현장");
+        const match = serverPosts.filter((post) => String(post.category || "").trim() === "매칭결과");
+        dashboardData.clover = clover;
+        dashboardData.field = field;
+        dashboardData.match = match;
+        replaceDashboardLocalCategoryCache("클로버 근황", clover);
+        replaceDashboardLocalCategoryCache("현장", field);
+        replaceDashboardLocalCategoryCache("매칭결과", match);
+        writeDashboardDeletedIds([]);
+        return;
+      }
+      const merged = normalizeDashboardFieldImages(cleanDashboardPosts(uniqueDashboardItems([...serverPosts, ...readSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY)])));
       const clover = merged.filter((post) => String(post.category || "").trim() === "클로버 근황");
       const field = merged.filter((post) => String(post.category || "").trim() === "현장");
       const match = merged.filter((post) => String(post.category || "").trim() === "매칭결과");
@@ -4968,9 +5409,9 @@
       const cloverSource = uniqueDashboardItems([...localClover, ...clover]);
       const fieldSource = uniqueDashboardItems([...localField, ...field]);
       const matchSource = uniqueDashboardItems([...localMatch, ...match]);
-      dashboardData.clover = withoutDeletedDashboardItems(cloverSource.length ? cloverSource : dashboardCloverFallbackPosts());
-      dashboardData.field = withoutDeletedDashboardItems(fieldSource.length ? fieldSource : dashboardFieldFallbackPosts());
-      dashboardData.match = withoutDeletedDashboardItems(matchSource.length ? matchSource : dashboardMatchItems());
+      dashboardData.clover = withoutDeletedDashboardItems(cloverSource);
+      dashboardData.field = withoutDeletedDashboardItems(fieldSource);
+      dashboardData.match = withoutDeletedDashboardItems(matchSource);
     }
 
     function applyLocalDashboardFallbacks() {
@@ -4980,9 +5421,7 @@
       dashboardData.clover = uniqueDashboardItems([...dashboardLocalPostsFor("clover"), ...dashboardData.clover]);
       dashboardData.field = uniqueDashboardItems([...dashboardLocalPostsFor("field"), ...dashboardData.field]);
       dashboardData.match = uniqueDashboardItems([...dashboardLocalPostsFor("match"), ...dashboardData.match]);
-      dashboardData.board = GOOGLE_SCRIPT_URL
-        ? []
-        : mergeDashboardBoardPosts(dashboardData.board, readSharedDashboardCache(PUBLIC_BOARD_CACHE_KEY));
+      if (!(dashboardData.board || []).length) dashboardData.board = readSharedDashboardCache(PUBLIC_BOARD_CACHE_KEY);
       if (!dashboardData.counsel.length) dashboardData.counsel = readSharedDashboardCache(PUBLIC_COUNSEL_CACHE_KEY);
       if (!dashboardData.application.length) dashboardData.application = applyDashboardApplicationStatusOverrides(readSharedDashboardCache(PUBLIC_APPLICATION_CACHE_KEY));
       ["clover", "field", "match"].forEach((name) => {
@@ -5019,7 +5458,9 @@
       try {
         const result = await apiGet("schedulePostList", { includeInactive: "1" });
         const list = Array.isArray(result.posts) ? result.posts : [];
-        adminSchedulePosts = list.filter((post) => String(post.id || "").startsWith("admin-schedule-")).map(backendSchedulePostToAdmin);
+        adminSchedulePosts = list
+          .filter((post) => String(post.category || "").trim() === "일정 안내")
+          .map(backendSchedulePostToAdmin);
         writeSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY, list);
         applyDashboardSchedulePosts(list);
       } catch (error) {
@@ -5029,21 +5470,28 @@
       renderContentDashboards();
     }
 
-    async function apiGetWithTimeout(type, params = {}, timeoutMs = 6000) {
-      let timer = 0;
-      try {
-        return await Promise.race([
-          apiGet(type, params),
-          new Promise((resolve) => {
-            timer = window.setTimeout(() => resolve(null), timeoutMs);
-          })
-        ]);
-      } finally {
-        if (timer) window.clearTimeout(timer);
-      }
+    async function apiGetWithTimeout(type, params = {}, timeoutMs = 25000) {
+      return apiGet(type, params, timeoutMs);
     }
 
-    async function loadContentDashboards(targetName = "") {
+    const dashboardListLoads = new Map();
+    const dashboardLoadingPanels = new Set();
+    const dashboardListErrors = new Map();
+    function loadContentDashboards(targetName = "", background = false) {
+      if (dashboardListLoads.has(targetName)) return dashboardListLoads.get(targetName);
+      const names = targetName ? [targetName] : ["board", "counsel", "application", "clover", "field", "match"];
+      if (!background) names.forEach((name) => dashboardLoadingPanels.add(name));
+      const request = loadContentDashboardsContent(targetName, background).finally(() => {
+        dashboardListLoads.delete(targetName);
+        names.forEach((name) => {
+          if (!dashboardListLoads.has(name) && !dashboardListLoads.has("")) dashboardLoadingPanels.delete(name);
+        });
+        renderContentDashboards();
+      });
+      dashboardListLoads.set(targetName, request);
+      return request;
+    }
+    async function loadContentDashboardsContent(targetName = "", background = false) {
       const requestId = ++dashboardLoadSeq;
       applyLocalDashboardFallbacks();
       if (targetName === "board") {
@@ -5053,10 +5501,14 @@
           if (GOOGLE_SCRIPT_URL) {
             const result = await apiGetWithTimeout("boardList", { includeInactive: "1", adminPassword: ADMIN_PASSWORD });
             if (Array.isArray(result?.posts)) {
+              dashboardListErrors.delete("board");
               dashboardData.board = mergeDashboardBoardPosts(result.posts);
               writeSharedDashboardCache(PUBLIC_BOARD_CACHE_KEY, dashboardData.board);
             }
           }
+        } catch (error) {
+          dashboardListErrors.set("board", error.message);
+          if (!background) showToast(`문의 목록을 불러오지 못했습니다: ${error.message}`);
         } finally {
           if (requestId === dashboardLoadSeq) dashboardLoading = false;
           renderContentDashboards();
@@ -5070,12 +5522,16 @@
         try {
           if (GOOGLE_SCRIPT_URL) {
             const result = await apiGetWithTimeout("counselList", { includeInactive: "1" });
-            const posts = Array.isArray(result?.posts) ? result.posts : [];
-            if (posts.length) {
+            const posts = Array.isArray(result?.posts) ? result.posts : null;
+            if (posts) {
+              dashboardListErrors.delete("counsel");
               dashboardData.counsel = posts;
               writeSharedDashboardCache(PUBLIC_COUNSEL_CACHE_KEY, posts);
             }
           }
+        } catch (error) {
+          dashboardListErrors.set("counsel", error.message);
+          if (!background) showToast(`연애상담 목록을 불러오지 못했습니다: ${error.message}`);
         } finally {
           if (requestId === dashboardLoadSeq) dashboardLoading = false;
           renderContentDashboards();
@@ -5090,7 +5546,7 @@
             const result = await apiGetWithTimeout("schedulePostList", { includeInactive: "1" });
             const posts = Array.isArray(result?.posts) ? result.posts : [];
             writeSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY, posts);
-            applyDashboardSchedulePosts(posts);
+            applyDashboardSchedulePosts(posts, true);
           }
         } finally {
           if (requestId === dashboardLoadSeq) dashboardLoading = false;
@@ -5126,7 +5582,8 @@
           await Promise.all([
             apiGet("schedulePostList", { includeInactive: "1" }).then((result) => {
               const list = Array.isArray(result.posts) ? result.posts : [];
-              applyDashboardSchedulePosts(list);
+              writeSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY, list);
+              applyDashboardSchedulePosts(list, true);
             }).catch(() => {}),
             apiGet("boardList", { includeInactive: "1", adminPassword: ADMIN_PASSWORD }).then((result) => {
               const posts = Array.isArray(result.posts) ? result.posts : [];
@@ -5695,21 +6152,33 @@
               <label class="edit-field">여성 인원
                 <input name="female" autocomplete="off" inputmode="numeric" value="${htmlAttr(item.female)}">
               </label>
-              <label class="edit-field">모집 인원
-                <input name="capacity" autocomplete="off" value="${htmlAttr(item.capacity)}">
-              </label>
-              <label class="edit-field">1:1 남자 금액
-                <input name="malePrice11" autocomplete="off" value="${htmlAttr(prices["1:1"].malePrice)}">
-              </label>
-              <label class="edit-field">1:1 여자 금액
-                <input name="femalePrice11" autocomplete="off" value="${htmlAttr(prices["1:1"].femalePrice)}">
-              </label>
-              <label class="edit-field">6:6 남자 금액
-                <input name="malePrice66" autocomplete="off" value="${htmlAttr(prices["6:6"].malePrice)}">
-              </label>
-              <label class="edit-field">6:6 여자 금액
-                <input name="femalePrice66" autocomplete="off" value="${htmlAttr(prices["6:6"].femalePrice)}">
-              </label>
+              <section class="event-price-editor" aria-labelledby="eventPriceEditorTitle">
+                <h3 class="event-price-editor-title" id="eventPriceEditorTitle">참가비</h3>
+                <div class="event-price-groups">
+                  <fieldset class="event-price-group">
+                    <legend>1:1</legend>
+                    <div class="event-price-fields">
+                      <label class="edit-field event-price-field"><span>남성</span>
+                        <input name="malePrice11" autocomplete="off" value="${htmlAttr(prices["1:1"].malePrice)}">
+                      </label>
+                      <label class="edit-field event-price-field is-female"><span>여성</span>
+                        <input name="femalePrice11" autocomplete="off" value="${htmlAttr(prices["1:1"].femalePrice)}">
+                      </label>
+                    </div>
+                  </fieldset>
+                  <fieldset class="event-price-group">
+                    <legend>6:6</legend>
+                    <div class="event-price-fields">
+                      <label class="edit-field event-price-field"><span>남성</span>
+                        <input name="malePrice66" autocomplete="off" value="${htmlAttr(prices["6:6"].malePrice)}">
+                      </label>
+                      <label class="edit-field event-price-field is-female"><span>여성</span>
+                        <input name="femalePrice66" autocomplete="off" value="${htmlAttr(prices["6:6"].femalePrice)}">
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </section>
               <label class="edit-field is-wide">이미지 경로
                 <input name="image" autocomplete="off" value="${htmlAttr(image)}">
               </label>
@@ -5785,10 +6254,9 @@
             </div>
           </div>
           <div class="event-actions">
-            <button class="small-btn danger-btn" type="button" data-delete="${event.id}">삭제</button>
             <button class="toggle-btn ${active ? "is-on" : "is-off"}" type="button" data-toggle="${event.id}">${active ? "ON" : "OFF"}</button>
             <button class="small-btn" type="button" data-up="${event.id}">수정</button>
-            <button class="small-btn" type="button" data-preview="${event.id}">보기</button>
+            <button class="small-btn danger-btn" type="button" data-delete="${event.id}">삭제</button>
           </div>
         </article>
         ${editingEventId === event.id ? editFormMarkup(event) : ""}
@@ -6167,6 +6635,9 @@
     }
 
     function dashboardApplicationStepsHtml(id, status, itemIndex) {
+      if (status === "취소") {
+        return `<div class="dashboard-application-steps is-canceled" role="status" aria-label="신청 취소"><span class="dashboard-application-step">취소</span></div>`;
+      }
       const steps = ["접수", "확인", "승인"];
       const activeIndex = Math.max(0, steps.indexOf(status));
       return `
@@ -6298,6 +6769,7 @@
           <h3 class="dashboard-application-title">${title}</h3>
           ${badges}
           ${details ? `<p>${htmlAttr(details)}</p>` : ""}
+          ${item?.applicationNote || item?.["전달 사항"] ? `<p>${htmlAttr(String(item.applicationNote || item["전달 사항"]))}</p>` : ""}
           ${item?.message ? `<p>${htmlAttr(String(item.message)).slice(0, 180)}</p>` : ""}
           ${dashboardApplicationStepsHtml(id, status, index)}
           ${dashboardApplicationDetailsHtml(item)}
@@ -6329,12 +6801,25 @@
       const imageUrl = dashboardItemImageUrl(item, name);
       const active = item.active !== false;
       const saving = item.isSaving === true;
+      const deleting = dashboardDeletingIds.has(String(id));
       const savingLabel = item.savingLabel || "추가 중";
       const episode = name === "match" ? dashboardMatchEpisode(item) : "";
       const authorMeta = name === "counsel" ? dashboardCounselAuthorMeta(item) : "";
+      const deleteButton = `<button class="small-btn danger-btn dashboard-delete-btn${deleting ? " is-loading" : ""}" type="button" data-dashboard-delete="${htmlAttr(id)}" data-dashboard-panel="${htmlAttr(name)}" ${deleting ? "disabled aria-busy=\"true\"" : ""}>${deleting ? "삭제 중" : "삭제"}</button>`;
       const actions = name === "counsel"
-        ? `<span class="dashboard-item-actions"><button class="small-btn danger-btn" type="button" data-dashboard-delete="${htmlAttr(id)}" data-dashboard-panel="${htmlAttr(name)}">삭제</button></span>`
-        : `<span class="dashboard-item-actions"><button class="toggle-btn ${active ? "is-on" : "is-off"}" type="button" data-dashboard-toggle="${htmlAttr(id)}" data-dashboard-panel="${htmlAttr(name)}">${active ? "ON" : "OFF"}</button><button class="small-btn" type="button" data-dashboard-edit="${htmlAttr(id)}" data-dashboard-panel="${htmlAttr(name)}">수정</button><button class="small-btn danger-btn" type="button" data-dashboard-delete="${htmlAttr(id)}" data-dashboard-panel="${htmlAttr(name)}">삭제</button></span>`;
+        ? `<span class="dashboard-item-actions">${deleteButton}</span>`
+        : `<span class="dashboard-item-actions"><button class="toggle-btn ${active ? "is-on" : "is-off"}" type="button" data-dashboard-toggle="${htmlAttr(id)}" data-dashboard-panel="${htmlAttr(name)}" ${deleting ? "disabled" : ""}>${active ? "ON" : "OFF"}</button><button class="small-btn" type="button" data-dashboard-edit="${htmlAttr(id)}" data-dashboard-panel="${htmlAttr(name)}" ${deleting ? "disabled" : ""}>수정</button>${deleteButton}</span>`;
+      if (name === "counsel") {
+        return `
+          <article class="dashboard-item" data-dashboard-item="${htmlAttr(id)}">
+            ${meta ? `<span class="dashboard-meta">${htmlAttr(meta)}</span>` : ""}
+            ${authorMeta}
+            <span class="dashboard-title-row"><strong>${htmlAttr(title)}</strong></span>
+            ${body ? `<p class="dashboard-item-content">${htmlAttr(String(body)).slice(0, 180)}</p>` : ""}
+            ${manageable ? actions : ""}
+          </article>
+        `;
+      }
       return `
         <article class="dashboard-item${imageUrl ? " has-thumb" : ""}${active ? "" : " is-off"}${saving ? " is-saving" : ""}" data-dashboard-item="${htmlAttr(id)}">
           ${imageUrl ? `<span class="dashboard-thumb"><img src="${htmlAttr(adminImageUrl(imageUrl))}" alt="" loading="lazy"></span>` : ""}
@@ -6353,14 +6838,22 @@
       const form = dashboardForm(name);
       const panel = document.querySelector(`[data-admin-panel="${name}"]`);
       if (form && panel && form.parentElement === container) panel.insertBefore(form, container);
-      if (dashboardLoading) {
+      if (dashboardLoadingPanels.has(name) && !(dashboardData[name] || []).length) {
         container.innerHTML = '<div class="dashboard-loading list-loading" role="status" aria-live="polite"><span class="list-loading-spinner"></span><span>불러오는 중입니다.</span></div>';
         return;
       }
       const list = dashboardData[name] || [];
+      const entries = list.map((item, index) => ({ item, index }));
+      if (name === "application") {
+        const submittedTime = (item) => {
+          const value = item.submittedAt || item["접수일시"] || 0;
+          return Number(value) || new Date(value).getTime() || 0;
+        };
+        entries.sort((a, b) => submittedTime(b.item) - submittedTime(a.item));
+      }
       container.innerHTML = list.length
-        ? list.map((item, index) => dashboardCardHtml(item, fallbackTitle, name, index)).join("")
-        : `<div class="empty is-visible">${emptyText}</div>`;
+        ? entries.map(({ item, index }) => dashboardCardHtml(item, fallbackTitle, name, index)).join("")
+        : `<div class="empty is-visible">${dashboardListErrors.has(name) ? htmlAttr(dashboardListErrors.get(name)) : emptyText}</div>`;
       if (form && dashboardEditingIds[name]) {
         const card = container.querySelector(`[data-dashboard-item="${CSS.escape(String(dashboardEditingIds[name]))}"]`);
         if (card) {
@@ -6443,7 +6936,7 @@
         episode: dashboardMatchEpisode(item),
         title: dashboardEditableTitle(item, name),
         content: dashboardItemRawBody(item),
-        imageUrl: name === "match" ? "" : String(item.imageUrl || item.image || ""),
+        imageUrl: name === "match" ? "" : String(item.attachedImageUrl || item.imageUrl || item.image || ""),
         scheduleDate: dashboardDateInputValue(item.scheduleDate || item.date || ""),
         scheduleTime: dashboardTimeInputValue(item.scheduleTime, item.hour || ""),
         ageRange: item.ageRange || item.age || "",
@@ -6660,26 +7153,30 @@
       const imageFileInput = form.querySelector('input[type="file"][name="imageFile"]');
       const attachedImageUrl = name === "match" ? "" : String(imageFileInput?.dataset.imageDataUrl || "").trim();
       const imageFile = name === "match" || !imageFileInput?.dataset.imagePayload ? null : JSON.parse(imageFileInput.dataset.imagePayload);
-      const imageUrl = name === "match" ? "" : (String(data.get("imageUrl") || "").trim() || (name === "clover" ? "assets/clover-proof-01.jpg" : DASHBOARD_FIELD_IMAGES[0]));
+      const imageUrl = name === "match" ? "" : (String(data.get("imageUrl") || "").trim() || (name === "clover" ? "assets/clover-proof-01.jpg" : ""));
       const ageRange = String(data.get("ageRange") || "").trim();
       const male = String(data.get("male") || "").trim();
       const female = String(data.get("female") || "").trim();
       const matchCount = String(data.get("matchCount") || "").trim();
       const existingItem = editingId ? (dashboardData[name] || []).find((item) => dashboardItemId(item) === editingId) : null;
-      const previousImageUrl = String(existingItem?.imageUrl || existingItem?.image || "").trim();
+      const previousImageUrl = String(existingItem?.attachedImageUrl || existingItem?.imageUrl || existingItem?.image || "").trim();
       const rawImageUrl = String(data.get("imageUrl") || "").trim();
       const episode = name === "match"
         ? String(existingItem ? dashboardMatchEpisode(existingItem) : nextDashboardMatchEpisode())
         : String(data.get("episode") || "").trim();
       const id = name === "match" ? (editingId || `dashboard-match-${episode}`) : (editingId || `dashboard-${name}-${Date.now()}`);
-      if (!title) throw new Error("제목을 입력해 주세요.");
+      const resolvedImageUrl = name === "match" ? "" : (rawImageUrl || previousImageUrl || imageUrl);
+      if (!title && name !== "field") throw new Error("제목을 입력해 주세요.");
+      if (name === "field" && !attachedImageUrl && !imageFile && !resolvedImageUrl) {
+        throw new Error("현장 사진을 첨부해 주세요.");
+      }
       return {
         id,
         episode,
         category: dashboardPanelCategories[name],
         title,
         content,
-        imageUrl: name === "match" ? "" : (rawImageUrl || previousImageUrl || imageUrl),
+        imageUrl: resolvedImageUrl,
         attachedImageUrl,
         imageFile,
         headline: name !== "field" && /^\[소식\]/.test(title),
@@ -6701,7 +7198,7 @@
         id: dashboardItemId(item),
         order,
         category: dashboardPanelCategories[name],
-        title: dashboardItemTitle(item, dashboardPanelCategories[name] || ""),
+        title: name === "field" ? String(item.title || "").trim() : dashboardItemTitle(item, dashboardPanelCategories[name] || ""),
         content: dashboardItemRawBody(item) || (name === "match" ? "매칭 결과가 등록되었습니다." : ""),
         imageUrl: name === "match" ? "" : String(item.imageUrl || item.image || ""),
         imageFile: item.imageFile || null,
@@ -6785,7 +7282,7 @@
         const sourcePosts = uniqueDashboardItems(dashboardData[name] || [])
           .filter((item) => dashboardItemId(item));
         const posts = await Promise.all(sourcePosts.map((item, index) => dashboardPostPayloadForUpload(item, name, index + 1)));
-        const invalid = posts.find((post) => !post.title || (name !== "match" && !post.imageUrl && !post.imageFile?.base64) || (String(post.imageUrl || "").startsWith("data:") && !post.imageFile?.base64));
+        const invalid = posts.find((post) => (name !== "field" && !post.title) || (name !== "match" && !post.imageUrl && !post.imageFile?.base64) || (String(post.imageUrl || "").startsWith("data:") && !post.imageFile?.base64));
         if (invalid) {
           showToast("이미지를 첨부하거나 Cloudinary URL 또는 assets 경로를 입력해 주세요.");
           return;
@@ -6856,6 +7353,22 @@
         }
         return;
       }
+      if (["clover", "field", "match"].includes(name)) {
+        try {
+          const payload = await dashboardPostPayloadForUpload(post, name, 1);
+          await apiPost({ type: "schedulePostSave", ...payload, order: 1 });
+          resetDashboardForm(name);
+          await loadContentDashboards(name);
+          showToast(`${dashboardPanelCategories[name]} 레이어를 저장했습니다.`);
+        } catch (error) {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = isEditing ? "수정" : "등록";
+          }
+          showToast(`서버 저장 실패: ${error.message}`);
+        }
+        return;
+      }
       post.isSaving = true;
       post.savingLabel = savingLabel;
       upsertDashboardLocalPost(post);
@@ -6897,6 +7410,37 @@
     }
 
     async function deleteDashboardPost(name, id) {
+      if (name === "counsel") {
+        try {
+          await apiPost({ type: "counselDelete", id });
+          deleteDashboardLocalPost(id);
+          dashboardData.counsel = (dashboardData.counsel || []).filter((post) => dashboardItemId(post) !== String(id));
+          writeSharedDashboardCache(PUBLIC_COUNSEL_CACHE_KEY, dashboardData.counsel);
+          renderContentDashboards();
+          await loadContentDashboards("counsel");
+          showToast("연애상담 글을 삭제했습니다.");
+        } catch (error) {
+          showToast(`연애상담 삭제 실패: ${error.message}`);
+        }
+        return;
+      }
+      if (["clover", "field", "match"].includes(name)) {
+        const deleteKey = String(id || "");
+        if (!deleteKey || dashboardDeletingIds.has(deleteKey)) return;
+        dashboardDeletingIds.add(deleteKey);
+        renderContentDashboards();
+        try {
+          await apiPost({ type: "schedulePostDelete", id });
+          await loadContentDashboards(name);
+          showToast(`${dashboardPanelCategories[name]} 레이어를 삭제했습니다.`);
+        } catch (error) {
+          showToast(`삭제 실패: ${error.message}`);
+        } finally {
+          dashboardDeletingIds.delete(deleteKey);
+          renderContentDashboards();
+        }
+        return;
+      }
       deleteDashboardLocalPost(id);
       writeDashboardDeletedIds([...dashboardDeletedIds, id]);
       dashboardData[name] = (dashboardData[name] || []).filter((item) => dashboardItemId(item) !== String(id));
@@ -6904,14 +7448,6 @@
       else publishDashboardCategoryCache(name);
       renderContentDashboards();
       try {
-        if (name === "counsel") {
-          if (GOOGLE_SCRIPT_URL) {
-            await apiPost({ type: "counselDelete", id });
-            await loadContentDashboards("counsel");
-          }
-          showToast("연애상담 글을 삭제했습니다.");
-          return;
-        }
         if (GOOGLE_SCRIPT_URL && !isDashboardFallbackId(id)) {
           await apiPost({ type: "schedulePostDelete", id });
           await loadContentDashboards();
@@ -6942,6 +7478,20 @@
         isSaving: false,
         savingLabel: ""
       };
+      if (["clover", "field", "match"].includes(name)) {
+        try {
+          await apiPost({
+            type: "schedulePostSave",
+            ...dashboardPostPayload(nextPost, name, 1),
+            order: 1
+          });
+          await loadContentDashboards(name);
+          showToast(`${dashboardPanelCategories[name]} 레이어 ${nextPost.active ? "ON" : "OFF"}`);
+        } catch (error) {
+          showToast(`서버 저장 실패: ${error.message}`);
+        }
+        return;
+      }
       upsertDashboardLocalPost(nextPost);
       applyLocalDashboardFallbacks();
       publishDashboardCategoryCache(name);
@@ -7080,6 +7630,7 @@
       });
     }
 
+    const dashboardApplicationStatusUpdates = new Set();
     async function updateDashboardApplicationStatus(id, status, card) {
       const applications = dashboardData.application || [];
       const itemIndex = Number(card?.dataset.dashboardApplicationIndex);
@@ -7087,6 +7638,10 @@
         ? applications[itemIndex]
         : applications.find((application) => dashboardItemId(application) === String(id));
       if (!item || !["접수", "확인", "승인"].includes(status) || item.status === "취소") return;
+      const updateKey = dashboardApplicationStableKey(item);
+      if (dashboardApplicationStatusUpdates.has(updateKey)) { showToast("이전 상태를 저장 중입니다. 잠시 기다려 주세요."); return; }
+      dashboardApplicationStatusUpdates.add(updateKey);
+      card?.querySelectorAll("button").forEach((button) => { button.disabled = true; });
       const previousStatus = item.status || "접수";
       item.status = status;
       item.localUpdatedAt = Date.now();
@@ -7123,6 +7678,9 @@
         writeSharedDashboardCache(PUBLIC_APPLICATION_CACHE_KEY, dashboardData.application);
         updateMypageApplicationStatusCache(item);
         showToast(`신청 상태 변경 실패: ${error.message}`);
+      } finally {
+        dashboardApplicationStatusUpdates.delete(updateKey);
+        card?.querySelectorAll("button").forEach((button) => { button.disabled = false; });
       }
     }
 
@@ -7133,6 +7691,7 @@
         ? applications[itemIndex]
         : applications.find((application) => dashboardItemId(application) === String(id));
       if (!item) return;
+      if (dashboardApplicationStatusUpdates.has(dashboardApplicationStableKey(item))) { showToast("신청 상태를 저장 중입니다. 저장 후 삭제해 주세요."); return; }
       if (!confirm("해당 신청 내역을 삭제하시겠습니까?")) return;
       const previousApplications = [...applications];
       const deleteButton = card?.querySelector("[data-dashboard-application-delete]");
@@ -7209,11 +7768,6 @@
         if (item) setActive(item, !isActive(item));
         return;
       }
-      const preview = event.target.closest("[data-preview]");
-      if (preview) {
-        window.open("../../index.html", "_blank", "noopener");
-        return;
-      }
       const edit = event.target.closest("[data-up]");
       if (edit) {
         const item = events.find((entry) => entry.id === edit.dataset.up);
@@ -7277,9 +7831,13 @@
     createEventButtons.forEach((button) => {
       button.addEventListener("click", () => createEventLayer(button.dataset.createEvent || "rotation"));
     });
+    applyAdminTheme(document.documentElement.dataset.adminTheme);
+    document.querySelector("[data-theme-toggle]")?.addEventListener("click", toggleAdminTheme);
     $("[data-refresh]").addEventListener("click", () => {
       loadEvents();
       loadHeroAdmin();
+      loadAdminSchedulePosts();
+      loadMemoAdmin();
       loadContentDashboards();
       showToast("대시보드를 새로고침했습니다.");
     });
@@ -7308,6 +7866,15 @@
       saveHeroAdmin();
     });
     document.querySelector("[data-hero-list]")?.addEventListener("click", (event) => {
+      const edit = event.target.closest("[data-hero-edit]");
+      if (edit) {
+        const card = edit.closest("[data-hero-slide]");
+        const input = card?.querySelector("[data-hero-image-url]");
+        input?.focus();
+        input?.select();
+        showToast("히어로 이미지 수정 항목을 선택했습니다.");
+        return;
+      }
       const remove = event.target.closest("[data-hero-remove]");
       if (remove) removeHeroSlide(remove.dataset.heroRemove);
     });
@@ -7578,9 +8145,9 @@
       if (panelName === "hero") renderHeroAdmin();
       else if (panelName === "schedule") renderScheduleAdmin();
       else if (panelName === "events" || panelName === "events2") render();
-      else if (panelName === "memo") loadMemoAdmin();
+      else if (panelName === "memo") renderMemoAdmin();
       else if (panelName === "menubar") loadMenuBarIconSettings();
-      else loadContentDashboards(panelName);
+      else renderContentDashboards();
     }
 
     function clearAdminPanel() {
@@ -7715,21 +8282,24 @@
         return;
       }
       const id = deleteButton.dataset.scheduleDelete;
-      const targetPost = dashboardSchedulePosts().find((item) => String(item.id) === id);
-      if (targetPost?.source === "기본" || id.startsWith("placeholder-")) {
-        const deletedSlots = readDeletedScheduleSlots();
-        if (targetPost?.scheduleDate && targetPost?.scheduleTime) deletedSlots.add(scheduleSlotKey(targetPost));
-        writeDeletedScheduleSlots(deletedSlots);
-        renderScheduleAdmin();
-        showToast("기본 슬롯을 목록에서 숨겼습니다.");
-        return;
-      }
       try {
         await apiPost({ type: "schedulePostDelete", id });
         adminSchedulePosts = adminSchedulePosts.filter((post) => String(post.id) !== id);
+        const cachedPosts = readSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY)
+          .filter((post) => String(post.id || "") !== id);
+        writeSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY, cachedPosts);
         if (editingScheduleId === id) resetScheduleMaker();
         renderScheduleAdmin();
         showToast("일정 안내 레이어를 삭제했습니다.");
+        try {
+          const result = await apiGet("schedulePostList", { includeInactive: "1" });
+          const list = Array.isArray(result.posts) ? result.posts : [];
+          adminSchedulePosts = list
+            .filter((post) => String(post.category || "").trim() === "일정 안내")
+            .map(backendSchedulePostToAdmin);
+          writeSharedDashboardCache(PUBLIC_SCHEDULE_CACHE_KEY, list);
+          renderScheduleAdmin();
+        } catch {}
       } catch (error) {
         showToast(`삭제 실패: ${error.message}`);
       }
@@ -7751,7 +8321,11 @@
       item.place = String(form.get("place") || "").trim() || "부산 클로버 라운지 (승인 후 안내)";
       item.male = String(form.get("male") || "").trim() || "6";
       item.female = String(form.get("female") || "").trim() || "6";
-      item.capacity = String(form.get("capacity") || "").trim() || "12명";
+      const maleCount = Number.parseInt(item.male, 10);
+      const femaleCount = Number.parseInt(item.female, 10);
+      item.capacity = Number.isFinite(maleCount) && Number.isFinite(femaleCount)
+        ? `${maleCount + femaleCount}명`
+        : (item.capacity || "");
       const priceByComposition = {
         "1:1": {
           malePrice: String(form.get("malePrice11") || "").trim() || "99,000원",
@@ -7820,46 +8394,101 @@
       if (event.key === "Escape" && editingEventId) closeEditModal();
     });
 
-    window.addEventListener("storage", (event) => {
-      if (event.key === EVENT_ORDER_OVERRIDE_KEY) {
-        events.splice(0, events.length, ...applySavedOrder(events));
-        render();
-        return;
-      }
-      if (event.key === EVENT_CUSTOM_OVERRIDE_KEY || event.key === EVENT_EDIT_OVERRIDE_KEY || event.key === EVENT_DELETED_OVERRIDE_KEY) {
-        events.splice(0, events.length, ...applySavedOrder(managedEvents()));
-        render();
-        return;
-      }
-      if (event.key === EVENT_ACTIVE_OVERRIDE_KEY) render();
-      if (event.key === ADMIN_SCHEDULE_POSTS_KEY || event.key === ADMIN_SCHEDULE_BACKUP_KEY || event.key === ADMIN_SCHEDULE_DELETED_KEY) renderScheduleAdmin();
-      if ([ADMIN_MEMO_ROUNDS_KEY, ADMIN_MEMO_SUBMISSIONS_KEY, ADMIN_MEMO_STATUS_OVERRIDE_KEY, ADMIN_MEMO_DELETED_KEY].includes(event.key)) loadMemoAdmin();
-      if (event.key === ADMIN_HERO_CACHE_KEY) {
-        heroSlides = readAdminHeroCache();
-        renderHeroAdmin();
-      }
-      if (event.key === PUBLIC_APPLICATION_CACHE_KEY) {
-        dashboardData.application = applyDashboardApplicationStatusOverrides(readSharedDashboardCache(PUBLIC_APPLICATION_CACHE_KEY));
-        if (!document.querySelector('[data-admin-panel="application"]')?.hidden) {
-          renderDashboardList("application", "신청 접수", "등록된 신청 접수가 없습니다.");
-        }
+    function startAdminDashboard() {
+      if (adminDashboardStarted) return;
+      adminDashboardStarted = true;
+      const initialAdminPanel = readAdminActivePanel();
+      initScheduleMaker();
+      heroSlides = readAdminHeroCache();
+      setAdminPanel(initialAdminPanel);
+      renderScheduleAdmin();
+      loadEvents();
+      loadHeroAdmin();
+      loadAdminSchedulePosts();
+      loadMemoAdmin();
+      loadContentDashboards();
+    }
+
+    async function adminAuthRequest(payload) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 25000);
+      try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST", cache: "no-store", signal: controller.signal,
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
+        });
+        const result = await response.json();
+        if (!response.ok || !result.ok) throw new Error(result.error || "로그인 요청이 실패했습니다.");
+        return result;
+      } finally { clearTimeout(timeout); }
+    }
+
+    function clearAdminSession() {
+      localStorage.removeItem(ADMIN_SESSION_KEY);
+      sessionStorage.removeItem(ADMIN_SESSION_KEY);
+      ADMIN_PASSWORD = "";
+      document.body.classList.remove("admin-authenticated");
+      document.documentElement.classList.remove("admin-session-restoring");
+    }
+
+    function openAdminDashboard(token) {
+      ADMIN_PASSWORD = token;
+      document.body.classList.add("admin-authenticated");
+      document.documentElement.classList.remove("admin-session-restoring");
+      startAdminDashboard();
+    }
+
+    document.querySelector("[data-admin-login]").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const button = form.querySelector('[type="submit"]');
+      const error = document.querySelector("[data-admin-login-error]");
+      button.disabled = true;
+      button.textContent = "로그인 중...";
+      error.textContent = "";
+      try {
+        const result = await adminAuthRequest({ type: "adminLogin", username: form.elements.username.value.trim(), password: form.elements.password.value, remember: form.elements.remember.checked });
+        clearAdminSession();
+        const storage = form.elements.remember.checked ? localStorage : sessionStorage;
+        storage.setItem(ADMIN_SESSION_KEY, JSON.stringify({ token: result.token, expiresAt: result.expiresAt }));
+        form.elements.password.value = "";
+        openAdminDashboard(result.token);
+      } catch (failure) {
+        error.textContent = failure.name === "AbortError" ? "응답이 지연되고 있습니다. 다시 시도해 주세요." : failure.message;
+      } finally {
+        button.disabled = false;
+        button.textContent = "로그인";
       }
     });
 
-    const initialAdminPanel = readAdminActivePanel();
-    initScheduleMaker();
-    heroSlides = readAdminHeroCache();
-    setAdminPanel(initialAdminPanel);
-    renderScheduleAdmin();
-    loadEvents();
-    loadHeroAdmin();
-    loadAdminSchedulePosts();
-    if (initialAdminPanel === "memo") {
-      loadMemoAdmin();
+    document.querySelector("[data-admin-logout]").addEventListener("click", async () => {
+      const token = ADMIN_PASSWORD;
+      try { await adminAuthRequest({ type: "adminLogout", adminPassword: token }); }
+      catch { showToast("로그아웃하지 못했습니다. 다시 시도해 주세요."); return; }
+      clearAdminSession();
+      location.reload();
+    });
+
+    async function restoreAdminSession() {
+      try {
+        const sessionValue = sessionStorage.getItem(ADMIN_SESSION_KEY);
+        const localValue = localStorage.getItem(ADMIN_SESSION_KEY);
+        const persistent = !sessionValue && Boolean(localValue);
+        const storage = persistent ? localStorage : sessionStorage;
+        const saved = JSON.parse(sessionValue || localValue || "null");
+        if (!saved?.token || saved.expiresAt <= Date.now()) { clearAdminSession(); return; }
+        openAdminDashboard(saved.token);
+        const result = await adminAuthRequest({ type: "adminSession", adminPassword: saved.token, remember: persistent });
+        if (result.expiresAt) {
+          storage.setItem(ADMIN_SESSION_KEY, JSON.stringify({ token: saved.token, expiresAt: result.expiresAt }));
+        }
+      } catch {
+        clearAdminSession();
+        document.querySelector("[data-admin-login-error]").textContent = "로그인을 다시 확인해 주세요.";
+      }
     }
-    if (!["clover", "field", "match", "counsel", "memo", "application", "board"].includes(initialAdminPanel)) {
-      loadContentDashboards();
-    }
+    restoreAdminSession();
   </script>
 </body>
 </html>

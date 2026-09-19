@@ -504,11 +504,28 @@
       border-radius: 999px;
       background: #00e83a;
     }
-    .memo-final-guide-divider {
+    .memo-flow-steps {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
       width: 100%;
-      height: 1px;
       margin: 0;
-      background: rgba(148, 163, 184, 0.24);
+      padding: 0.8rem 0.75rem;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 0.22rem 0.55rem rgba(15, 23, 42, 0.045), inset 0 1px 0 rgba(255, 255, 255, 0.88);
+    }
+    .memo-flow-step {
+      display: block;
+      height: 0.22rem;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.4);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+    .memo-flow-step.is-active {
+      background: #00f040;
+      box-shadow: 0 0 0.45rem rgba(0, 240, 64, 0.18);
     }
     .memo-submit small {
       display: block;
@@ -681,26 +698,33 @@
       box-shadow: inset 0.42rem 0.42rem 0.9rem rgba(15, 23, 42, 0.16), inset -1px -1px 0 rgba(255, 255, 255, 0.8);
     }
     .memo-final-choice-check {
-      position: relative;
-      width: 1.08rem;
-      height: 1.08rem;
-      border: 1.5px solid #c8d0dc;
-      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.35rem;
+      height: 1.35rem;
+      border: 0;
       background: transparent;
-      box-shadow: none;
       flex: 0 0 auto;
     }
     .memo-final-choice-check::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 48%;
-      width: 0.32rem;
-      height: 0.58rem;
-      border: solid #020703;
-      border-width: 0 2.6px 2.6px 0;
+      content: none;
+    }
+    .memo-final-choice-check svg {
+      width: 1.3rem;
+      height: 1.3rem;
+      stroke-width: 2.2;
+    }
+    .memo-final-choice-check circle {
+      fill: none;
+      stroke: #c8d0dc;
+    }
+    .memo-final-choice-check path {
+      stroke: #121218;
       opacity: 0;
-      transform: translate(calc(-50% + 0.5px), calc(-50% - 2px)) rotate(42deg) scale(0.82);
+      transform-box: view-box;
+      transform-origin: 12px 12px;
+      transform: scale(1.12);
     }
     .memo-final-choice-label {
       min-width: 0;
@@ -739,10 +763,13 @@
       box-shadow: inset 0.28rem 0.28rem 0.62rem rgba(0, 240, 64, 0.1), inset -1px -1px 0 rgba(255, 255, 255, 0.62);
     }
     .memo-final-choice.is-selected .memo-final-choice-check {
-      border-color: #00ff40;
-      background: #00ff40;
+      background: transparent;
     }
-    .memo-final-choice.is-selected .memo-final-choice-check::after {
+    .memo-final-choice.is-selected .memo-final-choice-check circle {
+      fill: #00ff40;
+      stroke: #00ff40;
+    }
+    .memo-final-choice.is-selected .memo-final-choice-check path {
       opacity: 1;
     }
     .memo-final-choice.is-disabled:not(.is-selected) {
@@ -1145,8 +1172,10 @@
     :root[data-theme="dark"] .memo-final-guide-list li {
       color: #c9ced8;
     }
-    :root[data-theme="dark"] .memo-final-guide-divider {
-      background: rgba(255, 255, 255, 0.12);
+    :root[data-theme="dark"] .memo-flow-steps {
+      border-color: rgba(255, 255, 255, 0.08);
+      background: #1f1f1f;
+      box-shadow: 0 0.28rem 0.65rem rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.06);
     }
     :root[data-theme="dark"] .memo-complete-modal {
       background: rgba(0, 0, 0, 0.52);
@@ -1230,7 +1259,7 @@
     <div data-memo-root></div>
   </main>
   <script>
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbzlAlOy3h2SSb_V4hcFCqWVLzikvRhm63QTP-RUutw0seFeamQVZGheY8tnz3B2t8np/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbwFKMEECl0RqqVhTYQlRw_NBEMHjcfomhqw2JNq7Gy-4S0IqGfCXLjP6olGIrIvfweL/exec";
     const MEMO_THEME_KEY = "cloverTheme";
     const MEMO_SESSION_KEY = "clover-memo-session:v1";
     const MEMO_VIEW_KEY = "clover-memo-view:v1";
@@ -1702,7 +1731,7 @@
         }).join("");
         const finalChoiceHtml = orderedTargets.map((target) => `
           <button class="memo-final-choice${finalChoices.has(String(target.id)) ? " is-selected" : ""}${!finalChoices.has(String(target.id)) && finalChoices.size >= maxFinalChoices ? " is-disabled" : ""}" type="button" data-memo-final-choice="${htmlAttr(target.id)}">
-            <span class="memo-final-choice-check" aria-hidden="true"></span>
+            <span class="memo-final-choice-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"></circle><path d="M8.5 12.2l2.2 2.2 4.8-5"></path></svg></span>
             <span class="memo-final-choice-label">${htmlAttr(memoTargetLabel(target))}</span>
             <span class="memo-final-heart${memoState.hearts[target.id] ? " is-on" : ""}" aria-hidden="true"></span>
             <span class="memo-final-choice-state">${finalChoices.has(String(target.id)) ? "선택됨" : "선택"}</span>
@@ -1732,7 +1761,10 @@
                 <li>최종 결과는 다음날 개별 안내됩니다.</li>
               </ul>
             </section>
-            <div class="memo-final-guide-divider" aria-hidden="true"></div>
+            <div class="memo-flow-steps" aria-label="메모장 단계">
+              <span class="memo-flow-step is-active" aria-hidden="true"></span>
+              <span class="memo-flow-step is-active" aria-hidden="true"></span>
+            </div>
             <div class="memo-final-slots">${finalSlotHtml}</div>
             <div class="memo-final-list">${finalChoiceHtml}</div>
             <button class="memo-submit" type="button" data-memo-submit>최종 확정</button>
@@ -1782,7 +1814,10 @@
               <li>메모장은 단순 기록용입니다.</li>
             </ul>
           </section>
-          <div class="memo-final-guide-divider" aria-hidden="true"></div>
+          <div class="memo-flow-steps" aria-label="메모장 단계">
+            <span class="memo-flow-step is-active" aria-hidden="true"></span>
+            <span class="memo-flow-step" aria-hidden="true"></span>
+          </div>
           <div class="memo-rank-list">${rankHtml}</div>
           <div class="memo-list-actions">
             <button class="memo-final-open" type="button" data-memo-open-final>최종 선택</button>
@@ -1826,6 +1861,35 @@
           submitButton.textContent = previousText;
           updateMemoLoginReady(form);
         }
+      }
+    }
+
+    async function restoreMemoSessionAndRender() {
+      const saved = readMemoSession();
+      if (!saved) {
+        renderMemoPage();
+        return;
+      }
+      const credentials = {
+        roundId: String(saved.round?.id || "").trim(),
+        phone: memoNormalizePhone(saved.participant?.phone),
+        birth: memoNormalizeBirth(saved.participant?.birth)
+      };
+      if (!memoLoginCredentialsReady(credentials)) {
+        writeMemoSession(null);
+        renderMemoPage();
+        return;
+      }
+      const root = document.querySelector("[data-memo-root]");
+      if (root) root.innerHTML = '<main class="auth-page"><div class="auth-card"><p class="auth-subtitle">접속 정보를 확인 중입니다.</p></div></main>';
+      try {
+        const result = await fetchMemoLogin(credentials);
+        writeMemoSession({ round: result.round, participant: result.participant, targets: result.targets || [], submission: result.submission || null });
+        renderMemoPage();
+      } catch (error) {
+        writeMemoSession(null);
+        renderMemoPage();
+        memoSetStatus(error.message || "삭제되었거나 접속할 수 없는 회차입니다.");
       }
     }
 
@@ -2008,7 +2072,7 @@
 
     initMemoTheme();
     initMemoHistory();
-    renderMemoPage();
+    restoreMemoSessionAndRender();
   </script>
 </body>
 </html>

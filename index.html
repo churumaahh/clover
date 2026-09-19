@@ -23,10 +23,10 @@
   <meta name="twitter:title" content="클로버ㅣ부산 로테이션 소개팅">
   <meta name="twitter:description" content="?대뒓 ?? ?곗뿰?? ?щŉ??>
   <meta name="twitter:image" content="https://clover-love.vercel.app/assets/link-preview.jpg?v=20260710-link">
-  <script src="config.js?v=20260722-schedule-api"></script>
+  <script src="config.js?v=20260918-application-sync"></script>
   <script>
     (function () {
-      var scriptUrl = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbzlAlOy3h2SSb_V4hcFCqWVLzikvRhm63QTP-RUutw0seFeamQVZGheY8tnz3B2t8np/exec";
+      var scriptUrl = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbwFKMEECl0RqqVhTYQlRw_NBEMHjcfomhqw2JNq7Gy-4S0IqGfCXLjP6olGIrIvfweL/exec";
       window.__earlyEventListPromise = fetch(scriptUrl + "?action=eventList&t=" + Date.now(), { cache: "no-store" })
         .then(function (r) { return r.json().then(function (json) { return { ok: r.ok, json: json }; }); })
         .catch(function (error) { return { ok: false, error: error }; });
@@ -2345,7 +2345,7 @@
     }
 
     .schedule-status-detail .composition-choice-badges {
-      height: 17px;
+      height: 1.1rem;
       gap: 0;
       overflow: visible;
       border-radius: 999px;
@@ -2353,18 +2353,35 @@
     }
 
     .schedule-status-detail .composition-gender-badge {
-      min-width: 25px;
-      height: 17px;
-      gap: .05rem;
-      padding: 0 3px;
-      border-radius: 0;
+      min-width: 0;
+      min-height: 1.1rem;
+      height: 1.1rem;
+      padding: 0 0.26rem;
+      border: 0;
       font-size: .64rem;
       box-shadow: none;
     }
+
     .schedule-status-detail .composition-gender-badge svg {
-      width: 8px;
-      height: 8px;
-      transform: translateY(1px);
+      display: block;
+      width: 0.72rem;
+      height: 0.72rem;
+      transform: none;
+    }
+
+    .schedule-status-detail .composition-gender-badge b {
+      display: inline-block;
+      min-width: 0.62em;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .schedule-status-detail .composition-gender-badge.is-male {
+      border-radius: 999px 0 0 999px;
+    }
+
+    .schedule-status-detail .composition-gender-badge.is-female {
+      border-radius: 0 999px 999px 0;
     }
 
     @media(max-width: 30rem) {
@@ -4207,9 +4224,9 @@
       display: grid;
       place-items: center;
       gap: 0.55rem;
-      width: min(12.8rem, calc(100vw - 2rem));
+      width: min(16rem, calc(100vw - 2rem));
       min-height: 7.6rem;
-      padding: 1.25rem 1.1rem;
+      padding: 1.35rem 1.1rem 1rem;
       border: 0;
       border-radius: 18px;
       background: #eef1f5;
@@ -4299,6 +4316,9 @@
 
     .info-modal-message {
       display: grid;
+      min-width: 0;
+      max-width: 100%;
+      overflow-wrap: anywhere;
       gap: .54rem;
       margin: 0;
       padding: 0;
@@ -4310,6 +4330,7 @@
     }
 
     .info-modal-main {
+      padding-inline: 1.25rem;
       color: #2f3540;
       font-size: 1.05rem;
       font-weight: 1000;
@@ -4899,7 +4920,6 @@
     [data-detail-root][data-gender="여성"] .form-submit-btn {
       background: #f1f5f9;
       color: #111827;
-      box-shadow: 0 0.55rem 1rem rgba(0, 216, 56, 0.2);
     }
 
     [data-detail-root][data-gender="여성"] .agree-row input {
@@ -6035,6 +6055,48 @@
       opacity: 1;
     }
 
+    .age-option-card[data-age-option] .age-option-check {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.35rem;
+      height: 1.35rem;
+      border: 0;
+      background: transparent;
+    }
+
+    .age-option-card[data-age-option] .age-option-check::after {
+      content: none;
+    }
+
+    .age-option-card[data-age-option] .age-option-check svg {
+      width: 1.3rem;
+      height: 1.3rem;
+      stroke-width: 2.2;
+    }
+
+    .age-option-card[data-age-option] .age-option-check circle {
+      fill: none;
+      stroke: #c8d0dc;
+    }
+
+    .age-option-card[data-age-option] .age-option-check path {
+      stroke: #121218;
+      opacity: 0;
+      transform-box: view-box;
+      transform-origin: 12px 12px;
+      transform: scale(1.12);
+    }
+
+    .age-option-card[data-age-option].is-selected .age-option-check circle {
+      fill: #00ff40;
+      stroke: #00ff40;
+    }
+
+    .age-option-card[data-age-option].is-selected .age-option-check path {
+      opacity: 1;
+    }
+
     .age-option-main {
       display: grid;
       gap: 0;
@@ -6150,6 +6212,14 @@
     .process-notice-section {
       gap: 0.65rem;
       margin-top: 0.75rem;
+    }
+
+    .application-selection-page > .process-notice-section {
+      margin-top: 0;
+    }
+
+    .application-form > .process-notice-section {
+      margin-top: 0.1rem;
     }
 
     .process-notice-list {
@@ -6709,9 +6779,13 @@
     }
 
     .agree-row {
-      display: grid;
-      gap: 0.44rem;
-      padding: 0 0.25rem;
+      display: block;
+      margin-top: -0.25rem;
+      padding: 0.25rem 0.25rem calc(1rem + 5px);
+    }
+
+    .detail-page:has(> .application-form) {
+      padding-bottom: 0;
     }
 
     .agree-row label,
@@ -6742,6 +6816,31 @@
       display: grid;
       gap: 0.38rem;
       padding-left: 0.82rem;
+    }
+
+    .agree-row > summary {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.38rem;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .agree-row > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .agree-row > summary::after {
+      content: "\25BE";
+    }
+
+    .agree-row[open] > summary::after {
+      content: "\25B4";
+    }
+
+    .agree-row[open] > .agree-list {
+      margin-top: 0.38rem;
     }
 
     .agree-item {
@@ -8099,6 +8198,17 @@
       gap: 0.35rem;
     }
 
+    .mypage-layer-row[aria-busy="true"] .mypage-layer-label::after {
+      content: "";
+      width: 0.8rem;
+      height: 0.8rem;
+      flex: 0 0 0.8rem;
+      border: 2px solid rgba(0, 216, 56, 0.25);
+      border-top-color: #00d838;
+      border-radius: 50%;
+      animation: submit-spin 0.7s linear infinite;
+    }
+
     .mypage-layer-count {
       color: #00a82f;
       font-size: inherit;
@@ -9288,7 +9398,8 @@
         "num author date";
       align-items: center;
       gap: .25rem .65rem;
-      min-height: 3.35rem;
+      height: 4.2rem;
+      min-height: 4.2rem;
       padding: .72rem .78rem;
       border: 1px solid var(--line);
       border-radius: .78rem;
@@ -9396,7 +9507,8 @@
         "num title meta"
         "num author date";
         align-items: center;
-        min-height: 3.3rem;
+        height: 4.2rem;
+        min-height: 4.2rem;
         gap: .18rem .55rem;
         padding: .58rem .58rem;
       }
@@ -9555,6 +9667,7 @@
     .counsel-comment-list {
       display: grid;
       gap: 0.48rem;
+      margin-top: 0.65rem;
       margin-bottom: 0.65rem;
     }
 
@@ -10240,6 +10353,30 @@
       margin-right: 0.5rem;
       border: 2px solid rgba(0, 0, 0, 0.25);
       border-top-color: #111;
+      border-radius: 50%;
+      animation: submit-spin 0.7s linear infinite;
+      flex: 0 0 auto;
+    }
+
+    :root[data-theme="dark"] .board-access-button.is-loading::before {
+      border-color: rgba(255, 255, 255, 0.25);
+      border-top-color: #ffffff;
+    }
+
+    button.is-deleting {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      white-space: nowrap;
+      cursor: wait;
+    }
+    button.is-deleting::before {
+      content: "";
+      width: 0.75rem;
+      height: 0.75rem;
+      border: 2px solid currentColor;
+      border-right-color: transparent;
       border-radius: 50%;
       animation: submit-spin 0.7s linear infinite;
       flex: 0 0 auto;
@@ -11472,6 +11609,7 @@
     .schedule-image-card { position: relative; flex: 0 0 auto; width: min(30.75rem, 100%); aspect-ratio: 16 / 9; border: 0; padding: 0; margin: 0; border-radius: 10px; overflow: hidden; background: var(--tint-neutral); cursor: pointer; appearance: none; -webkit-appearance: none; }
     .schedule-image-card img { display: block; height: 100%; width: 100%; object-fit: cover; }
     .schedule-image-card::after { content: ""; position: absolute; inset: auto 0 0 0; height: 62%; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.68) 100%); pointer-events: none; }
+    .schedule-image-card.is-photo-only::after { display: none; }
     .schedule-image-card-copy { position: absolute; left: .88rem; right: .88rem; bottom: .68rem; z-index: 1; display: grid; gap: .18rem; text-align: left; text-shadow: 0 1px 3px rgba(0,0,0,.42); }
     .schedule-image-card-title { color: #fff; font-size: 1.06rem; font-weight: 950; line-height: 1.18; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .schedule-image-card-content { color: rgba(255,255,255,.86); font-size: .86rem; font-weight: 850; line-height: 1.25; display: -webkit-box; overflow: hidden; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
@@ -12726,6 +12864,22 @@
       line-height: 1 !important;
     }
 
+    .drawer-link.is-coming-soon,
+    .drawer-link.is-coming-soon:hover,
+    .drawer-link.is-coming-soon:active,
+    .drawer-link.is-coming-soon.is-active,
+    :root[data-theme="dark"] .drawer-link.is-coming-soon,
+    :root[data-theme="dark"] .drawer-link.is-coming-soon:hover,
+    :root[data-theme="dark"] .drawer-link.is-coming-soon:active,
+    :root[data-theme="dark"] .drawer-link.is-coming-soon.is-active {
+      color: var(--muted) !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      transform: none !important;
+      cursor: not-allowed;
+      opacity: 0.48;
+    }
+
     .join-btn {
       min-width: 5.6rem;
       min-height: 2.85rem;
@@ -13642,6 +13796,37 @@
       border-color: transparent !important;
     }
 
+    /* Keep the joined gender badge on one exact baseline in dark mode. */
+    :root[data-theme="dark"] .schedule-status-detail > .schedule-mode-badges,
+    :root[data-theme="dark"] #page-reviews .match-result-tags > .composition-choice-badges {
+      box-sizing: border-box !important;
+      display: inline-flex !important;
+      align-items: stretch !important;
+      align-self: center !important;
+      width: fit-content !important;
+      height: 1.18rem !important;
+      min-height: 1.18rem !important;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 999px !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      overflow: hidden !important;
+      line-height: 1 !important;
+      vertical-align: middle !important;
+      transform: none !important;
+    }
+
+    :root[data-theme="dark"] .schedule-status-detail .composition-gender-badge,
+    :root[data-theme="dark"] #page-reviews .match-result-tags .composition-gender-badge {
+      box-sizing: border-box !important;
+      align-self: stretch !important;
+      height: 100% !important;
+      min-height: 0 !important;
+      margin: 0 !important;
+      transform: none !important;
+    }
+
 
     /* 紐⑸줉 ?꾩껜瑜?媛먯떥??諛뷀깢 ?덉씠??*/
     :root[data-theme="dark"] #page-reviews .match-result-list-panel,
@@ -14348,6 +14533,7 @@
 
     #page-board .board-post-list {
       align-content: start !important;
+      min-height: calc(640px + 9 * 0.65rem);
     }
 
     :root[data-theme="dark"] #page-mypage [data-mypage-counsel] > .counsel-card,
@@ -14734,6 +14920,49 @@
     }
 
     /* ?곷떞 글쓰기 ?깅줉 踰꾪듉???좎껌 2?섏씠吏 ?좏깮 ?꾨즺 踰꾪듉怨??숈씪?섍쾶 ?곸슜 */
+    [data-board-write-modal],
+    [data-counsel-write-modal] {
+      box-sizing: border-box !important;
+      grid-template-columns: minmax(0, 1fr) !important;
+      place-items: center !important;
+      padding: 1rem !important;
+    }
+
+    [data-board-write-modal] .home-schedule-panel,
+    [data-counsel-write-modal] .home-schedule-panel {
+      box-sizing: border-box !important;
+      width: min(31rem, 100%) !important;
+      max-width: 100% !important;
+      max-height: calc(100svh - 2rem) !important;
+      margin-inline: auto !important;
+      justify-self: center !important;
+      padding: 1.5rem !important;
+      cursor: default !important;
+    }
+
+    [data-counsel-write-modal] .counsel-write-modal-title {
+      padding-right: 3rem;
+    }
+
+    [data-board-write-modal] .home-schedule-modal-topline {
+      padding-right: 3rem;
+    }
+
+    #boardForm .field .support-file-input {
+      display: flex;
+      align-items: center;
+    }
+
+    #boardForm .support-file-input span[data-board-file-name] {
+      position: absolute;
+      top: 50%;
+      left: 0.85rem;
+      right: 6.2rem;
+      margin: 0;
+      line-height: 1.4;
+      transform: translateY(-50%);
+    }
+
     [data-counsel-write-modal] [data-counsel-write-submit],
     [data-counsel-write-modal] [data-counsel-write-submit].is-ready {
       width: 100% !important;
@@ -15636,17 +15865,7 @@
               <label class="support-file-input" for="boardAttachment1">
                 <span data-board-file-name>파일을 선택해 주세요.</span>
                 <span class="support-file-btn">찾아보기</span>
-                <input id="boardAttachment1" name="attachment1" type="file" accept="image/*,.pdf" hidden>
-              </label>
-              <label class="support-file-input" for="boardAttachment2">
-                <span data-board-file-name>파일을 선택해 주세요.</span>
-                <span class="support-file-btn">찾아보기</span>
-                <input id="boardAttachment2" name="attachment2" type="file" accept="image/*,.pdf" hidden>
-              </label>
-              <label class="support-file-input" for="boardAttachment3">
-                <span data-board-file-name>파일을 선택해 주세요.</span>
-                <span class="support-file-btn">찾아보기</span>
-                <input id="boardAttachment3" name="attachment3" type="file" accept="image/*,.pdf" hidden>
+                <input id="boardAttachment1" name="attachment1" type="file" accept="image/*,.pdf" multiple hidden>
               </label>
             </div>
           </div>
@@ -15768,9 +15987,9 @@
     <nav class="drawer-links" aria-label="메뉴">
       <button class="drawer-link" type="button" data-page-link="home" onclick="window.goPage(event, 'home')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.8 12 3l9 7.8"/><path d="M5.5 9.5V21h13V9.5"/><path d="M9.5 21v-6h5v6"/></svg><span>홈</span></button>
       <div class="drawer-divider is-after-home" role="separator"></div>
-      <button class="drawer-link" type="button" data-page-link="schedule" onclick="window.goPage(event, 'schedule')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16"/><path d="M4 12h16"/><path d="M4 18.5h11"/><path d="M7 3v4"/><path d="M17 3v4"/></svg><span>클로버 소식</span></button>
+      <button class="drawer-link" type="button" data-page-link="schedule" data-menubar-feature="cloverNews" data-menubar-label="클로버 소식" onclick="window.goPage(event, 'schedule')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16"/><path d="M4 12h16"/><path d="M4 18.5h11"/><path d="M7 3v4"/><path d="M17 3v4"/></svg><span>클로버 소식</span></button>
       <button class="drawer-link" type="button" data-page-link="reviews" onclick="window.goPage(event, 'reviews')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4 4L19 6.5"/><path d="M4 5.5h9"/><path d="M4 9h6"/><path d="M4 18.5h14"/></svg><span>매칭 결과</span></button>
-      <button class="drawer-link" type="button" data-page-link="counsel" onclick="window.goPage(event, 'counsel')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 9h8M8 13h5"/></svg><span>연애 상담</span></button>
+      <button class="drawer-link" type="button" data-page-link="counsel" data-menubar-feature="counsel" data-menubar-label="연애 상담" onclick="window.goPage(event, 'counsel')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 9h8M8 13h5"/></svg><span>연애 상담</span></button>
       <div class="drawer-divider" role="separator"></div>
       <button class="drawer-link" type="button" data-page-link="mypage" onclick="window.goPage(event, 'mypage')" hidden><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg><span>마이 클로버</span></button>
       <button class="drawer-link" type="button" data-page-link="login" onclick="window.goPage(event, 'login')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg><span>로그인</span></button>
@@ -16080,7 +16299,7 @@
     const iconPopular = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z" fill="#ff4d6d"/></svg>';
     const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
-    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbzlAlOy3h2SSb_V4hcFCqWVLzikvRhm63QTP-RUutw0seFeamQVZGheY8tnz3B2t8np/exec";
+    const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbwFKMEECl0RqqVhTYQlRw_NBEMHjcfomhqw2JNq7Gy-4S0IqGfCXLjP6olGIrIvfweL/exec";
     const EVENT_LIST_CACHE_KEY = "clover-managed-event-list-v7";
     const EVENT_LIST_CACHE_TTL_MS = 10 * 60 * 1000;
     const CLOUDINARY_ASSET_MAP = {"assets/optimized/event-taste-homebody.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572124/clover/optimized/event-taste-homebody.webp","assets/optimized/clover-proof-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572106/clover/optimized/clover-proof-08.webp","assets/columns/webtoon-column-01.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572080/clover/columns/webtoon-column-01.png","assets/link-preview.jpg":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572079/clover/link-preview.jpg","assets/optimized/field-venue-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-01.webp","assets/optimized/event-taste-workout.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572126/clover/optimized/event-taste-workout.webp","assets/optimized/clover-proof-12.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572110/clover/optimized/clover-proof-12.webp","assets/columns/webtoon-column-03.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572082/clover/columns/webtoon-column-03.png","assets/optimized/field-venue-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572139/clover/optimized/field-venue-05.webp","assets/optimized/clover-proof-19.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-19.webp","assets/columns/webtoon-column-05.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572084/clover/columns/webtoon-column-05.png","assets/optimized/field-venue-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572143/clover/optimized/field-venue-10.webp","assets/optimized/event-group-study-cafe.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572118/clover/optimized/event-group-study-cafe.webp","assets/optimized/clover-proof-17.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572115/clover/optimized/clover-proof-17.webp","assets/columns/webtoon-column-18.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572097/clover/columns/webtoon-column-18.png","assets/optimized/clover-proof-15.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572113/clover/optimized/clover-proof-15.webp","assets/optimized/clover-proof-14.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572112/clover/optimized/clover-proof-14.webp","assets/optimized/field-venue-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572136/clover/optimized/field-venue-02.webp","assets/favicon.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572078/clover/favicon.png","assets/optimized/clover-proof-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572105/clover/optimized/clover-proof-07.webp","assets/optimized/event-theme-warm.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572134/clover/optimized/event-theme-warm.webp","assets/optimized/event-theme-dress-code.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572129/clover/optimized/event-theme-dress-code.webp","assets/optimized/clover-proof-11.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572109/clover/optimized/clover-proof-11.webp","assets/optimized/event-theme-divorced.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572128/clover/optimized/event-theme-divorced.webp","assets/optimized/event-theme-professional-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572131/clover/optimized/event-theme-professional-man.webp","assets/optimized/event-theme-japanese-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572130/clover/optimized/event-theme-japanese-woman.webp","assets/optimized/event-theme-wealthy-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572135/clover/optimized/event-theme-wealthy-man.webp","assets/columns/webtoon-column-07.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572086/clover/columns/webtoon-column-07.png","assets/optimized/clover-proof-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-06.webp","assets/clover-logo-v2.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572076/clover/clover-logo-v2.png","assets/columns/webtoon-column-12.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572091/clover/columns/webtoon-column-12.png","assets/optimized/clover-proof-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572102/clover/optimized/clover-proof-03.webp","assets/optimized/event-taste-travel.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572125/clover/optimized/event-taste-travel.webp","assets/optimized/event-theme-tall-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572133/clover/optimized/event-theme-tall-man.webp","assets/columns/webtoon-column-11.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572090/clover/columns/webtoon-column-11.png","assets/optimized/clover-proof-10.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572108/clover/optimized/clover-proof-10.webp","assets/optimized/event-theme-career-man.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-career-man.webp","assets/columns/webtoon-column-09.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572088/clover/columns/webtoon-column-09.png","assets/optimized/event-random-destiny-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-random-destiny-new.webp","assets/optimized/event-live-office-worker-new.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572120/clover/optimized/event-live-office-worker-new.webp","assets/optimized/field-venue-08.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-08.webp","assets/columns/webtoon-column-04.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572083/clover/columns/webtoon-column-04.png","assets/columns/webtoon-column-16.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572095/clover/columns/webtoon-column-16.png","assets/optimized/clover-proof-05.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572104/clover/optimized/clover-proof-05.webp","assets/optimized/clover-proof-20.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572117/clover/optimized/clover-proof-20.webp","assets/columns/webtoon-column-17.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572096/clover/columns/webtoon-column-17.png","assets/optimized/event-theme-comfort-40s.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-comfort-40s.webp","assets/optimized/field-venue-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-04.webp","assets/optimized/clover-proof-16.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572114/clover/optimized/clover-proof-16.webp","assets/columns/webtoon-column-14.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572093/clover/columns/webtoon-column-14.png","assets/columns/webtoon-column-19.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572098/clover/columns/webtoon-column-19.png","assets/optimized/event-live-christian.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572119/clover/optimized/event-live-christian.webp","assets/optimized/event-romance-faceless.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572122/clover/optimized/event-romance-faceless.webp","assets/optimized/event-theme-public-servant-woman.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572132/clover/optimized/event-theme-public-servant-woman.webp","assets/optimized/field-venue-03.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572138/clover/optimized/field-venue-03.webp","assets/optimized/field-venue-06.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572140/clover/optimized/field-venue-06.webp","assets/columns/webtoon-column-08.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572087/clover/columns/webtoon-column-08.png","assets/optimized/clover-proof-02.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572101/clover/optimized/clover-proof-02.webp","assets/optimized/field-venue-07.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572141/clover/optimized/field-venue-07.webp","assets/optimized/clover-proof-13.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572111/clover/optimized/clover-proof-13.webp","assets/columns/webtoon-column-20.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572099/clover/columns/webtoon-column-20.png","assets/optimized/clover-proof-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572107/clover/optimized/clover-proof-09.webp","assets/optimized/event-taste-active.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572123/clover/optimized/event-taste-active.webp","assets/columns/webtoon-column-06.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572085/clover/columns/webtoon-column-06.png","assets/optimized/event-live-shift-worker.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-live-shift-worker.webp","assets/columns/webtoon-column-15.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572094/clover/columns/webtoon-column-15.png","assets/optimized/footer-lobby-banner-clean.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572144/clover/optimized/footer-lobby-banner-clean.webp","assets/optimized/field-venue-09.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572142/clover/optimized/field-venue-09.webp","assets/columns/webtoon-column-13.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572092/clover/columns/webtoon-column-13.png","assets/optimized/clover-proof-04.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572103/clover/optimized/clover-proof-04.webp","assets/columns/webtoon-column-10.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572089/clover/columns/webtoon-column-10.png","assets/columns/webtoon-column-02.png":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572081/clover/columns/webtoon-column-02.png","assets/optimized/clover-proof-01.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572100/clover/optimized/clover-proof-01.webp","assets/optimized/clover-proof-18.webp":"https://res.cloudinary.com/lkkfechj/image/upload/v1787572116/clover/optimized/clover-proof-18.webp"};
@@ -16134,6 +16353,13 @@
       const compositionPrices = prices[String(composition || "").trim()] || null;
       if (gender === "여성") return compositionPrices?.femalePrice || event?.femalePrice || "30,000원";
       return compositionPrices?.malePrice || event?.malePrice || event?.price || "99,000원";
+    }
+
+    function syncActiveApplicationPrice(event) {
+      const feeAmount = detailRoot?.querySelector("[data-application-fee]");
+      if (!feeAmount || !event) return;
+      selectedApplyPrice = eventPriceForGender(event, selectedApplyGender, selectedComposition);
+      feeAmount.innerHTML = `<span class="fee-ticket-amount-tag">참가비</span>${htmlAttr(selectedApplyPrice || "")}`;
     }
 
     function eventTemplate(event) {
@@ -16622,7 +16848,7 @@
       const ageEnabled = isAgeSelectionEnabled();
       const ageCards = currentApplicationAgeOptions().map((option) => `
         <button class="age-option-card${ageEnabled && selectedAgeOption?.id === option.id ? " is-selected" : ""}" type="button" data-age-option="${option.id}" ${ageEnabled ? "" : "disabled"}>
-          <span class="age-option-check" aria-hidden="true"></span>
+          <span class="age-option-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"></circle><path d="M8.5 12.2l2.2 2.2 4.8-5"></path></svg></span>
           <span class="age-option-main"><strong>${option.range}</strong></span>
         </button>
       `).join("");
@@ -16891,6 +17117,7 @@
           </div>
         </article>
         <div class="application-selection-page">
+          ${isPartyEvent(event) ? "" : applicationProcessNoticeMarkup({ selectionOnly: true })}
           ${isPartyEvent(event) ? "" : `
           <div class="application-flow-steps" aria-label="신청 단계">
             <span class="application-flow-step is-active" aria-hidden="true"></span>
@@ -17041,16 +17268,19 @@
       `;
     }
 
-    function applicationProcessNoticeMarkup() {
+    function applicationProcessNoticeMarkup({ selectionOnly = false } = {}) {
       return `
         <section class="form-section process-notice-section">
-          <h3>신청 전 체크</h3>
+          <h3>이용 안내</h3>
           <ul class="process-notice-list">
+            ${selectionOnly ? "" : `
             <li>작성해 주신 정보는 클로버 관리자 외에는 공개되지 않습니다.</li>
-            <li>참여가 확정되면 일정 안내를 작성해 주신 연락처로 발송해 드립니다.</li>
-            <li>자세한 사항은 개별적으로 문자 안내드릴 예정입니다.</li>
+            <li>일정 안내는 작성해 주신 연락처로 발송해 드립니다.</li>
+            `}
+            ${selectionOnly ? `
             <li>1:1 매칭은 사전에 장소만 안내해 드립니다.</li>
             <li>6:6 매칭은 한 분과 10분씩 대화를 나누는 방식으로 진행됩니다.</li>
+            ` : ""}
           </ul>
         </section>
       `;
@@ -17091,6 +17321,7 @@
         </article>
 
         <form class="application-form">
+          ${applicationProcessNoticeMarkup()}
           <div class="application-flow-steps is-form" aria-label="신청 단계">
             <span class="application-flow-step is-active" aria-hidden="true"></span>
             <span class="application-flow-step is-active" aria-hidden="true"></span>
@@ -17206,34 +17437,34 @@
                 <span class="fee-ticket-note">결제 완료 후 참여가 확정됩니다.</span>
               </div>
               <div class="fee-ticket-divider"></div>
-              <p class="fee-ticket-amount"><span class="fee-ticket-amount-tag">참가비</span>${htmlAttr(currentApplyPrice || "")}</p>
+              <p class="fee-ticket-amount" data-application-fee><span class="fee-ticket-amount-tag">참가비</span>${htmlAttr(currentApplyPrice || "")}</p>
             </div>
           </section>
 
-          <div class="agree-row">
-            <label class="agree-all"><input type="checkbox" data-agree-all> [필수] 약관 전체 동의하기</label>
+          <button class="form-submit-btn" type="button" disabled>신청하기</button>
+
+          <details class="agree-row">
+            <summary><label class="agree-all"><input type="checkbox" data-agree-all checked> [필수] 약관 전체 동의하기</label></summary>
             <div class="agree-list">
               <div class="agree-item">
-                <label><input type="checkbox" data-required-agree data-agree-privacy> [필수] 개인정보 수집 및 이용 동의</label>
+                <label><input type="checkbox" data-required-agree data-agree-privacy checked> [필수] 개인정보 수집 및 이용 동의</label>
                 <button class="agree-detail-btn" type="button" data-footer-policy="개인정보처리방침">자세히</button>
               </div>
               <div class="agree-item">
-                <label><input type="checkbox" data-required-agree data-agree-info> [필수] 정보 안내 수신 동의</label>
+                <label><input type="checkbox" data-required-agree data-agree-info checked> [필수] 정보 안내 수신 동의</label>
                 <button class="agree-detail-btn" type="button" data-footer-policy="개인정보처리방침">자세히</button>
               </div>
               <div class="agree-item">
-                <label><input type="checkbox" data-required-agree data-agree-marital> [필수] 미혼 확인 동의</label>
+                <label><input type="checkbox" data-required-agree data-agree-marital checked> [필수] 미혼 확인 동의</label>
                 <button class="agree-detail-btn" type="button" data-footer-policy="미혼 확인 동의">자세히</button>
               </div>
               <div class="agree-item">
-                <label><input type="checkbox" data-required-agree data-agree-content> [필수] 콘텐츠 활용 동의</label>
+                <label><input type="checkbox" data-required-agree data-agree-content checked> [필수] 콘텐츠 활용 동의</label>
                 <button class="agree-detail-btn" type="button" data-footer-policy="콘텐츠 활용 동의">자세히</button>
               </div>
             </div>
-          </div>
+          </details>
 
-          <button class="form-submit-btn" type="button" disabled>신청하기</button>
-          ${applicationProcessNoticeMarkup()}
         </form>
 
       `;
@@ -17370,6 +17601,7 @@
     const boardPagination = document.getElementById("boardPagination");
     const boardPageSize = 10;
     const boardCacheKey = "clover-board-posts-v1";
+    let discussionDataRevision = 0;
     const boardStatusOverrideKey = "clover-board-status-overrides-v1";
     const boardAuthorOverrideKey = "clover-board-author-overrides-v1";
     let boardCurrentPage = 1;
@@ -17465,25 +17697,19 @@
     }
 
     function recordAuthKey(record) {
-      return onlyDigits(`${record?.authUser || ""} ${record?.["회원키"] || ""}`, 11);
-    }
-
-    function recordPhoneKey(record) {
-      return onlyDigits(`${record?.phone || ""} ${record?.contactPhone || ""} ${record?.["연락처"] || ""}`, 11);
+      const digits = onlyDigits(String(record?.authUser || record?.["회원키"] || ""), 11);
+      return /^1[016789]\d{8}$/.test(digits) ? `0${digits}` : digits;
     }
 
     function isCurrentMypageRecord(record) {
       const authPhone = currentAuthPhoneKey();
       const { id } = getVisitorIdentity();
       const visitorMatches = Boolean(id && record?.visitorId && String(record.visitorId) === String(id));
-      if (visitorMatches) return true;
       if (authPhone) {
         const recordAuth = recordAuthKey(record);
-        const recordPhone = recordPhoneKey(record);
-        if (recordAuth) return recordAuth === authPhone;
-        if (recordPhone) return recordPhone === authPhone;
+        return Boolean(recordAuth && recordAuth === authPhone);
       }
-      return visitorMatches;
+      return !recordAuthKey(record) && visitorMatches;
     }
 
     function mypageCacheStorageKey() {
@@ -17525,6 +17751,21 @@
         localStorage.setItem(authVisitorOwnerKey, authPhone);
       } catch {}
       currentMyApplications = [];
+      mypageInfoCurrentProfile = null;
+      mypageHasProfileData = false;
+      myCounselPosts = [];
+      myBoardPosts = [];
+      return nextVisitorId;
+    }
+
+    function beginGuestVisitorSession() {
+      const nextVisitorId = createVisitorId();
+      try {
+        localStorage.setItem(visitorIdKey, nextVisitorId);
+        localStorage.removeItem(authVisitorOwnerKey);
+      } catch {}
+      currentMyApplications = [];
+      myApplicationsServerSnapshot = null;
       mypageInfoCurrentProfile = null;
       mypageHasProfileData = false;
       myCounselPosts = [];
@@ -17990,12 +18231,16 @@
       const counselDeleteBtn = closestFrom(event.target, "[data-counsel-delete]");
       if (counselDeleteBtn) {
         event.preventDefault();
+        if (counselDeleteBtn.disabled) return;
         setBoardDeleteModal(true, async () => {
+          if (counselDeleteBtn.disabled) return;
+          setDeleteButtonLoading(counselDeleteBtn, true);
           try {
             const { id: visitorId } = getVisitorIdentity();
             const authUser = currentAuthPhoneKey();
             const id = counselDeleteBtn.dataset.counselDelete;
             await visitorApi({ type: "counselDelete", id, visitorId, authUser });
+            discussionDataRevision += 1;
             counselPosts = counselPosts.filter((post) => String(post.id) !== String(id));
             myCounselPosts = myCounselPosts.filter((post) => String(post.id) !== String(id));
             writeCounselCache(counselPosts);
@@ -18006,6 +18251,8 @@
             if (openHomeCounselPostId === String(id)) closeHomeCounselModal();
           } catch (error) {
             showInfoModal("삭제하지 못했습니다.", error?.message || "잠시 후 다시 시도해 주세요.");
+          } finally {
+            setDeleteButtonLoading(counselDeleteBtn, false);
           }
         });
         return;
@@ -18166,6 +18413,10 @@
       if (writeForm) {
         event.preventDefault();
         if (counselSubmitting) return;
+        if (!isLoggedIn() || !firebaseAuth.currentUser) {
+          showInfoModal("로그인이 필요합니다.", "로그인 후 연애상담 글을 작성해 주세요.");
+          return;
+        }
         const title = document.querySelector("#counselTitleInput").value.trim();
         const stage = document.querySelector("#counselStageInput")?.value || "관계 단계";
         const content = document.querySelector("#counselContentInput").value.trim();
@@ -18183,6 +18434,7 @@
           submitBtn.textContent = isEditingCounsel ? "수정 중" : "등록 중";
         }
         try {
+          const authToken = isEditingCounsel ? "" : await firebaseAuth.currentUser.getIdToken();
           const { id: visitorId } = getVisitorIdentity();
           const authUser = currentAuthPhoneKey();
           const author = document.querySelector("#counselAuthorInput")?.value.trim() || "익명";
@@ -18230,7 +18482,7 @@
             writeForm.reset();
             updateCounselWriteSubmitReady();
             closeCounselWriteModal();
-            visitorApi({ type: "counselCreate", visitorId, authUser, author, title, stage, content, gender })
+            visitorApi({ type: "counselCreate", visitorId, authUser, authToken, author, title, stage, content, gender })
               .then((result) => {
                 const savedPost = result.post ? {
                   ...optimisticPost,
@@ -18260,11 +18512,7 @@
               });
           }
         } catch (error) {
-          if (isEditingCounsel) {
-            alert(error?.message || "저장하지 못했습니다.");
-          } else {
-            closeCounselWriteModal();
-          }
+          showInfoModal("저장하지 못했습니다.", error?.message || "다시 로그인한 뒤 시도해 주세요.");
         } finally {
           counselSubmitting = false;
           if (submitBtn) {
@@ -18318,6 +18566,37 @@
     let currentMyApplications = [];
     let myApplicationsExpanded = false;
     let myApplicationsLoadPromise = null;
+    let myApplicationsServerSnapshot = null;
+    const mypageLayerLoadingCounts = new Map();
+
+    async function loadMypageLayer(layer, loader) {
+      const row = document.querySelector(`[data-mypage-layer-row="${layer}"]`);
+      mypageLayerLoadingCounts.set(layer, (mypageLayerLoadingCounts.get(layer) || 0) + 1);
+      row?.setAttribute("aria-busy", "true");
+      try {
+        return await loader();
+      } finally {
+        const remaining = mypageLayerLoadingCounts.get(layer) - 1;
+        mypageLayerLoadingCounts.set(layer, remaining);
+        if (!remaining) row?.removeAttribute("aria-busy");
+      }
+    }
+
+    function loadMyApplications(forceRefresh = false) {
+      return loadMypageLayer("applications", () => loadMyApplicationsContent(forceRefresh));
+    }
+
+    function loadMyProfileInfo() {
+      return loadMypageLayer("profile", loadMyProfileInfoContent);
+    }
+
+    function loadMyCounsel() {
+      return loadMypageLayer("counsel", loadMyCounselContent);
+    }
+
+    function loadMyBoardPosts() {
+      return loadMypageLayer("board", loadMyBoardPostsContent);
+    }
 
     function applicationGenderValue(application) {
       const source = `${application?.gender || ""} ${application?.applicationType || ""} ${application?.eventTitle || ""}`;
@@ -18346,7 +18625,8 @@
     }
 
     function applicationDisplayRank(application) {
-      return normalizedApplicationStatus(application) === canceledApplicationStatus ? 1 : 0;
+      const ranks = { "승인": 0, "확인": 1, "접수": 2, "취소": 3 };
+      return ranks[normalizedApplicationStatus(application)] ?? 2;
     }
 
     function applicationTimestamp(application) {
@@ -18365,7 +18645,7 @@
       return [...applications].sort((a, b) => {
         const rankDiff = applicationDisplayRank(a) - applicationDisplayRank(b);
         if (rankDiff) return rankDiff;
-        return applicationTimestamp(b) - applicationTimestamp(a);
+        return applicationSubmittedAtForApi(b) - applicationSubmittedAtForApi(a);
       });
     }
 
@@ -18433,7 +18713,7 @@
         const shouldKeepLocalCanceled = normalizedApplicationStatus(application) === canceledApplicationStatus &&
           isRecentLocal &&
           normalizedApplicationStatus(serverApplication) !== canceledApplicationStatus;
-        if (application?.isPending || application?.syncError || shouldKeepLocalCanceled || hasRecentLocalStatus) {
+        if ((isRecentLocal && (application?.isPending || application?.syncError)) || (serverApplication && shouldKeepLocalCanceled) || hasRecentLocalStatus) {
           merged.set(key, serverApplication ? { ...serverApplication, ...application, status: application.status } : application);
         }
       });
@@ -18443,11 +18723,13 @@
     function mergeApplicationsFromAdminCache(adminApplications, localApplications = readMypageCache() || currentMyApplications || []) {
       const merged = new Map();
       (Array.isArray(localApplications) ? localApplications : []).filter(isCurrentMypageRecord).forEach((application) => {
-        merged.set(applicationStableKey(application), application);
+        if (application?.isPending && Date.now() - applicationTimestamp(application) < 2 * 60 * 1000) {
+          merged.set(applicationStableKey(application), application);
+        }
       });
       (Array.isArray(adminApplications) ? adminApplications : []).filter(isCurrentMypageRecord).forEach((application) => {
         const key = applicationStableKey(application);
-        const previous = merged.get(key);
+        const previous = (Array.isArray(localApplications) ? localApplications : []).find((item) => applicationStableKey(item) === key);
         const previousStatus = normalizedApplicationStatus(previous);
         const nextStatus = normalizedApplicationStatus(application);
         if (previous && previousStatus === canceledApplicationStatus && nextStatus === canceledApplicationStatus) {
@@ -18464,6 +18746,7 @@
     }
 
     function syncMyApplicationsFromAdminCache(rawValue) {
+      if (rawValue == null) return false;
       let adminApplications = [];
       try {
         adminApplications = JSON.parse(rawValue || "[]");
@@ -18486,19 +18769,26 @@
       }
     }
 
-    function myApplicationsFetchTimeout(ms = 9000) {
-      return new Promise((_, reject) => {
-        window.setTimeout(() => reject(new Error("myApplications timeout")), ms);
-      });
-    }
-
     async function requestMyApplications(visitorId, authUser = authProfileKey()) {
       const authParam = authUser ? `&authUser=${encodeURIComponent(authUser)}` : "";
-      return Promise.race([
-        fetch(`${GOOGLE_SCRIPT_URL}?action=myApplications&visitorId=${encodeURIComponent(visitorId)}${authParam}&t=${Date.now()}`, { cache: "no-store" })
-          .then((response) => readJsonResponse(response, "신청 내역을 불러오지 못했습니다.")),
-        myApplicationsFetchTimeout()
-      ]);
+      for (let attempt = 0; attempt < 2; attempt += 1) {
+        const controller = new AbortController();
+        const timeout = window.setTimeout(() => controller.abort(), 25000);
+        try {
+          const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=myApplications&visitorId=${encodeURIComponent(visitorId)}${authParam}&t=${Date.now()}`, {
+            cache: "no-store",
+            signal: controller.signal
+          });
+          if (!response.ok) throw new Error("신청 내역을 불러오지 못했습니다.");
+          const result = await readJsonResponse(response, "신청 내역을 불러오지 못했습니다.");
+          if (!result?.ok || !Array.isArray(result.applications)) throw new Error("신청 내역 조회 실패");
+          return result;
+        } catch (error) {
+          if (attempt === 1) throw error;
+        } finally {
+          window.clearTimeout(timeout);
+        }
+      }
     }
 
     function updateApplicationLayerCount(applications) {
@@ -18609,8 +18899,13 @@
     }
 
     function renderMyApplications(applications) {
+      const snapshot = myApplicationsServerSnapshot?.owner === mypageCacheStorageKey()
+        ? myApplicationsServerSnapshot.applications
+        : null;
       const visibleApplications = dedupeApplicationsByStableKey(applications)
         .filter(isCurrentMypageRecord)
+        .filter((application) => !snapshot || snapshot.some((item) => applicationRecordsOverlap(item, application)) ||
+          (application?.isPending && Date.now() - applicationTimestamp(application) < 2 * 60 * 1000))
         .filter((application) => !isHiddenCanceledApplication(application));
       const displayApplications = sortApplicationsForDisplay(visibleApplications);
       writeMypageCache(displayApplications);
@@ -18641,31 +18936,42 @@
       updateMypageDeleteButtonState();
     }
 
-    async function loadMyApplications(forceRefresh = false) {
+    async function loadMyApplicationsContent(forceRefresh = false) {
       await waitForAuthReady();
       ensureAuthVisitorOwner();
+      if (myApplicationsLoadPromise) return myApplicationsLoadPromise;
       const list = document.querySelector("[data-mypage-list]");
       const cached = readMypageCache();
+      const hasServerSnapshot = myApplicationsServerSnapshot?.owner === mypageCacheStorageKey();
       if (cached) {
         renderMyApplications(cached);
         readMyApplicationsFromAdminCache();
       } else if (list) {
         const usedAdminCache = readMyApplicationsFromAdminCache();
-        if (!usedAdminCache) list.innerHTML = `<p class="mypage-empty">불러오는 중...</p>`;
+        if (!usedAdminCache) list.innerHTML = "";
       }
-      if (myApplicationsLoadPromise) return myApplicationsLoadPromise;
       ensureVisitorRegistered();
+      const requestOwner = mypageCacheStorageKey();
+      const { id } = getVisitorIdentity();
+      const requestAuthUser = authProfileKey();
       myApplicationsLoadPromise = (async () => {
         try {
-        const { id } = getVisitorIdentity();
-        const result = await requestMyApplications(id, authProfileKey());
-        const applications = result?.ok && Array.isArray(result.applications) ? result.applications : [];
-        const mergedApplications = mergeApplicationsWithLocal(applications, cached || currentMyApplications);
+        const result = await requestMyApplications(id, requestAuthUser);
+        if (requestOwner !== mypageCacheStorageKey()) return;
+        if (!result?.ok || !Array.isArray(result.applications)) throw new Error("신청 내역 조회 실패");
+        const applications = result.applications;
+        myApplicationsServerSnapshot = { owner: mypageCacheStorageKey(), applications };
+        const mergedApplications = mergeApplicationsWithLocal(applications, readMypageCache() || currentMyApplications);
         writeMypageCache(mergedApplications);
+        writeApplicationSharedCache([
+          ...readApplicationSharedCache().filter((application) => !isCurrentMypageRecord(application)),
+          ...mergedApplications
+        ]);
         renderMyApplications(mergedApplications);
-        if (!mypageHasProfileData) cacheLatestApplicationAsProfile(mergedApplications);
         } catch {
-        if (!cached && !currentMyApplications.length) renderMyApplications([]);
+        if (!cached && !hasServerSnapshot && list) {
+          list.innerHTML = `<p class="mypage-empty">신청 내역을 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.</p>`;
+        }
         } finally {
           myApplicationsLoadPromise = null;
         }
@@ -18755,40 +19061,67 @@
       return authKey ? `${profileInfoCacheKey}:${authKey}` : "";
     }
 
+    function normalizeProfileBirth(value) {
+      const text = String(value || '').trim();
+      const iso = text.match(/^(\d{4})-(\d{2})-(\d{2})(?:$|T)/);
+      if (iso) return `${iso[1]}-${iso[2]}-${iso[3]}`;
+      const legacy = text.match(/^\w{3} (\w{3}) (\d{1,2}) (\d{4})\b/);
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      if (legacy && months.includes(legacy[1])) {
+        return `${legacy[3]}-${String(months.indexOf(legacy[1]) + 1).padStart(2, "0")}-${legacy[2].padStart(2, "0")}`;
+      }
+      return text;
+    }
+
     function readProfileInfoCache() {
       const key = profileInfoCacheStorageKey();
       if (!key) return null;
-      try { return JSON.parse(localStorage.getItem(key) || "null"); } catch { return null; }
+      try {
+        const profile = JSON.parse(localStorage.getItem(key) || "null");
+        return profile ? { ...profile, birth: normalizeProfileBirth(profile.birth) } : null;
+      } catch { return null; }
     }
+
+    let profileInfoCacheRevision = 0;
 
     function writeProfileInfoCache(profile) {
       const key = profileInfoCacheStorageKey();
       if (!key) return;
-      try { localStorage.setItem(key, JSON.stringify(profile)); } catch {}
+      profileInfoCacheRevision += 1;
+      try { localStorage.setItem(key, JSON.stringify({ ...profile, birth: normalizeProfileBirth(profile?.birth) })); } catch {}
     }
 
-    function profileInfoFetchTimeout(ms = 6000) {
-      return new Promise((_, reject) => {
-        window.setTimeout(() => reject(new Error("profileInfo timeout")), ms);
-      });
-    }
-
-    async function refreshProfileInfoCache(timeoutMs = 6000) {
+    async function refreshProfileInfoCache(timeoutMs = 25000) {
       if (!isLoggedIn()) return null;
       const cached = readProfileInfoCache();
+      const requestRevision = profileInfoCacheRevision;
+      const requestOwner = profileInfoCacheStorageKey();
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), timeoutMs);
       try {
         const { id } = getVisitorIdentity();
-        const result = await Promise.race([
-          fetch(`${GOOGLE_SCRIPT_URL}?action=myProfileInfo&visitorId=${encodeURIComponent(id)}&authUser=${encodeURIComponent(authProfileKey())}&t=${Date.now()}`, { cache: "no-store" })
-            .then((response) => readJsonResponse(response, "소개 프로필을 불러오지 못했습니다.")),
-          profileInfoFetchTimeout(timeoutMs)
-        ]);
-        if (result?.ok && result.registered) {
-          const normalized = mergeProfileFileFallbacks(result, cached) || result;
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=myProfileInfo&visitorId=${encodeURIComponent(id)}&authUser=${encodeURIComponent(authProfileKey())}&t=${Date.now()}`, {
+          cache: "no-store",
+          signal: controller.signal
+        });
+        const result = await readJsonResponse(response, "소개 프로필을 불러오지 못했습니다.");
+        if (requestOwner !== profileInfoCacheStorageKey()) return null;
+        if (requestRevision !== profileInfoCacheRevision) return readProfileInfoCache();
+        if (response.ok && result?.ok && typeof result.registered === "boolean") {
+          const normalized = result.registered
+            ? { ...result, birth: normalizeProfileBirth(result.birth) }
+            : { ok: true, registered: false };
           writeProfileInfoCache(normalized);
+          if (!normalized.registered) {
+            mypageInfoCurrentProfile = null;
+            mypageHasProfileData = false;
+          }
           return normalized;
         }
-      } catch {}
+      } catch {
+      } finally {
+        window.clearTimeout(timeout);
+      }
       return null;
     }
 
@@ -19152,7 +19485,7 @@
     function renderMyProfileInfo(profile, editing = mypageInfoEditing) {
       const container = document.querySelector("[data-mypage-info]");
       if (!container) return;
-      const p = profile && profile.registered ? profile : {};
+      const p = profile && profile.registered ? { ...profile, birth: normalizeProfileBirth(profile.birth) } : {};
       mypageInfoCurrentProfile = p;
       mypageInfoEditing = Boolean(editing);
       mypageDocumentFile = null;
@@ -19440,6 +19773,7 @@
           photoUrls: mergedPhotoUrls,
           bodyPhotoUrls: mergedBodyPhotoUrls
         };
+        profile.updatedAt = response.updatedAt || Date.now();
         writeProfileInfoCache(profile);
         mypageInfoEditing = false;
         renderMyProfileInfo(profile, false);
@@ -19531,7 +19865,10 @@
     }
 
     function writeCounselCache(posts) {
-      try { localStorage.setItem(counselCacheKey, JSON.stringify(posts.slice(0, 100))); } catch {}
+      try {
+        const value = JSON.stringify(posts.slice(0, 100));
+        if (localStorage.getItem(counselCacheKey) !== value) localStorage.setItem(counselCacheKey, value);
+      } catch {}
     }
 
     function createOptimisticCounselPost({ author, title, stage, content, visitorId, gender, authUser = "" }) {
@@ -19711,8 +20048,8 @@
         if (!post?.id) return;
         const createdAt = counselPostTimestamp(post);
         const touchedAt = Number(post.localUpdatedAt) || Number(post.updatedAt) || createdAt;
-        const isRecentLocalPost = isMyCounselPost(post) && touchedAt && now - touchedAt < 2 * 60 * 1000;
-        if (post.isPending || post.syncError || isRecentLocalPost) {
+        const isRecentPendingPost = post.isPending && touchedAt && now - touchedAt < 2 * 60 * 1000;
+        if (isRecentPendingPost) {
           const serverPost = mergedById.get(String(post.id));
           mergedById.set(String(post.id), serverPost ? { ...serverPost, ...post } : post);
         }
@@ -19721,6 +20058,7 @@
     }
 
     async function loadCounselPosts() {
+      const revision = discussionDataRevision;
       const cached = readCounselCache();
       if (cached) {
         counselPosts = cached;
@@ -19733,6 +20071,7 @@
         const authParam = authUser ? `&authUser=${encodeURIComponent(authUser)}` : "";
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=counselList&visitorId=${encodeURIComponent(id)}${authParam}&t=${Date.now()}`);
         const result = await readJsonResponse(response, "상담 목록을 불러오지 못했습니다.");
+        if (revision !== discussionDataRevision) return;
         if (response.ok && result.ok && Array.isArray(result.posts)) {
           counselPosts = mergeCounselPostsWithLocal(result.posts);
           counselCurrentPage = Math.min(counselCurrentPage, Math.max(1, Math.ceil(counselPosts.length / counselPageSize)));
@@ -19815,7 +20154,8 @@
       ` : "";
     }
 
-    async function loadMyCounsel() {
+    async function loadMyCounselContent() {
+      const revision = discussionDataRevision;
       const container = document.querySelector("[data-mypage-counsel]");
       if (!container) return;
       ensureAuthVisitorOwner();
@@ -19835,13 +20175,13 @@
         const authParam = authUser ? `&authUser=${encodeURIComponent(authUser)}` : "";
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=counselMine&visitorId=${encodeURIComponent(id)}${authParam}&t=${Date.now()}`, { cache: "no-store" });
         const result = await readJsonResponse(response, "내 상담 내역을 불러오지 못했습니다.");
-        let posts = response.ok && result.ok && Array.isArray(result.posts) ? result.posts : [];
-        if (!posts.length) {
-          const fallbackResponse = await fetch(`${GOOGLE_SCRIPT_URL}?action=counselList&visitorId=${encodeURIComponent(id)}${authParam}&t=${Date.now()}`, { cache: "no-store" });
-          const fallbackResult = await readJsonResponse(fallbackResponse, "상담 목록을 불러오지 못했습니다.");
-          const fallbackPosts = fallbackResponse.ok && fallbackResult.ok && Array.isArray(fallbackResult.posts) ? fallbackResult.posts : [];
-          posts = fallbackPosts.filter(isMyCounselPost);
-        }
+        if (revision !== discussionDataRevision) return;
+        if (!response.ok || !result.ok || !Array.isArray(result.posts)) throw new Error(result.error || "상담 목록을 불러오지 못했습니다.");
+        const posts = result.posts;
+        counselPosts = [...(readCounselCache() || []).filter((post) => !isMyCounselPost(post)), ...posts];
+        writeCounselCache(counselPosts);
+        renderCounselList();
+        renderHomeCounselLayer();
         myCounselPosts = posts;
         myCounselPage = 1;
         renderMyCounsel();
@@ -19862,9 +20202,11 @@
       if (boardRow) boardRow.classList.toggle("is-empty", !myBoardPosts.length);
       updateMypageDeleteButtonState();
       if (!container) return;
-      container.replaceChildren();
+      const existingCards = new Map([...container.querySelectorAll(':scope > [data-board-post-id]')].map((card) => [card.dataset.boardPostId, card]));
+      const cards = [];
       const sortedPosts = [...myBoardPosts].sort((a, b) => b.createdAt - a.createdAt);
       if (!sortedPosts.length) {
+        container.replaceChildren();
         const empty = document.createElement("p");
         empty.className = "mypage-empty";
         empty.textContent = "작성한 문의가 없습니다.";
@@ -19878,8 +20220,17 @@
       const pageStart = (myBoardPage - 1) * myBoardPageSize;
       const pagePosts = sortedPosts.slice(pageStart, pageStart + myBoardPageSize);
       pagePosts.forEach((post) => {
+        const existing = existingCards.get(String(post.id));
+        if (existing) {
+          existing.boardPostData = post;
+          setBoardStatusBadge(existing, post.status);
+          cards.push(existing);
+          return;
+        }
         const article = document.createElement("article");
         article.className = "board-post";
+        article.dataset.boardPostId = String(post.id);
+        article.boardPostData = post;
         const openButton = document.createElement("button");
         openButton.className = "board-post-open";
         openButton.type = "button";
@@ -19905,11 +20256,12 @@
         status.className = "board-status";
         side.append(time, status);
         openButton.append(authorWrap, side);
-        openButton.addEventListener("click", () => openBoardPost(article, post));
+        openButton.addEventListener("click", () => openBoardPost(article, article.boardPostData));
         article.append(openButton);
         setBoardStatusBadge(article, post.status);
-        container.append(article);
+        cards.push(article);
       });
+      reconcileBoardCards(container, cards);
 
       if (!pagination) return;
       pagination.hidden = totalPages <= 1;
@@ -19920,7 +20272,8 @@
       ` : "";
     }
 
-    async function loadMyBoardPosts() {
+    async function loadMyBoardPostsContent() {
+      const revision = discussionDataRevision;
       const container = document.querySelector("[data-mypage-board]");
       if (!container) return;
       ensureAuthVisitorOwner();
@@ -19940,14 +20293,12 @@
         const authParam = authUser ? `&authUser=${encodeURIComponent(authUser)}` : "";
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardMine&visitorId=${encodeURIComponent(id)}${authParam}&t=${Date.now()}`, { cache: "no-store" });
         const result = await readJsonResponse(response, "내 문의 내역을 불러오지 못했습니다.");
+        if (revision !== discussionDataRevision) return;
         if (!response.ok || !result.ok || !Array.isArray(result.posts)) throw new Error(result.error || "문의 목록을 불러오지 못했습니다.");
-        let posts = result.posts;
-        if (!posts.length) {
-          const fallbackResponse = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardList&visitorId=${encodeURIComponent(id)}${authParam}&t=${Date.now()}`, { cache: "no-store" });
-          const fallbackResult = await readJsonResponse(fallbackResponse, "문의 목록을 불러오지 못했습니다.");
-          const fallbackPosts = fallbackResponse.ok && fallbackResult.ok && Array.isArray(fallbackResult.posts) ? fallbackResult.posts : [];
-          posts = fallbackPosts.filter((post) => isMyBoardPost(post, id));
-        }
+        const posts = result.posts;
+        boardPosts = [...readBoardCache().filter((post) => !isMyBoardPost(post, id)), ...posts];
+        writeBoardCache(boardPosts);
+        renderBoardPosts();
         myBoardPosts = posts;
         myBoardPage = 1;
         renderMyBoardPosts();
@@ -20139,6 +20490,10 @@
     }
 
     function openCounselWrite(editingPost) {
+      if (!isLoggedIn()) {
+        showInfoModal("로그인이 필요합니다.", "로그인 후 연애상담 글을 작성해 주세요.");
+        return;
+      }
       counselEditingId = editingPost ? String(editingPost.id) : "";
       counselSubmitting = false;
       document.querySelector("#counselAuthorInput").value = editingPost ? counselVisibleAuthor(editingPost) : "";
@@ -20172,7 +20527,7 @@
       if (wasOpen && !options.keepParentPopup) settlePopupHistoryAfterClose(options);
     }
 
-    async function loadMyProfileInfo() {
+    async function loadMyProfileInfoContent() {
       await waitForAuthReady();
       ensureAuthVisitorOwner();
       if (!isLoggedIn()) {
@@ -20183,14 +20538,9 @@
       renderMyProfileInfo(cached, false);
       const fresh = await refreshProfileInfoCache();
       if (fresh && !mypageInfoEditing) {
-        const merged = mergeProfileFileFallbacks(fresh, cached);
-        if (merged) {
-          writeProfileInfoCache(merged);
-          renderMyProfileInfo(merged, false);
-        }
+        renderMyProfileInfo(fresh, false);
       } else if (!cached && !mypageInfoEditing) {
-        const profileFromApplication = cacheLatestApplicationAsProfile(currentMyApplications);
-        if (!profileFromApplication) renderMyProfileInfo(null, false);
+        renderMyProfileInfo(null, false);
       }
     }
 
@@ -20231,7 +20581,7 @@
       const cachedProfile = readProfileInfoCache();
       let profile = null;
       try {
-        profile = mergeProfileFileFallbacks(await refreshProfileInfoCache(900), cachedProfile) || cachedProfile;
+        profile = await refreshProfileInfoCache() || readProfileInfoCache() || cachedProfile;
       } catch {
         profile = cachedProfile;
       }
@@ -20245,7 +20595,7 @@
       };
       setValue("#applyName", profile.name);
       setValue("#applyPhone", profile.phone);
-      setValue("#applyBirth", profile.birth);
+      setValue("#applyBirth", normalizeProfileBirth(profile.birth));
       setValue("#applyHeight", profile.height);
       setValue("#applyWeight", profile.weight);
       setValue("#applyArea", profile.area);
@@ -20822,13 +21172,15 @@
       const postImageUrl = schedulePostImageUrl(post);
       const postImageSrc = optimizedAssetUrl(postImageUrl);
       const postImageFallback = imageFallbackAttribute(postImageUrl);
+      const title = String(post.title || "").trim();
       const content = String(post.content || "").trim();
-      return `<button class="schedule-image-card" type="button" data-schedule-open="${htmlAttr(post.id)}" aria-label="${htmlAttr(post.title)} ?먯꽭??蹂닿린">
-        <img src="${htmlAttr(postImageSrc)}"${postImageFallback} alt="${htmlAttr(post.title)}" loading="lazy" decoding="async">
-        <span class="schedule-image-card-copy">
-          <span class="schedule-image-card-title">${htmlAttr(post.title)}</span>
+      const copyMarkup = title || content ? `<span class="schedule-image-card-copy">
+          ${title ? `<span class="schedule-image-card-title">${htmlAttr(title)}</span>` : ""}
           ${content ? `<span class="schedule-image-card-content">${htmlAttr(content)}</span>` : ""}
-        </span>
+        </span>` : "";
+      return `<button class="schedule-image-card${title || content ? "" : " is-photo-only"}" type="button" data-schedule-open="${htmlAttr(post.id)}" aria-label="${htmlAttr(title ? `${title} 자세히 보기` : "현장 사진 자세히 보기")}">
+        <img src="${htmlAttr(postImageSrc)}"${postImageFallback} alt="${htmlAttr(title || "현장 사진")}" loading="lazy" decoding="async">
+        ${copyMarkup}
       </button>`;
     }
     function renderScheduleDetail(post) {
@@ -20890,10 +21242,11 @@
 
     function dashboardCategoryPosts(category) {
       const targetCategory = String(category || "").trim();
-      const posts = uniqueScheduleContentPosts([
-        ...readAdminDashboardContentPosts(),
-        ...schedulePosts
-      ]).filter((post) => post?.active !== false && !isPlaceholderDashboardContentPost(post) && String(post?.category || "").trim() === targetCategory);
+      const sourcePosts = schedulePostsLoaded
+        ? schedulePosts
+        : [...readAdminDashboardContentPosts(), ...schedulePosts];
+      const posts = uniqueScheduleContentPosts(sourcePosts)
+        .filter((post) => post?.active !== false && !isPlaceholderDashboardContentPost(post) && String(post?.category || "").trim() === targetCategory);
       return uniqueByScheduleTitle(posts).sort(compareDashboardPostOrder);
     }
 
@@ -23301,13 +23654,17 @@
       const authLogoutTarget = event.target.closest("[data-auth-logout]");
       if (authLogoutTarget) {
         event.preventDefault();
-        firebaseAuth.signOut().catch(() => {});
-        try {
-          localStorage.removeItem(AUTH_USER_KEY);
-          localStorage.removeItem(authVisitorOwnerKey);
-        } catch {}
-        updateAuthDrawerLinks();
-        setPage("home");
+        authLogoutTarget.disabled = true;
+        (async () => {
+          const accountVisitorId = getVisitorIdentity().id;
+          try { await firebaseAuth.signOut(); } catch { return; }
+          try { localStorage.removeItem(AUTH_USER_KEY); } catch {}
+          let needsGuestSession = getVisitorIdentity().id === accountVisitorId;
+          try { needsGuestSession = needsGuestSession || Boolean(localStorage.getItem(authVisitorOwnerKey)); } catch {}
+          if (needsGuestSession) beginGuestVisitorSession();
+          updateAuthDrawerLinks();
+          setPage("home");
+        })().finally(() => { authLogoutTarget.disabled = false; });
         return;
       }
       const matchResultCloseTarget = event.target.closest("[data-match-result-close]");
@@ -23506,7 +23863,8 @@
           const { localPassword, ...safePost } = post;
           return { ...safePost, author: normalizeBoardAuthor(safePost.author) };
         });
-        localStorage.setItem(boardCacheKey, JSON.stringify(safePosts));
+        const value = JSON.stringify(safePosts);
+        if (localStorage.getItem(boardCacheKey) !== value) localStorage.setItem(boardCacheKey, value);
       } catch (_) {}
     }
 
@@ -23553,6 +23911,7 @@
     }
 
     async function loadBoardPosts() {
+      const revision = discussionDataRevision;
       if (!boardPostList) return;
       const cachedPosts = readBoardCache();
       if (cachedPosts.length && !boardPosts.length) {
@@ -23566,6 +23925,7 @@
         const authParam = authUser ? `&authUser=${encodeURIComponent(authUser)}` : "";
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=boardList&visitorId=${encodeURIComponent(id)}${authParam}&t=${Date.now()}`, { cache: "no-store" });
         const result = await readJsonResponse(response, "게시글 목록을 불러오지 못했습니다.");
+        if (revision !== discussionDataRevision) return;
         if (!response.ok || !result.ok || !Array.isArray(result.posts)) {
           throw new Error(result.error || "게시글 목록을 불러오지 못했습니다.");
         }
@@ -23588,11 +23948,12 @@
         writeBoardCache(boardPosts);
         renderBoardPosts();
       } catch (error) {
-        if (!cachedPosts.length) {
+        console.warn("문의 게시글 목록 불러오기 실패", error);
+        if (!cachedPosts.length && !boardPosts.length) {
           boardPostList.replaceChildren();
           const message = document.createElement("p");
           message.className = "board-empty";
-          message.textContent = error?.message || "게시글 목록을 불러오지 못했습니다.";
+          message.textContent = "게시글 목록을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.";
           boardPostList.append(message);
         }
       }
@@ -23659,17 +24020,41 @@
 
     function lockBoardPostListHeight(totalPosts) {
       if (!boardPostList) return;
-      if (!totalPosts) {
-        boardPostList.style.minHeight = "";
-        return;
-      }
-      const maxVisibleRows = Math.min(boardPageSize, totalPosts);
+      const maxVisibleRows = boardPageSize;
       const rows = [...boardPostList.querySelectorAll(".board-post")];
-      if (!rows.length) return;
-      const rowHeight = Math.max(...rows.map((row) => row.getBoundingClientRect().height));
+      const collapsedRowHeights = rows.map((row) => {
+        const openButton = row.querySelector(":scope > .board-post-open");
+        if (!openButton) return 64;
+        const style = getComputedStyle(row);
+        const verticalChrome = [
+          style.paddingTop,
+          style.paddingBottom,
+          style.borderTopWidth,
+          style.borderBottomWidth
+        ].reduce((sum, value) => sum + (parseFloat(value) || 0), 0);
+        return Math.max(64, openButton.getBoundingClientRect().height + verticalChrome);
+      });
+      const rowHeight = Math.max(64, ...collapsedRowHeights);
       const rowGap = parseFloat(getComputedStyle(boardPostList).rowGap) || 0;
-      const lockedHeight = (rowHeight * maxVisibleRows) + (rowGap * Math.max(0, maxVisibleRows - 1));
-      boardPostList.style.minHeight = `${Math.ceil(lockedHeight)}px`;
+      const expandedHeight = rows.reduce((sum, row, index) => {
+        const actualHeight = row.getBoundingClientRect().height;
+        return sum + Math.max(0, actualHeight - collapsedRowHeights[index]);
+      }, 0);
+      const lockedHeight = (rowHeight * maxVisibleRows)
+        + (rowGap * Math.max(0, maxVisibleRows - 1))
+        + expandedHeight;
+      const lockedHeightValue = `${Math.ceil(lockedHeight)}px`;
+      boardPostList.style.removeProperty("height");
+      boardPostList.style.minHeight = lockedHeightValue;
+      boardPostList.style.removeProperty("max-height");
+      boardPostList.style.removeProperty("overflow-y");
+    }
+
+    function queueBoardPostListHeightUpdate() {
+      cancelAnimationFrame(window.__boardPostListHeightFrame || 0);
+      window.__boardPostListHeightFrame = requestAnimationFrame(() => {
+        lockBoardPostListHeight(boardPosts.length);
+      });
     }
 
     function setBoardStatusBadge(article, status) {
@@ -23816,22 +24201,24 @@
         contentHeading.append(contentActions);
 
         deleteToggle.addEventListener("click", () => {
-          setBoardDeleteModal(true, () => {
-            const previousPosts = [...boardPosts];
+          if (deleteToggle.disabled) return;
+          setBoardDeleteModal(true, async () => {
+            if (deleteToggle.disabled) return;
+            setDeleteButtonLoading(deleteToggle, true);
+            try {
+              await boardApi({ type: "boardDelete", id: post.id, password });
+              discussionDataRevision += 1;
+            } catch (error) {
+              showInfoModal("삭제하지 못했습니다.", error?.message || "잠시 후 다시 시도해 주세요.");
+              return;
+            } finally {
+              setDeleteButtonLoading(deleteToggle, false);
+            }
             boardPosts = boardPosts.filter((item) => String(item.id) !== String(post.id));
             writeBoardCache(boardPosts);
             renderBoardPosts();
             myBoardPosts = myBoardPosts.filter((item) => String(item.id) !== String(post.id));
             renderMyBoardPosts();
-            boardApi({ type: "boardDelete", id: post.id, password })
-              .catch((error) => {
-                boardPosts = previousPosts;
-                writeBoardCache(boardPosts);
-                renderBoardPosts();
-                myBoardPosts = previousPosts.filter((item) => isMyBoardPost(item, getVisitorIdentity().id));
-                renderMyBoardPosts();
-                showInfoModal("삭제하지 못했습니다.", error?.message || "잠시 후 다시 시도해 주세요.");
-              });
           });
         });
 
@@ -24040,14 +24427,21 @@
         view.append(replySection);
       }
       article.append(view);
+      queueBoardPostListHeightUpdate();
     }
     function openBoardPost(article, post) {
       const existingPanels = [...article.querySelectorAll(".board-access-panel, .board-private-view")];
       if (existingPanels.length) {
-        article.querySelector(".board-access-panel input")?.focus();
+        existingPanels.forEach((panel) => panel.remove());
+        article.querySelector(".board-post-open")?.setAttribute("aria-expanded", "false");
+        queueBoardPostListHeightUpdate();
         return;
       }
-      boardPostList?.querySelectorAll(".board-access-panel, .board-private-view").forEach((panel) => panel.remove());
+      article.parentElement?.querySelectorAll(".board-access-panel, .board-private-view").forEach((panel) => {
+        panel.closest(".board-post")?.querySelector(".board-post-open")?.setAttribute("aria-expanded", "false");
+        panel.remove();
+      });
+      article.querySelector(".board-post-open")?.setAttribute("aria-expanded", "true");
 
       const panel = document.createElement("form");
       panel.className = "board-access-panel";
@@ -24063,12 +24457,14 @@
       message.className = "board-access-message";
       panel.append(passwordInput, confirmButton, message);
       article.append(panel);
+      queueBoardPostListHeightUpdate();
       passwordInput.focus();
       panel.addEventListener("click", (event) => event.stopPropagation());
 
       panel.addEventListener("submit", async (event) => {
         event.preventDefault();
         event.stopPropagation();
+        if (confirmButton.disabled) return;
         const password = passwordInput.value;
         if (!password) {
           message.textContent = "비밀번호를 입력해 주세요."; 
@@ -24098,8 +24494,10 @@
                 return localBoardReadResult(post);
               })()
             : await boardApiWithTimeout({ type: "boardRead", id: post.id, password });
+          if (!panel.isConnected || !article.isConnected) return;
           appendPrivatePostView(article, post, result, password);
         } catch (error) {
+          if (!panel.isConnected || !article.isConnected) return;
           const errorText = String(error?.message || "");
           if (canOpenBoardFromLocal(post, password)) {
             appendPrivatePostView(article, post, localBoardReadResult(post), password);
@@ -24114,17 +24512,25 @@
       });
     }
 
+    function reconcileBoardCards(container, cards) {
+      const keep = new Set(cards);
+      [...container.children].forEach((child) => { if (!keep.has(child)) child.remove(); });
+      cards.forEach((card, index) => {
+        if (container.children[index] !== card) container.insertBefore(card, container.children[index] || null);
+      });
+    }
+
     function renderBoardPosts() {
       if (!boardPostList) return;
-      boardPostList.replaceChildren();
+      const existingCards = new Map([...boardPostList.querySelectorAll(':scope > [data-board-post-id]')].map((card) => [card.dataset.boardPostId, card]));
+      const cards = [];
       const sortedPosts = [...boardPosts].sort((a, b) => b.createdAt - a.createdAt);
       const postNumberById = new Map(
-        [...boardPosts]
-          .sort((a, b) => a.createdAt - b.createdAt)
-          .map((post, index) => [post.id, index + 1])
+        sortedPosts.map((post, index) => [post.id, sortedPosts.length - index])
       );
 
       if (!sortedPosts.length) {
+        boardPostList.replaceChildren();
         const empty = document.createElement("p");
         empty.className = "board-empty";
         empty.textContent = "접수된 게시글이 없습니다.";
@@ -24139,8 +24545,18 @@
       const pageStart = (boardCurrentPage - 1) * boardPageSize;
       const pagePosts = sortedPosts.slice(pageStart, pageStart + boardPageSize);
       pagePosts.forEach((post) => {
+        const existing = existingCards.get(String(post.id));
+        if (existing) {
+          existing.boardPostData = post;
+          existing.querySelector(".board-post-number").textContent = postNumberById.get(post.id);
+          setBoardStatusBadge(existing, post.status);
+          cards.push(existing);
+          return;
+        }
         const article = document.createElement("article");
         article.className = "board-post";
+        article.dataset.boardPostId = String(post.id);
+        article.boardPostData = post;
         const openButton = document.createElement("button");
         openButton.className = "board-post-open";
         openButton.type = "button";
@@ -24170,11 +24586,12 @@
         status.className = "board-status";
         side.append(time, status);
         openButton.append(authorWrap, side);
-        openButton.addEventListener("click", () => openBoardPost(article, post));
+        openButton.addEventListener("click", () => openBoardPost(article, article.boardPostData));
         article.append(openButton);
         setBoardStatusBadge(article, post.status);
-        boardPostList.append(article);
+        cards.push(article);
       });
+      reconcileBoardCards(boardPostList, cards);
       lockBoardPostListHeight(sortedPosts.length);
       renderBoardPagination(totalPages);
     }
@@ -24207,8 +24624,7 @@
       const submittedVisitorId = getVisitorIdentity().id;
       const submittedAuthUser = currentAuthPhoneKey();
       const attachmentFiles = [...boardForm.querySelectorAll('input[type="file"][name^="attachment"]')]
-        .map((input) => input.files?.[0])
-        .filter(Boolean)
+        .flatMap((input) => [...(input.files || [])])
         .slice(0, 3);
       const optimisticAttachments = attachmentFiles.map((file) => ({
         name: file.name,
@@ -24294,7 +24710,6 @@
     });
 
     setNextBoardAuthor();
-    loadBoardPosts();
 
     function setGenderModal(open, options = {}) {
       if (!genderModal) return;
@@ -24371,6 +24786,15 @@
     }
 
     let pendingBoardDeleteAction = null;
+    function setDeleteButtonLoading(button, loading) {
+      if (!button) return;
+      button.disabled = loading;
+      button.classList.toggle("is-deleting", loading);
+      button.textContent = loading ? "삭제 중" : "삭제";
+      if (loading) button.setAttribute("aria-busy", "true");
+      else button.removeAttribute("aria-busy");
+    }
+
     function setBoardDeleteModal(open, action = null, options = {}) {
       const modal = document.querySelector("[data-board-delete-modal]");
       const wasOpen = Boolean(modal && !modal.hidden);
@@ -24488,6 +24912,7 @@
     };
     firebase.initializeApp(firebaseConfig);
     const firebaseAuth = firebase.auth();
+    let boardInitialLoadStarted = false;
 
     function phoneToAuthEmail(phone) {
       return `${onlyDigits(phone, 11)}@clover.app`;
@@ -24504,9 +24929,7 @@
 
     const AUTH_USER_KEY = "cloverAuthUser";
     function currentAuthKey() {
-      const firebaseKey = firebaseAuth.currentUser?.email?.split("@")[0] || "";
-      if (firebaseKey) return firebaseKey;
-      try { return localStorage.getItem(AUTH_USER_KEY) || ""; } catch { return ""; }
+      return firebaseAuth.currentUser?.email?.split("@")[0] || "";
     }
 
     function isLoggedIn() {
@@ -24557,9 +24980,17 @@
             localStorage.setItem(AUTH_USER_KEY, authPhone);
             ensureAuthVisitorOwner(authPhone);
           }
+        } else {
+          const hadAuthVisitorOwner = Boolean(localStorage.getItem(authVisitorOwnerKey));
+          localStorage.removeItem(AUTH_USER_KEY);
+          if (hadAuthVisitorOwner) beginGuestVisitorSession();
         }
       } catch {}
       updateAuthDrawerLinks();
+      if (!boardInitialLoadStarted) {
+        boardInitialLoadStarted = true;
+        loadBoardPosts();
+      }
     });
     function updateAuthDrawerLinks() {
       const loggedIn = isLoggedIn();
@@ -24919,7 +25350,7 @@
     initTheme();
 
     function readMenuBarIconSettings() {
-      const defaults = { youtube: true, instagram: true, mbti: true };
+      const defaults = { cloverNews: true, counsel: true, youtube: true, instagram: true, mbti: true };
       try {
         const parsed = JSON.parse(localStorage.getItem(MENU_BAR_ICON_SETTINGS_KEY) || "{}");
         return { ...defaults, ...(parsed && typeof parsed === "object" ? parsed : {}) };
@@ -24932,6 +25363,16 @@
       const settings = readMenuBarIconSettings();
       document.querySelectorAll("[data-menubar-icon]").forEach((item) => {
         item.hidden = settings[item.dataset.menubarIcon] === false;
+      });
+      document.querySelectorAll("[data-menubar-feature]").forEach((item) => {
+        const enabled = settings[item.dataset.menubarFeature] !== false;
+        const label = item.dataset.menubarLabel || "";
+        const labelElement = item.querySelector("span");
+        item.disabled = !enabled;
+        item.setAttribute("aria-disabled", String(!enabled));
+        item.classList.toggle("is-coming-soon", !enabled);
+        item.classList.toggle("is-active", enabled && item.dataset.pageLink === currentPageName);
+        if (labelElement) labelElement.textContent = enabled ? label : `${label} (준비 중)`;
       });
     }
 
@@ -24996,7 +25437,14 @@
       });
       setDrawer(false);
       if (safePageName === "location") bindLocationMapLayer();
-      if (safePageName === "mypage") { loadMyApplications(true); loadMyProfileInfo(); loadMyCounsel(); loadMyBoardPosts(); }
+      if (safePageName === "mypage") {
+        loadMyProfileInfo();
+        loadMyApplications(true).finally(() => {
+          if (currentPageName !== "mypage") return;
+          loadMyCounsel();
+          loadMyBoardPosts();
+        });
+      }
       if (safePageName === "counsel") loadCounselPosts();
       if (safePageName === "reviews") renderMatchResultList();
       if (safePageName === "mbti") renderMbtiCompatibility();
@@ -25182,6 +25630,13 @@
       return document.querySelector(selector)?.value.trim() || "";
     }
 
+    function syncApplicationDraftInput(input) {
+      if (!(input instanceof HTMLInputElement) || !input.closest(".application-form")) return;
+      const draftKeys = new Set(["name", "phone", "birth", "height", "weight", "area", "company", "department", "position"]);
+      if (!draftKeys.has(input.name)) return;
+      applicationFormDraft[input.name] = input.value.trim();
+    }
+
     function captureApplicationFormDraft() {
       if (!document.querySelector(".application-form")) return;
       updateIdealTextareaFromChips();
@@ -25265,28 +25720,13 @@
 
     function cacheApplicationProfileInfo(payload, result = {}) {
       if (!isLoggedIn() || !payload?.profileAutoSave) return null;
-      const savedProfile = applicationPayloadToProfileInfo(payload, result);
+      const savedProfile = result.profile?.registered
+        ? result.profile
+        : { ...applicationPayloadToProfileInfo(payload, result), updatedAt: Date.now() };
       writeProfileInfoCache(savedProfile);
       mypageInfoCurrentProfile = savedProfile;
+      if (currentPageName === "mypage" && !mypageInfoEditing) renderMyProfileInfo(savedProfile, false);
       return savedProfile;
-    }
-
-    function cacheLatestApplicationAsProfile(applications = currentMyApplications) {
-      if (!isLoggedIn()) return null;
-      const latestApplication = [...(Array.isArray(applications) ? applications : [])]
-        .filter(isCurrentMypageRecord)
-        .filter((application) => application?.name || application?.phone || application?.photoFileUrls?.length || application?.documentFileUrl)
-        .sort((a, b) => applicationTimestamp(b) - applicationTimestamp(a))[0];
-      if (!latestApplication) return null;
-      const profile = applicationPayloadToProfileInfo({
-        ...latestApplication,
-        authUser: latestApplication.authUser || authProfileKey(),
-        profileAutoSave: true
-      }, latestApplication);
-      writeProfileInfoCache(profile);
-      mypageInfoCurrentProfile = profile;
-      if (!mypageInfoEditing) renderMyProfileInfo(profile, false);
-      return profile;
     }
 
     function selectedChoice(labelText) {
@@ -26703,14 +27143,20 @@
       if (target.id === "applyPhone" || target.id === "infoPhone" || (target.name === "phone" && target.closest(".auth-form"))) {
         applyFormattedInputValue(target, formatPhone);
         if (target.value.length === 13) target.classList.remove("is-invalid");
-        if (target.closest(".application-form")) updateFormSubmitButton();
+        if (target.closest(".application-form")) {
+          syncApplicationDraftInput(target);
+          updateFormSubmitButton();
+        }
         return;
       }
 
       if (target.id === "applyBirth" || target.id === "infoBirth") {
         applyFormattedInputValue(target, formatBirth);
         if (target.value.length === 10) target.classList.remove("is-invalid");
-        if (target.closest(".application-form")) updateFormSubmitButton();
+        if (target.closest(".application-form")) {
+          syncApplicationDraftInput(target);
+          updateFormSubmitButton();
+        }
         return;
       }
 
@@ -26722,7 +27168,10 @@
         target.classList.remove("is-invalid");
       }
 
-      if (target.closest(".application-form")) updateFormSubmitButton();
+      if (target.closest(".application-form")) {
+        syncApplicationDraftInput(target);
+        updateFormSubmitButton();
+      }
     });
 
     document.addEventListener("change", (event) => {
@@ -26826,14 +27275,22 @@
         const nameEl = label.querySelector("[data-board-file-name]");
         if (!input || !nameEl) return;
         input.addEventListener("change", () => {
-          const file = input.files?.[0];
-          if (file && !validateUploadFileSize([file], input)) {
+          const files = [...(input.files || [])];
+          if (files.length > 3) {
+            alert("첨부 파일은 최대 3개까지 선택해 주세요.");
+            input.value = "";
             nameEl.textContent = "파일을 선택해 주세요.";
             label.classList.remove("has-file");
             return;
           }
-          nameEl.textContent = file ? file.name : "파일을 선택해 주세요.";
-          label.classList.toggle("has-file", !!file);
+          if (files.length && !validateUploadFileSize(files, input)) {
+            nameEl.textContent = "파일을 선택해 주세요.";
+            label.classList.remove("has-file");
+            return;
+          }
+          nameEl.textContent = files.length ? files.map((file) => file.name).join(", ") : "파일을 선택해 주세요.";
+          nameEl.title = files.map((file) => file.name).join(", ");
+          label.classList.toggle("has-file", files.length > 0);
         });
       });
     })();
@@ -26963,11 +27420,8 @@
 
     function seedHeroSlides() {
       const slides = readCachedHeroSlides();
-      const fallbackSlides = normalizeHeroSlides(HERO_FALLBACK_SLIDES);
-      const seedSlides = slides.length ? slides : fallbackSlides;
-      if (!seedSlides.length) return;
-      renderManagedHeroSlides(seedSlides);
-      startHeroRotation();
+      renderManagedHeroSlides(slides);
+      if (slides.length) startHeroRotation();
     }
     function preloadImage(url) {
       return new Promise((resolve, reject) => {
@@ -26986,8 +27440,12 @@
     }
     function renderManagedHeroSlides(slides) {
       const hero = document.getElementById("heroBanner");
-      if (!hero || !slides.length) return;
+      if (!hero) return;
+      window.clearInterval(heroRotationTimer);
       hero.replaceChildren();
+      hero.hidden = !slides.length;
+      hero.style.display = slides.length ? "" : "none";
+      if (!slides.length) return;
       slides.forEach((item, index) => {
         const slide = document.createElement("article");
         const attachedVideoUrl = item.videoUrl || "";
@@ -27043,13 +27501,11 @@
       try {
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=heroList&t=${Date.now()}`);
         const result = await readJsonResponse(response, "배너 목록을 불러오지 못했습니다.");
-        if (response.ok && result.ok && Array.isArray(result.slides) && result.slides.length) {
+        if (response.ok && result.ok && Array.isArray(result.slides)) {
           const normalizedSlides = normalizeHeroSlides(result.slides);
-          if (normalizedSlides.length) {
-            const slides = await preloadHeroSlides(normalizedSlides);
-            renderManagedHeroSlides(slides);
-            writeCachedHeroSlides(slides);
-          }
+          const slides = normalizedSlides.length ? await preloadHeroSlides(normalizedSlides) : [];
+          renderManagedHeroSlides(slides);
+          writeCachedHeroSlides(slides);
         }
       } catch {}
       startHeroRotation();
@@ -27085,13 +27541,25 @@
     }
 
     function applyManagedEvents(nextEvents, options = {}) {
+      const previousSelectedEventId = selectedEventId;
+      const hasActiveApplicationForm = Boolean(detailRoot?.querySelector(".application-form"));
       events = options.fromServer ? (Array.isArray(nextEvents) ? nextEvents : []) : filterDeletedManagedEvents(nextEvents);
       const selectedByIdIndex = selectedEventId ? events.findIndex((event) => event.id === selectedEventId) : -1;
-      if (selectedByIdIndex >= 0) selectedEventIndex = selectedByIdIndex;
-      selectedEvent = selectedByIdIndex >= 0 ? events[selectedEventIndex] : (selectedEvent || events[selectedEventIndex] || events[0]);
-      selectedEventId = selectedEventId || selectedEvent?.id || "";
+      selectedEventIndex = selectedByIdIndex >= 0
+        ? selectedByIdIndex
+        : Math.min(Math.max(selectedEventIndex, 0), Math.max(events.length - 1, 0));
+      selectedEvent = events[selectedEventIndex] || null;
+      selectedEventId = selectedEvent?.id || "";
       renderEventList();
       if (document.querySelector('[data-page="event-detail"]')?.classList.contains("is-active")) {
+        if (!selectedEvent) {
+          setPage("home", false);
+          return;
+        }
+        if (hasActiveApplicationForm && selectedEvent.id === previousSelectedEventId) {
+          syncActiveApplicationPrice(selectedEvent);
+          return;
+        }
         if (isPartyEvent(selectedEvent)) {
           renderDetail(selectedEvent);
         } else if (detailRoot?.querySelector(".application-selection-page")) {
@@ -27111,7 +27579,7 @@
         const savedAt = Number(parsed.savedAt || 0);
         if (!savedAt || Date.now() - savedAt > EVENT_LIST_CACHE_TTL_MS) return null;
         const list = filterDeletedManagedEvents(parsed.items).map(applySavedEventEdit);
-        return Array.isArray(list) && list.length ? list : null;
+        return Array.isArray(list) ? list : null;
       } catch {
         return null;
       }
@@ -27208,7 +27676,7 @@
         const { ok, json: result } = await requestManagedEventList();
         settled = true;
         clearTimeout(fallbackTimer);
-        if (ok && result && result.ok && Array.isArray(result.events) && result.events.length) {
+        if (ok && result && result.ok && Array.isArray(result.events)) {
           const nextEvents = result.events
             .map(backendEventToPublic)
             .map(applySavedEventEdit)
@@ -27319,10 +27787,34 @@
     }
 
     window.addEventListener("storage", (event) => {
+      if (event.key === counselCacheKey || event.key === boardCacheKey) {
+        discussionDataRevision += 1;
+        if (event.key === counselCacheKey) {
+          counselPosts = readCounselCache() || [];
+          myCounselPosts = counselPosts.filter(isMyCounselPost);
+          renderCounselList();
+          renderHomeCounselLayer();
+          renderMyCounsel();
+        } else {
+          boardPosts = readBoardCache();
+          myBoardPosts = boardPosts.filter((post) => isMyBoardPost(post, getVisitorIdentity().id));
+          renderBoardPosts();
+          renderMyBoardPosts();
+        }
+      }
       if ([EVENT_ACTIVE_OVERRIDE_KEY, EVENT_EDIT_OVERRIDE_KEY, EVENT_ORDER_OVERRIDE_KEY, EVENT_CUSTOM_OVERRIDE_KEY, EVENT_DELETED_OVERRIDE_KEY].includes(event.key)) {
         loadManagedEvents();
       }
+      if (event.key === EVENT_LIST_CACHE_KEY) {
+        const cachedEvents = readCachedEventList();
+        if (cachedEvents !== null) applyManagedEvents(cachedEvents, { fromServer: true });
+      }
       if (event.key === ADMIN_DASHBOARD_CONTENT_CACHE_KEY || event.key === SCHEDULE_CACHE_KEY) {
+        if (event.key === SCHEDULE_CACHE_KEY) {
+          schedulePosts = readScheduleCache();
+          schedulePostsLoaded = true;
+          schedulePostsLoading = false;
+        }
         renderSchedulePosts();
         requestAnimationFrame(refreshScheduleHeadlineControls);
       }
@@ -27342,19 +27834,29 @@
       }
     });
 
-    window.addEventListener("focus", () => {
-      if (currentPageName === "mypage") {
-        loadMyApplications(true);
-        loadMyProfileInfo();
-      }
-    });
-
-    document.addEventListener("visibilitychange", () => {
-      if (!document.hidden && currentPageName === "mypage") {
-        loadMyApplications(true);
-        loadMyProfileInfo();
-      }
-    });
+    let discussionRefreshPromise = null;
+    function refreshVisibleDiscussions() {
+      if (document.hidden || currentPageName === "mypage" || discussionRefreshPromise) return;
+      const loaders = ["counsel", "counsel-detail", "home"].includes(currentPageName) ? [loadCounselPosts]
+        : currentPageName === "board" ? [loadBoardPosts] : [];
+      if (!loaders.length) return;
+      discussionRefreshPromise = Promise.all(loaders.map((load) => load()))
+        .finally(() => { discussionRefreshPromise = null; });
+      return discussionRefreshPromise;
+    }
+    window.addEventListener("focus", refreshVisibleDiscussions);
+    document.addEventListener("visibilitychange", refreshVisibleDiscussions);
+    window.setInterval(refreshVisibleDiscussions, 30000);
+    let managedEventRefreshPromise = null;
+    function refreshManagedEventList() {
+      if (document.hidden || managedEventRefreshPromise) return managedEventRefreshPromise;
+      managedEventRefreshPromise = loadManagedEvents()
+        .finally(() => { managedEventRefreshPromise = null; });
+      return managedEventRefreshPromise;
+    }
+    window.addEventListener("focus", refreshManagedEventList);
+    document.addEventListener("visibilitychange", refreshManagedEventList);
+    window.setInterval(refreshManagedEventList, 30000);
 
     seedHeroSlides();
     seedSchedulePostsForFirstRender();
