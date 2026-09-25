@@ -27650,7 +27650,7 @@
       eventsAreReal = true;
       const cached = readCachedEventList();
       if (cached) {
-        applyManagedEvents(cached);
+        applyManagedEvents(restoreRotationEventImages(cached));
       } else {
         renderEventListLoading();
       }
@@ -27658,11 +27658,11 @@
       try {
         const { ok, json: result } = await requestManagedEventList();
         if (ok && result && result.ok && Array.isArray(result.events)) {
-          const nextEvents = result.events
+          const nextEvents = restoreRotationEventImages(result.events
             .map(backendEventToPublic)
             .map(applySavedEventEdit)
             .filter((event) => event.active !== false)
-            .sort((a, b) => Number(a.order || 0) - Number(b.order || 0));
+            .sort((a, b) => Number(a.order || 0) - Number(b.order || 0)));
           applyManagedEvents(nextEvents, { fromServer: true });
           writeCachedEventList(nextEvents);
         } else if (!cached) {
@@ -27690,6 +27690,20 @@
 
     function defaultEventImage(station) {
       return DEFAULT_EVENT_IMAGES[String(station || "")] || "";
+    }
+
+    const RESTORED_ROTATION_IMAGES = Object.freeze({
+      "clover-default-event-01": "assets/event-random-destiny-new.png",
+      "clover-default-event-07": "assets/event-live-shift-worker.png",
+      "clover-default-event-09": "assets/event-theme-comfort-40s.png",
+      "clover-default-event-18": "assets/event-theme-divorced.png"
+    });
+
+    function restoreRotationEventImages(list) {
+      return (Array.isArray(list) ? list : []).map((event) => {
+        const image = RESTORED_ROTATION_IMAGES[String(event?.id || "")];
+        return image ? { ...event, image } : event;
+      });
     }
 
     function htmlAttr(value) {
