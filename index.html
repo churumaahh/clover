@@ -3249,16 +3249,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2.4rem 0;
+      min-height: 0;
+      padding: 0;
     }
 
     .event-list-loading-spinner {
-      width: 1.6rem;
-      height: 1.6rem;
-      border-radius: 50%;
-      border: 2.5px solid rgba(120, 128, 140, 0.25);
-      border-top-color: #22c55e;
-      animation: event-list-loading-spin 0.7s linear infinite;
+      display: none;
     }
 
     @keyframes event-list-loading-spin {
@@ -16476,7 +16472,7 @@
     function renderEventList(items = events) {
       if (!homeEventList) return;
       homeEventList.dataset.bootstrapped = "false";
-      const key = items.map((item) => `${item.id}:${item.station}:${item.layerType}:${item.order}:${item.title}:${item.target}:${item.badgeType}:${item.active}`).join(",");
+      const key = items.map((item) => `${item.id}:${item.station}:${item.layerType}:${item.order}:${item.title}:${item.target}:${item.image}:${item.badgeType}:${item.active}`).join(",");
       const isFirstRender = !lastRenderedEventListKey;
       const changed = key !== lastRenderedEventListKey;
       lastRenderedEventListKey = key;
@@ -27638,7 +27634,12 @@
 
     async function loadManagedEvents() {
       eventsAreReal = true;
-      renderEventListLoading();
+      const cached = readCachedEventList();
+      if (cached) {
+        applyManagedEvents(cached);
+      } else {
+        renderEventListLoading();
+      }
 
       try {
         const { ok, json: result } = await requestManagedEventList();
@@ -27650,11 +27651,11 @@
             .sort((a, b) => Number(a.order || 0) - Number(b.order || 0));
           applyManagedEvents(nextEvents, { fromServer: true });
           writeCachedEventList(nextEvents);
-        } else {
+        } else if (!cached) {
           renderEventListUnavailable();
         }
       } catch {
-        renderEventListUnavailable();
+        if (!cached) renderEventListUnavailable();
       }
     }
 
