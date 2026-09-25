@@ -15361,7 +15361,17 @@
             (function () {
               var list = document.querySelector('[data-event-list="home"]');
               if (!list) return;
-              list.dataset.bootstrapped = "false";
+              try {
+                var html = localStorage.getItem("clover-managed-event-list-html-v1");
+                if (html) {
+                  list.innerHTML = html;
+                  list.dataset.bootstrapped = "true";
+                } else {
+                  list.dataset.bootstrapped = "false";
+                }
+              } catch {
+                list.dataset.bootstrapped = "false";
+              }
             })();
           </script>
         </section>
@@ -16457,6 +16467,7 @@
 
     function renderEventListUnavailable() {
       if (!homeEventList) return;
+      if (homeEventList.dataset.bootstrapped === "true") return;
       lastRenderedEventListKey = "__unavailable__";
       homeEventList.innerHTML = '<li class="event-empty">로테이션 소개팅 정보를 불러오지 못했습니다.</li>';
     }
@@ -16503,6 +16514,9 @@
           return heading + eventTemplate(item);
         }).join("");
       }
+      try {
+        localStorage.setItem("clover-managed-event-list-html-v1", homeEventList.innerHTML);
+      } catch {}
       const icon = document.querySelector(".home-section-title .section-title-icon");
       if (icon) icon.classList.toggle("is-empty", !eventsAreReal);
       fadeInEventThumbs();
