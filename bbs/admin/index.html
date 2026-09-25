@@ -4036,6 +4036,8 @@
     };
     let memoRounds = [];
     let memoSubmissions = [];
+    let memoAdminLoading = false;
+    let memoAdminRefreshTimer = 0;
     const dashboardOpenBoardIds = new Set();
     const dashboardOpenApplicationIds = new Set();
     const dashboardDeletingIds = new Set();
@@ -4983,6 +4985,15 @@
       return map;
     }
 
+    function memoSubmissionHasContent(submission) {
+      if (!submission) return false;
+      if (Number(submission.submittedAt) > 0 || String(submission.finalChoice || "").trim()) return true;
+      if (Array.isArray(submission.finalChoices) && submission.finalChoices.length) return true;
+      if (Array.isArray(submission.ranking) && submission.ranking.length) return true;
+      if (Object.values(submission.memos || {}).some((value) => String(value || "").trim())) return true;
+      return Object.values(submission.hearts || {}).some(Boolean);
+    }
+
     function memoChoiceIds(submission) {
       if (!submission) return [];
       const choices = [];
@@ -5209,7 +5220,7 @@
         return;
       }
       results.dataset.roundId = roundId;
-      const submissions = memoSubmissions.filter((item) => item.roundId === roundId);
+      const submissions = memoSubmissions.filter((item) => item.roundId === roundId && memoSubmissionHasContent(item));
       const participants = Array.isArray(round.participants) ? [...round.participants] : [];
       const males = participants.filter((item) => item.gender === "male").sort((a, b) => Number(a.number) - Number(b.number)).slice(0, 6);
       const females = participants.filter((item) => item.gender === "female").sort((a, b) => Number(a.number) - Number(b.number)).slice(0, 6);
@@ -5249,7 +5260,8 @@
       memoRounds = readMemoRoundsCache();
       memoSubmissions = readMemoSubmissionsCache();
       renderMemoAdmin();
-      if (!GOOGLE_SCRIPT_URL) return;
+      if (!GOOGLE_SCRIPT_URL || memoAdminLoading) return;
+      memoAdminLoading = true;
       try {
         const [roundResult, submissionResult] = await Promise.all([
           apiGet("memoRoundList"),
@@ -5265,7 +5277,18 @@
         renderMemoAdmin();
       } catch (error) {
         showToast(`메모장 데이터를 불러오지 못했습니다: ${error.message}`);
+      } finally {
+        memoAdminLoading = false;
       }
+    }
+
+    function setMemoAdminAutoRefresh(active) {
+      if (memoAdminRefreshTimer) window.clearInterval(memoAdminRefreshTimer);
+      memoAdminRefreshTimer = 0;
+      if (!active) return;
+      memoAdminRefreshTimer = window.setInterval(() => {
+        if (document.visibilityState === "visible") loadMemoAdmin();
+      }, 15000);
     }
 
     async function saveMemoRoundFromForm(form) {
@@ -8445,12 +8468,14 @@
       if (panelName === "hero") renderHeroAdmin();
       else if (panelName === "schedule") renderScheduleAdmin();
       else if (panelName === "events" || panelName === "events2") render();
-      else if (panelName === "memo") renderMemoAdmin();
+      else if (panelName === "memo") loadMemoAdmin();
       else if (panelName === "menubar") loadMenuBarIconSettings();
       else renderContentDashboards();
+      setMemoAdminAutoRefresh(panelName === "memo");
     }
 
     function clearAdminPanel() {
+      setMemoAdminAutoRefresh(false);
       document.querySelectorAll("[data-admin-panel]").forEach((panel) => {
         panel.hidden = true;
       });
@@ -8515,7 +8540,7 @@
     document.querySelector("[data-memo-results]")?.addEventListener("click", (event) => {
       if (event.target.closest("[data-memo-results-close]")) closeMemoResults();
     });
-    document.querySelector("[data-memo-round-list]")?.addEventListener("click", (event) => {
+    document.querySelector("[data-memo-round-list]")?.addEventListener("click", async (event) => {
       const toggle = event.target.closest("[data-memo-toggle]");
       if (toggle) {
         toggleMemoRound(toggle.dataset.memoToggle);
@@ -8533,7 +8558,9 @@
       }
       const view = event.target.closest("[data-memo-view]");
       if (view) {
-        renderMemoResults(view.dataset.memoView);
+        const roundId = view.dataset.memoView;
+        await loadMemoAdmin();
+        renderMemoResults(roundId);
         return;
       }
       const remove = event.target.closest("[data-memo-delete]");

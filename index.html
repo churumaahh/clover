@@ -15316,7 +15316,7 @@
 <body>
   <div class="app">
     <header class="topbar"><a class="brand" href="./" data-page-link="home" aria-label="CLOVER 홈">
-        <img class="brand-logo" src="assets/clover-logo-v2.png" alt="">
+        <img class="brand-logo" src="assets/clover-logo-v2.png" alt="" width="32" height="32" decoding="async">
         <span class="brand-copy">
           <span class="brand-text">CLOVER</span>
           <span class="brand-subtitle">로테이션 소개팅</span>
@@ -15395,7 +15395,7 @@
 
       </main>
       <button class="home-contact-fab" type="button" onclick="window.goPage(event, 'board')" aria-label="1:1 문의하기">
-        <img src="assets/clover-logo-v2.png" alt="">
+        <img src="assets/clover-logo-v2.png" alt="" width="32" height="32" decoding="async">
         <span>1:1 채팅</span>
       </button>
     </section>
@@ -15771,7 +15771,7 @@
     <div class="bottom-space"></div>
     <footer class="business-footer">
       <button class="footer-lobby-banner" type="button" onclick="window.goPage(event, 'board')" aria-label="문의 페이지로 이동">
-        <img src="assets/optimized/footer-lobby-banner-clean.webp" onerror="this.onerror=null;this.src='assets/footer-lobby-banner-clean.png'" alt="">
+        <img src="assets/optimized/footer-lobby-banner-clean.webp" onerror="this.onerror=null;this.src='assets/footer-lobby-banner-clean.png'" alt="" loading="lazy" decoding="async">
         <span class="footer-lobby-copy">
           <span class="footer-lobby-title">분위기 있는 공간 찾습니다.</span>
           <span class="footer-lobby-text">프라이빗한 공간 제휴 기다리고 있습니다.</span>
@@ -16175,8 +16175,7 @@
       return keys;
     }
 
-    function eventIsVisible(event) {
-      const overrides = readEventActiveOverrides();
+    function eventIsVisible(event, overrides = readEventActiveOverrides()) {
       return eventOverrideKeys(event).every((key) => overrides[key] !== false) && event.active !== false;
     }
 
@@ -16251,8 +16250,8 @@
       };
     }
 
-    function applySavedEventEdit(event) {
-      const edit = readEventEdits()[event.id];
+    function applySavedEventEdit(event, edits = readEventEdits()) {
+      const edit = edits[event.id];
       if (!edit || typeof edit !== "object") return event;
       const next = { ...event, ...edit };
       if (Object.prototype.hasOwnProperty.call(edit, "image")) {
@@ -16276,9 +16275,11 @@
 
     function buildManagedEvents() {
       const deleted = new Set(readDeletedEvents());
-      const defaults = eventCardPresets.map((preset, index) => applySavedEventEdit(createEventFromPreset(preset, index)));
-      const custom = readCustomEvents().map((preset, index) => applySavedEventEdit(createEventFromPreset(preset, eventCardPresets.length + index)));
-      return applySavedEventOrder([...defaults, ...custom]).filter((event) => !deleted.has(event.id) && eventIsVisible(event));
+      const edits = readEventEdits();
+      const activeOverrides = readEventActiveOverrides();
+      const defaults = eventCardPresets.map((preset, index) => applySavedEventEdit(createEventFromPreset(preset, index), edits));
+      const custom = readCustomEvents().map((preset, index) => applySavedEventEdit(createEventFromPreset(preset, eventCardPresets.length + index), edits));
+      return applySavedEventOrder([...defaults, ...custom]).filter((event) => !deleted.has(event.id) && eventIsVisible(event, activeOverrides));
     }
 
     function filterDeletedManagedEvents(list) {
@@ -20975,16 +20976,16 @@
     const ADMIN_SCHEDULE_POSTS_KEY = "clover-admin-schedule-posts:v1";
     const ADMIN_SCHEDULE_DELETED_KEY = "clover-admin-schedule-deleted-slots:v1";
     const SCHEDULE_FIELD_IMAGES = [
-      "assets/field-venue-07.png",
-      "assets/field-venue-09.png",
-      "assets/field-venue-01.png",
-      "assets/field-venue-02.png",
-      "assets/field-venue-03.png",
-      "assets/field-venue-04.png",
-      "assets/field-venue-05.png",
-      "assets/field-venue-06.png",
-      "assets/field-venue-08.png",
-      "assets/field-venue-10.png"
+      "assets/optimized/field-venue-07.webp",
+      "assets/optimized/field-venue-09.webp",
+      "assets/optimized/field-venue-01.webp",
+      "assets/optimized/field-venue-02.webp",
+      "assets/optimized/field-venue-03.webp",
+      "assets/optimized/field-venue-04.webp",
+      "assets/optimized/field-venue-05.webp",
+      "assets/optimized/field-venue-06.webp",
+      "assets/optimized/field-venue-08.webp",
+      "assets/optimized/field-venue-10.webp"
     ];
 
     function scheduleIsoDateFromValue(value, fallbackText = "") {
@@ -22553,7 +22554,7 @@
     }
     let homeCalendarHeightObserver = null;
     setInterval(() => {
-      if (document.querySelector("[data-home-participation-calendar]")) renderHomeParticipationCalendar();
+      if (!document.hidden && document.querySelector("[data-home-participation-calendar]")) renderHomeParticipationCalendar();
     }, 60000);
     let homeCalendarResizeTimer = null;
     window.addEventListener("resize", () => {
@@ -22609,7 +22610,7 @@
     }
 
     function cloverProofImageUrl(index) {
-      return `assets/clover-proof-${String(index + 1).padStart(2, "0")}.jpg`;
+      return `assets/optimized/clover-proof-${String(index + 1).padStart(2, "0")}.webp`;
     }
 
     function cloverProofPosts() {
@@ -27434,8 +27435,11 @@
     }
 
     async function preloadHeroSlides(slides) {
-      const imageSlides = slides.filter((item) => !item.videoUrl && !isVideoMedia(item.imageUrl, item.mediaType));
-      await Promise.all(imageSlides.map((item) => preloadImage(item.imageUrl)));
+      const imageUrls = [...new Set(slides
+        .filter((item) => !item.videoUrl && !isVideoMedia(item.imageUrl, item.mediaType))
+        .map((item) => item.imageUrl)
+        .filter(Boolean))];
+      await Promise.all(imageUrls.map(preloadImage));
       return slides;
     }
     function renderManagedHeroSlides(slides) {
@@ -27578,7 +27582,8 @@
         if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
         const savedAt = Number(parsed.savedAt || 0);
         if (!savedAt || Date.now() - savedAt > EVENT_LIST_CACHE_TTL_MS) return null;
-        const list = filterDeletedManagedEvents(parsed.items).map(applySavedEventEdit);
+        const edits = readEventEdits();
+        const list = filterDeletedManagedEvents(parsed.items).map((item) => applySavedEventEdit(item, edits));
         return Array.isArray(list) ? list : null;
       } catch {
         return null;
@@ -27743,17 +27748,30 @@
       return raw;
     }
 
+    const optimizedAssetUrlCache = new Map();
     function optimizedAssetUrl(value) {
+      const cacheKey = String(value || "");
+      if (optimizedAssetUrlCache.has(cacheKey)) return optimizedAssetUrlCache.get(cacheKey);
       const url = googleDriveImageUrl(value);
       const bare = url.split(/[?#]/)[0];
-      if (CLOUDINARY_ASSET_MAP[bare]) return CLOUDINARY_ASSET_MAP[bare];
+      if (CLOUDINARY_ASSET_MAP[bare]) {
+        optimizedAssetUrlCache.set(cacheKey, CLOUDINARY_ASSET_MAP[bare]);
+        return CLOUDINARY_ASSET_MAP[bare];
+      }
       const match = url.match(/^assets\/([^?#\/]+)\.(png|jpe?g)([?#].*)?$/i);
-      if (!match) return url;
+      if (!match) {
+        optimizedAssetUrlCache.set(cacheKey, url);
+        return url;
+      }
       const name = match[1];
-      if (/^(favicon|clover-logo)/i.test(name)) return url;
+      if (/^(favicon|clover-logo)/i.test(name)) {
+        optimizedAssetUrlCache.set(cacheKey, url);
+        return url;
+      }
       const optimizedPath = `assets/optimized/${name}.webp`;
-      if (CLOUDINARY_ASSET_MAP[optimizedPath]) return CLOUDINARY_ASSET_MAP[optimizedPath];
-      return `${optimizedPath}${match[3] || ""}`;
+      const optimizedUrl = CLOUDINARY_ASSET_MAP[optimizedPath] || `${optimizedPath}${match[3] || ""}`;
+      optimizedAssetUrlCache.set(cacheKey, optimizedUrl);
+      return optimizedUrl;
     }
 
     function assetImageUrls(value) {

@@ -102,6 +102,36 @@
       font-size: 0.84rem;
       font-weight: 700;
     }
+    .memo-loading-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.72rem;
+      min-height: 5.1rem;
+      padding: 1.3rem 1.55rem;
+    }
+    .memo-loading-spinner {
+      width: 1.05rem;
+      height: 1.05rem;
+      border: 2px solid rgba(16, 20, 24, .14);
+      border-top-color: #00c934;
+      border-radius: 999px;
+      animation: submit-spin .7s linear infinite;
+      flex: 0 0 auto;
+    }
+    .memo-loading-text {
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 850;
+      line-height: 1.3;
+    }
+    .memo-loading-dots::after {
+      content: "";
+      display: inline-block;
+      width: 1.1em;
+      text-align: left;
+      animation: memo-loading-dots 1.1s steps(4, end) infinite;
+    }
     .auth-form {
       display: grid;
       gap: 0.82rem;
@@ -889,6 +919,12 @@
     @keyframes submit-spin {
       to { transform: rotate(360deg); }
     }
+    @keyframes memo-loading-dots {
+      0% { content: ""; }
+      25% { content: "."; }
+      50% { content: ".."; }
+      75%, 100% { content: "..."; }
+    }
     @media (prefers-color-scheme: dark) {
       body, .memo-top { background: #101010; color: #f7f9fb; --ink: #f7f9fb; --muted: #aeb6c2; }
       .auth-card { background: #232323; box-shadow: 0.9rem 0.9rem 1.8rem rgba(0, 0, 0, 0.5), -0.9rem -0.9rem 1.8rem rgba(255, 255, 255, 0.04); }
@@ -1032,6 +1068,13 @@
     :root[data-theme="dark"] .auth-submit.is-loading::before {
       border-color: rgba(247, 249, 251, .2);
       border-top-color: rgba(247, 249, 251, .92);
+    }
+    :root[data-theme="dark"] .memo-loading-spinner {
+      border-color: rgba(247, 249, 251, .16);
+      border-top-color: #00f040;
+    }
+    :root[data-theme="dark"] .memo-loading-text {
+      color: #c9ced8;
     }
     :root[data-theme="dark"] .memo-card {
       border-color: #2d2d2d;
@@ -1369,8 +1412,20 @@
         birth: credentials.birth,
         t: String(Date.now())
       });
-      const result = await fetch(`${GOOGLE_SCRIPT_URL}?${query.toString()}`, { cache: "no-store" })
-        .then((response) => readMemoJsonResponse(response, "접속 실패"));
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 8000);
+      let result;
+      try {
+        result = await fetch(`${GOOGLE_SCRIPT_URL}?${query.toString()}`, {
+          cache: "no-store",
+          signal: controller.signal
+        }).then((response) => readMemoJsonResponse(response, "접속 실패"));
+      } catch (error) {
+        if (error?.name === "AbortError") throw new Error("접속 확인 시간이 초과되었습니다. 다시 접속해 주세요.");
+        throw error;
+      } finally {
+        window.clearTimeout(timeout);
+      }
       if (!result.ok) throw new Error(result.error || "접속 실패");
       return result;
     }
@@ -1881,7 +1936,16 @@
         return;
       }
       const root = document.querySelector("[data-memo-root]");
-      if (root) root.innerHTML = '<main class="auth-page"><div class="auth-card"><p class="auth-subtitle">접속 정보를 확인 중입니다.</p></div></main>';
+      if (root) {
+        root.innerHTML = `
+          <main class="auth-page" aria-busy="true">
+            <div class="auth-card memo-loading-card" role="status" aria-live="polite">
+              <span class="memo-loading-spinner" aria-hidden="true"></span>
+              <span class="memo-loading-text">접속 정보를 확인 중입니다<span class="memo-loading-dots" aria-hidden="true"></span></span>
+            </div>
+          </main>
+        `;
+      }
       try {
         const result = await fetchMemoLogin(credentials);
         writeMemoSession({ round: result.round, participant: result.participant, targets: result.targets || [], submission: result.submission || null });
