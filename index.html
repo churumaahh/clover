@@ -15365,30 +15365,7 @@
             (function () {
               var list = document.querySelector('[data-event-list="home"]');
               if (!list) return;
-              var items = [
-                { station: "랜덤", title: "순차적으로 무작위 선정", target: "우연처럼 시작되는 설렘", place: "부산 클로버 라운지 (승인 후 안내)", image: "https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-random-destiny-new.webp" },
-                { station: "맞춤", title: "원하는 조건에 맞는 이상형", target: "서로의 리듬을 이해하는 현실적인 만남", place: "부산 클로버 라운지 (승인 후 안내)", image: "https://res.cloudinary.com/lkkfechj/image/upload/v1787572121/clover/optimized/event-live-shift-worker.webp" },
-                { station: "30-40대", title: "좋은 사람을 만날 시간", target: "편안한 분위기에서 천천히 알아가는 성숙한 만남", place: "부산 클로버 라운지 (승인 후 안내)", image: "https://res.cloudinary.com/lkkfechj/image/upload/v1787572127/clover/optimized/event-theme-comfort-40s.webp" },
-                { station: "돌싱", title: "새로운 시작, 새로운 만남", target: "조금 더 성숙하고 솔직한 두 번째 설렘", place: "부산 클로버 라운지 (승인 후 안내)", image: "https://res.cloudinary.com/lkkfechj/image/upload/v1787572128/clover/optimized/event-theme-divorced.webp" }
-              ];
-              var esc = function (value) {
-                return String(value || "").replace(/[&<>"']/g, function (char) {
-                  return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char];
-                });
-              };
-              var cssUrl = function (value) {
-                return "url('" + String(value || "").replace(/['\\]/g, "") + "')";
-              };
-              var iconPin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
-              list.dataset.bootstrapped = "true";
-              list.innerHTML = items.map(function (item, index) {
-                return '<li><article class="event-card">'
-                  + '<div class="event-thumb is-loaded" style="--thumb-image: ' + cssUrl(item.image) + '; background-image: ' + cssUrl(item.image) + '; background-size: cover; background-position: center;" role="button" tabindex="0" data-join-index="' + index + '" aria-label="' + esc(item.title) + ' 참여 선택"></div>'
-                  + '<div class="event-body"><div><div class="event-title-row"><h3 class="event-title"><span>[' + esc(item.station) + ']</span> ' + esc(item.title) + '</h3></div>'
-                  + '<div class="event-meta"><div class="meta-line">' + iconPin + '<span>' + esc(item.place) + '</span></div></div></div>'
-                  + '<div class="event-foot"><div class="event-action"><button class="join-btn" type="button" data-join-index="' + index + '">참여</button></div></div>'
-                  + '</div></article></li>';
-              }).join("");
+              list.dataset.bootstrapped = "false";
             })();
           </script>
         </section>
@@ -27661,26 +27638,10 @@
 
     async function loadManagedEvents() {
       eventsAreReal = true;
-      const cached = readCachedEventList();
-      if (cached) {
-        applyManagedEvents(cached);
-      } else {
-        renderEventListLoading();
-      }
-
-      let settled = false;
-      let bootstrapped = false;
-      const fallbackTimer = setTimeout(() => {
-        if (!settled && !cached) {
-          bootstrapped = true;
-          applyManagedEvents(serverBootstrapEvents(), { fromServer: true });
-        }
-      }, 1200);
+      renderEventListLoading();
 
       try {
         const { ok, json: result } = await requestManagedEventList();
-        settled = true;
-        clearTimeout(fallbackTimer);
         if (ok && result && result.ok && Array.isArray(result.events)) {
           const nextEvents = result.events
             .map(backendEventToPublic)
@@ -27689,13 +27650,11 @@
             .sort((a, b) => Number(a.order || 0) - Number(b.order || 0));
           applyManagedEvents(nextEvents, { fromServer: true });
           writeCachedEventList(nextEvents);
-        } else if (!cached && !bootstrapped) {
+        } else {
           renderEventListUnavailable();
         }
       } catch {
-        settled = true;
-        clearTimeout(fallbackTimer);
-        if (!cached && !bootstrapped) renderEventListUnavailable();
+        renderEventListUnavailable();
       }
     }
 
