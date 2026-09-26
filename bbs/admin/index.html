@@ -2890,7 +2890,7 @@
           <div class="dashboard-maker-grid">
             <label class="edit-field">제목<input name="title" placeholder="제목을 입력해 주세요."></label>
             <label class="edit-field">노출<select name="active"><option value="true">노출 ON</option><option value="false">비노출 OFF</option></select></label>
-            <label class="edit-field is-wide">이미지 URL<input name="imageUrl" placeholder="assets/clover-proof-01.jpg 또는 Cloudinary URL"></label>
+            <label class="edit-field is-wide">이미지 URL<input name="imageUrl" placeholder="Cloudinary Public ID 또는 전체 URL"></label>
             <label class="edit-field is-wide">이미지 첨부<input type="file" name="imageFile" accept="image/*"></label>
             <label class="edit-field is-wide">내용<textarea name="content" placeholder="내용을 작성해 주세요."></textarea></label>
           </div>
@@ -2917,7 +2917,7 @@
           <div class="dashboard-maker-grid">
             <label class="edit-field">제목<input name="title" placeholder="제목을 입력해 주세요."></label>
             <label class="edit-field">노출<select name="active"><option value="true">노출 ON</option><option value="false">비노출 OFF</option></select></label>
-            <label class="edit-field is-wide">이미지 URL<input name="imageUrl" placeholder="assets/field-venue-01.jpg 또는 Cloudinary URL"></label>
+            <label class="edit-field is-wide">이미지 URL<input name="imageUrl" placeholder="Cloudinary Public ID 또는 전체 URL"></label>
             <label class="edit-field is-wide">이미지 첨부<input type="file" name="imageFile" accept="image/*"></label>
             <label class="edit-field is-wide">내용<textarea name="content" placeholder="내용을 작성해 주세요."></textarea></label>
           </div>
@@ -3643,6 +3643,15 @@
       return "자동 없음";
     }
 
+    const CLOUDINARY_PUBLIC_IMAGE_BASE = "https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto/clover/optimized/";
+
+    function normalizeCloudinaryImageInput(value) {
+      const raw = String(value || "").trim();
+      if (!raw || /^(data:image\/|https?:\/\/|\/\/|assets\/|\.\.\/)/i.test(raw)) return raw;
+      const publicId = raw.replace(/^clover\/optimized\//i, "").replace(/\.webp$/i, "");
+      return `${CLOUDINARY_PUBLIC_IMAGE_BASE}${publicId}.webp`;
+    }
+
     function optimizedAssetPath(raw) {
       const match = raw.match(/^assets\/([^?#\/]+)\.(png|jpe?g)([?#].*)?$/i);
       if (!match) return raw;
@@ -3669,6 +3678,7 @@
       if (/^data:image\//i.test(raw)) return raw;
       if (/^(https?:)?\/\//i.test(raw)) return googleDriveImageUrl(raw);
       if (raw.startsWith("../../")) return raw;
+      if (!/^assets\//i.test(raw)) return normalizeCloudinaryImageInput(raw);
       const optimized = optimizedAssetPath(raw.replace(/^\/+/, ""));
       return `../../${optimized}`;
     }
@@ -6518,7 +6528,7 @@
                 </div>
               </section>
               <label class="edit-field is-wide">이미지 경로
-                <input name="image" autocomplete="off" value="${htmlAttr(image)}">
+                <input name="image" autocomplete="off" value="${htmlAttr(image)}" placeholder="Cloudinary Public ID 또는 전체 URL">
               </label>
               <label class="edit-field is-wide">이미지 첨부
                 <input type="file" name="imageFile" accept="image/*">
@@ -7497,7 +7507,7 @@
       const matchCount = String(data.get("matchCount") || "").trim();
       const existingItem = editingId ? (dashboardData[name] || []).find((item) => dashboardItemId(item) === editingId) : null;
       const previousImageUrl = String(existingItem?.attachedImageUrl || existingItem?.imageUrl || existingItem?.image || "").trim();
-      const rawImageUrl = String(data.get("imageUrl") || "").trim();
+      const rawImageUrl = normalizeCloudinaryImageInput(String(data.get("imageUrl") || "").trim());
       const episode = name === "match"
         ? String(existingItem ? dashboardMatchEpisode(existingItem) : nextDashboardMatchEpisode())
         : String(data.get("episode") || "").trim();
@@ -8688,7 +8698,7 @@
       item.femalePrice = priceByComposition["1:1"].femalePrice;
       item.price = item.malePrice;
       item.form2Config = eventForm2ConfigWithPrices(item, priceByComposition);
-      item.image = String(form.get("image") || item.image || "").trim();
+      item.image = normalizeCloudinaryImageInput(String(form.get("image") || item.image || "").trim());
       const imageFileInput = formEl.querySelector('input[type="file"][name="imageFile"]');
       item.imageFile = imageFileInput?.dataset.imagePayload ? JSON.parse(imageFileInput.dataset.imagePayload) : null;
       item.imageUrl = adminImageUrl(item.image);
