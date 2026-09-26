@@ -3949,6 +3949,7 @@
     function eventSavePayload(event, overrides = {}) {
       const merged = { ...event, ...overrides };
       const priceByComposition = eventPriceConfig(merged);
+      const imageUrl = normalizeCloudinaryImageInput(merged.image);
       return {
         type: "eventSave",
         id: merged.id,
@@ -3958,8 +3959,8 @@
         title: merged.title,
         date: merged.date,
         place: merged.place,
-        imageUrl: merged.image,
-        sourceImageUrl: merged.image,
+        imageUrl,
+        sourceImageUrl: imageUrl,
         male: merged.male,
         female: merged.female,
         capacity: merged.capacity,
