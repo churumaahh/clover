@@ -3514,9 +3514,8 @@
     }
 
     async function saveEventsSequentially(list) {
-      for (const event of list) {
-        await apiPost(eventSavePayload(event));
-      }
+      // Each layer is its own sheet row, so the saves can run at the same time.
+      await Promise.all(list.map((event) => apiPost(eventSavePayload(event))));
       publishPublicEventListCache(list);
     }
 
@@ -3538,10 +3537,8 @@
       }
       showToast(`${label} 현재 상태를 업로드 중입니다.`);
       try {
-        for (const event of targetEvents) {
-          await apiPost(eventSavePayload(event));
-        }
-        await loadEvents();
+        await Promise.all(targetEvents.map((event) => apiPost(eventSavePayload(event))));
+        await loadEvents(true);
         showToast(`${label} ${targetEvents.length}개 레이어를 업로드했습니다.`);
       } catch (error) {
         showToast(`${label} 업로드 실패: ${error.message}`);
@@ -7314,14 +7311,20 @@
       });
     }
 
-    function renderContentDashboards() {
+    const contentDashboardLists = [
+      ["clover", "클로버 근황", "등록된 클로버 근황이 없습니다."],
+      ["field", "현장", "등록된 현장 게시물이 없습니다."],
+      ["match", "매칭결과", "등록된 매칭결과 데이터가 없습니다."],
+      ["counsel", "연애상담", "등록된 연애상담 글이 없습니다."],
+      ["application", "신청 접수", "등록된 신청 접수가 없습니다."],
+      ["board", "문의 하기", "등록된 문의가 없습니다."]
+    ];
+
+    function renderContentDashboards(onlyName = "") {
       renderDashboardAgeOptions();
-      renderDashboardList("clover", "클로버 근황", "등록된 클로버 근황이 없습니다.");
-      renderDashboardList("field", "현장", "등록된 현장 게시물이 없습니다.");
-      renderDashboardList("match", "매칭결과", "등록된 매칭결과 데이터가 없습니다.");
-      renderDashboardList("counsel", "연애상담", "등록된 연애상담 글이 없습니다.");
-      renderDashboardList("application", "신청 접수", "등록된 신청 접수가 없습니다.");
-      renderDashboardList("board", "문의 하기", "등록된 문의가 없습니다.");
+      contentDashboardLists.forEach(([name, title, empty]) => {
+        if (!onlyName || onlyName === name) renderDashboardList(name, title, empty);
+      });
       updateDashboardMenuCounts();
     }
 
@@ -7800,9 +7803,17 @@
       if (["clover", "field", "match"].includes(name)) {
         try {
           const payload = await dashboardPostPayloadForUpload(post, name, 1);
-          await apiPost({ type: "schedulePostSave", ...payload, order: 1 });
+          const result = await apiPost({ type: "schedulePostSave", ...payload, order: 1 });
           resetDashboardForm(name);
-          await loadContentDashboards(name);
+          if (result.post?.id) {
+            const current = [...(dashboardData.clover || []), ...(dashboardData.field || []), ...(dashboardData.match || [])]
+              .filter((item) => String(dashboardItemId(item)) !== String(result.post.id));
+            applyDashboardSchedulePosts([result.post, ...current], true);
+            renderContentDashboards(name);
+            loadContentDashboards(name, true);
+          } else {
+            await loadContentDashboards(name);
+          }
           showToast(`${dashboardPanelCategories[name]} 레이어를 저장했습니다.`);
         } catch (error) {
           if (submitButton) {
@@ -8577,7 +8588,7 @@
       else if (panelName === "events" || panelName === "events2") render();
       else if (panelName === "memo") loadMemoAdmin();
       else if (panelName === "menubar") loadMenuBarIconSettings();
-      else renderContentDashboards();
+      else renderContentDashboards(panelName);
       setMemoAdminAutoRefresh(panelName === "memo");
     }
 
@@ -8817,7 +8828,8 @@
           [item.id]: eventStorageData(item)
         });
         pendingCreatedEventIds.delete(String(item.id));
-        await persistEventOrder();
+        // Editing one layer keeps every other layer's order, so only a new layer needs the full re-save.
+        if (wasPendingCreated) await persistEventOrder();
         publishPublicEventListCache();
         showToast(`${item.title} 전체 수정 저장됨`);
       } catch (error) {
