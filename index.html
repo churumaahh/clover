@@ -15413,11 +15413,11 @@
       <style>
         /* Channel Talk's desktop panel is 430px wide and stretches almost full height; keep it compact and inside narrow windows. */
         #ch-plugin #ch-plugin-script.ch-desk-messenger {
-          top: auto !important;
-          width: min(360px, calc(100vw - 32px)) !important;
+          width: min(360px, calc(100vw - 40px)) !important;
+          min-width: 0 !important;
+          max-width: none !important;
           height: min(560px, calc(100dvh - 110px)) !important;
           max-height: none !important;
-          right: 16px !important;
         }
       </style>
       <script>
