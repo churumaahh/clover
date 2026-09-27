@@ -25432,26 +25432,33 @@
       if (safePageName === "counsel") loadCounselPosts();
       if (safePageName === "reviews") renderMatchResultList();
       if (safePageName === "mbti") renderMbtiCompatibility();
-      const homeUrl = `${location.pathname}${location.search}`;
+      const nextUrl = pageUrl(safePageName);
+      const pageState = safePageName === "event-detail" ? applicationHistoryState() : { pageName: safePageName };
       if (updateHash) {
-        const nextUrl = safePageName === "home" ? homeUrl : `#${safePageName}`;
         const currentUrl = `${location.pathname}${location.search}${location.hash}`;
         if (currentUrl !== nextUrl) {
-          history.pushState(safePageName === "event-detail" ? applicationHistoryState() : { pageName: safePageName }, "", nextUrl);
+          history.pushState(pageState, "", nextUrl);
         } else {
-          history.replaceState(safePageName === "event-detail" ? applicationHistoryState() : { pageName: safePageName }, "", nextUrl);
+          history.replaceState(pageState, "", nextUrl);
         }
-      } else if (safePageName === "home" && location.hash === "#home") {
-        history.replaceState({ pageName: "home" }, "", homeUrl);
+      } else if (`${location.pathname}${location.search}${location.hash}` !== nextUrl) {
+        history.replaceState(history.state || pageState, "", nextUrl);
       }
       currentPageName = safePageName;
       window.scrollTo({ top: 0, behavior: updateHash ? "smooth" : "auto" });
     }
 
+    function pageUrl(pageName) {
+      return `${pageName === "home" ? "/" : `/${pageName}`}${location.search}`;
+    }
+
     function pageFromHash() {
+      // Old links used "#page"; still honor them so shared URLs keep working.
       const hashPage = location.hash.replace("#", "");
-      if (hashPage === "episodes" || hashPage === "schedule-info") return "reviews";
-      return validPageNames.has(hashPage) ? hashPage : "home";
+      const pathPage = location.pathname.replace(/^\/+|\/+$/g, "").replace(/\.html$/, "");
+      const rawPage = validPageNames.has(hashPage) || hashPage === "episodes" || hashPage === "schedule-info" ? hashPage : pathPage;
+      if (rawPage === "episodes" || rawPage === "schedule-info") return "reviews";
+      return validPageNames.has(rawPage) ? rawPage : "home";
     }
 
 
@@ -25467,8 +25474,7 @@
     }
 
     function pushApplicationDetailHistory() {
-      const nextUrl = "#event-detail";
-      history.pushState(applicationHistoryState("detail"), "", nextUrl);
+      history.pushState(applicationHistoryState("detail"), "", pageUrl("event-detail"));
     }
     function renderPageFromHistory(event) {
       const targetPage = pageFromHash();
@@ -25478,7 +25484,7 @@
           setPage("event-detail", false);
         } else {
           setPage("home", false);
-          history.replaceState({ pageName: "home" }, "", `${location.pathname}${location.search}`);
+          history.replaceState({ pageName: "home" }, "", pageUrl("home"));
         }
         return;
       }
@@ -26689,7 +26695,7 @@
         event.preventDefault();
         event.stopPropagation();
         renderApplicationSelection(selectedEvent);
-        history.pushState(applicationHistoryState("selection"), "", "#event-detail");
+        history.pushState(applicationHistoryState("selection"), "", pageUrl("event-detail"));
         return;
       }
 
