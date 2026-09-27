@@ -16551,7 +16551,6 @@
     }
 
     markTodayInCalendar();
-    renderEventListLoading();
     loadManagedEvents();
     const detailRoot = document.querySelector("[data-detail-root]");
 
@@ -27655,8 +27654,10 @@
             .map(backendEventToPublic)
             .filter((e) => e.active !== false)
             .sort((a, b) => Number(a.order || 0) - Number(b.order || 0));
-          if (initialEvents.length) applyManagedEvents(initialEvents, { fromServer: true });
-          else renderEventListLoading();
+          if (initialEvents.length) {
+            lastRenderedEventListKey = "";
+            applyManagedEvents(initialEvents, { fromServer: true });
+          } else renderEventListLoading();
         } catch { renderEventListLoading(); }
       } else {
         renderEventListLoading();
