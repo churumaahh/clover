@@ -3249,12 +3249,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 0;
-      padding: 0;
+      min-height: 7rem;
+      padding: 1.5rem 0;
     }
 
     .event-list-loading-spinner {
-      display: none;
+      display: block;
+      width: 1.6rem;
+      height: 1.6rem;
+      border: 2.5px solid var(--line);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: event-list-loading-spin 0.7s linear infinite;
     }
 
     @keyframes event-list-loading-spin {
