@@ -15410,6 +15410,16 @@
         <img src="assets/clover-logo-v2.png" alt="" width="32" height="32" decoding="async">
         <span>1:1 채팅</span>
       </a>
+      <style>
+        /* Channel Talk's desktop panel is 430px wide and stretches almost full height; keep it compact and inside narrow windows. */
+        #ch-plugin #ch-plugin-script.ch-desk-messenger {
+          top: auto !important;
+          width: min(360px, calc(100vw - 32px)) !important;
+          height: min(560px, calc(100dvh - 110px)) !important;
+          max-height: none !important;
+          right: 16px !important;
+        }
+      </style>
       <script>
         // Channel Talk messenger for the 1:1 chat button. Calls are queued until the SDK loads; the Kakao link stays as the fallback if it fails to load.
         (function () {
