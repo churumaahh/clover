@@ -318,9 +318,9 @@
     }
     .dashboard-head > .icon-btn,
     .dashboard-head-actions .icon-btn {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
     }
     .dashboard-list {
       display: grid;
@@ -2786,6 +2786,26 @@
       border-color: #f2b8b8 !important;
       color: #c93838 !important;
     }
+
+    /* Panel refresh icon buttons match the 36px action buttons next to them */
+    main .icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: #242424;
+      border: 1px solid #343434;
+      color: #fff;
+      box-shadow: 2px 3px 9px rgba(0, 0, 0, .24);
+    }
+    main .icon-btn:hover:not(:disabled) { background: #2c2c2c; }
+    main .icon-btn svg { width: 16px; height: 16px; }
+    html[data-admin-theme="light"] main .icon-btn {
+      background: #f4f6f8;
+      border-color: #d8dee6;
+      color: var(--ink);
+      box-shadow: 3px 4px 10px rgba(31, 41, 55, .1);
+    }
+    html[data-admin-theme="light"] main .icon-btn:hover:not(:disabled) { background: #eaeef2; }
 
     /* Compact remote-control sidebar */
     .side { padding: 10px; gap: 10px; }
