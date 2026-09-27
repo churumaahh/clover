@@ -6518,6 +6518,13 @@
       font-weight: 950;
     }
 
+    /* With the default line height, Korean glyphs sit below the middle of these chips; line-height 1 centers them. */
+    #page-event-detail .choice-chip,
+    #page-event-detail .ideal-rank-slot,
+    #page-event-detail .ideal-rank-slot * {
+      line-height: 1;
+    }
+
     .ideal-rank-slot.is-filled {
       border-color: rgba(0, 240, 64, 0.42);
       color: var(--tint-green-text);
@@ -17439,7 +17446,6 @@
             <div class="fee-ticket">
               <div class="fee-ticket-label">
                 <span class="fee-ticket-kicker">${htmlAttr(applicationGenderLabel)} 지원자</span>
-                <span class="fee-ticket-note">결제 완료 후 참여가 확정됩니다.</span>
               </div>
               <div class="fee-ticket-divider"></div>
               <p class="fee-ticket-amount" data-application-fee><span class="fee-ticket-amount-tag">참가비</span>${htmlAttr(currentApplyPrice || "")}</p>
