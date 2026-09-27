@@ -16552,7 +16552,6 @@
 
     markTodayInCalendar();
     const detailRoot = document.querySelector("[data-detail-root]");
-    loadManagedEvents();
 
     const applicationScheduleDates = new Set([
       "2026-07-10", "2026-07-12", "2026-07-18", "2026-07-19", "2026-07-25", "2026-07-26", "2026-07-31",
@@ -17473,6 +17472,7 @@
     let pendingEventIndex = 0;
     let selectedEventIndex = 0;
     let selectedEventId = "";
+    loadManagedEvents();
     let selectedApplyGender = "";
     let selectedApplyPrice = "";
     let selectedScheduleDate = "";
