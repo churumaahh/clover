@@ -1,0 +1,6 @@
+
+.cloudinary-credentials.local
+assets-cloudinary-map.json
+
+# Apps Script (clasp) - never publish to the site
+gas/
