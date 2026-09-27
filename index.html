@@ -27548,17 +27548,19 @@
       }
     }
 
-    function readCachedEventList() {
+    function readCachedEventList({ allowStale = false } = {}) {
       try {
         const raw = localStorage.getItem(EVENT_LIST_CACHE_KEY);
         if (!raw) return null;
         const parsed = JSON.parse(raw);
         if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
         const savedAt = Number(parsed.savedAt || 0);
-        if (!savedAt || Date.now() - savedAt > EVENT_LIST_CACHE_TTL_MS) return null;
+        if (!savedAt) return null;
+        const expired = Date.now() - savedAt > EVENT_LIST_CACHE_TTL_MS;
+        if (expired && !allowStale) return null;
         const edits = readEventEdits();
         const list = filterDeletedManagedEvents(parsed.items).map((item) => applySavedEventEdit(item, edits));
-        return Array.isArray(list) ? list : null;
+        return Array.isArray(list) ? { list, stale: expired } : null;
       } catch {
         return null;
       }
@@ -27635,9 +27637,9 @@
 
     async function loadManagedEvents() {
       eventsAreReal = true;
-      const cached = readCachedEventList();
+      const cached = readCachedEventList({ allowStale: true });
       if (cached) {
-        applyManagedEvents(cached);
+        applyManagedEvents(cached.list);
       } else {
         renderEventListLoading();
       }
@@ -27785,8 +27787,8 @@
         loadManagedEvents();
       }
       if (event.key === EVENT_LIST_CACHE_KEY) {
-        const cachedEvents = readCachedEventList();
-        if (cachedEvents !== null) applyManagedEvents(cachedEvents, { fromServer: true });
+        const cachedEvents = readCachedEventList({ allowStale: true });
+        if (cachedEvents !== null) applyManagedEvents(cachedEvents.list, { fromServer: true });
       }
       if (event.key === ADMIN_DASHBOARD_CONTENT_CACHE_KEY || event.key === SCHEDULE_CACHE_KEY) {
         if (event.key === SCHEDULE_CACHE_KEY) {
