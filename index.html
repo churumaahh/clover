@@ -12847,6 +12847,10 @@
     }
   
     /* Drawer link text repair */
+    .drawer-link[hidden] {
+      display: none !important;
+    }
+
     .drawer-link {
       display: flex !important;
       align-items: center !important;
@@ -25352,11 +25356,12 @@
         const enabled = settings[item.dataset.menubarFeature] !== false;
         const label = item.dataset.menubarLabel || "";
         const labelElement = item.querySelector("span");
+        item.hidden = !enabled;
         item.disabled = !enabled;
         item.setAttribute("aria-disabled", String(!enabled));
-        item.classList.toggle("is-coming-soon", !enabled);
+        item.classList.remove("is-coming-soon");
         item.classList.toggle("is-active", enabled && item.dataset.pageLink === currentPageName);
-        if (labelElement) labelElement.textContent = enabled ? label : `${label} (준비 중)`;
+        if (labelElement) labelElement.textContent = label;
       });
     }
 
