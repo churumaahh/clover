@@ -27650,7 +27650,14 @@
       if (cached) {
         applyManagedEvents(cached.list);
       } else if (Array.isArray(window.__initialEventList) && window.__initialEventList.length) {
-        applyManagedEvents(window.__initialEventList.map(backendEventToPublic).filter((e) => e.active !== false));
+        try {
+          const initialEvents = window.__initialEventList
+            .map(backendEventToPublic)
+            .filter((e) => e.active !== false)
+            .sort((a, b) => Number(a.order || 0) - Number(b.order || 0));
+          if (initialEvents.length) applyManagedEvents(initialEvents, { fromServer: true });
+          else renderEventListLoading();
+        } catch { renderEventListLoading(); }
       } else {
         renderEventListLoading();
       }
