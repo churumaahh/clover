@@ -6719,7 +6719,7 @@
     }
 
     function dashboardMatchDisplayTitle(item, fallback) {
-      const rawTitle = String(item?.title || fallback || "소개팅 종료").trim().replace(/^\d+\s*화\s*/, "") || "소개팅 종료";
+      const rawTitle = String(item?.title || fallback || "소개팅 종료").trim().replace(/^\d+\s*화\s*/, "").replace(/^(\[[^\]]*\]\s*)+/, "") || "소개팅 종료";
       const date = dashboardDateInputValue(item?.scheduleDate || item?.date || "");
       if (!date) return rawTitle;
       const [year, month, day] = date.split("-").map(Number);
@@ -6761,7 +6761,7 @@
     function dashboardEditableTitle(item, name) {
       const title = String(item?.title || item?.headline || item?.eventTitle || item?.name || item?.author || dashboardPanelCategories[name] || "").trim();
       if (name !== "match") return title;
-      return title.replace(/^\d+\s*화\s*/, "").replace(/^\[[^\]]+\]\s*/, "") || "소개팅 종료";
+      return title.replace(/^\d+\s*화\s*/, "").replace(/^(\[[^\]]*\]\s*)+/, "") || "소개팅 종료";
     }
 
     function dashboardItemTitle(item, fallback) {
