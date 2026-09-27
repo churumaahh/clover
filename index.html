@@ -7051,6 +7051,10 @@
       display: block;
       object-fit: contain;
     }
+    .home-contact-fab .home-contact-fab-close { display: none; width: 1.6rem; height: 1.6rem; }
+    .home-contact-fab.is-chat-open > img,
+    .home-contact-fab.is-chat-open > span { display: none; }
+    .home-contact-fab.is-chat-open .home-contact-fab-close { display: block; }
 
     .page-title {
       display: flex;
@@ -15409,6 +15413,7 @@
       <a class="home-contact-fab" href="https://open.kakao.com/o/sZbqhBPi" target="_blank" rel="noopener noreferrer" aria-label="1:1 채팅 상담">
         <img src="assets/clover-logo-v2.png" alt="" width="32" height="32" decoding="async">
         <span>1:1 채팅</span>
+        <svg class="home-contact-fab-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
       </a>
       <style>
         /* Channel Talk's desktop panel is 430px wide and stretches almost full height; keep it compact and inside narrow windows. */
@@ -15442,12 +15447,30 @@
           if (document.readyState === "complete") load();
           else w.addEventListener("load", load);
           w.ChannelIO("boot", { pluginKey: "875a75e1-dc86-48c8-8425-f1922bd4d981", hideChannelButtonOnBoot: true });
+          // While the messenger is open our green button turns into its X, so Channel Talk's own launcher (which it shows anyway) is hidden.
+          var open = false;
+          function setOpen(value) {
+            open = value;
+            document.querySelectorAll(".home-contact-fab").forEach(function (fab) { fab.classList.toggle("is-chat-open", value); });
+          }
+          w.ChannelIO("onShowMessenger", function () { setOpen(true); });
+          w.ChannelIO("onHideMessenger", function () { setOpen(false); });
+          function hideChannelLauncher() {
+            var host = document.querySelector("#ch-plugin-entry > div");
+            var root = host && host.shadowRoot;
+            if (!root || root.querySelector("style[data-clover-hide-launcher]")) return;
+            var style = document.createElement("style");
+            style.setAttribute("data-clover-hide-launcher", "");
+            style.textContent = '[data-ch-testid="launcher"] { display: none !important; }';
+            root.appendChild(style);
+          }
+          new MutationObserver(hideChannelLauncher).observe(document.documentElement, { childList: true, subtree: true });
           document.addEventListener("click", function (event) {
             var fab = event.target.closest && event.target.closest(".home-contact-fab");
             if (!fab || failed) return;
             event.preventDefault();
             load();
-            w.ChannelIO("showMessenger");
+            w.ChannelIO(open ? "hideMessenger" : "showMessenger");
           });
         })();
       </script>
