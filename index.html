@@ -15453,7 +15453,7 @@
             open = value;
             document.querySelectorAll(".home-contact-fab").forEach(function (fab) { fab.classList.toggle("is-chat-open", value); });
           }
-          w.ChannelIO("onShowMessenger", function () { setOpen(true); });
+          w.ChannelIO("onShowMessenger", function () { setOpen(true); shrinkChannelText(); });
           w.ChannelIO("onHideMessenger", function () { setOpen(false); });
           function hideChannelLauncher() {
             var host = document.querySelector("#ch-plugin-entry > div");
@@ -15464,7 +15464,18 @@
             style.textContent = '[data-ch-testid="launcher"] { display: none !important; }';
             root.appendChild(style);
           }
-          new MutationObserver(hideChannelLauncher).observe(document.documentElement, { childList: true, subtree: true });
+          // Channel Talk's desktop text runs large; scale its (same-origin) messenger document down a little. Mobile full-screen view is left as is.
+          function shrinkChannelText() {
+            var box = document.getElementById("ch-plugin-script");
+            var frame = document.getElementById("ch-plugin-script-iframe");
+            var doc = frame && frame.contentDocument;
+            if (!box || !box.classList.contains("ch-desk-messenger") || !doc || !doc.head || doc.getElementById("clover-channel-zoom")) return;
+            var style = doc.createElement("style");
+            style.id = "clover-channel-zoom";
+            style.textContent = "html { zoom: 0.88; }";
+            doc.head.appendChild(style);
+          }
+          new MutationObserver(function () { hideChannelLauncher(); shrinkChannelText(); }).observe(document.documentElement, { childList: true, subtree: true });
           document.addEventListener("click", function (event) {
             var fab = event.target.closest && event.target.closest(".home-contact-fab");
             if (!fab || failed) return;
