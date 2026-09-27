@@ -15472,7 +15472,7 @@
             if (!box || !box.classList.contains("ch-desk-messenger") || !doc || !doc.head || doc.getElementById("clover-channel-zoom")) return;
             var style = doc.createElement("style");
             style.id = "clover-channel-zoom";
-            style.textContent = "html { zoom: 0.88; }";
+            style.textContent = "html { zoom: 0.8; }";
             doc.head.appendChild(style);
           }
           new MutationObserver(function () { hideChannelLauncher(); shrinkChannelText(); }).observe(document.documentElement, { childList: true, subtree: true });
