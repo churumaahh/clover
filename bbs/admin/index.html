@@ -3436,6 +3436,10 @@
     async function syncEventLayerToServer(layerType, button) {
       const targetType = layerType === "party" ? "party" : "rotation";
       const label = targetType === "party" ? "선택창 관리2" : "선택창 관리1";
+      if (!eventsLoadedFromServer) {
+        showToast("서버 목록을 불러오지 못해 업로드할 수 없습니다. 새로고침 후 다시 시도해 주세요.");
+        return;
+      }
       const targetEvents = eventsForLayer(targetType);
       if (!targetEvents.length) {
         showToast(`${label}에 업로드할 레이어가 없습니다.`);
@@ -3465,6 +3469,11 @@
     async function persistEventOrder() {
       updateEventOrders();
       writeOrder(events.map((event) => event.id));
+      // Without a server list, `events` is the built-in preset list; saving it would resurrect deleted layers.
+      if (!eventsLoadedFromServer) {
+        showToast("서버 목록을 불러오지 못해 순서는 저장하지 않았습니다. 새로고침 후 다시 시도해 주세요.");
+        return;
+      }
       try {
         await saveEventsSequentially(events);
       } catch (error) {
