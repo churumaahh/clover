@@ -23453,8 +23453,7 @@
         renderSchedulePosts();
       }
       try {
-        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=schedulePostList&t=${Date.now()}`, { cache: "no-store" });
-        const result = await readJsonResponse(response, "일정 소식을 불러오지 못했습니다.");
+        const { response, result } = await fetchCachedPublicList("/api/posts", "schedulePostList", "일정 소식을 불러오지 못했습니다.");
         if (!response.ok || !result.ok || !Array.isArray(result.posts)) throw new Error(result.error || "일정 소식을 불러오지 못했습니다.");
         schedulePosts = normalizeSchedulePostImages(result.posts);
         schedulePostsLoaded = true;
@@ -27511,10 +27510,20 @@
 
     }
 
+    // Public lists come from Vercel's cached copy (/api/...) first; Apps Script is only the fallback.
+    async function fetchCachedPublicList(apiPath, action, errorMessage) {
+      try {
+        const response = await fetch(apiPath);
+        const result = await readJsonResponse(response, errorMessage);
+        if (response.ok && result?.ok) return { response, result };
+      } catch {}
+      const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=${action}&t=${Date.now()}`, { cache: "no-store" });
+      return { response, result: await readJsonResponse(response, errorMessage) };
+    }
+
     async function loadManagedHeroSlides() {
       try {
-        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=heroList&t=${Date.now()}`);
-        const result = await readJsonResponse(response, "배너 목록을 불러오지 못했습니다.");
+        const { response, result } = await fetchCachedPublicList("/api/hero", "heroList", "배너 목록을 불러오지 못했습니다.");
         if (response.ok && result.ok && Array.isArray(result.slides)) {
           const normalizedSlides = normalizeHeroSlides(result.slides);
           const slides = normalizedSlides.length ? await preloadHeroSlides(normalizedSlides) : [];
