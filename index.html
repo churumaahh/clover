@@ -15406,10 +15406,41 @@
         </section>
 
       </main>
-      <a class="home-contact-fab" href="https://open.kakao.com/o/sZbqhBPi" target="_blank" rel="noopener noreferrer" aria-label="1:1 카카오톡 채팅">
+      <a class="home-contact-fab" href="https://open.kakao.com/o/sZbqhBPi" target="_blank" rel="noopener noreferrer" aria-label="1:1 채팅 상담">
         <img src="assets/clover-logo-v2.png" alt="" width="32" height="32" decoding="async">
         <span>1:1 채팅</span>
       </a>
+      <script>
+        // Channel Talk messenger for the 1:1 chat button. Calls are queued until the SDK loads; the Kakao link stays as the fallback if it fails to load.
+        (function () {
+          var w = window;
+          if (w.ChannelIO) return;
+          var ch = function () { ch.c(arguments); };
+          ch.q = [];
+          ch.c = function (args) { ch.q.push(args); };
+          w.ChannelIO = ch;
+          var failed = false;
+          function load() {
+            if (w.ChannelIOInitialized) return;
+            w.ChannelIOInitialized = true;
+            var s = document.createElement("script");
+            s.async = true;
+            s.src = "https://cdn.channel.io/plugin/ch-plugin-web.js";
+            s.onerror = function () { failed = true; };
+            document.head.appendChild(s);
+          }
+          if (document.readyState === "complete") load();
+          else w.addEventListener("load", load);
+          w.ChannelIO("boot", { pluginKey: "875a75e1-dc86-48c8-8425-f1922bd4d981", hideChannelButtonOnBoot: true });
+          document.addEventListener("click", function (event) {
+            var fab = event.target.closest && event.target.closest(".home-contact-fab");
+            if (!fab || failed) return;
+            event.preventDefault();
+            load();
+            w.ChannelIO("showMessenger");
+          });
+        })();
+      </script>
     </section>
 
     <section class="page" id="page-schedule-notice" data-page="schedule-notice">
