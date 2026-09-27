@@ -3140,7 +3140,7 @@
       </section>
       <section class="panel admin-panel dashboard-panel" data-admin-panel="menubar" hidden>
         <div class="dashboard-head">
-          <h1>메뉴바 아이콘 설정</h1>
+          <h1>ON/OFF</h1>
         </div>
         <div class="menubar-icon-settings" data-menubar-settings>
           <label class="menubar-icon-toggle">
@@ -3245,7 +3245,7 @@
         <button class="nav-btn" type="button" data-nav="application">신청 접수 <span class="count-pill" data-dashboard-menu-count="application">0</span></button>
         <button class="nav-btn" type="button" data-nav="memo">메모장 <span class="count-pill" data-memo-menu-count>0</span></button>
         <div class="nav-divider" role="separator" aria-hidden="true"></div>
-        <button class="nav-btn" type="button" data-nav="menubar">메뉴바 아이콘 설정 <span class="count-pill">ON</span></button>
+        <button class="nav-btn" type="button" data-nav="menubar">ON/OFF <span class="count-pill">ON</span></button>
       </nav>
       <button class="admin-logout" type="button" data-admin-logout>로그아웃</button>
     </aside>
@@ -3709,7 +3709,7 @@
           renderMenuBarIconSettings();
         }
       } catch (error) {
-        showToast(`메뉴바 아이콘 설정을 불러오지 못했습니다: ${error.message}`);
+        showToast(`ON/OFF 설정을 불러오지 못했습니다: ${error.message}`);
       }
     }
 
