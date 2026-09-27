@@ -5,7 +5,7 @@
   <link rel="shortcut icon" type="image/png" href="assets/favicon.png?v=20260822-clover-plain">
   <link rel="preconnect" href="https://res.cloudinary.com">
   <link rel="dns-prefetch" href="//res.cloudinary.com">
-  <link rel="preload" as="image" href="https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,c_limit,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg" fetchpriority="high">
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>클로버ㅣ부산 로테이션 소개팅</title>
@@ -15349,9 +15349,9 @@
 
     <section class="page is-active" id="page-home" data-page="home">
       <div class="hero" id="heroBanner" aria-label="二쇱슂 諛곕꼫">
-        <article class="hero-slide is-active" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg')"></article>
-        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/v1784446244/kb6ybdlactigqtheezvm.jpg')"></article>
-        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg')"></article>
+        <article class="hero-slide is-active" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,c_limit,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg')"></article>
+        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,c_limit,w_900/v1784446244/kb6ybdlactigqtheezvm.jpg')"></article>
+        <article class="hero-slide" style="--hero-image: url('https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,c_limit,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg')"></article>
         <div class="hero-content hero-fixed-copy" style="padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;">
           <span class="hero-kicker">CLOVER NOW</span>
           <h1>너와 나, 자연스러운 설렘</h1>
@@ -16306,7 +16306,7 @@
         order: 1,
         title: "가입 X, 로그인 X",
         description: "로그인 없이 이용 가능합니다.",
-        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg",
+        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,c_limit,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg",
         active: true
       },
       {
@@ -16314,7 +16314,7 @@
         order: 2,
         title: "너와 나",
         description: "6:6 로테이션 소개팅",
-        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/v1784446244/kb6ybdlactigqtheezvm.jpg",
+        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,c_limit,w_900/v1784446244/kb6ybdlactigqtheezvm.jpg",
         active: true
       },
       {
@@ -16322,7 +16322,7 @@
         order: 3,
         title: "사랑은 거창하지 않습니다",
         description: "하나의 연애 세포면 충분",
-        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg",
+        imageUrl: "https://res.cloudinary.com/lkkfechj/image/upload/f_auto,q_auto,c_limit,w_900/v1784446329/uhzzvjl5g8k9stjholmx.jpg",
         active: true
       }
     ];
@@ -27370,7 +27370,7 @@
       if (!raw || raw === "삭제") return "";
       const drive = googleDriveImageUrl(raw);
       if (/^https:\/\/drive\.google\.com\/thumbnail\?id=/i.test(drive)) return drive;
-      if (/^https:\/\/res\.cloudinary\.com\//i.test(raw)) return raw;
+      if (/^https:\/\/res\.cloudinary\.com\//i.test(raw)) return cloudinaryDeliveryUrl(raw, 900);
       if (/^https:\/\/drive\.google\.com\/thumbnail\?id=/i.test(raw)) return raw;
       if (/^assets\/[\w./-]+\.(png|jpe?g|webp|gif)(?:[?#].*)?$/i.test(raw)) return raw;
       return "";
@@ -27745,7 +27745,17 @@
       if (uc) return `https://drive.google.com/thumbnail?id=${encodeURIComponent(decodeURIComponent(uc[1]))}&sz=w${size}`;
       const file = raw.match(/^https:\/\/drive\.google\.com\/file\/d\/([^/]+)\//i);
       if (file) return `https://drive.google.com/thumbnail?id=${encodeURIComponent(decodeURIComponent(file[1]))}&sz=w${size}`;
-      return raw;
+      return cloudinaryDeliveryUrl(raw, size);
+    }
+
+    // Plain Cloudinary links get automatic format/quality and a width cap, so a pasted PNG link is still served small.
+    function cloudinaryDeliveryUrl(value, size = 1200) {
+      const raw = String(value || "").trim();
+      const match = raw.match(/^(https:\/\/res\.cloudinary\.com\/[^/]+\/image\/upload\/)(.+)$/i);
+      if (!match) return raw;
+      const firstSegment = match[2].split("/")[0];
+      if (/^[a-z]{1,3}_[^/]+$/i.test(firstSegment) && firstSegment.split(",").every((part) => /^[a-z]{1,3}_/i.test(part))) return raw;
+      return `${match[1]}f_auto,q_auto,c_limit,w_${size}/${match[2]}`;
     }
 
     const optimizedAssetUrlCache = new Map();
