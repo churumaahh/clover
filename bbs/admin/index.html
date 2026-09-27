@@ -149,7 +149,7 @@
       width: min(1420px, calc(100% - 28px));
       margin: 14px auto 44px;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(360px, 420px);
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 250px);
       gap: 16px;
       align-items: start;
     }
@@ -2786,6 +2786,27 @@
       border-color: #f2b8b8 !important;
       color: #c93838 !important;
     }
+
+    /* Compact remote-control sidebar */
+    .side { padding: 10px; gap: 10px; }
+    .side .remote-nav { gap: 6px; }
+    .side .nav-btn {
+      min-height: 36px;
+      padding: 0 10px;
+      gap: 7px;
+      border-radius: 9px;
+      font-size: 13px;
+    }
+    .side .nav-btn::before { width: 14px; height: 14px; flex-basis: 14px; }
+    .side .count-pill { min-width: 20px; height: 20px; padding: 0 6px; font-size: 11px; }
+    .side .nav-divider { margin: 2px 0; }
+    .side .brand { gap: 9px; padding: 0 0 2px; }
+    .side .brand-mark { width: 36px; height: 36px; border-radius: 11px; }
+    .side .brand-mark img { width: 23px; height: 23px; }
+    .side .brand strong { font-size: 17px; }
+    .side .brand-copy span { margin-top: 3px; font-size: 10px; }
+    .side .icon-btn { width: 32px; height: 32px; border-radius: 10px; }
+    .side .icon-btn svg { width: 16px; height: 16px; }
 
     /* Spinner in front of "수정 중 / 저장 중 / 삭제 중" labels */
     :is(.small-btn, .soft-btn, .create-btn, .toggle-btn, .link-btn, .dashboard-board-save, .dashboard-application-delete-btn, button[type="submit"]):is(.is-busy, .is-loading, [aria-busy="true"])::before {
