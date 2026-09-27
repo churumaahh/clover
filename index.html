@@ -30,8 +30,15 @@
   <script>
     (function () {
       var scriptUrl = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "https://script.google.com/macros/s/AKfycbwYFz09FT0JCho3Y8zruypmGp2V91cJ4ITRysfi39YVe-xqHzPFWRi2nSUYIaRTsc-_/exec";
-      window.__earlyEventListPromise = fetch(scriptUrl + "?action=eventList&t=" + Date.now(), { cache: "no-store" })
-        .then(function (r) { return r.json().then(function (json) { return { ok: r.ok, json: json }; }); })
+      function readList(r) { return r.json().then(function (json) { return { ok: r.ok && json && json.ok === true, json: json }; }); }
+      function fromAppsScript() {
+        return fetch(scriptUrl + "?action=eventList&t=" + Date.now(), { cache: "no-store" }).then(readList);
+      }
+      // /api/events is Vercel's cached copy of the list (fast); Apps Script is only the fallback.
+      window.__earlyEventListPromise = fetch("/api/events")
+        .then(readList)
+        .then(function (result) { return result.ok ? result : fromAppsScript(); })
+        .catch(fromAppsScript)
         .catch(function (error) { return { ok: false, error: error }; });
     })();
   </script>
@@ -27665,8 +27672,18 @@
     async function loadManagedEvents() {
       eventsAreReal = true;
       const cached = readCachedEventList({ allowStale: true });
+      // First visit: the cached copy from /api/events usually lands within a few hundred ms,
+      // so wait briefly for it before falling back to the list built into this file.
+      const early = !cached && window.__earlyEventListPromise
+        ? await Promise.race([window.__earlyEventListPromise, new Promise((resolve) => window.setTimeout(() => resolve(null), 400))])
+        : null;
       if (cached) {
         applyManagedEvents(cached.list, { fromServer: true });
+      } else if (early?.ok && Array.isArray(early.json?.events)) {
+        applyManagedEvents(early.json.events
+          .map(backendEventToPublic)
+          .filter((event) => event.active !== false)
+          .sort((a, b) => Number(a.order || 0) - Number(b.order || 0)), { fromServer: true });
       } else if (Array.isArray(window.__initialEventList) && window.__initialEventList.length) {
         try {
           const initialEvents = window.__initialEventList
