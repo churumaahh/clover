@@ -13005,8 +13005,11 @@
       background: var(--paper);
     }
 
-    :root:not([data-theme="dark"]) #page-home .event-card {
-      box-shadow: 0 0.3rem 0.9rem rgba(18, 18, 24, 0.08), 0 0.06rem 0.2rem rgba(18, 18, 24, 0.05);
+    :root:not([data-theme="dark"]) #page-home .event-card,
+    :root:not([data-theme="dark"]) #page-event-detail .detail-hero,
+    :root:not([data-theme="dark"]) #page-event-detail .application-flow-steps,
+    :root:not([data-theme="dark"]) #page-event-detail :is(.form-section, .selection-section):not(:is(.form-section, .selection-section) *) {
+      box-shadow: 0 0.3rem 0.9rem rgba(18, 18, 24, 0.08), 0 0.06rem 0.2rem rgba(18, 18, 24, 0.05) !important;
     }
 
     #page-home .event-thumb {
