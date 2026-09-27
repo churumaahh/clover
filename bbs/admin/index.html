@@ -2808,7 +2808,12 @@
     .side .icon-btn { width: 32px; height: 32px; border-radius: 10px; }
     .side .icon-btn svg { width: 16px; height: 16px; }
 
-    .side .application-shortcut { position: relative; color: var(--accent); }
+    .side .application-shortcut { position: relative; color: #fff; transition: color .14s ease; }
+    html[data-admin-theme="light"] .side .application-shortcut { color: var(--ink); }
+    .side .application-shortcut:hover,
+    .side .application-shortcut.is-active,
+    html[data-admin-theme="light"] .side .application-shortcut:hover,
+    html[data-admin-theme="light"] .side .application-shortcut.is-active { color: var(--accent); }
     .side .application-shortcut.is-active { outline: 2px solid var(--accent); background: #1f2b22; }
     html[data-admin-theme="light"] .side .application-shortcut.is-active { background: #e5f7e9; }
     .application-shortcut-count {
