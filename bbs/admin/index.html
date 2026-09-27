@@ -2730,6 +2730,76 @@
     .admin-login-submit:disabled { cursor: wait; opacity: .65; }
     .admin-logout { margin: 16px 0; padding: 10px 16px; border-radius: 8px; background: #303030; color: #ffffff; }
     @media (max-width: 480px) { .admin-login-form { padding: 28px 24px; } }
+
+    /* Unified action buttons: every action button uses the ON / 수정 / 삭제 card-button look. */
+    :is(.small-btn, .soft-btn, .create-btn, .toggle-btn, .link-btn, .dashboard-board-save, .dashboard-application-delete-btn, .admin-logout) {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 6px !important;
+      min-width: 62px;
+      min-height: 36px !important;
+      padding: 0 14px !important;
+      border-radius: 9px !important;
+      background: #242424 !important;
+      border: 1px solid #343434 !important;
+      color: #fff !important;
+      font-size: 13px !important;
+      font-weight: 900 !important;
+      line-height: 1 !important;
+      white-space: nowrap;
+      box-shadow: 2px 3px 9px rgba(0, 0, 0, .24) !important;
+      transform: none !important;
+      opacity: 1;
+    }
+    :is(.small-btn, .soft-btn, .create-btn, .toggle-btn, .link-btn, .dashboard-board-save, .dashboard-application-delete-btn, .admin-logout):hover:not(:disabled) {
+      background: #2c2c2c !important;
+    }
+    :is(.create-btn, .toggle-btn.is-on, .dashboard-board-save) { color: var(--accent) !important; }
+    .toggle-btn.is-off { color: #9aa4b2 !important; }
+    :is(.danger-btn, .dashboard-application-delete-btn) {
+      background: #241818 !important;
+      border-color: rgba(255, 96, 96, .42) !important;
+      color: #ff7b7b !important;
+    }
+    :is(.danger-btn, .dashboard-application-delete-btn):hover:not(:disabled) { background: #2e1c1c !important; }
+    :is(.small-btn, .soft-btn, .create-btn, .toggle-btn, .link-btn, .dashboard-board-save, .dashboard-application-delete-btn):disabled {
+      cursor: wait;
+      opacity: .78;
+    }
+    .edit-actions :is(.create-btn, .toggle-btn)[type="submit"],
+    .dashboard-maker .create-btn { width: auto !important; }
+
+    html[data-admin-theme="light"] :is(.small-btn, .soft-btn, .create-btn, .toggle-btn, .link-btn, .dashboard-board-save, .dashboard-application-delete-btn, .admin-logout) {
+      background: #f4f6f8 !important;
+      border-color: #d8dee6 !important;
+      color: var(--ink) !important;
+      box-shadow: 3px 4px 10px rgba(31, 41, 55, .1) !important;
+    }
+    html[data-admin-theme="light"] :is(.small-btn, .soft-btn, .create-btn, .toggle-btn, .link-btn, .dashboard-board-save, .dashboard-application-delete-btn, .admin-logout):hover:not(:disabled) {
+      background: #eaeef2 !important;
+    }
+    html[data-admin-theme="light"] :is(.create-btn, .toggle-btn.is-on, .dashboard-board-save) { color: var(--accent) !important; }
+    html[data-admin-theme="light"] .toggle-btn.is-off { color: #626c78 !important; }
+    html[data-admin-theme="light"] :is(.danger-btn, .dashboard-application-delete-btn) {
+      background: #fff1f1 !important;
+      border-color: #f2b8b8 !important;
+      color: #c93838 !important;
+    }
+
+    /* Spinner in front of "수정 중 / 저장 중 / 삭제 중" labels */
+    :is(.small-btn, .soft-btn, .create-btn, .toggle-btn, .link-btn, .dashboard-board-save, .dashboard-application-delete-btn, button[type="submit"]):is(.is-busy, .is-loading, [aria-busy="true"])::before {
+      content: "";
+      display: inline-block;
+      flex: 0 0 12px;
+      width: 12px;
+      height: 12px;
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      opacity: .9;
+      animation: list-loading-spin .7s linear infinite;
+    }
   </style>
 </head>
 <body>
@@ -3162,7 +3232,24 @@
   <div class="toast" role="status" aria-live="polite" data-toast></div>
 
   <script>
-    const iconMale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
+    // Any button whose label becomes "… 중" (수정 중, 저장 중, 삭제 중 …) gets the spinner class.
+    (function watchBusyButtonLabels() {
+      const busyLabel = /\s중$/;
+      const sync = (button) => button.classList.toggle("is-busy", busyLabel.test(button.textContent.trim()));
+      new MutationObserver((records) => {
+        records.forEach((record) => {
+          const target = record.target.nodeType === 1 ? record.target : record.target.parentElement;
+          const button = target?.closest?.("button");
+          if (button) sync(button);
+          record.addedNodes.forEach((node) => {
+            if (node.nodeType !== 1) return;
+            if (node.matches("button")) sync(node);
+            node.querySelectorAll("button").forEach(sync);
+          });
+        });
+      }).observe(document.body, { subtree: true, childList: true, characterData: true });
+    })();
+    const iconMale ='<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M12 10V2M8.5 5.5 12 2l3.5 3.5"/></svg>';
     const iconFemale = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M8.5 18h7"/></svg>';
     const GOOGLE_SCRIPT_URL = (window.CLOVER_CONFIG && window.CLOVER_CONFIG.appsScriptUrl) || "";
     let ADMIN_PASSWORD = "";
