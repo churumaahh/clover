@@ -27567,9 +27567,7 @@
         if (!savedAt) return null;
         const expired = Date.now() - savedAt > EVENT_LIST_CACHE_TTL_MS;
         if (expired && !allowStale) return null;
-        const edits = readEventEdits();
-        const list = filterDeletedManagedEvents(parsed.items).map((item) => applySavedEventEdit(item, edits));
-        return Array.isArray(list) ? { list, stale: expired } : null;
+        return Array.isArray(parsed.items) ? { list: parsed.items, stale: expired } : null;
       } catch {
         return null;
       }
@@ -27648,7 +27646,7 @@
       eventsAreReal = true;
       const cached = readCachedEventList({ allowStale: true });
       if (cached) {
-        applyManagedEvents(cached.list);
+        applyManagedEvents(cached.list, { fromServer: true });
       } else if (Array.isArray(window.__initialEventList) && window.__initialEventList.length) {
         try {
           const initialEvents = window.__initialEventList
@@ -27669,7 +27667,6 @@
         if (ok && result && result.ok && Array.isArray(result.events)) {
           const nextEvents = result.events
             .map(backendEventToPublic)
-            .map(applySavedEventEdit)
             .filter((event) => event.active !== false)
             .sort((a, b) => Number(a.order || 0) - Number(b.order || 0));
           applyManagedEvents(nextEvents, { fromServer: true });
