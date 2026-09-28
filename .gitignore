@@ -4,3 +4,9 @@ assets-cloudinary-map.json
 
 # Apps Script (clasp) - never publish to the site
 gas/
+
+# Local-only files - the site is public, never publish these
+.claude/
+.사용안함/
+google-apps-script.gs
+upload-to-cloudinary.ps1
