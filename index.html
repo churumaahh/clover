@@ -5222,6 +5222,35 @@
       display: none;
     }
 
+    .fee-ticket-brand {
+      position: absolute;
+      left: 1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: grid;
+      grid-template-columns: auto auto;
+      align-items: center;
+      column-gap: 0.45rem;
+      color: #07150b;
+      font-size: 1.15rem;
+      font-weight: 950;
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+
+    .fee-ticket-brand img {
+      grid-row: span 2;
+      width: 1.9rem;
+      height: 1.9rem;
+    }
+
+    .fee-ticket-brand small {
+      font-size: 0.55rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      color: rgba(7, 21, 11, 0.6);
+    }
+
     .fee-ticket-amount {
       align-self: flex-end;
       margin: 0;
@@ -17536,6 +17565,7 @@
           <section class="form-section application-fee-section">
             <div class="fee-ticket">
               <div class="fee-ticket-label">
+                <span class="fee-ticket-brand"><img src="assets/clover-logo-v2.png" alt="" width="26" height="26">CLOVER<small>ENTRY TICKET</small></span>
               </div>
               <div class="fee-ticket-divider"></div>
               <p class="fee-ticket-amount" data-application-fee><span class="fee-ticket-amount-tag">참가비</span>${htmlAttr(currentApplyPrice || "")}</p>
