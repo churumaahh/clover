@@ -3393,7 +3393,8 @@
       const result = await response.json().catch(() => ({}));
       if (!response.ok || !result.ok) throw new Error(result.error || "저장 요청이 실패했습니다.");
       // Drop the site's cached lists so visitors see what was just saved right away.
-      await fetch("/api/refresh", { method: "POST" }).catch(() => {});
+      // Not awaited: reloading every list from Apps Script takes up to ~30s, the save itself is already done.
+      fetch("/api/refresh", { method: "POST", keepalive: true }).catch(() => {});
       return result;
     }
     const dashboardGetRequests = new Map();
