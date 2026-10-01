@@ -16455,7 +16455,8 @@
       const badgeMarkup = badgeInfo
         ? `<span class="event-location-badge${badgeInfo.label === "인기" ? " is-popular" : " is-certified"}" aria-hidden="true">${badgeInfo.icon}<span>${badgeInfo.label}</span></span>`
         : "";
-      const thumbImage = eventImageStack(event);
+      // Cards whose photo is just the clover default image show the theme's default instead (light/dark).
+      const thumbImage = isDefaultEventImage(event.image) ? "none" : eventImageStack(event);
       const thumbVideo = eventVideoMarkup(event, "event-media");
       const thumbActionAttrs = `role="button" tabindex="0" data-join-index="${index}" aria-label="${event.title} 참여 선택"`;
       const isPublicServantWomanCard = event.title === "공무원 여성 선호";
@@ -16620,6 +16621,12 @@
       const icon = document.querySelector(".home-section-title .section-title-icon");
       if (icon) icon.classList.toggle("is-empty", !eventsAreReal);
       fadeInEventThumbs();
+    }
+
+    // ponytail: the clover default image as uploaded so far; a new upload of it needs its id added here.
+    const DEFAULT_EVENT_IMAGE_IDS = ["tdchlpx570rt83tzvtrw", "1Q1u9kpHwO0B3X26NibqWxz9rmyc4c-Vy", "1QzlyPskrkfSpJemJKu6kv-nomUsI0BwZ", "1J2eyBiTh3TSh4s2dbg6__Pk7MS-R6inu", "13kbfzGGgelSKCDmU1pNMem2tQTjEg0Bm"];
+    function isDefaultEventImage(url) {
+      return DEFAULT_EVENT_IMAGE_IDS.some((id) => String(url || "").includes(id));
     }
 
     function fadeInEventThumbs() {
