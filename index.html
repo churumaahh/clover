@@ -4697,7 +4697,11 @@
       aspect-ratio: 1920 / 1080;
       overflow: visible;
       border-radius: var(--radius) var(--radius) 0 0;
-      background: var(--detail-image) center / cover no-repeat, #d8dce3;
+      background: var(--detail-image) center / cover no-repeat, #eef0f3 url("assets/event-default-light.webp") center / cover no-repeat;
+    }
+
+    :root[data-theme="dark"] .detail-image {
+      background: var(--detail-image) center / cover no-repeat, #111214 url("assets/event-default-dark.webp") center / cover no-repeat;
     }
 
     .detail-main {
@@ -17158,7 +17162,7 @@
       return;
       selectedEvent = event;
       detailRoot.dataset.gender = selectedApplyGender || "";
-      const detailImage = eventImageStack(event);
+      const detailImage = isDefaultEventImage(event.image) ? "none" : eventImageStack(event);
       const detailVideo = eventVideoMarkup(event, "detail-media");
       const intro = eventIntroContent(event);
       const isDivorced = isDivorcedEvent(event);
@@ -17198,7 +17202,7 @@
       const preservedScrollY = window.scrollY;
       selectedEvent = event;
       detailRoot.dataset.gender = selectedApplyGender || "";
-      const detailImage = eventImageStack(event);
+      const detailImage = isDefaultEventImage(event.image) ? "none" : eventImageStack(event);
       const detailVideo = eventVideoMarkup(event, "detail-media");
       selectedApplicationRegions = [];
       const selectionReady = isApplicationSelectionReady();
@@ -17407,7 +17411,7 @@
         ? `[${event.station}]`
         : (event.station ? `[${event.station}]` : "");
       detailRoot.dataset.gender = applicationGender;
-      const detailImage = eventImageStack(event);
+      const detailImage = isDefaultEventImage(event.image) ? "none" : eventImageStack(event);
       const detailVideo = eventVideoMarkup(event, "detail-media");
 
       detailRoot.innerHTML = `
