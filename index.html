@@ -3282,7 +3282,8 @@
       aspect-ratio: 1920 / 1080;
       overflow: visible;
       border-radius: 10px 10px 0 0;
-      background: #d8dce3;
+      /* Default image shown until the card's own photo loads, or when it has none. */
+      background: #eef0f3 url("assets/event-default-light.webp") center / cover no-repeat;
       cursor: pointer;
     }
 
@@ -13074,7 +13075,7 @@
 
     :root[data-theme="dark"] #page-home .event-thumb {
       border-radius: 15px 15px 0 0;
-      background-color: #252a31;
+      background: #111214 url("assets/event-default-dark.webp") center / cover no-repeat;
     }
 
     :root[data-theme="dark"] #page-home .event-body,
