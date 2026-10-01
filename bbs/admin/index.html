@@ -3392,8 +3392,8 @@
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok || !result.ok) throw new Error(result.error || "저장 요청이 실패했습니다.");
-      // Nudge the site's edge-cached lists so visitors get the new image link right away.
-      ["/api/events", "/api/hero", "/api/posts"].forEach((path) => fetch(path, { cache: "no-store" }).catch(() => {}));
+      // Drop the site's cached lists so visitors see what was just saved right away.
+      await fetch("/api/refresh", { method: "POST" }).catch(() => {});
       return result;
     }
     const dashboardGetRequests = new Map();
