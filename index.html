@@ -5176,101 +5176,105 @@
       box-shadow: none !important;
     }
 
+    /* Ticket: dark barcode stub on the left, perforation, green body with the price bottom-right. */
     .fee-ticket {
+      --ticket-ink: #07150b;
+      --ticket-green: #00ff40;
       position: relative;
       display: flex;
-      align-items: stretch;
-      gap: 0.9rem;
-      min-height: 5.05rem;
-      padding: 1.35rem 1.2rem;
-      border-radius: 16px;
-      background: #00ff40;
-      border: 0;
+      height: 7rem;
+      border-radius: 14px;
       overflow: hidden;
+      -webkit-mask: radial-gradient(circle 9px at 27.5% 0, #0000 98%, #000) top / 100% 51% no-repeat,
+        radial-gradient(circle 9px at 27.5% 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
+      mask: radial-gradient(circle 9px at 27.5% 0, #0000 98%, #000) top / 100% 51% no-repeat,
+        radial-gradient(circle 9px at 27.5% 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
     }
 
-    .fee-ticket-label {
+    .fee-ticket-stub {
+      width: 27.5%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.875rem 0.625rem;
+      box-sizing: border-box;
+      background: var(--ticket-ink);
+      color: var(--ticket-green);
+      border-right: 2px dashed var(--ticket-green);
+    }
+
+    .fee-ticket-stub span {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+    }
+
+    .fee-ticket-barcode {
+      width: 2.5rem;
+      height: 100%;
+      background: repeating-linear-gradient(0deg, var(--ticket-green) 0 2px, transparent 2px 4px, var(--ticket-green) 4px 5px, transparent 5px 7px, var(--ticket-green) 7px 10px, transparent 10px 11px, var(--ticket-green) 11px 12px, transparent 12px 15px);
+    }
+
+    .fee-ticket-main {
+      position: relative;
       flex: 1;
-      display: block;
-      text-align: left;
       min-width: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0.875rem 1.125rem;
+      background: var(--ticket-green);
+      color: var(--ticket-ink);
     }
 
-    .fee-ticket-kicker {
+    .fee-ticket-watermark {
       position: absolute;
-      left: 1.2rem;
-      top: 1.1rem;
-      font-size: 1.18rem;
-      font-weight: 950;
-      color: #07150b;
-      line-height: 1;
-    }
-
-    .fee-ticket-note {
-      position: absolute;
-      left: 1.2rem;
-      bottom: 1.08rem;
-      max-width: calc(100% - 11rem);
-      font-size: 0.62rem;
-      font-weight: 700;
-      color: rgba(7, 21, 11, 0.65);
-      word-break: keep-all;
-      line-height: 1.15;
-    }
-
-    .fee-ticket-divider {
-      display: none;
+      right: -0.9rem;
+      top: -1.1rem;
+      width: 6.8rem;
+      height: 6.8rem;
+      opacity: 0.12;
+      pointer-events: none;
     }
 
     .fee-ticket-brand {
-      position: absolute;
-      left: 1.2rem;
-      top: 50%;
-      transform: translateY(-50%);
-      display: grid;
-      grid-template-columns: auto auto;
+      position: relative;
+      display: flex;
       align-items: center;
-      justify-items: start;
-      text-align: left;
-      column-gap: 0.55rem;
-      row-gap: 0.2rem;
-      color: #07150b;
-      font-size: 1.3rem;
-      font-weight: 950;
-      letter-spacing: 0.02em;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
       line-height: 1;
     }
 
-    .fee-ticket-brand img {
-      grid-row: span 2;
-      width: 2.5rem;
-      height: 2.5rem;
-    }
-
     .fee-ticket-brand small {
-      font-size: 0.6rem;
+      font-size: 0.68rem;
       font-weight: 800;
-      letter-spacing: 0.18em;
-      color: rgba(7, 21, 11, 0.6);
+      opacity: 0.6;
     }
 
     .fee-ticket-amount {
+      position: relative;
       align-self: flex-end;
       margin: 0;
       display: inline-flex;
       align-items: baseline;
-      gap: 0.32rem;
-      color: #07150b;
-      font-size: 1.5rem;
+      gap: 0.5rem;
+      font-size: 1.85rem;
       font-weight: 950;
       line-height: 1;
       white-space: nowrap;
     }
 
     .fee-ticket-amount-tag {
-      font-size: 0.68rem;
+      font-size: 0.75rem;
       font-weight: 800;
-      color: rgba(7, 21, 11, 0.65);
+      opacity: 0.7;
     }
 
     .application-calendar {
@@ -17567,11 +17571,12 @@
 
           <section class="form-section application-fee-section">
             <div class="fee-ticket">
-              <div class="fee-ticket-label">
-                <span class="fee-ticket-brand"><img src="assets/clover-logo-v2.png" alt="" width="26" height="26">CLOVER<small>ENTRY TICKET</small></span>
+              <div class="fee-ticket-stub" aria-hidden="true"><span>ADMIT ONE</span><i class="fee-ticket-barcode"></i></div>
+              <div class="fee-ticket-main">
+                <img class="fee-ticket-watermark" src="assets/clover-logo-v2.png" alt="" aria-hidden="true">
+                <span class="fee-ticket-brand">CLOVER<small>ENTRY TICKET</small></span>
+                <p class="fee-ticket-amount" data-application-fee><span class="fee-ticket-amount-tag">참가비</span>${htmlAttr(currentApplyPrice || "")}</p>
               </div>
-              <div class="fee-ticket-divider"></div>
-              <p class="fee-ticket-amount" data-application-fee><span class="fee-ticket-amount-tag">참가비</span>${htmlAttr(currentApplyPrice || "")}</p>
             </div>
           </section>
 
