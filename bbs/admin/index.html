@@ -3358,8 +3358,8 @@
       return result.secure_url;
     }
 
-    // Attached images go to Cloudinary first and the server only stores the link.
-    // If Cloudinary refuses, the file is left in the payload so the server still saves it to Google Drive.
+    // Attached images always go to Cloudinary and the server only stores the link (the server then deletes
+    // the replaced Cloudinary image). If Cloudinary refuses, the save stops instead of falling back to Drive.
     async function moveAttachedImagesToCloudinary(payload) {
       if (!payload || typeof payload !== "object") return payload;
       const next = { ...payload };
@@ -3376,8 +3376,7 @@
           next.sourceImageFile = null;
         }
       } catch (error) {
-        showToast(`Cloudinary 업로드 실패, 구글 드라이브로 저장합니다: ${error.message}`);
-        return payload;
+        throw new Error(`이미지 업로드에 실패했습니다. 다시 시도해 주세요. (${error.message})`);
       }
       if (Array.isArray(next.slides)) next.slides = await Promise.all(next.slides.map(moveAttachedImagesToCloudinary));
       return next;
@@ -3393,6 +3392,8 @@
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok || !result.ok) throw new Error(result.error || "저장 요청이 실패했습니다.");
+      // Nudge the site's edge-cached lists so visitors get the new image link right away.
+      ["/api/events", "/api/hero", "/api/posts"].forEach((path) => fetch(path, { cache: "no-store" }).catch(() => {}));
       return result;
     }
     const dashboardGetRequests = new Map();
