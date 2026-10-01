@@ -16566,7 +16566,9 @@
       if (!homeEventList) return;
       if (homeEventList.dataset.bootstrapped === "true") return;
       lastRenderedEventListKey = "__loading__";
-      homeEventList.innerHTML = '<li class="event-list-loading" aria-hidden="true"><span class="event-list-loading-spinner"></span></li>';
+      // While the list loads, show cards with the light/dark default image instead of a spinner.
+      const placeholderCard = '<li aria-hidden="true"><article class="event-card"><div class="event-thumb is-loaded" style="--thumb-image: none"></div><div class="event-body" style="min-height: 4.2rem"></div></article></li>';
+      homeEventList.innerHTML = placeholderCard + placeholderCard;
     }
 
     function renderEventListUnavailable() {
