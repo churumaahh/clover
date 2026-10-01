@@ -5231,16 +5231,6 @@
       color: var(--ticket-ink);
     }
 
-    .fee-ticket-watermark {
-      position: absolute;
-      right: -0.9rem;
-      top: -1.1rem;
-      width: 6.8rem;
-      height: 6.8rem;
-      opacity: 0.12;
-      pointer-events: none;
-    }
-
     .fee-ticket-brand {
       position: relative;
       display: flex;
@@ -17573,7 +17563,6 @@
             <div class="fee-ticket">
               <div class="fee-ticket-stub" aria-hidden="true"><span>ADMIT ONE</span><i class="fee-ticket-barcode"></i></div>
               <div class="fee-ticket-main">
-                <img class="fee-ticket-watermark" src="assets/clover-logo-v2.png" alt="" aria-hidden="true">
                 <span class="fee-ticket-brand">CLOVER<small>ENTRY TICKET</small></span>
                 <p class="fee-ticket-amount" data-application-fee><span class="fee-ticket-amount-tag">참가비</span>${htmlAttr(currentApplyPrice || "")}</p>
               </div>
