@@ -9128,10 +9128,20 @@
         const saved = JSON.parse(sessionValue || localValue || "null");
         if (!saved?.token || saved.expiresAt <= Date.now()) { clearAdminSession(); return; }
         openAdminDashboard(saved.token);
-        const result = await adminAuthRequest({ type: "adminSession", adminPassword: saved.token, remember: persistent });
-        if (result.expiresAt) {
-          storage.setItem(ADMIN_SESSION_KEY, JSON.stringify({ token: saved.token, expiresAt: result.expiresAt }));
+        let result;
+        try {
+          result = await adminAuthRequest({ type: "adminSession", adminPassword: saved.token, remember: persistent });
+        } catch {
+          // Slow or failed connection (Apps Script often stalls): stay signed in, the next save will tell.
+          return;
         }
+        if (Number(result.expiresAt) > Date.now()) {
+          storage.setItem(ADMIN_SESSION_KEY, JSON.stringify({ token: saved.token, expiresAt: result.expiresAt }));
+          return;
+        }
+        // The server no longer knows this token.
+        clearAdminSession();
+        document.querySelector("[data-admin-login-error]").textContent = "로그인을 다시 확인해 주세요.";
       } catch {
         clearAdminSession();
         document.querySelector("[data-admin-login-error]").textContent = "로그인을 다시 확인해 주세요.";
