@@ -2340,6 +2340,18 @@
       border-radius: 12px;
       background: #181818;
     }
+    .memo-note-row { align-items: start; }
+    .memo-note-person summary { display: flex; align-items: center; justify-content: space-between; gap: 8px; cursor: pointer; list-style: none; }
+    .memo-note-person summary::-webkit-details-marker { display: none; }
+    .memo-note-person summary h3 { margin: 0; }
+    .memo-note-person summary::after { content: "▾"; color: #9aa0a6; transition: transform .2s; }
+    .memo-note-person[open] summary::after { transform: rotate(180deg); }
+    .memo-note-person[open] summary { margin-bottom: 10px; }
+    .memo-note-count { margin-left: auto; font-size: 0.75rem; font-weight: 800; color: #00f040; }
+    .memo-note-person[data-empty] summary { cursor: default; }
+    .memo-note-person[data-empty] summary::after { content: none; }
+    .memo-note-person[data-empty] .memo-note-count { color: #6b7076; }
+
     /* Choice table on the left, match list as its own column on the right (stacks on narrow screens). */
     .memo-result-split { display: grid; grid-template-columns: minmax(0, 1fr) 15rem; gap: 12px; align-items: stretch; }
     .memo-result-split > .memo-result-layer { margin: 0; }
@@ -5400,11 +5412,13 @@
           if (!text) return "";
           return `<div class="memo-note-line"><span>${htmlAttr(memoParticipantResultLabel(target))}</span><p>${htmlAttr(text)}</p></div>`;
         }).filter(Boolean).join("");
+        const count = notes ? (notes.match(/memo-note-line/g) || []).length : 0;
+        // Collapsed by default; empty cards can't open. Each card opens on its own so rows don't jump.
         return `
-          <section class="memo-note-person">
-            <h3>${htmlAttr(memoParticipantResultLabel(participant))} 메모</h3>
-            ${notes || '<p class="memo-note-empty">작성된 메모가 없습니다.</p>'}
-          </section>
+          <details class="memo-note-person"${count ? "" : " data-empty"}>
+            <summary><h3>${htmlAttr(memoParticipantResultLabel(participant))} 메모</h3><span class="memo-note-count">${count ? `${count}개` : "없음"}</span></summary>
+            ${notes}
+          </details>
         `;
     }
 
@@ -5509,6 +5523,11 @@
       `;
       moveMemoResultsAfterRound(roundId);
     }
+
+    document.addEventListener("click", (event) => {
+      const summary = event.target.closest(".memo-note-person[data-empty] > summary");
+      if (summary) event.preventDefault();
+    });
 
     async function loadMemoAdmin() {
       memoRounds = readMemoRoundsCache();
