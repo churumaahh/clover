@@ -23533,10 +23533,14 @@
       requestAnimationFrame(refreshScheduleHeadlineControls);
     }
 
-    // Saved copies on the visitor's device are never shown: only the latest list from the server is,
-    // so a replaced photo never flashes back. (Same for the hero and event list readers.)
+    // The last list saved on this device shows instantly, then the server list replaces it a moment later.
     function readScheduleCache() {
-      return [];
+      try {
+        const cached = JSON.parse(localStorage.getItem(SCHEDULE_CACHE_KEY) || "null");
+        return normalizeSchedulePostImages(cached);
+      } catch {
+        return [];
+      }
     }
 
     function writeScheduleCache(posts) {
@@ -27522,7 +27526,11 @@
     }
 
     function readCachedHeroSlides() {
-      return [];
+      try {
+        return normalizeHeroSlides(JSON.parse(localStorage.getItem(HERO_CACHE_KEY) || "[]"));
+      } catch {
+        return [];
+      }
     }
 
     function writeCachedHeroSlides(slides) {
@@ -27705,8 +27713,20 @@
       }
     }
 
-    function readCachedEventList() {
-      return null;
+    function readCachedEventList({ allowStale = false } = {}) {
+      try {
+        const raw = localStorage.getItem(EVENT_LIST_CACHE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+        const savedAt = Number(parsed.savedAt || 0);
+        if (!savedAt) return null;
+        const expired = Date.now() - savedAt > EVENT_LIST_CACHE_TTL_MS;
+        if (expired && !allowStale) return null;
+        return Array.isArray(parsed.items) ? { list: parsed.items, stale: expired } : null;
+      } catch {
+        return null;
+      }
     }
 
     function writeCachedEventList(list) {
