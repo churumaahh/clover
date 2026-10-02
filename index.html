@@ -5176,7 +5176,7 @@
       box-shadow: none !important;
     }
 
-    /* Ticket: dark barcode stub on the left, dashed perforation, green body with the price bottom-right. */
+    /* Ticket: dark barcode stub on the left, perforation, green body with the price bottom-right. */
     .fee-ticket {
       --ticket-ink: #07150b;
       --ticket-green: #00ff40;
@@ -5185,6 +5185,10 @@
       height: 7rem;
       border-radius: 14px;
       overflow: hidden;
+      -webkit-mask: radial-gradient(circle 9px at 27.5% 0, #0000 98%, #000) top / 100% 51% no-repeat,
+        radial-gradient(circle 9px at 27.5% 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
+      mask: radial-gradient(circle 9px at 27.5% 0, #0000 98%, #000) top / 100% 51% no-repeat,
+        radial-gradient(circle 9px at 27.5% 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
     }
 
     .fee-ticket-stub {
