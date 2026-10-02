@@ -1684,11 +1684,9 @@
 
     function scheduleMemoSave() {
       writeMemoDraft();
-      if (memoState?.submittedAt) {
-        memoSetStatus("");
-        return;
-      }
-      memoSetStatus("저장 중");
+      // Edits after 최종 확정 keep saving too (the server keeps the submitted time), so the
+      // "수정 가능" promise holds and the dashboard sees the latest choices.
+      memoSetStatus(memoState?.submittedAt ? "" : "저장 중");
       if (memoSaveTimer) window.clearTimeout(memoSaveTimer);
       memoSaveTimer = window.setTimeout(async () => {
         if (!memoSession || !GOOGLE_SCRIPT_URL) {
