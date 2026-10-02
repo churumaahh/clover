@@ -5209,6 +5209,16 @@
     }
 
     /* Dark mode: green outline so the stub doesn't vanish into the near-black page. */
+    /* Dark mode: round each half itself so the ticket's clip doesn't shave the green outline's corners. */
+    :root[data-theme="dark"] .fee-ticket {
+      border-radius: 0;
+      overflow: visible;
+    }
+
+    :root[data-theme="dark"] .fee-ticket-main {
+      border-radius: 0 14px 14px 0;
+    }
+
     :root[data-theme="dark"] .fee-ticket-stub {
       border: 1.5px solid var(--ticket-green);
       border-right: 2px dashed var(--ticket-green);
