@@ -2340,7 +2340,8 @@
       border-radius: 12px;
       background: #181818;
     }
-    .memo-note-row { align-items: start; }
+    .memo-note-row { align-items: start !important; }
+    .memo-note-row > .memo-note-person { align-self: start !important; height: auto !important; min-height: 0 !important; }
     .memo-note-person summary { display: flex; align-items: center; justify-content: space-between; gap: 8px; cursor: pointer; list-style: none; }
     .memo-note-person summary::-webkit-details-marker { display: none; }
     .memo-note-person summary h3 { margin: 0; }
