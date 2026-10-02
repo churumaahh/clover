@@ -1673,6 +1673,9 @@
         type,
         roundId: memoSession.round.id,
         participantId: memoSession.participant.id,
+        // The server only accepts saves that carry this participant's own login details.
+        phone: memoNormalizePhone(memoSession.participant.phone),
+        birth: memoNormalizeBirth(memoSession.participant.birth),
         memos: memoState.memos,
         hearts: memoState.hearts,
         ranking: memoState.ranking,
