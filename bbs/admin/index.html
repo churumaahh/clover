@@ -9131,9 +9131,11 @@
         let result;
         try {
           result = await adminAuthRequest({ type: "adminSession", adminPassword: saved.token, remember: persistent });
-        } catch {
-          // Slow or failed connection (Apps Script often stalls): stay signed in, the next save will tell.
-          return;
+        } catch (failure) {
+          // Slow or failed connection (timeout, network, Apps Script error page): stay signed in.
+          // A real refusal from the server ("로그인이 필요…만료") still logs out below.
+          if (!/로그인|만료/.test(String(failure?.message || ""))) return;
+          result = { expiresAt: 0 };
         }
         if (Number(result.expiresAt) > Date.now()) {
           storage.setItem(ADMIN_SESSION_KEY, JSON.stringify({ token: saved.token, expiresAt: result.expiresAt }));
