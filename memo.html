@@ -1413,7 +1413,8 @@
         t: String(Date.now())
       });
       const controller = new AbortController();
-      const timeout = window.setTimeout(() => controller.abort(), 8000);
+      // Apps Script slows down when a whole room logs in at once, so give it time.
+      const timeout = window.setTimeout(() => controller.abort(), 20000);
       let result;
       try {
         result = await fetch(`${GOOGLE_SCRIPT_URL}?${query.toString()}`, {
@@ -1421,8 +1422,9 @@
           signal: controller.signal
         }).then((response) => readMemoJsonResponse(response, "접속 실패"));
       } catch (error) {
-        if (error?.name === "AbortError") throw new Error("접속 확인 시간이 초과되었습니다. 다시 접속해 주세요.");
-        throw error;
+        const offline = new Error(error?.name === "AbortError" ? "접속 확인 시간이 초과되었습니다. 다시 접속해 주세요." : (error?.message || "접속 실패"));
+        offline.offline = error?.name === "AbortError" || error instanceof TypeError;
+        throw offline;
       } finally {
         window.clearTimeout(timeout);
       }
@@ -1952,6 +1954,12 @@
         writeMemoSession({ round: result.round, participant: result.participant, targets: result.targets || [], submission: result.submission || null });
         renderMemoPage();
       } catch (error) {
+        // A slow or dropped connection shouldn't log the participant out: keep the saved session and
+        // carry on from it. Only a real refusal from the server (blocked, deleted, wrong details) logs out.
+        if (error?.offline) {
+          renderMemoPage();
+          return;
+        }
         writeMemoSession(null);
         renderMemoPage();
         memoSetStatus(error.message || "삭제되었거나 접속할 수 없는 회차입니다.");
