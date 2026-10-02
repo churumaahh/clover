@@ -16160,7 +16160,7 @@
             <path d="M9.2 7.1v9.8l8-4.9-8-4.9Z" fill="#fff"/>
           </svg>
         </a>
-        <a class="drawer-social-link" data-menubar-icon="instagram" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="인스타그램 바로가기" title="인스타그램">
+        <a class="drawer-social-link" data-menubar-icon="instagram" href="https://www.instagram.com/cloverworker/" target="_blank" rel="noopener" aria-label="인스타그램 바로가기" title="인스타그램">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <defs>
               <linearGradient id="instagramGradient" x1="3" y1="21" x2="21" y2="3" gradientUnits="userSpaceOnUse">
@@ -18153,7 +18153,21 @@
       return result;
     }
 
+    // Signed-in visitors prove who they are with a Firebase ID token; the server no longer trusts
+    // a bare phone-number member key for profile data.
+    async function memberAuthToken() {
+      try {
+        return firebaseAuth?.currentUser ? await firebaseAuth.currentUser.getIdToken() : "";
+      } catch {
+        return "";
+      }
+    }
+
     async function visitorApi(payload) {
+      if (payload && !payload.authToken) {
+        const authToken = await memberAuthToken();
+        if (authToken) payload = { ...payload, authToken };
+      }
       try {
         return await postVisitorApi(payload, new URLSearchParams({ payload: JSON.stringify(payload) }));
       } catch (error) {
@@ -18937,7 +18951,8 @@
     }
 
     async function requestMyApplications(visitorId, authUser = authProfileKey()) {
-      const authParam = authUser ? `&authUser=${encodeURIComponent(authUser)}` : "";
+      const authToken = authUser ? await memberAuthToken() : "";
+      const authParam = authUser ? `&authUser=${encodeURIComponent(authUser)}&authToken=${encodeURIComponent(authToken)}` : "";
       for (let attempt = 0; attempt < 2; attempt += 1) {
         const controller = new AbortController();
         const timeout = window.setTimeout(() => controller.abort(), 25000);
@@ -19267,7 +19282,8 @@
       const timeout = window.setTimeout(() => controller.abort(), timeoutMs);
       try {
         const { id } = getVisitorIdentity();
-        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=myProfileInfo&visitorId=${encodeURIComponent(id)}&authUser=${encodeURIComponent(authProfileKey())}&t=${Date.now()}`, {
+        const authToken = await memberAuthToken();
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=myProfileInfo&visitorId=${encodeURIComponent(id)}&authUser=${encodeURIComponent(authProfileKey())}&authToken=${encodeURIComponent(authToken)}&t=${Date.now()}`, {
           cache: "no-store",
           signal: controller.signal
         });
@@ -26676,7 +26692,8 @@
             bodyPhotoFiles,
             documentFileName: documentFile?.name || payload.documentFileName,
             photoFileNames: [...pendingExistingPhotoUrls.map((_, index) => `내 정보 얼굴 사진 ${index + 1}`), ...photoFiles.map((file) => file.name)].join(", "),
-            bodyPhotoFileNames: [...pendingExistingBodyPhotoUrls.map((_, index) => `내 정보 전신 사진 ${index + 1}`), ...bodyPhotoFiles.map((file) => file.name)].join(", ")
+            bodyPhotoFileNames: [...pendingExistingBodyPhotoUrls.map((_, index) => `내 정보 전신 사진 ${index + 1}`), ...bodyPhotoFiles.map((file) => file.name)].join(", "),
+            authToken: await memberAuthToken()
           };
           const response = await fetch(GOOGLE_SCRIPT_URL, {
           method: "POST",
