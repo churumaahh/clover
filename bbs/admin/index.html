@@ -5161,6 +5161,7 @@
       const code = nextMemoRoundCode();
       const normalized = round ? normalizeMemoRound(round) : normalizeMemoRound({ id: code, participants: emptyMemoParticipants(), title: `${code}화` });
       form.querySelector('[name="roundId"]').value = normalized.id;
+      form.dataset.editingRoundId = round?.id ? String(round.id) : "";
       form.querySelector('[name="title"]').value = normalized.title;
       form.querySelector('[name="status"]').value = normalized.status;
       renderMemoParticipantInputs(normalized.participants);
@@ -5592,6 +5593,12 @@
         showToast("연락처 11자리와 생년월일 8자리가 입력된 남성/여성 참가자를 각각 1명 이상 입력해 주세요.");
         return;
       }
+      // Saving a new round under a code that's already used would replace that round's participants.
+      const editingId = String(form.dataset.editingRoundId || "");
+      const isEdit = editingId === String(round.id);
+      if (!isEdit && memoRounds.some((item) => String(item.id) === String(round.id))) {
+        if (!window.confirm(`접속 코드 ${round.id}는 이미 있는 회차입니다. 그 회차의 참가자 정보를 이 내용으로 바꿀까요?`)) return;
+      }
       showToast("메모장 회차를 서버에 저장 중입니다.");
       try {
         const result = await apiPost({ type: "memoRoundSave", roundId: round.id, title: round.title, status: round.status, participants: round.participants });
@@ -5606,7 +5613,8 @@
         writeMemoRoundsCache(memoRounds);
         renderMemoAdmin();
         moveMemoFormAfterRound(saved.id);
-        showToast("메모장 회차를 생성했습니다.");
+        form.dataset.editingRoundId = String(saved.id);
+        showToast(isEdit ? "메모장 회차를 수정했습니다." : "메모장 회차를 생성했습니다.");
       } catch (error) {
         showToast(`메모장 회차를 생성하지 못했습니다: ${error.message}`);
       }
