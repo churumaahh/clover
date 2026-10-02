@@ -2104,7 +2104,6 @@
         button.disabled = true;
         button.classList.add("is-loading");
         button.textContent = "제출 중";
-        showMemoCompleteModal();
         fetch(GOOGLE_SCRIPT_URL, {
           method: "POST",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -2117,12 +2116,16 @@
             button.disabled = false;
             button.classList.remove("is-loading");
             button.textContent = "최종 확정";
+            // Only say "완료" once the server has it; before, a failed submit still showed the done screen.
+            showMemoCompleteModal();
           })
-          .catch(() => {
+          .catch((error) => {
+            memoState.submittedAt = 0;
+            writeMemoDraft();
             button.disabled = false;
             button.classList.remove("is-loading");
             button.textContent = "최종 확정";
-            memoSetStatus("제출 실패");
+            memoSetStatus(`제출 실패: ${error.message || "다시 눌러 주세요."}`);
           });
       }
     });
