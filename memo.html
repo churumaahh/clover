@@ -1423,7 +1423,7 @@
         }).then((response) => readMemoJsonResponse(response, "접속 실패"));
       } catch (error) {
         const offline = new Error(error?.name === "AbortError" ? "접속 확인 시간이 초과되었습니다. 다시 접속해 주세요." : (error?.message || "접속 실패"));
-        offline.offline = error?.name === "AbortError" || error instanceof TypeError;
+        offline.offline = true; // timeouts, dropped connections and Apps Script error pages; refusals come back as ok:false below
         throw offline;
       } finally {
         window.clearTimeout(timeout);
