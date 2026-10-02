@@ -2340,6 +2340,13 @@
       border-radius: 12px;
       background: #181818;
     }
+    /* Choice table on the left, match list as its own column on the right (stacks on narrow screens). */
+    .memo-result-split { display: grid; grid-template-columns: minmax(0, 1fr) 15rem; gap: 12px; align-items: stretch; }
+    .memo-result-split > .memo-result-layer { margin: 0; }
+    .memo-result-split .memo-match-success { grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; align-content: start; }
+    .memo-result-split .memo-match-success-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+    @media (max-width: 760px) { .memo-result-split { grid-template-columns: 1fr; } }
+
     .memo-match-grid-wrap { overflow-x: auto; }
     .memo-match-grid { width: auto; margin: 0 auto; border-collapse: separate; border-spacing: 4px; text-align: center; font-size: 0.82rem; }
     .memo-match-grid th { padding: 0.45rem 0.3rem; font-weight: 800; white-space: nowrap; color: var(--muted, #9aa0a6); }
@@ -5487,11 +5494,13 @@
           <button class="small-btn" type="button" data-memo-results-close>닫기</button>
         </div>
         ${submissions.length ? `
-          <article class="memo-result-layer memo-result-board">
-            <h3 class="memo-result-section-title">사랑의 작대기</h3>
-            ${memoMatchGridMarkup(males, females, submissionsById)}
-          </article>
-          ${memoMatchSuccessMarkup(males, females, submissionsById)}
+          <div class="memo-result-split">
+            <article class="memo-result-layer memo-result-board">
+              <h3 class="memo-result-section-title">사랑의 작대기</h3>
+              ${memoMatchGridMarkup(males, females, submissionsById)}
+            </article>
+            ${memoMatchSuccessMarkup(males, females, submissionsById)}
+          </div>
           <article class="memo-result-layer memo-result-notes">
             <h3 class="memo-result-section-title">참가자별 작성 메모</h3>
             ${memoAllParticipantNotesMarkup(males, females, submissionsById, targetsByGender)}
