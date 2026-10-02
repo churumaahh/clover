@@ -2340,6 +2340,15 @@
       border-radius: 12px;
       background: #181818;
     }
+    .memo-match-grid-wrap { overflow-x: auto; }
+    .memo-match-grid { width: 100%; border-collapse: separate; border-spacing: 4px; text-align: center; font-size: 0.82rem; }
+    .memo-match-grid th { padding: 0.45rem 0.3rem; font-weight: 800; white-space: nowrap; color: var(--muted, #9aa0a6); }
+    .memo-match-grid td { height: 2.4rem; border-radius: 8px; background: rgba(255, 255, 255, 0.04); font-size: 1rem; font-weight: 900; color: #9aa0a6; }
+    .memo-match-grid td.is-male-pick { color: #5aa9ff; }
+    .memo-match-grid td.is-female-pick { color: #ff7a8a; }
+    .memo-match-grid td.is-match { background: #00ff40; color: #07150b; }
+    .memo-match-grid-legend { margin: 0.6rem 0 0; font-size: 0.75rem; color: #9aa0a6; }
+
     .memo-match-map {
       position: relative;
       display: grid;
@@ -5276,6 +5285,26 @@
       `;
     }
 
+    // Choice table: rows are men, columns are women. ↑ = the man picked her, ← = she picked him, ♥ = both.
+    function memoMatchGridMarkup(males, females, submissionsById) {
+      const picked = (from, to) => memoChoiceIds(submissionsById.get(String(from.id))).includes(String(to.id));
+      const head = females.map((female) => `<th>${htmlAttr(memoParticipantResultLabel(female))}</th>`).join("");
+      const rows = males.map((male) => `<tr><th>${htmlAttr(memoParticipantResultLabel(male))}</th>${females.map((female) => {
+        const up = picked(male, female);
+        const left = picked(female, male);
+        if (up && left) return '<td class="is-match" aria-label="서로 선택">♥</td>';
+        if (up) return '<td class="is-male-pick" aria-label="남성이 선택">↑</td>';
+        if (left) return '<td class="is-female-pick" aria-label="여성이 선택">←</td>';
+        return "<td></td>";
+      }).join("")}</tr>`).join("");
+      return `
+        <div class="memo-match-grid-wrap">
+          <table class="memo-match-grid"><thead><tr><th></th>${head}</tr></thead><tbody>${rows}</tbody></table>
+        </div>
+        <p class="memo-match-grid-legend">↑ 남성이 선택 · ← 여성이 선택 · ♥ 서로 선택</p>
+      `;
+    }
+
     function memoMatchLinesMarkup(males, females, submissionsById) {
       const mapHeight = 378;
       const rowStep = 64;
@@ -5460,12 +5489,7 @@
         ${submissions.length ? `
           <article class="memo-result-layer memo-result-board">
             <h3 class="memo-result-section-title">사랑의 작대기</h3>
-            <div class="memo-match-map">
-              ${memoMatchLinesMarkup(males, females, submissionsById)}
-              <div class="memo-match-column">${males.map(personCell).join("")}</div>
-              <div></div>
-              <div class="memo-match-column">${females.map(personCell).join("")}</div>
-            </div>
+            ${memoMatchGridMarkup(males, females, submissionsById)}
           </article>
           ${memoMatchSuccessMarkup(males, females, submissionsById)}
           <article class="memo-result-layer memo-result-notes">
