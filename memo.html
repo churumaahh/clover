@@ -1709,7 +1709,9 @@
         } catch {
           memoSetStatus("");
         }
-      }, 450);
+        // ponytail: 1.5s debounce keeps a full room (12 people typing) from queueing Apps Script saves
+        // (12 parallel saves took up to ~18s in testing); a per-round lock-free write path if it still lags.
+      }, 1500);
     }
 
     function normalizeMemoRanking() {
