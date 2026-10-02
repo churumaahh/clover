@@ -5196,27 +5196,6 @@
       if (results && card) card.after(results);
     }
 
-    function importMemoParticipantsFromApplications() {
-      const applications = dashboardData.application || [];
-      const accepted = applications.filter((item) => !String(item.status || "").includes("취소"));
-      const byGender = { male: [], female: [] };
-      accepted.forEach((item) => {
-        const gender = normalizeMemoGender(item.gender);
-        if (byGender[gender].length >= 6) return;
-        byGender[gender].push(item);
-      });
-      const participants = emptyMemoParticipants().map((base) => {
-        const source = byGender[base.gender][base.number - 1];
-        return source ? normalizeMemoParticipant({
-          ...base,
-          phone: source.phone,
-          birth: source.birth
-        }) : base;
-      });
-      fillMemoForm({ participants, title: `메모장 ${new Date().toLocaleDateString("ko-KR")}` });
-      showToast("신청 접수에서 남녀 최대 6명씩 불러왔습니다.");
-    }
-
     function memoSubmissionSummary(round, submission) {
       const targets = (round.participants || []).filter((item) => item.gender !== submission.gender);
       const labelFor = (id) => {
