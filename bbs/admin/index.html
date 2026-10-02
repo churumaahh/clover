@@ -2356,8 +2356,14 @@
     /* Choice table on the left, match list as its own column on the right (stacks on narrow screens). */
     .memo-result-split { display: grid; grid-template-columns: minmax(0, 1fr) 15rem; gap: 12px; align-items: stretch; }
     .memo-result-split > .memo-result-layer { margin: 0; }
-    .memo-result-split .memo-match-success { grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; align-content: start; }
-    .memo-result-split .memo-match-success-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+    /* Match column: title on top, couples (or the empty note) centred in the middle, total pinned to the bottom. */
+    .memo-result-split .memo-match-success { display: flex; flex-direction: column; gap: 0; padding: 18px; }
+    .memo-result-split .memo-match-success > div { flex: 1; display: flex; flex-direction: column; }
+    .memo-result-split .memo-match-success-title { font-size: 0.95rem; }
+    .memo-result-split .memo-match-success-list { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 8px; margin: 14px 0; }
+    .memo-result-split .memo-match-success-line { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border-radius: 10px; background: rgba(0, 240, 64, 0.08); font-weight: 800; }
+    .memo-result-split .memo-match-success-empty { margin: 0; text-align: center; line-height: 1.6; color: #9aa0a6; }
+    .memo-result-split .memo-match-success-count { align-self: stretch; padding-top: 14px; border-top: 1px solid rgba(0, 240, 64, 0.24); text-align: center; font-size: 1.05rem; font-weight: 900; }
     @media (max-width: 760px) { .memo-result-split { grid-template-columns: 1fr; } }
 
     .memo-match-grid-wrap { overflow-x: auto; }
