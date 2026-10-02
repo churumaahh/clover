@@ -1694,6 +1694,7 @@
       memoSetStatus(memoState?.submittedAt ? "" : "저장 중");
       if (memoSaveTimer) window.clearTimeout(memoSaveTimer);
       memoSaveTimer = window.setTimeout(async () => {
+        memoSaveTimer = 0;
         if (!memoSession || !GOOGLE_SCRIPT_URL) {
           memoSetStatus("");
           return;
@@ -2141,6 +2142,21 @@
           });
       }
     });
+
+    // Leaving or backgrounding the page (phone lock, app switch) sends any edit still waiting on the debounce.
+    window.addEventListener("pagehide", flushMemoSave);
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flushMemoSave(); });
+    function flushMemoSave() {
+      if (!memoSaveTimer || !memoSession || !memoState || !GOOGLE_SCRIPT_URL) return;
+      window.clearTimeout(memoSaveTimer);
+      memoSaveTimer = 0;
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        keepalive: true,
+        body: JSON.stringify(memoSavePayload())
+      }).catch(() => {});
+    }
 
     window.addEventListener("popstate", (event) => {
       writeMemoDraft();
