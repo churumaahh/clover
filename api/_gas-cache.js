@@ -23,10 +23,13 @@ function cachedAppsScriptList(action, listKey) {
     try {
       let entry = await getCache().get(`gas:${action}`).catch(() => null);
       if (!entry) entry = await loadFromAppsScript(action, listKey);
-      else if (Date.now() - entry.savedAt > REFRESH_MS) waitUntil(loadFromAppsScript(action, listKey).catch(() => {}));
+      const stale = Date.now() - entry.savedAt > REFRESH_MS;
+      if (stale) waitUntil(loadFromAppsScript(action, listKey).catch(() => {}));
       res.setHeader("Content-Type", "application/json; charset=utf-8");
       res.setHeader("Cache-Control", "public, max-age=0, must-revalidate");
-      res.setHeader("CDN-Cache-Control", `public, s-maxage=${CACHE_SECONDS}, stale-while-revalidate=86400`);
+      // A stale copy is still served instantly, but the CDN only keeps it a few seconds so the
+      // reload started above reaches visitors right after it lands.
+      res.setHeader("CDN-Cache-Control", `public, s-maxage=${stale ? 5 : CACHE_SECONDS}, stale-while-revalidate=86400`);
       res.setHeader("Vercel-Cache-Tag", "gas-lists");
       res.status(200).send(JSON.stringify({ ok: true, [listKey]: entry.list }));
     } catch (error) {
