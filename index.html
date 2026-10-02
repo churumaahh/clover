@@ -5215,6 +5215,35 @@
       border-radius: 14px 0 0 14px;
     }
 
+    /* Dark mode: green rims on the two notches (drawn on the unmasked section around the ticket). */
+    :root[data-theme="dark"] #page-event-detail .application-fee-section {
+      position: relative;
+    }
+
+    :root[data-theme="dark"] #page-event-detail .application-fee-section::before,
+    :root[data-theme="dark"] #page-event-detail .application-fee-section::after {
+      content: "";
+      position: absolute;
+      left: 22%;
+      width: 18px;
+      height: 18px;
+      box-sizing: border-box;
+      border: 1.5px solid var(--ticket-green, #00ff40);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    :root[data-theme="dark"] #page-event-detail .application-fee-section::before {
+      top: -9px;
+      clip-path: inset(50% 0 0 0);
+    }
+
+    :root[data-theme="dark"] #page-event-detail .application-fee-section::after {
+      bottom: -9px;
+      clip-path: inset(0 0 50% 0);
+    }
+
     .fee-ticket-stub span {
       writing-mode: vertical-rl;
       transform: rotate(180deg);
