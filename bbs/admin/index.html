@@ -5478,7 +5478,14 @@
       }
       if (results && !results.dataset.roundId) results.innerHTML = "";
       if (keepFormVisible && formRoundId) moveMemoFormAfterRound(formRoundId);
-      if (activeResultsId) moveMemoResultsAfterRound(activeResultsId);
+      // Redraw an open result with the latest submissions (it used to stay frozen at the moment it was opened).
+      if (activeResultsId) {
+        const openNotes = [...document.querySelectorAll("[data-memo-results] details[open] h3")].map((el) => el.textContent);
+        renderMemoResults(activeResultsId);
+        document.querySelectorAll("[data-memo-results] details").forEach((el) => {
+          if (openNotes.includes(el.querySelector("h3")?.textContent)) el.open = true;
+        });
+      }
     }
 
     function closeMemoResults() {
