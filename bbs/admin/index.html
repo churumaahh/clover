@@ -5264,12 +5264,10 @@
           .filter(Boolean)
           .forEach((id) => choices.push(id));
       };
+      // Only the 최종 선택 picks count. Hearts (관심 표시) are private notes on the memo page and
+      // used to leak in here as extra arrows/matches whenever someone picked fewer than 3.
       add(submission.finalChoices);
       add(submission.finalChoice);
-      add(submission.ranking);
-      Object.entries(submission.hearts || {}).forEach(([id, on]) => {
-        if (on) choices.push(String(id));
-      });
       return [...new Set(choices)].slice(0, 3);
     }
 
