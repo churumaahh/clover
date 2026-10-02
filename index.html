@@ -17742,6 +17742,12 @@
     }
 
     function currentApplicationAgeOptions() {
+      // Ages set in the dashboard (선택창 관리2) win; the built-in lists are only for events without them.
+      const savedAges = layerFormConfig(selectedEvent?.form2Config, {}).ageOptions;
+      if (Array.isArray(savedAges) && savedAges.length) {
+        const configured = eventConfiguredAgeOptions(selectedEvent);
+        if (configured.length) return configured;
+      }
       if (isThirtyFortyEvent(selectedEvent)) return applicationAgeOptions3040;
       if (isDivorcedEvent(selectedEvent)) return applicationAgeOptionsDivorced;
       if (isLegacy4050Event(selectedEvent)) return applicationAgeOptions4050;
