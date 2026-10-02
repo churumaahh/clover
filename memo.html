@@ -2125,7 +2125,9 @@
             button.disabled = false;
             button.classList.remove("is-loading");
             button.textContent = "최종 확정";
-            memoSetStatus(`제출 실패: ${error.message || "다시 눌러 주세요."}`);
+            // The workspace has no status line, so say it plainly.
+            window.alert(`제출하지 못했습니다. 인터넷 연결을 확인하고 최종 확정을 다시 눌러 주세요.
+(${error.message || "제출 실패"})`);
           });
       }
     });
