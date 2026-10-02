@@ -5208,6 +5208,12 @@
       border-right: 2px dashed var(--ticket-green);
     }
 
+    /* Dark mode: the page is near-black too, so lift the stub a little and outline it. */
+    :root[data-theme="dark"] .fee-ticket-stub {
+      background: #1d2a21;
+      box-shadow: inset 0 0 0 1px rgba(0, 255, 64, 0.35);
+    }
+
     .fee-ticket-stub span {
       writing-mode: vertical-rl;
       transform: rotate(180deg);
