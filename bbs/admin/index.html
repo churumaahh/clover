@@ -3414,6 +3414,23 @@
         throw new Error(`이미지 업로드에 실패했습니다. 다시 시도해 주세요. (${error.message})`);
       }
       if (Array.isArray(next.slides)) next.slides = await Promise.all(next.slides.map(moveAttachedImagesToCloudinary));
+      // 일정 안내 map photos: these used to go to Google Drive (and the first one twice).
+      if (Array.isArray(next.mapImageFiles) && next.mapImageFiles.some(isCloudinaryUploadableImage)) {
+        try {
+          const firstFile = payload.imageFile;
+          const uploaded = [];
+          for (const file of next.mapImageFiles.filter(isCloudinaryUploadableImage)) {
+            uploaded.push(file === firstFile && next.imageUrl ? next.imageUrl : await uploadImagePayloadToCloudinary(file));
+          }
+          const typed = Array.isArray(next.mapImageUrls) ? next.mapImageUrls : [];
+          next.mapImageUrls = [...typed, ...uploaded];
+          next.mapImageUrl = next.mapImageUrls.join("
+");
+          next.mapImageFiles = [];
+        } catch (error) {
+          throw new Error(`이미지 업로드에 실패했습니다. 다시 시도해 주세요. (${error.message})`);
+        }
+      }
       return next;
     }
 
