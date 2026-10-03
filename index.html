@@ -22112,6 +22112,12 @@
       const timeText = hasHour ? `${String(hour).padStart(2, "0")}:00` : String(post.scheduleTime || "").trim();
       const titleTime = hasHour ? scheduleTimeLabelHtml(hour, timeText).replace(/<[^>]*>/g, "") : timeText;
       const modalTitle = titleTime ? `[${titleTime}] 소개팅 안내` : (post.title || "소개팅 안내");
+      // Use the same numbering as the cards (order among all schedules); the date formula gave e.g. 57화 vs 2화.
+      if (!post.displayEpisode) {
+        const numbered = Object.values(assignScheduleEpisodesToMap(homeCalendarAvailableMap())).flat()
+          .find((item) => String(item.id) === String(post.id));
+        if (numbered) post = { ...post, displayEpisode: numbered.displayEpisode, displayEpisodeNumber: numbered.displayEpisodeNumber };
+      }
       const episodeInfo = scheduleEpisodeInfo(post.displayEpisodeNumber || scheduleEpisodeNumber(post), post);
       const modeBadgeMarkup = /^\d+\s*:\s*\d+$/.test(episodeInfo.mode) ? `<span class="schedule-mode-badges">${compositionOptionLabel(episodeInfo.mode.replace(/\s+/g, ""))}</span>` : `<span>${htmlAttr(episodeInfo.mode)}</span>`;
       const modalDetailMarkup = `<div class="schedule-status-detail schedule-modal-detail">${modeBadgeMarkup}<span>${htmlAttr(episodeInfo.age)}</span></div>`;
