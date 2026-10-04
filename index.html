@@ -19081,8 +19081,8 @@
         hourCycle: "h23"
       }).formatToParts(date);
       const part = (type) => parts.find((item) => item.type === type)?.value || "";
-      // e.g. 2026-10-02(금) 10:11 — same as the Google Sheet.
-      return `${part("year")}-${part("month")}-${part("day")}(${part("weekday")}) ${part("hour")}:${part("minute")}`;
+      // e.g. 2026-10-02 (금) 17:11 (24-hour) — same as the Google Sheet.
+      return `${part("year")}-${part("month")}-${part("day")} (${part("weekday")}) ${part("hour")}:${part("minute")}`;
     }
 
     function applicationCardHtml(application, index) {
