@@ -19075,12 +19075,14 @@
         year: "numeric",
         month: "2-digit",
         day: "2-digit",
+        weekday: "short",
         hour: "2-digit",
         minute: "2-digit",
-        hour12: true
+        hourCycle: "h23"
       }).formatToParts(date);
       const part = (type) => parts.find((item) => item.type === type)?.value || "";
-      return `${part("year")}-${part("month")}-${part("day")} ${part("dayPeriod")} ${part("hour")}:${part("minute")}`.trim();
+      // e.g. 2026-10-02(금) 10:11 — same as the Google Sheet.
+      return `${part("year")}-${part("month")}-${part("day")}(${part("weekday")}) ${part("hour")}:${part("minute")}`;
     }
 
     function applicationCardHtml(application, index) {
