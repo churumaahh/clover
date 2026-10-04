@@ -7322,13 +7322,16 @@
         if (driveMatch) return `https://drive.google.com/thumbnail?id=${encodeURIComponent(driveMatch[1])}&sz=w480`;
         return adminImageUrl(raw);
       };
-      const faceUrls = Array.isArray(item?.photoUrls) ? item.photoUrls.filter(Boolean) : [];
-      const bodyUrls = Array.isArray(item?.bodyPhotoUrls) ? item.bodyPhotoUrls.filter(Boolean) : [];
+      // The server sends photoFileUrls/bodyPhotoFileUrls/documentFileUrl; the old names stay as a fallback.
+      const listOf = (...values) => (values.find((value) => Array.isArray(value) && value.length) || []).filter(Boolean);
+      const faceUrls = listOf(item?.photoFileUrls, item?.photoUrls);
+      const bodyUrls = listOf(item?.bodyPhotoFileUrls, item?.bodyPhotoUrls);
+      const documentUrl = String(item?.documentFileUrl || item?.documentUrl || "").trim();
       const files = [
         ...faceUrls.map((url, index) => ({ url, label: `얼굴 사진 ${index + 1}`, image: true })),
         ...bodyUrls.map((url, index) => ({ url, label: `전신 사진 ${index + 1}`, image: true }))
       ];
-      if (item?.documentUrl) files.push({ url: item.documentUrl, label: "재직 증명", image: false });
+      if (documentUrl) files.push({ url: documentUrl, label: "재직 증명", image: true });
       if (!files.length) return dashboardApplicationDetailSection("제출 서류", [dashboardApplicationDetailCell("파일", "등록된 제출 서류 없음")]);
       return `
         <section class="dashboard-application-detail-section">
@@ -7356,8 +7359,11 @@
             dashboardApplicationDetailCell("연락처", item?.phone),
             dashboardApplicationDetailCell("생년월일", item?.birth),
             dashboardApplicationDetailCell("성별", item?.gender),
-            dashboardApplicationDetailCell("신청 구분", item?.applicationType),
-            dashboardApplicationDetailCell("일정", item?.eventDate)
+            dashboardApplicationDetailCell("인원 구성", item?.selectedComposition),
+            dashboardApplicationDetailCell("연령대", item?.selectedAgeRange),
+            dashboardApplicationDetailCell("일정", item?.eventDate),
+            dashboardApplicationDetailCell("금액", item?.eventPrice || item?.price),
+            dashboardApplicationDetailCell("전달 사항", item?.applicationNote)
           ])}
           ${dashboardApplicationDetailSection("신체 및 거주 정보", [
             dashboardApplicationDetailCell("키", item?.height),
