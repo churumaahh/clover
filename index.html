@@ -6183,6 +6183,11 @@
       line-height: 1.25;
     }
 
+    /* 자녀 조건 options are sentences, so a lighter weight reads better than the bold age ranges. */
+    .selection-section:has(.children-condition-heading) .age-option-main strong {
+      font-weight: 600;
+    }
+
     .age-option-main span {
       color: var(--muted);
       font-size: 0.78rem;
